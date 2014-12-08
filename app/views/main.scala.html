@@ -19,6 +19,7 @@
       <link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/creator.css")">
       <link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/profile.css")">
 
+      <script type="text/javascript" src="@routes.Application.jsRoutes" defer="defer"></script>
       <script src="@routes.Assets.at("library/jquery/jquery.min.js")"></script>
       <script src="@routes.Assets.at("library/bootstrap/js/bootstrap.min.js")"></script>
 
@@ -46,6 +47,19 @@
               </li>
             }
             @subjectPresentOr() {
+
+              @currentAuth() {auth =>
+                @if(auth.getProvider() == "facebook") {
+                  <li>
+                    <img class="profile-img" src="http://graph.facebook.com/@auth.getId()/picture/?type=large">
+                  </li>
+                } else {
+                  <li>
+                    <img class="profile-img" src="@routes.Assets.at("images/general-profile-icon.png")">
+                  </li>
+                }
+              }
+
                 @defining(Application.getLocalUser(session())) { user =>
                   <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">@user.name&nbsp;&nbsp;<i class="fa fa-angle-down"></i></a>

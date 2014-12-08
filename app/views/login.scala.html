@@ -55,7 +55,8 @@
         </div>
 
         <div class="col-md-8 col-md-offset-2">
-          <h2>Don't have an account? <a href="#">Sign up</a> here.</h2>
+          <h2>Don't have an account? <a href="@routes.Application.signup()">Sign up</a> here.</h2>
+          <h2><a href="javascript:void(0);" onclick="window.location.href = jsRoutes.controllers.Signup.forgotPassword($('#email').val() || null).absoluteURL();">Forgot your password?</a></h2>
         </div>
 
       </div>
