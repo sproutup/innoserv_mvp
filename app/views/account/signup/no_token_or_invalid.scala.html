@@ -1,0 +1,15 @@
+@main(Messages("Oops...")) {
+
+	<div class="container">
+		<div class="row text-center">
+			<div class="col-md-12">
+				<h1 class="verify-header">Oops...</h1>
+				<p class="verify-message">Seems that the verification email has either expired or does not exist :(
+				</p>
+				<p class="verify-message">Maybe you should <a href="@routes.Application.signup()">sign up</a> or <a href="@routes.Application.login()">log in</a>
+				</p>
+			</div>
+		</div>
+	</div>
+
+}

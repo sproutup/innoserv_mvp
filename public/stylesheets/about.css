@@ -1,0 +1,85 @@
+.team-banner {
+  margin-top: 70px;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  color: #fff;
+  background: url(../images/about/team_banner.png) no-repeat center center;
+  background-size: cover;
+}
+
+.img-circle {
+  background:#555;
+  width: 160px;
+  height: 160px;
+  -webkit-border-radius: 500px;
+  -moz-border-radius: 500px;
+  border-radius: 500px;
+}
+
+.team-section-title {
+  margin-top: 40px;
+  margin-bottom: 30px;
+  text-align: center;
+  font-size: 36pt;
+  font-family: "roboto",Helvetica,Arial,sans-serif;
+  font-weight: 100;
+}
+
+.team-section-subtitle {
+  padding-bottom: 50px;
+  padding-left: 10%;
+  padding-right: 10%;
+  line-height: 1.5;
+  font-size: 14pt;
+  font-family: "lato", Helvetica, Arial, sans-serif;
+  font-weight: 300;
+}
+
+.team-member {
+  margin-bottom: 50px;
+  text-align: center;
+}
+
+.team-member img {
+  margin: 0 auto;
+  border: 2px solid #ccc;
+}
+
+.team-member > h3 {
+  margin-top: 25px;
+  margin-bottom: 0;
+  font-family: "roboto",Helvetica,Arial,sans-serif;
+  font-size: 17pt;
+  font-weight: 200;
+}
+
+.team-member > h4 {
+  padding-top: 10px;
+  padding-bottom: 20px;
+  font-family: "Lato",Helvetica,Arial,sans-serif;
+  font-size: 11pt;
+  font-weight: 300;
+  line-height: 1.5;
+}
+
+ul.social-buttons li a {
+  display: block;
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
+  font-size: 20px;
+  line-height: 40px;
+  outline: 0;
+  color: #111;
+  background-color: #fff;
+  -webkit-transition: all .3s;
+  -moz-transition: all .3s;
+  transition: all .3s;
+}
+
+ul.social-buttons li a:hover,
+ul.social-buttons li a:focus,
+ul.social-buttons li a:active {
+  background-color: #2996CC;
+  color: #fff
+}

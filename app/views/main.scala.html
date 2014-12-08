@@ -1,0 +1,91 @@
+@(title: String)(content: Html)
+
+@import be.objectify.deadbolt.java.views.html._
+@import be.objectify.deadbolt.core.utils.TemplateUtils._
+@import com.feth.play.module.pa.views.html._
+
+<!DOCTYPE html>
+<html lang="@lang().code()">
+    <head>
+      <title>@title</title>
+      <link rel="shortcut icon" type="image/vnd.microsoft.icon" href="@routes.Assets.at("images/favicon.ico")">
+      <link rel="stylesheet" href="@routes.Assets.at("library/bootstrap/css/bootstrap.css")">
+      <link rel="stylesheet" href="@routes.Assets.at("library/font-awesome/css/font-awesome.css")">
+
+      <link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
+      <link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/index.css")">
+      <link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/signup.css")">
+      <link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/about.css")">
+      <link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/creator.css")">
+      <link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/profile.css")">
+
+      <script src="@routes.Assets.at("library/jquery/jquery.min.js")"></script>
+      <script src="@routes.Assets.at("library/bootstrap/js/bootstrap.min.js")"></script>
+
+      <!-- Font -->
+      <link rel='stylesheet' type='text/css' href='https://fonts.googleapis.com/css?family=Lato:100,300,400,700'>
+      <link rel='stylesheet' type='text/css' href='https://fonts.googleapis.com/css?family=Roboto:500,100,300,700,400'>
+    </head>
+
+    <body>
+
+      <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="@routes.Application.index()">
+            <img class="logo" src="@routes.Assets.at("images/logo.png")/">
+          </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-right" id="navbar-collapse-items">
+          <ul class="nav navbar-nav navbar-item">
+            <li><a href="#">Explore Products</a></li>
+            <li><a href="@routes.Application.creator()">For Creators</a></li>
+            <li><a href="@routes.Application.about()">About</a></li>
+            @subjectNotPresent() {
+              <li>
+                <a href="@routes.Application.signup()">Join</a>
+              </li>
+            }
+            @subjectPresentOr() {
+                @defining(Application.getLocalUser(session())) { user =>
+                  <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">@user.name&nbsp;&nbsp;<i class="fa fa-angle-down"></i></a>
+                    <ul class="dropdown-menu" role="menu">
+                      <li><a href="@routes.Application.profile()">My Page</a></li>
+                      <li class="divider"></li>
+                      <li><a href="@com.feth.play.module.pa.controllers.routes.Authenticate.logout()"><i class="icon-off"></i> Log Out</a></li>
+                    </ul>
+                  </li>
+                }
+            } {
+              <li>
+                <a href="@routes.Application.login()" >Log In</a>
+              </li>
+            }
+            </ul>
+          </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+      </nav>
+
+        @if(flash.contains(Application.FLASH_ERROR_KEY)) {
+          <div class="alert-message">
+            <div class="alert alert-danger" role="alert">
+                <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">
+                    Close</span></button>
+                @flash().get(Application.FLASH_ERROR_KEY)
+            </div>
+          </div>
+        }
+        @if(flash.contains(Application.FLASH_MESSAGE_KEY)) {
+          <div class="alert-message">
+            <div class="alert alert-success" role="alert">
+                <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">
+                    Close</span></button>
+                @flash().get(Application.FLASH_MESSAGE_KEY)
+            </div>
+          </div>
+        }
+
+      @content
+
+    </body>
+</html>

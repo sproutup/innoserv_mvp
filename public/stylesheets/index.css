@@ -1,0 +1,96 @@
+.hero-header {
+  width: 100%;
+  height: 580px;
+  margin-top: 70px;
+  padding-top: 50px;
+  padding-bottom: 50px;
+  text-align: center;
+  background: url(../images/index/hero.png) no-repeat center center;
+  background-size: cover;
+  color: #fff;
+}
+
+.hero-message {
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
+
+.hero-message > h1 {
+  font-family: "roboto", Helvetica,Arial,sans-serif;
+  font-weight: 100;
+  margin-top: 120px;
+  font-size: 42pt;
+  color: #eaeaea;
+}
+
+.welcome-message {
+	font-family: "roboto", Helvetica, Arial, sans-serif;
+    font-weight: 100;
+    margin-top: 100px;
+    font-size: 18pt;
+}
+
+.btn-lg {
+  padding: 16px 16px;
+  border-radius: 2px;
+}
+
+.btn-outline {
+  width: 200px;
+  height: 60px;
+  margin-top: 100px;
+  border: solid 1px #eaeaea;
+  font-family: "roboto", Helvetica,Arial,sans-serif;
+  font-weight: 300;
+  font-size: 16pt;
+  color: #eaeaea;
+  background: 0 0;
+}
+
+.btn-outline:hover,
+.btn-outline:focus,
+.btn-outline:active,
+.btn-outline.active {
+  border: solid 1px #fff;
+  color: #fff;
+}
+
+.marketing {
+  margin: 0 5%;
+}
+
+.marketing-header > h1 {
+  padding-top: 50px;
+  font-size: 32pt;
+  font-family: "roboto",Helvetica,Arial,sans-serif;
+  font-weight: 100;
+  color: #434343;
+}
+
+.marketing-blurb {
+  padding-top: 40px;
+  text-align: center;
+}
+
+.img-center {
+  margin: 0 auto;
+  width: 260px;
+  height: 260px;
+}
+
+.marketing-title {
+  padding-top: 16px;
+  font-size: 18pt;
+  font-family: "roboto",Helvetica,Arial,sans-serif;
+  font-weight: 300;
+  color: #434343;
+}
+
+.marketing-content {
+  padding-top: 10px;
+  padding-bottom: 20px;
+  font-size: 12pt;
+  font-family: "lato",Helvetica,Arial,sans-serif;
+  font-weight: 300;
+  color: #434343;
+}

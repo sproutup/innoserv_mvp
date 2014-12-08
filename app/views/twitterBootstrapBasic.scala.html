@@ -1,0 +1,14 @@
+@(elements: helper.FieldElements)
+<div class="form-group @if(elements.hasErrors) {has-error}">
+    <label for="@elements.id" class="form-title">@elements.label</label>
+        @if(elements.input.toString().contains("class=")) {
+        @Html(elements.input.toString().replaceFirst("(class=[\"'])", "$1form-control "))
+        } else {
+        @Html(elements.input.toString().replaceFirst("(<\\w+ )", "$1class=\"form-control\" "))
+        }
+
+@if(elements.hasErrors) {
+<span class="help-block">@elements.errors.mkString(", ")</span>
+}
+
+</div>

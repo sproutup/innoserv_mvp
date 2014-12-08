@@ -1,0 +1,71 @@
+@(localUser: models.User = null)
+
+@import com.feth.play.module.pa.views.html._
+
+@main(Messages("My Profile - Redefine E-Commerce")) {
+
+  @currentAuth() { auth =>
+
+	<div class="intro-header">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="intro-message">
+              <h1>@localUser.name</h1>
+              <img class="img-responsive img-circle" src="http://graph.facebook.com/@auth.getId()/picture/?type=large">
+              <ul class="list-inline social-buttons">
+                <li><a href="http://www.facebook.com/@auth.getId()" target="_blank"><i class="fa fa-facebook"></i></a>
+                </li>
+              </ul>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  }
+
+    <p>
+    Your name is @localUser.name and your email address is @if(!localUser.email) {<em>&lt;unknown&gt;</em>.} else {
+    	@localUser.email.
+	    <i>
+	    @if(!localUser.emailValidated && localUser.email) {
+	      (<a href="@routes.Account.verifyEmail">unverified - click to verify</a>)
+	    } else {
+	      (verified)
+	    }</i>
+    }
+    <br />
+        @if(localUser.firstName && localUser.lastName) {
+            Your first name is @localUser.firstName and your last name is @localUser.lastName
+            <br/>
+        }
+    @defining(localUser.getProviders()) { providers =>
+        @if(providers.size() > 0) {
+        @if(providers.size() ==1) {
+            @Messages("playauthenticate.profile.providers_one")
+        } else {
+            @Messages("playauthenticate.profile.providers_many",providers.size().toString())
+        }
+        @for(p <- providers) {
+            @_providerIcon(p)
+        }
+        <br/>
+        }
+    }
+
+    <br/>
+    @currentAuth() { auth =>
+        @Messages("playauthenticate.profile.logged") @_providerIcon(auth.getProvider())<br/>
+        @if(auth.expires() != -1){
+            @Messages("playauthenticate.profile.session", auth.getId(), Application.formatTimestamp(auth.expires()))
+        } else {
+            @Messages("playauthenticate.profile.session_endless", auth.getId())
+        }
+    }
+    <br/>
+    <ul>
+    	<li><a href="@routes.Account.changePassword">@Messages("playauthenticate.profile.password_change")</a></li>
+    </ul>
+    </p>
+}
