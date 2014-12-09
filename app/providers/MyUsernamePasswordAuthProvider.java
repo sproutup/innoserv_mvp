@@ -233,11 +233,11 @@ public class MyUsernamePasswordAuthProvider
 		final String html = getEmailTemplate(
 				"views.html.account.signup.email.verify_email", langCode, url,
 				token, user.getName(), user.getEmail());
-		// final String text = getEmailTemplate(
-		// 		"views.txt.account.signup.email.verify_email", langCode, url,
-		// 		token, user.getName(), user.getEmail());
+		final String text = getEmailTemplate(
+				"views.txt.account.signup.email.verify_email", langCode, url,
+				token, user.getName(), user.getEmail());
 
-		return new Body(html);
+		return new Body(text, html);
 	}
 
 	private static String generateToken() {

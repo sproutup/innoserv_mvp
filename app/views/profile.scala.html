@@ -6,13 +6,13 @@
 
   @currentAuth() { auth =>
 
-	<div class="intro-header">
+	<div class="profile-header">
       <div class="container">
         <div class="row">
-          <div class="col-lg-12">
-            <div class="intro-message">
+          <div class="col-lg-4">
+            <div class="profile-message">
               <h1>@localUser.name</h1>
-              <img class="img-responsive img-circle" src="http://graph.facebook.com/@auth.getId()/picture/?type=large">
+              <img class="img-responsive profile-img-circle" src="http://graph.facebook.com/@auth.getId()/picture/?type=large">
               <ul class="list-inline social-buttons">
                 <li><a href="http://www.facebook.com/@auth.getId()" target="_blank"><i class="fa fa-facebook"></i></a>
                 </li>
