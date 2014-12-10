@@ -1,0 +1,35 @@
+@(products: List[Product])
+
+@main(Messages("Explore Products - Redefine E-Commerce")) {
+  <div style="margin-top: 100px; margin-left: 40px;">
+
+    <h2>All Products</h2>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th> Product name: </th>
+          <th> Product description: </th>
+          <th> Product Id: </th>
+        </tr>
+      </thead>
+
+      <tbody>
+        @for(product <- products) {
+          <tr>
+            <td><a href="@routes.Products.details(product.productID)">
+              @product.productName
+            </a></td>
+            <td><a href="@routes.Products.details(product.productID)">
+              @product.productDescription
+            </a></td>
+            <td><a href="@routes.Products.details(product.productID)">
+              @product.productID
+            </a></td>
+          </tr>
+        }
+      </tbody>
+
+    </table>
+
+  </div>
+}
