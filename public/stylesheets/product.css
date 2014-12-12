@@ -1,0 +1,44 @@
+.product-header {
+  width: 100%;
+  height: 400px;
+  margin-top: 70px;
+  padding-top: 50px;
+  padding-bottom: 50px;
+  text-align: left;
+  background: url(../images/general-profile-cover.png) no-repeat center center;
+  background-size: cover;
+  color: #fff;
+}
+
+.product-info {
+  margin-top: 100px;
+  margin-left: 30px;
+}
+
+.product-title {
+  font-family: "Roboto", Helvetica,Arial,sans-serif;
+  font-weight: 100;
+  color: #fff;
+  font-size: 56pt;
+  padding-bottom: 15px;
+}
+
+.product-description {
+  font-family: "lato", Helvetica,Arial,sans-serif;
+  font-weight: 300;
+  color: #fff;
+  font-size: 15pt;
+}
+
+.media-header {
+  font-family: "lato", Helvetica,Arial,sans-serif;
+  font-weight: 300;
+  padding-top: 40px;
+  padding-bottom: 20px;
+  font-size: 18pt;
+}
+
+.product-photo {
+  margin-top: 15px;
+  margin-bottom: 15px;
+}

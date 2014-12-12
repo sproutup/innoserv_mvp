@@ -1,0 +1,46 @@
+@(product: models.Product)
+
+@main(Messages("@product.productName - Redefine E-Commerce")) {
+
+  <div class="product-header">
+    <div class="container-fluid product-info">
+      <div class="col-lg-12 col-md-12 col-sm-12">
+          <p class="product-title">@product.productName</p>
+          <p class="product-description">@product.productDescription</p>
+        </div>
+      </div>
+  </div>
+
+  <section id="media">
+    <div class="container">
+      <div class="media-header">How people are <font color="#2996cc" >using</font> @product.productName</div>
+
+      <div class="row">
+        <div class="col-md-4 col-sm-6 product-photo">
+            <img class="img-responsive" src="https://s3.amazonaws.com/sproutup-cdn/product/belleds/photos/2014-12-09+11.00.13.jpg">
+        </div>
+        <div class="col-md-4 col-sm-6 product-photo">
+            <img class="img-responsive" src="https://s3.amazonaws.com/sproutup-cdn/product/belleds/photos/2014-12-09+21.05.21.jpg">
+        </div>
+        <div class="col-md-4 col-sm-6 product-photo">
+            <img class="img-responsive" src="https://s3.amazonaws.com/sproutup-cdn/product/belleds/photos/2014-12-09+21.13.29.jpg">
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-4 col-sm-6 product-photo">
+          <img class="img-responsive" src="https://s3.amazonaws.com/sproutup-cdn/product/belleds/photos/2014-12-09+11.00.13.jpg">
+        </div>
+        <div class="col-md-4 col-sm-6 product-photo">
+          <img class="img-responsive" src="https://s3.amazonaws.com/sproutup-cdn/product/belleds/photos/2014-12-09+21.05.21.jpg">
+        </div>
+        <div class="col-md-4 col-sm-6 product-photo">
+          <img class="img-responsive" src="https://s3.amazonaws.com/sproutup-cdn/product/belleds/photos/2014-12-09+21.13.29.jpg">
+        </div>
+      </div>
+
+    </div>
+
+  </section>
+
+}
