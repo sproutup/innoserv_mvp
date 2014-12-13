@@ -40,13 +40,48 @@
 
 .product-list {
   margin-top: 100px;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
 }
 
-.product-item {
-  margin-bottom: 25px;
-  padding-left:5px;
+.product-cover-item {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  padding-left: 5px;
   padding-right: 5px;
+}
+
+.product-cover-overlay {
+    background-color: #000;
+    float: left;
+    top: 0;
+    left: 0;
+    opacity: 0.2;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.product-cover-title {
+  margin: 0;
+  padding-top: 360px;
+  padding-left: 10px;
+  padding-right: 10px;
+  font-family: "lato", Helvetica, Arial;
+  font-weight: 100;
+  font-size: 32pt;
+  position: absolute;
+  z-index: 3;
+}
+
+.product-cover-description {
+  font-weight: 300;
+  font-size: 13pt;
+  padding-top: 420px;
+  padding-left: 10px;
+  padding-right: 10px;
+  position: absolute;
+  z-index: 3;
 }
 
 .product-photo {

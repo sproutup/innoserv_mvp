@@ -5,51 +5,36 @@
 <div class="product-list">
   <div class="container">
     <div class="row">
-      <div class="col-md-6 col-sm-12 product-item">
-        <a href="#">
-          <img class="img-responsive" src="@routes.Assets.at("images/product/belleds.jpg")" alt="">
-        </a>
-        <h3>
-          <a href="#">Belleds</a>
-        </h3>
-      </div>
 
-      <div class="col-md-6 col-sm-12 product-item">
-        <a href="#">
-          <img class="img-responsive" src="@routes.Assets.at("images/product/belleds.jpg")" alt="">
-        </a>
-        <h3>
-          <a href="#">Soma Water</a>
-        </h3>
-      </div>
+      @for(product <- products) {
 
+      <div class="col-md-4 col-sm-6 col-xs-12 product-cover-item">
+        <a href="@routes.Products.details(product.productID)">
+          <div style="background-image:
+            url('@routes.Assets.at("images/product/11111.jpg")');
+            height:480px;
+            background-position:center;
+            color:#fff">
+            <div class="product-cover-overlay"></div>
+            <p class="product-cover-title">@product.productName</p>
+            <p class="product-cover-description">@product.productDescription</p>
+          </div>
+        </a>
+      </div>
+    }
     </div>
   </div>
 </div>
 
-  <div style="margin-top: 100px; margin-left: 40px;">
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th> Product name: </th>
-          <th> Product description: </th>
-        </tr>
-      </thead>
-
-      <tbody>
-        @for(product <- products) {
-          <tr>
-            <td><a href="@routes.Products.details(product.productID)">
-              @product.productName
-            </a></td>
-            <td><a href="@routes.Products.details(product.productID)">
-              @product.productDescription
-            </a></td>
-          </tr>
-        }
-      </tbody>
-
-    </table>
-
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <p class="copyright small">Copyright &copy; SproutUp 2014. All Rights Reserved</p>
+      </div>
+    </div>
   </div>
+</footer>
+
+
 }
