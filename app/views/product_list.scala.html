@@ -1,15 +1,38 @@
 @(products: List[Product])
 
-@main(Messages("Explore Products - Redefine E-Commerce")) {
-  <div style="margin-top: 100px; margin-left: 40px;">
+@main(Messages("Explore Products - Redefine Commerce for Emerging Products")) {
 
-    <h2>All Products</h2>
+<div class="product-list">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 col-sm-12 product-item">
+        <a href="#">
+          <img class="img-responsive" src="@routes.Assets.at("images/product/belleds.jpg")" alt="">
+        </a>
+        <h3>
+          <a href="#">Belleds</a>
+        </h3>
+      </div>
+
+      <div class="col-md-6 col-sm-12 product-item">
+        <a href="#">
+          <img class="img-responsive" src="@routes.Assets.at("images/product/belleds.jpg")" alt="">
+        </a>
+        <h3>
+          <a href="#">Soma Water</a>
+        </h3>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+  <div style="margin-top: 100px; margin-left: 40px;">
     <table class="table table-striped">
       <thead>
         <tr>
           <th> Product name: </th>
           <th> Product description: </th>
-          <th> Product Id: </th>
         </tr>
       </thead>
 
@@ -21,9 +44,6 @@
             </a></td>
             <td><a href="@routes.Products.details(product.productID)">
               @product.productDescription
-            </a></td>
-            <td><a href="@routes.Products.details(product.productID)">
-              @product.productID
             </a></td>
           </tr>
         }

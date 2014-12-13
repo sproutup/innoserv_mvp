@@ -67,9 +67,9 @@ public class Product extends Model {
   private void initialize() {
     products = new ArrayList<Product>();
     products.add(new Product("11111", "Belleds", "Smart audio and lighting platform"));
-    products.add(new Product("22222", "emerging product 2", "description 2"));
-    products.add(new Product("33333", "emerging product 3", "description 3"));
-    products.add(new Product("44444", "emerging product 4", "description 4"));
+    products.add(new Product("22222", "Soma Water", "Beautifully innovative all-natural water filters"));
+    products.add(new Product("33333", "The Roost", "Stop hunching over your laptop"));
+    products.add(new Product("44444", "Miselu C.25", "The Music Keyboard for iPad"));
   }
 
 }

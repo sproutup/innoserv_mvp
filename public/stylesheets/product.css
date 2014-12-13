@@ -38,7 +38,20 @@
   font-size: 18pt;
 }
 
+.product-list {
+  margin-top: 100px;
+  margin-bottom: 20px;
+}
+
+.product-item {
+  margin-bottom: 25px;
+  padding-left:5px;
+  padding-right: 5px;
+}
+
 .product-photo {
-  margin-top: 15px;
-  margin-bottom: 15px;
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-top: 5px;
+  padding-bottom: 5px;
 }
