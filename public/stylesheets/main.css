@@ -75,13 +75,33 @@ body {
   margin-bottom: 0px;
 }
 
+ul.sproutup-social-buttons li a {
+  display: block;
+  width: 36px;
+  height: 36px;
+  border-radius: 100%;
+  font-size: 14pt;
+  line-height: 36px;
+  outline: 0;
+  color: #7a7a7a;
+  background-color: #fff;
+  -webkit-transition: all .3s;
+  -moz-transition: all .3s;
+  transition: all .3s;
+}
+
+ul.sproutup-social-buttons li a:hover {
+  background-color: #fff;
+  color: #2996cc;
+}
+
 footer {
-  padding-top: 30px;
-  padding-bottom: 30px;
+  margin-top: 30px;
+  margin-bottom: 30px;
 }
 
 p.copyright {
-  margin: 15px 0 0;
+  margin-top: 20px;
   text-align: center;
   font-family: "lato",Helvetica,Arial,sans-serif;
   font-size: 12pt;
