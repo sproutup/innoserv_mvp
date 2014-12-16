@@ -4,12 +4,15 @@
 
 # Home page
 GET     /                           controllers.Application.index
-GET     /about                      controllers.Application.about()
-GET     /creator                    controllers.Application.creator()
+GET     /about                      controllers.Application.about
+GET     /creator                    controllers.Application.creator
 GET     /assets/javascript/routes.js    controllers.Application.jsRoutes
 
-GET     /product/                  controllers.Products.list()
+GET     /product                    controllers.Products.list
 GET     /products/:productID        controllers.Products.details(productID: String)
+
+GET     /upload                     controllers.Application.upload
+POST    /doUpload                   controllers.Application.doUpload()
 
 GET     /profile                    controllers.Application.profile
 

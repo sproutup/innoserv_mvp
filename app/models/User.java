@@ -56,6 +56,10 @@ public class User extends Model implements Subject {
 
 	public String zipcode;
 
+	public String gender;
+
+	public Date dateofbirth;
+
 	@Formats.DateTime(pattern = "yyyy-MM-dd HH:mm:ss")
 	public Date lastLogin;
 

@@ -2,14 +2,18 @@ package controllers;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
+import java.util.UUID;
 
 import models.User;
+import models.S3File;
 import play.Routes;
 import play.data.Form;
 import play.mvc.*;
 import play.mvc.Http.Response;
 import play.mvc.Http.Session;
 import play.mvc.Result;
+import play.db.ebean.Model;
 import providers.MyUsernamePasswordAuthProvider;
 import providers.MyUsernamePasswordAuthProvider.MyLogin;
 import providers.MyUsernamePasswordAuthProvider.MySignup;
@@ -39,6 +43,26 @@ public class Application extends Controller {
 
 	public static Result creator() {
 		return ok(creator.render());
+	}
+
+	public static Result upload() {
+		List<S3File> uploads = new Model.Finder(UUID.class, S3File.class).all();
+		return ok(upload.render(uploads));
+	}
+
+	public static Result doUpload() {
+		Http.MultipartFormData body = request().body().asMultipartFormData();
+		Http.MultipartFormData.FilePart uploadFilePart = body.getFile("upload");
+		if (uploadFilePart != null) {
+			S3File s3File = new S3File();
+			s3File.name = uploadFilePart.getFilename();
+			s3File.file = uploadFilePart.getFile();
+			s3File.save();
+			return redirect(routes.Application.upload());
+		}
+		else {
+			return badRequest("File upload error");
+		}
 	}
 
 	public static User getLocalUser(final Session session) {

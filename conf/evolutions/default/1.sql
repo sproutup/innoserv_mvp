@@ -11,6 +11,13 @@ create table linked_account (
   constraint pk_linked_account primary key (id))
 ;
 
+create table s3file (
+  id                        varchar(40) not null,
+  bucket                    varchar(255),
+  name                      varchar(255),
+  constraint pk_s3file primary key (id))
+;
+
 create table security_role (
   id                        bigint auto_increment not null,
   role_name                 varchar(255),
@@ -40,6 +47,8 @@ create table users (
   city                      varchar(255),
   state                     varchar(255),
   zipcode                   varchar(255),
+  gender                    varchar(255),
+  dateofbirth               datetime,
   last_login                datetime,
   active                    tinyint(1) default 0,
   email_validated           tinyint(1) default 0,
@@ -84,6 +93,8 @@ alter table users_user_permission add constraint fk_users_user_permission_user_p
 SET FOREIGN_KEY_CHECKS=0;
 
 drop table linked_account;
+
+drop table s3file;
 
 drop table security_role;
 
