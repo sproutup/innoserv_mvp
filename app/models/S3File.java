@@ -40,9 +40,6 @@ public class S3File extends Model {
 
   public String folderName;
 
-  public String submittedUser;
-
-  public String productName;
 
   public String submittedUser;
 
