@@ -44,8 +44,8 @@
           @for(product <- products) {
 
             <div class="col-sm-6 col-xs-12 product-cover-item">
-              <a href="@routes.Products.details(product.productID)">
-                <div style="background-image: url('@routes.Assets.at("images/product/"+product.productID+".jpg")');
+              <a href="@routes.Products.details(product.id)">
+                <div style="background-image: url('@routes.Assets.at("images/product/"+product.productEAN+".jpg")');
                 height:480px;
                 background-size:cover;
                 background-position:center;

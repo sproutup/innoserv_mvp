@@ -24,7 +24,7 @@ public class Media extends Model{
 	public Long id;
 
 	@Constraints.Required
-	public String mediaId;
+	public String mediaID;
 	
 	@ManyToOne
 	public Product product;
@@ -52,14 +52,14 @@ public class Media extends Model{
 	
 	public Media() {
 		super();
+		
 	}
 
-	public Media(Long id, String mediaId, URL cloudFrontLink,
+	public Media(Long id, String mediaID, 
 			String mediaFileName, String mediaType) {
 		super();
 		this.id = id;
-		this.mediaId = mediaId;
-		this.cloudFrontLink = cloudFrontLink;
+		this.mediaID = mediaID;
 		this.mediaFileName = mediaFileName;
 		this.mediaType = mediaType;
 	}

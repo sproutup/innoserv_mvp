@@ -1,22 +1,22 @@
 products:
 
     - !!models.Product
-        productID:          11111
+        productEAN:          11111
         productName:        Belleds
         productDescription: Smart audio and lighting platform  
 
     - !!models.Product
-        productID:          11112
+        productEAN:          11112
         productName:        Soma Water
         productDescription: Beautifully innovative all-natural water filters  
 
     - !!models.Product
-        productID:          11113
+        productEAN:          11113
         productName:        The Roost
         productDescription: Stop hunching over your laptop 
  
     - !!models.Product
-        productID:          11114
+        productEAN:          11114
         productName:        Miselu C.25
         productDescription: The Music Keyboard for iPad
         

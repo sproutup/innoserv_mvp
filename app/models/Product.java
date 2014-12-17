@@ -34,7 +34,7 @@ public class Product extends Model implements PathBindable<Product>,
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	public Long id;
 	
-	public String productID;
+	public String productEAN;
 	public String productName;
 	public String productDescription;
 	public String productLongDescription;
@@ -57,10 +57,10 @@ public class Product extends Model implements PathBindable<Product>,
 		//initialize();
 	}
 
-	private Product(String productID, String productName,
+	private Product(String productEAN, String productName,
 			String productShortDescription) {
 
-		this.productID = productID;
+		this.productEAN = productEAN;
 		this.productDescription = productShortDescription;
 		this.productName = productName;
 
@@ -70,18 +70,17 @@ public class Product extends Model implements PathBindable<Product>,
 		return find.all();
 	}
 
-	public Product findbyProductID(String productID) {
-		return find.where().eq("productID", this.productID).findUnique();
+	public Product findbyID(Long id) {
+		return find.byId(id);
+	}
+
+	public Product findbyProductEAN(String productEAN) {
+		return find.where().eq("productEAN", productEAN).findUnique();
 	}
 
 	public List<Product> findbyProductName(String productName) {
-		final List<Product> results = new ArrayList<Product>();
-		for (Product prod : products) {
-			if (prod.productName.toLowerCase().contains(productName)) {
-				results.add(prod);
-			}
-		}
-		return results;
+		List<Product> results;
+		 return results = find.where().eq("productName", productName).findList();
 	}
 	
 	public Page<Product> find(int page) {
@@ -99,7 +98,7 @@ public class Product extends Model implements PathBindable<Product>,
 	}
 
 	public void add() {
-		products.remove(findbyProductID(this.productID));
+		products.remove(findbyProductEAN(this.productEAN));
 		products.add(this);
 	}
 	
@@ -109,13 +108,13 @@ public class Product extends Model implements PathBindable<Product>,
 	 */
 	@Override
 	  public Product bind(String key, String value) {
-	    return findbyProductID(value);
+	    return findbyProductEAN(value);
 	  }
 
 	
 	@Override
 	public F.Option<Product> bind(String key, Map<String, String[]> data) {
-	   return F.Option.Some(findbyProductID(data.get("productID")[0]));
+	   return F.Option.Some(findbyProductEAN(data.get("productEAN")[0]));
 	}
 
 	/*
@@ -124,7 +123,7 @@ public class Product extends Model implements PathBindable<Product>,
 	 */
 	@Override
 	public String unbind(String s) {
-		return this.productID;
+		return this.productEAN;
 	}
 
 	/*
@@ -133,7 +132,7 @@ public class Product extends Model implements PathBindable<Product>,
 	 */
 	@Override
 	public String javascriptUnbind() {
-		return this.productID;
+		return this.productEAN;
 	}
 
 	/*

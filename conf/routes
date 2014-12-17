@@ -9,7 +9,7 @@ GET     /creator                    controllers.Application.creator
 GET     /assets/javascript/routes.js    controllers.Application.jsRoutes
 
 GET     /product                    controllers.Products.list
-GET     /products/:productID        controllers.Products.details(productID: String)
+GET     /products/:id		        controllers.Products.details(id: Long)
 
 GET     /upload                     controllers.MediaManagement.upload
 POST    /doUpload                   controllers.MediaManagement.doUpload()

@@ -24,10 +24,10 @@ public class Products extends Controller {
   return TODO;
 }*/
 
-public static Result details(String productID) {
-  Product product = new Product().findbyProductID(productID);
-  return ok(product_item.render(product));
-}
+	public static Result details(Long id) {
+	  Product product = new Product().findbyID(id);
+	  return ok(product_item.render(product));
+	}
 
 /*
 	public static Result save() {
