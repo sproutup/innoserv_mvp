@@ -37,7 +37,8 @@ public class Media extends Model{
 	
 	//@Constraints.Required
 	public URL cloudFrontLink;
-	
+	public String submittedByUserID;//social media user id
+	public String productName;//this is added in case we loose referential integrity to the product table for any damn reason.
 	public String mediaFileName;
 	
 	public String mediaType;
@@ -55,14 +56,26 @@ public class Media extends Model{
 		
 	}
 
-	public Media(Long id, String mediaID, 
-			String mediaFileName, String mediaType) {
+
+	public Media(String mediaID, Product product, User user,String submittedByUserID,String productName,
+			List<Feedback> feedbackList, URL cloudFrontLink,
+			String mediaFileName, String mediaType, int likesCount,
+			boolean activeFlag) {
 		super();
-		this.id = id;
 		this.mediaID = mediaID;
+		this.product = product;
+		this.user = user;
+		this.submittedByUserID = submittedByUserID;
+		this.productName = productName;
+		this.feedbackList = feedbackList;
+		this.cloudFrontLink = cloudFrontLink;
 		this.mediaFileName = mediaFileName;
 		this.mediaType = mediaType;
+		this.likesCount = likesCount;
+		this.activeFlag = activeFlag;
 	}
+
+	
 	
 	
 	

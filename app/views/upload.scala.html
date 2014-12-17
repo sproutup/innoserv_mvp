@@ -21,7 +21,7 @@
           @select(
           mediaUploadForm("productName"),
           products.map {p =>
-            p.id.toString -> p.productName
+            (p.id.toString+"_#"+p.productName) -> p.productName
           },
           '_label -> "Product Name"
           )

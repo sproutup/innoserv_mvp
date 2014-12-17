@@ -32,7 +32,7 @@ public class MediaManagement extends Controller {
 
 		Form<S3File> filledForm = mediaUploadForm.bindFromRequest();
 		S3File s3File = filledForm.get();
-
+		
 		MultipartFormData body = request().body().asMultipartFormData();
 		MultipartFormData.FilePart uploadFilePart = body.getFile("upload");
 
