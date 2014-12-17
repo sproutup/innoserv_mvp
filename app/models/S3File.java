@@ -17,24 +17,64 @@ import java.util.UUID;
 @Entity
 public class S3File extends Model {
 
-  @Id
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+@Id
   public UUID id;
 
   private String bucket;
 
-  public String name;
+  public String fileName;
+  
+  public String folderName;
+  
+  public String submittedUser;
+  
+  public String productName;
 
   @Transient
   public File file;
 
   public URL getUrl() throws MalformedURLException {
-    return new URL("https://s3.amazonaws.com/" + bucket + "/" + getActualFileName());
+    return new URL("https://s3.amazonaws.com/" + bucket + "/" + folderName + "/" + getActualFileName());
   }
 
-  private String getActualFileName() {
-    return id + "_" + name;
+  public String getActualFileName() {
+    return id + "_" + fileName;
   }
 
+  public String getBucket() {
+	return bucket;
+}
+
+public void setBucket(String bucket) {
+	this.bucket = bucket;
+}
+
+public String getFileName() {
+	return fileName;
+}
+
+public void setFileName(String fileName) {
+	this.fileName = fileName;
+}
+
+public File getFile() {
+	return file;
+}
+
+public void setFile(File file) {
+	this.file = file;
+}
+
+public String getFolderName() {
+	    return folderName;
+	  }
+
+  
   @Override
   public void save() {
     if (S3Plugin.amazonS3 == null) {
@@ -63,5 +103,21 @@ public class S3File extends Model {
       super.delete();
     }
   }
+
+public String getSubmittedUser() {
+	return submittedUser;
+}
+
+public void setSubmittedUser(String submittedUser) {
+	this.submittedUser = submittedUser;
+}
+
+public String getProductName() {
+	return productName;
+}
+
+public void setProductName(String productName) {
+	this.productName = productName;
+}
 
 }
