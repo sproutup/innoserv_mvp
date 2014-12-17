@@ -10,15 +10,15 @@
             <div class="hero-message">
               <h1>Discover innovations</h1>
             </div>
-			@if(localUser == null){
-            <div class="col-lg-8 col-lg-offset-2">
-              <a href="@routes.Application.signup()" class="btn btn-lg btn-outline">Join Us</a>
-            </div>
-			} else {
-				<div>
-					<h1 class="welcome-message">Welcome, @localUser.name</h1>
-				</div>
-			}
+      			@if(localUser == null){
+                  <div class="col-lg-8 col-lg-offset-2">
+                    <a href="@routes.Application.signup()" class="btn btn-lg btn-outline">Join Us</a>
+                  </div>
+      			} else {
+      				<div>
+      					<h1 class="welcome-message">Welcome, @localUser.name</h1>
+      				</div>
+      			}
           </div>
         </div>
       </div>
@@ -66,6 +66,9 @@
     <section class="press">
     </section>
     <!-- end ofpress -->
+
+    <section class="test-tao">
+    </section>
 
     <hr>
   }
