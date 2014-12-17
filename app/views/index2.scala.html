@@ -1,0 +1,65 @@
+@(products: List[Product])
+
+@main(Messages("Redefine Commerce for Emerging Products")) {
+
+    <div class="marketing-container">
+      <div class="container">
+          <div class="row text-center">
+            <div class="marketing-header">
+              <h1>SproutUp is redefining commerce</h1>
+            </div>
+            <div class="row marketing-blurb">
+              <div class="col-lg-3 col-md-3 col-sm-6">
+                <img class="img-circle img-responsive img-center" src="@routes.Assets.at("images/index/product.png")" alt="">
+                <h2 class="marketing-title">Discover cool products</h2>
+                <p class="marketing-content">We partner with the most creative folks and display the emerging products they are making. Here you will find the amazing things.</p>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-6">
+                <img class="img-circle img-responsive img-center" src="@routes.Assets.at("images/index/personal.png")" alt="">
+                <h2 class="marketing-title">Touching is believing</h2>
+                <p class="marketing-content">No experience is better than first-hand personal experience. We facilitate tryout for enthusiasts to touch products by yourself.</p>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-6">
+                <img class="img-circle img-responsive img-center" src="@routes.Assets.at("images/index/personal.png")" alt="">
+                <h2 class="marketing-title">Sharing is catalyst</h2>
+                <p class="marketing-content">Share product photos, videos and feedback with creators and other users. Authentic experience tells a lot more about a product.</p>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-6">
+                <img class="img-circle img-responsive img-center" src="@routes.Assets.at("images/index/community.png")" alt="">
+                <h2 class="marketing-title">We are community</h2>
+                <p class="marketing-content">Become a part of the community of creators, enthusiasts and product lovers, where we share a passion about innovativeness.</p>
+              </div>
+            </div>
+          </div>
+      </div>
+    </div>
+
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <h1 class="product-list-header">Check out some really cool products</h1>
+            <h1 class="product-list-header-2">We are expanding the collaboration with product creators. Stay tuned for more exciting stuff, beta coming in early 2015.</h1>
+          </div>
+
+          @for(product <- products) {
+
+            <div class="col-sm-6 col-xs-12 product-cover-item">
+              <a href="@routes.Products.details(product.productID)">
+                <div style="background-image: url('@routes.Assets.at("images/product/"+product.productID+".jpg")');
+                height:480px;
+                background-size:cover;
+                background-position:center;
+                background-repeat:no-repeat;
+                color:#fff">
+                <div class="product-cover-overlay"></div>
+                <p class="product-cover-title">@product.productName</p>
+                <p class="product-cover-description">@product.productDescription</p>
+              </div>
+            </a>
+          </div>
+        }
+      </div>
+    </div>
+
+      <hr>
+  }

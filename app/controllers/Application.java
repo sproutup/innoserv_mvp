@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+import models.Product;
 import models.User;
 import models.S3File;
 import play.Routes;
@@ -33,8 +34,8 @@ public class Application extends Controller {
 	public static final String USER_ROLE = "user";
 
 	public static Result index() {
-		final User localUser = getLocalUser(session());
-		return ok(index.render(localUser));
+		List<Product>products = new Product().getAll();
+		return ok(index2.render(products));
 	}
 
 	public static Result about() {
