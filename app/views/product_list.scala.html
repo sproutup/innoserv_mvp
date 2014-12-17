@@ -1,4 +1,4 @@
-@(products: List[Product])
+@(products: com.avaje.ebean.Page[Product])
 
 @main(Messages("Explore Products - Redefine Commerce for Emerging Products")) {
 
@@ -6,7 +6,7 @@
   <div class="container">
     <div class="row">
 
-      @for(product <- products) {
+      @for(product <- products.getList()) {
 
       <div class="col-sm-6 col-xs-12 product-cover-item">
         <a href="@routes.Products.details(product.productID)">

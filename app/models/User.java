@@ -3,6 +3,7 @@ package models;
 import be.objectify.deadbolt.core.models.Permission;
 import be.objectify.deadbolt.core.models.Role;
 import be.objectify.deadbolt.core.models.Subject;
+
 import com.avaje.ebean.Ebean;
 import com.avaje.ebean.ExpressionList;
 import com.feth.play.module.pa.providers.password.UsernamePasswordAuthUser;
@@ -11,12 +12,14 @@ import com.feth.play.module.pa.user.AuthUserIdentity;
 import com.feth.play.module.pa.user.EmailIdentity;
 import com.feth.play.module.pa.user.NameIdentity;
 import com.feth.play.module.pa.user.FirstLastNameIdentity;
+
 import models.TokenAction.Type;
 import play.data.format.Formats;
 import play.data.validation.Constraints;
 import play.db.ebean.Model;
 
 import javax.persistence.*;
+
 import java.util.*;
 
 /**
@@ -32,6 +35,7 @@ public class User extends Model implements Subject {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	public Long id;
 
 	@Constraints.Email
@@ -48,12 +52,13 @@ public class User extends Model implements Subject {
 
 	public String phoneNumber;
 
-	public String streetAddress;
-
+	/*
+	 * ship address
+	 */
+	public String streetAddress1;
+	public String streetAddress2;
 	public String city;
-
 	public String state;
-
 	public String zipcode;
 
 	@Formats.DateTime(pattern = "yyyy-MM-dd HH:mm:ss")
@@ -72,6 +77,16 @@ public class User extends Model implements Subject {
 	@ManyToMany
 	public List<UserPermission> permissions;
 
+	//user submitted media 
+	@OneToMany(cascade = CascadeType.ALL)
+	//@OneToMany(mappedBy="user")
+	public List<Media> mediaList;
+	
+	//user submitted feedback
+	@OneToMany(cascade = CascadeType.ALL)
+	//@OneToMany(mappedBy="user")
+	public List<Feedback> feebackList;
+	
 	public static final Finder<Long, User> find = new Finder<Long, User>(
 			Long.class, User.class);
 
