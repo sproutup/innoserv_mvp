@@ -4,11 +4,13 @@ import java.util.List;
 import java.util.UUID;
 
 import models.S3File;
+import models.Product;
 import play.Routes;
 import play.data.Form;
 import play.mvc.*;
 import play.mvc.Result;
 import play.db.ebean.Model;
+import play.mvc.Http.MultipartFormData;
 
 import views.html.*;
 
@@ -18,17 +20,24 @@ public class MediaManagement extends Controller {
 	public static final String FLASH_ERROR_KEY = "error";
 	public static final String USER_ROLE = "user";
 
+	private static final Form<S3File> mediaUploadForm = Form.form(S3File.class);
+
 	public static Result upload() {
 		List<S3File> uploads = new Model.Finder(UUID.class, S3File.class).all();
-		return ok(upload.render(uploads));
+		List<Product> products = new Product().getAll();
+		return ok(upload.render(uploads, mediaUploadForm, products));
 	}
 
 	public static Result doUpload() {
-		Http.MultipartFormData body = request().body().asMultipartFormData();
-		Http.MultipartFormData.FilePart uploadFilePart = body.getFile("upload");
+
+		Form<S3File> filledForm = mediaUploadForm.bindFromRequest();
+		S3File s3File = filledForm.get();
+
+		MultipartFormData body = request().body().asMultipartFormData();
+		MultipartFormData.FilePart uploadFilePart = body.getFile("upload");
+
 		if (uploadFilePart != null) {
-			S3File s3File = new S3File();
-			s3File.name = uploadFilePart.getFilename();
+			s3File.fileName = uploadFilePart.getFilename();
 			s3File.file = uploadFilePart.getFile();
 			s3File.save();
 			return redirect(routes.MediaManagement.upload());
@@ -37,9 +46,5 @@ public class MediaManagement extends Controller {
 			return badRequest("File upload error");
 		}
 	}
-
-
-
-	
 
 }

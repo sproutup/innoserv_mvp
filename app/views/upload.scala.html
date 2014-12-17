@@ -1,25 +1,51 @@
-@(s3Files: List[models.S3File])
+@(s3Files: List[models.S3File])(mediaUploadForm: Form[S3File])(products: List[models.Product])
 
-@main(Messages("S3 upload test page")) {
+@import helper._
+@implicitFieldConstructor = @{ FieldConstructor(twitterBootstrapBasic.f) }
+
+@main(Messages("Internal - S3 upload")) {
 
   <div class="row">
 
     <div class="container">
       <div class="row">
         <div class="col-md-12">
-          <h1 class="form-header">Testing upload to AWS S3</h1>
+          <h1 class="form-header">Internal upload to AWS S3</h1>
         </div>
 
-        <h1>Upload a file:</h1>
-        @helper.form(action = routes.MediaManagement.doUpload, 'enctype -> "multipart/form-data") {
-          <input type="file" name="upload">
-          <input type="submit">
-        }
+        <div class="row signup-form-block">
+          <div class="col-md-8 col-md-offset-2">
 
-        <h1>Uploads:</h1>
+        @helper.form(action = routes.MediaManagement.doUpload, 'enctype -> "multipart/form-data") {
+
+          @select(
+          mediaUploadForm("productName"),
+          products.map {p =>
+            p.id.toString -> p.productName
+          },
+          '_label -> "Product Name"
+          )
+
+          @inputText(
+          mediaUploadForm("submittedUser"),
+          '_label -> "User"
+          )
+
+          @inputFile(
+          mediaUploadForm("upload")
+          )
+
+          <div>
+            <input class="btn btn-primary btn-lg btn-block" type="submit">
+          </div>
+        }
+      </div>
+    </div>
+
+        <h1 class="form-title">Uploads:</h1>
         <ul>
           @for(upload <- s3Files) {
-            <li><a href="@upload.getUrl()">@upload.name</a></li>
+            <li><a href="@upload.getUrl()">@upload.fileName</a></li>
           }
         </ul>
 
