@@ -1,0 +1,41 @@
+@(s3Files: List[models.S3File])
+
+@main(Messages("S3 upload test page")) {
+
+  <div class="row">
+
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <h1 class="form-header">Testing upload to AWS S3</h1>
+        </div>
+
+        <h1>Upload a file:</h1>
+        @helper.form(action = routes.Application.doUpload, 'enctype -> "multipart/form-data") {
+          <input type="file" name="upload">
+          <input type="submit">
+        }
+
+        <h1>Uploads:</h1>
+        <ul>
+          @for(upload <- s3Files) {
+            <li><a href="@upload.getUrl()">@upload.name</a></li>
+          }
+        </ul>
+
+        @for(upload <- s3Files) {
+          <div class="col-md-4 product-photo">
+            <img class="img-responsive" src="@upload.getUrl()">
+          </div>
+
+        }
+
+
+      </div>
+    </div>
+
+  </div>
+
+  <hr>
+
+}
