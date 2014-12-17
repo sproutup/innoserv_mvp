@@ -50,14 +50,6 @@
   padding-right: 5px;
 }
 
-.product-cover-photo {
-	height:480px;
-	background-size:cover;
-	background-position:center;
-   	background-repeat:no-repeat;
-    color:#fff;
-}
-
 .product-cover-overlay {
     background-color: #000;
     float: left;

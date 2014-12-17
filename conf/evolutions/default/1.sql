@@ -34,8 +34,6 @@ create table media (
   product_id                bigint,
   user_id                   bigint,
   cloud_front_link          varchar(255),
-  submitted_by_user_id      varchar(255),
-  product_name              varchar(255),
   media_file_name           varchar(255),
   media_type                varchar(255),
   likes_count               integer,
@@ -57,6 +55,7 @@ create table s3file (
   id                        varchar(40) not null,
   bucket                    varchar(255),
   file_name                 varchar(255),
+  folder_name               varchar(255),
   submitted_user            varchar(255),
   product_name              varchar(255),
   constraint pk_s3file primary key (id))

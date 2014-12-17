@@ -45,8 +45,13 @@
 
             <div class="col-sm-6 col-xs-12 product-cover-item">
               <a href="@routes.Products.details(product.id)">
-                <div class="product-cover-photo" style="background-image: url('@routes.Assets.at("images/product/"+product.productEAN+".jpg")')">
-                  <div class="product-cover-overlay"></div>
+                <div style="background-image: url('@routes.Assets.at("images/product/"+product.productEAN+".jpg")');
+                height:480px;
+                background-size:cover;
+                background-position:center;
+                background-repeat:no-repeat;
+                color:#fff">
+                <div class="product-cover-overlay"></div>
                 <p class="product-cover-title">@product.productName</p>
                 <p class="product-cover-description">@product.productDescription</p>
               </div>
