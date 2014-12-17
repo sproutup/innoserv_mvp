@@ -28,7 +28,6 @@ create table linked_account (
   constraint pk_linked_account primary key (id))
 ;
 
-<<<<<<< HEAD
 create table media (
   id                        bigint auto_increment not null,
   media_id                  varchar(255),
@@ -50,13 +49,13 @@ create table product (
   product_description       varchar(255),
   product_long_description  varchar(255),
   constraint pk_product primary key (id))
-=======
+;
+
 create table s3file (
   id                        varchar(40) not null,
   bucket                    varchar(255),
   name                      varchar(255),
   constraint pk_s3file primary key (id))
->>>>>>> branch 'master' of https://github.com/sproutup/sproutup_mvp.git
 ;
 
 create table security_role (
@@ -176,15 +175,13 @@ drop table follower;
 
 drop table linked_account;
 
-<<<<<<< HEAD
 drop table media;
 
 drop table product;
 
 drop table product_tag;
-=======
+
 drop table s3file;
->>>>>>> branch 'master' of https://github.com/sproutup/sproutup_mvp.git
 
 drop table security_role;
 

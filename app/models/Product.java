@@ -71,7 +71,7 @@ public class Product extends Model implements PathBindable<Product>,
 	}
 
 	public Product findbyProductID(String productID) {
-		return find.where().eq("product_id", this.productID).findUnique();
+		return find.where().eq("productID", this.productID).findUnique();
 	}
 
 	public List<Product> findbyProductName(String productName) {

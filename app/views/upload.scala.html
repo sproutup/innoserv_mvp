@@ -11,7 +11,7 @@
         </div>
 
         <h1>Upload a file:</h1>
-        @helper.form(action = routes.Application.doUpload, 'enctype -> "multipart/form-data") {
+        @helper.form(action = routes.MediaManagement.doUpload, 'enctype -> "multipart/form-data") {
           <input type="file" name="upload">
           <input type="submit">
         }
