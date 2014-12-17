@@ -141,7 +141,7 @@ public void setFile(File file) {
     		id.toString(),
     		product,
     		user,
-    		submittedUser,
+    		getSubmittedUser(),
     		productName,
   			null,
   			getUrl(),
@@ -166,7 +166,9 @@ public void setFile(File file) {
   }
 
 public String getSubmittedUser() {
-	return submittedUser;
+	if (submittedUser!=null)
+		return submittedUser.trim();
+	else return "";
 }
 
 public void setSubmittedUser(String submittedUser) {
