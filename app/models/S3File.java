@@ -50,7 +50,7 @@ public class S3File extends Model {
 
   public URL getUrl() {
     try {
-		return new URL("https://s3.amazonaws.com/" + bucket + "/" + productName + "/" + getActualFileName());
+		return new URL("https://s3.amazonaws.com/" + bucket + "/" + getActualFileName());
 	} catch (MalformedURLException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
@@ -59,7 +59,7 @@ public class S3File extends Model {
   }
 
   public String getActualFileName() {
-    return id + "_" + fileName;
+    return (productName + "/"+ id + "_" + fileName);
   }
 
   public String getBucket() {

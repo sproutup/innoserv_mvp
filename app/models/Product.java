@@ -1,5 +1,6 @@
 package models;
 
+import play.Logger;
 import play.data.format.Formats;
 import play.data.validation.Constraints;
 import play.db.ebean.Model;
@@ -86,8 +87,18 @@ public class Product extends Model implements PathBindable<Product>,
 	public Product getDetailwithMedia(Long id) {
 		Product prod = find.byId(id);
 		if (prod!=null){
+			if (prod.mediaItems!=null){
+				Logger.debug("product media Items before query are "+ prod.mediaItems.size());
+			} else {
+				Logger.debug("product media Items before query are null");
+			}
 			//retrieve media associated with this product
-			prod.mediaItems = new Media().findMediabyProductID(id);
+			//prod.mediaItems = new Media().findMediabyProductID(id);
+		}
+		if (prod.mediaItems!=null){
+			Logger.debug("product media Items after query are "+ prod.mediaItems.size());
+		} else {
+			Logger.debug("product media Items after query are null");
 		}
 		
 		return prod;
