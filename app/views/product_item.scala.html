@@ -10,10 +10,20 @@
         </div>
       </div>
   </div>
-  
+
   <section id="media">
     <div class="container">
       <div class="media-header">How people are <font color="#2996cc" >using</font> @product.productName</div>
+
+      @for(media <- product.mediaItem) {
+        <div class="col-sm-6 col-xs-12 product-cover-item">
+            <div class="product-cover-photo"
+            style="background-image: url('media.cloudFrontLink')">
+              <div class="product-cover-overlay"></div>
+              <p class="product-cover-title">media.submittedByUserID</p>
+            </div>
+        </div>
+      }
 
       <div class="row">
         <div class="col-md-4 product-photo">
