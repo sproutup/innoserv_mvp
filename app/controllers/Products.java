@@ -25,7 +25,8 @@ public class Products extends Controller {
 }*/
 
 	public static Result details(Long id) {
-	  Product product = new Product().findbyID(id);
+	  //Product product = new Product().findbyID(id);
+		Product product = new Product().getDetailwithMedia(id);	
 	  return ok(product_item.render(product));
 	}
 

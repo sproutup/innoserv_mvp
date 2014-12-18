@@ -3,6 +3,7 @@ package models;
 import java.net.URL;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import play.data.format.Formats;
 import play.data.validation.Constraints;
@@ -10,6 +11,10 @@ import play.data.validation.Constraints;
 import javax.persistence.*;
 
 import play.db.ebean.Model;
+import play.db.ebean.Model.Finder;
+import play.libs.F;
+import play.mvc.PathBindable;
+import play.mvc.QueryStringBindable;
 
 @Entity
 public class Media extends Model{
@@ -18,7 +23,8 @@ public class Media extends Model{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
+	
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	public Long id;
@@ -50,7 +56,8 @@ public class Media extends Model{
 	
 	public boolean activeFlag = true;
 	
-	
+	public static Finder<Long, Media> find = new Finder<Long, Media>(Long.class, Media.class);
+
 	public Media() {
 		super();
 		
@@ -75,9 +82,13 @@ public class Media extends Model{
 		this.activeFlag = activeFlag;
 	}
 
+	public Media findMediabyID(Long id){
+		return Media.find.byId(id);
+	}
 	
-	
-	
-	
-	
+	public List<Media> findMediabyProductID(Long productID){
+		List<Media> results = null;
+		 return results = find.where().eq("productID", productID).findList();
+	}
+
 }

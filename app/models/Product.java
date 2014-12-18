@@ -83,6 +83,16 @@ public class Product extends Model implements PathBindable<Product>,
 		 return results = find.where().eq("productName", productName).findList();
 	}
 	
+	public Product getDetailwithMedia(Long id) {
+		Product prod = find.byId(id);
+		if (prod!=null){
+			//retrieve media associated with this product
+			prod.mediaItems = new Media().findMediabyProductID(id);
+		}
+		
+		return prod;
+	}
+	
 	public Page<Product> find(int page) {
 		    return 
 		            find.where()
@@ -90,7 +100,7 @@ public class Product extends Model implements PathBindable<Product>,
 		                .findPagingList(10)
 		                .setFetchAhead(false)
 		                .getPage(page);
-		  }
+	}
 
 	public boolean remove(Product product) {
 		return products.remove(product);
