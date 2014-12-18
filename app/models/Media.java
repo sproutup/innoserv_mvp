@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import play.Logger;
 import play.data.format.Formats;
 import play.data.validation.Constraints;
 
@@ -88,7 +89,14 @@ public class Media extends Model{
 	
 	public List<Media> findMediabyProductID(Long productID){
 		List<Media> results = null;
-		 return results = find.where().eq("productID", productID).findList();
+		 results = find.where().eq("id", productID).findList();
+		 if(results!=null){
+			 Logger.debug("# of media fetched for product- "+ productID + "_#" + productName + "- are " + results.size());
+		 } else { 
+			 Logger.debug("no media found for product- " + productName );
+		 }
+		 return results;
+
 	}
 
 }
