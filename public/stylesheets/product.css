@@ -2,25 +2,26 @@
   width: 100%;
   height: 400px;
   margin-top: 70px;
-  padding-top: 50px;
-  padding-bottom: 50px;
   text-align: left;
-  background: url(../images/general-profile-cover.png) no-repeat center center;
+  background-position:center;
+  background-repeat:no-repeat;
   background-size: cover;
   color: #fff;
 }
 
 .product-info {
-  margin-top: 100px;
-  margin-left: 30px;
+  margin-top: 160px;
+  margin-left: 20px;
+  position: absolute;
+  z-index: 3;
 }
 
 .product-title {
-  font-family: "Roboto", Helvetica,Arial,sans-serif;
+  font-family: "lato", Helvetica,Arial,sans-serif;
   font-weight: 100;
   color: #fff;
-  font-size: 56pt;
-  padding-bottom: 15px;
+  font-size: 48pt;
+  padding-bottom: 5px;
 }
 
 .product-description {
@@ -28,9 +29,10 @@
   font-weight: 300;
   color: #fff;
   font-size: 15pt;
+  padding-bottom: 10px;
 }
 
-.media-header {
+.product-item-page-header {
   font-family: "lato", Helvetica,Arial,sans-serif;
   font-weight: 300;
   padding-top: 40px;
@@ -54,8 +56,8 @@
 	height:480px;
 	background-size:cover;
 	background-position:center;
-   	background-repeat:no-repeat;
-    color:#fff;
+  background-repeat:no-repeat;
+  color:#fff;
 }
 
 .product-cover-overlay {
@@ -73,8 +75,8 @@
 .product-cover-title {
   margin: 0;
   padding-top: 360px;
-  padding-left: 10px;
-  padding-right: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
   font-family: "lato", Helvetica, Arial;
   font-weight: 100;
   font-size: 32pt;
@@ -86,8 +88,8 @@
   font-weight: 300;
   font-size: 13pt;
   padding-top: 420px;
-  padding-left: 10px;
-  padding-right: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
   position: absolute;
   z-index: 3;
 }
@@ -97,4 +99,36 @@
   padding-right: 5px;
   padding-top: 5px;
   padding-bottom: 5px;
+}
+
+.media-user {
+  margin: 0;
+  padding-top: 400px;
+  padding-left: 15px;
+  padding-right: 10px;
+  font-family: "lato", Helvetica, Arial;
+  font-weight: 300;
+  font-size: 18pt;
+  position: absolute;
+  z-index: 3;
+}
+
+ul.product-social-buttons li a {
+  display: block;
+  width: 36px;
+  height: 36px;
+  border-radius: 100%;
+  font-size: 14pt;
+  line-height: 36px;
+  outline: 0;
+  color: #fff;
+  background-color: none;
+  -webkit-transition: all .3s;
+  -moz-transition: all .3s;
+  transition: all .3s;
+}
+
+ul.product-social-buttons li a:hover {
+  background-color: none;
+  color: #2996cc;
 }
