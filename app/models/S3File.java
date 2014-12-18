@@ -59,7 +59,7 @@ public class S3File extends Model {
   }
 
   public String getActualFileName() {
-    return productName + "/"+ id + "_" + fileName;
+    return id + "_" + fileName;
   }
 
   public String getBucket() {
@@ -127,7 +127,7 @@ public void setFile(File file) {
       //parse <id>_#<name>
       String productID = null;
       if (productName!=null ){
-    	  productID = productName.split("_#")[0];
+    	  productID = productName.split("_")[0];
     	  Logger.debug("product ID fectched =" + productID);
       }
       //look up product based on id

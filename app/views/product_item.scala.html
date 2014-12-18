@@ -18,14 +18,14 @@
       @for(media <- product.mediaItems) {
         <div class="col-sm-6 col-xs-12 product-cover-item">
             <div class="product-cover-photo"
-            style="background-image: url('media.cloudFrontLink')">
+            style="background-image: url('@media.cloudFrontLink');">
               <div class="product-cover-overlay"></div>
-              <p class="product-cover-title">media.submittedByUserID</p>
+              <p class="product-cover-title">@media.submittedByUserID</p>
             </div>
         </div>
       }
 
-      <div class="row">
+      <!-- <div class="row">
         <div class="col-md-4 product-photo">
             <img class="img-responsive" src="https://s3.amazonaws.com/sproutup-cdn/product/belleds/photos/2014-12-09+11.00.13.jpg">
         </div>
@@ -36,7 +36,7 @@
             <img class="img-responsive" src="https://s3.amazonaws.com/sproutup-cdn/product/belleds/photos/2014-12-09+21.13.29.jpg">
         </div>
 
-      </div>
+      </div> -->
 
     </div>
 
