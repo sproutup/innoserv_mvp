@@ -57,6 +57,7 @@ create table s3file (
   id                        varchar(40) not null,
   bucket                    varchar(255),
   file_name                 varchar(255),
+  folder_name               varchar(255),
   submitted_user            varchar(255),
   product_name              varchar(255),
   constraint pk_s3file primary key (id))
