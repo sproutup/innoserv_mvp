@@ -12,6 +12,7 @@ import com.feth.play.module.pa.exceptions.AuthException;
 import controllers.routes;
 import play.Application;
 import play.GlobalSettings;
+import play.Logger;
 import play.libs.Yaml;
 import play.mvc.Call;
 import play.data.format.Formatters;
@@ -22,8 +23,12 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.ArrayList;
+
 import java.util.Locale;
 import java.util.Map;
+
+import javax.persistence.OptimisticLockException;
 
 
 public class Global extends GlobalSettings {
@@ -95,12 +100,26 @@ public class Global extends GlobalSettings {
 		}
 		
 		//load products data
-        if(Ebean.find(Product.class).findRowCount() == 0) {
-            @SuppressWarnings("unchecked")
-			Map<String,List<Object>> all = (Map<String,List<Object>>)Yaml.load("initial-data.yml");
-            Ebean.save(all.get("products"));
-          
-        }
+        try {
+			
+        	@SuppressWarnings("unchecked")
+			Map<String,ArrayList<Object>> all = (Map<String,ArrayList<Object>>)Yaml.load("initial-data.yml");
+			if (all!=null){
+				ArrayList<Object> entries = all.get("products");
+				int prodEntriesCount = Ebean.find(Product.class).findRowCount();
+				int newEntriesCount = entries.size() - prodEntriesCount;
+				if( newEntriesCount>0 ) {
+					Logger.debug("Adding" + newEntriesCount + "new entries in the product table");
+				    for (int i = 0; i< prodEntriesCount;i++)
+				    	entries.remove(0);
+					Ebean.save(entries);
+				}
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			Logger.error("Problem adding new entries in the product table");
+			e.printStackTrace();
+		}
 	        
 	        
 	    

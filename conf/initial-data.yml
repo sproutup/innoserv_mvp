@@ -19,4 +19,9 @@ products:
         productEAN:          11114
         productName:        Miselu C.25
         productDescription: The Music Keyboard for iPad
+
+    - !!models.Product
+        productEAN:         11115
+        productName:        Clyde
+        productDescription: An expressive lamp for creative homes
         
