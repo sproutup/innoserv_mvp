@@ -29,7 +29,7 @@
 
         @for(media <- product.mediaItems) {
           @if(media.mediaType == "image") {
-            <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 media-photo">
+            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 media-photo">
               <div class="media-photo-background"
               style="background-image: url('@media.cloudFrontLink');">
                 <div class="media-photo-overlay"></div>
@@ -50,6 +50,8 @@
     </div>
   </section>
   <!-- end of section "media" -->
+
+  @if(product.id == 1) {
 
   <hr>
 
@@ -161,6 +163,7 @@
     </div>
 
   </section>
+  }
 
   <hr>
 
