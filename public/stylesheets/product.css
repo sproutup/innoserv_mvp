@@ -1,6 +1,6 @@
 .product-header {
   width: 100%;
-  height: 560px;
+  height: 400px;
   margin-top: 70px;
   margin-bottom: 30px;
   text-align: left;
@@ -36,7 +36,7 @@
 .product-item-page-header {
   font-family: "lato", Helvetica,Arial,sans-serif;
   font-weight: 300;
-  padding-top: 20px;
+  padding-top: 40px;
   padding-bottom: 20px;
   font-size: 18pt;
 }
@@ -138,8 +138,8 @@ section {
 
 ul.media-social-buttons li a {
   display: block;
-  width: 20px;
-  height: 20px;
+  width: 28px;
+  height: 28px;
   border-radius: 100%;
   font-size: 14pt;
   line-height: 20px;
@@ -163,7 +163,7 @@ ul.media-social-buttons li a:hover {
 }
 
 .comment-tags {
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 
 .btn-tags {
@@ -190,6 +190,10 @@ ul.media-social-buttons li a:hover {
 }
 
 .comment-content {
+  padding-bottom: 18px;
+}
+
+.comment-content p {
   line-height: 1.4;
   font-size: 14pt;
   color: #434343;
@@ -197,8 +201,8 @@ ul.media-social-buttons li a:hover {
 }
 
 .user-img-circle {
-  width: 80px;
-  height: 80px;
+  width: 120px;
+  height: 120px;
   -webkit-border-radius: 500px;
   -moz-border-radius: 500px;
   border-radius: 500px;

@@ -6,18 +6,18 @@
     <div class="product-cover-overlay"></div>
     <div class="product-info">
       <div class="col-lg-12 col-md-12 col-sm-12">
-          <p class="product-title">@product.productName</p>
-          <p class="product-description">@product.productDescription</p>
-          <ul class="list-inline product-social-buttons">
-            <li><a href="" target="_blank"><i class="fa fa-home"></i></a>
-            </li>
-            <li><a href="" target="_blank"><i class="fa fa-facebook"></i></a>
-            </li>
-            <li><a href="" target="_blank"><i class="fa fa-twitter"></i></a>
-            </li>
-            <li><a href="" target="_blank"><i class="fa fa-pinterest"></i></a>
-            </li>
-          </ul>
+        <p class="product-title">@product.productName</p>
+        <p class="product-description">@product.productDescription</p>
+        <ul class="list-inline product-social-buttons">
+          <li><a href="" target="_blank"><i class="fa fa-home"></i></a>
+          </li>
+          <li><a href="" target="_blank"><i class="fa fa-facebook"></i></a>
+          </li>
+          <li><a href="" target="_blank"><i class="fa fa-twitter"></i></a>
+          </li>
+          <li><a href="" target="_blank"><i class="fa fa-pinterest"></i></a>
+          </li>
+        </ul>
       </div>
     </div>
   </div>
@@ -27,38 +27,39 @@
     <div class="container">
       <div class="product-item-page-header">How people are <font color="#2996cc" >USING</font> @product.productName</div>
 
-        @for(media <- product.mediaItems) {
-          @if(media.mediaType == "video") {
+      @for(media <- product.mediaItems) {
+        @if(media.mediaType == "video") {
 
-          }
         }
+      }
 
-        @for(media <- product.mediaItems) {
+      @for(media <- product.mediaItems) {
 
-          @if(media.mediaType == "image") {
-            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 media-photo">
-              <div class="media-photo-background"
-              style="background-image: url('@media.cloudFrontLink');">
-                <div class="media-photo-overlay"></div>
-                <div class="media-photo-meta">
-                  <p class="media-user">@media.submittedByUserID</p>
-                  <ul class="list-inline media-social-buttons">
-                    <li><a href=""><i class="fa fa-heart-o"></i></a>
-                    </li>
-                    <li><a href=""><i class="fa fa-share-alt"></i></a>
-                    </li>
-                  </ul>
-                </div>
+        @if(media.mediaType == "image") {
+          <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 media-photo">
+            <div class="media-photo-background"
+            style="background-image: url('@media.cloudFrontLink');">
+              <div class="media-photo-overlay"></div>
+              <div class="media-photo-meta">
+                <p class="media-user">@media.submittedByUserID</p>
+                <ul class="list-inline media-social-buttons">
+                  <li>
+                    <a href=""><i class="fa fa-heart-o"></i></a>
+                  </li>
+                  <li>
+                    <a href=""><i class="fa fa-share-alt"></i></a>
+                  </li>
+                </ul>
               </div>
             </div>
-          }
+          </div>
         }
-
+      }
     </div>
   </section>
   <!-- end of section "media" -->
 
-  @if(product.id == 1) {
+@if(product.id == 1) {
 
   <hr>
 
@@ -67,67 +68,177 @@
 
     <!-- Compliments -->
     <div class="container">
-      <div class="product-item-page-header">Top <font color="#2996cc" >COMPLIMENTS</font> about @product.productName</div>
+      <div class="product-item-page-header">Community's <font color="#2996cc" >COMPLIMENTS</font> about @product.productName</div>
+
       <div class="comment-content-section-a">
-          <div class="row">
-            <div class="col-lg-2 col-md-2 col-sm-2">
-              <img class="img-center img-responsive user-img-circle" src="@routes.Assets.at("images/josh.jpg")">
-              <p class="comment-user">Josh Abdul</p>
+        <div class="row">
+          <div class="col-lg-2 col-md-2 col-sm-2">
+            <img class="img-center img-responsive user-img-circle" src="@routes.Assets.at("images/user/josh.jpg")">
+            <p class="comment-user">Josh Abdul</p>
+          </div>
+          <div class="col-lg-10 col-md-10 col-sm-10">
+            <div class="comment-tags">
+              <button type="button" class="btn btn-success btn-tags">manual</button>
             </div>
-            <div class="col-lg-10 col-md-10 col-sm-10">
-              <div class="comment-tags">
-                <button type="button" class="btn btn-success btn-tags">manual</button>
-                <button type="button" class="btn btn-success btn-tags">packaging</button>
-                <button type="button" class="btn btn-success btn-tags">install</button>
-                <button type="button" class="btn btn-success btn-tags">feature</button>
-                <button type="button" class="btn btn-success btn-tags">quality</button>
-              </div>
-              <p class="comment-content">I love the double manual. It's nice to see its iOS and Android compatable. (Not 100% mandatory but typically there's a Spanish manuel included. I don't speak Spanish but for non English speaking consumers it might be worth wile to direct them to a .Pdf online or something lol).</p>
-              <p class="comment-content">Everything on the inside looks and feels like a premium top of the line product. There's a spot for each bulb, the wifi box is front and center, and the cords are wrapped properly with twisty tie thingys</p>
-              <p class="comment-content">Hooking up the box to the router went super smooth. I plugged everything in and was ready to go in minutes.</p>
-              <p class="comment-content">I give the QBulb a 8/10. This is a awesome product and I can't wait for them to officially launch. I've never used a wifi light before the QBulb, but out of the box I had it up and running within the 1st 15min. I had to dock some points for some of the issues I listed above. The quality of the product is very high end.  After doing some price comparisons I relished this is the most afordable on the market and dosnt feel cheap cheaper or of lesser value in anyway. I did some test with a non tech savvy friend to see how they felt about it, but realistically a non tech savvy person wouldn't be a typical consumer of a wifi light bulb. After he experienced the QBulb in person I asked if he would be interested in buying one. He was very interested in the product, but said it was still too expensive for lights. I couldn't figure out all of the other special features I saw in the Kickstarter video on my own. Hopefully when the QBulb is officially released there will be more information on how to do so.</p>
+            <div class="comment-content">
+              <p>I love the double manual. It's nice to see its iOS and Android compatible. (Not 100% mandatory but typically there's a Spanish manuel included.</p>
+            </div>
+
+            <div class="comment-tags">
+              <button type="button" class="btn btn-success btn-tags">packaging</button>
+              <button type="button" class="btn btn-success btn-tags">premium</button>
+            </div>
+            <div class="comment-content">
+              <p>Everything on the inside looks and feels like a premium top of the line product. There's a spot for each bulb, the wifi box is front and center, and the cords are wrapped properly with twisty tie things</p>
+            </div>
+
+            <div class="comment-tags">
+              <button type="button" class="btn btn-success btn-tags">installation</button>
+            </div>
+            <div class="comment-content">
+              <p>Hooking up the box to the router went super smooth. I plugged everything in and was ready to go in minutes.</p>
+            </div>
+
+            <div class="comment-tags">
+              <button type="button" class="btn btn-success btn-tags">app</button>
+              <button type="button" class="btn btn-success btn-tags">UI</button>
+              <button type="button" class="btn btn-success btn-tags">responsive</button>
+            </div>
+            <div class="comment-content">
+              <p>The app's UI is super clean and minimal. I consider myself pretty tech savvy so figuring out the basic controls without instructions was pretty easy. My friend who is not so tech savvy eventually figured it out but had to refer to the instructions again.</p>
+              <p>The apps controls are super responsive. There is little to no lag time while adjusting light settings over wifi like some other wifi controlled products I've used in the past.</p>
+              <p>I did a test to see if the lights could be controlled by multiple devices at the same time. It worked pretty seamlessly. I'm not quit sure what the use case would be for that function of the top of my head, but it worked perfectly.</p>
+            </div>
+
+            <div class="comment-tags">
+              <button type="button" class="btn btn-success btn-tags">bulb quality</button>
+              <button type="button" class="btn btn-success btn-tags">amount of light</button>
+              <button type="button" class="btn btn-success btn-tags">vibrant color</button>
+            </div>
+            <div class="comment-content">
+              <p>The lights give off just the right amount of light. The white light gives off the same amount of light a 60 watt soft light would. The colors are vibrant and still just as bright as expected. The dimmer transition is smooth and responsive to the app. The bulb build quality is perfect.</p>
+            </div>
+
+            <div class="comment-tags">
+              <button type="button" class="btn btn-success btn-tags">pricing</button>
+            </div>
+            <div class="comment-content">
+              <p>$149 is a fare price for the QBulb considering the competitors are all $50+ more expensive. It would be nice to see a limited time offer of $99.99. At the lower price of $99.99 I feel like you could get more consumers that aren't familiar with the wifi lighting systems to try it out. I can defiantly see myself using this now, but I would have really loved to have one of these in college. If I were to throw a party now I don't think I'd want the lights to be flashing different colors the whole time. That was not the case while I was in school.</p>
+            </div>
+
+            <div class="comment-tags">
+              <button type="button" class="btn btn-success btn-tags">overall experience</button>
+            </div>
+            <div class="comment-content">
+              <p>I give the QBulb a 8/10. This is a awesome product and I can't wait for them to officially launch. I've never used a wifi light before the QBulb, but out of the box I had it up and running within the 1st 15min. The quality of the product is very high end.  After doing some price comparisons I relished this is the most afordable on the market and dosnt feel cheap cheaper or of lesser value in anyway. I did some test with a non tech savvy friend to see how they felt about it, but realistically a non tech savvy person wouldn't be a typical consumer of a wifi light bulb. After he experienced the QBulb in person I asked if he would be interested in buying one. He was very interested in the product, but said it was still too expensive for lights. I couldn't figure out all of the other special features I saw in the Kickstarter video on my own. Hopefully when the QBulb is officially released there will be more information on how to do so.</p>
             </div>
           </div>
+        </div>
       </div>
 
       <div class="comment-content-section-b">
         <div class="row">
           <div class="col-lg-2 col-md-2 col-sm-2">
-            <img class="img-center img-responsive user-img-circle" src="@routes.Assets.at("images/kevin.jpg")">
+            <img class="img-center img-responsive user-img-circle" src="@routes.Assets.at("images/user/kevin.jpg")">
             <p class="comment-user">Kevin Cevasco</p>
           </div>
           <div class="col-lg-10 col-md-10 col-sm-10">
             <div class="comment-tags">
               <button type="button" class="btn btn-success btn-tags">color</button>
-              <button type="button" class="btn btn-success btn-tags">app</button>
             </div>
-            <p class="overview-content-detail">Impressed by the number and quality of colors the bulbs produced!The instructions could use a higher level explanation showing flow of music source, speakers, etc. There are many cables and we were sure which ones we needed.</p>
-            <p class="overview-content-detail">The app names for the iPhone vs. iPad version are different on the AppStore. It would be helpful to slow the frequency of light changes. Some fast paced music created rapid changes in color that were a little too much.</p>
-            <p class="overview-content-detail">This product seems similar to the Phillips Hue..</p>
+            <div class="comment-content">
+              <p>Impressed by the number and quality of colors the bulbs produced!</p>
+              <p>This product seems similar to the Phillips Hue..</p>
+            </div>
           </div>
         </div>
       </div>
+
+      <div class="comment-content-section-a">
+        <div class="row">
+
+          <div class="col-lg-2 col-md-2 col-sm-2">
+            <img class="img-center img-responsive user-img-circle" src="@routes.Assets.at("images/user/mike.jpg")">
+            <p class="comment-user">Mike Santore</p>
+          </div>
+
+          <div class="col-lg-10 col-md-10 col-sm-10">
+            <div class="comment-tags">
+              <button type="button" class="btn btn-success btn-tags">packaging</button>
+            </div>
+            <div class="comment-content">
+              <p>Feels well built, sturdy. Presents well in the box.</p>
+            </div>
+            <div class="comment-tags">
+              <button type="button" class="btn btn-success btn-tags">installation</button>
+            </div>
+            <div class="comment-content">
+              <p>Easy from a hardware standpoint.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
     </div>
+    <!-- End of Compliments -->
+
+    <hr>
 
     <!-- Suggestions -->
     <div class="container">
-      <div class="product-item-page-header">Top <font color="#2996cc">SUGGESTIONS</font> about @product.productName</div>
+      <div class="product-item-page-header">Community's <font color="#2996cc">SUGGESTIONS</font> about @product.productName</div>
 
       <div class="comment-content-section-a">
         <div class="row">
           <div class="col-lg-2 col-md-2 col-sm-2">
-            <img class="img-center img-responsive user-img-circle" src="@routes.Assets.at("images/josh.jpg")">
+            <img class="img-center img-responsive user-img-circle" src="@routes.Assets.at("images/user/josh.jpg")">
             <p class="comment-user">Josh Abdul</p>
           </div>
+
           <div class="col-lg-10 col-md-10 col-sm-10">
+
             <div class="comment-tags">
-              <button type="button" class="btn btn-warning btn-tags">packaging</button>
-              <button type="button" class="btn btn-warning btn-tags">app</button>
-              <button type="button" class="btn btn-warning btn-tags">music streaming</button>
+              <button type="button" class="btn btn-warning btn-tags">packaging exterior</button>
             </div>
-            <p class="comment-content">The packaging might need some visual treatment. If I were to pick this up off of the self from a store I would really know what I was getting. There's no information in regards to what wattage the lights should be used with, what devices its compatable with, what comes in the box, company website info, etc.</p>
-            <p class="comment-content">After I downloaded the app to control the light I couldn't figure out why the bulb was flashing differnt colors. After tinkering around for a bit I realized my music was playing on my phone causing the light to go into "party mode". Once I turned off my music all of the controls worked perfectly. The QBulb box wasn't hooked up to any speakers at this point. My phone's output sound wasrouted to the QBulb's box. It might be a good idea to start with setting up the basic light bulb functions before going into the other features like syncing music.</p>
-            <p class="comment-content">You can't control your lights while the music is streaming. Not a big deal, but the app doesn't give any feedback about the wifi lights status. For example; if music is playing and my only options are to dim the light or turn it off the other light functions should display as disabled or the app should alert me the bulb is busy streaming music.</p>
+            <div class="comment-content">
+              <p>The packaging might need some visual treatment. If I were to pick this up off of the self from a store I would really know what I was getting. There's no information in regards to what wattage the lights should be used with, what devices its compatable with, what comes in the box, company website info, etc.</p>
+            </div>
+
+            <div class="comment-tags">
+              <button type="button" class="btn btn-warning btn-tags">music streaming</button>
+              <button type="button" class="btn btn-warning btn-tags">app feedback</button>
+            </div>
+            <div class="comment-content">
+              <p>You can't control your lights while the music is streaming. Not a big deal, but the app doesn't give any feedback about the wifi lights status. For example; if music is playing and my only options are to dim the light or turn it off the other light functions should display as disabled or the app should alert me the bulb is busy streaming music.</p>
+            </div>
+
+            <div class="comment-tags">
+              <button type="button" class="btn btn-warning btn-tags">app</button>
+              <button type="button" class="btn btn-warning btn-tags">first-time experience</button>
+              <button type="button" class="btn btn-warning btn-tags">instruction</button>
+            </div>
+            <div class="comment-content">
+              <p>The QBulb app works great, but might need some more instructions. After downloading the app for the 1st time I landed on the BellQ welcome screen. There are 3 options to choose from. A wifi icon, a cinema/movie icon, and a bulb icon. I selected the bulb icon like the instructions stated, but it would be even more clear if the icons had labels. (I did a test with my friend to see how fast he could set the bulb up without instructions. He figured everything out for the most part, but when he got to the app he didn't know what selection to make.) </p>
+            </div>
+
+            <div class="comment-tags">
+              <button type="button" class="btn btn-warning btn-tags">app</button>
+              <button type="button" class="btn btn-warning btn-tags">UI design</button>
+            </div>
+            <div class="comment-content">
+              <p>This might be nitpicky, but I feel like it makes more sense for the color mode/white light mode to be a tab or toggle option. Very similar to what you would see at the top of the "top charts" section of the iTunes Store App [ Paid | Free | Top Grossing ]. The only reason I say that is because it dosnt make sense to have a color wheel on white light mode.</p>
+              <p>The instructions didn't discribe how to differentiate light A B and C from one another. Is light A the first light a consumer screws in and turns on? Does the user have to turn the bulbs on in a sequential order to determine which light is what?</p>
+              <p>It's not 100% clear on how to get back to the Home screen from the bulb control page. I always have to shutdown then restart the app to get to the rest of the music and wifi settings.</p>
+              <p>I found it weird that the divice settings screens weren't designed to the iPhones screen size.</p>
+            </div>
+
+            <div class="comment-tags">
+              <button type="button" class="btn btn-warning btn-tags">alarm clock </button>
+            </div>
+            <div class="comment-content">
+              <p>On the Kickstarter video I saw there was a way to sync your QBulb to your alarm clock. It might be a good idea to include the how to guide in the manual or direct the user to some tips and tricks on the website. (Instructional Youtubes have been very popular and helpful. Having some tips and tricks videos on the site might be a nice touch for the extra features).</p>
+            </div>
           </div>
         </div>
       </div>
@@ -135,43 +246,83 @@
       <div class="comment-content-section-b">
         <div class="row">
           <div class="col-lg-2 col-md-2 col-sm-2">
-            <img class="img-center img-responsive user-img-circle" src="@routes.Assets.at("images/kevin.jpg")">
+            <img class="img-center img-responsive user-img-circle" src="@routes.Assets.at("images/user/kevin.jpg")">
             <p class="comment-user">Kevin Cevasco</p>
           </div>
+
           <div class="col-lg-10 col-md-10 col-sm-10">
+
             <div class="comment-tags">
-              <button type="button" class="btn btn-warning btn-tags">instructions</button>
-              <button type="button" class="btn btn-warning btn-tags">app</button>
-              <button type="button" class="btn btn-warning btn-tags">Phillips</button>
+              <button type="button" class="btn btn-warning btn-tags">instruction manual</button>
             </div>
-            <p class="comment-content">Impressed by the number and quality of colors the bulbs produced!The instructions could use a higher level explanation showing flow of music source, speakers, etc. There are many cables and we were sure which ones we needed.</p>
-            <p class="comment-content">The app names for the iPhone vs. iPad version are different on the AppStore. It would be helpful to slow the frequency of light changes. Some fast paced music created rapid changes in color that were a little too much.</p>
-            <p class="comment-content">This product seems similar to the Phillips Hue..</p>
+            <div class="comment-content">
+              <p>The instructions could use a higher level explanation showing flow of music source, speakers, etc. There are many cables and we were sure which ones we needed.</p>
+            </div>
+
+            <div class="comment-tags">
+              <button type="button" class="btn btn-warning btn-tags">app</button>
+            </div>
+            <div class="comment-content">
+              <p>It would be helpful to slow the frequency of light changes. Some fast paced music created rapid changes in color that were a little too much.</p>
+            </div>
+
+            <div class="comment-tags">
+              <button type="button" class="btn btn-warning btn-tags">music</button>
+              <button type="button" class="btn btn-warning btn-tags">color change</button>
+            </div>
+            <div class="comment-content">
+              <p>It would be helpful to slow the frequency of light changes. Some fast paced music created rapid changes in color that were a little too much.</p>
+            </div>
           </div>
         </div>
       </div>
     </div>
+    <!-- End of Suggestions -->
+
+    <hr>
 
     <!-- Questions -->
     <div class="container">
-      <div class="product-item-page-header">Top <font color="#2996cc">QUESTIONS</font> about @product.productName</div>
+      <div class="product-item-page-header">Community's <font color="#2996cc">QUESTIONS</font> about @product.productName</div>
       <div class="comment-content-section-a">
         <div class="row">
           <div class="col-lg-2 col-md-2 col-sm-2">
-            <img class="img-center img-responsive user-img-circle" src="@routes.Assets.at("images/josh.jpg")">
+            <img class="img-center img-responsive user-img-circle" src="@routes.Assets.at("images/user/josh.jpg")">
             <p class="comment-user">Josh Abdul</p>
           </div>
+
           <div class="col-lg-10 col-md-10 col-sm-10">
-            <p class="comment-content">The instructions didn't discribe how to differentiate light A B and C from one another. Is light A the first light a consumer screws in and turns on? Does the user have to turn the bulbs on in a sequential order to determine which light is what?</p>
+            <div class="comment-tags">
+              <button type="button" class="btn btn-warning btn-tags">instruction manual</button>
+              <button type="button" class="btn btn-warning btn-tags">bulb differentiation</button>
+            </div>
+            <div class="comment-content">
+              <p>The instructions didn't discribe how to differentiate light A B and C from one another. Is light A the first light a consumer screws in and turns on? Does the user have to turn the bulbs on in a sequential order to determine which light is what?</p>
+            </div>
+
+            <div class="comment-tags">
+              <button type="button" class="btn btn-warning btn-tags">music syncing</button>
+            </div>
+            <div class="comment-content">
+              <p>After I downloaded the app to control the light I couldn't figure out why the bulb was flashing differnt colors. After tinkering around for a bit I realized my music was playing on my phone causing the light to go into "party mode". Once I turned off my music all of the controls worked perfectly. The QBulb box wasn't hooked up to any speakers at this point. My phone's output sound wasrouted to the QBulb's box. It might be a good idea to start with setting up the basic light bulb functions before going into the other features like syncing music.</p>
+            </div>
+
+            <div class="comment-tags">
+              <button type="button" class="btn btn-warning btn-tags">bulb control</button>
+            </div>
+            <div class="comment-content">
+              <p>I wondered if I have more than 3 QBulbs how could I control the 4th or 5th light?</p>
+            </div>
           </div>
         </div>
       </div>
-
     </div>
+    <!-- End of Questions -->
+
 
   </section>
-  }
+}
 
-  <hr>
+<hr>
 
 }
