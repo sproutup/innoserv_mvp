@@ -28,6 +28,13 @@
       <div class="product-item-page-header">How people are <font color="#2996cc" >USING</font> @product.productName</div>
 
         @for(media <- product.mediaItems) {
+          @if(media.mediaType == "video") {
+
+          }
+        }
+
+        @for(media <- product.mediaItems) {
+
           @if(media.mediaType == "image") {
             <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 media-photo">
               <div class="media-photo-background"
