@@ -24,7 +24,7 @@
   font-family: "lato", Helvetica,Arial,sans-serif;
   font-weight: 300;
   margin-top: 120px;
-  font-size: 36pt;
+  font-size: 32pt;
   color: #eaeaea;
 }
 
@@ -40,25 +40,6 @@
   border-radius: 2px;
 }
 
-.btn-outline {
-  width: 200px;
-  height: 60px;
-  margin-top: 100px;
-  border: solid 1px #eaeaea;
-  font-family: "lato", Helvetica,Arial,sans-serif;
-  font-weight: 300;
-  font-size: 16pt;
-  color: #eaeaea;
-  background: 0 0;
-}
-
-.btn-outline:hover,
-.btn-outline:focus,
-.btn-outline:active,
-.btn-outline.active {
-  border: solid 1px #fff;
-  color: #fff;
-}
 
 .marketing {
   margin: 0 5%;
@@ -69,7 +50,7 @@
   padding-bottom: 50px;
   padding-left: 2%;
   padding-right: 2%;
-  font-size: 36pt;
+  font-size: 32pt;
   font-family: "lato",Helvetica,Arial,sans-serif;
   font-weight: 300;
   color: #fff;
@@ -90,9 +71,9 @@
 
 .marketing-title {
   padding-top: 16px;
-  font-size: 15pt;
+  font-size: 14pt;
   font-family: "lato",Helvetica,Arial,sans-serif;
-  font-weight: 300;
+  font-weight: 400;
   color: #fff;
 }
 

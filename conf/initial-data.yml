@@ -3,7 +3,7 @@ products:
     - !!models.Product
         productEAN:          11111
         productName:        Belleds
-        productDescription: Smart audio and lighting platform
+        productDescription: Smart home audio and lighting platform
 
     - !!models.Product
         productEAN:          11112

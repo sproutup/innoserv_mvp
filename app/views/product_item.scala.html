@@ -3,9 +3,8 @@
 @main(Messages("Explore Products - Redefine Commerce for Emerging Products")) {
 
   <div class="product-header" style="background-image: url('@routes.Assets.at("images/product/"+product.productEAN+".jpg")')">
-    <div class="product-cover-overlay"></div>
     <div class="product-info">
-      <div class="col-lg-12 col-md-12 col-sm-12">
+      <div class="col-lg-12">
         <p class="product-title">@product.productName</p>
         <p class="product-description">@product.productDescription</p>
         <ul class="list-inline product-social-buttons">
@@ -18,6 +17,7 @@
           <li><a href="" target="_blank"><i class="fa fa-pinterest"></i></a>
           </li>
         </ul>
+        <button class="btn-outline">Share my experience</button>
       </div>
     </div>
   </div>
