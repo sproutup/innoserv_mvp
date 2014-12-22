@@ -21,16 +21,16 @@
 }
 
 .hero-message > h1 {
-  font-family: "roboto", Helvetica,Arial,sans-serif;
-  font-weight: 100;
+  font-family: "lato", Helvetica,Arial,sans-serif;
+  font-weight: 300;
   margin-top: 120px;
-  font-size: 42pt;
+  font-size: 36pt;
   color: #eaeaea;
 }
 
 .welcome-message {
-	font-family: "roboto", Helvetica, Arial, sans-serif;
-    font-weight: 100;
+	font-family: "lato", Helvetica, Arial, sans-serif;
+    font-weight: 300;
     margin-top: 100px;
     font-size: 18pt;
 }
@@ -45,7 +45,7 @@
   height: 60px;
   margin-top: 100px;
   border: solid 1px #eaeaea;
-  font-family: "roboto", Helvetica,Arial,sans-serif;
+  font-family: "lato", Helvetica,Arial,sans-serif;
   font-weight: 300;
   font-size: 16pt;
   color: #eaeaea;
@@ -69,9 +69,9 @@
   padding-bottom: 50px;
   padding-left: 2%;
   padding-right: 2%;
-  font-size: 32pt;
-  font-family: "roboto",Helvetica,Arial,sans-serif;
-  font-weight: 100;
+  font-size: 36pt;
+  font-family: "lato",Helvetica,Arial,sans-serif;
+  font-weight: 300;
   color: #fff;
 }
 
@@ -91,7 +91,7 @@
 .marketing-title {
   padding-top: 16px;
   font-size: 15pt;
-  font-family: "roboto",Helvetica,Arial,sans-serif;
+  font-family: "lato",Helvetica,Arial,sans-serif;
   font-weight: 300;
   color: #fff;
 }
@@ -107,9 +107,9 @@
 
 .product-list-header {
   text-align: center;
-  font-family: "Roboto", Helvetica, Arial, sans-serif;
-  font-weight: 100;
-  font-size: 32pt;
+  font-family: "lato", Helvetica, Arial, sans-serif;
+  font-weight: 300;
+  font-size: 30pt;
   color: #5f5f5f;
   margin-top: 70px;
   margin-bottom: 20px;
@@ -119,7 +119,7 @@
 
 .product-list-header-2 {
   text-align: center;
-  font-family: "Roboto", Helvetica, Arial, sans-serif;
+  font-family: "lato", Helvetica, Arial, sans-serif;
   font-weight: 300;
   font-size: 14pt;
   color: #929292;

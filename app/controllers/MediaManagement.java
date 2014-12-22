@@ -25,14 +25,14 @@ public class MediaManagement extends Controller {
 	public static Result upload() {
 		List<S3File> uploads = new Model.Finder(UUID.class, S3File.class).all();
 		List<Product> products = new Product().getAll();
-		return ok(upload.render(uploads, mediaUploadForm, products));
+		return ok(internalonlyupload.render(uploads, mediaUploadForm, products));
 	}
 
 	public static Result doUpload() {
 
 		Form<S3File> filledForm = mediaUploadForm.bindFromRequest();
 		S3File s3File = filledForm.get();
-		
+
 		MultipartFormData body = request().body().asMultipartFormData();
 		MultipartFormData.FilePart uploadFilePart = body.getFile("upload");
 

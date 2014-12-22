@@ -1,8 +1,12 @@
+.product-list {
+  margin-top: 100px;
+  margin-bottom: 30px;
+}
+
 .product-header {
   width: 100%;
   height: 400px;
   margin-top: 70px;
-  margin-bottom: 30px;
   text-align: left;
   background-position:center;
   background-repeat:no-repeat;
@@ -36,14 +40,17 @@
 .product-item-page-header {
   font-family: "lato", Helvetica,Arial,sans-serif;
   font-weight: 300;
-  padding-top: 40px;
+  padding-top: 35px;
   padding-bottom: 20px;
-  font-size: 18pt;
+  padding-left: 15px;
+  font-size: 21pt;
+  color: #434343;
 }
 
-.product-list {
-  margin-top: 100px;
-  margin-bottom: 30px;
+.header-em {
+  font-weight:400;
+  color: #2996cc;
+  font-size: 24pt;
 }
 
 .product-cover-item {
@@ -95,9 +102,18 @@
   z-index: 3;
 }
 
-section {
+.media {
   margin-top: 0px;
   margin-bottom: 40px;
+  margin-left: 15px;
+  margin-right: 15px;
+}
+
+.feedback {
+  margin-top: 0px;
+  margin-bottom: 40px;
+  margin-left: 15px;
+  margin-right: 15px;
 }
 
 .media-photo {
@@ -116,10 +132,10 @@ section {
 }
 
 .media-photo-overlay {
-  background: -webkit-linear-gradient(bottom, rgba(0,0,0,0), rgba(0,0,0,0.5));
-  background: -o-linear-gradient(bottom, rgba(0,0,0,0), rgba(0,0,0,0.5));
-  background: -moz-linear-gradient(bottom, rgba(0,0,0,0), rgba(0,0,0,0.5));
-  background: linear-gradient(to bottom, rgba(0,0,0,0), rgba(0,0,0,0.5));
+  background: -webkit-linear-gradient(bottom, rgba(0,0,0,0), rgba(0,0,0,0.35));
+  background: -o-linear-gradient(bottom, rgba(0,0,0,0), rgba(0,0,0,0.35));
+  background: -moz-linear-gradient(bottom, rgba(0,0,0,0), rgba(0,0,0,0.35));
+  background: linear-gradient(to bottom, rgba(0,0,0,0), rgba(0,0,0,0.35));
   float: left;
   top: 0;
   left: 0;
@@ -164,18 +180,77 @@ ul.media-social-buttons li a:hover {
 
 .comment-tags {
   margin-bottom: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 .btn-tags {
-  font-weight: 500;
+  font-weight: 400;
   font-size: 10pt;
+  color: #fff;
+}
+
+.btn-compliments{
+  background-color: #6bc224;
+  border: solid #6bc224 1px;
+}
+
+.header-compliments {
+  font-weight:400;
+  color: #6bc224;
+  font-size: 24pt;
+}
+
+.btn-suggestions{
+  background-color: #eb973d;
+  border: solid #eb973d 1px;
+}
+
+.header-suggestions {
+  font-weight:400;
+  color: #eb973d;
+  font-size: 24pt;
+}
+
+.btn-ideas{
+  background-color: #2FBBEC;
+  border: solid #2FBBEC 1px;
+}
+
+.header-ideas {
+  font-weight: 400;
+  color: #2FBBEC;
+  font-size: 24pt;
+}
+
+.btn-questions {
+  background-color: #929292;
+  border: solid #929292 1px;
+}
+
+.header-questions {
+  font-weight: 400;
+  color: #929292;
+  font-size: 24pt;
+}
+
+.btn-critiques {
+  background-color: #EA3636;
+  border: solid #EA3636 1px;
+}
+
+.header-critiques {
+  font-weight: 400;
+  color: #ea3636;
+  font-size: 24pt;
 }
 
 .comment-user {
   text-align: center;
   margin-top: 15px;
   font-weight: 500;
-  font-size: 12pt;
+  font-size: 13pt;
+  font-weight: 300;
 }
 
 .comment-content-section-a {
@@ -191,13 +266,15 @@ ul.media-social-buttons li a:hover {
 
 .comment-content {
   padding-bottom: 18px;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 .comment-content p {
-  line-height: 1.4;
-  font-size: 14pt;
-  color: #434343;
-  font-weight: 300;
+  line-height: 1.6;
+  font-size: 13pt;
+  color: #929292;
+  font-weight: 400;
 }
 
 .user-img-circle {

@@ -23,27 +23,27 @@ h4 {
 }
 
 .intro-message > h1 {
-  font-family: "Roboto", Helvetica,Arial,sans-serif;
-  font-weight: 100;
+  font-family: "lato", Helvetica,Arial,sans-serif;
+  font-weight: 300;
   margin: 0;
-  padding-top: 150px;
-  font-size: 42pt;
+  padding-top: 140px;
+  font-size: 36pt;
 }
 
 .intro-message > h3 {
-  font-family: "Roboto", Helvetica,Arial,sans-serif;
+  font-family: "lato", Helvetica,Arial,sans-serif;
   font-weight: 300;
   margin: 0;
   padding-top: 40px;
-  padding-bottom: 60px;
-  font-size: 15pt;
+  padding-bottom: 80px;
+  font-size: 16pt;
 }
 
 .intro-message > h4 {
-  font-family: "Roboto", Helvetica,Arial,sans-serif;
+  font-family: "lato", Helvetica,Arial,sans-serif;
   font-weight: 100;
   margin: 0;
-  font-size: 20pt;
+  font-size: 24pt;
 }
 
 
@@ -67,16 +67,16 @@ h4 {
   padding-top: 50px;
   padding-bottom: 15px;
   font-size: 36pt;
-  font-family: "Roboto",Helvetica,Arial,sans-serif;
-  font-weight: 100;
+  font-family: "lato",Helvetica,Arial,sans-serif;
+  font-weight: 300;
   color: #2996cc;
 }
 
 .overview-title-2 {
   padding-top: 5px;
   padding-bottom: 10px;
-  font-size: 18pt;
-  font-family: "Roboto",Helvetica,Arial,sans-serif;
+  font-size: 24pt;
+  font-family: "lato",Helvetica,Arial,sans-serif;
   font-weight: 300;
   color: #2996cc;
 }
@@ -102,15 +102,17 @@ h4 {
 }
 
 .overview-content-title {
+  margin-top: 0px;
   margin-bottom: 30px;
-  font-family: "Roboto",Helvetica,Arial,sans-serif;
+  font-family: "lato",Helvetica,Arial,sans-serif;
   font-size: 26pt;
   font-weight: 300;
+  color: #434343;
 }
 
 .overview-content-detail {
-  line-height: 1.4;
-  font-size: 14pt;
+  line-height: 1.5;
+  font-size: 15pt;
   color: #434343;
   font-weight: 300;
 }
