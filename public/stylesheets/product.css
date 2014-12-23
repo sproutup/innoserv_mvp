@@ -55,7 +55,8 @@
   font-size: 13pt;
   color: #eaeaea;
   background: 0 0;
-  border-radius: 2px;
+  border-radius: 4px;
+  padding-top: 12px;
 }
 
 .btn-outline:hover,
@@ -283,14 +284,24 @@ ul.media-social-buttons li a:hover {
 }
 
 .comment-content-section-a {
-  padding: 30px 30px;
+  padding-top: 30px;
+  padding-left: 40px;
+  padding-right: 40px;
+  padding-bottom: 10px;
   background-color: #f8f8f8;
   vertical-align: text-top;
 }
 
 .comment-content-section-b {
-  padding: 30px 30px;
+  padding-top: 30px;
+  padding-left: 40px;
+  padding-right: 40px;
+  padding-bottom: 10px;
   vertical-align: text-top;
+}
+
+.comment-blurb {
+
 }
 
 .comment-content {
