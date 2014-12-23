@@ -1,6 +1,6 @@
 @(product: models.Product)
 
-@main(Messages("Explore Products - Redefine Commerce for Emerging Products")) {
+@main(Messages(product.productName + " - Redefine Commerce for Emerging Products")) {
 
   <div class="product-header" style="background-image: url('@routes.Assets.at("images/product/"+product.productEAN+".jpg")')">
     <div class="product-info">
@@ -211,6 +211,28 @@
       </div>
     </div>
 
+    <div class="comment-content-section-b">
+      <div class="row">
+
+        <div class="col-lg-2 col-md-2 col-sm-2">
+          <img class="img-center img-responsive user-img-circle" src="@routes.Assets.at("images/user/ning.jpg")">
+          <p class="comment-user">Ning Yu</p>
+        </div>
+
+        <div class="col-lg-10 col-md-10 col-sm-10">
+
+          <div class="comment-blurb">
+            <div class="comment-tags">
+              <button type="button" class="btn btn-compliments btn-tags">app</button>
+            </div>
+            <div class="comment-content">
+              <p>I like the app interface. Clean visuals. I do like the idea of using the mobile touch screen to easily change the hue.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
   <!-- End of Compliments -->
 
@@ -385,6 +407,7 @@
   <!-- Critiques -->
   <div class="feedback">
     <div class="product-item-page-header">Community's <span class="header-critiques">CRITIQUES</span> about @product.productName</div>
+
     <div class="comment-content-section-a">
       <div class="row">
         <div class="col-lg-2 col-md-2 col-sm-2">
@@ -408,6 +431,40 @@
         </div>
       </div>
     </div>
+
+    <div class="comment-content-section-b">
+      <div class="row">
+        <div class="col-lg-2 col-md-2 col-sm-2">
+          <img class="img-center img-responsive user-img-circle" src="@routes.Assets.at("images/user/ning.jpg")">
+          <p class="comment-user">Ning Yu</p>
+        </div>
+
+        <div class="col-lg-10 col-md-10 col-sm-10">
+
+          <div class="comment-blurb">
+            <div class="comment-tags">
+              <button type="button" class="btn btn-critiques btn-tags">Android</button>
+              <button type="button" class="btn btn-critiques btn-tags">music</button>
+            </div>
+            <div class="comment-content">
+              <p>Music control on my Android phone does not work after several attempts. Default music player on my iphone does work.</p>
+            </div>
+          </div>
+
+          <div class="comment-blurb">
+            <div class="comment-tags">
+              <button type="button" class="btn btn-critiques btn-tags">wireless network</button>
+              <button type="button" class="btn btn-critiques btn-tags">app</button>
+            </div>
+            <div class="comment-content">
+              <p>Using an existing device (i.e., smart phone) is a good idea, but only if the integration is seamless. Currently, when using the Belleds wireless network, the smartphone itself becomes useless (cannot browse or receive/send messages). And the fact that two apps are needed to control the product, although for different functions, is cumbersome. The Belleds wireless signal is not very strong as when I move around, the music app constantly stop working. It seems like bluetooth may be a better option than wireless. </p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
   </div>
   <!-- End of Critiques-->
 
@@ -461,6 +518,39 @@
       </div>
     </div>
 
+    <div class="comment-content-section-a">
+      <div class="row">
+        <div class="col-lg-2 col-md-2 col-sm-2">
+          <img class="img-center img-responsive user-img-circle" src="@routes.Assets.at("images/user/ning.jpg")">
+          <p class="comment-user">Ning Yu</p>
+        </div>
+
+        <div class="col-lg-10 col-md-10 col-sm-10">
+
+          <div class="comment-blurb">
+            <div class="comment-tags">
+              <button type="button" class="btn btn-ideas btn-tags">hue</button>
+              <button type="button" class="btn btn-ideas btn-tags">function</button>
+            </div>
+            <div class="comment-content">
+              <p>Maybe one selling point can be different hues have different functions: e.g., blue is calming, good for Yoga practice; yellow is warm, good for baby's room (I just make it up).</p>
+            </div>
+          </div>
+
+          <div class="comment-blurb">
+            <div class="comment-tags">
+              <button type="button" class="btn btn-ideas btn-tags">hue</button>
+              <button type="button" class="btn btn-ideas btn-tags">music</button>
+            </div>
+            <div class="comment-content">
+              <p>As for the music controlled light 'dance' function, I would be more willing to use it if there is one mode for presetting one hue, e.g., blue, and just changing the brightness to sync the rhythm. (Again, here you can suggest 'blue' for classic music, 'red' for dance music, etc.)  The whole spectrum rotation is just too old fashioned and may only be useful at parties.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
   </div>
   <!-- End of New Ideas -->
 
@@ -469,6 +559,7 @@
   <!-- Questions -->
   <div class="feedback">
     <div class="product-item-page-header">Community's <span class="header-questions">QUESTIONS</span> about @product.productName</div>
+
     <div class="comment-content-section-a">
       <div class="row">
         <div class="col-lg-2 col-md-2 col-sm-2">
@@ -509,6 +600,7 @@
         </div>
       </div>
     </div>
+
   </div>
   <!-- End of Questions -->
 

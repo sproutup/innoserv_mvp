@@ -31,11 +31,13 @@
     <body>
 
       <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+
         <div class="navbar-header">
           <a class="navbar-brand" href="@routes.Application.index()">
             <img class="logo" src="@routes.Assets.at("images/logo.png")">
           </a>
         </div>
+
         <div class="collapse navbar-collapse navbar-right" id="navbar-collapse-items">
           <ul class="nav navbar-nav navbar-item">
             <li><a href="@routes.Products.list()">Explore Products</a></li>
@@ -74,9 +76,8 @@
                 <a href="@routes.Application.login()" >Log In</a>
               </li>
             }
-            </ul>
-          </div><!-- /.navbar-collapse -->
-        </div><!-- /.container-fluid -->
+          </ul>
+        </div><!-- /.navbar-collapse -->
       </nav>
 
         @if(flash.contains(Application.FLASH_ERROR_KEY)) {

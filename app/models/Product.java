@@ -34,12 +34,12 @@ public class Product extends Model implements PathBindable<Product>,
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	public Long id;
-	
+
 	public String productEAN;
 	public String productName;
 	public String productDescription;
 	public String productLongDescription;
-	
+
 	private List<Product> products;
 
 	@ManyToMany(cascade=CascadeType.ALL)
@@ -50,7 +50,7 @@ public class Product extends Model implements PathBindable<Product>,
 
 	@OneToMany(mappedBy="product")
 	public List<Media> mediaItems;
-	
+
 	public static Finder<Long, Product> find = new Finder<Long, Product>(
 			Long.class, Product.class);
 
@@ -66,7 +66,7 @@ public class Product extends Model implements PathBindable<Product>,
 		this.productName = productName;
 
 	}
-  
+
 	public List<Product> getAll() {
 		return find.all();
 	}
@@ -83,7 +83,7 @@ public class Product extends Model implements PathBindable<Product>,
 		List<Product> results;
 		 return results = find.where().eq("productName", productName).findList();
 	}
-	
+
 	public Product getDetailwithMedia(Long id) {
 		Product prod = find.byId(id);
 		if (prod!=null){
@@ -100,12 +100,12 @@ public class Product extends Model implements PathBindable<Product>,
 		} else {
 			Logger.debug("product media Items after query are null");
 		}
-		
+
 		return prod;
 	}
-	
+
 	public Page<Product> find(int page) {
-		    return 
+		    return
 		            find.where()
 		                .orderBy("id asc")
 		                .findPagingList(10)
@@ -122,7 +122,7 @@ public class Product extends Model implements PathBindable<Product>,
 		products.remove(findbyProductEAN(this.productEAN));
 		products.add(this);
 	}
-	
+
 	/*
 	 * Look in the db for a product with a productID equal
 	 * to the one passed in the URL
@@ -132,7 +132,7 @@ public class Product extends Model implements PathBindable<Product>,
 	    return findbyProductEAN(value);
 	  }
 
-	
+
 	@Override
 	public F.Option<Product> bind(String key, Map<String, String[]> data) {
 	   return F.Option.Some(findbyProductEAN(data.get("productEAN")[0]));

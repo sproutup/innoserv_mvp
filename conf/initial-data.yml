@@ -2,25 +2,50 @@ products:
 
     - !!models.Product
         productEAN:          11111
-        productName:        Belleds
-        productDescription: Smart home audio and lighting platform
+        productName:         Belleds
+        productDescription:  Smart home audio and lighting platform
 
     - !!models.Product
         productEAN:          11112
-        productName:        Soma Water
-        productDescription: Beautifully innovative all-natural water filters
+        productName:         Soma Water
+        productDescription:  Beautifully innovative all-natural water filters
 
     - !!models.Product
         productEAN:          11113
-        productName:        The Roost
-        productDescription: Stop hunching over your laptop
+        productName:         The Roost
+        productDescription:  Stop hunching over your laptop
 
     - !!models.Product
         productEAN:          11114
-        productName:        Miselu C.24
-        productDescription: The Music Keyboard for iPad
+        productName:         Miselu C.24
+        productDescription:  The Music Keyboard for iPad
 
     - !!models.Product
-        productEAN:         11115
-        productName:        Clyde
-        productDescription: An expressive lamp for creative homes
+        productEAN:          11115
+        productName:         Clyde
+        productDescription:  An expressive lamp for creative homes
+
+    - !!models.Product
+        productEAN:          11116
+        productName:         BloomSky
+        productDescription:  World's first smart weather camera
+
+    - !!models.Product
+        productEAN:          11117
+        productName:         Hidden Radio
+        productDescription:  The simplest, most powerful radio and wireless speaker for iPhone + iPad
+
+    - !!models.Product
+        productEAN:          11118
+        productName:         Nanoleaf Bloom
+        productDescription:  The world's most energy efficient lightbulb
+
+    - !!models.Product
+        productEAN:          11119
+        productName:         Chipolo
+        productDescription:  Nothing is lost
+
+    - !!models.Product
+        productEAN:          11120
+        productName:         Mushroom Mini Farm
+        productDescription:  Grow mushrooms right out of the box in 10 days! Just add water twice a day
