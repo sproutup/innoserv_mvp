@@ -26,7 +26,7 @@
 
   <!-- start of section "media" -->
   <div class="media">
-      <p class="product-item-page-header">How people are <span class="header-em">USING</span> @product.productName</p>
+      <p class="product-item-page-header"><span class="header-em">PHOTOS</span> from @product.productName users</p>
 
       @for(media <- product.mediaItems) {
 
@@ -53,13 +53,13 @@
   </div>
   <!-- end of section "media" -->
 
-@if(product.id == 1) {
-
   <hr>
 
   <!-- Compliments -->
   <div class="feedback">
     <div class="product-item-page-header">Community's <span class="header-compliments">COMPLIMENTS</span> about @product.productName</div>
+
+    @if(product.id == 1) {
 
     <div class="comment-content-section-a">
       <div class="row">
@@ -233,6 +233,8 @@
       </div>
     </div>
 
+  }
+
   </div>
   <!-- End of Compliments -->
 
@@ -241,6 +243,8 @@
   <!-- Suggestions -->
   <div class="feedback">
     <div class="product-item-page-header">Community's <span class="header-suggestions">SUGGESTIONS</span> about @product.productName</div>
+
+    @if(product.id == 1) {
 
     <div class="comment-content-section-a">
       <div class="row">
@@ -399,6 +403,8 @@
       </div>
     </div>
 
+  }
+
   </div>
   <!-- End of Suggestions -->
 
@@ -407,6 +413,8 @@
   <!-- Critiques -->
   <div class="feedback">
     <div class="product-item-page-header">Community's <span class="header-critiques">CRITIQUES</span> about @product.productName</div>
+
+    @if(product.id == 1) {
 
     <div class="comment-content-section-a">
       <div class="row">
@@ -465,6 +473,8 @@
       </div>
     </div>
 
+  }
+
   </div>
   <!-- End of Critiques-->
 
@@ -473,6 +483,8 @@
   <!-- New Ideas -->
   <div class="feedback">
     <div class="product-item-page-header">Community's <span class="header-ideas">NEW IDEAS</span> for @product.productName</div>
+
+    @if(product.id == 1) {
 
     <div class="comment-content-section-a">
       <div class="row">
@@ -551,6 +563,8 @@
       </div>
     </div>
 
+  }
+
   </div>
   <!-- End of New Ideas -->
 
@@ -559,6 +573,8 @@
   <!-- Questions -->
   <div class="feedback">
     <div class="product-item-page-header">Community's <span class="header-questions">QUESTIONS</span> about @product.productName</div>
+
+    @if(product.id == 1) {
 
     <div class="comment-content-section-a">
       <div class="row">
@@ -601,10 +617,10 @@
       </div>
     </div>
 
+  }
+
   </div>
   <!-- End of Questions -->
-
-}
 
 <hr>
 

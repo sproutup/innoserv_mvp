@@ -1,19 +1,24 @@
-@(products: com.avaje.ebean.Page[Product])
+@(products: List[Product])
 
 @main(Messages("Explore Products - Redefine Commerce for Emerging Products")) {
 
 <div class="product-list">
-  <div class="row text-center product-list-container">
+  <div class="row product-list-container">
 
 
-      @for(product <- products.getList()) {
+      @for(product <- products) {
 
-      <div class="col-sm-6 col-xs-12 product-cover-item">
+      <div class="col-lg-4 col-sm-6 col-xs-12 product-cover-item">
         <a href="@routes.Products.details(product.id)">
           <div class="product-cover-photo" style="background-image: url('@routes.Assets.at("images/product/"+product.productEAN+".jpg")')">
-            <div class="product-cover-overlay"></div>
-            <p class="product-cover-title">@product.productName</p>
-            <p class="product-cover-description">@product.productDescription</p>
+            <div class="product-cover-meta">
+              <div class="product-cover-title">
+                <p>@product.productName</p>
+              </div>
+              <div class="product-cover-description">
+                <p>@product.productDescription</p>
+              </div>
+            </div>
           </div>
         </a>
       </div>

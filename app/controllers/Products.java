@@ -14,8 +14,7 @@ public class Products extends Controller {
   //public static Result GO_HOME = redirect(routes.Application.index());
 
   public static Result list() {
-    //List<Product>products = new Product().getAll();
-	  Page<Product> products = new Product().find(0);
+    List<Product>products = new Product().getAll();
 	  return ok(product_list.render(products));
   }
 
@@ -26,7 +25,7 @@ public class Products extends Controller {
 
 	public static Result details(Long id) {
 	  //Product product = new Product().findbyID(id);
-		Product product = new Product().getDetailwithMedia(id);	
+		Product product = new Product().getDetailwithMedia(id);
 	  return ok(product_item.render(product));
 	}
 

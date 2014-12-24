@@ -49,3 +49,8 @@ products:
         productEAN:          11120
         productName:         Mushroom Mini Farm
         productDescription:  Grow mushrooms right out of the box in 10 days! Just add water twice a day
+
+    - !!models.Product
+        productEAN:          11121
+        productName:         Motrr Galileo
+        productDescription:  The App-Controlled Robotic Dock for GoPro, iPhone, and Other Devices
