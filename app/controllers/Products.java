@@ -1,6 +1,8 @@
 package controllers;
 
+import models.S3File;
 import models.Product;
+import play.data.Form;
 import play.*;
 import play.mvc.*;
 import views.html.*;
@@ -12,6 +14,8 @@ import com.avaje.ebean.Page;
 public class Products extends Controller {
 
   //public static Result GO_HOME = redirect(routes.Application.index());
+
+  private static final Form<S3File> mediaUploadForm = Form.form(S3File.class);
 
   public static Result list() {
     List<Product>products = new Product().getAll();
@@ -26,7 +30,7 @@ public class Products extends Controller {
 	public static Result details(Long id) {
 	  //Product product = new Product().findbyID(id);
 		Product product = new Product().getDetailwithMedia(id);
-	  return ok(product_item.render(product));
+	  return ok(product_item.render(product, mediaUploadForm));
 	}
 
 /*

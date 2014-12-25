@@ -36,11 +36,13 @@ public class MediaManagement extends Controller {
 		MultipartFormData body = request().body().asMultipartFormData();
 		MultipartFormData.FilePart uploadFilePart = body.getFile("upload");
 
+		Long productID = new Long(s3File.productName.split("_")[0]);
+
 		if (uploadFilePart != null) {
 			s3File.fileName = uploadFilePart.getFilename();
 			s3File.file = uploadFilePart.getFile();
 			s3File.save();
-			return redirect(routes.MediaManagement.upload());
+			return redirect(routes.Products.details(productID));
 		}
 		else {
 			return badRequest("File upload error");

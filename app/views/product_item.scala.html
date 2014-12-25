@@ -1,4 +1,7 @@
-@(product: models.Product)
+@(product: models.Product)(mediaUploadForm: Form[S3File])
+
+@import helper._
+@implicitFieldConstructor = @{ FieldConstructor(twitterBootstrapBasic.f) }
 
 @main(Messages(product.productName + " - Redefine Commerce for Emerging Products")) {
 
@@ -19,6 +22,41 @@
         </ul>
         <div class="col-lg-8 col-lg-offset-2">
           <a href="" class="btn btn-lg btn-outline">Share my experience</a>
+          <a data-toggle="modal" data-target="#uploadMediaModal" class="btn btn-lg btn-outline">Share my photos</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="uploadMediaModal" tabindex="-1" role="dialog"  aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">Share your photo of @product.productName</h4>
+        </div>
+        <div class="modal-body">
+          @helper.form(action = routes.MediaManagement.doUpload, 'enctype -> "multipart/form-data") {
+
+            <input type="hidden"
+            name="productName"
+            value= @(product.id + "_" + product.productName) />
+
+            @inputText(
+            mediaUploadForm("submittedUser"),
+            '_label -> "User"
+            )
+
+            @inputFile(
+            mediaUploadForm("upload"),
+            '_label -> "Choose File"
+            )
+
+            <div>
+              <input class="btn btn-primary btn-lg btn-block" type="submit">
+            </div>
+
+          }
         </div>
       </div>
     </div>
