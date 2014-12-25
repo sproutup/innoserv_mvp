@@ -80,7 +80,7 @@
   padding-bottom: 20px;
   padding-left: 15px;
   font-size: 21pt;
-  color: #434343;
+  color: #5f5f5f;
 }
 
 .header-em {
@@ -292,8 +292,9 @@ ul.media-social-buttons li a:hover {
   text-align: center;
   margin-top: 15px;
   font-weight: 500;
-  font-size: 13pt;
+  font-size: 14pt;
   font-weight: 300;
+  color: #5f5f5f;
 }
 
 .comment-content-section-a {
