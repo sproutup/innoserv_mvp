@@ -5,7 +5,7 @@
   <meta property="og:title" content="SproutUp presents you @product.productName" />
   <meta property="og:type" content="website" />
   <meta property="og:image" content="@("https://s3.amazonaws.com/sproutup-mvp-cdn/assets/"+ product.productEAN +".jpg")" />
-  <meta property="og:url" content="http://tria.sproutup.co/product/@product.id" />
+  <meta property="og:url" content="http://trial.sproutup.co/product/@product.id" />
   <meta property="og:description" content="@product.productDescription" />
 }
 
@@ -32,7 +32,7 @@
         <div class="col-lg-8 col-lg-offset-2">
           <a href="" class="btn btn-lg btn-outline">Share my experience</a>
           <a data-toggle="modal" data-target="#uploadMediaModal" class="btn btn-lg btn-outline">Share my photos</a>
-          <a href="https://www.facebook.com/sharer/sharer.php?u=http://trial.sproutup.co/product/@product.id" class="btn btn-lg btn-outline" target="_blank" onclick="window.open(this.href, 'Facebook Share', 'width=500,height=500,toolbar=1,resizable=0'); return false;">Share on Facebook</a>
+          <div id="fbShareBtn" class="btn btn-lg btn-outline">Share on Facebook</div>
         </div>
       </div>
     </div>
@@ -674,5 +674,16 @@
   <!-- End of Questions -->
 
 <hr>
+
+<!-- Facebook share dialog javascript -->
+<script>
+document.getElementById('fbShareBtn').onclick = function() {
+  FB.ui({
+    display: 'popup',
+    method: 'share',
+    href: 'http://trial.sproutup.co/products/@product.id',
+  }, function(response){});
+}
+</script>
 
 }
