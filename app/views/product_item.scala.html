@@ -7,6 +7,11 @@
   <meta property="og:image" content="@("https://s3.amazonaws.com/sproutup-mvp-cdn/assets/"+ product.productEAN +".jpg")" />
   <meta property="og:url" content="http://trial.sproutup.co/product/@product.id" />
   <meta property="og:description" content="@product.productDescription" />
+
+  <link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/product.css")">
+
+  <script src="@routes.Assets.at("javascripts/uploadMediaModal.js")"></script>
+  <script src="@routes.Assets.at("javascripts/facebookShare.js")"></script>
 }
 
 @import helper._
@@ -16,7 +21,7 @@
 
   <div class="product-header" style="background-image: url('@routes.Assets.at("images/product/"+product.productEAN+".jpg")')">
     <div class="product-info">
-      <div class="col-lg-12">
+      <div class="col-lg-12 col-md-12 col-sm-12">
         <p class="product-title">@product.productName</p>
         <p class="product-description">@product.productDescription</p>
         <ul class="list-inline product-social-buttons">
@@ -29,16 +34,16 @@
           <li><a href="" target="_blank"><i class="fa fa-pinterest"></i></a>
           </li>
         </ul>
-        <div class="col-lg-8 col-lg-offset-2">
+        <div>
           <a href="" class="btn btn-lg btn-outline">Share my experience</a>
           <a data-toggle="modal" data-target="#uploadMediaModal" class="btn btn-lg btn-outline">Share my photos</a>
-          <div id="fbShareBtn" class="btn btn-lg btn-outline">Share on Facebook</div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Upload Modal -->
+
+  <!-- Upload modal -->
   <div class="modal fade" id="uploadMediaModal" tabindex="-1" role="dialog"  aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -74,15 +79,23 @@
   </div>
   <!-- End of upload modal-->
 
+  <div class="social-share">
+    <a id="fbShareBtn" class="btn btn-social-share-fb"><i class="fa fa-facebook"></i></a>
+    <a id="twShareBtn" class="btn btn-social-share-tw"   href="https://twitter.com/share?url=http://trial.sproutup.co/product/@product.id&via=sproutupco&hashtags=sproutupco%2C@product.productName&text=Check out this cool product on SproutUp"><i class="fa fa-twitter"></i></a>
+    <a id="ptShareBtn" class="btn btn-social-share-pt" href="https://www.pinterest.com/pin/create/button/?url=http://trial.sproutup.co/product/@product.id&media=https://s3.amazonaws.com/sproutup-mvp-cdn/assets/@product.productEAN%2Ejpg&description=Check out this cool product on SproutUp">
+    <i class="fa fa-pinterest"></i></a>
+  </div>
+
+  <hr>
 
   <!-- start of section "media" -->
   <div class="media">
-      <p class="product-item-page-header"><span class="header-em">PHOTOS</span> from @product.productName users</p>
+      <div class="product-item-page-header"><span class="header-em">PHOTOS</span> from @product.productName users</div>
 
       @for(media <- product.mediaItems) {
 
         @if(media.mediaType == "image") {
-          <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 media-photo">
+          <div class="col-lg-4 col-md-4 col-sm-6 media-photo">
             <div class="media-photo-background"
             style="background-image: url('@media.cloudFrontLink');">
               <div class="media-photo-overlay"></div>
@@ -683,6 +696,20 @@ document.getElementById('fbShareBtn').onclick = function() {
     method: 'share',
     href: 'http://trial.sproutup.co/products/@product.id',
   }, function(response){});
+}
+</script>
+
+<script>
+document.getElementById('twShareBtn').onclick=function() {
+  window.open(this.href, 'twShare', 'left=0,top=0,width=800,height=500,toolbar=1,resizable=0');
+  return false;
+}
+</script>
+
+<script>
+document.getElementById('ptShareBtn').onclick=function() {
+  window.open(this.href, 'ptShare', 'left=0,top=0,width=800,height=500,toolbar=1,resizable=0');
+  return false;
 }
 </script>
 

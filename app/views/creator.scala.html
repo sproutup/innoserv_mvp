@@ -1,4 +1,10 @@
-@main(Messages("For Creators | SproutUp: Redefine Commerce for Emerging Products")) {
+@moreHead = {
+
+  <link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/creator.css")">
+
+}
+
+@main(Messages("For Creators | SproutUp: Redefine Commerce for Emerging Products"), moreHead) {
 
   <!-- Value Prop Banner -->
   <div class="intro-header">

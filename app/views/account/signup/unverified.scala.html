@@ -1,4 +1,8 @@
-@main("Verify your email") {
+@moreHead = {
+	<link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/signup.css")">
+}
+
+@main("Verify your email", moreHead) {
 
 	<div class="container">
 		<div class="row text-center">

@@ -1,4 +1,8 @@
-@main(Messages("Oops...")) {
+@moreHead = {
+	<link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/signup.css")">
+}
+
+@main(Messages("Oops...", moreHead)) {
 
 	<div class="container">
 		<div class="row text-center">

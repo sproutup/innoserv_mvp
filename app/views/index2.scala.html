@@ -1,6 +1,12 @@
 @(products: List[Product])
 
-@main(Messages("Redefine Commerce for Emerging Products")) {
+@moreHead = {
+  <link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/index.css")">
+  <link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/product.css")">
+}
+
+
+@main(Messages("SproutUp: Redefine Commerce for Emerging Products"), moreHead) {
 
   <div class="marketing-container">
     <div class="container">

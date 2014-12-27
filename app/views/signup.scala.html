@@ -1,9 +1,13 @@
 @(signupForm: Form[_])
 
+@moreHead = {
+  <link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/signup.css")">
+}
+
 @import helper._
 @implicitFieldConstructor = @{ FieldConstructor(twitterBootstrapBasic.f) }
 
-@main(Messages("Join | SproutUp: Redefine Commerce for Emerging Products")) {
+@main(Messages("Join | SproutUp: Redefine Commerce for Emerging Products"), moreHead) {
   <div class="container">
 
     <div class="row">

@@ -1,6 +1,10 @@
 @(products: List[Product])
 
-@main(Messages("Explore Products | SproutUp: Redefine Commerce for Emerging Products")) {
+@moreHead = {
+  <link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/product.css")">
+}
+
+@main(Messages("Explore Products | SproutUp: Redefine Commerce for Emerging Products"), moreHead) {
 
 <div class="product-list">
   <div class="row product-list-container">

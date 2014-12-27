@@ -1,10 +1,14 @@
 @(loginForm: Form[_])
 
+@moreHead = {
+  <link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/signup.css")">
+}
+
 @import helper._
 @implicitFieldConstructor = @{ FieldConstructor(twitterBootstrapBasic.f) }
 @import com.feth.play.module.pa.views.html._
 
-@main(Messages("Log In | SproutUp: Redefine Commerce for Emerging Products")) {
+@main(Messages("Log In | SproutUp: Redefine Commerce for Emerging Products"), moreHead) {
 
   <div class="row">
 

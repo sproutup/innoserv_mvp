@@ -1,8 +1,12 @@
 @(localUser: models.User = null)
 
+@moreHead = {
+  <link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/profile.css")">
+}
+
 @import com.feth.play.module.pa.views.html._
 
-@main(Messages("My Profile | SproutUp: Redefine Commerce for Emerging Products")) {
+@main(Messages("My Profile | SproutUp: Redefine Commerce for Emerging Products"), moreHead) {
 
   @currentAuth() { auth =>
 
