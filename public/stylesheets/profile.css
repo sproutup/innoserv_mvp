@@ -1,9 +1,7 @@
 .profile-header {
   width: 100%;
-  height: 400px;
+  height: 450px;
   margin-top: 70px;
-  padding-top: 50px;
-  padding-bottom: 50px;
   text-align: center;
   background: url(../images/general-profile-cover.png) no-repeat center center;
   background-size: cover;
@@ -11,32 +9,16 @@
 }
 
 .profile-message {
-  padding-top: 0px;
-  padding-bottom: 0px;
+  padding-top: 90px;
 }
 
 .profile-message > h1 {
   font-family: "lato", Helvetica,Arial,sans-serif;
   font-weight: 100;
   margin: 0;
-  padding-top: 150px;
+  padding-top: 20px;
+  padding-bottom: 20px;
   font-size: 48pt;
-}
-
-.profile-message > h3 {
-  font-family: "lato", Helvetica,Arial,sans-serif;
-  font-weight: 300;
-  margin: 0;
-  padding-top: 40px;
-  padding-bottom: 60px;
-  font-size: 15pt;
-}
-
-.profile-message > h4 {
-  font-family: "lato", Helvetica,Arial,sans-serif;
-  font-weight: 300;
-  margin: 0;
-  font-size: 20pt;
 }
 
 .profile-img-circle {
@@ -46,4 +28,25 @@
   -webkit-border-radius: 500px;
   -moz-border-radius: 500px;
   border-radius: 500px;
+}
+
+ul.profile-social-buttons li a {
+  display: block;
+  width: 28px;
+  height: 28px;
+  border-radius: 100%;
+  font-size: 14pt;
+  line-height: 20px;
+  outline: 0;
+  color: #fff;
+  background-color: none;
+  -webkit-transition: all .3s;
+  -moz-transition: all .3s;
+  transition: all .3s;
+  padding-right: 5px;
+}
+
+ul.profile-social-buttons li a:hover {
+  background-color: none;
+  color: #ccc;
 }

@@ -1,9 +1,18 @@
 @(product: models.Product)(mediaUploadForm: Form[S3File])
 
+@moreHead = {
+  <!-- For Facebook share dialog -->
+  <meta property="og:title" content="SproutUp presents you @product.productName" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="@("https://s3.amazonaws.com/sproutup-mvp-cdn/assets/"+ product.productEAN +".jpg")" />
+  <meta property="og:url" content="http://tria.sproutup.co/product/@product.id" />
+  <meta property="og:description" content="@product.productDescription" />
+}
+
 @import helper._
 @implicitFieldConstructor = @{ FieldConstructor(twitterBootstrapBasic.f) }
 
-@main(Messages(product.productName + " - Redefine Commerce for Emerging Products")) {
+@main(Messages(product.productName + " | SproutUp: Redefine Commerce for Emerging Products"), moreHead) {
 
   <div class="product-header" style="background-image: url('@routes.Assets.at("images/product/"+product.productEAN+".jpg")')">
     <div class="product-info">
@@ -23,11 +32,13 @@
         <div class="col-lg-8 col-lg-offset-2">
           <a href="" class="btn btn-lg btn-outline">Share my experience</a>
           <a data-toggle="modal" data-target="#uploadMediaModal" class="btn btn-lg btn-outline">Share my photos</a>
+          <a href="https://www.facebook.com/sharer/sharer.php?u=http://trial.sproutup.co/product/@product.id" class="btn btn-lg btn-outline" target="_blank" onclick="window.open(this.href, 'Facebook Share', 'width=500,height=500,toolbar=1,resizable=0'); return false;">Share on Facebook</a>
         </div>
       </div>
     </div>
   </div>
 
+  <!-- Upload Modal -->
   <div class="modal fade" id="uploadMediaModal" tabindex="-1" role="dialog"  aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -61,6 +72,8 @@
       </div>
     </div>
   </div>
+  <!-- End of upload modal-->
+
 
   <!-- start of section "media" -->
   <div class="media">

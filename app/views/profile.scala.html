@@ -2,66 +2,28 @@
 
 @import com.feth.play.module.pa.views.html._
 
-@main(Messages("My Profile - Redefine Commerce for Emerging Products")) {
+@main(Messages("My Profile | SproutUp: Redefine Commerce for Emerging Products")) {
 
   @currentAuth() { auth =>
 
 	<div class="profile-header">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-4">
-            <div class="profile-message">
-              <h1>@localUser.name</h1>
-              <img class="img-responsive profile-img-circle" src="http://graph.facebook.com/@auth.getId()/picture/?type=large">
-              <ul class="list-inline social-buttons">
-                <li><a href="http://www.facebook.com/@auth.getId()" target="_blank"><i class="fa fa-facebook"></i></a>
-                </li>
-              </ul>
+        <div class="row text-center">
+          <div class="col-lg-12">
 
+            <div class="profile-message">
+              @if(auth.getProvider() == "facebook") {
+                <img class="img-responsive img-center profile-img-circle" src="http://graph.facebook.com/@auth.getId()/picture/?type=large">
+              } else {
+                <img class="img-responsive img-center profile-img-circle" src="@routes.Assets.at("images/general-profile-icon.png")">
+              }
+
+              <h1>@localUser.name</h1>
             </div>
+
           </div>
-        </div>
       </div>
     </div>
   }
 
-    <p>
-    Your name is @localUser.name and your email address is @if(!localUser.email) {<em>&lt;unknown&gt;</em>.} else {
-    	@localUser.email.
-    }
-    <br />
-        @if(localUser.firstName && localUser.lastName) {
-            Your first name is @localUser.firstName and your last name is @localUser.lastName
-            <br/>
-        }
-    @defining(localUser.getProviders()) { providers =>
-        @if(providers.size() > 0) {
-        @if(providers.size() ==1) {
-            @Messages("playauthenticate.profile.providers_one")
-        } else {
-            @Messages("playauthenticate.profile.providers_many",providers.size().toString())
-        }
-        @for(p <- providers) {
-            @_providerIcon(p)
-        }
-        <br/>
-        }
-    }
-
-    <br/>
-    @currentAuth() { auth =>
-        @Messages("playauthenticate.profile.logged") @_providerIcon(auth.getProvider())<br/>
-        @if(auth.expires() != -1){
-            @Messages("playauthenticate.profile.session", auth.getId(), Application.formatTimestamp(auth.expires()))
-        } else {
-            @Messages("playauthenticate.profile.session_endless", auth.getId())
-        }
-    }
-    <br/>
-    <ul>
-    	<li><a href="@routes.Account.changePassword">@Messages("playauthenticate.profile.password_change")</a></li>
-    </ul>
-    </p>
-
-    <hr>
+  <hr>
 }
