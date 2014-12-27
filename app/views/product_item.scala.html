@@ -17,7 +17,7 @@
 @import helper._
 @implicitFieldConstructor = @{ FieldConstructor(twitterBootstrapBasic.f) }
 
-@main(Messages(product.productName + " | SproutUp: Redefine Commerce for Emerging Products"), moreHead) {
+@main(Messages(product.productName + ": " + product.productDescription + " | SproutUp"), moreHead) {
 
   <div class="product-header" style="background-image: url('@routes.Assets.at("images/product/"+product.productEAN+".jpg")')">
     <div class="product-info">
@@ -30,8 +30,6 @@
           <li><a href="" target="_blank"><i class="fa fa-facebook"></i></a>
           </li>
           <li><a href="" target="_blank"><i class="fa fa-twitter"></i></a>
-          </li>
-          <li><a href="" target="_blank"><i class="fa fa-pinterest"></i></a>
           </li>
         </ul>
         <div>
