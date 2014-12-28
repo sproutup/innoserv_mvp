@@ -79,8 +79,8 @@
 
   <div class="social-share">
     <a id="fbShareBtn" class="btn btn-social-share-fb"><i class="fa fa-facebook"></i></a>
-    <a id="twShareBtn" class="btn btn-social-share-tw"   href="https://twitter.com/share?url=http://trial.sproutup.co/product/@product.id&via=sproutupco&hashtags=sproutupco%2C@product.productName&text=Check out this cool product on SproutUp"><i class="fa fa-twitter"></i></a>
-    <a id="ptShareBtn" class="btn btn-social-share-pt" href="https://www.pinterest.com/pin/create/button/?url=http://trial.sproutup.co/product/@product.id&media=https://s3.amazonaws.com/sproutup-mvp-cdn/assets/@product.productEAN%2Ejpg&description=Check out this cool product on SproutUp">
+    <a id="twShareBtn" class="btn btn-social-share-tw"   href="https://twitter.com/share?url=http://trial.sproutup.co/product/@product.id&via=sproutupco&text=Check out @product.productName on SproutUp"><i class="fa fa-twitter"></i></a>
+    <a id="ptShareBtn" class="btn btn-social-share-pt" href="https://www.pinterest.com/pin/create/button/?url=http://trial.sproutup.co/product/@product.id&media=https://s3.amazonaws.com/sproutup-mvp-cdn/assets/@product.productEAN%2Ejpg&description=Check out @product.productName on SproutUp">
     <i class="fa fa-pinterest"></i></a>
   </div>
 
@@ -684,31 +684,32 @@
   </div>
   <!-- End of Questions -->
 
-<hr>
+  <hr>
 
-<!-- Facebook share dialog javascript -->
-<script>
-document.getElementById('fbShareBtn').onclick = function() {
-  FB.ui({
-    display: 'popup',
-    method: 'share',
-    href: 'http://trial.sproutup.co/products/@product.id',
-  }, function(response){});
-}
-</script>
+  <!-- Facebook share dialog javascript -->
+  <script>
+  document.getElementById('fbShareBtn').onclick = function() {
+    FB.ui({
+      display: 'popup',
+      method: 'share',
+      href: 'http://trial.sproutup.co/products/@product.id',
+    }, function(response){});
+  }
+  </script>
 
-<script>
-document.getElementById('twShareBtn').onclick=function() {
-  window.open(this.href, 'twShare', 'left=0,top=0,width=800,height=500,toolbar=1,resizable=0');
-  return false;
-}
-</script>
+  <!-- Twitter share dialog javascript -->
+  <script>
+  document.getElementById('twShareBtn').onclick=function() {
+    window.open(this.href, 'twShare', 'left=0,top=0,width=800,height=500,toolbar=1,resizable=0');
+    return false;
+  }
+  </script>
 
-<script>
-document.getElementById('ptShareBtn').onclick=function() {
-  window.open(this.href, 'ptShare', 'left=0,top=0,width=800,height=500,toolbar=1,resizable=0');
-  return false;
-}
-</script>
-
+  <!-- Pinterest share dialog javascript -->
+  <script>
+  document.getElementById('ptShareBtn').onclick=function() {
+    window.open(this.href, 'ptShare', 'left=0,top=0,width=800,height=500,toolbar=1,resizable=0');
+    return false;
+  }
+  </script>
 }
