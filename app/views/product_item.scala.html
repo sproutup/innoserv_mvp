@@ -77,14 +77,14 @@
   </div>
   <!-- End of upload modal-->
 
-  <div class="social-share">
+  <!-- <div class="social-share">
     <a id="fbShareBtn" class="btn btn-social-share-fb"><i class="fa fa-facebook"></i></a>
     <a id="twShareBtn" class="btn btn-social-share-tw"   href="https://twitter.com/share?url=http://trial.sproutup.co/product/@product.id&via=sproutupco&text=Check out @product.productName on SproutUp"><i class="fa fa-twitter"></i></a>
     <a id="ptShareBtn" class="btn btn-social-share-pt" href="https://www.pinterest.com/pin/create/button/?url=http://trial.sproutup.co/product/@product.id&media=https://s3.amazonaws.com/sproutup-mvp-cdn/assets/@product.productEAN%2Ejpg&description=Check out @product.productName on SproutUp">
     <i class="fa fa-pinterest"></i></a>
   </div>
 
-  <hr>
+  <hr> -->
 
   <!-- start of section "media" -->
   <div class="media">
@@ -712,4 +712,17 @@
     return false;
   }
   </script>
+
+  <!-- Go to www.addthis.com/dashboard to customize your tools -->
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-549f69d5428debd8" async="async"></script>
+  <script type="text/javascript">
+    var addthis_share =
+    {
+      // ...
+      templates: {
+        twitter: 'check out @product.productName on SproutUp http://trial.sproutup.co/product/@product.id via @@sproutupco',
+      }
+    }
+  </script>
+
 }
