@@ -1,17 +1,15 @@
 package controllers;
 
-import java.util.List;
-import java.util.UUID;
+
+import java.net.MalformedURLException;
+import java.net.URL;
 
 import models.Feedback;
-import models.Product;
+import play.Logger;
 import play.Routes;
 import play.data.Form;
 import play.mvc.*;
-import play.mvc.Result;
-import play.db.ebean.Model;
-import play.mvc.Http.MultipartFormData;
-
+import utils.AppConstants;
 import views.html.*;
 
 public class FeedbackManagement extends Controller {
@@ -21,5 +19,26 @@ public class FeedbackManagement extends Controller {
   public static Result feedback() {
     return ok(feedback.render());
   }
+  
+  /*
+   * Pop up Qualtrics Survey
+   */
+  public static Result fetchPopupQSurvey(Long productID){
+
+	  //TODO add logic to fetch belleds survey url based on productID
+		String belleds_url = AppConstants.BELLEDS_URL_AS_STRING;
+		//TODO if user is not in session redirect to login and then to survey else
+		//TODO get user credentials from the session
+		String userEmail = "nitintest%40gmail.com";
+		String userID ="123456";
+		Logger.debug("ready to redirect to Qualtrics");
+		
+		belleds_url = belleds_url + "&userEmail=" + userEmail + "&userID=" + userID;
+	  
+	  
+	  return redirect(belleds_url); 
+	  
+		
+	}
 
 }

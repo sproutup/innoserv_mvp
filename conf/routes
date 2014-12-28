@@ -14,7 +14,7 @@ GET     /product/:id		        controllers.Products.details(id: Long)
 GET     /internal-only-upload                     controllers.MediaManagement.upload
 POST    /doUpload                   controllers.MediaManagement.doUpload()
 
-GET     /feedback                   controllers.FeedbackManagement.feedback
+GET     /feedback/:id	               controllers.FeedbackManagement.fetchPopupQSurvey(id: Long)
 
 GET     /profile                    controllers.Application.profile
 
