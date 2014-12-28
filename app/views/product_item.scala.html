@@ -33,56 +33,53 @@
           </li>
         </ul>
 
-        <div class="col-lg-8 col-lg-offset-2">
-		<div class="container">
-
-          <!-- button id="shareExperienceBtn" data-toggle="modal" data-remote="http://google.com" data-target="#feedbackModal" onClick="openDialog()" class="btn btn-lg btn-outline">Share my experience</button-->
-          <a  id="feedback" data-toggle="modal" data-refresh="true" data-src="@routes.FeedbackManagement.fetchPopupQSurvey(product.id)" data-height=520 data-width=500 data-target="#feedbackModal" class="btn btn-lg btn-outline">Share my experience</a>
-          <a data-toggle="modal" data-target="#uploadMediaModal" class="btn btn-lg btn-outline">Share my photos</a>
-
-		   <div class="modal fade" id="feedbackModal" tabindex="-1" role="dialog"  aria-labelledby="feedbackModalLabel" aria-hidden="true">
-		      <div class="modal-dialog">
-		         <div class="modal-content">
-		            <div class="modal-header">
-		                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-		                <ul class="product-item-page-header id="feedbackModalLabel">Share Your Experience</ul>
-		           </div>
-		         <div class="modal-body">
-		              <iframe frameborder="0"></iframe>
-		         </div>
-		         <div class="modal-footer">
-		            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-		            
-		         </div>
-		        </div><!-- /.modal-content -->
-		     </div><!-- /.modal-dialog -->
-		  </div><!-- /.modal -->
-
-		<script>
-		$("#feedback").on('click', function (e) {
-		   // alert('hello');
-		    var src = $(this).attr('data-src');
-		    var height = $(this).attr('data-height') || 300;
-		    var width = $(this).attr('data-width') || 400;
-
-		    $("#feedbackModal iframe").attr({
-		        'src': src,
-		            'height': height,
-		            'width': width
-		    });
-		});
-		<!-- unload the data when modal is closed -->
-		$('#feedback').on('hidden.bs.modal', function (e) {
-			$(e.target).removeData('bs.modal');
-			})
-		</script>
-		
-		</div>
-         </div>
-        
+        <div class="col-lg-12">
+          <div class="container">
+            <a  id="feedback" data-toggle="modal" data-refresh="true" data-src="@routes.FeedbackManagement.fetchPopupQSurvey(product.id)" data-height=520 data-width=500 data-target="#feedbackModal" class="btn btn-lg btn-outline">Share my experience</a>
+            <a data-toggle="modal" data-target="#uploadMediaModal" class="btn btn-lg btn-outline">Share my photos</a>
+          </div>
+        </div>
       </div>
     </div>
   </div>
+
+  
+  <div class="modal fade" id="feedbackModal" tabindex="-1" role="dialog"  aria-labelledby="feedbackModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <ul class="product-item-page-header" id="feedbackModalLabel">Share Your Experience</ul>
+        </div>
+        <div class="modal-body">
+          <iframe frameborder="0"></iframe>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+  $("#feedback").on('click', function (e) {
+    // alert('hello');
+    var src = $(this).attr('data-src');
+    var height = $(this).attr('data-height') || 300;
+    var width = $(this).attr('data-width') || 400;
+
+    $("#feedbackModal iframe").attr({
+      'src': src,
+      'height': height,
+      'width': width
+    });
+  });
+  <!-- unload the data when modal is closed -->
+  $('#feedback').on('hidden.bs.modal', function (e) {
+    $(e.target).removeData('bs.modal');
+  })
+  </script>
 
 
   <!-- Upload modal -->
@@ -172,10 +169,10 @@
 
   <hr>
 
- 
+
   <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
   <div class="panel panel-default">
-  <!-- Compliments --> 
+  <!-- Compliments -->
   <div class="feedback">
   <div class="panel-heading" role="tab" id="headingOne">
     <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
@@ -362,7 +359,7 @@
 
   }
 	</div>
-    </div>	
+    </div>
   </div>
   <!-- End of Compliments -->
 
@@ -372,14 +369,14 @@
   <div class="feedback">
     <div class="panel-heading" role="tab" id="headingTwo">
     <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-    
+
     <div class="product-item-page-header">Community's <span class="header-suggestions">SUGGESTIONS</span> about @product.productName
 	</div>
 	</a>
 	</div>
 	<div id="collapseTwo" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingTwo">
 	<div class="panel-body">
-    
+
     @if(product.id == 1) {
 
     <div class="comment-content-section-a">
@@ -541,7 +538,7 @@
 
   }
 	</div>
-    </div>	
+    </div>
   </div>
   <!-- End of Suggestions -->
 
@@ -551,7 +548,7 @@
   <div class="feedback">
   <div class="panel-heading" role="tab" id="headingThree">
     <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
-  
+
     <div class="product-item-page-header">Community's <span class="header-critiques">CRITIQUES</span> about @product.productName
 	</div>
 	</a>
@@ -634,8 +631,8 @@
 	</a>
 	</div>
 	<div id="collapseFour" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingFour">
-	<div class="panel-body">	
-		
+	<div class="panel-body">
+
     @if(product.id == 1) {
 
     <div class="comment-content-section-a">
@@ -728,13 +725,13 @@
   <div class="feedback">
   <div class="panel-heading" role="tab" id="headingFive">
     <a data-toggle="collapse" data-parent="#accordion" href="#collapseFive" aria-expanded="true" aria-controls="collapseFive">
-  
+
     <div class="product-item-page-header">Community's <span class="header-questions">QUESTIONS</span> about @product.productName</div>
 		</a>
 	</div>
 	<div id="collapseFive" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingFive">
 	<div class="panel-body">
-	
+
     @if(product.id == 1) {
 
     <div class="comment-content-section-a">
