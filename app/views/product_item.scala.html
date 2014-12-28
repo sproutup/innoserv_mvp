@@ -56,10 +56,21 @@
             name="productName"
             value= @(product.id + "_" + product.productName) />
 
-            @inputText(
-            mediaUploadForm("submittedUser"),
-            '_label -> "Submitted By"
-            )
+            @defining(Application.getLocalUser(session())) { user =>
+
+              @if(user != null) {
+                <div class="form-group ">
+                  <label for="submittedUser" class="form-title">Submitted By</label>
+                  <input class="form-control" type="text" id="submittedUser" name="submittedUser" value="@user.name" readonly>
+                </div>
+              } else {
+                <div class="form-group ">
+                  <label for="submittedUser" class="form-title">Submitted By</label>
+                  <input class="form-control" type="text" id="submittedUser" name="submittedUser">
+                </div>
+              }
+
+            }
 
             @inputFile(
             mediaUploadForm("upload"),
@@ -686,7 +697,7 @@
 
   <hr>
 
-  <!-- Facebook share dialog javascript -->
+<!--
   <script>
   document.getElementById('fbShareBtn').onclick = function() {
     FB.ui({
@@ -697,7 +708,6 @@
   }
   </script>
 
-  <!-- Twitter share dialog javascript -->
   <script>
   document.getElementById('twShareBtn').onclick=function() {
     window.open(this.href, 'twShare', 'left=0,top=0,width=800,height=500,toolbar=1,resizable=0');
@@ -705,7 +715,6 @@
   }
   </script>
 
-  <!-- Pinterest share dialog javascript -->
   <script>
   document.getElementById('ptShareBtn').onclick=function() {
     window.open(this.href, 'ptShare', 'left=0,top=0,width=800,height=500,toolbar=1,resizable=0');
@@ -713,8 +722,12 @@
   }
   </script>
 
-  <!-- Go to www.addthis.com/dashboard to customize your tools -->
+-->
+
+  <!-- addthis widget -->
   <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-549f69d5428debd8" async="async"></script>
+
+  <!-- addthis twitter template -->
   <script type="text/javascript">
     var addthis_share =
     {
