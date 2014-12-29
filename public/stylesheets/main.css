@@ -1,7 +1,14 @@
-html,
 body {
   font-family: "lato", Helvetica, Arial, sans-serif;
   overflow-x: hidden;
+  height: 100%;
+}
+
+.modal-open {
+  overflow: hidden;
+  position: fixed;
+  height: 100%;
+  width: 100%;
 }
 
 .body-container {

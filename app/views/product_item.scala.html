@@ -10,7 +10,6 @@
 
   <link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/product.css")">
 
-  <script src="@routes.Assets.at("javascripts/uploadMediaModal.js")"></script>
   <script src="@routes.Assets.at("javascripts/facebookShare.js")"></script>
   <script src="@routes.Assets.at("javascripts/qualtricsPopup.js")"></script>
 }
@@ -48,9 +47,9 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-          <ul class="product-item-page-header" id="feedbackModalLabel">Share Your Experience</ul>
+          <h4 class="modal-title" id="feedbackModalLabel">Share your experience of @product.productName</h4>
         </div>
-        <div class="modal-body">
+        <div class="modal-body" style="text-align: center;">
           <iframe frameborder="0"></iframe>
         </div>
         <div class="modal-footer">
@@ -62,7 +61,7 @@
   </div>
 
   <!-- Upload modal -->
-  <div class="modal fade" id="uploadMediaModal" tabindex="-1" role="dialog"  aria-hidden="true">
+  <div class="modal fade" id="uploadMediaModal" tabindex="-1" role="dialog"  aria-hidden="false">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -829,7 +828,7 @@
     // alert('hello');
     var src = $(this).attr('data-src');
     var height = $(this).attr('data-height') || 300;
-    var width = $(this).attr('data-width') || 400;
+    var width = $(this).attr('data-width') || 450;
 
     $("#feedbackModal iframe").attr({
       'src': src,
