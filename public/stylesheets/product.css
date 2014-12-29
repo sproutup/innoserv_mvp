@@ -12,6 +12,7 @@
   width: 100%;
   height: 480px;
   margin-top: 70px;
+  margin-bottom: 20px;
   text-align: center;
   background-position:center;
   background-repeat:no-repeat;
@@ -156,7 +157,6 @@
   font-weight: 300;
   padding-top: 20px;
   padding-bottom: 20px;
-  padding-left: 15px;
   font-size: 21pt;
   color: #5f5f5f;
 }
@@ -165,6 +165,18 @@
   font-weight:400;
   color: #2996cc;
   font-size: 24pt;
+}
+
+.label {
+  display: inline;
+  padding: 5 10;
+  font-size: 12pt;
+  font-weight: 300;
+  line-height: 1;
+  color: #fff;
+  text-align: center;
+  white-space: nowrap;
+  border-radius: 4px;
 }
 
 .product-cover-item {
@@ -234,7 +246,7 @@
 
 .feedback {
   margin-top: 0px;
-  margin-bottom: 40px;
+  margin-bottom: 30px;
   margin-left: 15px;
   margin-right: 15px;
 }
@@ -284,7 +296,7 @@ ul.media-social-buttons li a {
   line-height: 20px;
   outline: 0;
   color: #fff;
-  background-color: none;
+  background-color: transparent;
   -webkit-transition: all .3s;
   -moz-transition: all .3s;
   transition: all .3s;
@@ -292,13 +304,54 @@ ul.media-social-buttons li a {
 }
 
 ul.media-social-buttons li a:hover {
-  background-color: none;
+  background-color: transparent;
   color: #ccc;
 }
 
 .media-user {
   font-weight: 300;
   font-size: 14pt;
+}
+
+.feedback-panel {
+  border-top: none;
+  border: none;
+  background-color: transparent;
+  margin-bottom: 20px;
+  background-color: transparent;
+  border-radius: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
+.feedback-panel-heading {
+  padding: 0 0;
+}
+
+.feedback-panel-heading a {
+  text-decoration: none;
+}
+
+.product-item-page-header:hover,
+.product-item-page-header:focus {
+  font-weight: 300;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  font-size: 21pt;
+  color: #000;
+  -webkit-transition: all .3s;
+  -moz-transition: all .3s;
+  -o-transition: all .3s;
+  transition: all .3s;
+}
+
+.panel-group .panel-heading + .panel-collapse > .feedback-panel-body {
+  border-top: none;
+  border-bottom: none;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  padding-left: 0px;
+  padding-right: 0px;
 }
 
 .comment-tags {
@@ -368,6 +421,14 @@ ul.media-social-buttons li a:hover {
 
 .comment-user {
   text-align: center;
+}
+
+.comment-user img {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.comment-user-name {
   margin-top: 15px;
   font-weight: 500;
   font-size: 14pt;
