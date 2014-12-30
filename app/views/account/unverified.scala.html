@@ -1,7 +1,16 @@
-@main(Messages("playauthenticate.verify.account.title")) {
+@moreHead = {
+	<link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/signup.css")">
+}
 
-	<h1>@Messages("playauthenticate.verify.account.title")</h1>
-	<p>
-	@Messages("playauthenticate.verify.account.before") <a href="@routes.Account.verifyEmail">@Messages("playauthenticate.verify.account.first")</a>.<br/>
-	</p>
+@main("Verify your email", moreHead) {
+
+	<div class="container">
+		<div class="row text-center">
+			<div class="col-md-12">
+				<h1 class="verify-header">Please verify your email</h1>
+				<p class="verify-message">We know you are excited to join the SproutUp community and can't wait to start, but we kindly ask you to verify your email first. We've send a link to you and please activate your account.</p>
+			</div>
+		</div>
+	</div>
+
 }

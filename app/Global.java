@@ -64,12 +64,12 @@ public class Global extends GlobalSettings {
 
 			@Override
 			public Call askMerge() {
-				return routes.Account.askMerge();
+				return null;
 			}
 
 			@Override
 			public Call askLink() {
-				return routes.Account.askLink();
+				return null;
 			}
 
 			@Override
@@ -98,10 +98,10 @@ public class Global extends GlobalSettings {
 				role.save();
 			}
 		}
-		
+
 		//load products data
         try {
-			
+
         	@SuppressWarnings("unchecked")
 			Map<String,ArrayList<Object>> all = (Map<String,ArrayList<Object>>)Yaml.load("initial-data.yml");
 			if (all!=null){
@@ -120,37 +120,37 @@ public class Global extends GlobalSettings {
 			Logger.error("Problem adding new entries in the product table");
 			e.printStackTrace();
 		}
-	        
-	        
-	    
+
+
+
 	}
-	
+
 	private void dateFormatter(){
 		  // Register our DateFormater
-        Formatters.register(Date.class, 
+        Formatters.register(Date.class,
                      new SimpleFormatter<Date>() {
-        
+
          private final static String PATTERN = "dd-MM-yyyy";
-                
-         public Date parse(String text, Locale locale) 
-            throws java.text.ParseException {     
+
+         public Date parse(String text, Locale locale)
+            throws java.text.ParseException {
            if(text == null || text.trim().isEmpty()) {
              return null;
            }
-           SimpleDateFormat sdf = 
-             new SimpleDateFormat(PATTERN, locale);    
-           sdf.setLenient(false);  
-           return sdf.parse(text);                     
+           SimpleDateFormat sdf =
+             new SimpleDateFormat(PATTERN, locale);
+           sdf.setLenient(false);
+           return sdf.parse(text);
          }
-                
+
          public String print(Date value, Locale locale){
            if(value == null) {
             return "";
            }
            return new SimpleDateFormat(PATTERN, locale)
-                      .format(value);                   
+                      .format(value);
          }
-                
+
         });
       Formatters.register(Date.class, new AnnotationDateFormatter());
 

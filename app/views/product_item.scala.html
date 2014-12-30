@@ -34,16 +34,17 @@
         </ul>
 
         <div class="col-lg-12">
-        @defining(Application.getLocalUser(session())) { user =>
 
+          @if(product.id == 1) {
+
+            @defining(Application.getLocalUser(session())) { user =>
               @if(user != null) {
-                 <a id="feedback" data-toggle="modal" data-refresh="true" data-src="@routes.FeedbackManagement.fetchPopupQSurvey(product.id)" data-height=520 data-width=500 data-target="#feedbackModal" class="btn btn-lg btn-outline">Share my experience</a>
+               <a id="feedback" data-toggle="modal" data-refresh="true" data-src="@routes.FeedbackManagement.fetchPopupQSurvey(product.id)" data-height=520 data-width=500 data-target="#feedbackModal" class="btn btn-lg btn-outline">Share my experience</a>
               } else {
-            	<a href="@routes.Application.login()" class="btn btn-lg btn-outline">Share my experience</a>
+                <a href="@routes.Application.login()" class="btn btn-lg btn-outline">Share my experience</a>
               }
-
             }
-
+          }
 
           <a data-toggle="modal" data-target="#uploadMediaModal" class="btn btn-lg btn-outline">Share my photos</a>
         </div>
