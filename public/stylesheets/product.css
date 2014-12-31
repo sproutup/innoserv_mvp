@@ -157,6 +157,7 @@
   font-weight: 300;
   padding-top: 20px;
   padding-bottom: 20px;
+  padding-left: 7px;
   font-size: 18pt;
   color: #5f5f5f;
 }
@@ -169,10 +170,6 @@
 
 .product-item-page-header:hover,
 .product-item-page-header:focus {
-  font-weight: 300;
-  padding-top: 20px;
-  padding-bottom: 20px;
-  font-size: 18pt;
   color: #000;
   -webkit-transition: all .3s;
   -moz-transition: all .3s;
@@ -471,7 +468,7 @@ ul.media-social-buttons li a:hover {
 
 .user-img-circle {
   width: 120px;
-  height: 120px;
+  height: auto;
   -webkit-border-radius: 500px;
   -moz-border-radius: 500px;
   border-radius: 500px;

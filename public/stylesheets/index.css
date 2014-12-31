@@ -56,10 +56,10 @@
   padding-right: 2%;
 }
 
-.img-center {
+.marketing-img {
   margin: 0 auto;
   width: 200px;
-  height: 200px;
+  height: auto;
   border: 1px solid #ccc;
 }
 
