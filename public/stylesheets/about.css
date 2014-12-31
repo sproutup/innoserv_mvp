@@ -1,7 +1,30 @@
+#story {
+  margin-top: 80px;
+  margin-bottom: 60px;
+}
+
+.story-title {
+  padding-top: 20px;
+  padding-bottom: 10px;
+  color: #2996cc;
+  font-weight: 300;
+  font-size: 32pt;
+}
+
+.story-content {
+  padding-left: 7%;
+  padding-right: 7%;
+  line-height: 1.5;
+  font-size: 14pt;
+  color: #434343;
+  font-weight: 300;
+}
+
 .team-banner {
-  margin-top: 70px;
+  margin-top: 40px;
   padding-top: 30px;
   padding-bottom: 30px;
+  margin-bottom: 40px;
   color: #fff;
   background: url(../images/about/team_banner.png) no-repeat center center;
   background-size: cover;
@@ -30,7 +53,7 @@
   padding-left: 7%;
   padding-right: 7%;
   line-height: 1.5;
-  font-size: 15pt;
+  font-size: 14pt;
   font-family: "lato", Helvetica, Arial, sans-serif;
   font-weight: 300;
 }

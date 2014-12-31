@@ -9,20 +9,24 @@
 }
 
 .profile-message {
-  padding-top: 90px;
+  padding-top: 80px;
+}
+
+.profile-message img {
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .profile-message > h1 {
   font-family: "lato", Helvetica,Arial,sans-serif;
   font-weight: 100;
   margin: 0;
-  padding-top: 20px;
-  padding-bottom: 20px;
+  padding-top: 30px;
   font-size: 48pt;
 }
 
 .profile-img-circle {
-  background:#555;
+  background: transparent;
   width: 140px;
   height: 140px;
   -webkit-border-radius: 500px;
