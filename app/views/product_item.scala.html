@@ -90,9 +90,7 @@
         <div class="modal-body">
           @helper.form(action = routes.MediaManagement.doUpload, 'enctype -> "multipart/form-data") {
 
-            <input type="hidden"
-            name="productName"
-            value= @(product.id + "_" + product.productName) />
+            <input type= "hidden" class="form-control" name="productName" value= "@(product.id + "_" + product.productName)" readonly />
 
             @defining(Application.getLocalUser(session())) { user =>
 
