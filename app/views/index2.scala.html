@@ -47,7 +47,7 @@
     @for(product <- products) {
       <div class="col-sm-6 col-xs-12 product-cover-item">
         <a href="@routes.Products.details(product.id)">
-          <div class="product-cover-photo" style="background-image: url('@routes.Assets.at("images/product/"+product.productEAN+".jpg")')">
+          <div class="product-cover-photo" style="background-image: url('@("https://s3.amazonaws.com/sproutup-mvp-cdn/assets/" + product.productEAN +".jpg")')">
             <div class="product-cover-meta">
               <div class="product-cover-title">
                 <p>@product.productName</p>

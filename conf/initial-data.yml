@@ -58,4 +58,9 @@ products:
     - !!models.Product
         productEAN:          11122
         productName:         Gramovox
-        productDescription:  The bluetooth gramophone    
+        productDescription:  The bluetooth gramophone
+
+    - !!models.Product
+        productEAN:          11123
+        productName:         The OCDock
+        productDescription:  iPhone dock for iMac & Apple displays    

@@ -12,6 +12,13 @@
 
   <script src="@routes.Assets.at("javascripts/facebookShare.js")"></script>
   <script src="@routes.Assets.at("javascripts/qualtricsPopup.js")"></script>
+
+  <!-- video.js -->
+  <link href="//vjs.zencdn.net/4.11/video-js.css" rel="stylesheet">
+  <script src="//vjs.zencdn.net/4.11/video.js"></script>
+  <style type="text/css">
+  .vjs-default-skin .vjs-control-bar { font-size: 60% }
+  </style>
 }
 
 @import helper._
@@ -19,7 +26,7 @@
 
 @main(Messages(product.productName + ": " + product.productDescription + " | SproutUp"), moreHead) {
 
-  <div class="product-header" style="background-image: url('@routes.Assets.at("images/product/"+product.productEAN+".jpg")')">
+  <div class="product-header" style="background-image: url('@("https://s3.amazonaws.com/sproutup-mvp-cdn/assets/" + product.productEAN +".jpg")')">
     <div class="product-info">
       <div class="col-lg-12 col-md-12 col-sm-12">
         <p class="product-title">@product.productName</p>
@@ -52,7 +59,7 @@
     </div>
   </div>
 
-
+  <!-- Feedback modal -->
   <div class="modal fade" id="feedbackModal" tabindex="-1" role="dialog"  aria-labelledby="feedbackModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -70,6 +77,7 @@
       </div>
     </div>
   </div>
+  <!-- End of feedback modal -->
 
   <!-- Upload modal -->
   <div class="modal fade" id="uploadMediaModal" tabindex="-1" role="dialog"  aria-hidden="false">
@@ -128,7 +136,28 @@
 
   <hr> -->
 
-  <!-- start of section "media" -->
+  <!-- product videos -->
+  <div class="media">
+    <div class="product-item-page-header">
+      Product <span class="header-em">VIDEOS</span> from @product.productName users
+    </div>
+
+    @for(media <- product.mediaItems) {
+
+      @if(media.mediaType == "video") {
+        <div class="col-lg-6 media-photo">
+          <video class="video-js vjs-default-skin"
+          controls preload="auto" width="500" height="400"
+          data-setup='{"example_option":true}'>
+            <source src="@media.cloudFrontLink" type='video/mp4' />
+            <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
+          </video>
+        </div>
+      }
+    }
+  </div>
+
+  <!-- product photos -->
   <div class="media">
     <div class="product-item-page-header">
         Product <span class="header-em">PHOTOS</span> from @product.productName users
