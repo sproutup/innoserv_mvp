@@ -18,7 +18,7 @@ products:
     - !!models.Product
         productEAN:          11114
         productName:         Miselu C.24
-        productDescription:  The Music Keyboard for iPad
+        productDescription:  The music keyboard for iPad
 
     - !!models.Product
         productEAN:          11115
@@ -53,4 +53,9 @@ products:
     - !!models.Product
         productEAN:          11121
         productName:         Motrr Galileo
-        productDescription:  The App-Controlled Robotic Dock for GoPro, iPhone, and Other Devices
+        productDescription:  The app-controlled robotic dock for GoPro, iPhone, and other devices
+
+    - !!models.Product
+        productEAN:          11122
+        productName:         Gramovox
+        productDescription:  The bluetooth gramophone    
