@@ -63,4 +63,9 @@ products:
     - !!models.Product
         productEAN:          11123
         productName:         The OCDock
-        productDescription:  iPhone dock for iMac & Apple displays    
+        productDescription:  iPhone dock for iMac & Apple displays
+
+    - !!models.Product
+        productEAN:          11124
+        productName:         Boosted Boards
+        productDescription:  The World's Lightest Electric Vehicle
