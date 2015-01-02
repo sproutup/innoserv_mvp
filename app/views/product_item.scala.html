@@ -13,12 +13,45 @@
   <script src="@routes.Assets.at("javascripts/facebookShare.js")"></script>
   <script src="@routes.Assets.at("javascripts/qualtricsPopup.js")"></script>
 
-  <!-- video.js -->
-  <link href="//vjs.zencdn.net/4.11/video-js.css" rel="stylesheet">
-  <script src="//vjs.zencdn.net/4.11/video.js"></script>
-  <style type="text/css">
-  .vjs-default-skin .vjs-control-bar { font-size: 60% }
-  </style>
+  <script src="@routes.Assets.at("javascripts/jquery.collagePlus.js")"></script>
+  <script src="@routes.Assets.at("javascripts/jquery.removeWhitespace.js")"></script>
+
+  <link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/transitions.css")">
+
+  <!-- video collage -->
+  <script type="text/javascript">
+  // All images need to be loaded for this plugin to work so
+  // we end up waiting for the whole window to load in this example
+  $(window).load(function () {
+    $(document).ready(function(){
+      collage();
+    });
+  });
+
+  // Here we apply the actual CollagePlus plugin
+  function collage() {
+    $('.Collage').removeWhitespace().collagePlus(
+    {
+      'fadeSpeed'     : 2000,
+      'targetHeight'  : 350,
+    }
+    );
+  };
+
+  // This is just for the case that the browser window is resized
+  var resizeTimer = null;
+  $(window).bind('resize', function() {
+    // hide all the videos until we resize them
+    $('.Collage .video').css("opacity", 0);
+    // set a timer to re-apply the plugin
+    if (resizeTimer) clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(collage, 200);
+  });
+
+  $('.Collage').removeWhitespace().collagePlus();
+
+  </script>
+
 }
 
 @import helper._
@@ -135,27 +168,23 @@
   <hr> -->
 
   <!-- product videos -->
-  <div class="media">
+  <!-- <div class="media">
     <div class="product-item-page-header">
       Product <span class="header-em">VIDEOS</span> from @product.productName users
     </div>
 
+    <div class="Collage effect-parent">
     @for(media <- product.mediaItems) {
 
       @if(media.mediaType == "video") {
-        <div class="col-lg-6 media-photo">
-          <video class="video-js vjs-default-skin"
-          controls preload="auto" width="500" height="400"
-          data-setup='{"example_option":true}'>
-            <source src="@media.cloudFrontLink" type='video/mp4' />
-            <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
+          <video controls preload="auto" width="auto" height="auto"><source src="@media.cloudFrontLink" type='video/mp4'/>
           </video>
-        </div>
-      }
-    }
-  </div>
+          }
+        }
+    </div>
+  </div> -->
+  <!-- end of product videos-->
 
-  <hr>
 
   <!-- product photos -->
   <div class="media">
@@ -186,11 +215,11 @@
     }
   }
   </div>
-  <!-- end of section "media" -->
+  <!-- end of product photos -->
 
   <hr>
 
-
+  <!-- product feedback panel group -->
   <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
     <div class="panel panel-default feedback-panel">
 
@@ -895,4 +924,5 @@
     }
   }
   </script>
+
 }

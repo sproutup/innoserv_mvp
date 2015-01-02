@@ -497,3 +497,18 @@ ul.product-social-buttons li a:hover {
   background-color: none;
   color: #ccc;
 }
+
+.Collage{
+  padding: 6px;
+}
+
+.Collage video{
+  margin:0;
+  padding:0;
+  display:inline-block;
+  vertical-align:bottom;
+  opacity:1;
+
+  /*This is where you set the border you want for the image*/
+  border: none;
+}
