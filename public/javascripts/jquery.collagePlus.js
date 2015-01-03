@@ -30,7 +30,7 @@
              *
              */
 
-            // track row width by adding images, padding and css borders etc
+            // track row width by adding videos, padding and css borders etc
             var row         = 0,
             // collect elements to be re-sized in current row
                 elements    = [],
@@ -43,21 +43,21 @@
 
             // width of the area the collage will be in
             $.fn.collagePlus.defaults.albumWidth    = $this.width();
-            // padding between the images. Using padding left as we assume padding is even all the way round
+            // padding between the videos. Using padding left as we assume padding is even all the way round
             $.fn.collagePlus.defaults.padding       = parseFloat( $this.css('padding-left') );
-            // object that contains the images to collage
-            $.fn.collagePlus.defaults.images        = $this.children();
+            // object that contains the videos to collage
+            $.fn.collagePlus.defaults.videos        = $this.children();
 
             var settings = $.extend({}, $.fn.collagePlus.defaults, options);
 
-            settings.images.each(
+            settings.videos.each(
                 function(index){
 
                     /*
                      *
                      * Cache selector
-                     * Even if first child is not an image the whole sizing is based on images
-                     * so where we take measurements, we take them on the images
+                     * Even if first child is not an video the whole sizing is based on videos
+                     * so where we take measurements, we take them on the videos
                      *
                      */
                     var $this = $(this),
@@ -67,11 +67,11 @@
 
                     /*
                      *
-                     * get the current image size. Get image size in this order
+                     * get the current video size. Get video size in this order
                      *
                      * 1. from <video> tag
                      * 2. from data set from initial calculation
-                     * 3. after loading the image and checking it's actual size
+                     * 3. after loading the video and checking it's actual size
                      *
                      */
                     var w = (typeof $video.data("width") != 'undefined') ? $video.data("width") : $video.width(),
@@ -109,7 +109,7 @@
 
                     /*
                      *
-                     * Keep track of which images are in our row so far
+                     * Keep track of which videos are in our row so far
                      *
                      */
                     elements.push([this, nw, nh, videoParams['w'], videoParams['h']]);
@@ -125,13 +125,13 @@
                     /*
                      *
                      * if the current row width is wider than the parent container
-                     * it's time to make a row out of our images
+                     * it's time to make a row out of our videos
                      *
                      */
                     if( row > settings.albumWidth && elements.length != 0 ){
 
-                        // call the method that calculates the final image sizes
-                        // remove one set of padding as it's not needed for the last image in the row
+                        // call the method that calculates the final video sizes
+                        // remove one set of padding as it's not needed for the last video in the row
                         resizeRow(elements, (row - settings.padding), settings, rownum);
 
                         // reset our row
@@ -145,11 +145,11 @@
 
                     /*
                      *
-                     * if the images left are not enough to make a row
+                     * if the videos left are not enough to make a row
                      * then we'll force them to make one anyway
                      *
                      */
-                    if ( settings.images.length-1 == index && elements.length != 0){
+                    if ( settings.videos.length-1 == index && elements.length != 0){
                         resizeRow(elements, row, settings, rownum);
 
                         // reset our row
@@ -169,24 +169,24 @@
             /*
              *
              * How much bigger is this row than the available space?
-             * At this point we have adjusted the images height to fit our target height
-             * so the image size will already be different from the original.
+             * At this point we have adjusted the videos height to fit our target height
+             * so the video size will already be different from the original.
              * The resizing we're doing here is to adjust it to the album width.
              *
              * We also need to change the album width (basically available space) by
-             * the amount of padding and css borders for the images otherwise
+             * the amount of padding and css borders for the videos otherwise
              * this will skew the result.
              *
              * This is because padding and borders remain at a fixed size and we only
-             * need to scale the images.
+             * need to scale the videos.
              *
              */
-            var imageExtras         = (settings.padding * (obj.length - 1)) + (obj.length * obj[0][3]),
-                albumWidthAdjusted  = settings.albumWidth - imageExtras,
-                overPercent         = albumWidthAdjusted / (row - imageExtras),
+            var videoExtras         = (settings.padding * (obj.length - 1)) + (obj.length * obj[0][3]),
+                albumWidthAdjusted  = settings.albumWidth - videoExtras,
+                overPercent         = albumWidthAdjusted / (row - videoExtras),
                 // start tracking our width with know values that will make up the total width
                 // like borders and padding
-                trackWidth          = imageExtras,
+                trackWidth          = videoExtras,
                 // guess whether this is the last row in a set by checking if the width is less
                 // than the parent width.
                 lastRow             = (row < settings.albumWidth  ? true : false);
@@ -196,7 +196,7 @@
 
 
             /*
-             * Resize the images by the above % so that they'll fit in the album space
+             * Resize the videos by the above % so that they'll fit in the album space
              */
             for (var i = 0; i < obj.length; i++) {
 
@@ -210,7 +210,7 @@
                     isNotLast   = !!(( i < obj.length - 1 ));
 
                 /*
-                 * Checking if the user wants to not stretch the images of the last row to fit the
+                 * Checking if the user wants to not stretch the videos of the last row to fit the
                  * parent element size
                  */
                 if(settings.allowPartialLastRow === true && lastRow === true){
@@ -223,7 +223,7 @@
                  *
                  * Because we use % to calculate the widths, it's possible that they are
                  * a few pixels out in which case we need to track this and adjust the
-                 * last image accordingly
+                 * last video accordingly
                  *
                  */
                 trackWidth += fw;
@@ -231,11 +231,11 @@
 
                 /*
                  *
-                 * here we check if the combined images are exactly the width
+                 * here we check if the combined videos are exactly the width
                  * of the parent. If not then we add a few pixels on to make
                  * up the difference.
                  *
-                 * This will alter the aspect ratio of the image slightly, but
+                 * This will alter the aspect ratio of the video slightly, but
                  * by a noticable amount.
                  *
                  * If the user doesn't want full width last row, we check for that here
@@ -253,7 +253,7 @@
 
                 /*
                  *
-                 * We'll be doing a few things to the image so here we cache the image selector
+                 * We'll be doing a few things to the video so here we cache the video selector
                  *
                  *
                  */
@@ -261,12 +261,12 @@
 
                 /*
                  *
-                 * Set the width of the image and parent element
-                 * if the resized element is not an image, we apply it to the child image also
+                 * Set the width of the video and parent element
+                 * if the resized element is not an video, we apply it to the child video also
                  *
-                 * We need to check if it's an image as the css borders are only measured on
-                 * images. If the parent is a div, we need make the contained image smaller
-                 * to accommodate the css image borders.
+                 * We need to check if it's an video as the css borders are only measured on
+                 * videos. If the parent is a div, we need make the contained video smaller
+                 * to accommodate the css video borders.
                  *
                  */
                 $video.width(fw);
@@ -277,8 +277,8 @@
 
                 /*
                  *
-                 * Set the height of the image
-                 * if the resized element is not an image, we apply it to the child image also
+                 * Set the height of the video
+                 * if the resized element is not an video, we apply it to the child video also
                  *
                  */
                 $video.height(fh);
@@ -297,9 +297,9 @@
 
                 /*
                  *
-                 * Assign the effect to show the image
+                 * Assign the effect to show the video
                  * Default effect is using jquery and not CSS3 to support more browsers
-                 * Wait until the image is loaded to do this
+                 * Wait until the video is loaded to do this
                  *
                  */
 
@@ -324,8 +324,8 @@
                     }
                     }($obj))
                     /*
-                     * fix for cached or loaded images
-                     * For example if images are loaded in a "window.load" call we need to trigger
+                     * fix for cached or loaded videos
+                     * For example if videos are loaded in a "window.load" call we need to trigger
                      * the load call again
                      */
                     .each(function() {
@@ -342,8 +342,8 @@
 
         /*
          *
-         * This private function applies the required css to space the image gallery
-         * It applies it to the parent element so if an image is wrapped in a <div> then
+         * This private function applies the required css to space the video gallery
+         * It applies it to the parent element so if an video is wrapped in a <div> then
          * the css is applied to the <div>
          *
          */
@@ -367,7 +367,7 @@
         /*
          *
          * This private function calculates any extras like padding, border associated
-         * with the image that will impact on the width calculations
+         * with the video that will impact on the width calculations
          *
          */
         function getvideoProperty( video )
@@ -382,20 +382,20 @@
     };
 
     $.fn.collagePlus.defaults = {
-        // the ideal height you want your images to be
+        // the ideal height you want your videos to be
         'targetHeight'          : 400,
-        // how quickly you want images to fade in once ready can be in ms, "slow" or "fast"
+        // how quickly you want videos to fade in once ready can be in ms, "slow" or "fast"
         'fadeSpeed'             : "fast",
         // how the resized block should be displayed. inline-block by default so that it doesn't break the row
         'display'               : "inline-block",
-        // which effect you want to use for revealing the images (note CSS3 browsers only),
+        // which effect you want to use for revealing the videos (note CSS3 browsers only),
         'effect'                : 'default',
         // effect delays can either be applied per row to give the impression of descending appearance
         // or horizontally, so more like a flock of birds changing direction
         'direction'             : 'vertical',
-        // Sometimes there is just one image on the last row and it gets blown up to a huge size to fit the
+        // Sometimes there is just one video on the last row and it gets blown up to a huge size to fit the
         // parent div width. To stop this behaviour, set this to true
-        'allowPartialLastRow'   : false
+        'allowPartialLastRow'   : true
     };
 
 })( jQuery );
