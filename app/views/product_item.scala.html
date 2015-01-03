@@ -64,10 +64,6 @@
         <div class="modal-body" style="text-align: center;">
           <iframe frameborder="0"></iframe>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-
-        </div>
       </div>
     </div>
   </div>
@@ -123,7 +119,7 @@
 <!-- product photos -->
 <div class="media">
   <div class="product-item-page-header">
-    Product <span class="header-em">PHOTOS</span> from @product.productName users
+    <p>Product <span class="header-em">PHOTOS</span> from @product.productName users</p>
   </div>
 
   @for(media <- product.mediaItems) {
@@ -132,22 +128,22 @@
       <div class="col-lg-4 col-md-4 col-sm-6 media-photo">
         <div class="media-photo-background"
         style="background-image: url('@media.cloudFrontLink');">
-        <div class="media-photo-overlay"></div>
-        <div class="media-photo-meta">
-          <p class="media-user">@media.submittedByUserID</p>
-          <ul class="list-inline media-social-buttons">
-            <li>
-              <a href=""><i class="fa fa-heart-o"></i></a>
-            </li>
-            <li>
-              <a href=""><i class="fa fa-share-alt"></i></a>
-            </li>
-          </ul>
+          <div class="media-photo-overlay"></div>
+          <div class="media-photo-meta">
+            <p class="media-user">@media.submittedByUserID</p>
+            <ul class="list-inline media-social-buttons">
+              <li>
+                <a href=""><i class="fa fa-heart-o"></i></a>
+              </li>
+              <li>
+                <a href=""><i class="fa fa-share-alt"></i></a>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
-    </div>
+    }
   }
-}
 </div>
 <!-- end of product photos -->
 
