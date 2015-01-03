@@ -247,7 +247,14 @@
   z-index: 3;
 }
 
-.media {
+.media-video {
+  margin-top: 0px;
+  margin-bottom: 40px;
+  margin-left: 12px;
+  margin-right: 12px;
+}
+
+.media-photo {
   margin-top: 0px;
   margin-bottom: 40px;
   margin-left: 15px;
@@ -498,17 +505,15 @@ ul.product-social-buttons li a:hover {
   color: #ccc;
 }
 
-.Collage{
-  padding: 6px;
+.Collage {
+  padding:6px;
 }
 
-.Collage video{
+.Collage video {
   margin:0;
   padding:0;
   display:inline-block;
   vertical-align:bottom;
   opacity:1;
-
-  /*This is where you set the border you want for the image*/
-  border: none;
+  border:none;
 }

@@ -11,20 +11,6 @@ body {
   width: 100%;
 }
 
-.body-container {
-  /* margin-top: 100px; */
-  min-height: 420px;
-}
-
-.footer-container {
-  margin-top: 20px;
-  min-height: 80px;
-}
-
-.header-container {
-  border-bottom: solid 1px #eee;
-}
-
 .navbar {
   margin-bottom: 0px;
   margin-top: 0px;
