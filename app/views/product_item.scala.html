@@ -12,8 +12,7 @@
 
   <script src="@routes.Assets.at("javascripts/facebookShare.js")"></script>
   <script src="@routes.Assets.at("javascripts/qualtricsPopup.js")"></script>
-  <script src="@routes.Assets.at("javascripts/jquery.collagePlus.js")"></script>
-  <script src="@routes.Assets.at("javascripts/jquery.removeWhitespace.js")"></script>
+
 }
 
 @import helper._
@@ -118,26 +117,6 @@
     </div>
   </div>
   <!-- End of upload modal-->
-
-
-
-<!-- product videos -->
-<div class="media-video">
-  <div class="product-item-page-header">Product <span class="header-em">VIDEOS</span> from @product.productName users
-  </div>
-
-  <section class="Collage">
-    @for(media <- product.mediaItems) {
-      @if(media.mediaType == "video") {
-        <video preload="auto" width="auto" height="auto"><source src="@media.cloudFrontLink" type='video/mp4'/>
-        </video>
-      }
-    }
-  </section>
-
-</div>
-
-<!-- end of product videos-->
 
 <hr>
 
