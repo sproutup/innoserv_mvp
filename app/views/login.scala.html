@@ -10,18 +10,15 @@
 
 @main(Messages("Log In | SproutUp: Redefine Commerce for Emerging Products"), moreHead) {
 
-  <div class="row">
+  <div class="container">
 
-    <div class="container">
-      <div class="row">
-        <div class="col-md-12">
-          <h1 class="form-header">Log in and have fun</h1>
-        </div>
+      <div class="col-md-12">
+        <h1 class="form-header">Log in and have fun</h1>
       </div>
+
 
       <div class="row login-form-block">
         <div class="col-md-8 col-md-offset-2">
-
           <!-- facebook login -->
           <div class="form-group">
             <a href="/authenticate/facebook">
@@ -61,19 +58,15 @@
           <button type="submit" class="btn btn-primary btn-lg btn-block">Log In</button>
 
         }
-
         </div>
 
         <div class="col-md-8 col-md-offset-2">
           <h2>Don't have an account? <a href="@routes.Application.signup()">Sign up</a> here.</h2>
           <h2><a href="javascript:void(0);" onclick="window.location.href = jsRoutes.controllers.Signup.forgotPassword($('#email').val() || null).absoluteURL();">Forgot your password?</a></h2>
         </div>
-
       </div>
 
     </div>
-  </div>
-
   <hr>
 
 }

@@ -5,6 +5,11 @@ h4 {
   font-family: "Lato", Helvetica,Arial,sans-serif;
 }
 
+.row {
+  margin-left: 0;
+  margin-right: 0;
+}
+
 .intro-header {
   width: 100%;
   height: 580px;
