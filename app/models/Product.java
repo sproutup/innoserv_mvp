@@ -19,6 +19,7 @@ import javax.persistence.OneToMany;
 
 import com.avaje.ebean.Page;
 
+import java.lang.Boolean;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
@@ -39,6 +40,7 @@ public class Product extends Model implements PathBindable<Product>,
 	public String productName;
 	public String productDescription;
 	public String productLongDescription;
+	public boolean isFeatured;
 
 	private List<Product> products;
 
