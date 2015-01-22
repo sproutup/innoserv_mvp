@@ -21,6 +21,8 @@ val appDependencies = Seq(
   "com.amazonaws" % "aws-java-sdk" % "1.3.11"
 )
 
+libraryDependencies += "com.github.tototoshi" %% "play-flyway" % "1.2.0"
+
 //  Uncomment the next line for local development of the Play Authenticate core:
 //lazy val playAuthenticate = project.in(file("modules/play-authenticate")).enablePlugins(PlayJava)
 
