@@ -1,1 +1,1 @@
-# SproutUp with Social Authentication
+# SproutUp MVP
