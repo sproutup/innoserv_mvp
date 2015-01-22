@@ -1,0 +1,1 @@
+alter table product add is_featured tinyint(1) default 0
