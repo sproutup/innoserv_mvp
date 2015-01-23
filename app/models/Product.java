@@ -1,5 +1,6 @@
 package models;
 
+import org.hibernate.validator.constraints.URL;
 import play.Logger;
 import play.data.format.Formats;
 import play.data.validation.Constraints;
@@ -37,6 +38,10 @@ public class Product extends Model implements PathBindable<Product>,
 	public String slug;
 	public String productDescription;
 	public String productLongDescription;
+	public String urlHome;
+	public String urlFacebook;
+	public String urlTwitter;
+
 	public boolean isFeatured;
 
 	private List<Product> products;

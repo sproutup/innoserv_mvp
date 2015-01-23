@@ -26,12 +26,18 @@
         <p class="product-title">@product.productName</p>
         <p class="product-description">@product.productDescription</p>
         <ul class="list-inline product-social-buttons">
-          <li><a href="" target="_blank"><i class="fa fa-home"></i></a>
-          </li>
-          <li><a href="" target="_blank"><i class="fa fa-facebook"></i></a>
-          </li>
-          <li><a href="" target="_blank"><i class="fa fa-twitter"></i></a>
-          </li>
+          @if(product.urlHome != null){
+            <li><a href="http://@product.urlHome" target="_blank"><i class="fa fa-home"></i></a>
+            </li>
+          }
+          @if(product.urlFacebook != null){
+            <li><a href="http://@product.urlFacebook" target="_blank"><i class="fa fa-facebook"></i></a>
+            </li>
+          }
+          @if(product.urlTwitter != null){
+            <li><a href="http://@product.urlTwitter" target="_blank"><i class="fa fa-twitter"></i></a>
+            </li>
+          }
         </ul>
 
         <div class="col-lg-12">
