@@ -9,7 +9,8 @@ GET     /creator                    controllers.Application.creator
 GET     /assets/javascript/routes.js    controllers.Application.jsRoutes
 
 GET     /product                    controllers.Products.list
-GET     /product/:id		        controllers.Products.details(id: Long)
+GET     /product/:slug		        controllers.Products.detailsBySlug(slug: String)
+GET     /product/id/:id		        controllers.Products.details(id: Long)
 
 GET     /internal-only-upload                     controllers.MediaManagement.upload
 POST    /doUpload                   controllers.MediaManagement.doUpload()

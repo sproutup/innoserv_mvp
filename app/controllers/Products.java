@@ -27,11 +27,16 @@ public class Products extends Controller {
   return TODO;
 }*/
 
-	public static Result details(Long id) {
-	  //Product product = new Product().findbyID(id);
-		Product product = new Product().getDetailwithMedia(id);
-	  return ok(product_item.render(product, mediaUploadForm));
-	}
+    public static Result details(Long id) {
+        //Product product = new Product().findbyID(id);
+        Product product = new Product().getDetailwithMedia(id);
+        return ok(product_item.render(product, mediaUploadForm));
+    }
+
+    public static Result detailsBySlug(String name) {
+        Product product = new Product().findbySlug(name);
+        return ok(product_item.render(product, mediaUploadForm));
+    }
 
 /*
 	public static Result save() {

@@ -8,17 +8,12 @@ import play.mvc.PathBindable;
 import play.mvc.QueryStringBindable;
 import play.libs.F;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 
 import com.avaje.ebean.Page;
+import utils.Slugify;
 
+import java.io.IOException;
 import java.lang.Boolean;
 import java.util.ArrayList;
 import java.util.Date;
@@ -38,6 +33,8 @@ public class Product extends Model implements PathBindable<Product>,
 
 	public String productEAN;
 	public String productName;
+	@Column(unique=true)
+	public String slug;
 	public String productDescription;
 	public String productLongDescription;
 	public boolean isFeatured;
@@ -77,8 +74,26 @@ public class Product extends Model implements PathBindable<Product>,
 		return find.byId(id);
 	}
 
+	@PrePersist
+	@PreUpdate
+	void pre_update() {
+		// update slug every time product is saved
+		try {
+			slug = new Slugify().slugify(productName);
+
+			//prevent duplicates
+			// ToDo
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
 	public Product findbyProductEAN(String productEAN) {
 		return find.where().eq("productEAN", productEAN).findUnique();
+	}
+
+	public Product findbySlug(String value) {
+		return find.where().eq("slug", value).findUnique();
 	}
 
 	public List<Product> findbyProductName(String productName) {
