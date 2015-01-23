@@ -48,6 +48,7 @@ public class Product extends Model implements PathBindable<Product>,
 	public List<Feedback> feedbackItems;
 
 	@OneToMany(mappedBy="product")
+	@OrderBy("dateTimeStamp desc")
 	public List<Media> mediaItems;
 
 	public static Finder<Long, Product> find = new Finder<Long, Product>(
