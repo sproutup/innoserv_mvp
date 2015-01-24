@@ -44,22 +44,22 @@
     <h1 class="text-center product-list-header">Featured products</h1>
     <h1 class="text-center product-list-header-2">We are expanding the collaboration with product creators. Stay tuned for more exciting stuff, beta coming in early 2015.</h1>
     @for(product <- products) {
-      @if(product.isFeatured) {
-        <div class="col-sm-6 col-xs-12 product-cover-item">
-          <a href="@routes.Products.details(product.id)">
-            <div class="product-cover-photo" style="background-image: url('@("https://s3.amazonaws.com/sproutup-mvp-cdn/assets/" + product.productEAN +".jpg")')">
-              <div class="product-cover-meta">
-                <div class="product-cover-title">
-                  <p>@product.productName</p>
+        @if(product.isFeatured) {
+            <div class="col-sm-6 col-xs-12 product-cover-item">
+              <a href="@routes.Products.detailsBySlug(product.slug)">
+                <div class="product-cover-photo" style="background-image: url('@("https://s3.amazonaws.com/sproutup-mvp-cdn/assets/" + product.productEAN +".jpg")')">
+                  <div class="product-cover-meta">
+                    <div class="product-cover-title">
+                        <p>@product.productName</p>
+                    </div>
+                    <div class="product-cover-description">
+                        <p>@product.productDescription</p>
+                    </div>
+                  </div>
                 </div>
-                <div class="product-cover-description">
-                  <p>@product.productDescription</p>
-                </div>
-              </div>
+              </a>
             </div>
-          </a>
-        </div>
-      }
+        }
     }
   </div>
 
@@ -68,7 +68,7 @@
     @for(product <- products) {
       @if(!product.isFeatured) {
         <div class="col-lg-4 col-sm-6 col-xs-12 product-cover-item">
-          <a href="@routes.Products.details(product.id)">
+          <a href="@routes.Products.detailsBySlug(product.slug)">
             <div class="product-cover-photo" style="background-image: url('@("https://s3.amazonaws.com/sproutup-mvp-cdn/assets/" + product.productEAN +".jpg")')">
               <div class="product-cover-meta">
                 <div class="product-cover-title">

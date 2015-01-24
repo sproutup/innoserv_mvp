@@ -89,17 +89,12 @@ public class Media extends Model{
 
 	public List<Media> findMediabyProductID(Long productID){
 		List<Media> results = null;
-		 
-		int count = find.where().eq("id", productID).findRowCount();
-		 Logger.debug("# of media row count for product- "+ productID + "_" + productName + "- are " + count);
-		results = find.where().eq("id", productID).findList();
-		 if(results!=null){
-			 Logger.debug("# of media fetched for product- "+ productID + "_" + productName + "- are " + results.size());
-		 } else {
-			 Logger.debug("no media found for product- " + productName );
-		 }
-		 return results;
 
+		results = find.where()
+				.eq("id", productID)
+				.orderBy("dateTimeStamp desc")
+				.findList();
+
+		return results;
 	}
-
 }
