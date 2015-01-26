@@ -18,6 +18,7 @@ import play.mvc.Call;
 import play.data.format.Formatters;
 import play.data.format.Formatters.*;
 import utils.AnnotationDateFormatter;
+import play.mvc.*;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -45,7 +46,7 @@ public class Global extends GlobalSettings {
 			@Override
 			public Call afterAuth() {
 				// The user will be redirected to this page after authentication
-				// if no original URL was saved
+				// if no original URL was saved with PlayAuthenticate.storeOriginalUrl(...)
 				return routes.Application.index();
 			}
 
@@ -56,6 +57,9 @@ public class Global extends GlobalSettings {
 
 			@Override
 			public Call auth(final String provider) {
+				// save original url so user is redirected back to where user came from
+				Logger.debug(PlayAuthenticate.storeOriginalUrl(Http.Context.current()));
+
 				// You can provide your own authentication implementation,
 				// however the default should be sufficient for most cases
 				return com.feth.play.module.pa.controllers.routes.Authenticate
