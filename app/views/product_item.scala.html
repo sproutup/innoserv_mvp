@@ -8,7 +8,7 @@
   <meta property="og:url" content="http://trial.sproutup.co/product/@product.id" />
   <meta property="og:description" content="@product.productDescription" />
 
-  <link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/product.css")">
+  <link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/product-item.css")">
 
   <script src="@routes.Assets.at("javascripts/facebookShare.js")"></script>
   <script src="@routes.Assets.at("javascripts/qualtricsPopup.js")"></script>
@@ -19,7 +19,7 @@
 @implicitFieldConstructor = @{ FieldConstructor(twitterBootstrapBasic.f) }
 
 @main(Messages(product.productName + ": " + product.productDescription + " | SproutUp"), moreHead) {
-    
+
  <div class="product-header" style="background-image: url('@("https://s3.amazonaws.com/sproutup-mvp-cdn/assets/" + product.productEAN +".jpg")')">
     <div class="product-info">
       <div class="col-lg-12 col-md-12 col-sm-12">
