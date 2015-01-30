@@ -4,12 +4,11 @@ import models.S3File;
 import models.Product;
 import play.data.Form;
 import play.*;
+import play.libs.Json;
 import play.mvc.*;
 import views.html.*;
-
 import java.util.List;
-
-import com.avaje.ebean.Page;
+import javax.persistence.PersistenceException;
 
 public class Products extends Controller {
 
@@ -36,6 +35,66 @@ public class Products extends Controller {
     public static Result detailsBySlug(String name) {
         Product product = new Product().findbySlug(name);
         return ok(product_item_2.render(product, mediaUploadForm));
+    }
+
+    @BodyParser.Of(BodyParser.Json.class)
+    public static Result getProducts()
+    {
+        List<Product> products_ = new Product().getAll();
+        return ok(Json.toJson(products_));
+    }
+
+    @BodyParser.Of(BodyParser.Json.class)
+    public static Result getProduct(Long id)
+    {
+        Product item = new Product().findbyID(id);
+        return item == null ? notFound("Product not found [" + id + "]") : ok(Json.toJson(item));
+    }
+
+    @BodyParser.Of(BodyParser.Json.class)
+    public static Result createProduct()
+    {
+        models.Product newProduct = Json.fromJson(request().body().asJson(), models.Product.class);
+        Logger.debug("create product " + newProduct.productName);
+        try {
+            newProduct.save();
+            return created(Json.toJson(newProduct));
+        }
+        catch(PersistenceException e){
+            return play.mvc.Results.badRequest(e.getMessage());
+        }
+    }
+
+    public static Result updateProduct(Long id)
+    {
+        Product existing = new Product().findbyID(id);
+        if(existing != null) {
+            models.Product updated = Json.fromJson(request().body().asJson(), models.Product.class);
+            if(updated.productName != null) { existing.productName = updated.productName; };
+            if(updated.productEAN != null) { existing.productEAN = updated.productEAN; };
+            if(updated.productDescription != null) { existing.productDescription = updated.productDescription; };
+            if(updated.productLongDescription != null) { existing.productLongDescription = updated.productLongDescription; };
+            if(updated.urlHome != null) { existing.urlHome = updated.urlHome; };
+            if(updated.urlFacebook != null) { existing.urlFacebook = updated.urlFacebook; };
+            if(updated.urlTwitter != null) { existing.urlTwitter = updated.urlTwitter; };
+            existing.save();
+            return ok(Json.toJson(existing));
+        }
+        else{
+            return play.mvc.Results.notFound("Product not found");
+        }
+    }
+
+    public static Result deleteProduct(Long id)
+    {
+        Product del = new Product().findbyID(id);
+        if(del != null) {
+            del.delete();
+            return ok();
+        }
+        else{
+            return play.mvc.Results.notFound("Product not found");
+        }
     }
 
 /*
