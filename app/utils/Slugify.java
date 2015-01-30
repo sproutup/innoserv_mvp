@@ -22,9 +22,9 @@ public class Slugify {
     }
 
     public Slugify(final boolean lowerCase) throws IOException {
-        InputStream replacementsStream = getClass().getClassLoader().getResourceAsStream("replacements.properties");
-        replacements.load(replacementsStream);
-        replacementsStream.close();
+//        InputStream replacementsStream = getClass().getClassLoader().getResourceAsStream("replacements.properties");
+//        replacements.load(replacementsStream);
+//        replacementsStream.close();
         setLowerCase(lowerCase);
     }
 

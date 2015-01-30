@@ -1,7 +1,24 @@
 package models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.JsonSerializable;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+
 import org.hibernate.validator.constraints.URL;
 import play.Logger;
+import play.api.libs.json.DeserializerContext;
 import play.data.format.Formats;
 import play.data.validation.Constraints;
 import play.db.ebean.Model;
@@ -23,6 +40,7 @@ import java.util.List;
 import java.util.Map;
 
 @Entity
+@JsonSerialize(using = Product.ProductSerializer.class)
 public class Product extends Model implements PathBindable<Product>,
 		QueryStringBindable<Product> {
 
@@ -80,11 +98,22 @@ public class Product extends Model implements PathBindable<Product>,
 		return find.byId(id);
 	}
 
-	@PrePersist
-	@PreUpdate
-	void pre_update() {
+	@Override
+	public void save() {
+		this.slugify();
+		super.save();
+	}
+
+	@Override
+	public void update(Object o) {
+		this.slugify();
+		super.update(o);
+	}
+
+	public void slugify() {
 		// update slug every time product is saved
 		try {
+
 			slug = new Slugify().slugify(productName);
 
 			//prevent duplicates
@@ -192,4 +221,22 @@ public class Product extends Model implements PathBindable<Product>,
 				"The Music Keyboard for iPad"));
 	}*/
 
+	static class ProductSerializer extends JsonSerializer<Product> {
+		@Override
+		public void serialize(Product product, JsonGenerator generator, SerializerProvider provider)
+				throws IOException {
+			generator.writeStartObject();
+			generator.writeObjectField("id", product.id);
+			generator.writeStringField("productEAN", product.productEAN);
+			generator.writeStringField("productName", product.productName);
+			generator.writeStringField("slug", product.slug);
+			generator.writeStringField("productDescription", product.productDescription);
+			generator.writeStringField("productLongDescription", product.productLongDescription);
+			generator.writeStringField("urlHome", product.urlHome);
+			generator.writeStringField("urlFacebook", product.urlFacebook);
+			generator.writeStringField("urlTwitter", product.urlTwitter);
+			generator.writeBooleanField("isFeatured", product.isFeatured);
+			generator.writeEndObject();
+		}
+	}
 }
