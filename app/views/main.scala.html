@@ -1,4 +1,4 @@
-@(title: String, moreHead: Html = Html(""))(content: Html)
+@(title: String, moreHead: Html = Html(""), bodyAttributes: Html = Html(""))(content: Html)
 
 @import be.objectify.deadbolt.java.views.html._
 @import be.objectify.deadbolt.core.utils.TemplateUtils._
@@ -35,7 +35,7 @@
 
     </head>
 
-    <body>
+    <body @bodyAttributes>
 
       <div id="fb-root"></div>
 
