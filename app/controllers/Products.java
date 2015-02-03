@@ -20,7 +20,7 @@ public class Products extends Controller {
     // views used by angular routes
     //
 
-    public static Result main() {
+    public static Result main(String path) {
         return ok(views.html.product_main.render());
     }
 
