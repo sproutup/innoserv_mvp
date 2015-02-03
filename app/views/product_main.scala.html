@@ -1,6 +1,8 @@
 @()
 
 @moreHead = {
+    <link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/product-item.css")">
+    <link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/product-item--about.css")">
     <link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/product-list.css")">
     <script src="@routes.Assets.at("javascripts/angular.js")"></script>
     <script src="@routes.Assets.at("javascripts/angular-route.js")"></script>
@@ -14,10 +16,11 @@
 }
 
 @htmlAttributes = {
-ng-app="productApp"
+    ng-app="productApp"
 }
 
 @bodyAttributes = {
+    ng-controller="ProductTabCtrl"
 }
 
 @main(Messages("Explore Products | SproutUp: Redefine Commerce for Emerging Products"), moreHead, bodyAttributes, htmlAttributes) {
