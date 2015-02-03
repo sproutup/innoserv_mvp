@@ -14,7 +14,7 @@ import play.mvc.Http.MultipartFormData;
 
 import views.html.*;
 
-public class MediaManagement extends Controller {
+public class 	MediaManagement extends Controller {
 
 	public static final String FLASH_MESSAGE_KEY = "message";
 	public static final String FLASH_ERROR_KEY = "error";
@@ -42,7 +42,7 @@ public class MediaManagement extends Controller {
 			s3File.fileName = uploadFilePart.getFilename();
 			s3File.file = uploadFilePart.getFile();
 			s3File.save();
-			return redirect(routes.Products.details(productID));
+			return redirect(routes.Products.details1(productID));
 		}
 		else {
 			return badRequest("File upload error");

@@ -12,30 +12,60 @@ import javax.persistence.PersistenceException;
 
 public class Products extends Controller {
 
-  //public static Result GO_HOME = redirect(routes.Application.index());
+    //public static Result GO_HOME = redirect(routes.Application.index());
 
-  private static final Form<S3File> mediaUploadForm = Form.form(S3File.class);
+    private static final Form<S3File> mediaUploadForm = Form.form(S3File.class);
 
-  public static Result list() {
-    List<Product>products = new Product().getAll();
-	  return ok(product_list.render(products));
-  }
+    //
+    // views used by angular routes
+    //
 
-  /*
-  public static Result newProduct() {
-  return TODO;
-}*/
+    public static Result main() {
+        return ok(views.html.product_main.render());
+    }
 
-    public static Result details(Long id) {
+    public static Result list() {
+        return ok(views.html.product_list.render());
+    }
+
+    public static Result details() {
+        return ok(views.html.product_details.render());
+    }
+
+    public static Result about() {
+        return ok(views.html.product_tabs.about.render());
+    }
+
+    public static Result bar() {
+        return ok(views.html.product_tabs.experience_bar.render());
+    }
+
+    public static Result gallery() {
+        return ok(views.html.product_tabs.experience_gallery.render());
+    }
+
+    //
+    // views used by play
+    //
+
+    public static Result details1(Long id) {
         //Product product = new Product().findbyID(id);
         Product product1 = new Product().getDetailwithMedia(id);
-        return ok(product.render(product1, mediaUploadForm));
+        return ok(product_item.render(product1, mediaUploadForm));
     }
 
     public static Result detailsBySlug(String name) {
         Product product = new Product().findbySlug(name);
         return ok(product_item.render(product, mediaUploadForm));
     }
+
+    // For server-side defined routes that hand off rending to
+    // angular.js
+//    public static Result angularApp() {
+//        Product product = new Product().findbySlug(name);
+//        return ok(product_item.render(product, mediaUploadForm));
+//    }
+
 
     @BodyParser.Of(BodyParser.Json.class)
     public static Result getProducts()
@@ -49,6 +79,13 @@ public class Products extends Controller {
     {
         Product item = new Product().findbyID(id);
         return item == null ? notFound("Product not found [" + id + "]") : ok(Json.toJson(item));
+    }
+
+    @BodyParser.Of(BodyParser.Json.class)
+    public static Result getProduct(String slug)
+    {
+        Product item = new Product().findbySlug(slug);
+        return item == null ? notFound("Product not found [" + slug + "]") : ok(Json.toJson(item));
     }
 
     @BodyParser.Of(BodyParser.Json.class)

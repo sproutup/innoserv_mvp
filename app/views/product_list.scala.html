@@ -1,32 +1,24 @@
-@(products: List[Product])
+@()
 
-@moreHead = {
-  <link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/product-list.css")">
-}
-
-@main(Messages("Explore Products | SproutUp: Redefine Commerce for Emerging Products"), moreHead) {
 
 <div class="product-list">
+    Search: <input ng-model="query">
   <div class="row product-list-container">
-    @for(product <- products) {
-        <div class="col-lg-4 col-sm-6 col-xs-12 product-list-item">
-            <a href="@routes.Products.detailsBySlug(product.slug)">
-                <div class="product-cover-photo" style="background-image: url('@("https://s3.amazonaws.com/sproutup-mvp-cdn/assets/" + product.productEAN +".jpg")')">
-                    <div class="product-cover-info">
-                        <div class="product-cover-title">
-                            <p>@product.productName</p>
-                        </div>
-                        <div class="product-cover-description">
-                            <p>@product.productDescription</p>
-                        </div>
+    <div ng-repeat="product in products | filter:query" class="col-lg-4 col-sm-6 col-xs-12 product-list-item">
+        <a href="/product/{{product.slug}}">
+            <div class="product-cover-photo" style="background-image: url('https://s3.amazonaws.com/sproutup-mvp-cdn/assets/{{product.productEAN}}.jpg')">
+                <div class="product-cover-info">
+                    <div class="product-cover-title">
+                        <p>{{product.productName}}</p>
+                    </div>
+                    <div class="product-cover-description">
+                        <p>{{product.productDescription}}</p>
                     </div>
                 </div>
-            </a>
-        </div>
-    }
+            </div>
+        </a>
+    </div>
   </div>
 </div>
 
 <hr>
-
-}

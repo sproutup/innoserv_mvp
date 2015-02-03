@@ -1,36 +1,9 @@
-@(product: models.Product)(mediaUploadForm: Form[S3File])
 
-@moreHead = {
-<!-- For Facebook share dialog -->
-<meta property="og:title" content="SproutUp presents you @product.productName" />
-<meta property="og:type" content="website" />
-<meta property="og:image" content="@("https://s3.amazonaws.com/sproutup-mvp-cdn/assets/"+ product.productEAN +".jpg")" />
-<meta property="og:url" content="http://trial.sproutup.co/product/@product.id" />
-<meta property="og:description" content="@product.productDescription" />
-
-<link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/product-item.css")">
-
-<script src="@routes.Assets.at("javascripts/facebookShare.js")"></script>
-<script src="@routes.Assets.at("javascripts/qualtricsPopup.js")"></script>
-<script src="@routes.Assets.at("javascripts/angular.js")"></script>
-<script src="@routes.Assets.at("javascripts/angular/controllers.js")"></script>
-
-}
-
-@bodyAttributes = {
-    ng-controller="PhoneListCtrl"
-}
-
-@import helper._
-@implicitFieldConstructor = @{ FieldConstructor(twitterBootstrapBasic.f) }
-
-@main(Messages(product.productName + ": " + product.productDescription + " | SproutUp"), moreHead, bodyAttributes) {
-
-<div class="product-header" style="background-image: url('@("https://s3.amazonaws.com/sproutup-mvp-cdn/assets/" + product.productEAN +".jpg")')">
+<div class="product-header" style="background-image: url('https://s3.amazonaws.com/sproutup-mvp-cdn/assets/{{product.productEAN}}.jpg')">
 <div class="product-info">
     <div class="col-lg-12 col-md-12 col-sm-12">
-        <p class="product-title">@product.productName</p>
-        <p class="product-description">@product.productDescription</p>
+        <p class="product-title">{{product.productName}}</p>
+        <p class="product-description">{{product.productDescription}}</p>
         <ul class="list-inline product-social-buttons">
             @if(product.urlHome != null){
             <li><a href="http://@product.urlHome" target="_blank"><i class="fa fa-home"></i></a>
@@ -63,11 +36,13 @@
 </div>
 </div>
 
+<div ng-view></div>
+
 <div class="container-fluid">
     <div class="row">
         <div class="col-sm-8" style="background-color:lavender;">
             <div class="row">
-                <div class="col-sm-12" style="background-color:brown;">
+                <div class="col-sm-12" style="background-color:white;">
                     What belleds make
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ut odio molestie, vulputate est a, rutrum nunc. Nunc mollis nisl eget mauris ultricies commodo. Nam blandit libero ut urna pellentesque vehicula.</p>
                     <ul>
@@ -76,6 +51,14 @@
                             <p>{{phone.snippet}}</p>
                         </li>
                     </ul>
+                    <ul class="menu">
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/about">About</a></li>
+                        <li><a href="/experience-bar">Experience Bar</a></li>
+                        <li><a href="/experience-gallery">Experience Galley</a></li>
+                    </ul>
+
+
                 </div>
             </div>
             <div class="row">
@@ -127,4 +110,3 @@
 </div>
 <!-- End of feedback modal -->
 
-}

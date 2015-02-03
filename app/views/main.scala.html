@@ -1,11 +1,11 @@
-@(title: String, moreHead: Html = Html(""), bodyAttributes: Html = Html(""))(content: Html)
+@(title: String, moreHead: Html = Html(""), bodyAttributes: Html = Html(""), htmlAttributes: Html = Html(""))(content: Html)
 
 @import be.objectify.deadbolt.java.views.html._
 @import be.objectify.deadbolt.core.utils.TemplateUtils._
 @import com.feth.play.module.pa.views.html._
 
 <!DOCTYPE html>
-<html lang="@lang().code()">
+<html lang="@lang().code()" @htmlAttributes>
     <head>
       <title>@title</title>
       <meta name="description" content="SproutUp is a community-oriented marketplace that redefines commerce for emerging products by delivering products to the consumers through a unique set of personalized services">
@@ -42,17 +42,17 @@
       <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
 
         <div class="navbar-header">
-          <a class="navbar-brand" href="@routes.Application.index()">
+          <a class="navbar-brand" href="@routes.Application.index()" target="_self">
             <img class="logo" src="@routes.Assets.at("images/logo.png")">
           </a>
         </div>
 
         <div class="collapse navbar-collapse navbar-right" id="navbar-collapse-items">
           <ul class="nav navbar-nav navbar-item">
-            <li><a href="@routes.Products.list()">Explore Products</a></li>
-            <li><a href="@routes.Application.creator()">For Creators</a></li>
+            <li><a href="@routes.Products.main()" target="_self">Explore Products</a></li>
+            <li><a href="@routes.Application.creator()" target="_self">For Creators</a></li>
             <li><a href="http://blog.sproutup.co">Blog</a></li>
-            <li><a href="@routes.Application.about()">About</a></li>
+            <li><a href="@routes.Application.about()" target="_self" >About</a></li>
             @subjectNotPresent() {
               <li>
                 <a href="@routes.Application.signup()">Join</a>
