@@ -68,3 +68,6 @@ GET     /api/products/:slug         controllers.Products.getProduct(slug: String
 POST    /api/products               controllers.Products.createProduct
 PUT     /api/products/:id           controllers.Products.updateProduct(id: Long)
 DELETE  /api/products/:id           controllers.Products.deleteProduct(id: Long)
+
+# Mockups
+GET     /mockups/product/:slug		controllers.MockupController.detailsBySlug(slug: String)
