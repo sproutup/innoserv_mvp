@@ -13,24 +13,24 @@
 
     <!-- row 2: description and feature list -->
     <div class="row about-product-row">
-        <div class="col-sm-7 about-product-tile--left">
+        <div ng-show="product.productLongDescription" class="col-sm-7 about-product-tile--left">
             <div class="about-product--feature">
                 <p class="about-product--content">{{product.productLongDescription}}</p>
             </div>
         </div>
-        <div class="col-sm-5 about-product-tile--right">
+        <div ng-show="product.featureList" class="col-sm-5 about-product-tile--right">
             <div class="about-product--feature">
-                <p class="about-product--content">Smart lighting<br><br>Customizable lighting<br><br>Energy efficient<br><br>Music streaming</p>
+                <p class="about-product--content">{{product.featureList}}</p>
             </div>
         </div>
     </div>
 
     <!-- row 3: mission statements -->
-    <div class="row about-product-row">
+    <div ng-show="product.missionStatement" class="row about-product-row">
         <div class="col-sm-8 about-product-tile--left">
             <div class="about-product--mission">
                 <p class="about-product--header">Mission</p>
-                <p class="about-product--content">Our energy-efficient and affordable LED light bulbs connect to the world through the Q Station router, allowing you to both create a Q (queue) of music and send lighting Qs (cues) from the same smartphone app.</p>
+                <p class="about-product--content">{{product.missionStatement}}</p>
             </div>
         </div>
         <div class="col-sm-4 about-product-tile--right">
@@ -40,14 +40,11 @@
 </div>
 
 <!-- row 4: product story -->
-<div class="row about-product-row">
+<div ng-show="product.productStory" class="row about-product-row">
     <div class="col-sm-12 about-product-tile">
         <div class="about-product--story">
-            <p class="about-product--header">Story of Belleds</p>
-            <p class="about-product--content">Matthew Bailey recently told us his maker story, and shared some insights into what goes on behind the scenes at Thalmic Labs. Matthew is one of the three people who developed the very first Myo armband prototypes, and is still heavily involved in its mechanical design and manufacturing.<br><br>
-                Matthew Bailey recently told us his maker story, and shared some insights into what goes on behind the scenes at Thalmic Labs. Matthew is one of the three people who developed the very first Myo armband prototypes, and is still heavily involved in its mechanical design and manufacturing.<br><br>
-                Matthew Bailey recently told us his maker story, and shared some insights into what goes on behind the scenes at Thalmic Labs. Matthew is one of the three people who developed the very first Myo armband prototypes, and is still heavily involved in its mechanical design and manufacturing.
-            </p>
+            <p class="about-product--header">Story of {{product.productName}}</p>
+            <p class="about-product--content">{{product.productStory}}</p>
         </div>
     </div>
 </div>

@@ -56,6 +56,12 @@ public class Product extends Model implements PathBindable<Product>,
 	public String slug;
 	public String productDescription;
 	public String productLongDescription;
+	public String featureList;
+	@Column(columnDefinition = "TEXT")
+	public String missionStatement;
+	@Column(columnDefinition = "TEXT")
+	public String productStory;
+
 	public String urlHome;
 	public String urlFacebook;
 	public String urlTwitter;
@@ -232,6 +238,9 @@ public class Product extends Model implements PathBindable<Product>,
 			generator.writeStringField("slug", product.slug);
 			generator.writeStringField("productDescription", product.productDescription);
 			generator.writeStringField("productLongDescription", product.productLongDescription);
+			generator.writeStringField("featureList", product.featureList);
+			generator.writeStringField("missionStatement", product.missionStatement);
+			generator.writeStringField("productStory", product.productStory);
 			generator.writeStringField("urlHome", product.urlHome);
 			generator.writeStringField("urlFacebook", product.urlFacebook);
 			generator.writeStringField("urlTwitter", product.urlTwitter);
