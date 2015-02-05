@@ -34,3 +34,8 @@ lazy val root = project.in(file("."))
   /* Uncomment the next lines for local development of the Play Authenticate core: */
   //.dependsOn(playAuthenticate)
   //.aggregate(playAuthenticate)
+
+includeFilter in (Assets, LessKeys.less) := "*.less"
+
+excludeFilter in (Assets, LessKeys.less) := "_*.less"
+

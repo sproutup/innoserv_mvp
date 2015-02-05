@@ -15,3 +15,5 @@ addSbtPlugin("com.typesafe.play" % "sbt-plugin" % Option(System.getProperty("pla
 
 // Uncomment the next line for local development of the Play Authentication core:
 //addSbtPlugin("com.github.gseitz" % "sbt-release" % "0.8.5")
+
+addSbtPlugin("com.typesafe.sbt" % "sbt-less" % "1.0.0")
