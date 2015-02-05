@@ -7,7 +7,6 @@ import com.fasterxml.jackson.databind.JsonSerializable;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -30,6 +29,7 @@ import javax.persistence.*;
 
 import com.avaje.ebean.Page;
 import utils.Slugify;
+import utils.Taggable;
 
 import java.io.IOException;
 import java.lang.Boolean;
@@ -42,7 +42,7 @@ import java.util.Map;
 @Entity
 @JsonSerialize(using = Product.ProductSerializer.class)
 public class Product extends Model implements PathBindable<Product>,
-		QueryStringBindable<Product> {
+		QueryStringBindable<Product>, Taggable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -69,9 +69,6 @@ public class Product extends Model implements PathBindable<Product>,
 	public boolean isFeatured;
 
 	private List<Product> products;
-
-	@ManyToMany(cascade=CascadeType.ALL)
-	public List<Tag> tags = new LinkedList<Tag>();
 
 	@OneToMany(mappedBy="product")
 	public List<Feedback> feedbackItems;
@@ -214,18 +211,36 @@ public class Product extends Model implements PathBindable<Product>,
 		return this.productEAN;
 	}
 
+
 	/*
-	private void initialize() {
-		products = new ArrayList<Product>();
-		products.add(new Product("11111", "Belleds",
-				"Smart audio and lighting platform"));
-		products.add(new Product("22222", "Soma Water",
-				"Beautifully innovative all-natural water filters"));
-		products.add(new Product("33333", "The Roost",
-				"Stop hunching over your laptop"));
-		products.add(new Product("44444", "Miselu C.25",
-				"The Music Keyboard for iPad"));
-	}*/
+	Taggable interface implementation
+	 */
+	@Override
+	public void addTag(String name) {
+		Tag.addTag(name, id, this.getClass().getName());
+	}
+	@Override
+	public void removeTag(String name) {
+		Tag.removeTag(name, id, this.getClass().getName());
+	}
+	@Override
+	public void removeAllTags() {
+		Tag.removeAllTags(id, this.getClass().getName());
+	}
+	@Override
+	public List<Tag> getAllTags() {
+		return Tag.getAllTags(id, this.getClass().getName());
+	}
+	public List<Product> findAllByTag(String name) {
+
+		List<Product> products = Product.find
+				.query()
+				.setRawSql(Tag.findAllByTagRawSql(name, this.getClass().getName()))
+				.where()
+				.findList();
+
+		return products;
+	}
 
 	static class ProductSerializer extends JsonSerializer<Product> {
 		@Override
