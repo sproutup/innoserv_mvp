@@ -1,0 +1,613 @@
+.bar-tabs {
+    background-color: #fff;
+    height: 64px;
+    width: 100%;
+    border-bottom: 1px solid #ccc;
+}
+
+.bar-tabs--content {
+    float: left;
+    padding-left: 30px;
+    padding-top: 12px;
+}
+
+.btn-share-compliments {
+    height: 40px;
+    margin-right: 5px;
+    border: dashed 1px #6BC224;
+    font-weight: 400;
+    font-size: 11pt;
+    color: #6bc224;
+    background-color: #fff;
+    border-radius: 0px;
+    padding-top: 9px;
+    padding-left: 24px;
+    padding-right: 24px;
+    -webkit-transition: all .2s ease-in-out;
+         -o-transition: all .2s ease-in-out;
+            transition: all .2s ease-in-out;
+}
+
+.btn-share-compliments:hover,
+.btn-share-compliments:focus {
+    border: solid 1px #6bc224;
+    color: #fff;
+    background-color: #6bc224;
+}
+
+.btn-share-compliments-active {
+    height: 40px;
+    margin-right: 5px;
+    border: solid 1px #6BC224;
+    font-weight: 400;
+    font-size: 11pt;
+    color: #fff;
+    background-color: #6BC224;
+    border-radius: 0px;
+    padding-top: 9px;
+    padding-left: 24px;
+    padding-right: 24px;
+    -webkit-transition: all .2s ease-in-out;
+         -o-transition: all .2s ease-in-out;
+            transition: all .2s ease-in-out;
+}
+
+.btn-share-compliments-active:hover,
+.btn-share-compliments-active:focus {
+    border: solid 1px #6bc224;
+    color: #fff;
+    background-color: #6bc224;
+}
+
+.btn-make-suggestions {
+    height: 40px;
+    margin-right: 5px;
+    border: dashed 1px #DE6A10;
+    font-weight: 400;
+    font-size: 11pt;
+    color: #DE6A10;
+    border-radius: 0px;
+    background-color: #fff;
+    padding-top: 9px;
+    padding-left: 24px;
+    padding-right: 24px;
+    -webkit-transition: all .2s ease-in-out;
+         -o-transition: all .2s ease-in-out;
+            transition: all .2s ease-in-out;
+}
+
+.btn-make-suggestions:hover,
+.btn-make-suggestions:focus {
+    border: solid 1px #DE6A10;
+    color: #fff;
+    background-color: #DE6A10;
+}
+
+.btn-make-suggestions-active {
+    height: 40px;
+    margin-right: 5px;
+    border: dashed 1px #DE6A10;
+    font-weight: 400;
+    font-size: 11pt;
+    color: #fff;
+    border-radius: 0px;
+    background-color: #DE6A10;
+    padding-top: 9px;
+    padding-left: 24px;
+    padding-right: 24px;
+    -webkit-transition: all .2s ease-in-out;
+         -o-transition: all .2s ease-in-out;
+            transition: all .2s ease-in-out;
+}
+
+.btn-make-suggestions-active:hover,
+.btn-make-suggestions-active:focus {
+    border: solid 1px #DE6A10;
+    color: #fff;
+    background-color: #DE6A10;
+}
+
+.btn-ask-questions {
+    height: 40px;
+    margin-right: 5px;
+    border: dashed 1px #2996cc;
+    font-weight: 400;
+    font-size: 11pt;
+    color: #2996cc;
+    border-radius: 0px;
+    background-color: #fff;
+    padding-top: 9px;
+    padding-left: 24px;
+    padding-right: 24px;
+    -webkit-transition: all .2s ease-in-out;
+         -o-transition: all .2s ease-in-out;
+            transition: all .2s ease-in-out;
+}
+
+.btn-ask-questions:hover,
+.btn-ask-questions:focus {
+  border: solid 1px #2996cc;
+  color: #fff;
+  background-color: #2996cc;
+}
+
+.btn-ask-questions-active {
+    height: 40px;
+    margin-right: 5px;
+    border: dashed 1px #2996cc;
+    font-weight: 400;
+    font-size: 11pt;
+    color: #fff;
+    border-radius: 0px;
+    background-color: #2996cc;
+    padding-top: 9px;
+    padding-left: 24px;
+    padding-right: 24px;
+    -webkit-transition: all .2s ease-in-out;
+         -o-transition: all .2s ease-in-out;
+            transition: all .2s ease-in-out;
+}
+
+.btn-ask-questions-active:hover,
+.btn-ask-questions-active:focus {
+    border: solid 1px #2996cc;
+    color: #fff;
+    background-color: #2996cc;
+}
+
+.forum-left-rail {
+    margin: 0 0;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-right: dashed 1px #ccc;
+}
+
+.forum-right-rail {
+    margin: 0 0;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.new-post-row {
+    margin-top: 5px;
+    margin-left: 15px;
+    margin-right: 15px;
+}
+
+.post-row {
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    background-color: #f0f0f0;
+}
+
+.post-comment-row {
+    margin-left: 130px;
+    margin-right: 10px;
+    margin-bottom: 7px;
+    background-color: #fafafa;
+}
+
+.new-post {
+    color: #414141;
+    padding-left: 10px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    width: 100%;
+    font-size: 12pt;
+    font-weight: 400;
+}
+
+.new-post-compliments-btn {
+    color: #6bc224;
+    padding-right: 12px;
+}
+
+.new-post-compliments-link {
+    font-weight: 700;
+    color: #6BC224;
+    text-decoration: none !important;
+}
+
+.new-post-compliments-link:hover,
+.new-post-compliments-link:focus {
+    font-weight: 700;
+    color: #6BC224;
+    text-decoration: none !important;
+}
+
+.new-post-suggestions-btn {
+    font-weight: 700;
+    color: #DE6A10;
+    text-decoration: none !important;
+}
+
+.new-post-questions-btn {
+    font-weight: 700;
+    color: #2996cc;
+    text-decoration: none !important;
+}
+
+.post-user-avatar {
+    padding-top: 15px;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-bottom: 15px;
+}
+
+.post-user-avatar img {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.post-user-img-circle {
+    width: 80px;
+    height: auto;
+    -webkit-border-radius: 500px;
+    -moz-border-radius: 500px;
+    border-radius: 500px;
+}
+
+.post-comment-user-avatar {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.post-comment-user-avatar img {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.post-comment-user-img-circle {
+    width: 56px;
+    height: auto;
+    -webkit-border-radius: 500px;
+    -moz-border-radius: 500px;
+    border-radius: 500px;
+}
+
+
+#post-main {
+    overflow: hidden;
+    margin: 0 0;
+}
+
+#post-comment{
+    overflow: hidden;
+    margin: 0 0;
+}
+
+.post-blurb {
+    padding-top: 15px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 0px;
+}
+
+.post-comment-blurb {
+    padding-top: 10px;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-bottom: 0px;
+}
+
+.post-user-name {
+    padding-bottom: 8px;
+    font-weight: 700;
+    font-size: 11pt;
+    color: #2996cc;
+}
+
+.post-comment-user-name {
+    padding-bottom: 3px;
+    font-weight: 700;
+    font-size: 10pt;
+    color: #2996cc;
+}
+
+.post-content {
+  padding-bottom: 5px;
+}
+
+.post-comment-content {
+    padding-bottom:3px;
+}
+
+.post-content p {
+  line-height: 1.5;
+  font-size: 11pt;
+  color: #414141;
+  font-weight: 400;
+  margin-bottom: 5px;
+}
+
+.post-comment-content p {
+  line-height: 1.5;
+  font-size: 10pt;
+  color: #414141;
+  font-weight: 400;
+  margin-bottom: 3px;
+}
+
+.post-comment-form {
+    padding-top: 5px;
+    padding-bottom: 8px;
+}
+
+.post-comment-textarea {
+    width: 100%;
+    resize: vertical;
+    min-height: 56px;
+    border-radius: 0px;
+}
+
+.post-actions {
+    float: left;
+    font-size: 9pt;
+    font-weight: 700;
+    padding-top: 5px;
+    padding-bottom: 20px;
+}
+
+.post-comment-actions {
+    float: left;
+    font-size: 9pt;
+    font-weight: 700;
+    padding-top: 3px;
+    padding-bottom: 9px;
+}
+
+.post-actions--item {
+    color: #6BC224;
+    padding-right: 20px;
+    text-decoration: none !important;
+}
+
+.post-actions--item:hover {
+    color: #428615;
+    text-decoration: none !important;
+}
+
+.post-actions--item i {
+    padding-right: 6px;
+}
+
+.post-timestamp {
+    float: right;
+    padding-top: 5px;
+    padding-bottom: 10px;
+    font-weight: 700;
+    font-size: 9pt;
+    color: #a9a9a9;
+}
+
+.post-comment-timestamp {
+    float: right;
+    padding-top: 3px;
+    padding-bottom: 9px;
+    font-weight: 700;
+    font-size: 9pt;
+    color: #a9a9a9;
+}
+
+.post-tags {
+  margin-bottom: 8px;
+}
+
+.btn-tags {
+      font-weight: 700;
+      font-size: 9pt;
+      color: #fff;
+      margin-right: 2px;
+      margin-bottom: 2px;
+      height: 30px;
+      border-radius: 0px;
+      padding-top: 5px;
+      -webkit-transition: all .2s ease-in-out;
+           -o-transition: all .2s ease-in-out;
+              transition: all .2s ease-in-out;
+}
+
+.btn-tags i {
+    padding-right: 5px;
+}
+
+.btn-compliments{
+  background-color: #6bc224;
+  border: solid #6bc224 1px;
+}
+
+.btn-suggestions{
+  background-color: #eb973d;
+  border: solid #eb973d 1px;
+}
+
+.btn-questions {
+  background-color: #2996cc;
+  border: solid #2996cc 1px;
+}
+
+.post-separator {
+    width: 100%;
+    border-bottom: dashed #acacac 1px;
+    margin-top: 45px;
+    margin-bottom: 5px;
+}
+
+.popular-tags-row {
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.popular-tags-header {
+    color: #6bc224;
+    font-weight: 400;
+    font-size: 12pt;
+    padding-top: 20px;
+    padding-bottom: 10px;
+}
+
+.popular-tags-list {
+  margin-bottom: 8px;
+}
+
+.btn-popular-tags {
+      font-weight: 400;
+      font-size: 10pt;
+      color: #fff;
+      margin-right: 4px;
+      margin-bottom: 6px;
+      height: 32px;
+      border-radius: 0px;
+      padding-top: 5px;
+      -webkit-transition: all .2s ease-in-out;
+           -o-transition: all .2s ease-in-out;
+              transition: all .2s ease-in-out;
+}
+
+.btn-popular-tags i {
+    padding-right: 5px;
+}
+
+.popular-tags-count {
+    font-weight: 700;
+    padding-left: 15px;
+}
+
+.user-tweets-row {
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.user-tweets-header {
+    color: #55ACEE;
+    font-weight: 400;
+    font-size: 12pt;
+    padding-top: 20px;
+    padding-bottom: 10px;
+}
+
+.user-tweet-blurb {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.user-tweet--user {
+    color: #414141;
+    font-weight: 700;
+    font-size: 10pt;
+    padding-bottom: 3px;
+}
+
+.user-tweet--user-handle {
+    color: #a9a9a9;
+    padding-left: 5px;
+}
+
+.user-tweet--timestamp {
+    color: #a9a9a9;
+    font-weight: 400;
+    font-size: 10pt;
+    padding-bottom: 3px;
+}
+
+.user-tweet--content {
+    color: #414141;
+    font-weight: 400;
+    font-size: 10pt;
+}
+
+.user-tweet--content a {
+    color: #55ACEE;
+}
+
+.user-tweet--content a:hover,
+.user-tweet--content a:focus {
+    color: #55ACEE;
+    text-decoration: none !important;
+}
+
+.post-new-comment-actions {
+    padding-top: 3px;
+    padding-bottom: 8px;
+}
+
+.btn-cancel-post {
+      font-size: 10pt;
+      font-weight: 700;
+      color: #fff;
+      height: 36px;
+      border-radius: 0px;
+      padding-top: 6px;
+      margin-right: 4px;
+      background-color: #929292;
+      -webkit-transition: all .2s ease-in-out;
+           -o-transition: all .2s ease-in-out;
+              transition: all .2s ease-in-out;
+}
+
+.btn-cancel-post:hover {
+    color: #fff;
+    background-color: #414141;
+}
+
+.btn-post-compliment {
+      font-size: 10pt;
+      font-weight: 700;
+      color: #fff;
+      height: 36px;
+      border-radius: 0px;
+      padding-top: 6px;
+      margin-right: 4px;
+      background-color: #6bc224;
+      -webkit-transition: all .2s ease-in-out;
+           -o-transition: all .2s ease-in-out;
+              transition: all .2s ease-in-out;
+}
+
+.btn-post-compliment:hover {
+    color: #fff;
+    background-color: #428615;
+}
+
+.btn-post-suggestion {
+      font-size: 10pt;
+      font-weight: 700;
+      color: #fff;
+      height: 36px;
+      border-radius: 0px;
+      padding-top: 6px;
+      margin-right: 4px;
+      background-color: #DE6A10;
+      -webkit-transition: all .2s ease-in-out;
+           -o-transition: all .2s ease-in-out;
+              transition: all .2s ease-in-out;
+}
+
+.btn-post-suggestion:hover {
+    color: #fff;
+    background-color: #C26612;
+}
+
+.btn-post-question {
+      font-size: 10pt;
+      font-weight: 700;
+      color: #fff;
+      height: 36px;
+      border-radius: 0px;
+      padding-top: 6px;
+            margin-right: 4px;
+      background-color: #2996cc;
+      -webkit-transition: all .2s ease-in-out;
+           -o-transition: all .2s ease-in-out;
+              transition: all .2s ease-in-out;
+}
+
+.btn-post-question:hover {
+    color: #fff;
+    background-color: #1C6798;
+}
+
+
+
