@@ -68,8 +68,6 @@ public class Product extends Model implements PathBindable<Product>,
 
 	public boolean isFeatured;
 
-	private List<Product> products;
-
 	@OneToMany(mappedBy="product")
 	public List<Feedback> feedbackItems;
 
@@ -166,16 +164,6 @@ public class Product extends Model implements PathBindable<Product>,
 		                .findPagingList(10)
 		                .setFetchAhead(false)
 		                .getPage(page);
-	}
-
-	public boolean remove(Product product) {
-		return products.remove(product);
-		// Todo remove from the db too
-	}
-
-	public void add() {
-		products.remove(findbyProductEAN(this.productEAN));
-		products.add(this);
 	}
 
 	/*
