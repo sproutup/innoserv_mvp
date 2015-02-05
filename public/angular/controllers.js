@@ -24,11 +24,18 @@ function My3Ctrl() {}
 My3Ctrl.$inject = [];
 */
 
-
-
-
 // products
 var productControllers = angular.module('productControllers', []);
+
+productControllers.controller('ProductTabCtrl', function($scope, $window, $location) {
+    // Tab directive
+    $scope.tabs = [
+        {title:'About', page: '/views/product-about'},
+        {title:'Bar', page: '/views/product-bar'},
+        {title:'Gallery', page: '/views/product-gallery'}
+        ];
+    $scope.tabs.activeTab = 0;
+});
 
 productControllers.controller('productListCtrl', ['$scope', 'ProductService',
   function($scope, ProductService) {

@@ -1,18 +1,30 @@
 @()
 
-<div class="product-header" style="background-image: url('https://s3.amazonaws.com/sproutup-mvp-cdn/assets/{{product.productEAN}}.jpg')">
-    <div class="product-info">
-        <div class="col-lg-12 col-md-12 col-sm-12">
-            <p class="product-title">{{product.productName}}</p>
-            <p class="product-description">{{product.productDescription}}</p>
-            <ul class="list-inline product-social-buttons">
-                <p>product details</p>
-
-            </ul>
-
-            <div class="col-lg-12">
-                <a data-toggle="modal" data-target="#uploadMediaModal" class="btn btn-lg btn-outline">Share my photos</a>
-            </div>
-        </div>
+<div class="product-hero-banner" style="background-image: url('@("https://s3.amazonaws.com/sproutup-mvp-cdn/assets/{{product.productEAN}}.jpg")')">
+<div class="product-info">
+    <div class="col-lg-12">
+        <p class="product-title">{{product.productName}}</p>
+        <p class="product-description">{{product.productDescription}}</p>
+        <ul class="list-inline product-social-buttons">
+            <li ng-show="product.urlHome"><a href="http://{{product.urlHome}}" target="_blank"><i class="fa fa-home"></i></a></li>
+            <li ng-show="product.urlFacebook"><a href="http://{{product.urlFacebook}}" target="_blank"><i class="fa fa-facebook"></i></a></li>
+            <li ng-show="product.urlTwitter"><a href="http://{{product.urlTwitter}}" target="_blank"><i class="fa fa-twitter"></i></a></li>
+        </ul>
     </div>
 </div>
+
+<!-- Menu in banner -->
+<div class="col-lg-12 product-menu">
+    <div class="product-menu--content">
+        <a ng-click="tabs.activeTab=0" class="product-menu--item" ng-class="{'product-menu--active': tabs.activeTab==0}" href="#">About</a>
+        <a ng-click="tabs.activeTab=1" class="product-menu--item" ng-class="{'product-menu--active': tabs.activeTab==1}" href="#">Experience Bar</a>
+        <a ng-click="tabs.activeTab=2" class="product-menu--item" ng-class="{'product-menu--active': tabs.activeTab==2}" href="#">Experience Gallery</a>
+    </div>
+    <div class="product-menu--action">
+        <a class="btn btn-lg btn-outline" href="#">Follow</a>
+        <a class="btn btn-lg btn-outline" href="#">Buy</a>
+    </div>
+</div>
+</div>
+
+<div ng-include src="tabs[tabs.activeTab].page"></div>
