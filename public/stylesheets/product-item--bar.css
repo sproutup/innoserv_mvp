@@ -1,6 +1,6 @@
 .bar-tabs {
     background-color: #fff;
-    height: 64px;
+    height: 70px;
     width: 100%;
     border-bottom: 1px solid #ccc;
 }
@@ -8,7 +8,7 @@
 .bar-tabs--content {
     float: left;
     padding-left: 30px;
-    padding-top: 12px;
+    padding-top: 15px;
 }
 
 .btn-share-compliments {
