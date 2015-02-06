@@ -54,6 +54,9 @@
     color: rgba(255,255,255,0.6);
     padding-right: 25px;
     text-decoration: none !important;
+    -webkit-transition: all .2s ease-in-out;
+         -o-transition: all .2s ease-in-out;
+            transition: all .2s ease-in-out;
 }
 
 .product-menu--active {

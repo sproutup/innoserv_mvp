@@ -342,11 +342,74 @@
     padding-bottom: 8px;
 }
 
+.post-new-form {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin-bottom: 8px;
+    border: solid 1px #acacac;
+}
+
+.post-new-textbox {
+    border: none;
+    color: #414141;
+    line-height: 1.5;
+    font-size: 11pt;
+    color: #414141;
+    font-weight: 400;
+    box-shadow: none !important;
+}
+
+.post-new-textarea {
+    margin-top: 3px;
+    margin-bottom: 3px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    border-left: none;
+    border-right: none;
+    border-top: dashed 1px #acacac;
+    border-bottom: dashed 1px  #acacac;
+    color: #414141;
+    line-height: 1.5;
+    font-size: 11pt;
+    color: #414141;
+    font-weight: 400;
+    resize: none;
+    border-radius: 0px;
+    box-shadow: none !important;
+}
+
+.form-control::-moz-placeholder {
+    color: #a9a9a9;
+    opacity: 1;
+}
+
+.form-control:-moz-placeholder {
+    color: #a9a9a9;
+    opacity: 1;
+}
+
+.form-control::-webkit-input-placeholder {
+    color: #a9a9a9;
+    opacity: 1;
+}
+
+.form-control:-ms-input-placeholder {
+    color: #a9a9a9;
+    opacity: 1;
+}
+
 .post-comment-textarea {
     width: 100%;
     resize: vertical;
     min-height: 56px;
     border-radius: 0px;
+    color: #414141;
+    line-height: 1.5;
+    font-size: 11pt;
+    color: #414141;
+    font-weight: 400;
+    box-shadow: none !important;
+    resize: none;
 }
 
 .post-actions {
@@ -615,6 +678,7 @@
     color: #fff;
     background-color: #1C6798;
 }
+
 
 
 
