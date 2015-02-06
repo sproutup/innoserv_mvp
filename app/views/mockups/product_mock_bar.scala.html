@@ -11,10 +11,29 @@
 <div class="col-sm-9 forum-left-rail">
 
     <!-- current user new post-->
-    <div class="row new-post-row">
+    <div class="row leading-row">
         <div class="col-sm-12">
             <div class="new-post">
                 <a href="#"><i class="fa fa-plus fa-lg new-post-compliments-btn"></i></a>Have great experience with Belleds? <a href="#" class="new-post-compliments-link">Post a new compliment</a> and share with us!
+            </div>
+        </div>
+    </div>
+
+    <!-- current user new post: after user clicks "post" button above -->
+    <div class="row new-post-row">
+        <div class="col-sm-2 post-user-avatar">
+            <img class="img-responsive post-user-img-circle img-center" src="@routes.Assets.at("images/user/kevin.jpg")">
+        </div>
+        <div class="col-sm-10 post-blurb">
+            <div class="post-user-name">Ed Smith</div>
+            <div class="post-new-form">
+                <input class="form-control post-new-textbox" placeholder="Give a title if you like">
+                <textarea placeholder="Share your compliments about Belleds. Being specific is great!" class="form-control post-new-textarea" rows="3"></textarea>
+                <input class="form-control post-new-textbox" placeholder="Add tags">
+            </div>
+            <div class="post-new-comment-actions">
+                <button type="button" class="btn btn-cancel-post">Cancel</button>
+                <button type="button" class="btn btn-post-compliment" disabled="disabled">Post</button>
             </div>
         </div>
     </div>
