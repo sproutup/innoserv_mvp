@@ -1,3 +1,5 @@
+@import "global";
+
 .bar-tabs {
     background-color: #fff;
     height: 70px;
@@ -14,10 +16,10 @@
 .btn-share-compliments {
     height: 40px;
     margin-right: 5px;
-    border: dashed 1px #6BC224;
+    border: dashed 1px @sproutup-green;
     font-weight: 400;
     font-size: 11pt;
-    color: #6bc224;
+    color: @sproutup-green;
     background-color: #fff;
     border-radius: 0px;
     padding-top: 9px;
@@ -30,19 +32,19 @@
 
 .btn-share-compliments:hover,
 .btn-share-compliments:focus {
-    border: solid 1px #6bc224;
+    border: solid 1px @sproutup-green;
     color: #fff;
-    background-color: #6bc224;
+    background-color: @sproutup-green;
 }
 
 .btn-share-compliments-active {
     height: 40px;
     margin-right: 5px;
-    border: solid 1px #6BC224;
+    border: solid 1px @sproutup-green;
     font-weight: 400;
     font-size: 11pt;
     color: #fff;
-    background-color: #6BC224;
+    background-color: @sproutup-green;
     border-radius: 0px;
     padding-top: 9px;
     padding-left: 24px;
@@ -54,18 +56,18 @@
 
 .btn-share-compliments-active:hover,
 .btn-share-compliments-active:focus {
-    border: solid 1px #6bc224;
+    border: solid 1px @sproutup-green;
     color: #fff;
-    background-color: #6bc224;
+    background-color: @sproutup-green;
 }
 
 .btn-make-suggestions {
     height: 40px;
     margin-right: 5px;
-    border: dashed 1px #DE6A10;
+    border: dashed 1px @sproutup-orange;
     font-weight: 400;
     font-size: 11pt;
-    color: #DE6A10;
+    color: @sproutup-orange;
     border-radius: 0px;
     background-color: #fff;
     padding-top: 9px;
@@ -78,20 +80,20 @@
 
 .btn-make-suggestions:hover,
 .btn-make-suggestions:focus {
-    border: solid 1px #DE6A10;
+    border: solid 1px @sproutup-orange;
     color: #fff;
-    background-color: #DE6A10;
+    background-color: @sproutup-orange;
 }
 
 .btn-make-suggestions-active {
     height: 40px;
     margin-right: 5px;
-    border: dashed 1px #DE6A10;
+    border: dashed 1px @sproutup-orange;
     font-weight: 400;
     font-size: 11pt;
     color: #fff;
     border-radius: 0px;
-    background-color: #DE6A10;
+    background-color: @sproutup-orange;
     padding-top: 9px;
     padding-left: 24px;
     padding-right: 24px;
@@ -102,18 +104,18 @@
 
 .btn-make-suggestions-active:hover,
 .btn-make-suggestions-active:focus {
-    border: solid 1px #DE6A10;
+    border: solid 1px @sproutup-orange;
     color: #fff;
-    background-color: #DE6A10;
+    background-color: @sproutup-orange;
 }
 
 .btn-ask-questions {
     height: 40px;
     margin-right: 5px;
-    border: dashed 1px #2996cc;
+    border: dashed 1px @sproutup-blue;
     font-weight: 400;
     font-size: 11pt;
-    color: #2996cc;
+    color: @sproutup-blue;
     border-radius: 0px;
     background-color: #fff;
     padding-top: 9px;
@@ -126,20 +128,20 @@
 
 .btn-ask-questions:hover,
 .btn-ask-questions:focus {
-  border: solid 1px #2996cc;
+  border: solid 1px @sproutup-blue;
   color: #fff;
-  background-color: #2996cc;
+  background-color: @sproutup-blue;
 }
 
 .btn-ask-questions-active {
     height: 40px;
     margin-right: 5px;
-    border: dashed 1px #2996cc;
+    border: dashed 1px @sproutup-blue;
     font-weight: 400;
     font-size: 11pt;
     color: #fff;
     border-radius: 0px;
-    background-color: #2996cc;
+    background-color: @sproutup-blue;
     padding-top: 9px;
     padding-left: 24px;
     padding-right: 24px;
@@ -150,9 +152,9 @@
 
 .btn-ask-questions-active:hover,
 .btn-ask-questions-active:focus {
-    border: solid 1px #2996cc;
+    border: solid 1px @sproutup-blue;
     color: #fff;
-    background-color: #2996cc;
+    background-color: @sproutup-blue;
 }
 
 .forum-left-rail {
@@ -172,7 +174,6 @@
     margin-left: 5px;
     margin-right: 5px;
     margin-bottom: 10px;
-    padding-bottom: 10px;
     background-color: #f0f0f0;
 }
 
@@ -190,14 +191,11 @@
 }
 
 .new-post-row {
-    margin-top: 10px;
-    margin-left: 5px;
-    margin-right: 5px;
-    margin-bottom: 10px;
+    margin: 5px;
 }
 
 .new-post {
-    color: #414141;
+    color: @main-text;
     padding-left: 10px;
     padding-top: 20px;
     padding-bottom: 20px;
@@ -207,32 +205,32 @@
 }
 
 .new-post-compliments-btn {
-    color: #6bc224;
+    color: @sproutup-green;
     padding-right: 12px;
 }
 
 .new-post-compliments-link {
     font-weight: 700;
-    color: #6BC224;
+    color: @sproutup-green;
     text-decoration: none !important;
 }
 
 .new-post-compliments-link:hover,
 .new-post-compliments-link:focus {
     font-weight: 700;
-    color: #6BC224;
+    color: @sproutup-green;
     text-decoration: none !important;
 }
 
 .new-post-suggestions-btn {
     font-weight: 700;
-    color: #DE6A10;
+    color: @sproutup-orange;
     text-decoration: none !important;
 }
 
 .new-post-questions-btn {
     font-weight: 700;
-    color: #2996cc;
+    color: @sproutup-blue;
     text-decoration: none !important;
 }
 
@@ -286,31 +284,25 @@
 }
 
 .post-blurb {
-    padding-top: 15px;
-    padding-left: 10px;
-    padding-right: 10px;
-    padding-bottom: 0px;
+    padding: 15px 10px 10px;
 }
 
 .post-comment-blurb {
-    padding-top: 10px;
-    padding-left: 5px;
-    padding-right: 5px;
-    padding-bottom: 0px;
+    padding: 10px 5px 5px;
 }
 
 .post-user-name {
     padding-bottom: 8px;
     font-weight: 700;
-    font-size: 11pt;
-    color: #2996cc;
+    font-size: 12pt;
+    color: @sproutup-blue;
 }
 
 .post-comment-user-name {
     padding-bottom: 3px;
     font-weight: 700;
-    font-size: 10pt;
-    color: #2996cc;
+    font-size: 11pt;
+    color: @sproutup-blue;
 }
 
 .post-content {
@@ -324,22 +316,22 @@
 .post-content p {
   line-height: 1.5;
   font-size: 11pt;
-  color: #414141;
-  font-weight: 400;
+  color: @main-text;
+  font-weight: 4  00;
   margin-bottom: 5px;
 }
 
 .post-comment-content p {
   line-height: 1.5;
-  font-size: 10pt;
-  color: #414141;
+  font-size: 11pt;
+  color: @main-text;
   font-weight: 400;
   margin-bottom: 3px;
 }
 
 .post-comment-form {
     padding-top: 5px;
-    padding-bottom: 8px;
+    padding-bottom: 5px;
 }
 
 .post-new-form {
@@ -351,10 +343,9 @@
 
 .post-new-textbox {
     border: none;
-    color: #414141;
+    color: @main-text;
     line-height: 1.5;
     font-size: 11pt;
-    color: #414141;
     font-weight: 400;
     box-shadow: none !important;
 }
@@ -368,10 +359,9 @@
     border-right: none;
     border-top: dashed 1px #acacac;
     border-bottom: dashed 1px  #acacac;
-    color: #414141;
+    color: @main-text;
     line-height: 1.5;
     font-size: 11pt;
-    color: #414141;
     font-weight: 400;
     resize: none;
     border-radius: 0px;
@@ -379,22 +369,22 @@
 }
 
 .form-control::-moz-placeholder {
-    color: #a9a9a9;
+    color: @input-placeholder-text;
     opacity: 1;
 }
 
 .form-control:-moz-placeholder {
-    color: #a9a9a9;
+    color: @input-placeholder-text;
     opacity: 1;
 }
 
 .form-control::-webkit-input-placeholder {
-    color: #a9a9a9;
+    color: @input-placeholder-text;
     opacity: 1;
 }
 
 .form-control:-ms-input-placeholder {
-    color: #a9a9a9;
+    color: @input-placeholder-text;
     opacity: 1;
 }
 
@@ -403,10 +393,9 @@
     resize: vertical;
     min-height: 56px;
     border-radius: 0px;
-    color: #414141;
     line-height: 1.5;
     font-size: 11pt;
-    color: #414141;
+    color: @main-text;
     font-weight: 400;
     box-shadow: none !important;
     resize: none;
@@ -414,22 +403,21 @@
 
 .post-actions {
     float: left;
-    font-size: 9pt;
+    font-size: 10pt;
     font-weight: 700;
-    padding-top: 5px;
-    padding-bottom: 20px;
+    padding: 5px 0px;
 }
 
 .post-comment-actions {
     float: left;
-    font-size: 9pt;
+    font-size: 10pt;
     font-weight: 700;
     padding-top: 3px;
-    padding-bottom: 9px;
+    padding-bottom: 3px;
 }
 
 .post-actions--item {
-    color: #6BC224;
+    color: @sproutup-green;
     padding-right: 20px;
     text-decoration: none !important;
 }
@@ -446,19 +434,19 @@
 .post-timestamp {
     float: right;
     padding-top: 5px;
-    padding-bottom: 10px;
-    font-weight: 700;
-    font-size: 9pt;
-    color: #a9a9a9;
+    padding-bottom: 5px;
+    font-weight: 400;
+    font-size: 10pt;
+    color: @secondary-text;
 }
 
 .post-comment-timestamp {
     float: right;
     padding-top: 3px;
-    padding-bottom: 9px;
-    font-weight: 700;
-    font-size: 9pt;
-    color: #a9a9a9;
+    padding-bottom: 3px;
+    font-weight: 400;
+    font-size: 10pt;
+    color: @secondary-text;
 }
 
 .post-tags {
@@ -484,18 +472,18 @@
 }
 
 .btn-compliments{
-  background-color: #6bc224;
-  border: solid #6bc224 1px;
+  background-color: @sproutup-green;
+  border: solid @sproutup-green 1px;
 }
 
 .btn-suggestions{
-  background-color: #eb973d;
-  border: solid #eb973d 1px;
+  background-color: @sproutup-orange;
+  border: solid @sproutup-orange 1px;
 }
 
 .btn-questions {
-  background-color: #2996cc;
-  border: solid #2996cc 1px;
+  background-color: @sproutup-blue;
+  border: solid @sproutup-blue 1px;
 }
 
 .post-separator {
@@ -511,9 +499,9 @@
 }
 
 .popular-tags-header {
-    color: #6bc224;
+    color: @sproutup-green;
     font-weight: 400;
-    font-size: 12pt;
+    font-size: 13pt;
     padding-top: 20px;
     padding-bottom: 10px;
 }
@@ -551,9 +539,9 @@
 }
 
 .user-tweets-header {
-    color: #55ACEE;
+    color: @twitter-blue;
     font-weight: 400;
-    font-size: 12pt;
+    font-size: 13pt;
     padding-top: 20px;
     padding-bottom: 10px;
 }
@@ -564,7 +552,7 @@
 }
 
 .user-tweet--user {
-    color: #414141;
+    color: @main-text;
     font-weight: 700;
     font-size: 10pt;
     padding-bottom: 3px;
@@ -576,14 +564,14 @@
 }
 
 .user-tweet--timestamp {
-    color: #a9a9a9;
+    color: @secondary-text;
     font-weight: 400;
     font-size: 10pt;
     padding-bottom: 3px;
 }
 
 .user-tweet--content {
-    color: #414141;
+    color: @main-text;
     font-weight: 400;
     font-size: 10pt;
 }
@@ -599,8 +587,8 @@
 }
 
 .post-new-comment-actions {
-    padding-top: 3px;
-    padding-bottom: 8px;
+    padding-top: 0px;
+    padding-bottom: 0px;
 }
 
 .btn-cancel-post {
@@ -619,7 +607,7 @@
 
 .btn-cancel-post:hover {
     color: #fff;
-    background-color: #414141;
+    background-color: @main-text;
 }
 
 .btn-post-compliment {
@@ -630,7 +618,7 @@
       border-radius: 0px;
       padding-top: 6px;
       margin-right: 4px;
-      background-color: #6bc224;
+      background-color: @sproutup-green;
       -webkit-transition: all .2s ease-in-out;
            -o-transition: all .2s ease-in-out;
               transition: all .2s ease-in-out;
@@ -649,7 +637,7 @@
       border-radius: 0px;
       padding-top: 6px;
       margin-right: 4px;
-      background-color: #DE6A10;
+      background-color: @sproutup-orange;
       -webkit-transition: all .2s ease-in-out;
            -o-transition: all .2s ease-in-out;
               transition: all .2s ease-in-out;
@@ -668,7 +656,7 @@
       border-radius: 0px;
       padding-top: 6px;
             margin-right: 4px;
-      background-color: #2996cc;
+      background-color: @sproutup-blue;
       -webkit-transition: all .2s ease-in-out;
            -o-transition: all .2s ease-in-out;
               transition: all .2s ease-in-out;
