@@ -39,9 +39,6 @@ public class Media extends Model{
 	@ManyToOne
 	public User user;
 
-	@ManyToMany
-	public List<Feedback> feedbackList;
-
 	//@Constraints.Required
 	public URL cloudFrontLink;
 	public String submittedByUserID;//social media user id
@@ -66,7 +63,7 @@ public class Media extends Model{
 
 
 	public Media(String mediaID, Product product, User user,String submittedByUserID,String productName,
-			List<Feedback> feedbackList, URL cloudFrontLink,
+			URL cloudFrontLink,
 			String mediaFileName, String mediaType, int likesCount,
 			boolean activeFlag) {
 		super();
@@ -75,7 +72,6 @@ public class Media extends Model{
 		this.user = user;
 		this.submittedByUserID = submittedByUserID;
 		this.productName = productName;
-		this.feedbackList = feedbackList;
 		this.cloudFrontLink = cloudFrontLink;
 		this.mediaFileName = mediaFileName;
 		this.mediaType = mediaType;
