@@ -10,7 +10,7 @@
   overflow-y: auto;
   -webkit-transform: translate3d(0, 0, 0);
   background-color: #f5f5f5;
-  background-color: rgba(0,0,0,0.65);
+  background-color: rgba(0,0,0,0.5);
   opacity: 0;
 }
 
@@ -71,7 +71,7 @@
   line-height: 1.5;
   padding-bottom: 5px;
   margin: 0px 5%;
-  color: @secondary-text;
+  color: @main-text-2;
 }
 
 .signup-login-form-footer {
@@ -127,7 +127,7 @@
   display: inline-block;
   padding-left: 15px;
   padding-right: 15px;
-  color: @secondary-text;
+  color: @main-text-2;
 }
 
 .btn-facebook {
@@ -221,7 +221,7 @@
   background-color: @sproutup-orange;
   color: white;
   border-radius: 2px;
-  padding-top: 7px;
+  padding-top: 8px;
   padding-left: 15px;
   padding-right: 15px;
   -webkit-transition: all .2s ease-in-out;
@@ -243,15 +243,24 @@
   bottom: 0;
   left: 0;
   width: 320px;
-  height: 280px;
+  height: 300px;
   background-color: #fafafa;
   border: solid 1px #eaeaea;
 }
 
-.reset-password-form-header {
+.reset-password-form-header h1 {
   font-weight: 400;
   font-size: 14pt;
   padding-bottom: 5px;
-  margin: 10px 5% 0px;
+  margin: 20px 5% 10px;
   color: @main-text;
+}
+
+.reset-password-form-header h2 {
+  font-weight: 400;
+  font-size: 10pt;
+  line-height: 1.5;
+  padding-bottom: 5px;
+  margin: 0px 5%;
+  color: @main-text-2;
 }
