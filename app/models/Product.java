@@ -71,7 +71,7 @@ public class Product extends Model implements PathBindable<Product>,
 	private List<Product> products;
 
 	@OneToMany(mappedBy="product")
-	public List<Feedback> feedbackItems;
+	public List<Post> postItems;
 
 	@OneToMany(mappedBy="product")
 	@OrderBy("dateTimeStamp desc")
@@ -159,7 +159,7 @@ public class Product extends Model implements PathBindable<Product>,
 		return prod;
 	}
 
-	public Page<Product> find(int page) {
+	public static Page<Product> find(int page) {
 		    return
 		            find.where()
 		                .orderBy("id asc")
