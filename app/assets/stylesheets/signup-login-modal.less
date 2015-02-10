@@ -1,0 +1,195 @@
+@import "global";
+
+.modal {
+  position: fixed;
+  z-index: 2000;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  overflow-y: auto;
+  -webkit-transform: translate3d(0, 0, 0);
+  background-color: #f5f5f5;
+  background-color: rgba(0,0,0,0.65);
+  opacity: 0;
+}
+
+.modal-sm {
+  width: 320px;
+}
+
+.modal-content {
+  border-radius: 2px;
+  margin-top: 80px;
+}
+
+.signup-login-form {
+  padding-top: 15px;
+}
+
+.signup-login-input {
+  border: 1px solid @form-border;
+  width: 90%;
+  height: 45px;
+  margin-left: 5%;
+  margin-right: 5%;
+  margin-bottom: 8px;
+  border-radius: 2px;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  font-size: 11pt;
+  font-weight: 400;
+  color: @main-text;
+}
+
+.signup-agreement {
+  font-size: 9pt;
+  font-weight: 400;
+  padding-top: 8px;
+  padding-bottom: 10px;
+  margin-left: 5%;
+  margin-right: 5%;
+  color: @secondary-text;
+}
+
+.signup-agreement a {
+  color: @sproutup-blue;
+}
+
+.signup-login-form-footer {
+  font-weight: 400;
+  font-size: 10pt;
+  padding-top: 10px;
+  margin-left: 5%;
+  margin-right: 5%;
+  color: @main-text;
+}
+
+.signup-login-form-footer a {
+  color: @sproutup-blue;
+}
+
+.signup-login-form-separator {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.form-control::-moz-placeholder {
+  color: @input-placeholder-text;
+  opacity: 1;
+}
+
+.form-control:-moz-placeholder {
+  color: @input-placeholder-text;
+  opacity: 1;
+}
+
+.form-control::-webkit-input-placeholder {
+  color: @input-placeholder-text;
+  opacity: 1;
+}
+
+.form-control:-ms-input-placeholder {
+  color: @input-placeholder-text;
+  opacity: 1;
+}
+
+.signup-or-separator {
+  text-align: center;
+  margin-top: -30px;
+  margin-bottom: -10px;
+}
+
+.text-special {
+  font-size: 9pt;
+  font-weight: 700;
+  position:relative;
+  bottom:-38px;
+  background-color: #fff;
+  display: inline-block;
+  padding-left: 15px;
+  padding-right: 15px;
+  color: @secondary-text;
+}
+
+.btn-facebook {
+  width: 90%;
+  height: 45px;
+  margin-left: 5%;
+  margin-right: 5%;
+  margin-bottom: 8px;
+  font-weight: 400;
+  font-size: 12pt;
+  background-color: @facebook-blue;
+  color: white;
+  border-radius: 2px;
+  padding-top: 9px;
+  padding-left: 15px;
+  padding-right: 15px;
+  -webkit-transition: all .2s ease-in-out;
+  -o-transition: all .2s ease-in-out;
+  transition: all .2s ease-in-out;
+}
+
+.btn-facebook i {
+  padding-right: 10px;
+}
+
+.btn-facebook:hover {
+  color: white;
+  background-color: @facebook-blue-hover;
+}
+
+.btn-twitter {
+  width: 90%;
+  height: 45px;
+  margin-left: 5%;
+  margin-right: 5%;
+  margin-bottom: 8px;
+  font-weight: 400;
+  font-size: 12pt;
+  background-color: @twitter-blue;
+  color: white;
+  border-radius: 2px;
+  padding-top: 9px;
+  padding-left: 15px;
+  padding-right: 15px;
+  -webkit-transition: all .2s ease-in-out;
+  -o-transition: all .2s ease-in-out;
+  transition: all .2s ease-in-out;
+}
+
+.btn-twitter i {
+  padding-right: 10px;
+}
+
+.btn-twitter:hover {
+  color: white;
+  background-color: @twitter-blue-hover;
+}
+
+.signup-login-btn {
+  width: 90%;
+  height: 45px;
+  margin-left: 5%;
+  margin-right: 5%;
+  margin-bottom: 8px;
+  font-weight: 400;
+  font-size: 12pt;
+  background-color: @sproutup-blue;
+  color: white;
+  border-radius: 2px;
+  padding-top: 8px;
+  padding-left: 15px;
+  padding-right: 15px;
+  -webkit-transition: all .2s ease-in-out;
+  -o-transition: all .2s ease-in-out;
+  transition: all .2s ease-in-out;
+}
+
+.signup-login-btn:hover {
+  color: white;
+  background-color: @sproutup-blue-dark;
+}
+

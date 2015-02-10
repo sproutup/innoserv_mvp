@@ -32,4 +32,7 @@ public class MockupController extends Controller {
         return ok(product_mock_3.render(product, mediaUploadForm));
     }
 
+    public static Result login() {
+        return ok(login_mock.render());
+    }
 }

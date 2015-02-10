@@ -1,0 +1,90 @@
+@moreHead = {
+    <link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/signup-login-modal.css")">
+}
+
+@main(Messages("Log In | SproutUp: Redefine Commerce for Emerging Products"), moreHead) {
+
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#signup-modal" style="margin-top:200px;">Sign up modal</button>
+
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#login-modal" style="margin-top:20px;">Log in modal</button>
+
+<!-- login modal -->
+<div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-hidden="false">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="row">
+                    <!-- facebook login -->
+                    <a href="/authenticate/facebook">
+                        <button type="submit" class="btn btn-lg btn-facebook"><i class="fa fa-facebook-square"></i>Log in with Facebook</button>
+                    </a>
+                    <!-- twitter login -->
+                    <a href="/authenticate/twitter">
+                        <button type="submit" class="btn btn-lg btn-twitter"><i class="fa fa-twitter-square"></i>Log in with Twitter</button>
+                    </a>
+                    <!-- separator -->
+                    <div class="signup-or-separator">
+                        <h6 class="text-special">OR</h6>
+                        <hr>
+                    </div>
+                    <!-- email login -->
+                    <div class="signup-login-form">
+                        <input class="form-control signup-login-input" id="email" type="text" placeholder="Email address">
+                        <input class="form-control signup-login-input" id="password" type="password" placeholder="Password">
+                        <button class="btn btn-lg signup-login-btn" type="submit">Log in</button>
+                    </div>
+                    <!-- footer -->
+                    <hr class="signup-login-form-separator">
+                    <div class="signup-login-form-footer">Don't have an account? <a href="#">Sign up</a> here.</div>
+                    <div class="signup-login-form-footer"><a href="#">Forgot your password?</a></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- signup modal -->
+<div class="modal fade" id="signup-modal" tabindex="-1" role="dialog" aria-hidden="false">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="row">
+                    <!-- facebook login -->
+                    <a href="/authenticate/facebook">
+                        <button type="submit" class="btn btn-lg btn-facebook"><i class="fa fa-facebook-square"></i>Sign up with Facebook</button>
+                    </a>
+                    <!-- twitter login -->
+                    <a href="/authenticate/twitter">
+                        <button type="submit" class="btn btn-lg btn-twitter"><i class="fa fa-twitter-square"></i>Sign up with Twitter</button>
+                    </a>
+                    <!-- separator -->
+                    <div class="signup-or-separator">
+                        <h6 class="text-special">OR</h6>
+                        <hr>
+                    </div>
+                    <!-- email login -->
+                    <div class="signup-login-form">
+                        <input class="form-control signup-login-input" id="email" type="text" placeholder="Your full name">
+                        <input class="form-control signup-login-input" id="email" type="text" placeholder="Email address - Don't spoof your login">
+                        <input class="form-control signup-login-input" id="password" type="password" placeholder="Password">
+                        <button class="btn btn-lg signup-login-btn" type="submit">Sign up</button>
+                    </div>
+                    <!-- signuo -->
+                    <div class="signup-agreement">
+                        By signing up, I agree to SproutUp's <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.
+                    </div>
+                    <!-- footer -->
+                    <hr class="signup-login-form-separator">
+                    <div class="signup-login-form-footer">Already in SproutUp community? <a href="#">Log in</a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $('#signup-modal').modal('show');
+</script>
+
+}
