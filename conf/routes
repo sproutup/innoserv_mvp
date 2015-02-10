@@ -76,4 +76,5 @@ GET     /mockups/product/:slug/bar          controllers.MockupController.details
 
 GET     /mockups/product/:slug/gallery      controllers.MockupController.detailsGalleryBySlug(slug: String)
 
-GET     /mockups/login          controllers.MockupController.login()
+GET     /mockups/login                      controllers.MockupController.login()
+GET     /mockups/reset_password             controllers.MockupController.resetPassword()
