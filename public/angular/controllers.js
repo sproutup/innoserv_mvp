@@ -97,7 +97,7 @@ productControllers.controller('ForumCtrl', ['$scope', 'ForumService','$log',
         .success(function(data){
             // reload data
             getPosts();
-            $scope.forum.newCommentForm[post.id].comment = "";
+            $scope.forum.newCommentForm[post.id].content = "";
             $scope.forum.showNewComment[post.id] = false;
         });
     };
