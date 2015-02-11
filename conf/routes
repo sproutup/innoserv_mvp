@@ -69,5 +69,11 @@ POST    /api/products               controllers.Products.createProduct
 PUT     /api/products/:id           controllers.Products.updateProduct(id: Long)
 DELETE  /api/products/:id           controllers.Products.deleteProduct(id: Long)
 
+GET     /api/forum/posts            controllers.PostController.getPosts
+GET     /api/forum/posts/:id        controllers.PostController.getPost(id: Long)
+POST    /api/forum/posts            controllers.PostController.addPost
+#PUT     /api/forum/posts/:id        controllers.PostController.updateProduct(id: Long)
+#DELETE  /api/forum/posts/:id        controllers.PostController.deleteProduct(id: Long)
+
 # Mockups
 GET     /mockups/product/:slug		controllers.MockupController.detailsBySlug(slug: String)
