@@ -4,7 +4,6 @@ package controllers;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import models.Feedback;
 import models.User;
 import play.Logger;
 import play.Routes;
@@ -16,8 +15,7 @@ import views.html.*;
 
 public class FeedbackManagement extends Controller {
 
-  private static final Form<Feedback> feedbackForm = Form.form(Feedback.class);
-
+ 
   public static Result feedback() {
     return ok(feedback.render());
   }

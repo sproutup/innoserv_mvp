@@ -25,9 +25,6 @@ public class SuperModel extends Model {
   @Column(name = "updated_at")
   public Date updatedAt;
 
-  @Version
-  public int version;
-
   @Override
   public void save() {
     createdAt();

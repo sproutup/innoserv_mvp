@@ -1,30 +1,22 @@
 package models;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.databind.JsonSerializer;
-import com.fasterxml.jackson.databind.SerializerProvider;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.joda.time.DateTime;
+import play.data.validation.Constraints;
 import play.libs.Json;
-import scala.collection.immutable.StreamViewLike;
-
 import javax.persistence.*;
-import java.io.IOException;
 import java.util.List;
-import play.Logger;
+import utils.Taggable;
 
 /**
  * Post class
  */
 @Entity
-@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
-public class Post extends SuperModel {
+public class Post extends SuperModel implements Taggable {
     private static final long serialVersionUID = 1L;
 
     public static Finder<Long, Post> find = new Finder<Long, Post>(
@@ -39,7 +31,11 @@ public class Post extends SuperModel {
     @Column(columnDefinition = "TEXT")
     public String content;
 
-    @JsonIgnore
+	public boolean activeFlag = true;
+
+	@Constraints.Required //suggestion, question, compliment
+	public String category;
+
     @OneToMany(mappedBy = "parent")
     public List<Post> comments;
 
@@ -48,6 +44,9 @@ public class Post extends SuperModel {
 
     @ManyToOne
     public User user;
+
+	@ManyToOne
+	public Product product;
 
     public static Post findById(Long id) {
         return find.byId(id);
@@ -84,5 +83,93 @@ public class Post extends SuperModel {
     public List<Post> getAll() {
         return find.where().order("id desc").findList();
     }
+
+	/*
+	* @required categoryName
+	* @required productID	 
+	*/
+	public List<Post> getActivePostsbyCategory(String categoryName, Long productID){
+			return (List<Post>) find.where()
+				.eq("category", categoryName)
+				.eq("product_id", productID)
+				.eq("active_flag", "0")
+				.orderBy("date_time_stamp desc");
+	}
+		
+	/*
+	@return commentID
+	*/
+	public Long commentPost(Long postID, String commentText, Long userID){
+		Long commentID = new Long(1);
+		return commentID;
+	}
+	
+	public Post getPostbyID(Long postID){
+		return null;
+	}
+
+	/*
+	 * future implementation for give me all post by tag
+	 */
+	public List<Post> getPostsbyTag(String[] tags){
+		
+		return null;
+	}
+
+	/*
+	 * future implementation for give me all post on some keyword or text
+	 */
+	public List<Post> searchPosts(String keyword){
+		
+		return null;
+	}
+	
+	/*
+	 * Like/Unlike
+	 */
+		
+	public int likePost(Long postID){
+		int likeCount = 0;
+		return likeCount;
+	}
+	
+	public int unLikePost(Long postID){
+		int likeCount = 0;
+		return likeCount;
+	}
+	
+	/*
+	Taggable interface implementation
+	 */
+	@Override
+	public void addTag(String name) {
+		Tag.addTag(name, id, this.getClass().getName());
+	}
+
+	@Override
+	public void removeTag(String name) {
+		Tag.removeTag(name, id, this.getClass().getName());
+	}
+
+	@Override
+	public void removeAllTags() {
+		Tag.removeAllTags(id, this.getClass().getName());
+	}
+
+	@Override
+	public List<Tag> getAllTags() {
+		return Tag.getAllTags(id, this.getClass().getName());
+	}
+
+	public List<Post> findAllByTag(String name) {
+
+		List<Post> posts = Post.find
+				.query()
+				.setRawSql(Tag.findAllByTagRawSql(name, this.getClass().getName()))
+				.where()
+				.findList();
+
+		return posts;
+	}
 
 }

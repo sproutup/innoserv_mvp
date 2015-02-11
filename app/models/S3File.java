@@ -140,7 +140,6 @@ public void setFile(File file) {
     		user,
     		getSubmittedUser(),
     		productName,
-  			null,
   			getUrl(),
   			fileName,
   			mediaType,
@@ -148,6 +147,8 @@ public void setFile(File file) {
   			true);
       mediatab.save();
     }
+    
+    //transcoder work .....
   }
 
   @Override
