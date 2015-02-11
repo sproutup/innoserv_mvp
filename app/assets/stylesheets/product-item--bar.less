@@ -37,25 +37,13 @@
     background-color: @sproutup-green;
 }
 
-.btn-share-compliments-active {
-    height: 40px;
-    margin-right: 5px;
-    border: solid 1px @sproutup-green;
-    font-weight: 400;
-    font-size: 11pt;
-    color: #fff;
+.btn-share-compliments.active {
+    color: white;
     background-color: @sproutup-green;
-    border-radius: 0px;
-    padding-top: 9px;
-    padding-left: 24px;
-    padding-right: 24px;
-    -webkit-transition: all .2s ease-in-out;
-         -o-transition: all .2s ease-in-out;
-            transition: all .2s ease-in-out;
 }
 
-.btn-share-compliments-active:hover,
-.btn-share-compliments-active:focus {
+.btn-share-compliments.active:hover,
+.btn-share-compliments.active:focus {
     border: solid 1px @sproutup-green;
     color: #fff;
     background-color: @sproutup-green;
@@ -85,25 +73,13 @@
     background-color: @sproutup-orange;
 }
 
-.btn-make-suggestions-active {
-    height: 40px;
-    margin-right: 5px;
-    border: dashed 1px @sproutup-orange;
-    font-weight: 400;
-    font-size: 11pt;
+.btn-make-suggestions.active {
     color: #fff;
-    border-radius: 0px;
     background-color: @sproutup-orange;
-    padding-top: 9px;
-    padding-left: 24px;
-    padding-right: 24px;
-    -webkit-transition: all .2s ease-in-out;
-         -o-transition: all .2s ease-in-out;
-            transition: all .2s ease-in-out;
 }
 
-.btn-make-suggestions-active:hover,
-.btn-make-suggestions-active:focus {
+.btn-make-suggestions.active:hover,
+.btn-make-suggestions.active:focus {
     border: solid 1px @sproutup-orange;
     color: #fff;
     background-color: @sproutup-orange;
@@ -133,25 +109,13 @@
   background-color: @sproutup-blue;
 }
 
-.btn-ask-questions-active {
-    height: 40px;
-    margin-right: 5px;
-    border: dashed 1px @sproutup-blue;
-    font-weight: 400;
-    font-size: 11pt;
+.btn-ask-questions.active {
     color: #fff;
-    border-radius: 0px;
     background-color: @sproutup-blue;
-    padding-top: 9px;
-    padding-left: 24px;
-    padding-right: 24px;
-    -webkit-transition: all .2s ease-in-out;
-         -o-transition: all .2s ease-in-out;
-            transition: all .2s ease-in-out;
 }
 
-.btn-ask-questions-active:hover,
-.btn-ask-questions-active:focus {
+.btn-ask-questions.active:hover,
+.btn-ask-questions.active:focus {
     border: solid 1px @sproutup-blue;
     color: #fff;
     background-color: @sproutup-blue;
@@ -495,7 +459,7 @@
 
 .post-separator {
     width: 100%;
-    border-bottom: dashed #acacac 1px;
+    border-bottom: dashed 1px @form-border;
     margin-top: 45px;
     margin-bottom: 5px;
 }
@@ -584,12 +548,12 @@
 }
 
 .user-tweet--content a {
-    color: #55ACEE;
+    color: @twitter-blue;
 }
 
 .user-tweet--content a:hover,
 .user-tweet--content a:focus {
-    color: #55ACEE;
+    color: @twitter-blue-hover;
     text-decoration: none !important;
 }
 
