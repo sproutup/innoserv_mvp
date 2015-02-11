@@ -70,4 +70,11 @@ PUT     /api/products/:id           controllers.Products.updateProduct(id: Long)
 DELETE  /api/products/:id           controllers.Products.deleteProduct(id: Long)
 
 # Mockups
-GET     /mockups/product/:slug		controllers.MockupController.detailsBySlug(slug: String)
+GET     /mockups/product/:slug/about		controllers.MockupController.detailsAboutBySlug(slug: String)
+
+GET     /mockups/product/:slug/bar          controllers.MockupController.detailsBarBySlug(slug: String)
+
+GET     /mockups/product/:slug/gallery      controllers.MockupController.detailsGalleryBySlug(slug: String)
+
+GET     /mockups/login                      controllers.MockupController.login()
+GET     /mockups/reset_password             controllers.MockupController.resetPassword()

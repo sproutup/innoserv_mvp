@@ -90,7 +90,7 @@ public class User extends Model implements Subject {
 	//user submitted feedback
 	@OneToMany(cascade = CascadeType.ALL)
 	//@OneToMany(mappedBy="user")
-	public List<Feedback> feebackList;
+	public List<Post> postList;
 	
 	public static final Finder<Long, User> find = new Finder<Long, User>(
 			Long.class, User.class);

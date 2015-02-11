@@ -1,0 +1,61 @@
+@(product: models.Product)(mediaUploadForm: Form[S3File])
+
+@moreHead = {
+    <!-- For Facebook share dialog -->
+    <meta property="og:title" content="SproutUp presents you @product.productName" />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="@("https://s3.amazonaws.com/sproutup-mvp-cdn/assets/"+ product.productEAN +".jpg")" />
+    <meta property="og:url" content="http://trial.sproutup.co/product/@product.id" />
+    <meta property="og:description" content="@product.productDescription" />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/product-item.css")">
+    <link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/product-item--about.css")">
+    <link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/product-item--bar.css")">
+
+
+    <script src="@routes.Assets.at("javascripts/facebookShare.js")"></script>
+    <script src="@routes.Assets.at("javascripts/qualtricsPopup.js")"></script>
+
+}
+
+@import helper._
+@implicitFieldConstructor = @{ FieldConstructor(twitterBootstrapBasic.f) }
+
+@main(Messages(product.productName + ": " + product.productDescription + " | SproutUp"), moreHead) {
+
+    <div class="product-hero-banner" style="background-image: url('@("https://s3.amazonaws.com/sproutup-mvp-cdn/assets/" + product.productEAN +".jpg")')">
+        <div class="product-info">
+            <div class="col-lg-12">
+                <p class="product-title">@product.productName</p>
+                <p class="product-description">@product.productDescription</p>
+                <ul class="list-inline product-social-buttons">
+                  @if(product.urlHome != null){
+                      <li><a href="http://@product.urlHome" target="_blank"><i class="fa fa-home"></i></a></li>
+                  }
+                  @if(product.urlFacebook != null){
+                      <li><a href="http://@product.urlFacebook" target="_blank"><i class="fa fa-facebook"></i></a></li>
+                  }
+                  @if(product.urlTwitter != null){
+                      <li><a href="http://@product.urlTwitter" target="_blank"><i class="fa fa-twitter"></i></a></li>
+                  }
+                </ul>
+            </div>
+        </div>
+        <!-- Menu in banner -->
+        <div class="col-lg-12 product-menu">
+            <div class="product-menu--content">
+                <a class="product-menu--item product-menu--active" href="#">About</a>
+                <a class="product-menu--item" href="#">Experience Bar</a>
+                <a class="product-menu--item" href="#">Experience Gallery</a>
+            </div>
+            <div class="product-menu--action">
+                <a class="btn btn-lg btn-outline" href="#">Follow</a>
+                <a class="btn btn-lg btn-outline" href="#">Buy</a>
+            </div>
+        </div>
+    </div>
+
+    @product_mock_gallery(product)
+}
+
+
