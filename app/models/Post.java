@@ -63,6 +63,10 @@ public class Post extends SuperModel implements Taggable {
 		if(likes.size()>0){
 			node.put("likes", Likes.toJson(likes));
 		}
+		List<Tag> tags = this.getAllTags();
+		if(tags.size()>0){
+			node.put("tags", Tag.toJson(tags));
+		}
         return node;
     }
 

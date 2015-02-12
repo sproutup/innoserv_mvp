@@ -4,7 +4,8 @@ var productApp = angular.module('productApp', [
   'ngRoute',
   'productControllers',
   'productFilters',
-  'productServices'
+  'productServices',
+  'ngTagsInput'
 ]);
 
 //productApp.run(function($location, $rootElement) {
