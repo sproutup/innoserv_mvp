@@ -18,7 +18,7 @@ val appDependencies = Seq(
   javaEbean,
   "org.webjars" %% "webjars-play" % "2.3.0",
   "org.webjars" % "bootstrap" % "3.2.0",
-  "com.amazonaws" % "aws-java-sdk" % "1.3.11"
+  "com.amazonaws" % "aws-java-sdk" % "1.9.17"
 )
 
 libraryDependencies += "com.github.tototoshi" %% "play-flyway" % "1.2.0"
