@@ -4,6 +4,8 @@ import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3Client;
+import com.amazonaws.regions.Region;
+import com.amazonaws.regions.Regions;
 import play.Application;
 import play.Logger;
 import play.Plugin;
@@ -16,6 +18,8 @@ public class S3Plugin extends Plugin {
   private final Application application;
 
   public static AmazonS3 amazonS3;
+  public static String accessKey;
+  public static String secretKey;
 
   public static String s3Bucket;
 
@@ -25,8 +29,8 @@ public class S3Plugin extends Plugin {
 
   @Override
   public void onStart() {
-    String accessKey = application.configuration().getString(AWS_ACCESS_KEY);
-    String secretKey = application.configuration().getString(AWS_SECRET_KEY);
+    accessKey = application.configuration().getString(AWS_ACCESS_KEY);
+    secretKey = application.configuration().getString(AWS_SECRET_KEY);
     s3Bucket = application.configuration().getString(AWS_S3_BUCKET);
 
     if ((accessKey != null) && (secretKey != null)) {

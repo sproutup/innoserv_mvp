@@ -42,7 +42,7 @@ public class 	MediaManagement extends Controller {
 			s3File.fileName = uploadFilePart.getFilename();
 			s3File.file = uploadFilePart.getFile();
 			s3File.save();
-			return redirect(routes.Products.details());
+			return redirect(routes.Application.index());
 		}
 		else {
 			return badRequest("File upload error");
