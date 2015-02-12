@@ -144,24 +144,27 @@ public class ElasticTranscoder {
 
         //setup encoding presets for HLS transcoding
         CreateJobOutput hls2m = new CreateJobOutput()
-        .withThumbnailPattern("")
-        .withKey(outputKey + "hls_2m_")
+        .withThumbnailPattern(outputKey + "hls-2m-{count}")
+        .withKey(outputKey + "hls-2m-")
         .withPresetId(HLS_2M_PRESET_ID)
         .withSegmentDuration(SEGMENT_DURATION);
         CreateJobOutput hls15m = new CreateJobOutput()
-        .withKey(outputKey + "hls_1_5m_")
+        .withKey(outputKey + "hls-15m-")
         .withPresetId(HLS_1_5M_PRESET_ID)
         .withSegmentDuration(SEGMENT_DURATION);
         CreateJobOutput hls1m = new CreateJobOutput()
-        .withKey(outputKey + "hls_1m_")
+        .withThumbnailPattern(outputKey + "hls-1m-{count}")
+        .withKey(outputKey + "hls-1m-")
         .withPresetId(HLS_1M_PRESET_ID)
         .withSegmentDuration(SEGMENT_DURATION);
         CreateJobOutput hls600k = new CreateJobOutput()
-        .withKey(outputKey + "hls_600k_")
+        .withThumbnailPattern(outputKey + "hls-600k-{count}")
+        .withKey(outputKey + "hls-600k-")
         .withPresetId(HLS_600k_PRESET_ID)
         .withSegmentDuration(SEGMENT_DURATION);
         CreateJobOutput hls400k = new CreateJobOutput()
-        .withKey(outputKey + "hls_400k_")
+        .withThumbnailPattern(outputKey + "hls-400k-{count}")
+        .withKey(outputKey + "hls-400k-")
         .withPresetId(HLS_400k_PRESET_ID)
         .withSegmentDuration(SEGMENT_DURATION);
         List<CreateJobOutput> outputs = Arrays.asList(hls2m, hls15m, hls1m, hls600k, hls400k);
