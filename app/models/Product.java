@@ -95,7 +95,7 @@ public class Product extends Model implements PathBindable<Product>,
 		return find.all();
 	}
 
-	public Product findbyID(Long id) {
+	public static Product findbyID(Long id) {
 		return find.byId(id);
 	}
 

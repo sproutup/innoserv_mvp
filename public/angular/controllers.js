@@ -73,15 +73,17 @@ productControllers.controller('ForumCtrl', ['$scope', 'ForumService','$log',
     $scope.forum.newCommentForm = {};
 
     // Load initial data
-    getPosts();
+    getPosts($scope.product.id, $scope.forum.selectedCategory);
 
     // process the new post form
     $scope.processNewPostForm = function() {
         console.log("post: ", $scope.forum.newPostForm);
+        $scope.forum.newPostForm.product_id = $scope.product.id;
+        $scope.forum.newPostForm.category = $scope.forum.selectedCategory;
         ForumService.addPost($scope.forum.newPostForm)
         .success(function(data){
             // reload data
-            getPosts();
+            getPosts($scope.product.id, $scope.forum.selectedCategory);
             $scope.forum.showNewPost = false;
             $scope.forum.newPostForm.title = "";
             $scope.forum.newPostForm.content = "";
@@ -96,14 +98,20 @@ productControllers.controller('ForumCtrl', ['$scope', 'ForumService','$log',
         ForumService.addPost($scope.forum.newCommentForm[post.id])
         .success(function(data){
             // reload data
-            getPosts();
+            getPosts($scope.product.id, $scope.forum.selectedCategory);
             $scope.forum.newCommentForm[post.id].content = "";
             $scope.forum.showNewComment[post.id] = false;
         });
     };
 
-    function getPosts() {
-        ForumService.getPosts()
+    // change category
+    $scope.changeCategory = function(category_id) {
+        $scope.forum.selectedCategory = category_id;
+        getPosts($scope.product.id, $scope.forum.selectedCategory);
+    };
+
+    function getPosts(product_id, category_id) {
+        ForumService.getPosts(product_id, category_id)
         .success(function(data, status, headers, config){
             // this callback will be called asynchronously
             // when the response is available
@@ -117,6 +125,7 @@ productControllers.controller('ForumCtrl', ['$scope', 'ForumService','$log',
         });
     }
 
+/*
     $scope.postsxx = [{
                      "id": 1,
                      "content": "first post",
@@ -150,5 +159,5 @@ productControllers.controller('ForumCtrl', ['$scope', 'ForumService','$log',
                      "content": "third post",
                      "user": {"name": "peter"}
                      }
-                   ];
+                   ];  */
 }]);

@@ -12,10 +12,11 @@ productServices.factory('ForumService', ['$http','$log', function($http,$log){
   var urlBase = '/api/forum/posts';
   var ForumService = {};
 
-  ForumService.getPosts = function(){
+  ForumService.getPosts = function(product_id, category){
     return $http({
         method: 'GET',
-        url: urlBase
+        url: urlBase,
+        params: {prod: product_id, cat: category}
       })
 //      .success(function (data, status, headers, config) {
 //      })
@@ -28,7 +29,8 @@ productServices.factory('ForumService', ['$http','$log', function($http,$log){
   ForumService.getPost = function(id){
     return $http({
         method: 'GET',
-        url: urlBase + '/' + id
+        url: urlBase + '/' + id,
+        params: {prod:'belleds', cat:'compliments'}
       })
       .success(function (data, status, headers, config) {
         //$scope.posts = data.posts;

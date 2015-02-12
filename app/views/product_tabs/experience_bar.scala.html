@@ -3,9 +3,9 @@
 <!-- tabs: share compliments, make suggestions, ask questions -->
 <div class="col-lg-12 bar-tabs">
     <div class="bar-tabs--content">
-        <a ng-click="forum.selectedCategory=0" class="btn btn-lg btn-share-compliments-active" ng-class="{'active': forum.selectedCategory==0}" href="#">Share Compliments</a>
-        <a ng-click="forum.selectedCategory=1" class="btn btn-lg btn-make-suggestions" ng-class="{'active': forum.selectedCategory==1}" href="#">Make Suggestions</a>
-        <a ng-click="forum.selectedCategory=2" class="btn btn-lg btn-ask-questions" ng-class="{'active': forum.selectedCategory==2}" href="#">Ask Questions</a>
+        <a ng-click="changeCategory(0)" class="btn btn-lg btn-share-compliments" ng-class="{'active': forum.selectedCategory==0}" href="#">Share Compliments</a>
+        <a ng-click="changeCategory(1)" class="btn btn-lg btn-make-suggestions" ng-class="{'active': forum.selectedCategory==1}" href="#">Make Suggestions</a>
+        <a ng-click="changeCategory(2)" class="btn btn-lg btn-ask-questions" ng-class="{'active': forum.selectedCategory==2}" href="#">Ask Questions</a>
     </div>
 </div>
 
@@ -28,7 +28,7 @@
         </div>
         <div class="col-sm-10 post-blurb">
             <form ng-submit="processNewPostForm()">
-                <div class="post-user-name">Ed Smith</div>
+                <div class="post-user-name">Ed Smith{{product.id}}</div>
                 <div class="post-new-form">
                     <input ng-model="forum.newPostForm.title" class="form-control post-new-textbox" placeholder="Give a title if you like">
                     <textarea ng-model="forum.newPostForm.content" placeholder="Share your compliments about Belleds. Being specific is great!" class="form-control post-new-textarea" rows="3"></textarea>

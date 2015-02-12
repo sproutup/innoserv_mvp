@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import models.Post;
+import models.Product;
 import play.Logger;
 import play.libs.Json;
 import play.mvc.BodyParser;
@@ -23,10 +24,14 @@ public class PostController extends Controller {
     //
 
     @BodyParser.Of(BodyParser.Json.class)
-    public static Result getPosts() {
+    public static Result getPosts(Long product_id, Long category_id) {
+        Logger.debug("prdo/cat " + product_id +" "+category_id);
+
         List<Post> posts = new Post()
                 .find
                 .where()
+                .eq("product_id", product_id)
+                .eq("category", category_id)
                 .isNull("parent_id")
                 .orderBy("id desc")
                 .findList();
@@ -51,15 +56,22 @@ public class PostController extends Controller {
             long parent_id = json.findPath("parent").longValue();
             String content = json.findPath("content").textValue();
             String title = json.findPath("title").textValue();
+            int category = json.findPath("category").asInt();
+            long product_id = json.findPath("product_id").asLong();
             if(content == null) {
                 return badRequest("Missing parameter [content]");
             } else {
                 Post post = new Post();
                 post.title = title;
                 post.content = content;
+                post.category = category;
                 Post parent = Post.findById(parent_id);
                 if(parent != null){
                     post.parent = parent;
+                }
+                Product prod = Product.findbyID(product_id);
+                if(prod != null){
+                    post.product = prod;
                 }
                 post.save();
                 return created(post.toJson());

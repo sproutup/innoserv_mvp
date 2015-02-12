@@ -34,7 +34,7 @@ public class Post extends SuperModel implements Taggable {
 	public boolean activeFlag = true;
 
 	@Constraints.Required //suggestion, question, compliment
-	public String category;
+	public Integer category;
 
     @OneToMany(mappedBy = "parent")
     public List<Post> comments;
@@ -57,7 +57,8 @@ public class Post extends SuperModel implements Taggable {
         node.put("id", this.id);
         node.put("title", this.title);
         node.put("content", this.content);
-        node.put("createdAt", new DateTime(this.createdAt).toString());
+		node.put("createdAt", new DateTime(this.createdAt).toString());
+		node.put("updatedAt", new DateTime(this.updatedAt).toString());
         return node;
     }
 
@@ -122,20 +123,6 @@ public class Post extends SuperModel implements Taggable {
 	public List<Post> searchPosts(String keyword){
 		
 		return null;
-	}
-	
-	/*
-	 * Like/Unlike
-	 */
-		
-	public int likePost(Long postID){
-		int likeCount = 0;
-		return likeCount;
-	}
-	
-	public int unLikePost(Long postID){
-		int likeCount = 0;
-		return likeCount;
 	}
 	
 	/*
