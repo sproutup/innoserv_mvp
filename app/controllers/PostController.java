@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import models.Post;
 import models.Product;
+import models.Tag;
 import play.Logger;
 import play.libs.Json;
 import play.mvc.BodyParser;
@@ -15,6 +16,7 @@ import play.mvc.Result;
 import play.mvc.Results;
 
 import javax.persistence.PersistenceException;
+import java.util.Iterator;
 import java.util.List;
 
 public class PostController extends Controller {
@@ -74,6 +76,14 @@ public class PostController extends Controller {
                     post.product = prod;
                 }
                 post.save();
+
+                // Add tags if they are there
+                Iterator<JsonNode> myIterator=json.findPath("tags").elements();
+                while (myIterator.hasNext()) {
+                    JsonNode node = myIterator.next();
+                    post.addTag(node.findPath("text").textValue());
+                }
+
                 return created(post.toJson());
             }
         }

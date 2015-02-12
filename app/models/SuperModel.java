@@ -14,9 +14,10 @@ import javax.persistence.Version;
 import play.Logger;
 import play.db.ebean.Model;
 import utils.Likeable;
+import utils.Taggable;
 
 @MappedSuperclass
-public class SuperModel extends Model implements Likeable {
+public class SuperModel extends Model implements Likeable, Taggable {
 
   @Id
   @GeneratedValue
@@ -74,4 +75,29 @@ public class SuperModel extends Model implements Likeable {
     Logger.debug("getAllLikes:" + this.getClass().getName());
     return Likes.getAllLikes(this.id, this.getClass().getName());
   }
+
+  /*
+  Taggable interface implementation
+   */
+
+  @Override
+  public void addTag(String name) {
+    Tag.addTag(name, id, this.getClass().getName());
+  }
+
+  @Override
+  public void removeTag(String name) {
+    Tag.removeTag(name, id, this.getClass().getName());
+  }
+
+  @Override
+  public void removeAllTags() {
+    Tag.removeAllTags(id, this.getClass().getName());
+  }
+
+  @Override
+  public List<Tag> getAllTags() {
+    return Tag.getAllTags(id, this.getClass().getName());
+  }
+
 }

@@ -87,7 +87,9 @@ productControllers.controller('ForumCtrl', ['$scope', 'ForumService', 'LikesServ
             $scope.forum.showNewPost = false;
             $scope.forum.newPostForm.title = "";
             $scope.forum.newPostForm.content = "";
-            // $scope.forum.newPostForm.tabs = "";
+            while($scope.forum.newPostForm.tags.length > 0) {
+                $scope.forum.newPostForm.tags.pop();
+            }
         });
     };
 
