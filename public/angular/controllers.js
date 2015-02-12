@@ -58,8 +58,8 @@ productControllers.controller('productDetailCtrl', ['$scope', '$routeParams', 'P
 //    }
   }]);
 
-productControllers.controller('ForumCtrl', ['$scope', 'ForumService','$log',
-  function($scope, ForumService, log) {
+productControllers.controller('ForumCtrl', ['$scope', 'ForumService', 'LikesService', '$log',
+  function($scope, ForumService, LikesService, log) {
 
     $scope.posts = [];
     $scope.forum = {
@@ -90,6 +90,17 @@ productControllers.controller('ForumCtrl', ['$scope', 'ForumService','$log',
             // $scope.forum.newPostForm.tabs = "";
         });
     };
+
+    // add like
+    $scope.addLike = function(post, userId) {
+        console.log("like: ", userId);
+        LikesService.addLikes(post.id, "models.Post", userId)
+        .success(function(data){
+            // reload data
+            getPosts($scope.product.id, $scope.forum.selectedCategory);
+        });
+    };
+
 
     // process the new comment form
     $scope.processNewCommentForm = function(post) {
