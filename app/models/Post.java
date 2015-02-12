@@ -1,53 +1,40 @@
 package models;
 
-import java.util.Date;
-import java.util.List;
-
-import play.data.format.Formats;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.JsonNodeFactory;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+import org.joda.time.DateTime;
 import play.data.validation.Constraints;
-import play.db.ebean.Model;
+import play.libs.Json;
+import javax.persistence.*;
+import java.util.List;
 import utils.Taggable;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-
+/**
+ * Post class
+ */
 @Entity
-public class Post extends Model implements Taggable{
+public class Post extends SuperModel implements Taggable {
+    private static final long serialVersionUID = 1L;
 
-	private static final long serialVersionUID = 1L;
+    public static Finder<Long, Post> find = new Finder<Long, Post>(
+            Long.class, Post.class);
 
-	@Id 
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	public Long id;
+    @Id
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    public Long id;
 
-	@ManyToOne
-	public User user;
+    public String title;
 
-	@ManyToOne
-	public Product product;
+    @Column(columnDefinition = "TEXT")
+    public String content;
 
-
-	@Column(columnDefinition = "TEXT")
-	@Constraints.Required
-	public String postText;
-	
-	public String title;
 	public boolean activeFlag = true;
-	
-	@Constraints.Required//suggestion, question, compliment
-	public String category;
 
-	@Formats.DateTime(pattern = "yyyy-MM-dd HH:mm:ss")
-	public Date dateTimeStamp = new Date();
-	
-	//number of likes this post has fetched
-	public int likesCount;
+	@Constraints.Required //suggestion, question, compliment
+	public Integer category;
 
     @OneToMany(mappedBy = "parent")
     public List<Post> comments;
@@ -55,70 +42,60 @@ public class Post extends Model implements Taggable{
     @ManyToOne
     public Post parent;
 
-    
+    @ManyToOne
+    public User user;
 
-	
-	public Post(User user, Product product, String postText, String title,
-			 String category, int likesCount,
-			Post parent) {
-		super();
-		this.user = user;
-		this.product = product;
-		this.postText = postText;
-		this.title = title;
-		this.category = category;
-		this.likesCount = likesCount;
-		this.parent = parent;
-	}
-	public static Finder<Long, Post> find = new Finder<Long, Post>(
-			Long.class, Post.class);
-	
+	@ManyToOne
+	public Product product;
 
-	
-	/*
-	@return postID
-	*/
-	public Long postFeed() {
-		
-		//verify		
-		
-		
-		//save post
-		Long postID = new Long(-1);
-		
-		
-		//save tag
-		
-		return postID;
-	}
-	/*
-	 * a user can edit title or a text
-	 */
-	public Long editPost() {
-		Long postID = new Long(-1);
-		return postID;
-	}
+    public static Post findById(Long id) {
+        return find.byId(id);
+    }
 
-	/*
-	 * @return true if successful
-	 */
-	public boolean deletePost(Long postID) {
-		
-		return false;
-	}
+    private ObjectNode toJsonRaw(){
+        ObjectNode node = Json.newObject();
+        node.put("id", this.id);
+        node.put("title", this.title);
+        node.put("content", this.content);
+		node.put("createdAt", new DateTime(this.createdAt).toString());
+		node.put("updatedAt", new DateTime(this.updatedAt).toString());
+        return node;
+    }
+
+    public ObjectNode toJson(){
+        ObjectNode node = toJsonRaw();
+        if(this.comments.size()>0) {
+            ArrayNode list = node.putArray("comments");
+            for (Post comment : this.comments) {
+                list.add(comment.toJsonRaw());
+            }
+        }
+        return node;
+    }
+
+    public static ArrayNode toJson(List<Post> posts){
+        ArrayNode arrayNode = new ArrayNode(JsonNodeFactory.instance);
+        for (Post post : posts){
+            arrayNode.add(post.toJson());
+        }
+        return arrayNode;
+    }
+
+    public List<Post> getAll() {
+        return find.where().order("id desc").findList();
+    }
+
 	/*
 	* @required categoryName
 	* @required productID	 
 	*/
 	public List<Post> getActivePostsbyCategory(String categoryName, Long productID){
-		 
 			return (List<Post>) find.where()
 				.eq("category", categoryName)
 				.eq("product_id", productID)
 				.eq("active_flag", "0")
 				.orderBy("date_time_stamp desc");
-				
-	}	
+	}
 		
 	/*
 	@return commentID
@@ -131,11 +108,7 @@ public class Post extends Model implements Taggable{
 	public Post getPostbyID(Long postID){
 		return null;
 	}
-	
-	public static Post findById(Long id) {
-        return find.byId(id);
-    }
-	
+
 	/*
 	 * future implementation for give me all post by tag
 	 */
@@ -143,6 +116,7 @@ public class Post extends Model implements Taggable{
 		
 		return null;
 	}
+
 	/*
 	 * future implementation for give me all post on some keyword or text
 	 */
@@ -152,38 +126,28 @@ public class Post extends Model implements Taggable{
 	}
 	
 	/*
-	 * Like/Unlike
-	 */
-		
-	public int likePost(Long postID){
-		int likeCount = 0;
-		return likeCount;
-	}
-	
-	public int unLikePost(Long postID){
-		int likeCount = 0;
-		return likeCount;
-	}
-	
-	/*
 	Taggable interface implementation
 	 */
 	@Override
 	public void addTag(String name) {
 		Tag.addTag(name, id, this.getClass().getName());
 	}
+
 	@Override
 	public void removeTag(String name) {
 		Tag.removeTag(name, id, this.getClass().getName());
 	}
+
 	@Override
 	public void removeAllTags() {
 		Tag.removeAllTags(id, this.getClass().getName());
 	}
+
 	@Override
 	public List<Tag> getAllTags() {
 		return Tag.getAllTags(id, this.getClass().getName());
 	}
+
 	public List<Post> findAllByTag(String name) {
 
 		List<Post> posts = Post.find
@@ -194,7 +158,5 @@ public class Post extends Model implements Taggable{
 
 		return posts;
 	}
-
-	
 
 }

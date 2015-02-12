@@ -1,3 +1,153 @@
 @()
+<div ng-controller="ForumCtrl" >
+<!-- tabs: share compliments, make suggestions, ask questions -->
+<div class="col-lg-12 bar-tabs">
+    <div class="bar-tabs--content">
+        <a ng-click="changeCategory(0)" class="btn btn-lg btn-share-compliments" ng-class="{'active': forum.selectedCategory==0}" href="#">Share Compliments</a>
+        <a ng-click="changeCategory(1)" class="btn btn-lg btn-make-suggestions" ng-class="{'active': forum.selectedCategory==1}" href="#">Make Suggestions</a>
+        <a ng-click="changeCategory(2)" class="btn btn-lg btn-ask-questions" ng-class="{'active': forum.selectedCategory==2}" href="#">Ask Questions</a>
+    </div>
+</div>
 
-<p>Experience bar</p>
+<!-- main forum -->
+<div class="col-sm-9 forum-left-rail">
+
+    <!-- current user new post-->
+    <div class="row leading-row">
+        <div class="col-sm-12">
+            <div class="new-post">
+                <a ng-click="forum.showNewPost = !forum.showNewPost" href="#"><i class="fa fa-plus fa-lg new-post-compliments-btn"></i></a>Have great experience with Belleds? <a ng-click="forum.showNewPost = !forum.showNewPost" href="#" class="new-post-compliments-link">Post a new compliment</a> and share with us!
+            </div>
+        </div>
+    </div>
+
+    <!-- current user new post: after user clicks "post" button above -->
+    <div ng-show="forum.showNewPost" class="row new-post-row">
+        <div class="col-sm-2 post-user-avatar">
+            <img class="img-responsive post-user-img-circle img-center" src="@routes.Assets.at("images/user/kevin.jpg")">
+        </div>
+        <div class="col-sm-10 post-blurb">
+            <form ng-submit="processNewPostForm()">
+                <div class="post-user-name">Ed Smith{{product.id}}</div>
+                <div class="post-new-form">
+                    <input ng-model="forum.newPostForm.title" class="form-control post-new-textbox" placeholder="Give a title if you like">
+                    <textarea ng-model="forum.newPostForm.content" placeholder="Share your compliments about Belleds. Being specific is great!" class="form-control post-new-textarea" rows="3"></textarea>
+                    <input  class="form-control post-new-textbox" placeholder="Add tags">
+                </div>
+                <div class="post-new-comment-actions">
+                    <button ng-click="forum.showNewPost = false" type="button" class="btn btn-cancel-post">Cancel</button>
+                    <button type="submit" class="btn btn-post-compliment">Post</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div ng-repeat="post in posts | filter:query" class="row post-row">
+        <!-- main post -->
+        <section id="post-main">
+            <div class="col-sm-2 post-user-avatar">
+                <img class="img-responsive post-user-img-circle img-center" src="@routes.Assets.at("images/user/mike.jpg")">
+            </div>
+            <div class="col-sm-10 post-blurb">
+                <div class="post-user-name">{{post.user.name}}</div>
+                <div class="post-tags">
+                    <button type="button" ng-repeat="tag in post.tags" class="btn btn-compliments btn-tags"><i class="fa fa-tag"></i>{{tag.name}}</button>
+                </div>
+                <div class="post-content">
+                    <p>{{post.content}}</p>
+                </div>
+                <div class="post-actions">
+                    <a class="post-actions--item" href="#"><i class="fa fa-rocket"></i>Up (0)</a>
+                    <a ng-click="forum.showNewComment[post.id]=!forum.showNewComment[post.id]" class="post-actions--item" href="#"><i class="fa fa-comments"></i>Comment ({{post.comments.length || 0}})</a>
+                    <a class="post-actions--item" href="#"><i class="fa fa-share"></i>Share</a>
+                </div>
+                <div class="post-timestamp">{{post.createdAt | fromNow}}</div>
+            </div>
+        </section>
+
+        <!-- comments -->
+        <section id="post-comments">
+            <!-- new comment from current user -->
+            <div ng-show="forum.showNewComment[post.id]" class="row post-comment-row">
+                <div class="col-md-2 col-sm-2 post-comment-user-avatar">
+                    <img class="img-responsive post-comment-user-img-circle img-center" src="@routes.Assets.at("images/user/josh.jpg")">
+                </div>
+                <form ng-submit="processNewCommentForm(post)">
+                    <div class="col-md-10 col-sm-10 post-comment-blurb">
+                        <div class="post-comment-user-name">Josh Abdul</div>
+                        <div class="post-comment-form">
+                            <textarea ng-model="forum.newCommentForm[post.id].content" name="content" class="form-control post-comment-textarea" rows="2"></textarea>
+                        </div>
+                        <div class="post-new-comment-actions">
+                            <button ng-click="forum.showNewComment[post.id]=false" type="button" class="btn btn-cancel-post">Cancel</button>
+                            <button type="submit" class="btn btn-post-compliment">Post</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <!-- existing comments -->
+            <div ng-repeat="comment in post.comments | orderBy:'id':true" class="row post-comment-row">
+                <div class="col-md-2 col-sm-2 post-comment-user-avatar">
+                    <img class="img-responsive post-comment-user-img-circle img-center" src="@routes.Assets.at("images/user/kevin.jpg")">
+                </div>
+                <div class="col-md-10 col-sm-10 post-comment-blurb">
+                    <div class="post-comment-user-name">{{comment.user.name}}</div>
+                    <div class="post-comment-content">
+                        <p>{{comment.content}}</p>
+                    </div>
+                    <div class="post-comment-actions">
+                        <a class="post-actions--item" href="#"><i class="fa fa-rocket"></i>Up (89)</a>
+                        <a class="post-actions--item" href="#"><i class="fa fa-share"></i>Share</a>
+                    </div>
+                    <div class="post-comment-timestamp">{{comment.createdAt | fromNow}}</div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+
+<!-- right rail -->
+<div class="col-sm-3 forum-right-rail">
+    <!-- row 1: popular tags -->
+    <div class="col-sm-12 popular-tags-row">
+        <div class="popular-tags-header">Popular tags</div>
+        <div class="popular-tags-list">
+            <button type="button" class="btn btn-compliments btn-popular-tags"><i class="fa fa-tag"></i>app <span class="popular-tags-count">80</span></button>
+            <button type="button" class="btn btn-compliments btn-popular-tags"><i class="fa fa-tag"></i>user interface <span class="popular-tags-count">76</span></button>
+            <button type="button" class="btn btn-compliments btn-popular-tags"><i class="fa fa-tag"></i>responsive <span class="popular-tags-count">59</span></button>
+            <button type="button" class="btn btn-compliments btn-popular-tags"><i class="fa fa-tag"></i>color <span class="popular-tags-count">44</span></button>
+            <button type="button" class="btn btn-compliments btn-popular-tags"><i class="fa fa-tag"></i>installation <span class="popular-tags-count">35</span></button>
+        </div>
+    </div>
+
+    <!-- row 2: user tweets -->
+    <div class="col-sm-12 user-tweets-row">
+        <div class="user-tweets-header">Latest user tweets</div>
+
+        <div class="user-tweet-blurb">
+            <div class="user-tweet--user">
+                Tim Richard <span class="user-tweet--user-handle">@@trichard</span>
+            </div>
+            <div class="user-tweet--timestamp">
+                Jan 18
+            </div>
+            <div class="user-tweet--content">
+                Just got a <a href="#">#belleds</a> Q bulb package today. Installation is like breeze, wi-fi music works right out of the box! Super cool lighting for kids room!!
+            </div>
+        </div>
+
+        <div class="user-tweet-blurb">
+            <div class="user-tweet--user">
+                Charlie Ferry <span class="user-tweet--user-handle">@@charlieferry</span>
+            </div>
+            <div class="user-tweet--timestamp">
+                Dec 18, 2014
+            </div>
+            <div class="user-tweet--content">
+                Just got a <a href="#">#belleds</a> Q bulb package today. Installation is like breeze, wi-fi music works right out of the box! Super cool lighting for kids room!!
+            </div>
+        </div>
+    </div>
+
+</div>
+</div>

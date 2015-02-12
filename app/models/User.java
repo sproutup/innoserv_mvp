@@ -86,12 +86,10 @@ public class User extends Model implements Subject {
 	@OneToMany(cascade = CascadeType.ALL)
 	//@OneToMany(mappedBy="user")
 	public List<Media> mediaList;
-	
-	//user submitted feedback
-	@OneToMany(cascade = CascadeType.ALL)
-	//@OneToMany(mappedBy="user")
-	public List<Post> postList;
-	
+
+	@OneToMany
+	public List<Post> posts;
+
 	public static final Finder<Long, User> find = new Finder<Long, User>(
 			Long.class, User.class);
 

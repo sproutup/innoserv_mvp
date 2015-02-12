@@ -4,68 +4,83 @@ products:
         productEAN:          11111
         productName:         Belleds
         productDescription:  Smart home audio and lighting platform
+        slug:                belleds
 
     - !!models.Product
         productEAN:          11112
         productName:         Soma Water
         productDescription:  Beautifully innovative all-natural water filters
+        slug:                soma-water
 
     - !!models.Product
         productEAN:          11113
         productName:         The Roost
         productDescription:  Stop hunching over your laptop
+        slug:                the-roost
+
 
     - !!models.Product
         productEAN:          11114
         productName:         Miselu C.24
         productDescription:  The music keyboard for iPad
+        slug:                miselu-c.24
 
     - !!models.Product
         productEAN:          11115
         productName:         Clyde
         productDescription:  An expressive lamp for creative homes
+        slug:                clyde
 
     - !!models.Product
         productEAN:          11116
         productName:         BloomSky
         productDescription:  World's first smart weather camera
+        slug:                bloomsky
 
     - !!models.Product
         productEAN:          11117
         productName:         Hidden Radio
         productDescription:  The simplest, most powerful radio and wireless speaker for iPhone + iPad
+        slug:                hidden-radio
 
     - !!models.Product
         productEAN:          11118
         productName:         Nanoleaf Bloom
         productDescription:  The world's most energy efficient lightbulb
+        slug:                nanoleaf-bloom
 
     - !!models.Product
         productEAN:          11119
         productName:         Chipolo
         productDescription:  Nothing is lost
+        slug:                chipolo
 
     - !!models.Product
         productEAN:          11120
         productName:         Mushroom Mini Farm
         productDescription:  Grow mushrooms right out of the box in 10 days! Just add water twice a day
+        slug:                mushroom-mini-farm
 
     - !!models.Product
         productEAN:          11121
         productName:         Motrr Galileo
         productDescription:  The app-controlled robotic dock for GoPro, iPhone, and other devices
+        slug:                motrr-galileo
 
     - !!models.Product
         productEAN:          11122
         productName:         Gramovox
         productDescription:  The bluetooth gramophone
+        slug:                gramovox
 
     - !!models.Product
         productEAN:          11123
         productName:         The OCDock
         productDescription:  iPhone dock for iMac & Apple displays
+        slug:                the-0cdock
 
     - !!models.Product
         productEAN:          11124
         productName:         Boosted Boards
         productDescription:  The World's Lightest Electric Vehicle
+        slug:                boosted-boards

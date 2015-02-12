@@ -69,12 +69,15 @@ POST    /api/products               controllers.Products.createProduct
 PUT     /api/products/:id           controllers.Products.updateProduct(id: Long)
 DELETE  /api/products/:id           controllers.Products.deleteProduct(id: Long)
 
+GET     /api/forum/posts            controllers.PostController.getPosts(prod: Long ?= -1, cat: Long ?= -1)
+GET     /api/forum/posts/:id        controllers.PostController.getPost(id: Long)
+POST    /api/forum/posts            controllers.PostController.addPost
+#PUT     /api/forum/posts/:id        controllers.PostController.updateProduct(id: Long)
+#DELETE  /api/forum/posts/:id        controllers.PostController.deleteProduct(id: Long)
+
 # Mockups
 GET     /mockups/product/:slug/about		controllers.MockupController.detailsAboutBySlug(slug: String)
-
 GET     /mockups/product/:slug/bar          controllers.MockupController.detailsBarBySlug(slug: String)
-
 GET     /mockups/product/:slug/gallery      controllers.MockupController.detailsGalleryBySlug(slug: String)
-
 GET     /mockups/login                      controllers.MockupController.login()
 GET     /mockups/reset_password             controllers.MockupController.resetPassword()
