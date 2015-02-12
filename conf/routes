@@ -75,6 +75,9 @@ POST    /api/forum/posts            controllers.PostController.addPost
 #PUT     /api/forum/posts/:id        controllers.PostController.updateProduct(id: Long)
 #DELETE  /api/forum/posts/:id        controllers.PostController.deleteProduct(id: Long)
 
+GET     /api/likes/:type/:id        controllers.LikesController.getLikes(id: Long, type: String)
+POST    /api/likes/:type/:id        controllers.LikesController.addLikes(id: Long, type: String, user_id: Long)
+
 # Mockups
 GET     /mockups/product/:slug/about		controllers.MockupController.detailsAboutBySlug(slug: String)
 GET     /mockups/product/:slug/bar          controllers.MockupController.detailsBarBySlug(slug: String)

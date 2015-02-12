@@ -59,6 +59,10 @@ public class Post extends SuperModel implements Taggable {
         node.put("content", this.content);
 		node.put("createdAt", new DateTime(this.createdAt).toString());
 		node.put("updatedAt", new DateTime(this.updatedAt).toString());
+		List<Likes> likes = this.getAllLikes();
+		if(likes.size()>0){
+			node.put("likes", Likes.toJson(likes));
+		}
         return node;
     }
 

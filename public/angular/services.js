@@ -7,6 +7,31 @@ productServices.factory('ProductService', ['$resource',
     return $resource('/api/products/:slug'); // Note the full endpoint address
   }]);
 
+productServices.factory('LikesService', ['$http','$log', function($http,$log){
+  var urlBase = '/api/likes';
+  var LikesService = {};
+
+  LikesService.getLikes = function(refId, refType){
+    return $http({
+        method: 'GET',
+        url: urlBase + "/" + refType + "/" + refId,
+      })
+    }
+
+  LikesService.addLikes = function(refId, refType, userId, data){
+    return $http({
+        method: 'POST',
+        url: urlBase + "/" + refType + "/" + refId,
+        params: {user_id: userId},
+        data: "{}",
+        headers: {'Content-Type': 'application/json'}
+      });
+    }
+
+  return LikesService;
+
+}]);
+
 productServices.factory('ForumService', ['$http','$log', function($http,$log){
 
   var urlBase = '/api/forum/posts';
@@ -18,12 +43,6 @@ productServices.factory('ForumService', ['$http','$log', function($http,$log){
         url: urlBase,
         params: {prod: product_id, cat: category}
       })
-//      .success(function (data, status, headers, config) {
-//      })
-//      .error(function (data, status, headers, config) {
-//        // something went wrong :
-//        log.debug("forum service http.get error");
-//      });
     }
 
   ForumService.getPost = function(id){

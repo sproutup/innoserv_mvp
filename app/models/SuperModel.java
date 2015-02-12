@@ -1,6 +1,7 @@
 package models;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
@@ -10,10 +11,12 @@ import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Version;
 
+import play.Logger;
 import play.db.ebean.Model;
+import utils.Likeable;
 
 @MappedSuperclass
-public class SuperModel extends Model {
+public class SuperModel extends Model implements Likeable {
 
   @Id
   @GeneratedValue
@@ -45,5 +48,30 @@ public class SuperModel extends Model {
   @PreUpdate
   void updatedAt() {
     this.updatedAt = new Date();
+  }
+
+
+  /*
+  Likeable interface implementation
+   */
+  @Override
+  public void addLike(Long userId) {
+    Likes.addLike(userId, this.id, this.getClass().getName());
+  }
+
+  @Override
+  public void removeLike(Long userId) {
+    Likes.removeLike(userId, this.id, this.getClass().getName());
+  }
+
+  @Override
+  public void removeAllLikes() {
+    Likes.removeAllLikes(this.id, this.getClass().getName());
+  }
+
+  @Override
+  public List<Likes> getAllLikes() {
+    Logger.debug("getAllLikes:" + this.getClass().getName());
+    return Likes.getAllLikes(this.id, this.getClass().getName());
   }
 }

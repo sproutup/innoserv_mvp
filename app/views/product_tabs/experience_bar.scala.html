@@ -57,7 +57,7 @@
                     <p>{{post.content}}</p>
                 </div>
                 <div class="post-actions">
-                    <a class="post-actions--item" href="#"><i class="fa fa-rocket"></i>Up (0)</a>
+                    <a ng-click="addLike(post, 1)" class="post-actions--item" href="#"><i class="fa fa-rocket"></i>Up ({{post.likes.length || 0}})</a>
                     <a ng-click="forum.showNewComment[post.id]=!forum.showNewComment[post.id]" class="post-actions--item" href="#"><i class="fa fa-comments"></i>Comment ({{post.comments.length || 0}})</a>
                     <a class="post-actions--item" href="#"><i class="fa fa-share"></i>Share</a>
                 </div>
@@ -96,7 +96,7 @@
                         <p>{{comment.content}}</p>
                     </div>
                     <div class="post-comment-actions">
-                        <a class="post-actions--item" href="#"><i class="fa fa-rocket"></i>Up (89)</a>
+                        <a ng-click="addLike(comment, 1)" class="post-actions--item" href="#"><i class="fa fa-rocket"></i>Up ({{comment.likes.length || 0}})</a>
                         <a class="post-actions--item" href="#"><i class="fa fa-share"></i>Share</a>
                     </div>
                     <div class="post-comment-timestamp">{{comment.createdAt | fromNow}}</div>
