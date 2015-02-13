@@ -1,225 +1,201 @@
-<!-- tabs: share compliments, make suggestions, ask questions -->
-<div class="col-lg-12 bar-tabs">
-    <div class="bar-tabs--content">
-        <a class="btn btn-lg btn-share-compliments active" href="#">Share Compliments</a>
-        <a class="btn btn-lg btn-make-suggestions" href="#">Make Suggestions</a>
-        <a class="btn btn-lg btn-ask-questions" href="#">Ask Questions</a>
-    </div>
-</div>
+<div class="forum-wrapper suggestions">
 
-<!-- main forum -->
-<div class="col-sm-9 forum-left-rail">
-
-    <!-- current user new post-->
-    <div class="row leading-row">
-        <div class="col-sm-12">
-            <div class="new-post">
-                <a href="#"><i class="fa fa-plus fa-lg new-post-btn compliments"></i></a>Have great experience with Belleds? <a href="#" class="new-post-link compliments">Post a new compliment</a> and share with us!
-            </div>
+    <!-- tabs: share compliments, make suggestions, ask questions -->
+    <div class="col-lg-12 bar-tabs">
+        <div class="bar-tabs--content">
+            <a class="btn btn-lg btn-share-compliments active" href="#">Share Compliments</a>
+            <a class="btn btn-lg btn-make-suggestions" href="#">Make Suggestions</a>
+            <a class="btn btn-lg btn-ask-questions" href="#">Ask Questions</a>
         </div>
     </div>
 
-    <!-- current user new post: after user clicks "post" button above -->
-    <div class="row new-post-row">
-        <div class="col-sm-2 post-user-avatar">
-            <img class="img-responsive post-user-img-circle img-center" src="@routes.Assets.at("images/user/kevin.jpg")">
-        </div>
-        <div class="col-sm-10 post-blurb">
-            <div class="post-user-name">Ed Smith</div>
-            <div class="post-new-form">
-                <input class="form-control post-new-textbox" placeholder="Give a title if you like">
-                <textarea placeholder="Share your compliments about Belleds. Being specific is great!" class="form-control post-new-textarea" rows="3"></textarea>
-                <input class="form-control post-new-textbox" placeholder="Add tags">
-            </div>
-            <div class="post-new-comment-actions">
-                <button type="button" class="btn btn-cancel-post">Cancel</button>
-                <button type="button" class="btn btn-post compliments" disabled="disabled">Post</button>
-            </div>
-        </div>
-    </div>
+    <!-- main forum -->
+    <div class="col-sm-9 forum-left-rail">
 
-    <div class="row post-row">
-        <!-- main post -->
-        <section id="post-main">
+        <!-- current user new post-->
+        <div class="row leading-row">
+            <div class="col-sm-12">
+                <div class="new-post">
+                    <a href="#"><i class="fa fa-plus fa-lg new-post-btn"></i></a>Have great experience with Belleds? <a href="#" class="new-post-link compliments">Post a new compliment</a> and share with us!
+                </div>
+            </div>
+        </div>
+
+        <!-- current user new post: after user clicks "post" button above -->
+        <div class="row new-post-row">
             <div class="col-sm-2 post-user-avatar">
-                <img class="img-responsive post-user-img-circle img-center" src="@routes.Assets.at("images/user/mike.jpg")">
+                <img class="img-responsive post-user-img-circle img-center" src="@routes.Assets.at("images/user/kevin.jpg")">
             </div>
             <div class="col-sm-10 post-blurb">
-                <div class="post-user-name">Mike Santore</span></div>
-                <div class="post-tags">
-                    <button type="button" class="btn btn-tags compliments"><i class="fa fa-tag"></i>app</button>
-                    <button type="button" class="btn btn-tags compliments"><i class="fa fa-tag"></i>user interface</button>
-                    <button type="button" class="btn btn-tags compliments"><i class="fa fa-tag"></i>responsive</button>
+                <div class="post-user-name">Ed Smith</div>
+                <div class="post-new-form">
+                    <input class="form-control post-new-textbox" placeholder="Give a title if you like">
+                    <textarea placeholder="Share your compliments about Belleds. Being specific is great!" class="form-control post-new-textarea" rows="3"></textarea>
+                    <input class="form-control post-new-textbox" placeholder="Add tags">
                 </div>
-                <div class="post-title">
-                    Great app! I love it.
+                <div class="post-new-comment-actions">
+                    <button type="button" class="btn btn-cancel-post">Cancel</button>
+                    <button type="button" class="btn btn-post" disabled="disabled">Post</button>
                 </div>
-                <div class="post-content">
-                    <p>The app's UI is super clean and minimal. I consider myself pretty tech savvy so figuring out the basic controls without instructions was pretty easy. My friend who is not so tech savvy eventually figured it out but had to refer to the instructions again.</p>
-                    <p>The apps controls are super responsive. There is little to no lag time while adjusting light settings over wifi like some other wifi controlled products I've used in the past.</p>
-                </div>
-                <div class="post-actions">
-                    <a class="post-actions--item compliments" href="#"><i class="fa fa-rocket"></i>Upvote (89)</a>
-                    <a class="post-actions--item compliments" href="#"><i class="fa fa-comments"></i>Comment (12)</a>
-                    <a class="post-actions--item compliments" href="#"><i class="fa fa-share"></i>Share</a>
-                </div>
-                <div class="post-timestamp">Yesterday at 4:30pm</div>
             </div>
-        </section>
+        </div>
 
-        <!-- comments -->
-        <section id="post-comments">
-            <!-- new comment from current user -->
-            <div class="row post-comment-row">
-                <div class="col-md-2 col-sm-2 post-comment-user-avatar">
-                    <img class="img-responsive post-comment-user-img-circle img-center" src="@routes.Assets.at("images/user/josh.jpg")">
+        <div class="row post-row">
+            <!-- main post -->
+            <section id="post-main">
+                <div class="col-sm-2 post-user-avatar">
+                    <img class="img-responsive post-user-img-circle img-center" src="@routes.Assets.at("images/user/mike.jpg")">
                 </div>
-                <div class="col-md-10 col-sm-10 post-comment-blurb">
-                    <div class="post-comment-user-name">Josh Abdul</div>
-                    <div class="post-comment-form">
-                        <textarea class="form-control post-comment-textarea" rows="2"></textarea>
+                <div class="col-sm-10 post-blurb">
+                    <div class="post-user-name">Mike Santore</span></div>
+                    <div class="post-tags">
+                        <button type="button" class="btn btn-tags"><i class="fa fa-tag"></i>app</button>
+                        <button type="button" class="btn btn-tags"><i class="fa fa-tag"></i>user interface</button>
+                        <button type="button" class="btn btn-tags"><i class="fa fa-tag"></i>responsive</button>
                     </div>
-                    <div class="post-new-comment-actions">
-                        <button type="button" class="btn btn-cancel-post">Cancel</button>
-                        <button type="button" class="btn btn-post compliments" disabled="disabled">Post</button>
+                    <div class="post-title">
+                        Great app! I love it.
                     </div>
+                    <div class="post-content">
+                        <p>The app's UI is super clean and minimal. I consider myself pretty tech savvy so figuring out the basic controls without instructions was pretty easy. My friend who is not so tech savvy eventually figured it out but had to refer to the instructions again.</p>
+                        <p>The apps controls are super responsive. There is little to no lag time while adjusting light settings over wifi like some other wifi controlled products I've used in the past.</p>
+                    </div>
+                    <div class="post-actions">
+                        <a class="post-actions--item" href="#"><i class="fa fa-rocket"></i>Upvote (89)</a>
+                        <a class="post-actions--item" href="#"><i class="fa fa-comments"></i>Comment (12)</a>
+                        <a class="post-actions--item" href="#"><i class="fa fa-share"></i>Share</a>
+                    </div>
+                    <div class="post-timestamp">Yesterday at 4:30pm</div>
                 </div>
-            </div>
-            <!-- existing comments -->
-            <div class="row post-comment-row">
-                <div class="col-md-2 col-sm-2 post-comment-user-avatar">
-                    <img class="img-responsive post-comment-user-img-circle img-center" src="@routes.Assets.at("images/user/kevin.jpg")">
-                </div>
-                <div class="col-md-10 col-sm-10 post-comment-blurb">
-                    <div class="post-comment-user-name">Kevin McCann</div>
-                    <div class="post-comment-content">
-                        <p>Great comments! Thanks for sharing!! The apps controls are super responsive. There is little to no lag time while adjusting light settings over wifi like some other wifi controlled products I've used in the past.</p>
-                    </div>
-                    <div class="post-comment-actions">
-                        <a class="post-actions--item compliments" href="#"><i class="fa fa-rocket"></i>Upvote (89)</a>
-                        <a class="post-actions--item compliments" href="#"><i class="fa fa-share"></i>Share</a>
-                    </div>
-                    <div class="post-comment-timestamp">5 hrs ago</div>
-                </div>
-            </div>
-            <div class="row post-comment-row">
-                <div class="col-md-2 col-sm-2 post-comment-user-avatar">
-                    <img class="img-responsive post-comment-user-img-circle img-center" src="@routes.Assets.at("images/user/josh.jpg")">
-                </div>
-                <div class="col-md-10 col-sm-10 post-comment-blurb">
-                    <div class="post-comment-user-name">Josh Abdul</div>
-                    <div class="post-comment-content">
-                        <p>Great comments! Thanks for sharing!! The apps controls are super responsive. There is little to no lag time while adjusting light settings over wifi like some other wifi controlled products I've used in the past.</p>
-                    </div>
-                    <div class="post-comment-actions">
-                        <a class="post-actions--item compliments" href="#"><i class="fa fa-rocket"></i>Upvote (89)</a>
-                        <a class="post-actions--item compliments" href="#"><i class="fa fa-share"></i>Share</a>
-                    </div>
-                    <div class="post-comment-timestamp">7 hrs ago</div>
-                </div>
-            </div>
-            <div class="row post-comment-row">
-                <div class="col-md-2 col-sm-2 post-comment-user-avatar">
-                    <img class="img-responsive post-comment-user-img-circle img-center" src="@routes.Assets.at("images/user/ning.jpg")">
-                </div>
-                <div class="col-md-10 col-sm-10 post-comment-blurb">
-                    <div class="post-comment-user-name">Ning Yu</div>
-                    <div class="post-comment-content">
-                        <p>Great comments! Thanks for sharing!! The apps controls are super responsive. There is little to no lag time while adjusting light settings over wifi like some other wifi controlled products I've used in the past.</p>
-                    </div>
-                    <div class="post-comment-actions">
-                        <a class="post-actions--item compliments" href="#"><i class="fa fa-rocket"></i>Upvote (89)</a>
-                        <a class="post-actions--item compliments" href="#"><i class="fa fa-share"></i>Share</a>
-                    </div>
-                    <div class="post-comment-timestamp">Yesterday at 4:30pm</div>
-                </div>
-            </div>
+            </section>
 
-        </section>
-    </div>
-
-    <div class="row post-row">
-        <!-- main post -->
-        <section id="post-main">
-            <div class="col-sm-2 post-user-avatar">
-                <img class="img-responsive post-user-img-circle img-center" src="@routes.Assets.at("images/user/mike.jpg")">
-            </div>
-            <div class="col-sm-10 post-blurb">
-                <div class="post-user-name">Mike Santore</div>
-                <div class="post-tags">
-                    <button type="button" class="btn btn-compliments btn-tags"><i class="fa fa-tag"></i>app</button>
-                    <button type="button" class="btn btn-compliments btn-tags"><i class="fa fa-tag"></i>user interface</button>
-                    <button type="button" class="btn btn-compliments btn-tags"><i class="fa fa-tag"></i>responsive</button>
+            <!-- comments -->
+            <section id="post-comments">
+                <!-- new comment from current user -->
+                <div class="row post-comment-row">
+                    <div class="col-md-2 col-sm-2 post-comment-user-avatar">
+                        <img class="img-responsive post-comment-user-img-circle img-center" src="@routes.Assets.at("images/user/josh.jpg")">
+                    </div>
+                    <div class="col-md-10 col-sm-10 post-comment-blurb">
+                        <div class="post-comment-user-name">Josh Abdul</div>
+                        <div class="post-comment-form">
+                            <textarea class="form-control post-comment-textarea" rows="2"></textarea>
+                        </div>
+                        <div class="post-new-comment-actions">
+                            <button type="button" class="btn btn-cancel-post">Cancel</button>
+                            <button type="button" class="btn btn-post" disabled="disabled">Post</button>
+                        </div>
+                    </div>
                 </div>
-                <div class="post-content">
-                    <p>The app's UI is super clean and minimal. I consider myself pretty tech savvy so figuring out the basic controls without instructions was pretty easy. My friend who is not so tech savvy eventually figured it out but had to refer to the instructions again.</p>
-                    <p>The apps controls are super responsive. There is little to no lag time while adjusting light settings over wifi like some other wifi controlled products I've used in the past.</p>
+                <!-- existing comments -->
+                <div class="row post-comment-row">
+                    <div class="col-md-2 col-sm-2 post-comment-user-avatar">
+                        <img class="img-responsive post-comment-user-img-circle img-center" src="@routes.Assets.at("images/user/kevin.jpg")">
+                    </div>
+                    <div class="col-md-10 col-sm-10 post-comment-blurb">
+                        <div class="post-comment-user-name">Kevin McCann</div>
+                        <div class="post-comment-content">
+                            <p>Great comments! Thanks for sharing!! The apps controls are super responsive. There is little to no lag time while adjusting light settings over wifi like some other wifi controlled products I've used in the past.</p>
+                        </div>
+                        <div class="post-comment-actions">
+                            <a class="post-actions--item" href="#"><i class="fa fa-rocket"></i>Upvote (89)</a>
+                            <a class="post-actions--item" href="#"><i class="fa fa-share"></i>Share</a>
+                        </div>
+                        <div class="post-comment-timestamp">5 hrs ago</div>
+                    </div>
                 </div>
-                <div class="post-actions">
-                    <a class="post-actions--item compliments" href="#"><i class="fa fa-rocket"></i>Upvote (89)</a>
-                    <a class="post-actions--item compliments" href="#"><i class="fa fa-comments"></i>Comment (12)</a>
-                    <a class="post-actions--item compliments" href="#"><i class="fa fa-share"></i>Share</a>
+                <div class="row post-comment-row">
+                    <div class="col-md-2 col-sm-2 post-comment-user-avatar">
+                        <img class="img-responsive post-comment-user-img-circle img-center" src="@routes.Assets.at("images/user/josh.jpg")">
+                    </div>
+                    <div class="col-md-10 col-sm-10 post-comment-blurb">
+                        <div class="post-comment-user-name">Josh Abdul</div>
+                        <div class="post-comment-content">
+                            <p>Great comments! Thanks for sharing!! The apps controls are super responsive. There is little to no lag time while adjusting light settings over wifi like some other wifi controlled products I've used in the past.</p>
+                        </div>
+                        <div class="post-comment-actions">
+                            <a class="post-actions--item" href="#"><i class="fa fa-rocket"></i>Upvote (89)</a>
+                            <a class="post-actions--item" href="#"><i class="fa fa-share"></i>Share</a>
+                        </div>
+                        <div class="post-comment-timestamp">7 hrs ago</div>
+                    </div>
                 </div>
-                <div class="post-timestamp">Yesterday at 4:30pm</div>
-            </div>
-        </section>
-    </div>
+                <div class="row post-comment-row">
+                    <div class="col-md-2 col-sm-2 post-comment-user-avatar">
+                        <img class="img-responsive post-comment-user-img-circle img-center" src="@routes.Assets.at("images/user/ning.jpg")">
+                    </div>
+                    <div class="col-md-10 col-sm-10 post-comment-blurb">
+                        <div class="post-comment-user-name">Ning Yu</div>
+                        <div class="post-comment-content">
+                            <p>Great comments! Thanks for sharing!! The apps controls are super responsive. There is little to no lag time while adjusting light settings over wifi like some other wifi controlled products I've used in the past.</p>
+                        </div>
+                        <div class="post-comment-actions">
+                            <a class="post-actions--item" href="#"><i class="fa fa-rocket"></i>Upvote (89)</a>
+                            <a class="post-actions--item" href="#"><i class="fa fa-share"></i>Share</a>
+                        </div>
+                        <div class="post-comment-timestamp">Yesterday at 4:30pm</div>
+                    </div>
+                </div>
 
-</div>
-
-<!-- right rail -->
-<div class="col-sm-3 forum-right-rail">
-    <!-- row 1: popular tags -->
-    <div class="col-sm-12 popular-tags-row">
-        <div class="popular-tags-header compliments">Popular tags</div>
-        <div class="popular-tags-list">
-            <button type="button" class="btn btn-popular-tags compliments"><i class="fa fa-tag"></i>app <span class="popular-tags-count">80</span></button>
-            <button type="button" class="btn btn-popular-tags suggestions"><i class="fa fa-tag"></i>user interface <span class="popular-tags-count">76</span></button>
-            <button type="button" class="btn btn-popular-tags questions"><i class="fa fa-tag"></i>responsive <span class="popular-tags-count">59</span></button>
-            <button type="button" class="btn btn-popular-tags compliments"><i class="fa fa-tag"></i>color <span class="popular-tags-count">44</span></button>
-            <button type="button" class="btn btn-popular-tags compliments"><i class="fa fa-tag"></i>installation <span class="popular-tags-count">35</span></button>
+            </section>
         </div>
     </div>
 
-    <!-- row 2: user tweets -->
-    <div class="col-sm-12 user-tweets-row">
-        <div class="user-tweets-header">Latest user tweets</div>
-
-        <div class="user-tweet-blurb">
-            <div class="user-tweet--user">
-                Tim Richard <span class="user-tweet--user-handle">@@trichard</span>
-            </div>
-            <div class="user-tweet--timestamp">
-                Jan 18
-            </div>
-            <div class="user-tweet--content">
-                Just got a <a href="#">#belleds</a> Q bulb package today. Installation is like breeze, wi-fi music works right out of the box! Super cool lighting for kids room!!
+    <!-- right rail -->
+    <div class="col-sm-3 forum-right-rail">
+        <!-- row 1: popular tags -->
+        <div class="col-sm-12 popular-tags-row">
+            <div class="popular-tags-header compliments">Popular tags</div>
+            <div class="popular-tags-list">
+                <button type="button" class="btn btn-popular-tags compliments"><i class="fa fa-tag"></i>app <span class="popular-tags-count">80</span></button>
+                <button type="button" class="btn btn-popular-tags suggestions"><i class="fa fa-tag"></i>user interface <span class="popular-tags-count">76</span></button>
+                <button type="button" class="btn btn-popular-tags questions"><i class="fa fa-tag"></i>responsive <span class="popular-tags-count">59</span></button>
+                <button type="button" class="btn btn-popular-tags compliments"><i class="fa fa-tag"></i>color <span class="popular-tags-count">44</span></button>
+                <button type="button" class="btn btn-popular-tags compliments"><i class="fa fa-tag"></i>installation <span class="popular-tags-count">35</span></button>
             </div>
         </div>
 
-        <div class="user-tweet-blurb">
-            <div class="user-tweet--user">
-                Charlie Ferry <span class="user-tweet--user-handle">@@charlieferry</span>
+        <!-- row 2: user tweets -->
+        <div class="col-sm-12 user-tweets-row">
+            <div class="user-tweets-header">Latest user tweets</div>
+
+            <div class="user-tweet-blurb">
+                <div class="user-tweet--user">
+                    Tim Richard <span class="user-tweet--user-handle">@@trichard</span>
+                </div>
+                <div class="user-tweet--timestamp">
+                    Jan 18
+                </div>
+                <div class="user-tweet--content">
+                    Just got a <a href="#">#belleds</a> Q bulb package today. Installation is like breeze, wi-fi music works right out of the box! Super cool lighting for kids room!!
+                </div>
             </div>
-            <div class="user-tweet--timestamp">
-                Dec 18, 2014
+
+            <div class="user-tweet-blurb">
+                <div class="user-tweet--user">
+                    Charlie Ferry <span class="user-tweet--user-handle">@@charlieferry</span>
+                </div>
+                <div class="user-tweet--timestamp">
+                    Dec 18, 2014
+                </div>
+                <div class="user-tweet--content">
+                    Just got a <a href="#">#belleds</a> Q bulb package today. Installation is like breeze, wi-fi music works right out of the box! Super cool lighting for kids room!!
+                </div>
             </div>
-            <div class="user-tweet--content">
-                Just got a <a href="#">#belleds</a> Q bulb package today. Installation is like breeze, wi-fi music works right out of the box! Super cool lighting for kids room!!
+
+            <div class="user-tweet-blurb">
+                <div class="user-tweet--user">
+                    Tao Ni <span class="user-tweet--user-handle">@@taoni</span>
+                </div>
+                <div class="user-tweet--timestamp">
+                    Dec 11, 2014
+                </div>
+                <div class="user-tweet--content">
+                    Just got a <a href="#">#belleds</a> Q bulb today. Installation is easy, wi-fi works out of box! Super cool dancing lights!
+                </div>
             </div>
         </div>
 
-        <div class="user-tweet-blurb">
-            <div class="user-tweet--user">
-                Tao Ni <span class="user-tweet--user-handle">@@taoni</span>
-            </div>
-            <div class="user-tweet--timestamp">
-                Dec 11, 2014
-            </div>
-            <div class="user-tweet--content">
-                Just got a <a href="#">#belleds</a> Q bulb today. Installation is easy, wi-fi works out of box! Super cool dancing lights!
-            </div>
-        </div>
     </div>
 
 </div>
