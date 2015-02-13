@@ -4,6 +4,8 @@ import com.feth.play.module.mail.Mailer.Mail.Body;
 import com.feth.play.module.pa.PlayAuthenticate;
 import com.feth.play.module.pa.providers.password.UsernamePasswordAuthProvider;
 import com.feth.play.module.pa.providers.password.UsernamePasswordAuthUser;
+import com.typesafe.config.ConfigFactory;
+
 import controllers.routes;
 import models.LinkedAccount;
 import models.TokenAction;
@@ -39,6 +41,10 @@ public class MyUsernamePasswordAuthProvider
 	private static final String SETTING_KEY_LINK_LOGIN_AFTER_PASSWORD_RESET = "loginAfterPasswordReset";
 
 	private static final String EMAIL_TEMPLATE_FALLBACK_LANGUAGE = "en";
+	
+	private final boolean verifyEmailFlag = ConfigFactory.load().getBoolean("authenticate-verifyemail");
+	
+	public static Context context;
 
 	@Override
 	protected List<String> neededSettingKeys() {
@@ -125,35 +131,57 @@ public class MyUsernamePasswordAuthProvider
 	@Override
 	protected com.feth.play.module.pa.providers.password.UsernamePasswordAuthProvider.SignupResult signupUser(final MyUsernamePasswordAuthUser user) {
 		final User u = User.findByUsernamePasswordIdentity(user);
+		//Logger.debug("emailverifyflag" + verifyEmailFlag);
+		//Logger.debug("value of authenticate.verifyemail property" + ConfigFactory.load().getString("authenticate-verifyemail"));
+
 		if (u != null) {
 			if (u.emailValidated) {
 				// This user exists, has its email validated and is active
 				return SignupResult.USER_EXISTS;
-			} else {
-				// this user exists, is active but has not yet validated its
-				// email
-				return SignupResult.USER_EXISTS_UNVERIFIED;
+			} else { // this user exists, is active but has not yet validated its email
+				// if verifyemail is needed
+				if (verifyEmailFlag){
+					return SignupResult.USER_EXISTS_UNVERIFIED;
+				} else {//verifyemail is not required
+					//Logger.debug("email verification is not needed");
+					this.sendVerifyEmailMailingAfterSignup(u,context);
+					return SignupResult.USER_EXISTS;
+				}
 			}
 		}
 		// The user either does not exist or is inactive - create a new one
 		@SuppressWarnings("unused")
 		final User newUser = User.create(user);
-		// Usually the email should be verified before allowing login, however
-		// if you return
-		// return SignupResult.USER_CREATED;
-		// then the user gets logged in directly
-		return SignupResult.USER_CREATED_UNVERIFIED;
+		/*Usually the email should be verified before allowing login, 
+		 * however if the email verification is turned off return SignupResult.USER_CREATED;
+		 then the user gets logged in directly
+		 */
+		if (verifyEmailFlag){
+			//Logger.debug("2 email verification is needed");
+			return SignupResult.USER_CREATED_UNVERIFIED;
+		} else {//verifyemail is not required
+			//Logger.debug("3 email verification is not needed");
+			this.sendVerifyEmailMailingAfterSignup(newUser,context);
+			return SignupResult.USER_CREATED;
+		}
+		
 	}
 
 	@Override
 	protected com.feth.play.module.pa.providers.password.UsernamePasswordAuthProvider.LoginResult loginUser(
 			final MyLoginUsernamePasswordAuthUser authUser) {
 		final User u = User.findByUsernamePasswordIdentity(authUser);
+		//Logger.debug("4 emailverifyflag " + verifyEmailFlag);
+		//Logger.debug("5 value of authenticate.verifyemail property " + ConfigFactory.load().getString("authenticate-verifyemail"));
+
 		if (u == null) {
 			return LoginResult.NOT_FOUND;
 		} else {
-			if (!u.emailValidated) {
-				return LoginResult.USER_UNVERIFIED;
+			if (verifyEmailFlag) {
+				if (!u.emailValidated){
+					//Logger.debug("6 email verification is needed");
+					return LoginResult.USER_UNVERIFIED;
+				} 
 			} else {
 				for (final LinkedAccount acc : u.linkedAccounts) {
 					if (getKey().equals(acc.providerKey)) {
@@ -173,6 +201,8 @@ public class MyUsernamePasswordAuthProvider
 				return LoginResult.WRONG_PASSWORD;
 			}
 		}
+		//Logger.error("7 undesired state..");
+		return LoginResult.USER_UNVERIFIED;//undesired state..its okay to fail?
 	}
 
 	@Override

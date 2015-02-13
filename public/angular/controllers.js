@@ -64,7 +64,8 @@ productControllers.controller('ForumCtrl', ['$scope', 'ForumService', 'LikesServ
     $scope.posts = [];
     $scope.forum = {
         showNewPost : false,
-        selectedCategory : 0   // default to 0 = compliments
+        selectedCategory : 0,   // default to 0 = compliments
+        category : ["compliments","suggestions","questions"]
     }
 
     // create a blank object to hold our form information
