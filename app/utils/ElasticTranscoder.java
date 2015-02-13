@@ -105,6 +105,7 @@ public class ElasticTranscoder {
     private static String OUTPUT_KEY_PREFIX;
 
     // HLS Presets that will be used to create an adaptive bitrate playlist.
+    private static final String WEB_PRESET_ID           = "1351620000001-100070";
     private static final String HLS_2M_PRESET_ID 		= "1351620000001-200010";
     private static final String HLS_1_5M_PRESET_ID		= "1351620000001-200020";
     private static final String HLS_1M_PRESET_ID		= "1351620000001-200030";
@@ -143,46 +144,56 @@ public class ElasticTranscoder {
         String outputKey = (OUTPUT_KEY);
 
         //setup encoding presets for HLS transcoding
+        CreateJobOutput mp4 = new CreateJobOutput()
+                .withKey(outputKey + "/" + outputKey + ".mp4")
+                .withPresetId(WEB_PRESET_ID);
+
+        CreateJobOutput webm = new CreateJobOutput()
+                .withKey(outputKey + "/" + outputKey + ".webm")
+                .withPresetId(WEB_PRESET_ID);
+
         CreateJobOutput hls2m = new CreateJobOutput()
-        .withThumbnailPattern(outputKey + "hls-2m-{count}")
-        .withKey(outputKey + "hls-2m-")
-        .withPresetId(HLS_2M_PRESET_ID)
-        .withSegmentDuration(SEGMENT_DURATION);
+                .withKey(outputKey + "/hls-2m-")
+                .withPresetId(HLS_2M_PRESET_ID)
+                .withSegmentDuration(SEGMENT_DURATION);
+
         CreateJobOutput hls15m = new CreateJobOutput()
-        .withKey(outputKey + "hls-15m-")
-        .withPresetId(HLS_1_5M_PRESET_ID)
-        .withSegmentDuration(SEGMENT_DURATION);
+                .withKey(outputKey + "/hls-15m-")
+                .withPresetId(HLS_1_5M_PRESET_ID)
+                .withSegmentDuration(SEGMENT_DURATION);
+
         CreateJobOutput hls1m = new CreateJobOutput()
-        .withThumbnailPattern(outputKey + "hls-1m-{count}")
-        .withKey(outputKey + "hls-1m-")
-        .withPresetId(HLS_1M_PRESET_ID)
-        .withSegmentDuration(SEGMENT_DURATION);
+                .withKey(outputKey + "/hls-1m-")
+                .withPresetId(HLS_1M_PRESET_ID)
+                .withSegmentDuration(SEGMENT_DURATION);
+
         CreateJobOutput hls600k = new CreateJobOutput()
-        .withThumbnailPattern(outputKey + "hls-600k-{count}")
-        .withKey(outputKey + "hls-600k-")
-        .withPresetId(HLS_600k_PRESET_ID)
-        .withSegmentDuration(SEGMENT_DURATION);
+                .withKey(outputKey + "/hls-600k-")
+                .withPresetId(HLS_600k_PRESET_ID)
+                .withSegmentDuration(SEGMENT_DURATION);
+
         CreateJobOutput hls400k = new CreateJobOutput()
-        .withThumbnailPattern(outputKey + "hls-400k-{count}")
-        .withKey(outputKey + "hls-400k-")
-        .withPresetId(HLS_400k_PRESET_ID)
-        .withSegmentDuration(SEGMENT_DURATION);
-        List<CreateJobOutput> outputs = Arrays.asList(hls2m, hls15m, hls1m, hls600k, hls400k);
+                .withKey(outputKey + "/hls-400k-")
+                .withPresetId(HLS_400k_PRESET_ID)
+            .withSegmentDuration(SEGMENT_DURATION);
+
+        List<CreateJobOutput> outputs = Arrays.asList(mp4, webm, hls2m, hls15m, hls1m, hls600k, hls400k);
 
         // Setup master playlist which can be used to play using adaptive bitrate.
         CreateJobPlaylist playlist = new CreateJobPlaylist()
-        .withName(outputKey + "hls_")
-        .withFormat("HLSv3")
-        .withOutputKeys(hls2m.getKey(), hls15m.getKey(), hls1m.getKey(), hls600k.getKey(), hls400k.getKey());
+                .withName(outputKey + "/" + outputKey)
+                .withFormat("HLSv3")
+                .withOutputKeys(hls2m.getKey(), hls15m.getKey(), hls1m.getKey(), hls600k.getKey(), hls400k.getKey());
 
         // Create the EC2 pipeline job.
         CreateJobRequest createJobRequest = new CreateJobRequest()
-        .withPipelineId(PIPELINE_ID)
-        .withInput(input)
-        //.withOutputKeyPrefix(OUTPUT_KEY_PREFIX + outputKey)
-        .withOutputKeyPrefix(OUTPUT_KEY_PREFIX)
-        .withOutputs(outputs)
-        .withPlaylists(playlist);
+                .withPipelineId(PIPELINE_ID)
+                .withInput(input)
+                //.withOutputKeyPrefix(OUTPUT_KEY_PREFIX + outputKey)
+                .withOutputKeyPrefix(OUTPUT_KEY_PREFIX)
+                .withOutputs(outputs)
+                .withPlaylists(playlist);
+
         return amazonElasticTranscoder.createJob(createJobRequest).getJob();
     }
 }
