@@ -31,7 +31,9 @@ public class Tag extends Model {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Long id;
 
-	public String name;
+    public String name;
+
+    public Long counter;
 
 	@OneToMany(cascade = CascadeType.ALL)
 	public List<TagLink> links;
@@ -66,6 +68,7 @@ public class Tag extends Model {
 			// Tag not found so we insert
 			rs = new Tag();
 			rs.name = name;
+            rs.counter = 0L;
 			rs.save();
 		} else {
 			// Tag found so check if tag is already added so we avoid duplicates
@@ -76,13 +79,15 @@ public class Tag extends Model {
 					.findUnique();
 		}
 
-		// Add a new link to the tag
+		// Add a new link to the tag and increase counter
 		if (taglink == null) {
 			taglink = new TagLink();
 			taglink.refId = refId;
 			taglink.refType = refType;
 
 			rs.links.add(taglink);
+            if(rs.counter==null) rs.counter = 0L;
+            rs.counter = rs.counter + 1L;
 			rs.save();
 		}
 
@@ -112,9 +117,12 @@ public class Tag extends Model {
 					.findUnique();
 		}
 
-		// if link is found then delete
+		// if link is found then delete and decrease counter
 		if (taglink != null) {
 			taglink.delete();
+            if(rs.counter==null) rs.counter = 0L;
+            rs.counter = rs.counter - 1L;
+            rs.save();
 		}
 	}
 
@@ -161,6 +169,14 @@ public class Tag extends Model {
 		return links;
 	}
 
+    /*
+    Get top tags
+     */
+    public static List<Tag> getTopTags(int size){
+        List<Tag> rs = Tag.find.where().ge("counter", 1).orderBy("counter desc").setMaxRows(size).findList();
+        return rs;
+    }
+
 	/*
 	Raw sql helper function
 	Returns sql that finds all objects with the specified tag and class = refType
@@ -187,7 +203,8 @@ public class Tag extends Model {
 
 	public ObjectNode toJson() {
 		ObjectNode node = Json.newObject();
-		node.put("name", this.name);
+        node.put("name", this.name);
+        node.put("counter", this.counter);
 		return node;
 	}
 

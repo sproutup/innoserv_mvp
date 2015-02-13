@@ -7,6 +7,22 @@ productServices.factory('ProductService', ['$resource',
     return $resource('/api/products/:slug'); // Note the full endpoint address
   }]);
 
+productServices.factory('TagsService', ['$http','$log', function($http,$log){
+    var urlBase = '/api/tags';
+    var TagsService = {};
+
+    TagsService.getTopTags = function(size){
+        return $http({
+            method: 'GET',
+            url: urlBase,
+            params: {size: size}
+        })
+    }
+
+    return TagsService;
+
+}]);
+
 productServices.factory('LikesService', ['$http','$log', function($http,$log){
   var urlBase = '/api/likes';
   var LikesService = {};
