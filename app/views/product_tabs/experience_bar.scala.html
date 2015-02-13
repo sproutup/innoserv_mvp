@@ -1,11 +1,11 @@
 @()
-<div ng-controller="ForumCtrl" >
+<div ng-controller="ForumCtrl" class="forum-wrapper {{forum.category[forum.selectedCategory]}}" >
 <!-- tabs: share compliments, make suggestions, ask questions -->
 <div class="col-lg-12 bar-tabs">
     <div class="bar-tabs--content">
-        <a ng-click="changeCategory(0)" class="btn btn-lg btn-share-compliments" ng-class="{'active': forum.selectedCategory==0}" href="#">Share Compliments</a>
-        <a ng-click="changeCategory(1)" class="btn btn-lg btn-make-suggestions" ng-class="{'active': forum.selectedCategory==1}" href="#">Make Suggestions</a>
-        <a ng-click="changeCategory(2)" class="btn btn-lg btn-ask-questions" ng-class="{'active': forum.selectedCategory==2}" href="#">Ask Questions</a>
+        <a ng-click="changeCategory(0)" class="btn btn-lg btn-share-compliments" href="#">Share Compliments</a>
+        <a ng-click="changeCategory(1)" class="btn btn-lg btn-make-suggestions" href="#">Make Suggestions</a>
+        <a ng-click="changeCategory(2)" class="btn btn-lg btn-ask-questions" href="#">Ask Questions</a>
     </div>
 </div>
 
@@ -16,13 +16,13 @@
     <div class="row leading-row">
         <div class="col-sm-12">
             <div ng-show="forum.selectedCategory==0" class="new-post">
-                <a ng-click="forum.showNewPost = !forum.showNewPost" href="#"><i class="fa fa-plus fa-lg new-post-btn compliments"></i></a>Have great experience with {{product.productName}}? <a ng-click="forum.showNewPost = !forum.showNewPost" href="#" class="new-post-link compliments">Post a new compliment</a> and share with us!
+                <a ng-click="forum.showNewPost = !forum.showNewPost" href="#"><i class="fa fa-plus fa-lg new-post-btn"></i></a>Have great experience with {{product.productName}}? <a ng-click="forum.showNewPost = !forum.showNewPost" href="#" class="new-post-link compliments">Post a new compliment</a> and share with us!
             </div>
             <div ng-show="forum.selectedCategory==1" class="new-post">
-                <a ng-click="forum.showNewPost = !forum.showNewPost" href="#"><i class="fa fa-plus fa-lg new-post-btn suggestions"></i></a>Wanna help make our product better? <a ng-click="forum.showNewPost = !forum.showNewPost" href="#" class="new-post-link suggestions">Post your great ideas</a> here.
+                <a ng-click="forum.showNewPost = !forum.showNewPost" href="#"><i class="fa fa-plus fa-lg new-post-btn"></i></a>Wanna help make our product better? <a ng-click="forum.showNewPost = !forum.showNewPost" href="#" class="new-post-link suggestions">Post your great ideas</a> here.
             </div>
             <div ng-show="forum.selectedCategory==2" class="new-post">
-                <a ng-click="forum.showNewPost = !forum.showNewPost" href="#"><i class="fa fa-plus fa-lg new-post-btn questions"></i></a>Have troubles with our product? Sorry! But no worries, <a ng-click="forum.showNewPost = !forum.showNewPost" href="#" class="new-post-link questions">post questions here</a> and get answered.
+                <a ng-click="forum.showNewPost = !forum.showNewPost" href="#"><i class="fa fa-plus fa-lg new-post-btn"></i></a>Have troubles with our product? Sorry! But no worries, <a ng-click="forum.showNewPost = !forum.showNewPost" href="#" class="new-post-link questions">post questions here</a> and get answered.
             </div>
         </div>
     </div>
@@ -119,11 +119,11 @@
     <div class="col-sm-12 popular-tags-row">
         <div class="popular-tags-header">Popular tags</div>
         <div class="popular-tags-list">
-            <button type="button" class="btn btn-compliments btn-popular-tags"><i class="fa fa-tag"></i>app <span class="popular-tags-count">80</span></button>
-            <button type="button" class="btn btn-compliments btn-popular-tags"><i class="fa fa-tag"></i>user interface <span class="popular-tags-count">76</span></button>
-            <button type="button" class="btn btn-compliments btn-popular-tags"><i class="fa fa-tag"></i>responsive <span class="popular-tags-count">59</span></button>
-            <button type="button" class="btn btn-compliments btn-popular-tags"><i class="fa fa-tag"></i>color <span class="popular-tags-count">44</span></button>
-            <button type="button" class="btn btn-compliments btn-popular-tags"><i class="fa fa-tag"></i>installation <span class="popular-tags-count">35</span></button>
+            <button type="button" class="btn btn-popular-tags"><i class="fa fa-tag"></i>app <span class="popular-tags-count">80</span></button>
+            <button type="button" class="btn btn-popular-tags"><i class="fa fa-tag"></i>user interface <span class="popular-tags-count">76</span></button>
+            <button type="button" class="btn btn-popular-tags"><i class="fa fa-tag"></i>responsive <span class="popular-tags-count">59</span></button>
+            <button type="button" class="btn btn-popular-tags"><i class="fa fa-tag"></i>color <span class="popular-tags-count">44</span></button>
+            <button type="button" class="btn btn-popular-tags"><i class="fa fa-tag"></i>installation <span class="popular-tags-count">35</span></button>
         </div>
     </div>
 
