@@ -132,7 +132,7 @@ public class S3File extends Model {
 				Logger.debug("product ID fectched =" + productID);
 			}
 			//look up product based on id
-			Product product = new Product().findbyID(new Long(productID));
+			Product product = Product.findbyID(new Long(productID));
 
 			Media mediatab = new Media(
 					id.toString(),

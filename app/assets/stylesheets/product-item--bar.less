@@ -341,6 +341,7 @@
 }
 
 .post-new-textarea {
+    min-height: 80px;
     margin-top: 3px;
     margin-bottom: 3px;
     padding-top: 8px;
@@ -356,6 +357,11 @@
     resize: vertical;
     border-radius: 0px;
     box-shadow: none !important;
+}
+
+.post-new-textarea:focus {
+    border-top: dashed 1px @form-border;
+    border-bottom: dashed 1px @form-border;
 }
 
 .form-control::-moz-placeholder {
