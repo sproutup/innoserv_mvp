@@ -18,7 +18,8 @@ val appDependencies = Seq(
   javaEbean,
   "org.webjars" %% "webjars-play" % "2.3.0",
   "org.webjars" % "bootstrap" % "3.2.0",
-  "com.amazonaws" % "aws-java-sdk" % "1.3.11"
+  "com.amazonaws" % "aws-java-sdk" % "1.9.17",
+  "joda-time" % "joda-time" % "2.7"
 )
 
 libraryDependencies += "com.github.tototoshi" %% "play-flyway" % "1.2.0"
@@ -38,4 +39,3 @@ lazy val root = project.in(file("."))
 includeFilter in (Assets, LessKeys.less) := "*.less"
 
 excludeFilter in (Assets, LessKeys.less) := "_*.less"
-

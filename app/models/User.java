@@ -6,6 +6,9 @@ import be.objectify.deadbolt.core.models.Subject;
 
 import com.avaje.ebean.Ebean;
 import com.avaje.ebean.ExpressionList;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.JsonNodeFactory;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.feth.play.module.pa.providers.password.UsernamePasswordAuthUser;
 import com.feth.play.module.pa.user.AuthUser;
 import com.feth.play.module.pa.user.AuthUserIdentity;
@@ -14,9 +17,11 @@ import com.feth.play.module.pa.user.NameIdentity;
 import com.feth.play.module.pa.user.FirstLastNameIdentity;
 
 import models.TokenAction.Type;
+import org.joda.time.DateTime;
 import play.data.format.Formats;
 import play.data.validation.Constraints;
 import play.db.ebean.Model;
+import play.libs.Json;
 
 import javax.persistence.*;
 
@@ -86,12 +91,10 @@ public class User extends Model implements Subject {
 	@OneToMany(cascade = CascadeType.ALL)
 	//@OneToMany(mappedBy="user")
 	public List<Media> mediaList;
-	
-	//user submitted feedback
-	@OneToMany(cascade = CascadeType.ALL)
-	//@OneToMany(mappedBy="user")
-	public List<Post> postList;
-	
+
+	@OneToMany
+	public List<Post> posts;
+
 	public static final Finder<Long, User> find = new Finder<Long, User>(
 			Long.class, User.class);
 
@@ -276,4 +279,21 @@ public class User extends Model implements Subject {
 		this.changePassword(authUser, create);
 		TokenAction.deleteByUser(this, Type.PASSWORD_RESET);
 	}
+
+    public ObjectNode toJson(){
+        ObjectNode node = Json.newObject();
+        node.put("name", this.name);
+        node.put("firstname", this.firstName);
+        node.put("lastname", this.lastName);
+        node.put("zipcode", this.zipcode);
+        return node;
+    }
+
+    public static ArrayNode toJson(List<User> users){
+        ArrayNode arrayNode = new ArrayNode(JsonNodeFactory.instance);
+        for (User user : users){
+            arrayNode.add(user.toJson());
+        }
+        return arrayNode;
+    }
 }

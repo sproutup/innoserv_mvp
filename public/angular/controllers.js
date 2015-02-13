@@ -27,7 +27,7 @@ My3Ctrl.$inject = [];
 // products
 var productControllers = angular.module('productControllers', []);
 
-productControllers.controller('ProductTabCtrl', function($scope, $window, $location) {
+productControllers.controller('ProductTabCtrl', function($scope, $window, $location, $log) {
     // Tab directive
     $scope.tabs = [
         {title:'About', page: '/views/product-about'},
@@ -35,6 +35,8 @@ productControllers.controller('ProductTabCtrl', function($scope, $window, $locat
         {title:'Gallery', page: '/views/product-gallery'}
         ];
     $scope.tabs.activeTab = 0;
+    $log.debug("activeTab = " + $scope.tabs.activeTab );
+    $location.search('tab', '0');
 });
 
 productControllers.controller('productListCtrl', ['$scope', 'ProductService',
@@ -56,3 +58,120 @@ productControllers.controller('productDetailCtrl', ['$scope', '$routeParams', 'P
 //    }
   }]);
 
+productControllers.controller('ForumCtrl', ['$scope', 'ForumService', 'LikesService', '$log',
+  function($scope, ForumService, LikesService, log) {
+
+    $scope.posts = [];
+    $scope.forum = {
+        showNewPost : false,
+        selectedCategory : 0,   // default to 0 = compliments
+        category : ["compliments","suggestions","questions"]
+    }
+
+    // create a blank object to hold our form information
+    // $scope will allow this to pass between controller and view
+    $scope.forum.newPostForm = {};
+    $scope.forum.newCommentForm = {};
+
+    // Load initial data
+    getPosts($scope.product.id, $scope.forum.selectedCategory);
+
+    // process the new post form
+    $scope.processNewPostForm = function() {
+        console.log("post: ", $scope.forum.newPostForm);
+        $scope.forum.newPostForm.product_id = $scope.product.id;
+        $scope.forum.newPostForm.category = $scope.forum.selectedCategory;
+        ForumService.addPost($scope.forum.newPostForm)
+        .success(function(data){
+            // reload data
+            getPosts($scope.product.id, $scope.forum.selectedCategory);
+            $scope.forum.showNewPost = false;
+            $scope.forum.newPostForm.title = "";
+            $scope.forum.newPostForm.content = "";
+            while($scope.forum.newPostForm.tags.length > 0) {
+                $scope.forum.newPostForm.tags.pop();
+            }
+        });
+    };
+
+    // add like
+    $scope.addLike = function(post, userId) {
+        console.log("like: ", userId);
+        LikesService.addLikes(post.id, "models.Post", userId)
+        .success(function(data){
+            // reload data
+            getPosts($scope.product.id, $scope.forum.selectedCategory);
+        });
+    };
+
+
+    // process the new comment form
+    $scope.processNewCommentForm = function(post) {
+        $scope.forum.newCommentForm[post.id].parent = post.id;
+        console.log("comment: ", $scope.forum.newCommentForm[post.id]);
+        ForumService.addPost($scope.forum.newCommentForm[post.id])
+        .success(function(data){
+            // reload data
+            getPosts($scope.product.id, $scope.forum.selectedCategory);
+            $scope.forum.newCommentForm[post.id].content = "";
+            $scope.forum.showNewComment[post.id] = false;
+        });
+    };
+
+    // change category
+    $scope.changeCategory = function(category_id) {
+        $scope.forum.selectedCategory = category_id;
+        getPosts($scope.product.id, $scope.forum.selectedCategory);
+    };
+
+    function getPosts(product_id, category_id) {
+        ForumService.getPosts(product_id, category_id)
+        .success(function(data, status, headers, config){
+            // this callback will be called asynchronously
+            // when the response is available
+            $scope.posts = data;
+            log.debug("posts: " + $scope.posts);
+        })
+        .error(function(data, status, headers, config){
+            // called asynchronously if an error occurs
+            // or server returns response with an error status.
+            log.debug("error: " + $scope.posts);
+        });
+    }
+
+/*
+    $scope.postsxx = [{
+                     "id": 1,
+                     "content": "first post",
+                     "user": {"name": "peter"},
+                     "tags": [{"name": "energy"},{"name": "led"}],
+                     "comments": [
+                        {
+                        "id": 1,
+                        "user": {"name": "bill"},
+                        "content": "kjsadfh ksdafjhasdk fdksa f"
+                        },
+                        {
+                        "id": 1,
+                        "user": {"name": "josh"},
+                        "content": "kjsadfh ksdafjhasdk fdksa f"
+                        },
+                        {
+                        "id": 1,
+                        "user": {"name": "alfred"},
+                        "content": "kjsadfh ksdafjhasdk fdksa f"
+                        }
+                        ]
+                     },
+                     {
+                     "id": 2,
+                     "content": "second post",
+                     "user": {"name": "peter"}
+                     },
+                     {
+                     "id": 3,
+                     "content": "third post",
+                     "user": {"name": "peter"}
+                     }
+                   ];  */
+}]);
