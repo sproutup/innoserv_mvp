@@ -50,15 +50,24 @@ public class S3File extends Model {
 	@Transient
 	public File file;
 
-	public URL getUrl() {
+	public URL getImageURL() {
 		try {
-			return new URL("https://s3.amazonaws.com/" + bucket + "/" + getActualFileName());
+			return new URL("http://d209heoa233yab.cloudfront.net/" + getActualFileName());
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return null;
 		}
 	}
+
+    public URL getVideoURL() {
+        try {
+            return new URL("http://dc2jx5ot5judg.cloudfront.net/" + productName + "/" + id + "/" + id);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 
 	public String getActualFileName() {
 		return (productName + "/"+ id + "_" + fileName);
@@ -134,24 +143,41 @@ public class S3File extends Model {
 			//look up product based on id
 			Product product = Product.findbyID(new Long(productID));
 
-			Media mediatab = new Media(
-					id.toString(),
-					product,
-					user,
-					getSubmittedUser(),
-					productName,
-					getUrl(),
-					fileName,
-					mediaType,
-					0,
-					true
-				);
-			mediatab.save();
+            if(mediaType == "image") {
+                Media mediatab = new Media(
+                        id.toString(),
+                        product,
+                        user,
+                        getSubmittedUser(),
+                        productName,
+                        getImageURL(),
+                        fileName,
+                        mediaType,
+                        0,
+                        true
+                );
+                mediatab.save();
+            }
+            else if (mediaType == "video") {
+                Media mediatab = new Media(
+                        id.toString(),
+                        product,
+                        user,
+                        getSubmittedUser(),
+                        productName,
+                        getVideoURL(),
+                        fileName,
+                        mediaType,
+                        0,
+                        true
+                );
+                mediatab.save();
+            }
 
 			//transcoder work
 			if(mediaType == "video") {
 				String INPUT_KEY = getActualFileName();
-				String OUTPUT_KEY = id + "/";
+				String OUTPUT_KEY = id.toString();
 				String OUTPUT_KEY_PREFIX = productName + "/";
 				Job job = ets.createElasticTranscoderHlsJob(INPUT_KEY, OUTPUT_KEY, OUTPUT_KEY_PREFIX);
 				Logger.info("  INPUT_KEY: " + INPUT_KEY);
