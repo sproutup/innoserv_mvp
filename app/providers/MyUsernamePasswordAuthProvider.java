@@ -143,8 +143,7 @@ public class MyUsernamePasswordAuthProvider
 				if (verifyEmailFlag){
 					return SignupResult.USER_EXISTS_UNVERIFIED;
 				} else {//verifyemail is not required
-					//Logger.debug("email verification is not needed");
-					this.sendVerifyEmailMailingAfterSignup(u,context);
+					//Logger.debug("0 email verification is not needed");
 					return SignupResult.USER_EXISTS;
 				}
 			}
@@ -162,6 +161,7 @@ public class MyUsernamePasswordAuthProvider
 		} else {//verifyemail is not required
 			//Logger.debug("3 email verification is not needed");
 			this.sendVerifyEmailMailingAfterSignup(newUser,context);
+			this.sendWelcomeMessageMailing(newUser,context);
 			return SignupResult.USER_CREATED;
 		}
 		
@@ -412,5 +412,37 @@ public class MyUsernamePasswordAuthProvider
 
 	private String getEmailName(final User user) {
 		return getEmailName(user.email, user.name);
+	}
+	
+	protected String getWelcomeMessageMailingSubject(final User user,
+			final Context ctx) {
+		return Messages.get("playauthenticate.welcome.message.title");
+	}
+	
+	protected Body getWelcomeMessageMailingBody(
+			final User user, final Context ctx) {
+
+		final Lang lang = Lang.preferred(ctx.request().acceptLanguages());
+		final String langCode = lang.code();
+
+		String html = getEmailTemplate(
+				"views.html.account.email.welcome_email", langCode, null,
+				null, user.name, user.email);
+		String text = getEmailTemplate(
+				"views.txt.account.email.welcome_email", langCode, null, null,
+				user.name, user.email);
+		
+		return new Body(text, html);
+	}
+
+	public void sendWelcomeMessageMailing(final User user, final Context ctx) {
+		try {
+			final String subject = getWelcomeMessageMailingSubject(user, ctx);
+			final Body body = getWelcomeMessageMailingBody(user, ctx);
+			sendMail(subject, body, getEmailName(user));
+		} catch (Exception e) {
+			Logger.error(e.toString());
+			e.printStackTrace();
+		}
 	}
 }
