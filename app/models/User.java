@@ -16,8 +16,11 @@ import com.feth.play.module.pa.user.EmailIdentity;
 import com.feth.play.module.pa.user.NameIdentity;
 import com.feth.play.module.pa.user.FirstLastNameIdentity;
 
+import constants.UserRole;
 import models.TokenAction.Type;
+
 import org.joda.time.DateTime;
+
 import play.data.format.Formats;
 import play.data.validation.Constraints;
 import play.db.ebean.Model;
@@ -165,10 +168,21 @@ public class User extends Model implements Subject {
 		Ebean.save(Arrays.asList(new User[] { otherUser, this }));
 	}
 
+	/**
+	 * Default method for creating user with Consumer Role
+	 * @param authUser
+	 * @return
+	 */
+	
 	public static User create(final AuthUser authUser) {
+		
+		return create (authUser, UserRole.CONSUMER.name());
+	}	
+	
+	public static User create(final AuthUser authUser, String role) {
 		final User user = new User();
 		user.roles = Collections.singletonList(SecurityRole
-				.findByRoleName(controllers.Application.USER_ROLE));
+				.findByRoleName(role));
 		// user.permissions = new ArrayList<UserPermission>();
 		// user.permissions.add(UserPermission.findByValue("printers.edit"));
 		user.active = true;
