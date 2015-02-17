@@ -1,10 +1,13 @@
 package controllers;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.feth.play.module.pa.providers.password.UsernamePasswordAuthProvider;
+
 import models.User;
 import play.mvc.BodyParser;
 import play.mvc.Controller;
 import play.mvc.Result;
+import providers.MyUsernamePasswordAuthProvider;
 
 /**
  * Created by peter on 2/13/15.
@@ -17,14 +20,15 @@ public class AuthController extends Controller {
         JsonNode json = request().body().asJson();
         if(json == null) {
             return badRequest("Missing request body");
-        } else {
-            String email = json.findPath("email").textValue();
-            String password = json.findPath("password").textValue();
+        } else {// Everything was filled
+//            String email = json.findPath("email").textValue();
+//            String password = json.findPath("password").textValue();
+        
+            com.feth.play.module.pa.controllers.Authenticate.noCache(response());
+    		MyUsernamePasswordAuthProvider.LOGIN_FORM.bind(json, "email", "password");
+    		return UsernamePasswordAuthProvider.handleLogin(ctx());
         }
 
-        // todo
-
-        return ok();
     }
 
 
@@ -34,14 +38,20 @@ public class AuthController extends Controller {
         if(json == null) {
             return badRequest("Missing request body");
         } else {
-            String fullname = json.findPath("fullname").textValue();
-            String email = json.findPath("email").textValue();
-            String password = json.findPath("password").textValue();
-        }
+           // String fullname = json.findPath("fullname").textValue();
+            //String email = json.findPath("email").textValue();
+            //String password = json.findPath("password").textValue();
 
-        // todo signup user and return result
+	        // signup user and return result
+	        com.feth.play.module.pa.controllers.Authenticate.noCache(response());
+	        MyUsernamePasswordAuthProvider.SIGNUP_FORM.bind(json,"name","email","password", "repeatpassword");
 
-        return ok();
+	        MyUsernamePasswordAuthProvider.context = ctx();
+			// perform signup
+			return UsernamePasswordAuthProvider.handleSignup(ctx());
+			
+		}
+        
     }
 
     @BodyParser.Of(BodyParser.Json.class)

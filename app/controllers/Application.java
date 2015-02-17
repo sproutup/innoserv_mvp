@@ -10,11 +10,9 @@ import play.Routes;
 import play.data.Form;
 import play.mvc.*;
 import play.mvc.Http.Session;
-import play.mvc.Result;
 import providers.MyUsernamePasswordAuthProvider;
 import providers.MyUsernamePasswordAuthProvider.MyLogin;
 import providers.MyUsernamePasswordAuthProvider.MySignup;
-
 import views.html.*;
 import be.objectify.deadbolt.java.actions.Group;
 import be.objectify.deadbolt.java.actions.Restrict;
@@ -23,11 +21,13 @@ import com.feth.play.module.pa.PlayAuthenticate;
 import com.feth.play.module.pa.providers.password.UsernamePasswordAuthProvider;
 import com.feth.play.module.pa.user.AuthUser;
 
+import constants.AppConstants;
+import constants.UserRole;
+
 public class Application extends Controller {
 
 	public static final String FLASH_MESSAGE_KEY = "message";
 	public static final String FLASH_ERROR_KEY = "error";
-	public static final String USER_ROLE = "user";
 
 	public static Result index() {
 		List<Product>products = new Product().getAll();
@@ -37,7 +37,8 @@ public class Application extends Controller {
 	public static Result about() {
 		return ok(about.render());
 	}
-
+	
+	@Restrict({@Group(AppConstants.CONSUMER),@Group(AppConstants.CREATOR)})
 	public static Result creator() {
 		return ok(creator.render());
 	}
@@ -48,7 +49,7 @@ public class Application extends Controller {
 		return localUser;
 	}
 
-	@Restrict(@Group(Application.USER_ROLE))
+	@Restrict({@Group(AppConstants.CONSUMER)})
 	public static Result profile() {
 		final User localUser = getLocalUser(session());
 		return ok(profile.render(localUser));
@@ -86,6 +87,7 @@ public class Application extends Controller {
 		com.feth.play.module.pa.controllers.Authenticate.noCache(response());
 		final Form<MySignup> filledForm = MyUsernamePasswordAuthProvider.SIGNUP_FORM
 				.bindFromRequest();
+		MyUsernamePasswordAuthProvider.context = ctx();
 		if (filledForm.hasErrors()) {
 			// User did not fill everything properly
 			return badRequest(signup.render(filledForm));

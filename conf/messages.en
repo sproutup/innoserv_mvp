@@ -112,6 +112,8 @@ playauthenticate.token.error.message=The given token has either expired or does 
 playauthenticate.user.exists.title=User exists
 playauthenticate.user.exists.message=This user already exists.
 
+playauthenticate.welcome.message.title=Welcome to SproutUp
+
 # play-authenticate: Navigation
 playauthenticate.navigation.profile=Profile
 playauthenticate.navigation.link_more=Link more providers
@@ -146,5 +148,7 @@ playauthenticate.index.details=View details
 
 # play-authenticate - sample: Restricted page
 playauthenticate.restricted.secrets=Secrets, everywhere!
+
+
 
 ### --- play-authenticate END

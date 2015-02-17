@@ -15,6 +15,7 @@
  */
 package models;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -37,6 +38,7 @@ public class SecurityRole extends Model implements Role {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	public Long id;
 
+	@Column(unique=true)
 	public String roleName;
 
 	public static final Finder<Long, SecurityRole> find = new Finder<Long, SecurityRole>(

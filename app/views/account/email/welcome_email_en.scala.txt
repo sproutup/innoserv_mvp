@@ -1,0 +1,13 @@
+@(url: String, token: String, name: String, email: String)
+
+Dear @name,
+	You're officially part of our community! Thank you for joining SproutUp community. 
+	
+	We look forward to your participation.
+	
+	Your login is your email id @email. Start enjoying SproutUp by visiting us at http://trial.sproutup.co now.
+
+
+	Cheers,
+	Nitin and Tao
+	Founders of SproutUp

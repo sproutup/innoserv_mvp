@@ -9,6 +9,7 @@ import com.feth.play.module.pa.PlayAuthenticate.Resolver;
 import com.feth.play.module.pa.exceptions.AccessDeniedException;
 import com.feth.play.module.pa.exceptions.AuthException;
 
+import constants.UserRole;
 import controllers.routes;
 import play.Application;
 import play.GlobalSettings;
@@ -25,7 +26,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.ArrayList;
-
 import java.util.Locale;
 import java.util.Map;
 
@@ -94,11 +94,10 @@ public class Global extends GlobalSettings {
 	}
 
 	private void initialData() {
-		if (SecurityRole.find.findRowCount() == 0) {
-			for (final String roleName : Arrays
-					.asList(controllers.Application.USER_ROLE)) {
+		if (UserRole.values().length > SecurityRole.find.findRowCount()) {
+			for (UserRole roleName : UserRole.values()) {
 				final SecurityRole role = new SecurityRole();
-				role.roleName = roleName;
+				role.roleName = roleName.name();
 				role.save();
 			}
 		}

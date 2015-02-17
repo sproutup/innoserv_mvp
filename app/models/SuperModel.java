@@ -13,13 +13,19 @@ import javax.persistence.Version;
 
 import play.Logger;
 import play.db.ebean.Model;
+import utils.Followeable;
 import utils.Likeable;
 import utils.Taggable;
 
 @MappedSuperclass
-public class SuperModel extends Model implements Likeable, Taggable {
+public class SuperModel extends Model implements Likeable, Taggable, Followeable {
 
-  @Id
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+@Id
   @GeneratedValue
   public Long id;
 
@@ -99,5 +105,35 @@ public class SuperModel extends Model implements Likeable, Taggable {
   public List<Tag> getAllTags() {
     return Tag.getAllTags(id, this.getClass().getName());
   }
+
+  /*
+  Taggable interface implementation
+   */
+  @Override
+  public void follow(Long userId) {
+	  Follow.addFollow(userId, this.id, this.getClass().getName());
+  }
+	
+	@Override
+	public void unFollow(Long userId) {
+		Follow.removeFollow(userId, this.id, this.getClass().getName());
+	}
+	
+	@Override
+	public List<Follow> getAllFollowers() {
+		return Follow.getAllFollowers(this.id, this.getClass().getName());
+	}
+	
+	@Override
+	public List<Follow> getUserFollowings(Long userId) {
+		return Follow.getAllFollowings(userId);
+	}
+
+	@Override
+	public void removeAllFollowers() {
+		Follow.removeAllFollowers(this.id, this.getClass().getName());
+		
+	}
+	
 
 }
