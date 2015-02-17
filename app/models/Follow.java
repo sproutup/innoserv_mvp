@@ -14,7 +14,7 @@ import play.Logger;
 import play.libs.Json;
 
 @Entity
-public class Follow extends SuperModel{
+public class Follow extends TimeStampModel{
 	
 	/**
 	 * 
