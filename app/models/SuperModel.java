@@ -18,44 +18,16 @@ import utils.Likeable;
 import utils.Taggable;
 
 @MappedSuperclass
-public class SuperModel extends Model implements Likeable, Taggable, Followeable {
+public class SuperModel extends TimeStampModel implements Likeable, Taggable, Followeable {
 
   /**
-	 * 
+	 * For social media features
 	 */
 	private static final long serialVersionUID = 1L;
 
-@Id
+	@Id
   @GeneratedValue
   public Long id;
-
-  @Column(name = "created_at")
-  public Date createdAt;
-
-  @Column(name = "updated_at")
-  public Date updatedAt;
-
-  @Override
-  public void save() {
-    createdAt();
-    super.save();
-  }
-
-  @Override
-  public void update() {
-    updatedAt();
-    super.update();
-  }
-
-  @PrePersist
-  void createdAt() {
-    this.createdAt = this.updatedAt = new Date();
-  }
-
-  @PreUpdate
-  void updatedAt() {
-    this.updatedAt = new Date();
-  }
 
 
   /*
@@ -107,7 +79,7 @@ public class SuperModel extends Model implements Likeable, Taggable, Followeable
   }
 
   /*
-  Taggable interface implementation
+  Followeable interface implementation
    */
   @Override
   public void follow(Long userId) {
@@ -117,6 +89,11 @@ public class SuperModel extends Model implements Likeable, Taggable, Followeable
 	@Override
 	public void unFollow(Long userId) {
 		Follow.removeFollow(userId, this.id, this.getClass().getName());
+	}
+	
+	@Override
+	public boolean isFollowing(Long userId) {
+		return Follow.isFollowing(userId, this.id, this.getClass().getName());
 	}
 	
 	@Override
