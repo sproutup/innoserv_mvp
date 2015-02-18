@@ -1,17 +1,9 @@
 package utils;
 
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
-import com.amazonaws.AmazonClientException;
-import com.amazonaws.AmazonServiceException;
-import com.amazonaws.auth.AWSCredentials;
-import com.amazonaws.auth.BasicAWSCredentials;
-import com.amazonaws.auth.profile.ProfileCredentialsProvider;
 import com.amazonaws.regions.Region;
 import com.amazonaws.regions.Regions;
-import com.amazonaws.services.s3.AmazonS3;
-import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.elastictranscoder.AmazonElasticTranscoder;
 import com.amazonaws.services.elastictranscoder.AmazonElasticTranscoderClient;
 import com.amazonaws.services.elastictranscoder.model.CreateJobOutput;
@@ -19,9 +11,6 @@ import com.amazonaws.services.elastictranscoder.model.CreateJobPlaylist;
 import com.amazonaws.services.elastictranscoder.model.CreateJobRequest;
 import com.amazonaws.services.elastictranscoder.model.Job;
 import com.amazonaws.services.elastictranscoder.model.JobInput;
-import play.Application;
-import play.Logger;
-import plugins.S3Plugin;
 
 public class ElasticTranscoder {
 
@@ -127,9 +116,6 @@ public class ElasticTranscoder {
     // @return Job that was created by Elastic Transcoder.
     // @throws Exception
     public static Job createElasticTranscoderHlsJob(String input_key, String output_key, String output_key_prefix) {
-        String accessKey = S3Plugin.accessKey;
-        String secretKey = S3Plugin.secretKey;
-        AWSCredentials credentials = new ProfileCredentialsProvider().getCredentials();
         Region usWest2 = Region.getRegion(Regions.US_WEST_2);
 
         // Clients are built using the default credentials provider chain.  This

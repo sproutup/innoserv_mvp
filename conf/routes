@@ -92,3 +92,4 @@ GET           /mockups/product/:slug/bar             controllers.MockupControlle
 GET           /mockups/product/:slug/gallery         controllers.MockupController.detailsGalleryBySlug(slug: String)
 GET           /mockups/login                         controllers.MockupController.login()
 GET           /mockups/reset_password                controllers.MockupController.resetPassword()
+GET           /mockups/user_profile                  controllers.MockupController.userProfile()

@@ -115,3 +115,33 @@ p.copyright {
   font-weight: 300;
   color: #5f5f5f;
 }
+
+.form-control::-moz-placeholder {
+  color: @input-placeholder-text;
+  opacity: 1;
+}
+
+.form-control:-moz-placeholder {
+  color: @input-placeholder-text;
+  opacity: 1;
+}
+
+.form-control::-webkit-input-placeholder {
+  color: @input-placeholder-text;
+  opacity: 1;
+}
+
+.form-control:-ms-input-placeholder {
+  color: @input-placeholder-text;
+  opacity: 1;
+}
+
+.form-control:focus {
+  box-shadow: none;
+  -moz-box-shadow: none;
+  -webkit-box-shadow: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  border-color: @sproutup-blue;
+  outline: 0 !important;
+}

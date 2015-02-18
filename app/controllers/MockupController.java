@@ -39,4 +39,8 @@ public class MockupController extends Controller {
     public static Result resetPassword() {
         return ok(reset_password_mock.render());
     }
+
+    public static Result userProfile() {
+        return ok(user_profile_mock.render());
+    }
 }
