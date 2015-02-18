@@ -42,7 +42,7 @@
                 </div>
                 <div class="post-new-comment-actions">
                     <button ng-click="forum.showNewPost = false" type="button" class="btn btn-cancel-post">Cancel</button>
-                    <button type="submit" class="btn btn-post-compliment">Post</button>
+                    <button type="submit" class="btn btn-post">Post</button>
                 </div>
             </form>
         </div>
@@ -57,7 +57,7 @@
             <div class="col-sm-10 post-blurb">
                 <div class="post-user-name">{{post.user.name}}</div>
                 <div class="post-tags">
-                    <button type="button" ng-repeat="tag in post.tags" class="btn btn-compliments btn-tags">
+                    <button type="button" ng-repeat="tag in post.tags" class="btn btn-tags">
                         <i class="fa fa-tag"></i>{{tag.name}}</button>
                 </div>
                 <div class="post-content">
@@ -87,7 +87,7 @@
                         </div>
                         <div class="post-new-comment-actions">
                             <button ng-click="forum.showNewComment[post.id]=false" type="button" class="btn btn-cancel-post">Cancel</button>
-                            <button type="submit" class="btn btn-post-compliment">Post</button>
+                            <button type="submit" class="btn btn-post">Post</button>
                         </div>
                     </div>
                 </form>
