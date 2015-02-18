@@ -14,7 +14,7 @@ import play.Logger;
 import play.libs.Json;
 
 @Entity
-public class Follow extends SuperModel{
+public class Follow extends TimeStampModel{
 	
 	/**
 	 * 
@@ -134,6 +134,26 @@ public class Follow extends SuperModel{
 		}
 	}
 
+	/*
+	Get all Followings by current user
+	 */
+	public static boolean isFollowing(Long userId, Long refId, String refType) {
+		// find user
+		User user = User.find.byId(userId);
+		// find if user is following this object
+		List<Follow> followings = Follow.find.where()
+				.eq("user", user)
+				.eq("refId", refId)
+				.eq("refType", refType)
+				.findList();
+		if(followings==null || followings.isEmpty() || followings.size() == 0) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+
+	
 	/*
 	Get all Followers on an object identified by refId and refType
 	 */

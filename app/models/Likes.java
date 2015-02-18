@@ -11,7 +11,7 @@ import java.util.List;
 import play.Logger;
 
 @Entity
-public class Likes extends SuperModel {
+public class Likes extends TimeStampModel {
 
 	/**
 	 *
