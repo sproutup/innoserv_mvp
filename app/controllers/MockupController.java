@@ -43,4 +43,16 @@ public class MockupController extends Controller {
     public static Result userProfile() {
         return ok(user_profile_mock.render());
     }
+
+    public static Result creatorDashboard_1() {
+        return ok(creator_dashboard_mock_1.render());
+    }
+
+    public static Result creatorDashboard_2() {
+        return ok(creator_dashboard_mock_2.render());
+    }
+
+    public static Result creatorDashboard_3() {
+        return ok(creator_dashboard_mock_3.render());
+    }
 }

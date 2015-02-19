@@ -26,6 +26,10 @@
         <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
         <!-- 3. flowplayer -->
         <script src="//releases.flowplayer.org/5.5.2/flowplayer.min.js"></script>
+        <script>
+            flowplayer.conf.adaptiveRatio = true;
+            flowplayer.conf.embed = false;
+        </script>
 
         <script type="text/javascript" src="@routes.Application.jsRoutes" defer="defer"></script>
         <script src="@routes.Assets.at("library/jquery/jquery.min.js")"></script>

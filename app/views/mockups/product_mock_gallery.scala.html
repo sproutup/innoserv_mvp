@@ -17,21 +17,7 @@
 
 <!--Photos-->
 <div class="media">
-    <!-- this div shows a mock for hovering on a photo -->
-    <div class="col-lg-3 col-md-3 col-sm-4 media-photo">
-        <div class="media-photo-background"
-             style="background-image: url('http://d209heoa233yab.cloudfront.net/1_Belleds/79b43e9f-7a1c-431d-ba96-2f5ae8487bdb_@@solidpumba.jpg');">
-            <div class="media-photo-overlay-active"></div>
-            <div class="media-photo-info">
-                <div class="media-user">Tao Ni</div>
-                <div class="media-story">Just got the Belleds Q bulb set. Installation is very easy. Love the coloring effect. Kids like dancing with the changing hue.</div>
-            </div>
-            <div class="media-photo-actions">
-                <a class="media-photo-actions--item" href="#"><i class="fa fa-rocket"></i>Up (89)</a>
-                <a class="media-photo-actions--item" href="#"><i class="fa fa-share"></i>Share</a>
-            </div>
-        </div>
-    </div>
+
     @for(media <- product.mediaItems) {
     @if(media.mediaType == "image") {
     <div class="col-lg-3 col-md-3 col-sm-4 media-photo">
@@ -49,6 +35,23 @@
     </div>
     }
     }
+
+    <!-- this div shows a mock for hovering on a photo -->
+    <div class="col-lg-3 col-md-3 col-sm-4 media-photo">
+        <div class="media-photo-background"
+             style="background-image: url('http://d209heoa233yab.cloudfront.net/1_Belleds/79b43e9f-7a1c-431d-ba96-2f5ae8487bdb_@@solidpumba.jpg');">
+            <div class="media-photo-overlay-active"></div>
+            <div class="media-photo-info">
+                <div class="media-user">Tao Ni</div>
+                <div class="media-story">Just got the Belleds Q bulb set. Installation is very easy. Love the coloring effect. Kids like dancing with the changing hue.</div>
+            </div>
+            <div class="media-photo-actions">
+                <a class="media-photo-actions--item" href="#"><i class="fa fa-rocket"></i>Up (89)</a>
+                <a class="media-photo-actions--item" href="#"><i class="fa fa-share"></i>Share</a>
+            </div>
+        </div>
+    </div>
+
 </div>
 
 <hr>
@@ -57,7 +60,7 @@
 <div class="media">
     @for(media <- product.mediaItems) {
     @if(media.mediaType == "video") {
-    <div class="col-md-6 col-sm-12 media-video">
+    <div class="col-md-4 col-sm-12 media-video">
         <div class="flowplayer">
             <video>
                 <source type="application/x-mpegurl" src="@(media.cloudFrontLink + ".m3u8")">
