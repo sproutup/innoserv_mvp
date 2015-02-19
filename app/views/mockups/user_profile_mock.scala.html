@@ -1,5 +1,10 @@
 @moreHead = {
-  <link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/profile.css")">
+    <link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/profile.css")">
+    <link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/profile-edit.css")">
+    <link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/profile-photo.css")">
+    <link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/profile-product.css")">
+    <link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/profile-follow.css")">
+    <link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/profile-video.css")">
 }
 
 @main(Messages("My Profile | SproutUp: Redefine Commerce for Emerging Products"), moreHead) {
@@ -59,11 +64,14 @@
 @user_profile_mock_edit()
 
 <!-- My Photos -->
+@user_profile_mock_photo()
 
 <!-- My Videos -->
 
 <!-- My Followers/Followings -->
+@user_profile_mock_follow()
 
 <!-- My Products -->
+@user_profile_mock_product()
 
 }
