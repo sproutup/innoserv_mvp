@@ -1,13 +1,17 @@
 package controllers;
 
+import be.objectify.deadbolt.java.actions.Group;
+import be.objectify.deadbolt.java.actions.Restrict;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import constants.AppConstants;
 import models.Post;
 import models.Product;
 import models.Tag;
+import models.User;
 import play.Logger;
 import play.libs.Json;
 import play.mvc.BodyParser;
@@ -49,10 +53,10 @@ public class PostController extends Controller {
     }
 
     @BodyParser.Of(BodyParser.Json.class)
-    public static Result addPost()
-    {
+    @Restrict({@Group(AppConstants.CONSUMER),@Group(AppConstants.CREATOR)})
+    public static Result addPost() {
         JsonNode json = request().body().asJson();
-        if(json == null) {
+        if (json == null) {
             return badRequest("Expecting Json data");
         } else {
             long parent_id = json.findPath("parent").longValue();
@@ -60,7 +64,7 @@ public class PostController extends Controller {
             String title = json.findPath("title").textValue();
             int category = json.findPath("category").asInt();
             long product_id = json.findPath("product_id").asLong();
-            if(content == null) {
+            if (content == null) {
                 return badRequest("Missing parameter [content]");
             } else {
                 Post post = new Post();
@@ -68,17 +72,21 @@ public class PostController extends Controller {
                 post.content = content;
                 post.category = category;
                 Post parent = Post.findById(parent_id);
-                if(parent != null){
+                if (parent != null) {
                     post.parent = parent;
                 }
                 Product prod = Product.findbyID(product_id);
-                if(prod != null){
+                if (prod != null) {
                     post.product = prod;
+                }
+                User user = Application.getLocalUser(ctx().session());
+                if (user != null) {
+                    post.user = user;
                 }
                 post.save();
 
                 // Add tags if they are there
-                Iterator<JsonNode> myIterator=json.findPath("tags").elements();
+                Iterator<JsonNode> myIterator = json.findPath("tags").elements();
                 while (myIterator.hasNext()) {
                     JsonNode node = myIterator.next();
                     post.addTag(node.findPath("text").textValue());
@@ -87,6 +95,7 @@ public class PostController extends Controller {
                 return created(post.toJson());
             }
         }
+    }
 
 //        Post newPost = Json.fromJson(request().body().asJson(), Post.class);
 //        try {
@@ -97,7 +106,7 @@ public class PostController extends Controller {
 //        catch(PersistenceException e){
 //            return Results.badRequest(e.getMessage());
 //        }
-    }
+//    }
 
 //    public static Result updateProduct(Long id)
 //    {
