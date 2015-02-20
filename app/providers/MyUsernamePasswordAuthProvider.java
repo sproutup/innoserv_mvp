@@ -97,20 +97,20 @@ public class MyUsernamePasswordAuthProvider
 
 	public static class MySignup extends MyLogin {
 
-		@Required
-		@MinLength(5)
-		public String repeatPassword;
+//		@Required
+//		@MinLength(5)
+//		public String repeatPassword;
 
 		@Required
 		public String name;
 
-		public String validate() {
-			if (password == null || !password.equals(repeatPassword)) {
-				return Messages
-						.get("playauthenticate.password.signup.error.passwords_not_same");
-			}
-			return null;
-		}
+//		public String validate() {
+//			if (password == null || !password.equals(repeatPassword)) {
+//				return Messages
+//						.get("playauthenticate.password.signup.error.passwords_not_same");
+//			}
+//			return null;
+//		}
 	}
 
 	public static final Form<MySignup> SIGNUP_FORM = form(MySignup.class);
@@ -137,13 +137,15 @@ public class MyUsernamePasswordAuthProvider
 		if (u != null) {
 			if (u.emailValidated) {
 				// This user exists, has its email validated and is active
+                Logger.debug("This user exists, has its email validated and is active");
 				return SignupResult.USER_EXISTS;
 			} else { // this user exists, is active but has not yet validated its email
 				// if verifyemail is needed
 				if (verifyEmailFlag){
+                    Logger.debug("This user exists, is active but has not yet validated its email");
 					return SignupResult.USER_EXISTS_UNVERIFIED;
 				} else {//verifyemail is not required
-					//Logger.debug("0 email verification is not needed");
+					Logger.debug("Email verification is not needed");
 					return SignupResult.USER_EXISTS;
 				}
 			}
@@ -212,7 +214,7 @@ public class MyUsernamePasswordAuthProvider
 
 	@Override
 	protected Call userUnverified(final UsernamePasswordAuthUser authUser) {
-		return routes.Signup.unverified();
+        return routes.Signup.unverified();
 	}
 
 	@Override
@@ -422,11 +424,11 @@ public class MyUsernamePasswordAuthProvider
 	protected Body getWelcomeMessageMailingBody(
 			final User user, final Context ctx) {
 
-		final Lang lang = Lang.preferred(ctx.request().acceptLanguages());
+        final Lang lang = Lang.preferred(ctx.request().acceptLanguages());
 		final String langCode = lang.code();
 
-		String html = getEmailTemplate(
-				"views.html.account.email.welcome_email", langCode, null,
+        String html = getEmailTemplate(
+                "views.html.account.email.welcome_email", langCode, null,
 				null, user.name, user.email);
 		String text = getEmailTemplate(
 				"views.txt.account.email.welcome_email", langCode, null, null,

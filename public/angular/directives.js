@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('productApp').directive('toptags', function () {
+angular.module('sproutupApp').directive('toptags', function () {
     return {
         template:   '<div class="col-sm-12 popular-tags-row">'+
                     '<div class="popular-tags-header">Popular tags</div>' +

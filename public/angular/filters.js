@@ -6,7 +6,7 @@ angular.module('productFilters', []).filter('checkmark', function() {
   };
 });
 
-angular.module('productApp').
+angular.module('sproutupApp').
   filter('fromNow', function() {
     return function(dateString) {
       return moment(dateString).fromNow()

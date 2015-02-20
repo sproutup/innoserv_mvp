@@ -1,10 +1,13 @@
 package controllers;
 
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import models.TokenAction;
 import models.TokenAction.Type;
 import models.User;
 import play.data.Form;
 import play.i18n.Messages;
+import play.libs.Json;
+import play.mvc.BodyParser;
 import play.mvc.Controller;
 import play.mvc.Result;
 import providers.MyLoginUsernamePasswordAuthUser;
@@ -188,25 +191,30 @@ public class Signup extends Controller {
 		return ok(oAuthDenied.render(getProviderKey));
 	}
 
-	public static Result exists() {
+//    @BodyParser.Of(BodyParser.Json.class)
+    public static Result exists() {
 		com.feth.play.module.pa.controllers.Authenticate.noCache(response());
-		return ok(exists.render());
+        ObjectNode node = Json.newObject();
+        node.put("status", "USER_EXISTS");
+//        return ok(exists.render());
+        return badRequest(node);
 	}
 
-	public static Result verify(final String token) {
+//    @BodyParser.Of(BodyParser.Json.class)
+    public static Result verify(final String token) {
 		com.feth.play.module.pa.controllers.Authenticate.noCache(response());
 		final TokenAction ta = tokenIsValid(token, Type.EMAIL_VERIFICATION);
 		if (ta == null) {
-			return badRequest(no_token_or_invalid.render());
+			return  badRequest("no_token_or_invalid"); // badRequest(no_token_or_invalid.render());
 		}
 		final String email = ta.targetUser.email;
 		User.verify(ta.targetUser);
 		flash(Application.FLASH_MESSAGE_KEY,
 				Messages.get("playauthenticate.verify_email.success", email));
 		if (Application.getLocalUser(session()) != null) {
-			return redirect(routes.Application.index());
+			return ok();//redirect(routes.Application.index());
 		} else {
-			return redirect(routes.Application.login());
+            return badRequest(); //redirect(routes.Application.login());
 		}
 	}
 }

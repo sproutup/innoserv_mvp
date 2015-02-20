@@ -1,0 +1,34 @@
+<div class="modal-body">
+    <div class="row">
+        <!-- facebook login -->
+        <a href="/authenticate/facebook">
+            <button type="submit" class="btn btn-lg btn-facebook"><i class="fa fa-facebook-square"></i>Sign up with Facebook</button>
+        </a>
+        <!-- twitter login -->
+        <a href="/authenticate/twitter">
+            <button type="submit" class="btn btn-lg btn-twitter"><i class="fa fa-twitter-square"></i>Sign up with Twitter</button>
+        </a>
+        <!-- separator -->
+        <div class="signup-or-separator">
+            <h6 class="text-special">OR</h6>
+            <hr>
+        </div>
+        <!-- email login -->
+        <form name="signupForm" novalidate>
+            <div class="signup-login-form">
+                <input ng-model="signup.name" required="" class="form-control signup-login-input" id="name" type="text" placeholder="Your full name">
+                <input ng-model="signup.email" required="" class="form-control signup-login-input" id="email" type="email" placeholder="Email address - Don't spoof your login">
+                <input ng-model="signup.password" required="" ng-minlength="5" class="form-control signup-login-input" id="password" type="password" placeholder="Password">
+                <!-- agreement -->
+                <div class="signup-agreement">
+                    By signing up, I agree to SproutUp's <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.
+                </div>
+                <button ng-disabled="signupForm.$invalid" class="btn btn-lg signup-login-btn" type="submit" ng-click="ok()">Sign up</button>
+            </div>
+        </form>
+
+        <!-- footer -->
+        <hr class="signup-login-form-separator">
+        <div class="signup-login-form-footer">Already in SproutUp community? <a href="#">Log in</a></div>
+    </div>
+</div>
