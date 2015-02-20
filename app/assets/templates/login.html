@@ -1,0 +1,29 @@
+<div class="modal-body">
+    <div class="row">
+        <!-- facebook login -->
+        <a href="/authenticate/facebook">
+            <button type="submit" class="btn btn-lg btn-facebook"><i class="fa fa-facebook-square"></i>Log in with Facebook</button>
+        </a>
+        <!-- twitter login -->
+        <a href="/authenticate/twitter">
+            <button type="submit" class="btn btn-lg btn-twitter"><i class="fa fa-twitter-square"></i>Log in with Twitter</button>
+        </a>
+        <!-- separator -->
+        <div class="signup-or-separator">
+            <h6 class="text-special">OR</h6>
+            <hr>
+        </div>
+        <!-- email login -->
+        <form name="loginForm" novalidate>
+            <div class="signup-login-form">
+                <input ng-model="login.email" class="form-control signup-login-input" id="email" type="email" required placeholder="Email address">
+                <input ng-model="login.password" class="form-control signup-login-input" id="password" type="password" required placeholder="Password">
+                <button ng-disabled="loginForm.$invalid" ng-click="ok()" class="btn btn-lg signup-login-btn" type="submit">Log in</button>
+            </div>
+        </form>
+        <!-- footer -->
+        <hr class="signup-login-form-separator">
+        <div class="signup-login-form-footer">Don't have an account? <a href="#">Sign up</a> here.</div>
+        <div class="signup-login-form-footer"><a href="#">Forgot your password?</a></div>
+    </div>
+</div>

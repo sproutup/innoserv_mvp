@@ -24,6 +24,153 @@ function My3Ctrl() {}
 My3Ctrl.$inject = [];
 */
 
+var authControllers = angular.module('AuthControllers', ['ui.bootstrap']);
+
+authControllers.controller('AuthCtrl', function ($scope, $modal, $log) {
+
+    $scope.items = ['item1', 'item2', 'item3'];
+    $scope.signup = {
+        'email': '',
+        'password': '',
+        'confirm': ''
+    };
+    $scope.login = {
+        'email': '',
+        'password': '',
+        'confirm': ''
+    };
+
+    $scope.signup = function (size) {
+
+        var signupInstance = $modal.open({
+            templateUrl: '/assets/templates/signup.html',
+            controller: 'SignupInstanceCtrl',
+            size: size,
+            resolve: {
+                signup: function () {
+                    return $scope.signup;
+                }
+            }
+        });
+
+        signupInstance.result.then(function (selectedItem) {
+            $scope.selected = selectedItem;
+        }, function () {
+            $log.info('Modal dismissed at: ' + new Date());
+        });
+    };
+
+    $scope.login = function (size) {
+
+        var loginInstance = $modal.open({
+            templateUrl: '/assets/templates/login.html',
+            controller: 'LoginInstanceCtrl',
+            size: size,
+            resolve: {
+                login: function () {
+                    return $scope.login;
+                }
+            }
+        });
+
+        loginInstance.result.then(function (login) {
+            $scope.login = login;
+        }, function () {
+            $log.info('Login dismissed at: ' + new Date());
+        });
+    };
+
+
+    $scope.open = function (size) {
+
+        var modalInstance = $modal.open({
+            templateUrl: '/assets/templates/signup.html',
+            controller: 'AuthInstanceCtrl',
+//            size: size,
+            resolve: {
+                items: function () {
+                    return $scope.items;
+                }
+            }
+        });
+
+        modalInstance.result.then(function (selectedItem) {
+            $scope.selected = selectedItem;
+        }, function () {
+            $log.info('Modal dismissed at: ' + new Date());
+        });
+    };
+});
+
+// Please note that $modalInstance represents a modal window (instance) dependency.
+// It is not the same as the $modal service used above.
+
+authControllers.controller('AuthInstanceCtrl', function ($scope, $modalInstance, items) {
+
+    $scope.items = items;
+    $scope.selected = {
+        item: $scope.items[0]
+    };
+
+    $scope.ok = function () {
+        $modalInstance.close($scope.selected.item);
+    };
+
+    $scope.cancel = function () {
+        $modalInstance.dismiss('cancel');
+    };
+});
+
+authControllers.controller('SignupInstanceCtrl', function ($scope, $modalInstance, items) {
+
+    $scope.items = items;
+    $scope.selected = {
+        item: $scope.items[0]
+    };
+
+    $scope.ok = function () {
+        $modalInstance.close($scope.selected.item);
+    };
+
+    $scope.cancel = function () {
+        $modalInstance.dismiss('cancel');
+    };
+});
+
+authControllers.controller('LoginInstanceCtrl', function ($scope, $modalInstance, $http, $log, login) {
+
+    $scope.login = login;
+
+    $scope.ok = function () {
+        var dataObject = {
+            email : $scope.login.email,
+            password  : $scope.login.password
+        };
+
+        $http({
+            method: 'POST',
+            url: '/api/auth/login',
+            data: dataObject,
+//            data: JSON.stringify($scope.login),
+            headers: {'Content-Type': 'application/json'}
+        }).success(function(data, status, headers, config){
+            // this callback will be called asynchronously
+            // when the response is available
+            $modalInstance.close($scope.login);
+        }).error(function(data, status, headers, config){
+            // called asynchronously if an error occurs
+            // or server returns response with an error status.
+            $log.info('Login failed: ' + new Date());
+        });
+    };
+
+    $scope.cancel = function () {
+        $modalInstance.dismiss('cancel');
+    };
+});
+
+
+
 // products
 var productControllers = angular.module('productControllers', []);
 

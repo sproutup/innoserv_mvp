@@ -1,18 +1,16 @@
 'use strict';
 
-var productApp = angular.module('productApp', [
-  'ngRoute',
-  'productControllers',
-  'productFilters',
-  'productServices',
-  'ngTagsInput'
+var sproutupApp = angular.module('sproutupApp', [
+    'ngRoute',
+    'ui.router',
+    'productControllers',
+    'AuthControllers',
+    'productFilters',
+    'productServices',
+    'ngTagsInput'
 ]);
 
-//productApp.run(function($location, $rootElement) {
-//  $rootElement.off('click');
-//});
-
-productApp.config(['$routeProvider', '$locationProvider',
+sproutupApp.config(['$routeProvider', '$locationProvider',
   function($routeProvider,$locationProvider) {
     $locationProvider.html5Mode(true);
 

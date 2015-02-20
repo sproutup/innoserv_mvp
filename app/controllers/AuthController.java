@@ -1,13 +1,21 @@
 package controllers;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.feth.play.module.pa.PlayAuthenticate;
 import com.feth.play.module.pa.providers.password.UsernamePasswordAuthProvider;
 
+import com.feth.play.module.pa.user.AuthUser;
 import models.User;
+import play.Logger;
+import play.data.Form;
+import play.libs.Json;
 import play.mvc.BodyParser;
 import play.mvc.Controller;
 import play.mvc.Result;
+import providers.MyLoginUsernamePasswordAuthUser;
 import providers.MyUsernamePasswordAuthProvider;
+import views.html.login;
 
 /**
  * Created by peter on 2/13/15.
@@ -21,14 +29,16 @@ public class AuthController extends Controller {
         if(json == null) {
             return badRequest("Missing request body");
         } else {// Everything was filled
-//            String email = json.findPath("email").textValue();
-//            String password = json.findPath("password").textValue();
-        
             com.feth.play.module.pa.controllers.Authenticate.noCache(response());
-    		MyUsernamePasswordAuthProvider.LOGIN_FORM.bind(json, "email", "password");
-    		return UsernamePasswordAuthProvider.handleLogin(ctx());
+            final Form<MyUsernamePasswordAuthProvider.MyLogin> filledForm = MyUsernamePasswordAuthProvider.LOGIN_FORM.bind(json, "email", "password");
+            if (filledForm.hasErrors()) {
+                // User did not fill everything properly
+                return badRequest(filledForm.errorsAsJson());
+            }
+            else{
+                return UsernamePasswordAuthProvider.handleLogin(ctx());
+            }
         }
-
     }
 
 
@@ -38,26 +48,30 @@ public class AuthController extends Controller {
         if(json == null) {
             return badRequest("Missing request body");
         } else {
-           // String fullname = json.findPath("fullname").textValue();
-            //String email = json.findPath("email").textValue();
-            //String password = json.findPath("password").textValue();
+            String name = json.findPath("name").textValue();
+            Logger.debug("name: " + name);
 
 	        // signup user and return result
 	        com.feth.play.module.pa.controllers.Authenticate.noCache(response());
-	        MyUsernamePasswordAuthProvider.SIGNUP_FORM.bind(json,"name","email","password", "repeatpassword");
+            final Form<MyUsernamePasswordAuthProvider.MySignup> filledForm = MyUsernamePasswordAuthProvider.SIGNUP_FORM.bind(json,"name","email","password", "repeatPassword");
 
-	        MyUsernamePasswordAuthProvider.context = ctx();
-			// perform signup
-			return UsernamePasswordAuthProvider.handleSignup(ctx());
-			
+            if (filledForm.hasErrors()) {
+                // User did not fill everything properly
+                return badRequest(filledForm.errorsAsJson());
+            }
+            else{
+                // perform signup
+                MyUsernamePasswordAuthProvider.context = ctx();
+                return UsernamePasswordAuthProvider.handleSignup(ctx());
+            }
 		}
-        
     }
 
     @BodyParser.Of(BodyParser.Json.class)
     public static Result logout(){
 
         //todo capture user from session and logout
+        com.feth.play.module.pa.controllers.Authenticate.logout();
 
         return ok();
     }
@@ -69,7 +83,7 @@ public class AuthController extends Controller {
             return ok(localUser.toJson());
         }
         else {
-            return badRequest();
+            return notFound();
         }
     }
 
@@ -89,5 +103,27 @@ public class AuthController extends Controller {
     public static Result requestVerifyEmail(){
         // todo
         return ok();
+    }
+
+
+    public static Result afterLogin() {
+        com.feth.play.module.pa.controllers.Authenticate.noCache(response());
+        return badRequest(MyUsernamePasswordAuthProvider.LOGIN_FORM.errorsAsJson());
+    }
+
+//    @BodyParser.Of(BodyParser.Json.class)
+    public static Result afterAuth() {
+        com.feth.play.module.pa.controllers.Authenticate.noCache(response());
+        final AuthUser currentUser = PlayAuthenticate.getUser(ctx().session());
+        currentUser.getId();
+        currentUser.getProvider();
+
+        ObjectNode node = Json.newObject();
+        node.put("status", "ok");
+        node.put("id", currentUser.getId());
+        Logger.debug("provider: " +  currentUser.getProvider());
+        node.put("provider", currentUser.getProvider());
+
+        return ok(node);
     }
 }

@@ -40,14 +40,16 @@ public class Global extends GlobalSettings {
 			@Override
 			public Call login() {
 				// Your login page
-				return routes.Application.login();
+                Logger.debug("login call");
+				return routes.AuthController.afterLogin();
 			}
 
 			@Override
 			public Call afterAuth() {
 				// The user will be redirected to this page after authentication
 				// if no original URL was saved with PlayAuthenticate.storeOriginalUrl(...)
-				return routes.Application.index();
+				//return routes.Application.index();
+                return routes.AuthController.afterAuth();
 			}
 
 			@Override
@@ -57,8 +59,9 @@ public class Global extends GlobalSettings {
 
 			@Override
 			public Call auth(final String provider) {
+                Logger.debug("auth call global");
 				// save original url so user is redirected back to where user came from
-				Logger.debug(PlayAuthenticate.storeOriginalUrl(Http.Context.current()));
+				//Logger.debug(PlayAuthenticate.storeOriginalUrl(Http.Context.current()));
 
 				// You can provide your own authentication implementation,
 				// however the default should be sufficient for most cases
@@ -68,7 +71,8 @@ public class Global extends GlobalSettings {
 
 			@Override
 			public Call askMerge() {
-				return null;
+                return routes.Application.index(); // logoutfirststupid()
+//                return null;
 			}
 
 			@Override
@@ -79,12 +83,14 @@ public class Global extends GlobalSettings {
 			@Override
 			public Call onException(final AuthException e) {
 				if (e instanceof AccessDeniedException) {
+                    Logger.debug("AccessDenied");
 					return routes.Signup
 							.oAuthDenied(((AccessDeniedException) e)
 									.getProviderKey());
 				}
 
 				// more custom problem handling here...
+                Logger.debug("AccessDenied exception");
 				return super.onException(e);
 			}
 		});
