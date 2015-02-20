@@ -16,6 +16,7 @@
 
         <link rel="stylesheet" href="@routes.Assets.at("library/bootstrap/css/bootstrap.css")">
         <link rel="stylesheet" href="@routes.Assets.at("library/font-awesome/css/font-awesome.css")">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
         <link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
         <link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/signup-login-modal.css")">
 
@@ -23,8 +24,14 @@
         <!-- flowplayer -->
         <!-- 1. skin -->
         <link rel="stylesheet" href="//releases.flowplayer.org/5.5.2/skin/minimalist.css">
-        <!-- 2. flowplayer -->
+        <!-- 2. jquery library -->
+        <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+        <!-- 3. flowplayer -->
         <script src="//releases.flowplayer.org/5.5.2/flowplayer.min.js"></script>
+        <script>
+            flowplayer.conf.adaptiveRatio = true;
+            flowplayer.conf.embed = false;
+        </script>
 
         <script type="text/javascript" src="@routes.Application.jsRoutes" defer="defer"></script>
         <script src="@routes.Assets.at("javascripts/angular.js")"></script>
@@ -41,8 +48,6 @@
         <script src="@routes.Assets.at("javascripts/moment.min.js")"></script>
         <script src="@routes.Assets.at("javascripts/ui-bootstrap-tpls-0.12.0.min.js")"></script>
         <script src="@routes.Assets.at("javascripts/angular-ui-router.min.js")"></script>
-        <!-- include flowplayer -->
-        <script src="@routes.Assets.at("javascripts/flowplayer.js")"></script>
 
 
         <!-- Font -->

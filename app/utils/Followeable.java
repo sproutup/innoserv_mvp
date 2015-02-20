@@ -12,6 +12,7 @@ public interface Followeable {
     public void follow(Long userId);
     public void unFollow(Long userId);
     public void removeAllFollowers();
+    public boolean isFollowing(Long userId);
     /*
      * Get all Followers on an object
      */

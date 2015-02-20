@@ -1,7 +1,77 @@
 @import "global";
 
-.flowplayer {
+.gallery-tabs {
+  background-color: #fff;
+  height: 70px;
+  width: 100%;
+  border-bottom: 1px solid #ccc;
+}
 
+.gallery-tabs--content {
+  float: left;
+  padding-left: 30px;
+  padding-top: 15px;
+}
+
+.btn-gallery-tab {
+  height: 40px;
+  margin-right: 5px;
+  border: dashed 1px @sproutup-purple;
+  font-weight: 400;
+  font-size: 11pt;
+  color: @sproutup-purple;
+  background-color: #fff;
+  border-radius: 0px;
+  padding-top: 9px;
+  padding-left: 24px;
+  padding-right: 24px;
+  -webkit-transition: all .2s ease-in-out;
+  -o-transition: all .2s ease-in-out;
+  transition: all .2s ease-in-out;
+}
+
+.btn-gallery-tab i {
+  padding-right: 8px;
+}
+
+.btn-gallery-tab.active {
+  color: white;
+  background-color: @sproutup-purple;
+}
+
+.btn-gallery-tab:hover,
+.btn-gallery-tab:focus {
+  color: white;
+  background-color: @sproutup-purple;
+}
+
+.gallery-header {
+  color: @sproutup-purple;
+  padding: 20px 30px;
+  width: 100%;
+  font-size: 17pt;
+  font-weight: 300;
+}
+
+.gallery-header span {
+  font-size: 12pt;
+  color: @main-text;
+  font-weight: 400;
+}
+
+.gallery-header span i {
+  padding-right: 12px;
+}
+
+.gallery-header span a {
+  font-weight: 700;
+  color: @sproutup-purple;
+}
+
+.gallery-header a:hover,
+.gallery-header a:focus {
+  color: @sproutup-purple - #111;
+  text-decoration: none !important;
 }
 
 .media {
@@ -9,32 +79,28 @@
 }
 
 .media-photo {
-  margin-top: 3px;
-  margin-bottom: 3px;
-  padding-left: 3px;
-  padding-right: 3px;
+  padding: 3px;
 }
 
 .media-video {
-  margin-top: 3px;
-  margin-bottom: 3px;
+  padding-bottom: 3px;
   padding-left: 3px;
   padding-right: 3px;
 }
 
 .media-photo-background {
-  height:360px;
-  background-size:cover;
-  background-position:center;
-  background-repeat:no-repeat;
+  height: 270px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   color:#fff;
 }
 
 .media-photo-overlay {
-  background: -webkit-linear-gradient(bottom, rgba(0,0,0,0.05), rgba(0,0,0,0.35));
-  background: -o-linear-gradient(bottom, rgba(0,0,0,0.05), rgba(0,0,0,0.35));
-  background: -moz-linear-gradient(bottom, rgba(0,0,0,0.05), rgba(0,0,0,0.35));
-  background: linear-gradient(to bottom, rgba(0,0,0,0.05), rgba(0,0,0,0.35));
+  background: -webkit-linear-gradient(bottom, rgba(0,0,0,0), rgba(0,0,0,0.4));
+  background: -o-linear-gradient(bottom, rgba(0,0,0,0), rgba(0,0,0,0.4));
+  background: -moz-linear-gradient(bottom, rgba(0,0,0,0), rgba(0,0,0,0.4));
+  background: linear-gradient(to bottom, rgba(0,0,0,0), rgba(0,0,0,0.4));
   float: left;
   top: 0;
   left: 0;
@@ -44,35 +110,60 @@
   z-index: 1;
 }
 
-.media-photo-meta {
-  padding-top: 280px;
-  padding-left: 15px;
+.media-photo-overlay-active {
+  background: -webkit-linear-gradient(bottom, rgba(0,0,0,0.5), rgba(0,0,0,0.9));
+  background: -o-linear-gradient(bottom, rgba(0,0,0,0.5), rgba(0,0,0,0.9));
+  background: -moz-linear-gradient(bottom, rgba(0,0,0,0.5), rgba(0,0,0,0.9));
+  background: linear-gradient(to bottom, rgba(0,0,0,0.5), rgba(0,0,0,0.9));
+  float: left;
+  top: 0;
+  left: 0;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.media-photo-info {
+  bottom: 0;
+  padding: 0px 15px 38px;
   position: absolute;
   z-index: 3;
-}
-
-ul.media-social-buttons li a {
-  display: block;
-  width: 28px;
-  height: 28px;
-  border-radius: 100%;
-  font-size: 14pt;
-  line-height: 20px;
-  outline: 0;
-  color: #fff;
-  background-color: transparent;
-  -webkit-transition: all .3s;
-  -moz-transition: all .3s;
-  transition: all .3s;
-  padding-right: 5px;
-}
-
-ul.media-social-buttons li a:hover {
-  background-color: transparent;
-  color: #ccc;
+  color: @main-text-white;
 }
 
 .media-user {
-  font-weight: 300;
-  font-size: 14pt;
+  font-weight: 400;
+  font-size: 13pt;
+  padding-bottom: 5px;
+}
+
+.media-story {
+  font-weight: 400;
+  font-size: 10pt;
+  padding-bottom: 15px;
+}
+
+.media-photo-actions {
+  bottom: 0;
+  padding: 0 15px 15px;
+  position: absolute;
+  z-index: 3;
+  float: left;
+  font-size: 9pt;
+  font-weight: 400;
+}
+
+.media-photo-actions--item {
+  padding-right: 20px;
+  text-decoration: none !important;
+  color: @main-text-white;
+}
+
+.media-photo-actions--item i {
+  padding-right: 6px;
+}
+
+.media-photo-actions--item:hover {
+  color: white;
 }
