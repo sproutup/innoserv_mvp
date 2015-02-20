@@ -2,9 +2,7 @@
 
 path=target/universal/stage
 
-cd sproutup_mvp
-
-sudo kill -SIGTERM `sudo cat target/universal/stage/RUNNING_PID`
+sudo kill -SIGTERM `sudo cat $path/RUNNING_PID`
 
 sudo activator clean stage -mem 512
 
