@@ -28,7 +28,6 @@ var authControllers = angular.module('AuthControllers', ['ui.bootstrap']);
 
 authControllers.controller('AuthCtrl', function ($scope, $modal, $log) {
 
-    $scope.items = ['item1', 'item2', 'item3'];
     $scope.signup = {
         'email': '',
         'password': '',
@@ -53,8 +52,8 @@ authControllers.controller('AuthCtrl', function ($scope, $modal, $log) {
             }
         });
 
-        signupInstance.result.then(function (selectedItem) {
-            $scope.selected = selectedItem;
+        signupInstance.result.then(function (signup) {
+            $scope.signup = signup;
         }, function () {
             $log.info('Modal dismissed at: ' + new Date());
         });
@@ -86,7 +85,7 @@ authControllers.controller('AuthCtrl', function ($scope, $modal, $log) {
         var modalInstance = $modal.open({
             templateUrl: '/assets/templates/signup.html',
             controller: 'AuthInstanceCtrl',
-//            size: size,
+            size: size,
             resolve: {
                 items: function () {
                     return $scope.items;
@@ -105,31 +104,30 @@ authControllers.controller('AuthCtrl', function ($scope, $modal, $log) {
 // Please note that $modalInstance represents a modal window (instance) dependency.
 // It is not the same as the $modal service used above.
 
-authControllers.controller('AuthInstanceCtrl', function ($scope, $modalInstance, items) {
-
-    $scope.items = items;
-    $scope.selected = {
-        item: $scope.items[0]
-    };
+authControllers.controller('SignupInstanceCtrl', function ($scope, $modalInstance, $http, $log, signup) {
+    //$scope.signup = signup;
 
     $scope.ok = function () {
-        $modalInstance.close($scope.selected.item);
-    };
+        var dataObject = {
+            "name" : $scope.signup.name,
+            "email" : $scope.signup.email,
+            "password" : $scope.signup.password
+        };
 
-    $scope.cancel = function () {
-        $modalInstance.dismiss('cancel');
-    };
-});
-
-authControllers.controller('SignupInstanceCtrl', function ($scope, $modalInstance, items) {
-
-    $scope.items = items;
-    $scope.selected = {
-        item: $scope.items[0]
-    };
-
-    $scope.ok = function () {
-        $modalInstance.close($scope.selected.item);
+        $http({
+            method: 'POST',
+            url: '/api/auth/signup',
+            data: dataObject,
+            headers: {'Content-Type': 'application/json'}
+        }).success(function(data, status, headers, config){
+            // this callback will be called asynchronously
+            // when the response is available
+            $modalInstance.close($scope.signup);
+        }).error(function(data, status, headers, config){
+            // called asynchronously if an error occurs
+            // or server returns response with an error status.
+            $log.info('signup failed: ' + new Date());
+        });
     };
 
     $scope.cancel = function () {
