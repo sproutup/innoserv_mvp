@@ -7,6 +7,80 @@ productServices.factory('ProductService', ['$resource',
     return $resource('/api/products/:slug'); // Note the full endpoint address
   }]);
 
+productServices.factory('AuthService', ['$http', '$q', '$cookieStore','$log',
+    function($http,$q, $cookieStore, $log){
+    var AuthService = {};
+    var urlBase = '/api/auth';
+    var accessLevels = routingConfig.accessLevels
+        , userRoles = routingConfig.userRoles
+        , currentUser = $cookieStore.get('user') || { username: '', role: userRoles.public };
+
+    $cookieStore.remove('user');
+
+    function changeUser(user) {
+        angular.extend(currentUser, user);
+    }
+
+    AuthService.login = function(user){
+        var deferred = $q.defer();
+
+        $http({
+            method: 'POST',
+            url: '/api/auth/login',
+            data: user,
+            headers: {'Content-Type': 'application/json'}
+        }).success(function(data, status, headers, config){
+            // this callback will be called asynchronously
+            // when the response is available
+            changeUser(data);
+            $log.debug("login service returned success");
+            deferred.resolve("success");
+        }).error(function(data, status, headers, config){
+            // called asynchronously if an error occurs
+            // or server returns response with an error status.
+            $log.debug("login service returned error");
+            deferred.reject("failed to login");
+        });
+
+        $log.debug("login service returned promise");
+        return deferred.promise;
+    };
+
+    AuthService.signup = function(user){
+        var deferred = $q.defer();
+
+        $http({
+            method: 'POST',
+            url: '/api/auth/signup',
+            data: user,
+            headers: {'Content-Type': 'application/json'}
+        }).success(function(data, status, headers, config){
+            // this callback will be called asynchronously
+            // when the response is available
+            changeUser(data);
+            deferred.resolve("success");
+        }).error(function(data, status, headers, config){
+            // called asynchronously if an error occurs
+            // or server returns response with an error status.
+            deferred.reject("failed to signup");
+        });
+
+        $log.debug("signup service returned promise");
+        return deferred.promise;
+    };
+
+    AuthService.isLoggedIn = function(){
+        $log.debug("isLoggedIn");
+        if(user === undefined) {
+            user = currentUser;
+        }
+        return user.role.title === userRoles.user.title || user.role.title === userRoles.admin.title;
+    };
+
+    return AuthService;
+
+}]);
+
 productServices.factory('TagsService', ['$http','$log', function($http,$log){
     var urlBase = '/api/tags';
     var TagsService = {};
