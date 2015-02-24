@@ -55,4 +55,8 @@ public class MockupController extends Controller {
     public static Result creatorDashboard_3() {
         return ok(creator_dashboard_mock_3.render());
     }
+
+    public static Result forCreator() {
+        return ok(for_creator_mock.render());
+    }
 }

@@ -1,26 +1,18 @@
 @import "global";
 
-h1,
-h2,
-h3,
-h4 {
-  font-family: "Lato", Helvetica,Arial,sans-serif;
-}
-
 .intro-header {
   width: 100%;
-  height: 580px;
+  height: 450px;
   margin-top: 70px;
-  padding-top: 50px;
-  padding-bottom: 50px;
+  margin-bottom: 50px;
   text-align: center;
-  background: url(../images/creator/top_banner.png) no-repeat center center;
+  background: url(../images/creator/creator_banner.png) no-repeat center center;
   background-size: cover;
   color: #fff;
 }
 
 .intro-message {
-  padding-top: 0px;
+  padding-top: 100px;
   padding-bottom: 0px;
 }
 
@@ -28,7 +20,6 @@ h4 {
   font-family: "lato", Helvetica,Arial,sans-serif;
   font-weight: 300;
   margin: 0;
-  padding-top: 140px;
   font-size: 32pt;
 }
 
@@ -36,18 +27,32 @@ h4 {
   font-family: "lato", Helvetica,Arial,sans-serif;
   font-weight: 300;
   margin: 0;
-  padding-top: 40px;
-  padding-bottom: 80px;
+  padding-top: 30px;
+  padding-bottom: 70px;
   font-size: 16pt;
 }
 
-.intro-message > h4 {
-  font-family: "lato", Helvetica,Arial,sans-serif;
-  font-weight: 100;
-  margin: 0;
-  font-size: 24pt;
+.btn-lg-outline {
+  height: 46px;
+  border: solid 1px white;
+  font-weight: 300;
+  font-size: 13pt;
+  color: white;
+  background: 0 0;
+  border-radius: 2px;
+  padding-left: 30px;
+  padding-right: 30px;
+  -webkit-transition: all .2s ease-in-out;
+  -o-transition: all .2s ease-in-out;
+  transition: all .2s ease-in-out;
 }
 
+.btn-lg-outline:hover,
+.btn-lg-outline:focus,
+.btn-lg-outline:active {
+  border: solid 1px @sproutup-blue-bright;
+  color: @sproutup-blue-bright;
+}
 
 @media(max-width:767px) {
   .intro-message > h1 {
@@ -56,64 +61,204 @@ h4 {
   }
 
   .intro-message > h3 {
-    font-size: 13pt;
+    font-size: 12pt;
+    font-weight: 300;
+    padding-bottom: 40px;
     line-height: 1.5;
-  }
-
-  .intro-message > h4 {
-    font-size: 16pt;
   }
 }
 
 .overview-title {
-  padding-top: 50px;
-  padding-bottom: 15px;
-  font-size: 30pt;
-  font-family: "lato",Helvetica,Arial,sans-serif;
-  font-weight: 300;
-  color: @sproutup-blue;
-}
-
-.overview-title-2 {
-  padding-top: 5px;
-  padding-bottom: 10px;
-  font-size: 22pt;
+  padding: 20px 10px;
+  margin: 0px;
+  font-size: 24pt;
   font-family: "lato",Helvetica,Arial,sans-serif;
   font-weight: 300;
   color: @sproutup-blue;
 }
 
 .overview-subtitle {
-  padding-left: 8%;
-  padding-right: 8%;
+  padding: 20px 8%;
   line-height: 1.5;
-  font-size: 15pt;
-  font-weight: 300;
-  padding-bottom: 15px;
-  color: #434343;
+  font-size: 13pt;
+  font-weight: 400;
+  color: @main-text;
+  margin: 0px;
 }
 
-.overview-content-section-a {
-  padding: 50px 20px;
-  background-color: #f8f8f8;
+.su-solution {
+  margin: 20px 20px 30px;
+  text-align: center;
+  overflow: hidden;
 }
 
-.overview-content-section-b {
-  padding: 50px 20px;
+.su-solution-wrapper {
+  padding: 0px 8px 10px;
+  overflow: hidden;
 }
 
-.overview-content-title {
-  margin-top: 0px;
+.su-solution-body {
+  border-radius: 4px;
+}
+
+.su-solution-body.collaboration {
+  border: 1px solid @sproutup-green;
+}
+
+.su-solution-body.marketing {
+  border: 1px solid @sproutup-orange;
+}
+
+.su-solution-body.analytics {
+  border: 1px solid @sproutup-blue;
+}
+
+.collaboration .su-solution-header {
+  background-color: @sproutup-green;
+  color: white;
   margin-bottom: 30px;
-  font-family: "lato",Helvetica,Arial,sans-serif;
-  font-size: 26pt;
-  font-weight: 300;
-  color: #5f5f5f;
 }
 
-.overview-content-detail {
-  line-height: 1.5;
-  font-size: 15pt;
-  color: #434343;
-  font-weight: 300;
+.marketing .su-solution-header {
+  background-color: @sproutup-orange;
+  color: white;
+  margin-bottom: 30px;
 }
+
+.analytics .su-solution-header {
+  background-color: @sproutup-blue;
+  color: white;
+  margin-bottom: 30px;
+}
+
+.su-solution-icon {
+  padding-top: 20px;
+  padding-bottom: 15px;
+}
+
+.su-solution-title {
+  font-weight: 400;
+  font-size: 15pt;
+}
+
+.su-solution-subtitle {
+  font-size: 11pt;
+  padding-bottom: 25px;
+}
+
+.su-solution-details {
+  text-align: left;
+  color: @main-text;
+  padding: 0 20px 20px;
+}
+
+@media(max-width:767px) {
+  .su-solution {
+    margin-left: 5px;
+    margin-right: 5px;
+  }
+
+  .su-solution-details {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}
+
+.su-solution-details--blurb {
+  padding-bottom: 5px;
+}
+
+.su-solution-details--blurb h1 {
+  font-size: 14pt;
+  font-weight: 700;
+  padding: 0px;
+}
+
+.collaboration .su-solution-details--blurb h1 {
+  color: @sproutup-green;
+}
+
+.marketing .su-solution-details--blurb h1 {
+  color: @sproutup-orange;
+}
+
+.analytics .su-solution-details--blurb h1 {
+  color: @sproutup-blue;
+}
+
+.su-solution-details--blurb p {
+  padding: 0px;
+  font-size: 12pt;
+  font-weight: 400;
+  color: @main-text;
+}
+
+.early-access-signup {
+  margin: 20px 20px 50px;
+  overflow: hidden;
+}
+
+.early-access-signup-header {
+  padding: 0 27% 20px;
+  font-weight: 300;
+  font-size: 13pt;
+  color: @main-text;
+}
+
+.early-access-signup-form {
+  padding-bottom: 15px;
+}
+
+.early-access-signup-form-input {
+  border: 1px solid @form-border;
+  height: 50px;
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 2px;
+  font-size: 13pt;
+  font-weight: 400;
+  color: @main-text;
+  -moz-transition: all .2s;
+  -webkit-transition: all .2s;
+  transition: all .2s;
+}
+
+.btn-early-access-signup {
+  width: 25%;
+  height: 50px;
+  margin-top: 15px;
+  margin-left: auto;
+  margin-right: auto;
+  font-weight: 400;
+  font-size: 13pt;
+  background-color: @sproutup-blue;
+  color: white;
+  border-radius: 2px;
+  padding-top: 12px;
+  -webkit-transition: all .2s ease-in-out;
+  -o-transition: all .2s ease-in-out;
+  transition: all .2s ease-in-out;
+}
+
+.btn-early-access-signup:hover {
+  background-color: @sproutup-blue-hover;
+  color: white;
+}
+
+@media(max-width:767px) {
+  .early-access-signup-header {
+    padding: 0 5% 20px;
+    font-weight: 300;
+    font-size: 11pt;
+  }
+
+  .early-access-signup-form-input {
+    width: 100%;
+  }
+
+  .btn-early-access-signup {
+    width: 100%;
+  }
+}
+

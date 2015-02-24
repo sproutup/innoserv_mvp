@@ -97,3 +97,4 @@ GET           /mockups/user_profile                  controllers.MockupControlle
 GET           /mockups/dashboard/1                   controllers.MockupController.creatorDashboard_1()
 GET           /mockups/dashboard/2                   controllers.MockupController.creatorDashboard_2()
 GET           /mockups/dashboard/3                   controllers.MockupController.creatorDashboard_3()
+GET           /mockups/creator                       controllers.MockupController.forCreator()
