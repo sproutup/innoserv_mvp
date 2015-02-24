@@ -1,15 +1,115 @@
 'use strict';
 
+
+
+
+angular.module('sproutupApp').directive('avatar', function () {
+    return {
+        restrict: 'E',
+        template: '<img ng-src="{{user.avatarUrl}}">',
+        link: function (scope, element, attrs) {
+            attrs.$observe('class', function(value) {
+                if (value) {
+                    console.log("value: " + value);
+                    element.addClass(value);
+                }
+            });
+
+            //console.log(attrs.class);
+            //element.addClass(attrs.class);
+        }
+    };
+});
+
+angular.module('sproutupApp').directive('commentlink', function () {
+    return {
+        restrict: 'E',
+        templateUrl: 'assets/templates/comment-add-link.html'
+    };
+});
+
+angular.module('sproutupApp').directive('subjectPresent', function ($parse) {
+    return {
+        restrict: 'A',
+        link: function (scope, element, attrs) {
+            var onPresent = $parse(attrs.subjectPresent);
+            var onLogin = $parse(attrs.login);
+
+            element.on('click', function () {
+                if(scope.user.isLoggedIn){
+                    console.log(attrs.subjectPresent);
+
+                    // The event originated outside of angular,
+                    // We need to call $apply
+                    scope.$apply(function () {
+                        onPresent(scope);
+                    });
+                }
+                else{
+                    console.log(attrs.login);
+                    scope.$apply(function () {
+                        onLogin(scope);
+                    });
+                }
+            });
+        }
+    };
+});
+
+angular.module('sproutupApp').directive('myClick', function ($parse) {
+        return {
+            link: function (scope, elm, attrs) {
+                var onClick = $parse(attrs.myClick);
+                elm.on('click', function (e){
+                    // The event originated outside of angular,
+                    // We need to call $apply
+                    scope.$apply(function () {
+                        onClick(scope);
+                    });
+                });
+            }
+        };
+    });
+
 angular.module('sproutupApp').directive('toptags', function () {
     return {
         template:   '<div class="col-sm-12 popular-tags-row">'+
-                    '<div class="popular-tags-header">Popular tags</div>' +
-                        '<div class="popular-tags-list">'+
-                            '<button ng-repeat="tag in toptags | orderBy:counter:true" type="button" class="btn btn-popular-tags"><i class="fa fa-tag"></i>{{tag.name}}<span class="popular-tags-count">{{tag.counter}}</span></button>'+
-                        '</div>'+
-                    '</div>',
+        '<div class="popular-tags-header">Popular tags</div>' +
+        '<div class="popular-tags-list">'+
+        '<button ng-repeat="tag in toptags | orderBy:counter:true" type="button" class="btn btn-popular-tags"><i class="fa fa-tag"></i>{{tag.name}}<span class="popular-tags-count">{{tag.counter}}</span></button>'+
+        '</div>'+
+        '</div>',
 
         controller: function($scope, $log, $http) {
+
+            getTopTags(10);
+
+            function getTopTags(size) {
+                $http({
+                    method: 'GET',
+                    url: '/api/tags/top',
+                    params: {size: size}
+                }).success(function(data, status, headers, config){
+                    // this callback will be called asynchronously
+                    // when the response is available
+                    $scope.toptags = data;
+                }).error(function(data, status, headers, config){
+                    // called asynchronously if an error occurs
+                    // or server returns response with an error status.
+                });
+            }
+
+        }
+    };
+});
+
+angular.module('sproutupApp').directive('navbar', function () {
+    return {
+        templateUrl: '/assets/templates/navbar.html',
+
+        controller: function($scope, $log, $http, AuthService) {
+
+            AuthService.isLoggedIn();
 
             getTopTags(10);
 

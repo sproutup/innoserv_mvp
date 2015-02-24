@@ -36,8 +36,10 @@
         <script type="text/javascript" src="@routes.Application.jsRoutes" defer="defer"></script>
         <script src="@routes.Assets.at("javascripts/angular.js")"></script>
         <script src="@routes.Assets.at("javascripts/angular-route.js")"></script>
+        <script src="@routes.Assets.at("javascripts/angular-cookies.min.js")"></script>
         <script src="@routes.Assets.at("javascripts/angular-resource.js")"></script>
         <script src="@routes.Assets.at("javascripts/ng-tags-input.min.js")"></script>
+        <script src="@routes.Assets.at("angular/config.js")"></script>
         <script src="@routes.Assets.at("angular/app.js")"></script>
         <script src="@routes.Assets.at("angular/controllers.js")"></script>
         <script src="@routes.Assets.at("angular/directives.js")"></script>
@@ -72,6 +74,7 @@
     </head>
 
     <body @bodyAttributes>
+    <div ng-controller="AuthCtrl">
 
       <div id="fb-root"></div>
 
@@ -83,47 +86,8 @@
           </a>
         </div>
 
-        <div ng-controller="AuthCtrl" class="collapse navbar-collapse navbar-right" id="navbar-collapse-items">
-          <ul class="nav navbar-nav navbar-item">
-            <li><a href="@routes.Products.main("")" target="_self">Explore Products</a></li>
-            <li><a href="@routes.Application.creator()" target="_self">For Creators</a></li>
-            <li><a href="http://blog.sproutup.co">Blog</a></li>
-            <li><a href="@routes.Application.about()" target="_self" >About</a></li>
-            @subjectNotPresent() {
-              <li>
-                <a ng-click="signup('sm')">Join</a>
-              </li>
-            }
-            @subjectPresentOr() {
+          <navbar></navbar>
 
-              @currentAuth() {auth =>
-                @if(auth.getProvider() == "facebook") {
-                  <li>
-                    <img class="profile-img" src="http://graph.facebook.com/@auth.getId()/picture/?type=large">
-                  </li>
-                } else {
-                  <li>
-                    <img class="profile-img" src="@routes.Assets.at("images/general-profile-icon.png")">
-                  </li>
-                }
-              }
-
-                @defining(Application.getLocalUser(session())) { user =>
-                  <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">@user.name&nbsp;&nbsp;<i class="fa fa-angle-down"></i></a>
-                    <ul class="dropdown-menu" role="menu">
-                      <li><a href="@routes.Application.profile()">My Page</a></li>
-                      <li><a href="@com.feth.play.module.pa.controllers.routes.Authenticate.logout()"><i class="icon-off"></i> Log Out</a></li>
-                    </ul>
-                  </li>
-                }
-            } {
-              <li>
-                <a href="" ng-click="login('sm')">Log In</a>
-              </li>
-            }
-          </ul>
-        </div><!-- /.navbar-collapse -->
       </nav>
 
       @if(flash.contains(Application.FLASH_ERROR_KEY)) {
@@ -158,7 +122,7 @@
       ga('send', 'pageview');
 
       </script>
-
+    </div>
     </body>
 
 </html>

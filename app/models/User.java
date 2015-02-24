@@ -17,14 +17,17 @@ import com.feth.play.module.pa.user.NameIdentity;
 import com.feth.play.module.pa.user.FirstLastNameIdentity;
 
 import constants.UserRole;
+import controllers.Application;
 import models.TokenAction.Type;
 
 import org.joda.time.DateTime;
 
+import play.api.mvc.Session;
 import play.data.format.Formats;
 import play.data.validation.Constraints;
 import play.db.ebean.Model;
 import play.libs.Json;
+import play.mvc.Http;
 
 import javax.persistence.*;
 
@@ -296,10 +299,27 @@ public class User extends Model implements Subject {
 
     public ObjectNode toJson(){
         ObjectNode node = Json.newObject();
+        node.put("id", this.id);
         node.put("name", this.name);
         node.put("firstname", this.firstName);
         node.put("lastname", this.lastName);
         node.put("zipcode", this.zipcode);
+        node.put("roles", Json.toJson(this.getRoles()));
+        node.put("permissions", Json.toJson(this.getPermissions()));
+        node.put("lastLogin", new DateTime(this.lastLogin).toString());
+        return node;
+    }
+
+    public ObjectNode toJson(final Http.Context ctx){
+        ObjectNode node = this.toJson();
+        User u = Application.getLocalUser(ctx.session());
+        if(u.getProviders().contains("facebook")){
+            node.put("avatarUrl", "http://graph.facebook.com/" + u.id + "/picture/?type=large");
+        }
+        else{
+            node.put("avatarUrl", "assets/images/general-profile-icon.png");
+        }
+
         return node;
     }
 

@@ -2,6 +2,7 @@
 
 var sproutupApp = angular.module('sproutupApp', [
     'ngRoute',
+    'ngCookies',
     'ui.router',
     'productControllers',
     'AuthControllers',
@@ -13,6 +14,7 @@ var sproutupApp = angular.module('sproutupApp', [
 sproutupApp.config(['$routeProvider', '$locationProvider',
   function($routeProvider,$locationProvider) {
     $locationProvider.html5Mode(true);
+    var access = routingConfig.accessLevels;
 
     $routeProvider.
       when('/product', {
