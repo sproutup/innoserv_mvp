@@ -26,7 +26,8 @@ My3Ctrl.$inject = [];
 
 var authControllers = angular.module('AuthControllers', ['ui.bootstrap']);
 
-authControllers.controller('AuthCtrl', function ($scope, $modal, $log) {
+authControllers.controller('AuthCtrl', ['$scope', '$modal', '$log', 'AuthService',
+    function ($scope, $modal, $log, AuthService) {
 
     $scope.signup = {
         'email': '',
@@ -38,6 +39,36 @@ authControllers.controller('AuthCtrl', function ($scope, $modal, $log) {
         'password': '',
         'confirm': ''
     };
+
+    $scope.user ={
+        isLoggedIn : false,
+        name : 'Test'
+    }
+
+    var isLoggedIn = false;
+
+    updateUser();
+
+    function updateUser() {
+        AuthService.user()
+            .then(
+            function(payload){
+                // this callback will be called asynchronously
+                // when the response is available
+                angular.extend($scope.user, payload);
+                isLoggedIn = true;
+                $scope.user.isLoggedIn = true;
+            },
+            function(errorPayload){
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+                isLoggedIn = false;
+                $scope.user.isLoggedIn = false;
+            }
+        );
+    }
+
+    $scope.isLoggedIn = function(){return isLoggedIn}
 
     $scope.signup = function (size) {
 
@@ -53,7 +84,7 @@ authControllers.controller('AuthCtrl', function ($scope, $modal, $log) {
         });
 
         signupInstance.result.then(function (signup) {
-            $scope.signup = signup;
+            updateUser();
         }, function () {
             $log.info('Modal dismissed at: ' + new Date());
         });
@@ -73,33 +104,32 @@ authControllers.controller('AuthCtrl', function ($scope, $modal, $log) {
         });
 
         loginInstance.result.then(function (login) {
-            $scope.login = login;
+            updateUser();
         }, function () {
             $log.info('Login dismissed at: ' + new Date());
         });
     };
 
 
-    $scope.open = function (size) {
+    $scope.logout = function (size) {
+        var promise = AuthService.logout();
 
-        var modalInstance = $modal.open({
-            templateUrl: '/assets/templates/signup.html',
-            controller: 'AuthInstanceCtrl',
-            size: size,
-            resolve: {
-                items: function () {
-                    return $scope.items;
-                }
+        promise.then(
+            function(payload){
+                // this callback will be called asynchronously
+                // when the response is available
+                $scope.user.isLoggedIn = false;
+                $scope.user.name = '';
+                $log.info('logout success: ' + new Date());
+            },
+            function(errorPayload){
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+                $log.info('logout failed: ' + new Date());
             }
-        });
-
-        modalInstance.result.then(function (selectedItem) {
-            $scope.selected = selectedItem;
-        }, function () {
-            $log.info('Modal dismissed at: ' + new Date());
-        });
+        );
     };
-});
+}]);
 
 // Please note that $modalInstance represents a modal window (instance) dependency.
 // It is not the same as the $modal service used above.
@@ -262,6 +292,10 @@ productControllers.controller('ForumCtrl', ['$scope', 'ForumService', 'LikesServ
             $scope.forum.showNewComment[post.id] = false;
         });
     };
+
+    $scope.toogleComment = function(id){
+        $scope.forum.showNewComment[id] = !$scope.forum.showNewComment[id];
+    }
 
     // change category
     $scope.changeCategory = function(category_id) {

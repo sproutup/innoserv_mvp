@@ -2,6 +2,7 @@ package controllers;
 
 import be.objectify.deadbolt.java.actions.Group;
 import be.objectify.deadbolt.java.actions.Restrict;
+import be.objectify.deadbolt.java.actions.SubjectPresent;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -53,7 +54,7 @@ public class PostController extends Controller {
     }
 
     @BodyParser.Of(BodyParser.Json.class)
-    @Restrict({@Group(AppConstants.CONSUMER),@Group(AppConstants.CREATOR)})
+    @SubjectPresent
     public static Result addPost() {
         JsonNode json = request().body().asJson();
         if (json == null) {

@@ -8,7 +8,7 @@ productServices.factory('ProductService', ['$resource',
   }]);
 
 productServices.factory('AuthService', ['$http', '$q', '$cookieStore','$log',
-    function($http,$q, $cookieStore, $log){
+    function($http, $q, $cookieStore, $log){
     var AuthService = {};
     var urlBase = '/api/auth';
     var accessLevels = routingConfig.accessLevels
@@ -20,6 +20,30 @@ productServices.factory('AuthService', ['$http', '$q', '$cookieStore','$log',
     function changeUser(user) {
         angular.extend(currentUser, user);
     }
+
+    AuthService.user = function(user){
+        var deferred = $q.defer();
+
+        $http({
+            method: 'GET',
+            url: '/api/auth/user',
+            headers: {'Content-Type': 'application/json'}
+        }).success(function(data, status, headers, config){
+            // this callback will be called asynchronously
+            // when the response is available
+            changeUser(data);
+            $log.debug("auth user service returned success: " + currentUser.name);
+            deferred.resolve(currentUser);
+        }).error(function(data, status, headers, config){
+            // called asynchronously if an error occurs
+            // or server returns response with an error status.
+            $log.debug("auth user service returned error");
+            deferred.reject("failed to login");
+        });
+
+        $log.debug("auth user service returned promise");
+        return deferred.promise;
+    };
 
     AuthService.login = function(user){
         var deferred = $q.defer();
@@ -62,19 +86,44 @@ productServices.factory('AuthService', ['$http', '$q', '$cookieStore','$log',
         }).error(function(data, status, headers, config){
             // called asynchronously if an error occurs
             // or server returns response with an error status.
-            deferred.reject("failed to signup");
+            deferred.reject("not signed in");
         });
 
-        $log.debug("signup service returned promise");
+        $log.debug("auth signup service returned promise");
         return deferred.promise;
     };
 
-    AuthService.isLoggedIn = function(){
+    AuthService.logout = function(){
+        var deferred = $q.defer();
+
+        $http({
+            method: 'GET',
+            url: '/api/auth/logout',
+            headers: {'Content-Type': 'application/json'}
+        }).success(function(data, status, headers, config){
+            // this callback will be called asynchronously
+            // when the response is available
+            currentUser.name = '';
+            currentUser.isLoggedIn = false;
+            deferred.resolve("success");
+        }).error(function(data, status, headers, config){
+            // called asynchronously if an error occurs
+            // or server returns response with an error status.
+            deferred.reject("could not logout");
+        });
+
+        $log.debug("auth signup service returned promise");
+        return deferred.promise;
+    };
+
+    AuthService.isLoggedIn = function(user){
         $log.debug("isLoggedIn");
-        if(user === undefined) {
-            user = currentUser;
-        }
-        return user.role.title === userRoles.user.title || user.role.title === userRoles.admin.title;
+        //if(user === undefined) {
+        //    user = currentUser;
+        //}
+        //return user.role.title === userRoles.user.title || user.role.title === userRoles.admin.title;
+
+        return currentUser.name != null
     };
 
     return AuthService;
