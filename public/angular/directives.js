@@ -1,7 +1,84 @@
 'use strict';
 
 
+angular.module('sproutupApp').directive('follow', ['FollowService',
+    function (FollowService) {
+    return {
+        restrict: 'A',
+        link: function (scope, element, attrs) {
+            var isFollowing = false;
+            var refId = attrs.refId;
+            var refType = attrs.refType;
 
+            FollowService.isFollowing(refId, refType)
+                .then(
+                function(payload){
+                    isFollowing = true;
+                    element.html('<i class="fa fa-check"></i>Following');
+                    element.addClass("btn-following");
+                    element.removeClass("btn-outline");
+                },
+                function(errorPayload){
+                    isFollowing = false;
+                    element.html('Follow');
+                    element.removeClass("btn-following");
+                    element.addClass("btn-outline");
+                }
+            );
+
+            element.on('mouseenter', function () {
+                if(isFollowing){
+                    element.html('UnFollow');
+                }
+            });
+            element.on('mouseleave', function () {
+                if(isFollowing){
+                    element.html('Following');
+                }
+            });
+
+            element.on('click', function () {
+                if(!isFollowing){
+                    FollowService.follow(refId, refType)
+                        .then(
+                        function(payload){
+                            isFollowing = true;
+                            element.html('<i class="fa fa-check"></i>Following');
+                            element.addClass("btn-following");
+                            element.removeClass("btn-outline");
+                        },
+                        function(errorPayload){
+                            if(errorPayload="forbidden"){
+                                scope.login('sm');
+                            }
+                            isFollowing = false;
+                            element.html('Follow');
+                            element.removeClass("btn-following");
+                            element.addClass("btn-outline");
+                        }
+                    );
+                }
+                else{
+                    FollowService.unfollow(refId, refType)
+                        .then(
+                        function(payload){
+                            isFollowing = false;
+                            element.html('Follow');
+                            element.removeClass("btn-following");
+                            element.addClass("btn-outline");
+                        },
+                        function(errorPayload){
+                            isFollowing = true;
+                            element.html('Following');
+                            element.addClass("btn-following");
+                            element.removeClass("btn-outline");
+                        }
+                    );
+                }
+            });
+        }
+    };
+}]);
 
 angular.module('sproutupApp').directive('avatar', function () {
     return {
@@ -55,21 +132,6 @@ angular.module('sproutupApp').directive('subjectPresent', function ($parse) {
         }
     };
 });
-
-angular.module('sproutupApp').directive('myClick', function ($parse) {
-        return {
-            link: function (scope, elm, attrs) {
-                var onClick = $parse(attrs.myClick);
-                elm.on('click', function (e){
-                    // The event originated outside of angular,
-                    // We need to call $apply
-                    scope.$apply(function () {
-                        onClick(scope);
-                    });
-                });
-            }
-        };
-    });
 
 angular.module('sproutupApp').directive('toptags', function () {
     return {

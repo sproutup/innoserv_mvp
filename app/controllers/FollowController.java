@@ -3,6 +3,7 @@ package controllers;
 import be.objectify.deadbolt.java.actions.Group;
 import be.objectify.deadbolt.java.actions.Restrict;
 
+import be.objectify.deadbolt.java.actions.SubjectPresent;
 import com.fasterxml.jackson.databind.JsonNode;
 
 import constants.AppConstants;
@@ -32,38 +33,49 @@ public class FollowController extends Controller {
         // convert to json and return
         return ok(Follow.toJson(followers));
     }
-    
-	@Restrict({@Group(AppConstants.CONSUMER),@Group(AppConstants.CREATOR)})
+
     @BodyParser.Of(BodyParser.Json.class)
-    public static Result addFollow(Long id, String type, Long userId) {
+    public static Result isFollowing(Long refId, String refType) {
+
+        User user = Application.getLocalUser(ctx().session());
+        if (user != null) {
+            if(Follow.isFollowing(user.id, refId, refType)) {
+                // convert to json and return
+                return ok("true");
+            }
+        }
+        return notFound("false");
+    }
+
+    @SubjectPresent
+    @BodyParser.Of(BodyParser.Json.class)
+    public static Result follow(Long id, String type) {
         JsonNode json = request().body().asJson();
         if (json == null) {
             return badRequest("Expecting Json data");
         } else {
-            //long user_id = json.findPath("user_id").longValue();
-            User user = User.find.byId(userId);
+            User user = Application.getLocalUser(ctx().session());
             if (user == null) {
-                return badRequest("User not found [id]:" + userId);
+                return badRequest("User not found");
             } else {
-                Follow rs = Follow.addFollow(userId, id, type);
+                Follow rs = Follow.addFollow(user.id, id, type);
                 return created(rs.toJson());
             }
         }
     }
-	
-	@Restrict({@Group(AppConstants.CONSUMER),@Group(AppConstants.CREATOR)})
+
+    @SubjectPresent
     @BodyParser.Of(BodyParser.Json.class)
-    public static Result unFollow(Long id, String type, Long userId) {
+    public static Result unfollow(Long id, String type) {
         JsonNode json = request().body().asJson();
         if (json == null) {
             return badRequest("Expecting Json data");
         } else {
-            //long user_id = json.findPath("user_id").longValue();
-            User user = User.find.byId(userId);
+            User user = Application.getLocalUser(ctx().session());
             if (user == null) {
-                return badRequest("User not found [id]:" + userId);
+                return badRequest("User not found");
             } else {
-                Follow.removeFollow(userId, id, type);
+                Follow.removeFollow(user.id, id, type);
                 return ok();
             }
         }

@@ -81,6 +81,10 @@ GET           /api/tags/top                          controllers.TagController.g
 GET           /api/likes/:type/:id                   controllers.LikesController.getLikes(id: Long, type: String)
 POST          /api/likes/:type/:id                   controllers.LikesController.addLikes(id: Long, type: String, user_id: Long)
 
+GET           /api/follow/:type/:id                  controllers.FollowController.isFollowing(id: Long, type: String)
+POST          /api/follow/:type/:id                  controllers.FollowController.follow(id: Long, type: String)
+DELETE        /api/follow/:type/:id                  controllers.FollowController.unfollow(id: Long, type: String)
+
 GET           /api/auth/user                         controllers.AuthController.user
 GET           /api/auth/logout                       controllers.AuthController.logout
 POST          /api/auth/login                        controllers.AuthController.login

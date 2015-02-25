@@ -171,6 +171,85 @@ productServices.factory('LikesService', ['$http','$log', function($http,$log){
 
 }]);
 
+productServices.factory('FollowService', ['$http', '$q', '$log',
+    function($http, $q, $log){
+    var urlBase = '/api/follow';
+    var FollowService = {};
+
+    FollowService.isFollowing = function(refId, refType){
+        var deferred = $q.defer();
+
+        return $http({
+            method: 'GET',
+            url: urlBase + "/" + refType + "/" + refId
+        }).success(function(data, status, headers, config){
+            // this callback will be called asynchronously
+            // when the response is available
+            $log.debug("isFollowing = true");
+            deferred.resolve(true);
+        }).error(function(data, status, headers, config){
+            // called asynchronously if an error occurs
+            // or server returns response with an error status.
+            $log.debug("isFollowing = false");
+            deferred.reject(false);
+        });
+
+        return deferred.promise;
+    }
+
+    FollowService.follow = function(refId, refType, userId, data){
+        var deferred = $q.defer();
+
+        return $http({
+            method: 'POST',
+            url: urlBase + "/" + refType + "/" + refId,
+            params: {user_id: userId},
+            data: "{}",
+            headers: {'Content-Type': 'application/json'}
+        }).success(function(data, status, headers, config){
+            // this callback will be called asynchronously
+            // when the response is available
+            $log.debug("isFollowing = true");
+            deferred.resolve(true);
+        }).error(function(data, status, headers, config){
+            // called asynchronously if an error occurs
+            // or server returns response with an error status.
+            $log.debug("isFollowing = false");
+            deferred.reject(false);
+        });
+
+        return deferred.promise;
+    }
+
+    FollowService.unfollow = function(refId, refType, userId, data){
+        var deferred = $q.defer();
+
+        return $http({
+            method: 'DELETE',
+            url: urlBase + "/" + refType + "/" + refId,
+            params: {user_id: userId},
+            data: "{}",
+            headers: {'Content-Type': 'application/json'}
+        }).success(function(data, status, headers, config){
+            // this callback will be called asynchronously
+            // when the response is available
+            $log.debug("isFollowing = false");
+            deferred.resolve(true);
+        }).error(function(data, status, headers, config){
+            // called asynchronously if an error occurs
+            // or server returns response with an error status.
+            $log.debug("unfollow failed");
+            deferred.reject(false);
+        });
+
+        return deferred.promise;
+    }
+
+    return FollowService;
+
+}]);
+
+
 productServices.factory('ForumService', ['$http','$log', function($http,$log){
 
   var urlBase = '/api/forum/posts';

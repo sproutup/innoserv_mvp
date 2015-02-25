@@ -70,6 +70,10 @@ authControllers.controller('AuthCtrl', ['$scope', '$modal', '$log', 'AuthService
 
     $scope.isLoggedIn = function(){return isLoggedIn}
 
+    $scope.currentUser = function() {
+        return $scope.user;
+    }
+
     $scope.signup = function (size) {
 
         var signupInstance = $modal.open({
