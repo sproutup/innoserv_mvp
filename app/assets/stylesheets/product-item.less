@@ -91,11 +91,14 @@
 	transition: all .2s ease-in-out;
 }
 
-.btn-outline:hover,
-.btn-outline:focus,
-.btn-outline:active {
+.btn-outline:hover {
 	border: solid 1px @sproutup-blue-bright;
 	color: @sproutup-blue-bright;
+}
+
+.btn-outline:focus {
+  border: solid 1px @sproutup-btn-outline;
+  color: @sproutup-btn-outline;
 }
 
 .btn-following {
@@ -122,6 +125,11 @@
 .btn-following:hover {
   color: white;
   background-color: @sproutup-blue-bright;
+}
+
+.btn-following:focus{
+  color: white;
+  background-color: @sproutup-blue;
 }
 
 .product-title {
