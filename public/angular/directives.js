@@ -28,12 +28,12 @@ angular.module('sproutupApp').directive('follow', ['FollowService',
 
             element.on('mouseenter', function () {
                 if(isFollowing){
-                    element.html('UnFollow');
+                    element.html('Unfollow');
                 }
             });
             element.on('mouseleave', function () {
                 if(isFollowing){
-                    element.html('Following');
+                    element.html('<i class="fa fa-check"></i>Following');
                 }
             });
 
