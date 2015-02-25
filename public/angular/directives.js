@@ -26,17 +26,6 @@ angular.module('sproutupApp').directive('follow', ['FollowService',
                 }
             );
 
-            element.on('mouseenter', function () {
-                if(isFollowing){
-                    element.html('Unfollow');
-                }
-            });
-            element.on('mouseleave', function () {
-                if(isFollowing){
-                    element.html('<i class="fa fa-check"></i>Following');
-                }
-            });
-
             element.on('click', function () {
                 if(!isFollowing){
                     FollowService.follow(refId, refType)
