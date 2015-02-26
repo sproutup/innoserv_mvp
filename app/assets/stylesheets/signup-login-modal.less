@@ -133,7 +133,8 @@
   padding-right: 10px;
 }
 
-.btn-facebook:hover {
+.btn-facebook:hover,
+.btn-facebook:focus {
   color: white;
   background-color: @facebook-blue-hover;
 }
@@ -161,7 +162,8 @@
   padding-right: 10px;
 }
 
-.btn-twitter:hover {
+.btn-twitter:hover,
+.btn-twitter:focus {
   color: white;
   background-color: @twitter-blue-hover;
 }
@@ -185,7 +187,8 @@
   transition: all .2s ease-in-out;
 }
 
-.signup-login-btn:hover {
+.signup-login-btn:hover,
+.signup-login-btn:focus {
   color: white;
   background-color: @sproutup-blue-dark;
 }
@@ -209,7 +212,8 @@
   transition: all .2s ease-in-out;
 }
 
-.password-reset-btn:hover {
+.password-reset-btn:hover,
+.password-reset-btn:focus {
   color: white;
   background-color: @sproutup-orange-hover;
 }
@@ -243,4 +247,28 @@
   padding-bottom: 5px;
   margin: 0px 5%;
   color: @main-text-2;
+}
+
+// error messages
+
+.signup-login-input.ng-invalid.ng-touched {
+  border: 1px solid @sproutup-error-message;
+  color: @sproutup-orange;
+}
+
+.signup-login-input.ng-valid.ng-touched {
+  border: 1px solid @sproutup-green;
+}
+
+.signup-login-form--error-message {
+  color: @sproutup-error-message;
+  font-weight: 400;
+  font-size: 10pt;
+  margin: 0px 5%;
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+.signup-login-form--error-message i {
+  padding-right: 5px;
 }
