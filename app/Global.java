@@ -48,13 +48,14 @@ public class Global extends GlobalSettings {
 			public Call afterAuth() {
 				// The user will be redirected to this page after authentication
 				// if no original URL was saved with PlayAuthenticate.storeOriginalUrl(...)
-				//return routes.Application.index();
-                return routes.AuthController.afterAuth();
+				return routes.Application.main("");
+                //return routes.AuthController.afterAuth();
+                //return routes.Products.main("");
 			}
 
 			@Override
 			public Call afterLogout() {
-				return routes.Application.index();
+				return routes.Application.main("");
 			}
 
 			@Override
@@ -71,7 +72,7 @@ public class Global extends GlobalSettings {
 
 			@Override
 			public Call askMerge() {
-                return routes.Application.index(); // logoutfirststupid()
+                return routes.Application.main(""); // logoutfirststupid()
 //                return null;
 			}
 

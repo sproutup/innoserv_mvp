@@ -19,6 +19,16 @@
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
         <link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
         <link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/signup-login-modal.css")">
+        <link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/index.css")">
+        <link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/product-list.css")">
+        <link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/product-item.css")">
+        <link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/product-item--about.css")">
+        <link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/product-item--bar.css")">
+        <link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/product-list.css")">
+        <link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/ng-tags-input.css")">
+        <link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/about.css")">
+        <link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/creator.css")">
+        <link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/profile.css")">
 
 
         <!-- flowplayer -->
@@ -69,7 +79,9 @@
       mixpanel.init("7a6999218cbdf05415a6cd1922748ea5");</script>
       <!-- end Mixpanel -->
 
-      @moreHead
+        <base href="/"/>
+
+        @moreHead
 
     </head>
 
@@ -81,7 +93,7 @@
       <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
 
         <div class="navbar-header">
-          <a class="navbar-brand" href="@routes.Application.index()" target="_self">
+          <a class="navbar-brand" ui-sref="home">
             <img class="logo" src="@routes.Assets.at("images/logo.png")">
           </a>
         </div>

@@ -29,10 +29,19 @@ public class Application extends Controller {
 	public static final String FLASH_MESSAGE_KEY = "message";
 	public static final String FLASH_ERROR_KEY = "error";
 
-	public static Result index() {
-		List<Product>products = new Product().getAll();
-		return ok(index2.render(products));
-	}
+    public static Result main(String any) {
+        return ok(index.render());
+    }
+
+    public static Result home() {
+        List<Product>products = new Product().getAll();
+        return ok(home.render(products));
+    }
+
+    public static Result index() {
+        List<Product>products = new Product().getAll();
+        return ok(index.render());
+    }
 
 	public static Result about() {
 		return ok(about.render());

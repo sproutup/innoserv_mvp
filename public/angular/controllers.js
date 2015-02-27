@@ -89,8 +89,11 @@ authControllers.controller('AuthCtrl', ['$scope', '$modal', '$log', 'AuthService
 
         signupInstance.result.then(function (signup) {
             updateUser();
-        }, function () {
+        }, function (result) {
             $log.info('Modal dismissed at: ' + new Date());
+            if(result == "login"){
+                $scope.login('sm');
+            }
         });
     };
 
@@ -107,10 +110,14 @@ authControllers.controller('AuthCtrl', ['$scope', '$modal', '$log', 'AuthService
             }
         });
 
-        loginInstance.result.then(function (login) {
+        loginInstance.result.then(function (result) {
+            $log.debug("login return value: " + result);
             updateUser();
-        }, function () {
+        }, function (result) {
             $log.info('Login dismissed at: ' + new Date());
+            if(result == "signup"){
+                $scope.signup('sm');
+            }
         });
     };
 
@@ -164,15 +171,17 @@ authControllers.controller('SignupInstanceCtrl', ['$scope', '$modalInstance', 'A
         );
     };
 
+    $scope.login = function () {
+        $modalInstance.dismiss('login');
+    };
+
     $scope.cancel = function () {
         $modalInstance.dismiss('cancel');
     };
 }]);
 
-authControllers.controller('LoginInstanceCtrl', ['$scope', '$modalInstance', 'AuthService', '$log', 'login',
-    function ($scope, $modalInstance, AuthService, $log, login) {
-
-    $scope.login = login;
+authControllers.controller('LoginInstanceCtrl', ['$scope', '$location', '$window', '$modalInstance', 'AuthService', '$log', 'login',
+    function ($scope, $location, $window, $modalInstance, AuthService, $log, login) {
 
     $scope.ok = function () {
         var dataObject = {
@@ -182,24 +191,52 @@ authControllers.controller('LoginInstanceCtrl', ['$scope', '$modalInstance', 'Au
 
         $log.info('login attempt: ' + new Date());
 
-        var promise = AuthService.login(dataObject)
+        // reset error message
+        $scope.login.error = "";
+
+        var promise = AuthService.login(dataObject);
 
         promise.then(
             function(payload){
-                // this callback will be called asynchronously
-                // when the response is available
-                $modalInstance.close($scope.login);
+                $modalInstance.close(payload);
             },
             function(errorPayload){
-                // called asynchronously if an error occurs
-                // or server returns response with an error status.
                 $log.info('Login failed: ' + new Date());
+                $scope.login.error = true;
             }
         );
     };
 
     $scope.cancel = function () {
         $modalInstance.dismiss('cancel');
+    };
+
+    $scope.signup = function () {
+        $modalInstance.dismiss('signup');
+    };
+
+    $scope.provider = function (provider) {
+        $log.debug("provider: " + provider);
+
+        var currentPath = $location.path();
+        $log.debug("path: " + currentPath);
+
+        var dataObject = {
+            originalUrl : currentPath
+        };
+
+        var promise = AuthService.provider(provider, dataObject);
+
+        promise.then(
+            function(payload){
+                $log.debug(payload);
+                $window.location.href = payload;
+                $modalInstance.close("ok");
+            },
+            function(errorPayload){
+                $log.info('Login failed: ' + new Date());
+            }
+        );
     };
 }]);
 
@@ -224,17 +261,11 @@ productControllers.controller('productListCtrl', ['$scope', 'ProductService',
  //   $scope.orderProp = 'age';
   }]);
 
-productControllers.controller('productDetailCtrl', ['$scope', '$routeParams', 'ProductService',
-  function($scope, $routeParams, ProductService) {
-    $scope.product = ProductService.get({slug: $routeParams.slug}, function(product) {
-//    $scope.product = ProductService.get({slug: 1}, function(product) {
-
-//      $scope.mainImageUrl = phone.images[0];
+productControllers.controller('productDetailCtrl', ['$scope', '$stateParams', '$log', 'ProductService',
+  function($scope, $stateParams, $log, ProductService) {
+    $log.debug("entered product details ctrl. slug=" + $stateParams.slug);
+    $scope.product = ProductService.get({slug: $stateParams.slug}, function(product) {
     });
-
-//    $scope.setImage = function(imageUrl) {
-//      $scope.mainImageUrl = imageUrl;
-//    }
   }]);
 
 productControllers.controller('ForumCtrl', ['$scope', 'ForumService', 'LikesService', '$log',

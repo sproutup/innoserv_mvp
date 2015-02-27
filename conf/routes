@@ -3,20 +3,14 @@
 # ~~~~
 
 # Home page
-GET           /                                      controllers.Application.index
-GET           /about                                 controllers.Application.about
-GET           /creator                               controllers.Application.creator
-GET           /assets/javascript/routes.js           controllers.Application.jsRoutes
+GET           /                                      controllers.Application.main(any = "none")
 
-GET           /product                               controllers.Products.main(path="")
-GET           /product/*path                         controllers.Products.main(path)
+GET           /assets/javascript/routes.js           controllers.Application.jsRoutes
 
 GET           /internal-only-upload                  controllers.MediaManagement.upload
 POST          /doUpload                              controllers.MediaManagement.doUpload()
 
 GET           /feedback/:id                          controllers.FeedbackManagement.fetchPopupQSurvey(id: Long)
-
-GET           /profile                               controllers.Application.profile
 
 GET           /login                                 controllers.Application.login
 POST          /login                                 controllers.Application.doLogin
@@ -47,6 +41,10 @@ GET           /login/password/forgot                 controllers.Signup.forgotPa
 POST          /login/password/forgot                 controllers.Signup.doForgotPassword
 
 # Views used be angular routes
+GET           /views/home                            controllers.Application.home
+GET           /views/about                           controllers.Application.about
+GET           /views/creator                         controllers.Application.creator
+GET           /views/profile                         controllers.Application.profile
 GET           /views/product-list                    controllers.Products.list
 GET           /views/product-details                 controllers.Products.details
 GET           /views/product-about                   controllers.Products.about
@@ -89,6 +87,7 @@ GET           /api/auth/user                         controllers.AuthController.
 GET           /api/auth/logout                       controllers.AuthController.logout
 POST          /api/auth/login                        controllers.AuthController.login
 POST          /api/auth/signup                       controllers.AuthController.signup
+POST          /api/auth/provider/:provider           controllers.AuthController.provider(provider: String)
 
 
 # Mockups
@@ -102,3 +101,6 @@ GET           /mockups/dashboard/1                   controllers.MockupControlle
 GET           /mockups/dashboard/2                   controllers.MockupController.creatorDashboard_2()
 GET           /mockups/dashboard/3                   controllers.MockupController.creatorDashboard_3()
 GET           /mockups/creator                       controllers.MockupController.forCreator()
+
+# catch all. angular will handle all routes except /api/* /views/* /mockups/*
+GET           /*any                                  controllers.Application.main(any)

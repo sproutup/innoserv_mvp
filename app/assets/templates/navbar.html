@@ -1,9 +1,9 @@
 <div class="collapse navbar-collapse navbar-right" id="navbar-collapse-items">
     <ul class="nav navbar-nav navbar-item">
-        <li><a href="/product" target="_self">Explore Products</a></li>
-        <li><a href="/creator" target="_self">For Creators</a></li>
+        <li><a ui-sref="product.list">Explore Products</a></li>
+        <li><a ui-sref="creator">For Creators</a></li>
         <li><a href="http://blog.sproutup.co">Blog</a></li>
-        <li><a href="/about" target="_self" >About</a></li>
+        <li><a ui-sref="about">About</a></li>
 
         <li ng-show="!user.isLoggedIn">
             <a href="" ng-click="signup('sm')">Join</a>
@@ -20,10 +20,9 @@
         <li ng-show="user.isLoggedIn" class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{user.name}}<i class="fa fa-angle-down"></i></a>
             <ul class="dropdown-menu" role="menu">
-                <li><a href="/profile">My Page</a></li>
+                <li><a ui-sref="profile">My Page</a></li>
                 <li><a href="" ng-click="logout()"><i class="icon-off"></i> Log Out</a></li>
             </ul>
         </li>
-
     </ul>
 </div>

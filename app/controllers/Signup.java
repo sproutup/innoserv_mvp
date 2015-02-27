@@ -109,7 +109,7 @@ public class Signup extends Controller {
 				}
 			}
 
-			return redirect(routes.Application.index());
+			return redirect(routes.Application.main(""));
 		}
 	}
 

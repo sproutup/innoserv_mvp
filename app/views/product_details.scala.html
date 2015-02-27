@@ -16,15 +16,16 @@
 <!-- Menu in banner -->
 <div class="col-lg-12 product-menu">
     <div class="product-menu--content">
-        <a ng-click="tabs.activeTab=0" class="product-menu--item" ng-class="{'active': tabs.activeTab==0}" href="#">About</a>
-        <a ng-click="tabs.activeTab=1" class="product-menu--item" ng-class="{'active': tabs.activeTab==1}" href="#">Experience Bar</a>
-        <a ng-click="tabs.activeTab=2" class="product-menu--item" ng-class="{'active': tabs.activeTab==2}" href="#">Experience Gallery</a>
+        <a ui-sref="product.detail.about({ slug: product.slug })" class="product-menu--item" ui-sref-active="active" href="#">About</a>
+        <a ui-sref="product.detail.bar({ slug: product.slug })" class="product-menu--item" ui-sref-active="active" href="#">Experience Bar</a>
+        <a ui-sref="product.detail.gallery({ slug: product.slug })" class="product-menu--item" ui-sref-active="active" href="#">Experience Gallery</a>
     </div>
     <div class="product-menu--action">
-        <a follow="" ref-id="1" ref-type="model.Product" class="btn btn-lg btn-outline" href="#">Follow</a>
+        <a follow="" ref-id="{{product.id}}" ref-type="model.Product" class="btn btn-lg btn-outline" href="#">Follow</a>
         <a class="btn btn-lg btn-outline" href="#">Buy</a>
     </div>
 </div>
 </div>
 
-<div ng-include src="tabs[tabs.activeTab].page"></div>
+<!--div ng-include src="tabs[tabs.activeTab].page"></div-->
+<div ui-view></div>

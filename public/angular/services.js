@@ -45,6 +45,31 @@ productServices.factory('AuthService', ['$http', '$q', '$cookieStore','$log',
         return deferred.promise;
     };
 
+
+    AuthService.provider = function(provider, path){
+        var deferred = $q.defer();
+        // get the current path
+        //var currentPath = $location.path();
+        // redirect external url
+        //$window.location.href = 'http://www.google.com';
+
+        $http({
+            method: 'POST',
+            url: '/api/auth/provider/' + provider,
+            data: path,
+            headers: {'Content-Type': 'application/json'}
+        }).success(function(data, status, headers, config){
+            $log.debug("provider returned success");
+            deferred.resolve(data.redirect);
+        }).error(function(data, status, headers, config){
+            $log.debug("provider returned error");
+            deferred.reject("failed to login");
+        });
+
+        $log.debug("provider returned promise");
+        return deferred.promise;
+    };
+
     AuthService.login = function(user){
         var deferred = $q.defer();
 

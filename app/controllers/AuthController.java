@@ -68,6 +68,19 @@ public class AuthController extends Controller {
     }
 
     @BodyParser.Of(BodyParser.Json.class)
+    public static Result provider(String provider){
+        JsonNode json = request().body().asJson();
+        if(json != null) {
+            String url = json.findPath("originalUrl").textValue();
+            if(url != null) {
+                Logger.debug("url: " + url);
+                return ok(com.feth.play.module.pa.controllers.Authenticate.authenticateJson(provider, url));
+            }
+        }
+        return badRequest("Missing request body");
+    }
+
+    @BodyParser.Of(BodyParser.Json.class)
     public static Result logout(){
 
         //todo capture user from session and logout
@@ -115,8 +128,6 @@ public class AuthController extends Controller {
     public static Result afterAuth() {
         com.feth.play.module.pa.controllers.Authenticate.noCache(response());
         final AuthUser currentUser = PlayAuthenticate.getUser(ctx().session());
-        currentUser.getId();
-        currentUser.getProvider();
 
         ObjectNode node = Json.newObject();
         node.put("status", "ok");

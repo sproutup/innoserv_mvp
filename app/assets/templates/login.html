@@ -1,19 +1,18 @@
 <div class="modal-body">
     <div class="row">
+        <form name="providerForm" novalidate>
         <!-- facebook login -->
-        <a href="/authenticate/facebook">
-            <button type="submit" class="btn btn-lg btn-facebook"><i class="fa fa-facebook-square"></i>Log in with Facebook</button>
-        </a>
+        <button type="submit" ng-click="provider('facebook')" class="btn btn-lg btn-facebook"><i class="fa fa-facebook-square"></i>Log in with Facebook</button>
         <!-- twitter login -->
-        <a href="/authenticate/twitter">
-            <button type="submit" class="btn btn-lg btn-twitter"><i class="fa fa-twitter-square"></i>Log in with Twitter</button>
-        </a>
+        <button type="submit" ng-click="provider('twitter')" class="btn btn-lg btn-twitter"><i class="fa fa-twitter-square"></i>Log in with Twitter</button>
+        </form>
         <!-- separator -->
         <div class="signup-or-separator">
             <h6 class="text-special">OR</h6>
             <hr>
         </div>
         <!-- email login -->
+        <span ng-show="login.error">Login failed</span>
         <form name="loginForm" novalidate>
             <div class="signup-login-form">
                 <input ng-model="login.email" class="form-control signup-login-input" id="email" type="email" required placeholder="Email address">
@@ -23,7 +22,7 @@
         </form>
         <!-- footer -->
         <hr class="signup-login-form-separator">
-        <div class="signup-login-form-footer">Don't have an account? <a href="#">Sign up</a> here.</div>
+        <div ng-click="signup()" class="signup-login-form-footer">Don't have an account? <a href="#">Sign up</a> here.</div>
         <div class="signup-login-form-footer"><a href="#">Forgot your password?</a></div>
     </div>
 </div>

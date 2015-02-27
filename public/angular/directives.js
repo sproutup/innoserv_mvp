@@ -7,60 +7,60 @@ angular.module('sproutupApp').directive('follow', ['FollowService',
         restrict: 'A',
         link: function (scope, element, attrs) {
             var isFollowing = false;
-            var refId = attrs.refId;
-            var refType = attrs.refType;
 
-            FollowService.isFollowing(refId, refType)
-                .then(
-                function(payload){
-                    isFollowing = true;
-                    element.html('<i class="fa fa-check"></i>Following');
-                    element.addClass("btn-following");
-                    element.removeClass("btn-outline");
-                },
-                function(errorPayload){
-                    isFollowing = false;
-                    element.html('Follow');
-                    element.removeClass("btn-following");
-                    element.addClass("btn-outline");
-                }
-            );
+            function changeButtonToFollowing() {
+                isFollowing = true;
+                element.html('<i class="fa fa-check"></i>Following');
+                element.addClass("btn-following");
+                element.removeClass("btn-outline");
+            }
 
-            element.on('click', function () {
-                if(!isFollowing){
-                    FollowService.follow(refId, refType)
+            function changeButtonToFollow() {
+                isFollowing = false;
+                element.html('Follow');
+                element.removeClass("btn-following");
+                element.addClass("btn-outline");
+            }
+
+            attrs.$observe('refId', function(refId) {
+                if (refId) {
+                    console.log("refId observe: " + refId);
+                    FollowService.isFollowing(refId, attrs.refType)
                         .then(
                         function(payload){
-                            isFollowing = true;
-                            element.html('<i class="fa fa-check"></i>Following');
-                            element.addClass("btn-following");
-                            element.removeClass("btn-outline");
+                            changeButtonToFollowing();
+                        },
+                        function(errorPayload){
+                            changeButtonToFollow();
+                        }
+                    );
+                }
+            });
+
+            element.on('click', function () {
+                console.log("refId: "+ attrs.refId);
+                if(!isFollowing){
+                    FollowService.follow(attrs.refId, attrs.refType)
+                        .then(
+                        function(payload){
+                            changeButtonToFollowing();
                         },
                         function(errorPayload){
                             if(errorPayload="forbidden"){
                                 scope.login('sm');
                             }
-                            isFollowing = false;
-                            element.html('Follow');
-                            element.removeClass("btn-following");
-                            element.addClass("btn-outline");
+                            changeButtonToFollow();
                         }
                     );
                 }
                 else{
-                    FollowService.unfollow(refId, refType)
+                    FollowService.unfollow(attrs.refId, attrs.refType)
                         .then(
                         function(payload){
-                            isFollowing = false;
-                            element.html('Follow');
-                            element.removeClass("btn-following");
-                            element.addClass("btn-outline");
+                            changeButtonToFollow();
                         },
                         function(errorPayload){
-                            isFollowing = true;
-                            element.html('Following');
-                            element.addClass("btn-following");
-                            element.removeClass("btn-outline");
+                            changeButtonToFollowing();
                         }
                     );
                 }
