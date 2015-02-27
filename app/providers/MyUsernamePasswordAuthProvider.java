@@ -81,7 +81,7 @@ public class MyUsernamePasswordAuthProvider
 			com.feth.play.module.pa.providers.password.UsernamePasswordAuthProvider.UsernamePassword {
 
 		@Required
-		@MinLength(5)
+		@MinLength(3)
 		public String password;
 
 		@Override
