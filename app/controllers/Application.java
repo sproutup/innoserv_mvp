@@ -31,7 +31,7 @@ public class Application extends Controller {
 
 	public static Result index() {
 		List<Product>products = new Product().getAll();
-		return ok(index2.render(products));
+		return ok(index.render(products));
 	}
 
 	public static Result about() {
@@ -40,7 +40,7 @@ public class Application extends Controller {
 	
 	@Restrict({@Group(AppConstants.CONSUMER),@Group(AppConstants.CREATOR)})
 	public static Result creator() {
-		return ok(creator.render());
+		return ok(for_creator.render());
 	}
 
 	public static User getLocalUser(final Session session) {

@@ -22,7 +22,7 @@ error.min=Must be greater or equal to {0}
 error.max=Must be less or equal to {0}
 error.minLength=Minimum length is {0}
 error.maxLength=Maximum length is {0}
-error.email=Valid email required
+error.email=Err, you sure the email is valid?
 error.pattern=Must satisfy {0}
 
 ### --- play-authenticate START
