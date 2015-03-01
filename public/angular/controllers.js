@@ -155,6 +155,9 @@ authControllers.controller('SignupInstanceCtrl', ['$scope', '$modalInstance', 'A
             "password" : $scope.signup.password
         };
 
+        // reset error message
+        $scope.signup.error = "";
+
         var promise = AuthService.signup(dataObject);
 
         promise.then(
@@ -164,9 +167,13 @@ authControllers.controller('SignupInstanceCtrl', ['$scope', '$modalInstance', 'A
                 $modalInstance.close($scope.signup);
             },
             function(errorPayload){
-                // called asynchronously if an error occurs
-                // or server returns response with an error status.
-                $log.info('Signup failed: ' + new Date());
+                $log.info('Signup failed: ' + errorPayload + " " + new Date());
+                if(errorPayload.status=="USER_EXISTS"){
+                    $scope.signup.error = "Oops, email's been taken. If it's you, please log in.";
+                }
+                else{
+                    $scope.signup.error = "Signup failed";
+                }
             }
         );
     };
