@@ -18,24 +18,24 @@
             <div class="signup-login-form">
                 <div class="signup-login-form--error-message" ng-show="signup.error"><i class="fa fa-minus-circle"></i>{{signup.error}}</div>
                 <!-- full name -->
+                <input ng-model="signup.name" required="" class="form-control signup-login-input" id="name" type="text" name="yourName" placeholder="Your full name">
                 <div ng-show="signupForm.$submitted || signupForm.yourName.$touched">
                     <div class="signup-login-form--error-message" ng-show="signupForm.yourName.$error.required"><i class="fa fa-minus-circle"></i>Please tell us your name</div>
                 </div>
-                <input ng-model="signup.name" required="" class="form-control signup-login-input" id="name" type="text" name="yourName" placeholder="Your full name">
 
                 <!-- email -->
+                <input ng-model="signup.email" required="" class="form-control signup-login-input" id="email" type="email" name="yourEmail" placeholder="Email address - Don't spoof your login">
                 <div ng-show="signupForm.$submitted || signupForm.yourEmail.$touched">
                     <div class="signup-login-form--error-message" ng-show="signupForm.yourEmail.$error.required"><i class="fa fa-minus-circle"></i>Can't sign up without an email</div>
                     <div class="signup-login-form--error-message" ng-show="signupForm.yourEmail.$error.email"><i class="fa fa-minus-circle"></i>Err, you sure the email is valid?</div>
                 </div>
-                <input ng-model="signup.email" required="" class="form-control signup-login-input" id="email" type="email" name="yourEmail" placeholder="Email address - Don't spoof your login">
 
                 <!-- password -->
+                <input ng-model="signup.password" required="" ng-minlength="3" class="form-control signup-login-input" id="password" type="password" name="yourPassword" placeholder="Password">
                 <div ng-show="signupForm.$submitted || signupForm.yourPassword.$touched">
                     <div class="signup-login-form--error-message" ng-show="signupForm.yourPassword.$error.required"><i class="fa fa-minus-circle"></i>3+ characters would be safer</div>
                     <div class="signup-login-form--error-message" ng-show="signupForm.yourPassword.$error.minlength"><i class="fa fa-minus-circle"></i>3+ characters would be safer</div>
                 </div>
-                <input ng-model="signup.password" required="" ng-minlength="3" class="form-control signup-login-input" id="password" type="password" name="yourPassword" placeholder="Password">
 
                 <!-- agreement -->
                 <div class="signup-agreement">
