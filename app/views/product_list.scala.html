@@ -2,22 +2,26 @@
 
 
 <div class="product-list">
-    Search: <input ng-model="query">
-  <div class="row product-list-container">
-    <div ng-repeat="product in products | filter:query" class="col-lg-4 col-sm-6 col-xs-12 product-list-item">
-        <a ui-sref="product.detail.about({ slug: product.slug })">
-            <div class="product-cover-photo" style="background-image: url('https://s3.amazonaws.com/sproutup-mvp-cdn/assets/{{product.productEAN}}.jpg')">
-                <div class="product-cover-info">
-                    <div class="product-cover-title">
-                        <p>{{product.productName}}</p>
-                    </div>
-                    <div class="product-cover-description">
-                        <p>{{product.productDescription}}</p>
+    <div class="col-sm-12 product-list--search-area">
+        <input ng-model="query" class="form-control product-list--search-input" placeholder="Search products">
+        <span class="fa fa-search"></span>
+    </div>
+
+    <div class="row product-list-container">
+        <div ng-repeat="product in products | filter:query" class="col-lg-4 col-sm-6 col-xs-12 product-list-item">
+            <a ui-sref="product.detail.about({ slug: product.slug })">
+                <div class="product-cover-photo" style="background-image: url('https://s3.amazonaws.com/sproutup-mvp-cdn/assets/{{product.productEAN}}.jpg')">
+                    <div class="product-cover-info">
+                        <div class="product-cover-title">
+                            <p>{{product.productName}}</p>
+                        </div>
+                        <div class="product-cover-description">
+                            <p>{{product.productDescription}}</p>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </a>
+            </a>
+        </div>
     </div>
-  </div>
 </div>
 
