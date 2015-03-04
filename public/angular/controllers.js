@@ -24,6 +24,121 @@ function My3Ctrl() {}
 My3Ctrl.$inject = [];
 */
 
+var fileControllers = angular.module('FileControllers', ['ui.bootstrap']);
+
+fileControllers.controller('FileCtrl', ['$scope', '$modal', '$log',
+    function($scope, $modal, $log){
+
+    $scope.ref = {
+        'id' : 0,
+        'type' : ""
+        };
+
+    $scope.upload = function(size, refId, refType) {
+
+        $scope.ref.id = refId;
+        $scope.ref.type = refType;
+
+        var uploadInstance = $modal.open({
+            templateUrl: '/assets/templates/upload.html',
+            controller: 'UploadInstanceCtrl',
+            size: size,
+            resolve: {
+                attrs: function () {
+                    return ($scope.ref);
+                }
+            }
+        });
+
+        uploadInstance.result.then(function (upload) {
+            $log.info('Modal ok at: ' + new Date());
+        }, function (result) {
+            $log.info('Modal cancel at: ' + new Date());
+        });
+    };
+
+    //$scope.authenticate = function(file){
+    //    var deferred = $q.defer();
+    //
+    //    $http({
+    //        method: 'GET',
+    //        url: '/api/file/policy',
+    //        headers: {'Content-Type': 'application/json'}
+    //    }).success(function(data, status, headers, config){
+    //        $log.debug("file auth returned success");
+    //        deferred.resolve(date);
+    //    }).error(function(data, status, headers, config){
+    //        $log.debug("file auth returned error");
+    //        deferred.reject(null);
+    //    });
+    //
+    //    $log.debug("file auth returned promise");
+    //    return deferred.promise;
+    //};
+}]);
+
+fileControllers.controller('UploadInstanceCtrl', //['$scope', '$upload', '$http', '$modalInstance', '$log', 'FileService',
+    function ($scope, $upload, $http, $modalInstance, $log, FileService, attrs) {
+
+        $scope.attrs = attrs;
+
+        $scope.authenticate = {
+            progress : 0
+        };
+
+        $scope.ok = function () {
+            $modalInstance.close("ok");
+        };
+
+        $scope.upload = function (files) {
+
+            $log.debug("upload: " + $scope.attrs.id);
+
+            FileService.authenticate(files[0], $scope.attrs.id, $scope.attrs.type).then(
+                function(payload){
+                    $log.debug("upload auth returned");
+
+                    $scope.authenticate.progress = 50;
+
+                    if (files && files.length) {
+                        for (var i = 0; i < files.length; i++) {
+                            var file = files[i];
+
+                            FileService.upload(file,payload).then(
+                                function(result){
+                                    // verify that upload to s3 is done
+                                    FileService.verify(result).then(
+                                        function(payload){
+                                            $modalInstance.close("ok");
+                                        }
+                                    )
+                                },
+                                function(error){
+                                    // todo handle error
+                                },
+                                function(percentComplete){
+                                    file.progress = (50 + (percentComplete/2)).toFixed(1);
+                                    $scope.authenticate.progress = (50 + (percentComplete/2)).toFixed(1);
+                                }
+                            );
+                        }
+                    }
+                },
+                function(errorPayload){
+                },
+                function(percentComplete){
+                    $scope.authenticate.progress = (percentComplete/2).toFixed(1);
+                    files[0].progress = (percentComplete/2).toFixed(1);
+                }
+            );
+        };
+
+        $scope.cancel = function () {
+            $modalInstance.dismiss('cancel');
+        };
+    });
+
+
 var authControllers = angular.module('AuthControllers', ['ui.bootstrap']);
 
 authControllers.controller('AuthCtrl', ['$scope', '$modal', '$log', 'AuthService',

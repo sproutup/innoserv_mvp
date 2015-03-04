@@ -8,10 +8,10 @@
 </div>
 
     <!-- ask people to share photos or videos -->
-<div class="col-sm-12">
+<div class="col-sm-12" ng-controller="FileCtrl">
     <div class="gallery-header">
         We love photos and videos. We believe photos and videos tell greater product stories than any word does.<br>
-        <span><a href="#"><i class="fa fa-plus-circle fa-lg"></i>Start your show</a> here today. Share your {{product.productName}} experience with everyone!</span>
+        <span><a href="#" ng-click="upload('md', product.id, 'model.product')"><i class="fa fa-plus-circle fa-lg"></i>Start your show</a> here today. Share your {{product.productName}} experience with everyone!</span>
     </div>
 </div>
 

@@ -24,6 +24,9 @@ val appDependencies = Seq(
 
 libraryDependencies += "com.github.tototoshi" %% "play-flyway" % "1.2.0"
 
+libraryDependencies += "net.coobird" % "thumbnailator" % "0.4.8"
+
+
 //  Uncomment the next line for local development of the Play Authenticate core:
 lazy val playAuthenticate = project.in(file("modules/play-authenticate")).enablePlugins(PlayJava)
 

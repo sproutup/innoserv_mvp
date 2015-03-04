@@ -1,15 +1,24 @@
 package controllers;
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import com.amazonaws.services.s3.model.S3Object;
+import com.amazonaws.services.s3.model.S3ObjectInputStream;
+import models.File;
 import models.Product;
 import models.User;
+import net.coobird.thumbnailator.Thumbnails;
 import play.Routes;
+import play.Logger;
 import play.data.Form;
 import play.mvc.*;
 import play.mvc.Http.Session;
+import plugins.S3Plugin;
 import providers.MyUsernamePasswordAuthProvider;
 import providers.MyUsernamePasswordAuthProvider.MyLogin;
 import providers.MyUsernamePasswordAuthProvider.MySignup;
@@ -22,7 +31,6 @@ import com.feth.play.module.pa.providers.password.UsernamePasswordAuthProvider;
 import com.feth.play.module.pa.user.AuthUser;
 
 import constants.AppConstants;
-import constants.UserRole;
 
 public class Application extends Controller {
 
@@ -112,4 +120,36 @@ public class Application extends Controller {
 		return new SimpleDateFormat("yyyy-dd-MM HH:mm:ss").format(new Date(t));
 	}
 
+
+    // Scala and render an image from S3
+    public static Result image(String image, int x, int y) {
+        File img = File.findByName(image);
+
+        if (img != null && img.verified) {
+            BufferedImage thumbnail;
+
+            Logger.debug("get object image");
+            S3Object obj = S3Plugin.amazonS3.getObject("sproutup-test-upload", img.fileName());
+
+            Logger.debug("get object content stream");
+
+            S3ObjectInputStream originalImage = obj.getObjectContent();
+
+            ByteArrayOutputStream out = new ByteArrayOutputStream();
+
+            try {
+                Logger.debug("convert image");
+
+                Thumbnails.of(originalImage)
+                .size(x, y)
+                .outputFormat("jpg")
+                .toOutputStream(out);
+
+                return ok(out.toByteArray()).as("image/jpg");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return badRequest();
+    }
 }
