@@ -8,7 +8,6 @@ body {
 
 .modal-open {
   overflow: hidden;
-  position: fixed;
   height: 100%;
   width: 100%;
 }
@@ -135,6 +134,12 @@ p.copyright {
 .form-control:-ms-input-placeholder {
   color: @input-placeholder-text;
   opacity: 1;
+}
+
+.form-control {
+  box-shadow: none;
+  -moz-box-shadow: none;
+  -webkit-box-shadow: none;
 }
 
 .form-control:focus {
