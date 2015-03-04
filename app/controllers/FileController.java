@@ -1,0 +1,46 @@
+package controllers;
+
+import be.objectify.deadbolt.java.actions.SubjectPresent;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+import models.File;
+import models.User;
+import play.Logger;
+import play.mvc.BodyParser;
+import play.mvc.Controller;
+import play.mvc.Result;
+
+
+/**
+ * Created by peter on 3/1/15.
+ */
+public class FileController  extends Controller {
+
+    @BodyParser.Of(BodyParser.Json.class)
+    @SubjectPresent
+    public static Result authorize(String contentHash, String contentName, Long contentLength, String contentType, Long refId, String refType)
+    {
+        User user = Application.getLocalUser(ctx().session());
+        File file = new File();
+        file.length = contentLength;
+        file.originalName = contentName;
+        file.type = contentType;
+        file.refId = refId;
+        file.refType = refType;
+        ObjectNode policy = file.authorize("sproutup-test-upload", "us-west-2", "AKIAJM5X5NV444LJEUSA", "UHpVP/axa3eOmfCOcSQFGXwK4fzYMzHV8aYkh38X", contentHash, user, contentLength);
+        file.save();
+        Logger.debug("policy: " + policy);
+        return ok(policy);
+    }
+
+    @BodyParser.Of(BodyParser.Json.class)
+    @SubjectPresent
+    public static Result verify(String uuid)
+    {
+        if(File.verify(uuid)){
+            return ok();
+        }
+        else{
+            return notFound();
+        }
+    }
+}

@@ -68,6 +68,9 @@ POST          /api/products                          controllers.Products.create
 PUT           /api/products/:id                      controllers.Products.updateProduct(id: Long)
 DELETE        /api/products/:id                      controllers.Products.deleteProduct(id: Long)
 
+GET           /api/file/policy                       controllers.FileController.authorize(contentHash: String , contentName: String, contentLength: Long, contentType: String, refId: Long, refType: String)
+POST          /api/file/verify                       controllers.FileController.verify(uuid: String)
+
 GET           /api/forum/posts                       controllers.PostController.getPosts(prod: Long ?= -1, cat: Long ?= -1)
 GET           /api/forum/posts/:id                   controllers.PostController.getPost(id: Long)
 POST          /api/forum/posts                       controllers.PostController.addPost
@@ -89,6 +92,7 @@ POST          /api/auth/login                        controllers.AuthController.
 POST          /api/auth/signup                       controllers.AuthController.signup
 POST          /api/auth/provider/:provider           controllers.AuthController.provider(provider: String)
 
+GET           /media/image/:image                    controllers.Application.image(image: String, x: Integer ?=80, y: Integer ?=80)
 
 # Mockups
 GET           /mockups/product/:slug/about           controllers.MockupController.detailsAboutBySlug(slug: String)

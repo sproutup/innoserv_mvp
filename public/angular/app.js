@@ -4,8 +4,10 @@ var sproutupApp = angular.module('sproutupApp', [
     'ngRoute',
     'ngCookies',
     'ui.router',
+    'angularFileUpload',
     'productControllers',
     'AuthControllers',
+    'FileControllers',
     'productFilters',
     'productServices',
     'ngTagsInput'

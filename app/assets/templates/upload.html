@@ -1,0 +1,40 @@
+<div class="modal-body">
+    <div class="row">
+
+        <form name="uploadForm" class="loginForm">
+            <div class="signup-login-form">
+                Profile Picture: <input type="file" ng-file-select ng-model="picFile" name="file" accept="image/*,video/*"
+                                         required>
+
+                <i ng-show="uploadForm.file.$error.required">*required</i>
+
+                <br/>
+
+                <img ng-show="picFile[0].dataUrl != null" ng-src="{{picFile[0].dataUrl}}" class="thumb">
+
+                <span class="progress" ng-show="picFile[0].progress >= 0">
+                    <div style="width:{{picFile[0].progress}}%" ng-bind="picFile[0].progress + '%'"></div>
+                </span>
+
+                <div ng-show="authenticate.progress > 0">
+                    Auth progress:
+                    <div class="progress" style="" >
+                        <div class="progress-bar" ng-style="{ 'width': authenticate.progress + '%' }" role="progressbar" style="width: 0%;"></div>
+                    </div>
+                </div>
+                <!--div ng-show="picFile[0].progress >= 0">
+                    Upload progress:
+                    <div class="progress" style="" >
+                        <div class="progress-bar" ng-style="{ 'width': picFile[0].progress + '%' }" role="progressbar" style="width: 0%;"></div>
+                    </div>
+                </div-->
+
+                <span ng-show="picFile[0].result">Upload Successful</span>
+
+
+                <button ng-disabled="!uploadForm.$valid" ng-click="upload(picFile)" class="btn btn-lg">Submit</button>
+                <button ng-click="cancel()" class="btn btn-lg">Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>
