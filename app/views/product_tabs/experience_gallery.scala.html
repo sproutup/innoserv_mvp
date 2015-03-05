@@ -29,15 +29,14 @@
         <div ng-show="gallery.showUpload" class="post-new-media-row">
             <div class="post-new-media-blurb">
                 <div class="post-user-name">{{user.name}}</div>
-                <div class="progress" style="" ng-show="files[0].progress >= 0">
-                    <div class="progress-bar" ng-style="{ 'width': upload.progress + '%' }" role="progressbar" style="width: 0%;"></div>
-                </div>
                 <div class="post-new-media-form">
-                    <div ng-file-select ng-model="files" class="post-new-media-file">
+                    <div ng-file-select ng-model="files" class="post-new-media-file" style="background-image: url('{{files[0].dataUrl}}');">
                         <a href="#" class="btn btn-lg btn-media-upload">
-                            <i class="fa fa-plus-circle"></i>
-                            <img ng-show="files[0].dataUrl != null" ng-src="{{files[0].dataUrl}}" style="float:left;height:128px;padding-right:0px;width:128px;" class="thumbnail">
+                            <i ng-hide="files[0].dataUrl != null" class="fa fa-plus-circle"></i>
                             <div ng-show="authenticate.progress > 0">
+                            </div>
+                            <div class="progress" ng-show="files[0].progress >= 0">
+                                <div class="progress-bar" ng-style="{ 'width': upload.progress + '%' }" role="progressbar" style="width: 0%;"></div>
                             </div>
                         </a>
                     </div>
