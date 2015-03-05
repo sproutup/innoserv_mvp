@@ -88,7 +88,6 @@ sproutupApp.config(['$routeProvider', '$stateProvider', '$locationProvider',
             })
             .state('product.detail.bar.question', {
                 url: '/question',
-                template: 'TestTestTest',
                 controller: function($scope){
                     $scope.changeCategory(2);
                 },
