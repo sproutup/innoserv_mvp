@@ -370,22 +370,26 @@ productControllers.controller('productDetailCtrl', ['$scope', '$stateParams', '$
   }]);
 
 productControllers.controller('ForumCtrl', ['$scope', 'ForumService', 'LikesService', '$log',
-  function($scope, ForumService, LikesService, log) {
+  function($scope, ForumService, LikesService, $log) {
 
     $scope.posts = [];
     $scope.forum = {
         showNewPost : false,
         selectedCategory : 0,   // default to 0 = compliments
         category : ["compliments","suggestions","questions"]
-    }
+    };
 
-    // create a blank object to hold our form information
+      $log.debug("forum ctrl loaded");
+
+      $scope.$watch('product.id', function(files) {
+          $log.debug("watch product.id...");
+          getPosts($scope.product.id, $scope.forum.selectedCategory);
+      });
+
+          // create a blank object to hold our form information
     // $scope will allow this to pass between controller and view
     $scope.forum.newPostForm = {};
     $scope.forum.newCommentForm = {};
-
-    // Load initial data
-    getPosts($scope.product.id, $scope.forum.selectedCategory);
 
     // process the new post form
     $scope.processNewPostForm = function() {
@@ -414,7 +418,6 @@ productControllers.controller('ForumCtrl', ['$scope', 'ForumService', 'LikesServ
             getPosts($scope.product.id, $scope.forum.selectedCategory);
         });
     };
-
 
     // process the new comment form
     $scope.processNewCommentForm = function(post) {
@@ -445,48 +448,12 @@ productControllers.controller('ForumCtrl', ['$scope', 'ForumService', 'LikesServ
             // this callback will be called asynchronously
             // when the response is available
             $scope.posts = data;
-            log.debug("posts: " + $scope.posts);
+            $log.debug("posts: " + $scope.posts);
         })
         .error(function(data, status, headers, config){
             // called asynchronously if an error occurs
             // or server returns response with an error status.
-            log.debug("error: " + $scope.posts);
+            $log.debug("error: " + $scope.posts);
         });
     }
-
-/*
-    $scope.postsxx = [{
-                     "id": 1,
-                     "content": "first post",
-                     "user": {"name": "peter"},
-                     "tags": [{"name": "energy"},{"name": "led"}],
-                     "comments": [
-                        {
-                        "id": 1,
-                        "user": {"name": "bill"},
-                        "content": "kjsadfh ksdafjhasdk fdksa f"
-                        },
-                        {
-                        "id": 1,
-                        "user": {"name": "josh"},
-                        "content": "kjsadfh ksdafjhasdk fdksa f"
-                        },
-                        {
-                        "id": 1,
-                        "user": {"name": "alfred"},
-                        "content": "kjsadfh ksdafjhasdk fdksa f"
-                        }
-                        ]
-                     },
-                     {
-                     "id": 2,
-                     "content": "second post",
-                     "user": {"name": "peter"}
-                     },
-                     {
-                     "id": 3,
-                     "content": "third post",
-                     "user": {"name": "peter"}
-                     }
-                   ];  */
 }]);
