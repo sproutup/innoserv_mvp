@@ -93,7 +93,7 @@ public class File extends TimeStampModel {
     }
 
     public String fileName() {
-        return (uuid + "-"+ user.id + ".jpg");
+        return (uuid + "_"+ user.id + ".jpg");
     }
 
     /**

@@ -15,6 +15,8 @@ import models.User;
 import net.coobird.thumbnailator.Thumbnails;
 import play.Routes;
 import play.Logger;
+import play.api.cache.Cache;
+import play.cache.Cached;
 import play.data.Form;
 import play.mvc.*;
 import play.mvc.Http.Session;
@@ -123,33 +125,42 @@ public class Application extends Controller {
 
     // Scala and render an image from S3
     public static Result image(String image, int x, int y) {
-        File img = File.findByName(image);
 
-        if (img != null && img.verified) {
+//        ByteArrayOutputStream hit = (ByteArrayOutputStream) Cache.get(image + x + "x" + y, null);
+//
+//        if(hit!=null){
+//            Logger.debug("cache hit");
+//            return ok(hit).as("image/jpg");
+//        }
+
+        Logger.debug("get object image");
+        S3Object obj = S3Plugin.amazonS3.getObject("sproutup-test-upload", image);
+
+        if (obj != null) {
             BufferedImage thumbnail;
 
-            Logger.debug("get object image");
-            S3Object obj = S3Plugin.amazonS3.getObject("sproutup-test-upload", img.fileName());
-
-            Logger.debug("get object content stream");
-
-            S3ObjectInputStream originalImage = obj.getObjectContent();
-
-            ByteArrayOutputStream out = new ByteArrayOutputStream();
-
             try {
+
+                Logger.debug("get object content stream");
+
+                S3ObjectInputStream originalImage = obj.getObjectContent();
+
+                ByteArrayOutputStream out = new ByteArrayOutputStream();
+
                 Logger.debug("convert image");
 
                 Thumbnails.of(originalImage)
-                .size(x, y)
-                .outputFormat("jpg")
+                        .size(x, y)
+                        .outputFormat("jpg")
                 .toOutputStream(out);
 
+//                Cache.set(image + x + "x" + y, out, 60 * 15, null);
+
                 return ok(out.toByteArray()).as("image/jpg");
-            } catch (IOException e) {
-                e.printStackTrace();
+            } catch (Exception e) {
+                Logger.debug("error getting object image");
             }
         }
-        return badRequest();
+        return notFound();
     }
 }
