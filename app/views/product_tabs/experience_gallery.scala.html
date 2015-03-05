@@ -7,60 +7,59 @@
     </div>
 </div>
 
-    <!-- ask people to share photos or videos -->
+<!-- ask people to share photos or videos - - >
 <div class="col-sm-12" ng-controller="FileCtrl">
     <div class="gallery-header">
         We love photos and videos. We believe photos and videos tell greater product stories than any word does.<br>
         <span><a href="#" ng-click="upload('md', product.id, 'model.product')"><i class="fa fa-plus-circle fa-lg"></i>Start your show</a> here today. Share your {{product.productName}} experience with everyone!</span>
     </div>
-</div>
+</div -->
+<div ng-controller="FileCtrl">
 
-    <!--Photos-->
-<div class="media">
-
-            <div class="col-lg-3 col-md-3 col-sm-4 media-photo">
-                <div class="media-photo-background"
-                style="background-image: url('media.cloudFrontLink');">
-                    <div class="media-photo-overlay"></div>
-                    <div class="media-photo-info">
-                        <div class="media-user">media.submittedByUserID</div>
-                    </div>
-                    <div class="media-photo-actions">
-                        <a class="media-photo-actions--item" href="#"><i class="fa fa-rocket"></i>Up (89)</a>
-                        <a class="media-photo-actions--item" href="#"><i class="fa fa-share"></i>Share</a>
-                    </div>
-                </div>
-            </div>
-
-        <!-- this div shows a mock for hovering on a photo -->
-    <div class="col-lg-3 col-md-3 col-sm-4 media-photo">
-        <div class="media-photo-background"
-        style="background-image: url('http://d209heoa233yab.cloudfront.net/1_Belleds/79b43e9f-7a1c-431d-ba96-2f5ae8487bdb_@@solidpumba.jpg');">
-            <div class="media-photo-overlay-active"></div>
-            <div class="media-photo-info">
-                <div class="media-user">Tao Ni</div>
-                <div class="media-story">Just got the Belleds Q bulb set. Installation is very easy. Love the coloring effect. Kids like dancing with the changing hue.</div>
-            </div>
-            <div class="media-photo-actions">
-                <a class="media-photo-actions--item" href="#"><i class="fa fa-rocket"></i>Up (89)</a>
-                <a class="media-photo-actions--item" href="#"><i class="fa fa-share"></i>Share</a>
-            </div>
+    <!-- ask people to share photos or videos -->
+    <div class="col-sm-12">
+        <div class="gallery-header">
+            We love photos and videos. We believe photos and videos tell greater product stories than any word does.<br>
+            <span><a subject-present="gallery.showUpload = !gallery.showUpload" login="login('sm')" href="#"><i class="fa fa-plus-circle fa-lg"></i>Start your show</a> and share your experience with everyone!</span>
         </div>
     </div>
 
+    <!-- current user new photo/video: after user clicks "post" button above -->
+    <div class="col-sm-12">
+        <div ng-show="gallery.showUpload" class="post-new-media-row">
+            <div class="post-new-media-blurb">
+                <div class="post-user-name">{{user.name}}</div>
+                <div class="progress" style="" ng-show="files[0].progress >= 0">
+                    <div class="progress-bar" ng-style="{ 'width': upload.progress + '%' }" role="progressbar" style="width: 0%;"></div>
+                </div>
+                <div class="post-new-media-form">
+                    <div ng-file-select ng-model="files" class="post-new-media-file">
+                        <a href="#" class="btn btn-lg btn-media-upload">
+                            <i class="fa fa-plus-circle"></i>
+                            <img ng-show="files[0].dataUrl != null" ng-src="{{files[0].dataUrl}}" style="float:left;height:128px;padding-right:0px;width:128px;" class="thumbnail">
+                            <div ng-show="authenticate.progress > 0">
+                            </div>
+                        </a>
+                    </div>
+                    <div class="post-new-media-comment">
+                        <textarea placeholder="Tell something about this photo..." class="form-control post-media-comment-textarea" rows="3"></textarea>
+                    </div>
+                </div>
+                <div class="post-new-comment-actions">
+                    <button ng-click="cancel()" type="button" class="btn btn-cancel-post">Cancel</button>
+                    <button ng-disabled="!files[0].type" ng-click="upload(files, product.id, 'models.product')" type="button" class="btn btn-post-media">Upload</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Photos-->
+<div class="media">
 </div>
 
 <hr>
 
     <!-- Videos -->
 <div class="media">
-        <div class="col-md-4 col-sm-12 media-video">
-            <div class="flowplayer">
-                <video>
-                    <source type="application/x-mpegurl" src="(media.cloudFrontLink + ".m3u8")">
-                    <source type="video/webm" src="(media.cloudFrontLink + ".webm")">
-                    <source type="video/mp4" src="(media.cloudFrontLink + ".mp4")">
-                </video>
-            </div>
-        </div>
 </div>
