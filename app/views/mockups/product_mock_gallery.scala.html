@@ -1,174 +1,178 @@
 @(product: models.Product)
 
-<div class="col-lg-12 gallery-tabs">
-    <div class="gallery-tabs--content">
-        <a class="btn btn-lg btn-gallery-tab active" href="#"><i class="fa fa-photo"></i>Photos</a>
-        <a class="btn btn-lg btn-gallery-tab" href="#"><i class="fa fa-video-camera"></i>Videos</a>
-    </div>
-</div>
+<div class="product-gallery-age">
 
-<!-- ask people to share photos or videos -->
-<div class="col-sm-12">
-    <div class="gallery-header">
-        We love photos and videos. We believe photos and videos tell greater product stories than any word does.<br>
-        <span><a href="#"><i class="fa fa-plus-circle fa-lg"></i>Start your show</a> and share your experience with everyone!</span>
-    </div>
-</div>
-
-<!-- current user new photo/video: after user clicks "post" button above -->
-<div class="post-new-media-row">
-    <div class="post-new-media-blurb">
-        <div class="post-user-name">Ed Smith</div>
-        <div class="post-new-media-form">
-            <div class="post-new-media-file">
-                <a href="#" class="btn btn-lg btn-media-upload"><i class="fa fa-plus-circle"></i></a>
-            </div>
-            <div class="post-new-media-comment">
-                <textarea placeholder="Tell something about this photo..." class="form-control post-media-comment-textarea" rows="3"></textarea>
-            </div>
-        </div>
-        <div class="post-new-comment-actions">
-            <button type="button" class="btn btn-cancel-post">Cancel</button>
-            <button type="button" class="btn btn-post-media">Upload</button>
+    <div class="col-lg-12 gallery-tabs">
+        <div class="gallery-tabs--content">
+            <a class="btn btn-lg btn-gallery-tab active" href="#"><i class="fa fa-photo"></i>Photos</a>
+            <a class="btn btn-lg btn-gallery-tab" href="#"><i class="fa fa-video-camera"></i>Videos</a>
         </div>
     </div>
-</div>
 
-<!--Photos-->
-<div class="media">
+    <!-- ask people to share photos or videos -->
+    <div class="col-sm-12">
+        <div class="gallery-header">
+            We love photos and videos. We believe photos and videos tell greater product stories than any word does.<br>
+            <span><a href="#"><i class="fa fa-plus-circle fa-lg"></i>Start your show</a> and share your experience with everyone!</span>
+        </div>
+    </div>
 
-    @for(media <- product.mediaItems) {
-    @if(media.mediaType == "image") {
-    <div class="col-lg-3 col-md-3 col-sm-4 media-photo">
-        <div class="media-photo-background"
-             style="background-image: url('@media.cloudFrontLink');">
-            <div class="media-photo-overlay">
-                <div class="media-photo-info">
-                    <div class="media-user">@media.submittedByUserID</div>
-                    <div class="media-photo-actions">
-                        <a class="media-actions--item" href="#"><i class="fa fa-rocket"></i>Up (89)</a>
-                        <a class="media-actions--item" href="#"><i class="fa fa-share"></i>Share</a>
+    <!-- current user new photo/video: after user clicks "post" button above -->
+    <div class="post-new-media-row">
+        <div class="post-new-media-blurb">
+            <div class="post-user-name">Ed Smith</div>
+            <div class="post-new-media-form">
+                <div class="post-new-media-file">
+                    <a href="#" class="btn btn-lg btn-media-upload"><i class="fa fa-plus-circle"></i></a>
+                </div>
+                <div class="post-new-media-comment">
+                    <textarea placeholder="Tell something about this photo..." class="form-control post-media-comment-textarea" rows="3"></textarea>
+                </div>
+            </div>
+            <div class="post-new-comment-actions">
+                <button type="button" class="btn btn-cancel-post">Cancel</button>
+                <button type="button" class="btn btn-post-media">Upload</button>
+            </div>
+        </div>
+    </div>
+
+    <!--Photos-->
+    <div class="media">
+
+        @for(media <- product.mediaItems) {
+        @if(media.mediaType == "image") {
+        <div class="col-lg-3 col-md-3 col-sm-4 media-photo">
+            <div class="media-photo-background"
+                 style="background-image: url('@media.cloudFrontLink');">
+                <div class="media-photo-overlay">
+                    <div class="media-photo-info">
+                        <div class="media-user">@media.submittedByUserID</div>
+                        <div class="media-photo-actions">
+                            <a class="media-actions--item" href="#"><i class="fa fa-rocket"></i>Up (89)</a>
+                            <a class="media-actions--item" href="#"><i class="fa fa-share"></i>Share</a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    }
-    }
+        }
+        }
 
-    <!-- this div shows a mock for hovering on a photo -->
-    <div class="col-lg-3 col-md-3 col-sm-4 media-photo">
-        <div class="media-photo-background"
-             style="background-image: url('http://d209heoa233yab.cloudfront.net/1_Belleds/79b43e9f-7a1c-431d-ba96-2f5ae8487bdb_@@solidpumba.jpg');">
-            <div class="media-photo-overlay active">
-                <div class="media-photo-info">
+        <!-- this div shows a mock for hovering on a photo -->
+        <div class="col-lg-3 col-md-3 col-sm-4 media-photo">
+            <div class="media-photo-background"
+                 style="background-image: url('http://d209heoa233yab.cloudfront.net/1_Belleds/79b43e9f-7a1c-431d-ba96-2f5ae8487bdb_@@solidpumba.jpg');">
+                <div class="media-photo-overlay active">
+                    <div class="media-photo-info">
+                        <div class="media-user">Tao Ni</div>
+                        <div class="media-story">Just got the Belleds Q bulb set. Installation is very easy. Love the coloring effect. Kids like dancing with the changing hue.</div>
+                        <div class="media-photo-actions">
+                            <a class="media-actions--item" href="#"><i class="fa fa-rocket"></i>Up (89)</a>
+                            <a class="media-actions--item" href="#"><i class="fa fa-share"></i>Share</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <hr>
+
+    <!-- Videos -->
+    <div class="media">
+        <!-- 1st column -->
+        <div class="col-md-4 col-sm-6 col-xs-12 media-video-column">
+            <div class="col-sm-12 media-video">
+                <div class="flowplayer">
+                    <video>
+                        <source type="application/x-mpegurl" src="http://dc2jx5ot5judg.cloudfront.net/1_Belleds/0a70e884-10fb-4c4a-9353-a3752e1545d0/0a70e884-10fb-4c4a-9353-a3752e1545d0.m3u8">
+                        <source type="video/webm" src="http://dc2jx5ot5judg.cloudfront.net/1_Belleds/0a70e884-10fb-4c4a-9353-a3752e1545d0/0a70e884-10fb-4c4a-9353-a3752e1545d0.webm">
+                        <source type="video/mp4" src="http://dc2jx5ot5judg.cloudfront.net/1_Belleds/0a70e884-10fb-4c4a-9353-a3752e1545d0/0a70e884-10fb-4c4a-9353-a3752e1545d0.mp4">
+                    </video>
+                </div>
+                <div class="media-video-info">
                     <div class="media-user">Tao Ni</div>
                     <div class="media-story">Just got the Belleds Q bulb set. Installation is very easy. Love the coloring effect. Kids like dancing with the changing hue.</div>
-                    <div class="media-photo-actions">
+                    <div class="media-video-actions">
+                        <a class="media-actions--item" href="#"><i class="fa fa-rocket"></i>Up (89)</a>
+                        <a class="media-actions--item" href="#"><i class="fa fa-share"></i>Share</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 media-video">
+                <div class="flowplayer">
+                    <video>
+                        <source type="application/x-mpegurl" src="http://dc2jx5ot5judg.cloudfront.net/1_Belleds/788c7fe4-0f75-4beb-bf3b-e6febf3941d2/788c7fe4-0f75-4beb-bf3b-e6febf3941d2.m3u8">
+                        <source type="video/webm" src="http://dc2jx5ot5judg.cloudfront.net/1_Belleds/788c7fe4-0f75-4beb-bf3b-e6febf3941d2/788c7fe4-0f75-4beb-bf3b-e6febf3941d2.webm">
+                        <source type="video/mp4" src="http://dc2jx5ot5judg.cloudfront.net/1_Belleds/788c7fe4-0f75-4beb-bf3b-e6febf3941d2/788c7fe4-0f75-4beb-bf3b-e6febf3941d2.mp4">
+                    </video>
+                </div>
+                <div class="media-video-info">
+                    <div class="media-user">Tao Ni</div>
+                    <div class="media-video-actions">
                         <a class="media-actions--item" href="#"><i class="fa fa-rocket"></i>Up (89)</a>
                         <a class="media-actions--item" href="#"><i class="fa fa-share"></i>Share</a>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
+        <!-- 2nd column -->
+        <div class="col-md-4 col-sm-6 col-xs-12 media-video-column">
+            <div class="col-sm-12 media-video">
+                <div class="flowplayer">
+                    <video>
+                        <source type="application/x-mpegurl" src="http://dc2jx5ot5judg.cloudfront.net/1_Belleds/f39be5f0-7373-4037-b840-f6822fae66bd/f39be5f0-7373-4037-b840-f6822fae66bd.m3u8">
+                        <source type="video/webm" src="http://dc2jx5ot5judg.cloudfront.net/1_Belleds/f39be5f0-7373-4037-b840-f6822fae66bd/f39be5f0-7373-4037-b840-f6822fae66bd.webm">
+                        <source type="video/mp4" src="http://dc2jx5ot5judg.cloudfront.net/1_Belleds/f39be5f0-7373-4037-b840-f6822fae66bd/f39be5f0-7373-4037-b840-f6822fae66bd.mp4">
+                    </video>
+                </div>
+                <div class="media-video-info">
+                    <div class="media-user">Tao Ni</div>
+                    <div class="media-video-actions">
+                        <a class="media-actions--item" href="#"><i class="fa fa-rocket"></i>Up (89)</a>
+                        <a class="media-actions--item" href="#"><i class="fa fa-share"></i>Share</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 media-video">
+                <div class="flowplayer">
+                    <video>
+                        <source type="application/x-mpegurl" src="http://dc2jx5ot5judg.cloudfront.net/1_Belleds/ccbe1a88-a69f-4840-bc01-9132c3def596/ccbe1a88-a69f-4840-bc01-9132c3def596.m3u8">
+                        <source type="video/webm" src="http://dc2jx5ot5judg.cloudfront.net/1_Belleds/ccbe1a88-a69f-4840-bc01-9132c3def596/ccbe1a88-a69f-4840-bc01-9132c3def596.webm">
+                        <source type="video/mp4" src="http://dc2jx5ot5judg.cloudfront.net/1_Belleds/ccbe1a88-a69f-4840-bc01-9132c3def596/ccbe1a88-a69f-4840-bc01-9132c3def596.mp4">
+                    </video>
+                </div>
+                <div class="media-video-info">
+                    <div class="media-user">Tao Ni</div>
+                    <div class="media-video-actions">
+                        <a class="media-actions--item" href="#"><i class="fa fa-rocket"></i>Up (89)</a>
+                        <a class="media-actions--item" href="#"><i class="fa fa-share"></i>Share</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3rd column -->
+        <div class="col-md-4 col-sm-6 col-xs-12 media-video-column">
+            <div class="col-sm-12 media-video">
+                <div class="flowplayer">
+                    <video>
+                        <source type="application/x-mpegurl" src="http://dc2jx5ot5judg.cloudfront.net/1_Belleds/9362dd4a-e2e6-4f42-ae74-cebbc4c1c75b/9362dd4a-e2e6-4f42-ae74-cebbc4c1c75b.m3u8">
+                        <source type="video/webm" src="http://dc2jx5ot5judg.cloudfront.net/1_Belleds/9362dd4a-e2e6-4f42-ae74-cebbc4c1c75b/9362dd4a-e2e6-4f42-ae74-cebbc4c1c75b.webm">
+                        <source type="video/mp4" src="http://dc2jx5ot5judg.cloudfront.net/1_Belleds/9362dd4a-e2e6-4f42-ae74-cebbc4c1c75b/9362dd4a-e2e6-4f42-ae74-cebbc4c1c75b.mp4">
+                    </video>
+                </div>
+                <div class="media-video-info">
+                    <div class="media-user">Tao Ni</div>
+                    <div class="media-video-actions">
+                        <a class="media-actions--item" href="#"><i class="fa fa-rocket"></i>Up (89)</a>
+                        <a class="media-actions--item" href="#"><i class="fa fa-share"></i>Share</a>
+                    </div>
+                </div>
+            </div>
+        </div>
 </div>
 
-<hr>
-
-<!-- Videos -->
-<div class="media">
-    <!-- 1st column -->
-    <div class="col-md-4 col-sm-6 col-xs-12 media-video-column">
-        <div class="col-sm-12 media-video">
-            <div class="flowplayer">
-                <video>
-                    <source type="application/x-mpegurl" src="http://dc2jx5ot5judg.cloudfront.net/1_Belleds/0a70e884-10fb-4c4a-9353-a3752e1545d0/0a70e884-10fb-4c4a-9353-a3752e1545d0.m3u8">
-                    <source type="video/webm" src="http://dc2jx5ot5judg.cloudfront.net/1_Belleds/0a70e884-10fb-4c4a-9353-a3752e1545d0/0a70e884-10fb-4c4a-9353-a3752e1545d0.webm">
-                    <source type="video/mp4" src="http://dc2jx5ot5judg.cloudfront.net/1_Belleds/0a70e884-10fb-4c4a-9353-a3752e1545d0/0a70e884-10fb-4c4a-9353-a3752e1545d0.mp4">
-                </video>
-            </div>
-            <div class="media-video-info">
-                <div class="media-user">Tao Ni</div>
-                <div class="media-story">Just got the Belleds Q bulb set. Installation is very easy. Love the coloring effect. Kids like dancing with the changing hue.</div>
-                <div class="media-video-actions">
-                    <a class="media-actions--item" href="#"><i class="fa fa-rocket"></i>Up (89)</a>
-                    <a class="media-actions--item" href="#"><i class="fa fa-share"></i>Share</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-12 media-video">
-            <div class="flowplayer">
-                <video>
-                    <source type="application/x-mpegurl" src="http://dc2jx5ot5judg.cloudfront.net/1_Belleds/788c7fe4-0f75-4beb-bf3b-e6febf3941d2/788c7fe4-0f75-4beb-bf3b-e6febf3941d2.m3u8">
-                    <source type="video/webm" src="http://dc2jx5ot5judg.cloudfront.net/1_Belleds/788c7fe4-0f75-4beb-bf3b-e6febf3941d2/788c7fe4-0f75-4beb-bf3b-e6febf3941d2.webm">
-                    <source type="video/mp4" src="http://dc2jx5ot5judg.cloudfront.net/1_Belleds/788c7fe4-0f75-4beb-bf3b-e6febf3941d2/788c7fe4-0f75-4beb-bf3b-e6febf3941d2.mp4">
-                </video>
-            </div>
-            <div class="media-video-info">
-                <div class="media-user">Tao Ni</div>
-                <div class="media-video-actions">
-                    <a class="media-actions--item" href="#"><i class="fa fa-rocket"></i>Up (89)</a>
-                    <a class="media-actions--item" href="#"><i class="fa fa-share"></i>Share</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- 2nd column -->
-    <div class="col-md-4 col-sm-6 col-xs-12 media-video-column">
-        <div class="col-sm-12 media-video">
-            <div class="flowplayer">
-                <video>
-                    <source type="application/x-mpegurl" src="http://dc2jx5ot5judg.cloudfront.net/1_Belleds/f39be5f0-7373-4037-b840-f6822fae66bd/f39be5f0-7373-4037-b840-f6822fae66bd.m3u8">
-                    <source type="video/webm" src="http://dc2jx5ot5judg.cloudfront.net/1_Belleds/f39be5f0-7373-4037-b840-f6822fae66bd/f39be5f0-7373-4037-b840-f6822fae66bd.webm">
-                    <source type="video/mp4" src="http://dc2jx5ot5judg.cloudfront.net/1_Belleds/f39be5f0-7373-4037-b840-f6822fae66bd/f39be5f0-7373-4037-b840-f6822fae66bd.mp4">
-                </video>
-            </div>
-            <div class="media-video-info">
-                <div class="media-user">Tao Ni</div>
-                <div class="media-video-actions">
-                    <a class="media-actions--item" href="#"><i class="fa fa-rocket"></i>Up (89)</a>
-                    <a class="media-actions--item" href="#"><i class="fa fa-share"></i>Share</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-12 media-video">
-            <div class="flowplayer">
-                <video>
-                    <source type="application/x-mpegurl" src="http://dc2jx5ot5judg.cloudfront.net/1_Belleds/ccbe1a88-a69f-4840-bc01-9132c3def596/ccbe1a88-a69f-4840-bc01-9132c3def596.m3u8">
-                    <source type="video/webm" src="http://dc2jx5ot5judg.cloudfront.net/1_Belleds/ccbe1a88-a69f-4840-bc01-9132c3def596/ccbe1a88-a69f-4840-bc01-9132c3def596.webm">
-                    <source type="video/mp4" src="http://dc2jx5ot5judg.cloudfront.net/1_Belleds/ccbe1a88-a69f-4840-bc01-9132c3def596/ccbe1a88-a69f-4840-bc01-9132c3def596.mp4">
-                </video>
-            </div>
-            <div class="media-video-info">
-                <div class="media-user">Tao Ni</div>
-                <div class="media-video-actions">
-                    <a class="media-actions--item" href="#"><i class="fa fa-rocket"></i>Up (89)</a>
-                    <a class="media-actions--item" href="#"><i class="fa fa-share"></i>Share</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- 3rd column -->
-    <div class="col-md-4 col-sm-6 col-xs-12 media-video-column">
-        <div class="col-sm-12 media-video">
-            <div class="flowplayer">
-                <video>
-                    <source type="application/x-mpegurl" src="http://dc2jx5ot5judg.cloudfront.net/1_Belleds/9362dd4a-e2e6-4f42-ae74-cebbc4c1c75b/9362dd4a-e2e6-4f42-ae74-cebbc4c1c75b.m3u8">
-                    <source type="video/webm" src="http://dc2jx5ot5judg.cloudfront.net/1_Belleds/9362dd4a-e2e6-4f42-ae74-cebbc4c1c75b/9362dd4a-e2e6-4f42-ae74-cebbc4c1c75b.webm">
-                    <source type="video/mp4" src="http://dc2jx5ot5judg.cloudfront.net/1_Belleds/9362dd4a-e2e6-4f42-ae74-cebbc4c1c75b/9362dd4a-e2e6-4f42-ae74-cebbc4c1c75b.mp4">
-                </video>
-            </div>
-            <div class="media-video-info">
-                <div class="media-user">Tao Ni</div>
-                <div class="media-video-actions">
-                    <a class="media-actions--item" href="#"><i class="fa fa-rocket"></i>Up (89)</a>
-                    <a class="media-actions--item" href="#"><i class="fa fa-share"></i>Share</a>
-                </div>
-            </div>
-        </div>
-    </div>
 </div>
