@@ -40,16 +40,15 @@
                         </div>
                         <!-- show an delete button if there is a file selected -->
                         <div ng-show="files[0].dataUrl != null" class="post-new-media-file" style="background-image: url('{{files[0].dataUrl}}');">
-                            <a ng-click="cancel()" class="btn btn-lg btn-media-remove" href="#">
+                            <a ng-click="cancel()" ng-show="files[0].dataUrl != null" ng-hide="files[0].progress >= 0" class="btn btn-lg btn-media-remove" href="#">
                                 <i class="fa fa-times"></i>
                             </a>
-
-                            <div class="progress">
+                            <div class="progress" ng-show="files[0].progress >= 0">
                                 <div class="progress-bar" ng-style="{ 'width': upload.progress + '%' }" role="progressbar" style="width: 0%;"></div>
                             </div>
                         </div>
                         <div class="post-new-media-comment">
-                            <textarea ng-model="upload.text" placeholder="If you like, write something brief about this photo..." class="form-control post-media-comment-textarea" rows="3"></textarea>
+                            <textarea ng-model="upload.text" ng-disabled="files[0].progress >= 0" placeholder="If you like, write something brief about this photo..." class="form-control post-media-comment-textarea" rows="3"></textarea>
                         </div>
                     </div>
                     <div class="post-new-comment-actions">
