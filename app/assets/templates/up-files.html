@@ -1,0 +1,21 @@
+<div class="media">
+    <div ng-repeat="file in files | filter: { type: 'image/' } | orderBy: 'createdAt':true ">
+        <div class="col-lg-3 col-md-3 col-sm-4 media-photo">
+            <div class="media-photo-background" style="background-image: url('{{file.url}}?x=280&y=280');">
+                <div class="media-photo-overlay active">
+                    <div class="media-photo-info">
+                        <div class="media-user">
+                            {{file.username}}
+                            <a ng-show="file.comment" ng-click="file.showComment=!file.showComment" href="#"><i class="fa fa-comment"></i></a>
+                        </div>
+                        <div ng-show="file.showComment" class="media-story">{{file.comment}}</div>
+                        <div class="media-photo-actions">
+                            <a subject-present="addLike(post, user.id)" class="media-actions--item" href="#"><i class="fa fa-rocket"></i>Up ({{file.likes.length || 0}})</a>
+                            <a class="media-actions--item" href="#"><i class="fa fa-share"></i>Share</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

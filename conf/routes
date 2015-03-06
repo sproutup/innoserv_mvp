@@ -70,6 +70,7 @@ DELETE        /api/products/:id                      controllers.Products.delete
 
 GET           /api/file/policy                       controllers.FileController.authorize(contentHash: String , contentName: String, contentLength: Long, contentType: String, comment: String, refId: Long, refType: String)
 POST          /api/file/verify                       controllers.FileController.verify(uuid: String)
+GET           /api/file/:type/:id                    controllers.FileController.getFiles(id: Long, type: String)
 
 GET           /api/forum/posts                       controllers.PostController.getPosts(prod: Long ?= -1, cat: Long ?= -1)
 GET           /api/forum/posts/:id                   controllers.PostController.getPost(id: Long)

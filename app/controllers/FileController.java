@@ -3,17 +3,31 @@ package controllers;
 import be.objectify.deadbolt.java.actions.SubjectPresent;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import models.File;
+import models.Likes;
+import models.Post;
 import models.User;
 import play.Logger;
 import play.mvc.BodyParser;
 import play.mvc.Controller;
 import play.mvc.Result;
 
+import java.util.List;
+
 
 /**
  * Created by peter on 3/1/15.
  */
 public class FileController  extends Controller {
+
+    @BodyParser.Of(BodyParser.Json.class)
+    public static Result getFiles(Long id, String type) {
+
+        // get all likes for object
+        List<File> files = File.getAllFiles(id, type);
+
+        // convert to json and return
+        return ok(File.toJson(files));
+    }
 
     @BodyParser.Of(BodyParser.Json.class)
     @SubjectPresent
