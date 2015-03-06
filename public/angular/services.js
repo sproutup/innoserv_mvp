@@ -11,6 +11,22 @@ productServices.factory('FileService', ['$http','$log', '$q', '$upload',
 function($http, $log, $q, $upload){
     var FileService = {};
 
+    FileService.getAllFiles = function(refId, refType){
+        var deferred = $q.defer();
+
+        $http({
+            method: 'GET',
+            url: "/api/file" + "/" + refType + "/" + refId
+        }).success(function(data, status, headers, config){
+            $log.debug("fileservice - getAllFiles - success - " + data.length);
+            deferred.resolve(data);
+        }).error(function(data, status, headers, config){
+            deferred.resolve(false);
+        });
+
+        return deferred.promise;
+    };
+
     FileService.verify = function(uuid){
         var deferred = $q.defer();
 
@@ -122,7 +138,7 @@ function($http, $log, $q, $upload){
                         'contentName' : file.name,
                         'contentLength': file.size,
                         'contentType': file.type,
-                        'comment': comment,
+                        'comment': comment? comment : "",
                         'refId': refId,
                         'refType': refType}
                 }).success(function(data, status, headers, config){

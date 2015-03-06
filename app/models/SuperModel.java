@@ -13,12 +13,13 @@ import javax.persistence.Version;
 
 import play.Logger;
 import play.db.ebean.Model;
+import utils.Fileable;
 import utils.Followeable;
 import utils.Likeable;
 import utils.Taggable;
 
 @MappedSuperclass
-public class SuperModel extends TimeStampModel implements Likeable, Taggable, Followeable {
+public class SuperModel extends TimeStampModel implements Likeable, Taggable, Followeable, Fileable {
 
   /**
 	 * For social media features
@@ -111,6 +112,28 @@ public class SuperModel extends TimeStampModel implements Likeable, Taggable, Fo
 		Follow.removeAllFollowers(this.id, this.getClass().getName());
 		
 	}
-	
 
+    /*
+    Fileable interface implementation
+    */
+
+    @Override
+    public void addFile(Long id) {
+        //todo
+    }
+
+    @Override
+    public void removeFile(Long id) {
+        //todo
+    }
+
+    @Override
+    public void removeAllFiles() {
+        //todo
+    }
+
+    @Override
+    public List<File> getAllFiles() {
+        return File.getAllFiles(id, this.getClass().getName());
+    }
 }

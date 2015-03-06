@@ -22,7 +22,7 @@
         <div class="col-sm-12">
             <div class="gallery-header">
                 We love photos and videos. We believe photos and videos tell greater product stories than any word does.<br>
-                <span><a subject-present="gallery.showUpload = !gallery.showUpload" login="login('sm')" href="#"><i class="fa fa-plus-circle fa-lg"></i>Start your show</a> and share your experience with everyone!</span>
+                <span><a subject-present="toggle()" login="login('sm')" href="#"><i class="fa fa-plus-circle fa-lg"></i>Start your show</a> and share your experience with everyone!</span>
             </div>
         </div>
 
@@ -52,7 +52,7 @@
                         </div>
                     </div>
                     <div class="post-new-comment-actions">
-                        <button ng-click="cancel()" type="button" class="btn btn-cancel-post">Cancel</button>
+                        <button ng-click="toggle()" type="button" class="btn btn-cancel-post">Cancel</button>
                         <button ng-disabled="!files[0].type" ng-click="upload(files, upload.text, product.id, 'models.product')" type="button" class="btn btn-post-media">Upload</button>
                     </div>
                 </div>
@@ -61,8 +61,7 @@
     </div>
 
     <!--Photos-->
-    <div class="media">
-    </div>
+    <up-files ref-id="{{product.id}}" ref-type="models.product"></up-files>
 
     <hr>
 

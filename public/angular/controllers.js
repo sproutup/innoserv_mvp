@@ -26,8 +26,8 @@ My3Ctrl.$inject = [];
 
 var fileControllers = angular.module('FileControllers', ['ui.bootstrap']);
 
-fileControllers.controller('FileCtrl', ['$scope', '$upload', 'FileService', '$timeout', '$modal', '$log',
-    function($scope, $upload, FileService, $timeout, $modal, $log){
+fileControllers.controller('FileCtrl', ['$scope', '$rootScope', '$upload', 'FileService', '$timeout', '$modal', '$log',
+    function($scope, $rootScope, $upload, FileService, $timeout, $modal, $log){
 
         $scope.gallery = {
             'showUpload': false
@@ -35,8 +35,23 @@ fileControllers.controller('FileCtrl', ['$scope', '$upload', 'FileService', '$ti
 
         $scope.upload = {
             progress : 0
-        }
+        };
 
+        $scope.getAllFiles = function (refId, refType) {
+            FileService.getAllFiles(refId, refType).then(
+                function(result){
+                    $log.debug("fileCtrl - getAllFiles - result: " + result.size);
+                    $scope.files = result;
+                },
+                function(error){
+                    $scope.files = null;
+                }
+            );
+        };
+
+        $scope.$watch('product', function(product) {
+            $log.debug("watch product found: " + product.id);
+        });
 
         $scope.$watch('files', function(files) {
             $log.debug("watch files...");
@@ -72,9 +87,17 @@ fileControllers.controller('FileCtrl', ['$scope', '$upload', 'FileService', '$ti
             }
         };
 
-        $scope.cancel = function() {
+        $scope.toggle = function() {
+            $log.debug("cancel");
+            $scope.gallery.showUpload = !$scope.gallery.showUpload;
+            $scope.reset();
+        };
+
+        $scope.reset = function() {
+            $log.debug("reset");
             $scope.files = null;
-        }
+            $scope.upload.text = "";
+        };
 
         $scope.upload = function (files, message, refId, refType) {
 
@@ -98,6 +121,12 @@ fileControllers.controller('FileCtrl', ['$scope', '$upload', 'FileService', '$ti
                                         function(payload){
                                             files[0].progress = 100;
                                             $scope.upload.progress = 100;
+                                            $log.debug("broadcast fileUploadEvent");
+                                            // firing an event downwards
+                                            $rootScope.$broadcast('fileUploadEvent', {
+                                                someProp: 'Sending you an Object!' // send whatever you want
+                                            });
+                                            $scope.reset();
                                         }
                                     )
                                 },

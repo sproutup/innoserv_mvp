@@ -1,7 +1,10 @@
 package models;
 
 import com.avaje.ebean.ExpressionList;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import org.joda.time.DateTime;
 import play.Logger;
 import play.db.ebean.Model;
 import play.libs.Json;
@@ -11,6 +14,7 @@ import javax.persistence.*;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -18,7 +22,7 @@ import java.util.UUID;
  * Created by peter on 3/3/15.
  */
 @Entity
-public class File extends TimeStampModel {
+public class File extends SuperModel {
     public static Finder<Long, File> find = new Model.Finder<Long, File>(Long.class,
             File.class);
 
@@ -83,6 +87,46 @@ public class File extends TimeStampModel {
         }
     }
 
+    /*
+    Get all files on an object identified by refId and refType
+    */
+    public static List<File> getAllFiles(Long refId, String refType) {
+
+        // find all likes
+        List<File> files = File.find.where()
+                .eq("refId", refId)
+                .eq("refType", refType)
+                .findList();
+
+        return files;
+    }
+
+    public ObjectNode toJson(){
+        ObjectNode node = Json.newObject();
+        node.put("filename", this.fileName());
+        node.put("type", this.type);
+        node.put("url", this.url());
+        node.put("comment", this.comment);
+        node.put("username", this.user.name);
+        node.put("createdAt", new DateTime(this.createdAt).toString());
+
+        // add likes to the node
+        List<Likes> likes = this.getAllLikes();
+        if(likes.size()>0){
+            node.put("likes", Likes.toJson(likes));
+        }
+
+        return node;
+    }
+
+    public static ArrayNode toJson(List<File> files){
+        ArrayNode arrayNode = new ArrayNode(JsonNodeFactory.instance);
+        for (File file : files){
+            arrayNode.add(file.toJson());
+        }
+        return arrayNode;
+    }
+
     public static boolean verify(String id){
         File file = File.findByUUID(UUID.fromString(id));
         if(file != null) {
@@ -97,6 +141,10 @@ public class File extends TimeStampModel {
 
     public String fileName() {
         return (uuid + "_"+ user.id + ".jpg");
+    }
+
+    public String url() {
+        return ("http://d2ggucmtk9u4go.cloudfront.net" + "/" + this.fileName());
     }
 
     /**

@@ -1,6 +1,45 @@
 'use strict';
 
 
+angular.module('sproutupApp').directive('upFiles', ['FileService',
+    function (fileService) {
+        return {
+            restrict: 'E',
+            replace: true,
+            scope: true,
+            templateUrl: 'assets/templates/up-files.html',
+            link: function (scope, element, attrs) {
+                // listen for the event in the relevant $scope
+                scope.$on('fileUploadEvent', function (event, data) {
+                    console.log('on fileUploadEvent');
+                    loadFiles();
+                });
+
+                attrs.$observe('refId', function (refId) {
+                    if (refId) {
+                        console.log("up-files - ref-id changed: " + refId);
+                        loadFiles();
+                    }
+                });
+
+                function loadFiles() {
+                    var promise = fileService.getAllFiles(attrs.refId, attrs.refType);
+
+                    promise.then(function(data) {
+                        console.log('Success: ' + data.lenght);
+                        scope.files = data;
+                    }, function(reason) {
+                        console.log('Failed: ' + reason);
+                    }, function(update) {
+                        console.log('Got notification: ' + update);
+                    });
+                }
+            }
+        }
+    }
+]);
+
+
 angular.module('sproutupApp').directive('follow', ['FollowService',
     function (FollowService) {
     return {
