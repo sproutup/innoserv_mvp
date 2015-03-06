@@ -43,6 +43,9 @@ public class File extends TimeStampModel {
     public Long length;
     public String folder;
 
+    @Column(columnDefinition = "TEXT")
+    public String comment;
+
     @Column(columnDefinition = "boolean default false")
     public boolean verified;
 

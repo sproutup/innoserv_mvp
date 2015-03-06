@@ -17,7 +17,7 @@ public class FileController  extends Controller {
 
     @BodyParser.Of(BodyParser.Json.class)
     @SubjectPresent
-    public static Result authorize(String contentHash, String contentName, Long contentLength, String contentType, Long refId, String refType)
+    public static Result authorize(String contentHash, String contentName, Long contentLength, String contentType, String comment, Long refId, String refType)
     {
         User user = Application.getLocalUser(ctx().session());
         File file = new File();
@@ -26,6 +26,7 @@ public class FileController  extends Controller {
         file.type = contentType;
         file.refId = refId;
         file.refType = refType;
+        file.comment = comment;
         ObjectNode policy = file.authorize("sproutup-test-upload", "us-west-2", "AKIAJM5X5NV444LJEUSA", "UHpVP/axa3eOmfCOcSQFGXwK4fzYMzHV8aYkh38X", contentHash, user, contentLength);
         file.save();
         Logger.debug("policy: " + policy);

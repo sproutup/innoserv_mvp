@@ -68,7 +68,7 @@ POST          /api/products                          controllers.Products.create
 PUT           /api/products/:id                      controllers.Products.updateProduct(id: Long)
 DELETE        /api/products/:id                      controllers.Products.deleteProduct(id: Long)
 
-GET           /api/file/policy                       controllers.FileController.authorize(contentHash: String , contentName: String, contentLength: Long, contentType: String, refId: Long, refType: String)
+GET           /api/file/policy                       controllers.FileController.authorize(contentHash: String , contentName: String, contentLength: Long, contentType: String, comment: String, refId: Long, refType: String)
 POST          /api/file/verify                       controllers.FileController.verify(uuid: String)
 
 GET           /api/forum/posts                       controllers.PostController.getPosts(prod: Long ?= -1, cat: Long ?= -1)

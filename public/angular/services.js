@@ -69,7 +69,7 @@ function($http, $log, $q, $upload){
         return deferred.promise;
     };
 
-    FileService.authenticate = function(file, refId, refType){
+    FileService.authenticate = function(file, comment, refId, refType){
         var deferred = $q.defer();
 
         $log.debug("file: " + file.size);
@@ -122,6 +122,7 @@ function($http, $log, $q, $upload){
                         'contentName' : file.name,
                         'contentLength': file.size,
                         'contentType': file.type,
+                        'comment': comment,
                         'refId': refId,
                         'refType': refType}
                 }).success(function(data, status, headers, config){
