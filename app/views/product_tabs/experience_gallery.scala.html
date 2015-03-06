@@ -38,10 +38,9 @@
                                 <i class="fa fa-plus-circle"></i>
                             </a>
                             <!-- show a delete button if there is a file selected -->
-                            <a ng-show="files[0].dataUrl != null" class="btn btn-lg btn-media-remove" href="#">
+                            <a ng-show="files[0].dataUrl != null" ng-hide="files[0].progress >= 0" class="btn btn-lg btn-media-remove" href="#">
                                 <i class="fa fa-times"></i>
                             </a>
-
                             <div class="progress" ng-show="files[0].progress >= 0">
                                 <div class="progress-bar" ng-style="{ 'width': upload.progress + '%' }" role="progressbar" style="width: 0%;"></div>
                             </div>
