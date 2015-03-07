@@ -40,7 +40,7 @@
                         </div>
                         <!-- show an delete button if there is a file selected -->
                         <div ng-show="files[0].dataUrl != null" class="post-new-media-file" style="background-image: url('{{files[0].dataUrl}}');">
-                            <a ng-click="cancel()" ng-show="files[0].dataUrl != null" ng-hide="files[0].progress >= 0" class="btn btn-lg btn-media-remove" href="#">
+                            <a ng-click="reset()" ng-show="files[0].dataUrl != null" ng-hide="files[0].progress >= 0" class="btn btn-lg btn-media-remove" href="#">
                                 <i class="fa fa-times"></i>
                             </a>
                             <div class="progress" ng-show="files[0].progress >= 0">
