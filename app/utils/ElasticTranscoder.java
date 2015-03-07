@@ -138,7 +138,7 @@ public class ElasticTranscoder {
 
         //setup encoding presets for HLS transcoding
         CreateJobOutput mp4 = new CreateJobOutput()
-                .withThumbnailPattern(outputKey + "/" + output_key + "-{resolution}-{count}")
+                //.withThumbnailPattern(outputKey + "/" + output_key + "-{resolution}-{count}")
                 .withKey(outputKey + "/" + outputKey + ".mp4")
                 .withPresetId(WEB_PRESET_ID);
 
