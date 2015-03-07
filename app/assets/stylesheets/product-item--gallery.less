@@ -108,24 +108,24 @@
 }
 
 .media-photo-overlay {
-  background: -webkit-linear-gradient(bottom, rgba(0,0,0,0), rgba(0,0,0,0.5));
-  background: -o-linear-gradient(bottom, rgba(0,0,0,0), rgba(0,0,0,0.5));
-  background: -moz-linear-gradient(bottom, rgba(0,0,0,0), rgba(0,0,0,0.5));
-  background: linear-gradient(to bottom, rgba(0,0,0,0), rgba(0,0,0,0.5));
+  background: -webkit-linear-gradient(top, rgba(0,0,0,0.7), rgba(0,0,0,0));
+  background: -o-linear-gradient(top, rgba(0,0,0,0.7), rgba(0,0,0,0));
+  background: -moz-linear-gradient(top, rgba(0,0,0,0.7), rgba(0,0,0,0));
+  background: linear-gradient(top, rgba(0,0,0,0.7), rgba(0,0,0,0));
   top: 0;
   left: 0;
   position: relative;
   width: 100%;
-  height: 100%;
+  height: 30%;
   z-index: 1;
   overflow: hidden;
 }
 
 .media-photo-overlay.active {
-  background: -webkit-linear-gradient(bottom, rgba(0,0,0,0.5), rgba(0,0,0,0.9));
-  background: -o-linear-gradient(bottom, rgba(0,0,0,0.5), rgba(0,0,0,0.9));
-  background: -moz-linear-gradient(bottom, rgba(0,0,0,0.5), rgba(0,0,0,0.9));
-  background: linear-gradient(to bottom, rgba(0,0,0,0.5), rgba(0,0,0,0.9));
+  background: -webkit-linear-gradient(top, rgba(0,0,0,0.8), rgba(0,0,0,0.3));
+  background: -o-linear-gradient(top, rgba(0,0,0,0.8), rgba(0,0,0,0.3));
+  background: -moz-linear-gradient(top, rgba(0,0,0,0.8), rgba(0,0,0,0.3));
+  background: linear-gradient(top, rgba(0,0,0,0.8), rgba(0,0,0,0.3));
   top: 0;
   left: 0;
   position: relative;
@@ -136,12 +136,10 @@
 }
 
 .media-photo-info {
-  bottom: 0;
-  left: 0px;
-  padding: 15px;
-  position: absolute;
+  padding: 10px;
   z-index: 3;
   color: @main-text-white;
+  overflow: hidden;
 }
 
 .media-video-info {
@@ -150,9 +148,9 @@
     position: absolute;
     margin-left: 3px;
     margin-right: 3px;
-    padding: 15px;
+    padding: 10px;
     z-index: 3;
-    width: 70%;
+    width: 65%;
     color: @main-text-white;
 }
 
@@ -170,27 +168,28 @@
 .media-user {
   font-weight: 400;
   font-size: 12pt;
-  padding-bottom: 10px;
+  padding-bottom: 8px;
 }
 
 .media-user a {
-  font-size: 11pt;
-  color: @main-text-white;
   padding-left: 12px;
-}
-
-.media-user.active a {
-  color: @sproutup-blue-bright;
+  color: @main-text-white;
 }
 
 .media-user a:hover {
   color: @sproutup-blue-bright;
 }
 
+.media-photo-overlay.active .media-user a {
+  color: @sproutup-blue-bright;
+}
+
 .media-story {
   font-weight: 400;
   font-size: 10pt;
-  padding-bottom: 15px;
+  padding-top: 5px;
+  padding-bottom: 20px;
+  line-height: 1.6;
 }
 
 .media-actions {

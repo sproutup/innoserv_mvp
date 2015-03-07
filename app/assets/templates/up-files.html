@@ -6,12 +6,12 @@
                     <div class="media-photo-info">
                         <div class="media-user">
                             {{file.username}}
-                            <a ng-show="file.comment" ng-click="file.showComment=!file.showComment" href="#"><i class="fa fa-comment"></i></a>
+                            <a ng-show="file.comment" ng-click="file.showComment=!file.showComment" href="#"><i class="fa fa-ellipsis-h"></i></a>
                         </div>
                         <div ng-show="file.showComment" class="media-story">{{file.comment}}</div>
-                        <div class="media-photo-actions">
-                            <a subject-present="addLike(post, user.id)" class="media-actions--item" href="#"><i class="fa fa-rocket"></i>Up ({{file.likes.length || 0}})</a>
-                            <a class="media-actions--item" href="#"><i class="fa fa-share"></i>Share</a>
+                        <div class="media-actions">
+                            <a subject-present="addLike(post, user.id)" href="#"><i class="fa fa-rocket"></i>Up ({{file.likes.length || 0}})</a>
+                            <a href="#"><i class="fa fa-share"></i>Share</a>
                         </div>
                     </div>
                 </div>
