@@ -52,16 +52,17 @@
     <div ng-repeat="post in posts | filter:query" class="row post-row">
         <!-- main post -->
         <section id="post-main">
+            <a id="post-{{post.id}}"/>
             <div class="col-sm-2 post-user-avatar">
                 <img class="img-responsive post-user-img-circle img-center" src="@routes.Assets.at("images/user/tao.png")">
             </div>
             <div class="col-sm-10 post-blurb">
                 <div class="post-user-name">{{post.user.name}}</div>
-                <div class="post-tags">
+                <div ng-show="post.tags.length>0" class="post-tags">
                     <button type="button" ng-repeat="tag in post.tags" class="btn btn-tags">
                         <i class="fa fa-tag"></i>{{tag.name}}</button>
                 </div>
-                <div class="post-title">{{post.title}}</div>
+                <div ng-show="post.title" class="post-title">{{post.title}}</div>
                 <div class="post-content">
                     <p>{{post.content}}</p>
                 </div>
@@ -96,6 +97,7 @@
             </div>
             <!-- existing comments -->
             <div ng-repeat="comment in post.comments | orderBy:'id':true" class="row post-comment-row">
+                <a id="post-{{comment.id}}"/>
                 <div class="col-md-2 col-sm-2 post-comment-user-avatar">
                     <img class="img-responsive post-comment-user-img-circle img-center" src="@routes.Assets.at("images/user/kevin.jpg")">
                 </div>

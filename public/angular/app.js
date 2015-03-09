@@ -13,6 +13,16 @@ var sproutupApp = angular.module('sproutupApp', [
     'ngTagsInput'
 ]);
 
+sproutupApp.config(function ($provide) {
+    $provide.decorator('$uiViewScroll', function ($delegate) {
+        return function (uiViewElement) {
+            // var top = uiViewElement.getBoundingClientRect().top;
+            window.scrollTo(0, 0);
+            // Or some other custom behaviour...
+        };
+    });
+});
+
 sproutupApp.config(['$routeProvider', '$stateProvider', '$locationProvider',
     function($routeProvider, $stateProvider, $locationProvider) {
         $locationProvider.html5Mode(true);
