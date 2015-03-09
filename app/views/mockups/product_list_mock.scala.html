@@ -1,0 +1,82 @@
+@moreHead = {
+
+<link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/product-list.css")">
+
+}
+
+@main("Product List", moreHead) {
+
+<div class="product-list">
+    <div class="col-sm-12 product-list--search-area">
+        <input class="form-control product-list--search-input" placeholder="Search products">
+        <span class="fa fa-search"></span>
+    </div>
+
+    <div class="row product-list-container">
+        <div class="col-md-4 col-sm-6 col-xs-12 product-list-item">
+            <a href="#">
+                <div class="product-cover-photo" style="background-image: url('https://s3.amazonaws.com/sproutup-mvp-cdn/assets/11111.jpg')">
+                    <div class="product-cover-info">
+                        <div class="product-category-list">
+                            <button type="button" class="btn btn-product-category">LED</button>
+                            <button type="button" class="btn btn-product-category">Home</button>
+                            <button type="button" class="btn btn-product-category">Smart Device</button>
+                        </div>
+                        <div class="product-cover-title">Belleds</div>
+                        <div class="product-cover-description">Smart LED lighting and audio platform</div>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-4 col-sm-6 col-xs-12 product-list-item">
+            <a href="#">
+                <div class="product-cover-photo" style="background-image: url('https://s3.amazonaws.com/sproutup-mvp-cdn/assets/11112.jpg')">
+                    <div class="product-cover-info">
+                        <div class="product-category-list">
+                            <button type="button" class="btn btn-product-category">Home</button>
+                            <button type="button" class="btn btn-product-category">Eco Friendly</button>
+                            <button type="button" class="btn btn-product-category">Design</button>
+                        </div>
+                        <div class="product-cover-title">Soma Water</div>
+                        <div class="product-cover-description">Beautifully innovative all-natural water filters</div>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-4 col-sm-6 col-xs-12 product-list-item">
+            <a href="#">
+                <div class="product-cover-photo" style="background-image: url('https://s3.amazonaws.com/sproutup-mvp-cdn/assets/11121.jpg')">
+                    <div class="product-cover-info">
+                        <div class="product-category-list">
+                            <button type="button" class="btn btn-product-category">Gadget</button>
+                            <button type="button" class="btn btn-product-category">Camera</button>
+                            <button type="button" class="btn btn-product-category">iPhone</button>
+                            <button type="button" class="btn btn-product-category">GoPro</button>
+                            <button type="button" class="btn btn-product-category">Robot</button>
+                            <button type="button" class="btn btn-product-category">Time Lapse</button>
+                        </div>
+                        <div class="product-cover-title">Galelio</div>
+                        <div class="product-cover-description">Smart dock for iPhone and GoPro</div>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-4 col-sm-6 col-xs-12 product-list-item">
+            <a href="#">
+                <div class="product-cover-photo" style="background-image: url('https://s3.amazonaws.com/sproutup-mvp-cdn/assets/11117.jpg')">
+                    <div class="product-cover-info">
+                        <div class="product-category-list">
+                            <button type="button" class="btn btn-product-category">Speaker</button>
+                            <button type="button" class="btn btn-product-category">Design</button>
+                        </div>
+                        <div class="product-cover-title">Hidden Radio</div>
+                        <div class="product-cover-description">Smart dock for iPhone and GoPro</div>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+
+}
+

@@ -59,4 +59,8 @@ public class MockupController extends Controller {
     public static Result forCreator() {
         return ok(for_creator_mock.render());
     }
+
+    public static Result productList () {
+        return ok(product_list_mock.render());
+    }
 }

@@ -42,10 +42,7 @@
 }
 
 .product-list-item {
-  margin-top: 5px;
-  margin-bottom: 5px;
-  padding-left: 5px;
-  padding-right: 5px;
+  padding: 4px;
 }
 
 .product-cover-photo {
@@ -58,11 +55,18 @@
     position: relative;
 }
 
+.product-cover-info {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
 .product-cover-info::before {
-  background: -webkit-linear-gradient(bottom, rgba(0,0,0,0), rgba(0,0,0,0.5));
-  background: -o-linear-gradient(bottom, rgba(0,0,0,0), rgba(0,0,0,0.5));
-  background: -moz-linear-gradient(bottom, rgba(0,0,0,0), rgba(0,0,0,0.5));
-  background: linear-gradient(to bottom, rgba(0,0,0,0), rgba(0,0,0,0.5));
+  background: -webkit-linear-gradient(top, rgba(0,0,0,0), rgba(0,0,0,0.5));
+  background: -o-linear-gradient(top, rgba(0,0,0,0), rgba(0,0,0,0.5));
+  background: -moz-linear-gradient(top, rgba(0,0,0,0), rgba(0,0,0,0.5));
+  background: linear-gradient(top, rgba(0,0,0,0), rgba(0,0,0,0.5));
   position: absolute;
   top: 0;
   right: 0;
@@ -71,13 +75,9 @@
   content: "";
 }
 
-.product-cover-info {
-  margin-left: 20px;
-  margin-right: 20px;
-}
-
 .product-cover-title {
-  height: 400px;
+  left: 20px;
+  bottom: 100px;
   width: 90%;
   font-weight: 100;
   font-size: 32pt;
@@ -85,16 +85,41 @@
   z-index: 3;
 }
 
-.product-cover-title p {
-  position: absolute;
-  bottom: 0;
-}
-
 .product-cover-description {
   width: 90%;
   font-weight: 300;
   font-size: 13pt;
-  padding-top: 400px;
-  position: absolute;
+  left: 20px;
   z-index: 3;
+  left: 20px;
+  top: 390px;
+  position: absolute;
 }
+
+.product-category-list {
+  left: 20px;
+  top: 20px;
+  width: 90%;
+  z-index: 3;
+  position: absolute;
+}
+
+.btn-product-category {
+  z-index: 3;
+  font-weight: 700;
+  font-size: 10pt;
+  color: @main-text-3;
+  background-color: rgba(255, 255, 255, 0.8);
+  margin-right: 2px;
+  margin-bottom: 6px;
+  height: 32px;
+  border-radius: 0px;
+  padding-top: 5px;
+  -webkit-transition: all .2s ease-in-out;
+  -o-transition: all .2s ease-in-out;
+  transition: all .2s ease-in-out;
+  box-shadow: 0px 0px 2px 1px rgba(169, 169, 169, 0.4);
+  -moz-box-shadow: 0px 0px 2px 1px rgba(169, 169, 169, 0.4);
+  -webkit-box-shadow: 0px 0px 2px 1px rgba(169, 169, 169, 0.4);
+}
+
