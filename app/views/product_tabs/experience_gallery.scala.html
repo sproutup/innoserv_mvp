@@ -44,7 +44,7 @@
                                 <i class="fa fa-times"></i>
                             </a>
                             <div class="progress" ng-show="files[0].progress >= 0">
-                                <div class="progress-bar" ng-style="{ 'width': upload.progress + '%' }" role="progressbar" style="width: 0%;"></div>
+                                <div class="progress-bar" ng-style="{ 'width': files[0].progress + '%' }" role="progressbar" style="width: 0%;"></div>
                             </div>
                         </div>
                         <div class="post-new-media-comment">
@@ -65,8 +65,11 @@
 
     <hr>
 
-        <!-- Videos -->
+    <!-- Videos -->
     <div class="media">
+        <div ng-repeat="file in files | filter: { type: 'video/' } | orderBy: 'createdAt':true ">
+            <up-video file="file"></up-video>
+        </div>
     </div>
 
 </div>

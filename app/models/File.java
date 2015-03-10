@@ -139,11 +139,23 @@ public class File extends SuperModel {
     }
 
     public String fileName() {
-        return (uuid + "_"+ user.id + ".jpg");
+        if (type.contains("video/")) {
+            return (uuid + "_" + user.id);
+        } else if (type.contains("image/")) {
+            return (uuid + "_" + user.id + ".jpg");
+        } else{
+            return (uuid + "_" + user.id + ".jpg");
+        }
     }
 
     public String url() {
-        return ("http://d2ggucmtk9u4go.cloudfront.net" + "/" + this.fileName());
+        if (type.contains("video/")) {
+            return ("http://dc2jx5ot5judg.cloudfront.net/" + this.fileName() + "/" + this.fileName() );
+        } else if (type.contains("image/")) {
+            return ("http://d2ggucmtk9u4go.cloudfront.net" + "/" + this.fileName());
+        } else{
+            return ("http://d2ggucmtk9u4go.cloudfront.net" + "/" + this.fileName());
+        }
     }
 
     /**

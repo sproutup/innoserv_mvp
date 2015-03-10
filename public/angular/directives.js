@@ -1,5 +1,24 @@
 'use strict';
 
+angular.module('sproutupApp').directive('upVideo', ['FileService',
+    function (fileService) {
+        return {
+            restrict: 'E',
+            replace: true,
+            scope: {
+                file: '='
+            },
+            templateUrl: 'assets/templates/up-video.html',
+            link: function (scope, element, attrs) {
+                attrs.$observe('file', function (file) {
+                    if (file) {
+                        console.log("up-video - file changed: " + file.id);
+                    }
+                });
+            }
+        }
+    }
+]);
 
 angular.module('sproutupApp').directive('upFiles', ['FileService',
     function (fileService) {
@@ -26,12 +45,12 @@ angular.module('sproutupApp').directive('upFiles', ['FileService',
                     var promise = fileService.getAllFiles(attrs.refId, attrs.refType);
 
                     promise.then(function(data) {
-                        console.log('Success: ' + data.lenght);
+                        console.log('up-files received data size: ' + data.length);
                         scope.files = data;
                     }, function(reason) {
-                        console.log('Failed: ' + reason);
+                        console.log('up-files failed: ' + reason);
                     }, function(update) {
-                        console.log('Got notification: ' + update);
+                        console.log('up-files got notification: ' + update);
                     });
                 }
             }
