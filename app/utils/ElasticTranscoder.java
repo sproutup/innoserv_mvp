@@ -18,12 +18,6 @@ public class ElasticTranscoder {
     //				Audio and video Elestic transcoder preset codecs defined in AWS
     //------------------------------------------------------------------------------------------
     //  Name:							ID:						Container:	Description:
-    //  SproutUp preset: HLS_2M			1424119370007-dxon1f	ts			System preset: HLS 2M
-    //  SproutUp preset: HLS_1_5M		1424119437602-aylrah	ts			System preset: HLS 1.5M
-    //  SproutUp preset: HLS_1M			1424119499796-5jai56	ts			System preset: HLS 1M
-    //  SproutUp preset: HLS_600k		1424119535877-gb7fak	ts			System preset: HLS 600k
-    //  SproutUp preset: HLS_400k		1424119586893-9x4w7m	ts			System preset: HLS 400k
-    //  SproutUp preset: Web            1424119710459-6kl7mu    mp4
     //------------------------------------------------------------------------------------------
     //  System preset: HLS_2M			1351620000001-200010	ts			System preset: HLS 2M
     //  System preset: HLS_1_5M			1351620000001-200020	ts			System preset: HLS 1.5M
@@ -101,7 +95,7 @@ public class ElasticTranscoder {
     private static String OUTPUT_KEY_PREFIX;
 
     // HLS Presets that will be used to create an adaptive bitrate playlist.
-    private static final String WEB_PRESET_ID           = "1351620000001-100070";
+    private static final String WEB_PRESET_ID           = "1351620000001-000001";
     private static final String HLS_2M_PRESET_ID 		= "1351620000001-200010";
     private static final String HLS_1_5M_PRESET_ID		= "1351620000001-200020";
     private static final String HLS_1M_PRESET_ID		= "1351620000001-200030";
