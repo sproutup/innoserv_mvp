@@ -79,10 +79,14 @@ fileControllers.controller('FileCtrl', ['$scope', '$rootScope', '$upload', 'File
                             $timeout(function() {
                                 $log.debug("set thumbnail url");
                                 file.dataUrl = e.target.result;
-                                $scope.files[0].dataUrl = e.target.result;
                             });
                         }
                     });
+                }
+                else
+                if (file.type.indexOf('video') > -1) {
+                    $log.debug("set thumbnail...reader supported");
+                    file.dataUrl = "/assets/images/video-thumbnail.png";
                 }
             }
         };
@@ -100,27 +104,26 @@ fileControllers.controller('FileCtrl', ['$scope', '$rootScope', '$upload', 'File
         };
 
         $scope.upload = function (files, message, refId, refType) {
-
             $log.debug("upload: " + refId);
 
-            FileService.authenticate(files[0], message, refId, refType).then(
-                function(payload){
-                    $log.debug("upload auth returned");
+            var startTime = +new Date();
 
-                    files[0].progress = 50;
-                    $scope.upload.progress = 50;
+            if (files && files.length) {
+                for (var i = 0; i < files.length; i++) {
+                    FileService.authenticate(files[i], message, refId, refType).then(
+                        function (result) {
+                            $log.debug("upload auth returned");
+                            result.file.progress = 50;
 
-                    if (files && files.length) {
-                        for (var i = 0; i < files.length; i++) {
-                            var file = files[i];
-
-                            FileService.upload(file,payload).then(
-                                function(result){
+                            FileService.upload(result.file, result.data).then(
+                                function (result) {
                                     // verify that upload to s3 is done
-                                    FileService.verify(result).then(
-                                        function(payload){
-                                            files[0].progress = 100;
-                                            $scope.upload.progress = 100;
+                                    FileService.verify(result.file, result.uuid).then(
+                                        function (result) {
+                                            result.file.progress = 100;
+                                            var endTime = +new Date();
+                                            $log.debug('upload...finished in ' + (endTime - startTime) + ' ms');
+
                                             $log.debug("broadcast fileUploadEvent");
                                             // firing an event downwards
                                             $rootScope.$broadcast('fileUploadEvent', {
@@ -130,24 +133,23 @@ fileControllers.controller('FileCtrl', ['$scope', '$rootScope', '$upload', 'File
                                         }
                                     )
                                 },
-                                function(error){
+                                function (error) {
                                     // todo handle error
                                 },
-                                function(percentComplete){
-                                    file.progress = (50 + (percentComplete/2)).toFixed(1);
-                                    $scope.upload.progress = (50 + (percentComplete/2)).toFixed(1);
+                                function (result) {
+                                    result.file.progress = (50 + (result.progress / 2)).toFixed(1);
                                 }
                             );
+                        },
+                        function (errorPayload) {
+                        },
+                        function (result) {
+                            $log.debug("auth progress - " + result.progress);
+                            result.file.progress = (result.progress / 2).toFixed(1);
                         }
-                    }
-                },
-                function(errorPayload){
-                },
-                function(percentComplete){
-                    $scope.upload.progress = (percentComplete/2).toFixed(1);
-                    files[0].progress = (percentComplete/2).toFixed(1);
+                    );
                 }
-            );
+            }
         };
 }]);
 

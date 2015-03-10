@@ -11,6 +11,103 @@ productServices.factory('FileService', ['$http','$log', '$q', '$upload',
 function($http, $log, $q, $upload){
     var FileService = {};
 
+    function hashFile(file, chunkSize, onLoad, onProgress) {
+        var sha256 = CryptoJS.algo.SHA256.create();
+        var size = file.size;
+        var offset = 0;
+        var chunk = file.slice(offset, offset + chunkSize);
+
+        var hashChunk = function() {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                // Increment hash
+                //sha256.update(e.target.result);
+                sha256.update(reader.result);
+
+                // Update offset for next chunk
+                offset += chunkSize;
+
+                // Hash next chunk if available
+                if(offset < size) {
+                    // Splice the next Blob from the File
+                    chunk = file.slice(offset, offset + chunkSize);
+                    if(onProgress != null){
+                        onProgress((offset/size*100).toFixed(1));
+                    }
+                    // Recurse to hash next chunk
+                    $log.debug("hashChunk - progress - " + offset);
+                    hashChunk();
+                    // Done hashing
+                } else {
+                    // Report digest
+                    $log.debug("hashChunk - finished");
+                    onLoad.call(file, sha256.finalize().toString(CryptoJS.enc.Hex));
+                }
+            };
+
+            reader.readAsArrayBuffer(chunk);
+        };
+
+        // Start hashing chunks
+        $log.debug("hashChunk - start");
+        hashChunk();
+    }
+
+    FileService.sha256 = function(file){
+        var deferred = $q.defer();
+        var sha256 = CryptoJS.algo.SHA256.create();
+        var size = file.size;
+        var offset = 0;
+        var chunkSize = 1048576*10; // 1Mb * 5
+        var chunk = file.slice(offset, offset + chunkSize);
+        var reader = new FileReader();
+        var startTime = +new Date();
+
+        var hashChunk = function(file) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                // Increment hash
+
+                if (reader.readyState == FileReader.DONE) { // DONE == 2
+                    var endTime = +new Date();
+                    console.log('hashed', file.name, 'in', endTime - startTime, 'ms', reader.result.byteLength, 'len');
+                    var wordarray = CryptoJS.lib.WordArray.create(reader.result);
+                    sha256.update(wordarray);
+                }
+
+                // Update offset for next chunk
+                offset += chunkSize;
+
+                // Hash next chunk if available
+                if(offset < size) {
+                    // Splice the next Blob from the File
+                    chunk = file.slice(offset, offset + chunkSize);
+                    var result = {
+                        file : file,
+                        progress : (offset/size*100).toFixed(1)
+                    };
+                    deferred.notify(result);
+                    // Recurse to hash next chunk
+                    hashChunk(file);
+                    // Done hashing
+                } else {
+                    // Report digest
+                    $log.debug("hashChunk - finished");
+                    file.hash = sha256.finalize().toString(CryptoJS.enc.Hex);
+                    deferred.resolve(file);
+                }
+            };
+
+            reader.readAsArrayBuffer(chunk);
+        };
+
+        // Start hashing chunks
+        $log.debug("hashChunk - start");
+        hashChunk(file);
+
+        return deferred.promise;
+    };
+
     FileService.getAllFiles = function(refId, refType){
         var deferred = $q.defer();
 
@@ -27,7 +124,7 @@ function($http, $log, $q, $upload){
         return deferred.promise;
     };
 
-    FileService.verify = function(uuid){
+    FileService.verify = function(file, uuid){
         var deferred = $q.defer();
 
         $http({
@@ -39,10 +136,12 @@ function($http, $log, $q, $upload){
             }
         }).success(function(data, status, headers, config){
             $log.debug("file verify returned success");
-            deferred.resolve(true);
+            var result = {file : file, status : true};
+            deferred.resolve(result);
         }).error(function(data, status, headers, config){
             $log.debug("file verify returned error");
-            deferred.reject(false);
+            var result = {file : file, status : false};
+            deferred.reject(result);
         });
 
         return deferred.promise;
@@ -76,16 +175,19 @@ function($http, $log, $q, $upload){
             //var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
             var percentComplete = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
             console.log('progress: ' + percentComplete + '% ');
-            deferred.notify(percentComplete);
+            var result = {file : file, progress : percentComplete};
+            deferred.notify(result);
         }).success(function (data, status, headers, config) {
             console.log('file uploaded. Response: ' + payload.uuid);
-            deferred.resolve(payload.uuid);
+            var result = {file : file, uuid : payload.uuid};
+            deferred.resolve(result);
         });
 
         return deferred.promise;
     };
 
     FileService.authenticate = function(file, comment, refId, refType){
+        var self = this;
         var deferred = $q.defer();
 
         $log.debug("file: " + file.size);
@@ -95,46 +197,16 @@ function($http, $log, $q, $upload){
         var startTime = +new Date();
         var hash;
 
-        var sha256 = CryptoJS.algo.SHA256.create();
-
-        reader.onprogress = function(progress) {
-            //var chunk = new Uint8Array(reader.result); //.subarray(pos, progress.loaded);
-            //sha256.update(chunk);
-            //pos = progress.loaded;
-            var length = progress.loaded - pos;
-            console.log("pos: " + pos);
-            console.log("length: " + length);
-            //var arr = new Uint8Array(reader.result, pos, length);
-            //sha256.update(chunk);
-            pos = progress.loaded;
-            if(progress.lengthComputable) {
-                console.log((progress.loaded/progress.total*100).toFixed(1)+'%');
-            }
-            var percentComplete = (progress.loaded/progress.total*100).toFixed(1);
-            deferred.notify(percentComplete);
-        };
-
-        reader.onload = function() {
-            if (reader.readyState == FileReader.DONE) { // DONE == 2
-                var endTime = +new Date();
-                console.log('hashed', file.name, 'in', endTime - startTime, 'ms', reader.result.byteLength, 'len');
-                //var chunk = new Uint8Array(reader.result, pos);
-                //if(chunk.length > 0) sha256.update(chunk);
-                //var hash = sha256.finalize();
-
-                //var arrayBuffer = reader.result;
-
-                var chunk = CryptoJS.lib.WordArray.create(reader.result);
-                sha256.update(chunk);
-                hash = sha256.finalize().toString(CryptoJS.enc.Hex);
-                //hash = CryptoJS.SHA256(arrayBuffer).toString(CryptoJS.enc.Hex);
+        this.sha256(file).then(
+            function(file){
+                $log.debug("sha256: " + file.hash);
 
                 $http({
                     method: 'GET',
                     url: '/api/file/policy',
                     headers: {'Content-Type': 'application/json'},
                     params: {
-                        'contentHash' : hash,
+                        'contentHash' : file.hash,
                         'contentName' : file.name,
                         'contentLength': file.size,
                         'contentType': file.type,
@@ -142,23 +214,28 @@ function($http, $log, $q, $upload){
                         'refId': refId,
                         'refType': refType}
                 }).success(function(data, status, headers, config){
-                    $log.debug("file auth returned success");
-                    deferred.resolve(data);
+                    $log.debug("auth rest returned success");
+                    var result = {file : file, data : data};
+                    deferred.resolve(result);
                 }).error(function(data, status, headers, config){
-                    $log.debug("file auth returned error");
+                    $log.debug("auth rest returned error");
                     deferred.reject(null);
                 });
-
-
-                console.log("hashing done");
+            },
+            function(error){
+                $log.debug("error: " + error);
+            },
+            function(result){
+                deferred.notify(result);
             }
-        };
+        );
 
-        reader.readAsArrayBuffer(file);
+        //reader.readAsArrayBuffer(file);
+        //hashFile(file, 4096, onLoad, onProgress );
 
         //var hash = CryptoJS.SHA256("HOORAY").toString(CryptoJS.enc.Hex);
 
-        $log.debug("file auth returned promise");
+        $log.debug("authenticate returned promise");
         return deferred.promise;
     };
 

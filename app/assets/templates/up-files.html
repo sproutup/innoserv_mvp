@@ -1,5 +1,5 @@
 <div class="media">
-    <div ng-repeat="file in files | filter: { type: 'image/' } | orderBy: 'createdAt':true " ng-init="fileFilter='image/'">
+    <div ng-repeat="file in files | filter: { type: 'image/' } | orderBy: 'createdAt':true ">
         <div class="col-lg-3 col-md-4 col-sm-6 media-photo">
             <div class="media-photo-background" style="background-image: url('{{file.url}}?x=300&y=300');">
                 <div class="media-photo-overlay" ng-class="{active: file.showComment}">

@@ -96,7 +96,7 @@ POST          /api/auth/provider/:provider           controllers.AuthController.
 GET           /media/image/:w/x/:image               controllers.Application.image(image: String, w: Int, h: Int = -1)
 GET           /media/image/x/:h/:image               controllers.Application.image(image: String, w: Int = -1, h: Int)
 GET           /media/image/:w/:h/:image              controllers.Application.image(image: String, w: Int, h: Int)
-GET           /media/image/:image                    controllers.Application.image(image: String, w: Int ?=0, h: Int ?=0)
+GET           /media/image/:image                    controllers.Application.image(image: String, w: Int ?=-1, h: Int ?=-1)
 
 # Mockups
 GET           /mockups/product/:slug/about           controllers.MockupController.detailsAboutBySlug(slug: String)
