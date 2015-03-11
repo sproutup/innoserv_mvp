@@ -58,16 +58,10 @@
         </div>
     </div>
 
-    <!--Photos-->
+
+    <!--Photo and videos-->
     <up-files ref-id="{{product.id}}" ref-type="models.product"></up-files>
 
     <hr>
-
-    <!-- Videos -->
-    <div class="media">
-        <div ng-repeat="file in files | filter: { type: 'video/' } | orderBy: 'createdAt':true ">
-            <up-video file="file"></up-video>
-        </div>
-    </div>
 
 </div>

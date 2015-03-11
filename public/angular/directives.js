@@ -13,6 +13,30 @@ angular.module('sproutupApp').directive('upVideo', ['FileService',
                 attrs.$observe('file', function (file) {
                     if (file) {
                         console.log("up-video - file changed: " + file.id);
+                        var flowplr = element.find(".player");
+                        flowplr.flowplayer({
+                            ratio: 16/9
+                        });
+                    }
+                });
+            }
+        }
+    }
+]);
+
+angular.module('sproutupApp').directive('upPhoto', ['FileService',
+    function (fileService) {
+        return {
+            restrict: 'E',
+            replace: true,
+            scope: {
+                file: '='
+            },
+            templateUrl: 'assets/templates/up-photo.html',
+            link: function (scope, element, attrs) {
+                attrs.$observe('file', function (file) {
+                    if (file) {
+                        console.log("up-photo - file changed: " + file.id);
                     }
                 });
             }

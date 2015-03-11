@@ -1,20 +1,15 @@
 <div class="media">
-    <div ng-repeat="file in files | filter: { type: 'image/' } | orderBy: 'createdAt':true ">
-        <div class="col-lg-3 col-md-4 col-sm-6 media-photo">
-            <div class="media-photo-background" style="background-image: url('{{file.url}}?x=300&y=300');">
-                <div class="media-photo-overlay" ng-class="{active: file.showComment}">
-                    <div class="media-photo-info">
-                        <div class="media-user">
-                            {{file.username}}
-                            <a ng-show="file.comment" ng-click="file.showComment=!file.showComment" href="#"><i class="fa fa-ellipsis-h"></i></a>
-                        </div>
-                        <div ng-show="file.showComment" class="media-story">{{file.comment}}</div>
-                        <div class="media-actions">
-                            <a subject-present="addLike(post, user.id)" href="#"><i class="fa fa-rocket"></i>Up ({{file.likes.length || 0}})</a>
-                            <a href="#"><i class="fa fa-share"></i>Share</a>
-                        </div>
-                    </div>
+
+    <div masonry masonry-options="{ isFitWidth: true, transitionDuration: 0, gutter: 4}" class="masonry">
+        <div ng-repeat="file in files | orderBy: 'createdAt':true " class="masonry-brick">
+            <div ng-switch="file.type.substring(0, 6)">
+                <div ng-switch-when="image/">
+                    <up-photo file="file"></up-photo>
                 </div>
+                <div ng-switch-when="video/">
+                    <up-video file="file"></up-video>
+                </div>
+                <div ng-switch-default>???</div>
             </div>
         </div>
     </div>
