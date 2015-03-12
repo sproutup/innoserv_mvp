@@ -85,12 +85,6 @@
   overflow: hidden;
 }
 
-.media-photo {
-  width: 310px;
-  height: auto;
-  margin-bottom: 4px;
-}
-
 .media-photo-background {
   height: 360px;
   background-size: cover;
@@ -354,9 +348,36 @@
   float: left;
 }
 
+.masonry .masonry-media-item.video.in-processing {
+  width: 310px;
+  height: 310px;
+  float: left;
+  color: @sproutup-purple;
+  border: 2px dashed @sproutup-purple;
+  margin-bottom: 4px;
+  text-align: center;
+}
+
 .masonry {
   margin: 0 auto;
 }
+
+.media-photo {
+  width: 310px;
+  height: auto;
+  margin-bottom: 4px;
+}
+
+.video-processing-placeholder {
+  padding-top: 130px;
+}
+
+.video-processing-placeholder p {
+  padding: 20px 10px;
+  font-weight: 400;
+  font-size: 11pt;
+}
+
 
 
 
