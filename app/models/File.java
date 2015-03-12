@@ -122,12 +122,24 @@ public class File extends SuperModel {
 
     public ObjectNode toJson(){
         ObjectNode node = Json.newObject();
+        node.put("id", this.id);
         node.put("filename", this.fileName());
         node.put("type", this.type);
-        node.put("url", this.url());
+        ObjectNode urlnode = Json.newObject();
+        if(type.contains("video/")) {
+            urlnode.put("mpeg", this.url().concat(".m3u8"));
+            urlnode.put("webm", this.url().concat(".webm"));
+            urlnode.put("mp4", this.url().concat(".mp4"));
+        }
+        else{
+            urlnode.put("image", this.url());
+        }
+        node.put("url", urlnode);
         node.put("comment", this.comment);
         node.put("username", this.user.name);
         node.put("createdAt", new DateTime(this.createdAt).toString());
+        node.put("isVerified", this.verified);
+        node.put("isTranscoded", this.isTranscoded);
 
         // add likes to the node
         List<Likes> likes = this.getAllLikes();
@@ -186,7 +198,7 @@ public class File extends SuperModel {
 
     public String url() {
         if (type.contains("video/")) {
-            return ("http://dc2jx5ot5judg.cloudfront.net/" + this.fileName() + "/" + this.fileName() );
+            return ("http://dc2jx5ot5judg.cloudfront.net/" + this.uuid.toString() + "/" + this.uuid.toString() );
         } else if (type.contains("image/")) {
             return ("http://d2ggucmtk9u4go.cloudfront.net" + "/" + this.fileName());
         } else{

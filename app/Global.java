@@ -41,14 +41,7 @@ public class Global extends GlobalSettings {
 	public void onStart(Application app) {
 
         FiniteDuration delay = FiniteDuration.create(0, TimeUnit.SECONDS);
-        FiniteDuration frequency = FiniteDuration.create(30, TimeUnit.SECONDS);
-
-        Runnable showTime = new Runnable() {
-            @Override
-            public void run() {
-                //do something
-            }
-        };
+        FiniteDuration frequency = FiniteDuration.create(90, TimeUnit.SECONDS);
 
         Akka.system().scheduler().schedule(delay, frequency, new AWSSimpleQueueManager(""), Akka.system().dispatcher());
 
