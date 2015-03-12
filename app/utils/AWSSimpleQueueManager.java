@@ -55,12 +55,13 @@ public class AWSSimpleQueueManager implements Runnable{
             if(root.path("Type").asText().equalsIgnoreCase("Notification")) {
                 Logger.debug("SQS - state: " + message.path("state").asText());
                 if(message.path("state").asText().equalsIgnoreCase("COMPLETED")) {
-                    File.transcodeCompleted(message.path("input").path("key").asText().split("_")[0]);
-                    /**
-                     * finally delete the message
-                     */
-                    Logger.debug("SQS - delete message from queue");
-                    awssqsUtil.deleteMessageFromQueue(url, sqsmessage);
+                    if(File.transcodeCompleted(message.path("input").path("key").asText().split("_")[0])) {
+                        /**
+                         * finally delete the message
+                         */
+                        Logger.debug("SQS - delete message from queue");
+                        awssqsUtil.deleteMessageFromQueue(url, sqsmessage);
+                    }
                 }
                 else{
                     /**
