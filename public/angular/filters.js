@@ -12,3 +12,9 @@ angular.module('sproutupApp').
       return moment(dateString).fromNow()
     };
   });
+
+angular.module('sproutupApp').filter('trusted', ['$sce', function ($sce) {
+    return function(url) {
+        return $sce.trustAsResourceUrl(url);
+    };
+}]);

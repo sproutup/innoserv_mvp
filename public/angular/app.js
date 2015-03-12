@@ -1,6 +1,7 @@
 'use strict';
 
 var sproutupApp = angular.module('sproutupApp', [
+    'wu.masonry',
     'ngRoute',
     'ngCookies',
     'ui.router',

@@ -1,37 +1,30 @@
-<div class="col-md-4 col-sm-6 col-xs-12 media-video-column">
-    <div class="col-sm-12 media-video">
-        <div class="flowplayer">
-            <video>
-                <source type="application/x-mpegurl" src="http://dc2jx5ot5judg.cloudfront.net/1_Belleds/0a70e884-10fb-4c4a-9353-a3752e1545d0/0a70e884-10fb-4c4a-9353-a3752e1545d0.m3u8">
-                <source type="video/webm" src="http://dc2jx5ot5judg.cloudfront.net/1_Belleds/0a70e884-10fb-4c4a-9353-a3752e1545d0/0a70e884-10fb-4c4a-9353-a3752e1545d0.webm">
-                <source type="video/mp4" src="http://dc2jx5ot5judg.cloudfront.net/1_Belleds/0a70e884-10fb-4c4a-9353-a3752e1545d0/0a70e884-10fb-4c4a-9353-a3752e1545d0.mp4">
-            </video>
-        </div>
-        <div class="media-video-info">
-            <div class="media-user">
-                Tao Ni<a href="#"><i class="fa fa-ellipsis-h"></i></a>
-            </div>
-            <div class="media-story">Just got the Belleds Q bulb set. Installation is very easy. Love the coloring effect. Kids like dancing with the changing hue.</div>
-            <div class="media-actions">
-                <a href="#"><i class="fa fa-rocket"></i>Up (89)</a>
-                <a href="#"><i class="fa fa-share"></i>Share</a>
-            </div>
+<div class="masonry-media-item video">
+    <!-- when video is in process -->
+    <div ng-hide="file.isTranscoded" class="masonry-media-item video in-processing">
+        <div class="video-processing-placeholder">
+            <i class="fa fa-3x fa-spinner fa-spin"></i>
+            <p>Your video is being processed. It will be ready shortly.</p>
         </div>
     </div>
-    <div class="col-sm-12 media-video">
-        <div class="flowplayer">
-            <video>
-                <source type="application/x-mpegurl" src="http://dc2jx5ot5judg.cloudfront.net/1_Belleds/788c7fe4-0f75-4beb-bf3b-e6febf3941d2/788c7fe4-0f75-4beb-bf3b-e6febf3941d2.m3u8">
-                <source type="video/webm" src="http://dc2jx5ot5judg.cloudfront.net/1_Belleds/788c7fe4-0f75-4beb-bf3b-e6febf3941d2/788c7fe4-0f75-4beb-bf3b-e6febf3941d2.webm">
-                <source type="video/mp4" src="http://dc2jx5ot5judg.cloudfront.net/1_Belleds/788c7fe4-0f75-4beb-bf3b-e6febf3941d2/788c7fe4-0f75-4beb-bf3b-e6febf3941d2.mp4">
-            </video>
+
+    <!-- when video is completed -->
+    <div ng-show="file.isTranscoded" class="player">
+        <video preload="auto">
+            <source type="application/x-mpegurl" ng-src="{{file.url.mpeg | trusted}}">
+            <source type="video/webm" ng-src="{{file.url.webm | trusted}}">
+            <source type="video/mp4" ng-src="{{file.url.mp4 | trusted}}">
+        </video>
+    </div>
+    <div ng-show="file.isTranscoded" class="media-video-info">
+        <div class="media-user">
+            {{file.username}}<a href="#" ng-show="file.comment" ng-click="file.showComment=!file.showComment"><i class="fa fa-ellipsis-h"></i></a>
         </div>
-        <div class="media-video-info">
-            <div class="media-user">Tao Ni</div>
-            <div class="media-actions">
-                <a href="#"><i class="fa fa-rocket"></i>Up (89)</a>
-                <a href="#"><i class="fa fa-share"></i>Share</a>
-            </div>
+        <div ng-show="file.showComment" class="media-story">
+            {{file.comment}}
+        </div>
+        <div class="media-actions">
+            <a href="#"><i class="fa fa-rocket"></i>Up ({{file.likes.length || 0}})</a>
+            <a href="#"></i>Share</a>
         </div>
     </div>
 </div>

@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('sproutupApp').directive('upVideo', ['FileService',
-    function (fileService) {
+angular.module('sproutupApp').directive('upVideo', ['FileService', '$timeout',
+    function (fileService, $timeout) {
         return {
             restrict: 'E',
             replace: true,
@@ -13,6 +13,39 @@ angular.module('sproutupApp').directive('upVideo', ['FileService',
                 attrs.$observe('file', function (file) {
                     if (file) {
                         console.log("up-video - file changed: " + file.id);
+                    }
+                });
+                $timeout(function () {
+                    $timeout(function () {
+                        console.log("up-video - loaded: " + attrs.file.id);
+                        // This code will run after
+                        // templateUrl has been loaded, cloned
+                        // and transformed by directives.
+                        // and properly rendered by the browser
+                        var flowplr = element.find(".player");
+                        flowplr.flowplayer({
+                            ratio: 16/9
+                        });
+                    }, 0);
+                }, 0);
+            }
+        }
+    }
+]);
+
+angular.module('sproutupApp').directive('upPhoto', ['FileService',
+    function (fileService) {
+        return {
+            restrict: 'E',
+            replace: true,
+            scope: {
+                file: '='
+            },
+            templateUrl: 'assets/templates/up-photo.html',
+            link: function (scope, element, attrs) {
+                attrs.$observe('file', function (file) {
+                    if (file) {
+                        console.log("up-photo - file changed: " + file.id);
                     }
                 });
             }
