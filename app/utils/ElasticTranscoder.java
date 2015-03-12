@@ -139,35 +139,35 @@ public class ElasticTranscoder {
         //setup encoding presets for HLS transcoding
         CreateJobOutput mp4 = new CreateJobOutput()
                 //.withThumbnailPattern(outputKey + "/" + output_key + "-{resolution}-{count}")
-                .withKey(outputKey + "/" + outputKey + ".mp4")
+                .withKey(outputKey + ".mp4")
                 .withPresetId(WEB_PRESET_ID);
 
         CreateJobOutput webm = new CreateJobOutput()
-                .withKey(outputKey + "/" + outputKey + ".webm")
+                .withKey(outputKey + ".webm")
                 .withPresetId(WEB_PRESET_ID);
 
         CreateJobOutput hls2m = new CreateJobOutput()
-                .withKey(outputKey + "/" + outputKey + "-hls-2m-")
+                .withKey(outputKey + "-hls-2m-")
                 .withPresetId(HLS_2M_PRESET_ID)
                 .withSegmentDuration(SEGMENT_DURATION);
 
         CreateJobOutput hls15m = new CreateJobOutput()
-                .withKey(outputKey + "/" + outputKey + "-hls-15m-")
+                .withKey(outputKey + "-hls-15m-")
                 .withPresetId(HLS_1_5M_PRESET_ID)
                 .withSegmentDuration(SEGMENT_DURATION);
 
         CreateJobOutput hls1m = new CreateJobOutput()
-                .withKey(outputKey + "/" + outputKey + "-hls-1m-")
+                .withKey(outputKey + "-hls-1m-")
                 .withPresetId(HLS_1M_PRESET_ID)
                 .withSegmentDuration(SEGMENT_DURATION);
 
         CreateJobOutput hls600k = new CreateJobOutput()
-                .withKey(outputKey + "/" + outputKey + "-hls-600k-")
+                .withKey(outputKey + "-hls-600k-")
                 .withPresetId(HLS_600k_PRESET_ID)
                 .withSegmentDuration(SEGMENT_DURATION);
 
         CreateJobOutput hls400k = new CreateJobOutput()
-                .withKey(outputKey + "/" + outputKey + "-hls-400k-")
+                .withKey(outputKey + "-hls-400k-")
                 .withPresetId(HLS_400k_PRESET_ID)
                 .withSegmentDuration(SEGMENT_DURATION);
 
@@ -175,7 +175,7 @@ public class ElasticTranscoder {
 
         // Setup master playlist which can be used to play using adaptive bitrate.
         CreateJobPlaylist playlist = new CreateJobPlaylist()
-                .withName(outputKey + "/" + outputKey)
+                .withName(outputKey)
                 .withFormat("HLSv3")
                 .withOutputKeys(hls2m.getKey(), hls15m.getKey(), hls1m.getKey(), hls600k.getKey(), hls400k.getKey());
 

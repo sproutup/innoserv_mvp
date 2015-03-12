@@ -14,10 +14,13 @@ import controllers.routes;
 import play.Application;
 import play.GlobalSettings;
 import play.Logger;
+import play.libs.Akka;
 import play.libs.Yaml;
 import play.mvc.Call;
 import play.data.format.Formatters;
 import play.data.format.Formatters.*;
+import scala.concurrent.duration.FiniteDuration;
+import utils.AWSSimpleQueueManager;
 import utils.AnnotationDateFormatter;
 import play.mvc.*;
 
@@ -28,6 +31,7 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import javax.persistence.OptimisticLockException;
 
@@ -35,6 +39,20 @@ import javax.persistence.OptimisticLockException;
 public class Global extends GlobalSettings {
 
 	public void onStart(Application app) {
+
+        FiniteDuration delay = FiniteDuration.create(0, TimeUnit.SECONDS);
+        FiniteDuration frequency = FiniteDuration.create(30, TimeUnit.SECONDS);
+
+        Runnable showTime = new Runnable() {
+            @Override
+            public void run() {
+                //do something
+            }
+        };
+
+        Akka.system().scheduler().schedule(delay, frequency, new AWSSimpleQueueManager(""), Akka.system().dispatcher());
+
+
 		PlayAuthenticate.setResolver(new Resolver() {
 
 			@Override

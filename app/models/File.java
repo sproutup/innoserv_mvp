@@ -1,5 +1,6 @@
 package models;
 
+import com.amazonaws.services.elastictranscoder.model.Job;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -8,6 +9,7 @@ import play.Logger;
 import play.db.ebean.Model;
 import play.libs.Json;
 import plugins.S3Plugin;
+import utils.ElasticTranscoder;
 
 import javax.persistence.*;
 import java.net.MalformedURLException;
@@ -22,8 +24,9 @@ import java.util.UUID;
  */
 @Entity
 public class File extends SuperModel {
-    public static Finder<Long, File> find = new Model.Finder<Long, File>(Long.class,
-            File.class);
+    private static ElasticTranscoder elasticTranscoder;
+
+    public static Finder<Long, File> find = new Model.Finder<Long, File>(Long.class, File.class);
 
     @Id
     @GeneratedValue
@@ -51,6 +54,9 @@ public class File extends SuperModel {
 
     @Column(columnDefinition = "boolean default false")
     public boolean verified;
+
+    @Column(columnDefinition = "boolean default false")
+    public boolean isTranscoded;
 
     public static File findByUUID(final UUID uuid) {
         return find.where().eq("uuid", uuid).findUnique();
@@ -83,6 +89,20 @@ public class File extends SuperModel {
         else {
             S3Plugin.amazonS3.deleteObject(bucket, fileName());
             super.delete();
+        }
+    }
+
+    private void transcode() {
+        if(type.contains("video/")) {
+            String INPUT_KEY = fileName();
+            String OUTPUT_KEY = this.uuid.toString();
+            String OUTPUT_KEY_PREFIX = this.uuid.toString() + "/";
+            Job job = elasticTranscoder.createElasticTranscoderHlsJob(INPUT_KEY, OUTPUT_KEY, OUTPUT_KEY_PREFIX);
+            Logger.info("  INPUT_KEY: " + INPUT_KEY);
+            Logger.info("  OUTPUT_KEY_PREFIX: " + OUTPUT_KEY_PREFIX);
+            Logger.info("  HLS Transcoder job has been created: ");
+            Logger.info( job + "\n");
+            Logger.info("==========================================================");
         }
     }
 
@@ -131,9 +151,25 @@ public class File extends SuperModel {
         if(file != null) {
             file.verified = true;
             file.save();
+            file.transcode();
             return true;
         }
         else {
+            return false;
+        }
+    }
+
+    public static boolean transcodeCompleted(String id){
+        Logger.debug("file - transcode completed - " + id);
+        File file = File.findByUUID(UUID.fromString(id));
+        if(file != null) {
+            Logger.debug("file - transcode updated - " + id);
+            file.isTranscoded = true;
+            file.save();
+            return true;
+        }
+        else {
+            Logger.debug("file - transcode not found - " + id);
             return false;
         }
     }
