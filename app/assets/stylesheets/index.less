@@ -104,3 +104,60 @@
   padding-left: 3%;
   padding-right: 3%;
 }
+
+.suggest-product {
+  margin: 20px 20px 50px;
+  overflow: hidden;
+}
+
+.suggest-product-form {
+    padding-bottom: 15px;
+    text-align: center;
+}
+
+.suggest-product-form-input {
+    border: 1px solid @form-border;
+    height: 50px;
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 2px;
+    font-size: 13pt;
+    font-weight: 400;
+    color: @main-text;
+    -moz-transition: all .2s;
+    -webkit-transition: all .2s;
+    transition: all .2s;
+}
+
+.btn-suggest-product {
+  width: 25%;
+  height: 50px;
+  margin-top: 15px;
+  margin-left: auto;
+  margin-right: auto;
+  font-weight: 400;
+  font-size: 13pt;
+  background-color: @sproutup-blue;
+  color: white;
+  border-radius: 2px;
+  padding-top: 12px;
+  -webkit-transition: all .2s ease-in-out;
+  -o-transition: all .2s ease-in-out;
+  transition: all .2s ease-in-out;
+}
+
+.btn-suggest-product:hover {
+  background-color: @sproutup-blue-hover;
+  color: white;
+}
+
+@media(max-width:767px) {
+  .suggest-product-form-input {
+    width: 100%;
+  }
+
+  .btn-suggest-product {
+    width: 100%;
+  }
+}

@@ -34,7 +34,6 @@
 
     <div class="row product-list-container">
         <h1 class="text-center product-list-header">Featured products</h1>
-        <h1 class="text-center product-list-header-2">We are expanding the collaboration with product creators. Stay tuned for more exciting stuff, beta coming in early 2015.</h1>
         @for(product <- products) {
             @if(product.isFeatured) {
                 <div class="col-sm-6 col-xs-12 product-list-item">
@@ -57,6 +56,7 @@
 
     <div class="row product-list-container">
         <h1 class="text-center product-list-header">Check out more cool products</h1>
+        <h1 class="text-center product-list-header-2">We are expanding the collaboration with product creators. Stay tuned for more exciting stuff, beta coming in early 2015.</h1>
         @for(product <- products) {
             @if(!product.isFeatured) {
                 <div class="col-lg-4 col-sm-6 col-xs-12 product-list-item">
@@ -75,5 +75,25 @@
                 </div>
             }
         }
+    </div>
 
+    <hr>
+
+    <div id="suggest-product-section" class="row product-list-container">
+        <h1 class="text-center product-list-header">Didn't see a product you love? Suggest it here.</h1>
+        <h1 class="text-center product-list-header-2">We feel thrilled to hear from the community what products they love and care about! We will put up a product page for you to share experience and talk with others.</h1>
+        <div class="suggest-product">
+            <div class="col-sm-12 suggest-product-form">
+                <input type="email" class="form-control suggest-product-form-input" placeholder="Your email address">
+            </div>
+            <div class="col-sm-12 suggest-product-form">
+                <input type="text" class="form-control suggest-product-form-input" placeholder="Product Name">
+            </div>
+            <div class="col-sm-12 suggest-product-form">
+                <input type="text" class="form-control suggest-product-form-input" placeholder="Product URL">
+            </div>
+            <div class="col-sm-12 suggest-product-form">
+                <a class="btn btn-lg btn-suggest-product">Suggest it</a>
+            </div>
+        </div>
     </div>
