@@ -67,7 +67,7 @@
                     <p>{{post.content}}</p>
                 </div>
                 <div class="post-actions">
-                    <a subject-present="addLike(post, user.id)" login="login('sm')" class="post-actions--item" href="#"><i class="fa fa-rocket"></i>Up ({{post.likes.length || 0}})</a>
+                    <up-like likes="post.likes" up-id="post.id" up-type="models.post"></up-like>
                     <commentlink></commentlink>
                     <a class="post-actions--item" subject-present="todo()" user="user" login="login('sm')" href="#"><i class="fa fa-facebook-square"></i>Share on Facebook</a>
                     <a class="post-actions--item" subject-present="todo()" user="user" login="login('sm')" href="#"><i class="fa fa-twitter-square"></i>Share on Twitter</a>

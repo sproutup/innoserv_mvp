@@ -178,6 +178,16 @@ authControllers.controller('AuthCtrl', ['$scope', '$modal', '$log', 'AuthService
 
     updateUser();
 
+    $scope.$on('SignupEvent', function(event, mass) {
+        $log.debug("SignupEvent received");
+        $scope.signup('sm');
+    });
+
+    $scope.$on('LoginEvent', function(event, mass) {
+        $log.debug("LoginEvent received");
+        $scope.login('sm');
+    });
+
     function updateUser() {
         AuthService.user()
             .then(

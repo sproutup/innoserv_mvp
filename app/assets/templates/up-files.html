@@ -4,10 +4,10 @@
         <div ng-repeat="file in files | orderBy: 'createdAt':true " class="masonry-brick">
             <div ng-switch="file.type.substring(0, 6)">
                 <div ng-switch-when="image/">
-                    <up-photo file="file"></up-photo>
+                    <up-photo file="file" user="user"></up-photo>
                 </div>
                 <div ng-switch-when="video/">
-                    <up-video file="file"></up-video>
+                    <up-video file="file" user="user"></up-video>
                 </div>
                 <div ng-switch-default>???</div>
             </div>

@@ -248,13 +248,22 @@ productServices.factory('AuthService', ['$http', '$q', '$cookieStore','$log',
     var urlBase = '/api/auth';
     var accessLevels = routingConfig.accessLevels
         , userRoles = routingConfig.userRoles
-        , currentUser = $cookieStore.get('user') || { username: '', role: userRoles.public };
+        , currentUser = $cookieStore.get('user') || { username: '', role: userRoles.public }
+
+    var _isLoggedIn = false;
+
+    $log.debug("AuthService > init");
+    $log.debug("AuthService > isLoggedIn=" + _isLoggedIn);
 
     $cookieStore.remove('user');
 
     function changeUser(user) {
         angular.extend(currentUser, user);
     }
+
+    AuthService.currentUser = function() {
+        return currentUser;
+    };
 
     AuthService.user = function(user){
         var deferred = $q.defer();
@@ -267,7 +276,9 @@ productServices.factory('AuthService', ['$http', '$q', '$cookieStore','$log',
             // this callback will be called asynchronously
             // when the response is available
             changeUser(data);
+            _isLoggedIn = true;
             $log.debug("auth user service returned success: " + currentUser.name);
+            $log.debug("AuthService > isLoggedIn=" + _isLoggedIn);
             deferred.resolve(currentUser);
         }).error(function(data, status, headers, config){
             // called asynchronously if an error occurs
@@ -317,6 +328,7 @@ productServices.factory('AuthService', ['$http', '$q', '$cookieStore','$log',
             // this callback will be called asynchronously
             // when the response is available
             changeUser(data);
+            _isLoggedIn = true;
             $log.debug("login service returned success");
             deferred.resolve("success");
         }).error(function(data, status, headers, config){
@@ -342,6 +354,7 @@ productServices.factory('AuthService', ['$http', '$q', '$cookieStore','$log',
             // this callback will be called asynchronously
             // when the response is available
             changeUser(data);
+            status.isLoggedIn = true;
             deferred.resolve("success");
         }).error(function(data, status, headers, config){
             // called asynchronously if an error occurs
@@ -364,7 +377,7 @@ productServices.factory('AuthService', ['$http', '$q', '$cookieStore','$log',
             // this callback will be called asynchronously
             // when the response is available
             currentUser.name = '';
-            currentUser.isLoggedIn = false;
+            _isLoggedIn = false;
             deferred.resolve("success");
         }).error(function(data, status, headers, config){
             // called asynchronously if an error occurs
@@ -376,14 +389,11 @@ productServices.factory('AuthService', ['$http', '$q', '$cookieStore','$log',
         return deferred.promise;
     };
 
-    AuthService.isLoggedIn = function(user){
+    AuthService.isLoggedIn = function(){
         $log.debug("isLoggedIn");
-        //if(user === undefined) {
-        //    user = currentUser;
-        //}
-        //return user.role.title === userRoles.user.title || user.role.title === userRoles.admin.title;
+        $log.debug("AuthService > isLoggedIn=" + _isLoggedIn);
 
-        return currentUser.name != null
+        return _isLoggedIn;
     };
 
     return AuthService;
@@ -406,7 +416,8 @@ productServices.factory('TagsService', ['$http','$log', function($http,$log){
 
 }]);
 
-productServices.factory('LikesService', ['$http','$log', function($http,$log){
+productServices.factory('LikesService', ['$http','$log','$q',
+    function($http, $log, $q){
   var urlBase = '/api/likes';
   var LikesService = {};
 
@@ -415,7 +426,7 @@ productServices.factory('LikesService', ['$http','$log', function($http,$log){
         method: 'GET',
         url: urlBase + "/" + refType + "/" + refId,
       })
-    }
+    };
 
   LikesService.addLikes = function(refId, refType, userId, data){
     return $http({
@@ -425,7 +436,24 @@ productServices.factory('LikesService', ['$http','$log', function($http,$log){
         data: "{}",
         headers: {'Content-Type': 'application/json'}
       });
-    }
+    };
+
+      LikesService.addLike = function(refId, refType, userId){
+          var deferred = $q.defer();
+          $http({
+              method: 'POST',
+              url: urlBase + "/" + refType + "/" + refId,
+              params: {user_id: userId},
+              data: "{}",
+              headers: {'Content-Type': 'application/json'}
+          }).success(function(data, status, headers, config){
+              deferred.resolve(data);
+          }).error(function(data, status, headers, config) {
+              deferred.reject();
+          });
+
+          return deferred.promise;
+      };
 
   return LikesService;
 
