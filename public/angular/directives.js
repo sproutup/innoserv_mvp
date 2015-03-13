@@ -23,9 +23,7 @@ angular.module('sproutupApp').directive('upVideo', ['FileService', '$timeout',
                         // and transformed by directives.
                         // and properly rendered by the browser
                         var flowplr = element.find(".player");
-                        flowplr.flowplayer({
-                            ratio: 16/9
-                        });
+                        flowplr.flowplayer();
                     }, 0);
                 }, 0);
             }
