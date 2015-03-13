@@ -25,35 +25,31 @@
         </div>
 
         <!-- current user new photo/video: after user clicks "post" button above -->
-        <div class="col-sm-12">
-            <div ng-show="gallery.showUpload" class="post-new-media-row">
-                <div class="post-new-media-blurb">
-                    <div class="post-user-name">{{user.name}}</div>
-                    <div class="post-new-media-form">
-                        <!-- show an add button if there is no file selected -->
-                        <div ng-show="files[0].dataUrl == null" ng-file-select disabled="disabled" ng-model="files" class="post-new-media-file">
-                            <a class="btn btn-lg btn-media-upload">
-                                <i class="fa fa-plus-circle"></i>
-                            </a>
-                        </div>
-                        <!-- show an delete button if there is a file selected -->
-                        <div ng-show="files[0].dataUrl != null" class="post-new-media-file" style="background-image: url('{{files[0].dataUrl}}');">
-                            <a ng-click="reset()" ng-show="files[0].dataUrl != null" ng-hide="files[0].progress >= 0" class="btn btn-lg btn-media-remove" href="#">
-                                <i class="fa fa-times"></i>
-                            </a>
-                            <div class="progress" ng-show="files[0].progress >= 0">
-                                <div class="progress-bar" ng-style="{ 'width': files[0].progress + '%' }" role="progressbar" style="width: 0%;"></div>
-                            </div>
-                        </div>
-                        <div class="post-new-media-comment">
-                            <textarea ng-model="upload.text" ng-disabled="files[0].progress >= 0" placeholder="If you like, write something brief about this photo..." class="form-control post-media-comment-textarea" rows="3"></textarea>
-                        </div>
-                    </div>
-                    <div class="post-new-comment-actions">
-                        <button ng-click="toggle()" type="button" class="btn btn-cancel-post">Cancel</button>
-                        <button ng-disabled="!files[0].type" ng-click="upload(files, upload.text, product.id, 'models.product')" type="button" class="btn btn-post-media">Upload</button>
+        <div ng-show="gallery.showUpload" class="post-new-media-blurb">
+            <div class="post-user-name">{{user.name}}</div>
+            <div class="post-new-media-form">
+                <!-- show an add button if there is no file selected -->
+                <div ng-show="files[0].dataUrl == null" ng-file-select disabled="disabled" ng-model="files" class="post-new-media-file">
+                    <a class="btn btn-lg btn-media-upload">
+                        <i class="fa fa-plus-circle"></i>
+                    </a>
+                </div>
+                <!-- show an delete button if there is a file selected -->
+                <div ng-show="files[0].dataUrl != null" class="post-new-media-file" style="background-image: url('{{files[0].dataUrl}}');">
+                    <a ng-click="reset()" ng-show="files[0].dataUrl != null" ng-hide="files[0].progress >= 0" class="btn btn-lg btn-media-remove" href="#">
+                        <i class="fa fa-times"></i>
+                    </a>
+                    <div class="progress" ng-show="files[0].progress >= 0">
+                        <div class="progress-bar" ng-style="{ 'width': files[0].progress + '%' }" role="progressbar" style="width: 0%;"></div>
                     </div>
                 </div>
+                <div class="post-new-media-comment">
+                    <textarea ng-model="upload.text" ng-disabled="files[0].progress >= 0" placeholder="If you like, write something brief about this photo..." class="form-control post-media-comment-textarea" rows="3"></textarea>
+                </div>
+            </div>
+            <div class="post-new-comment-actions">
+                <button ng-click="toggle()" type="button" class="btn btn-cancel-post">Cancel</button>
+                <button ng-disabled="!files[0].type" ng-click="upload(files, upload.text, product.id, 'models.product')" type="button" class="btn btn-post-media">Upload</button>
             </div>
         </div>
     </div>
