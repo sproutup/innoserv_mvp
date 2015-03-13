@@ -15,7 +15,7 @@
             <source type="video/mp4" ng-src="{{file.url.mp4 | trusted}}">
         </video>
     </div>
-    <div ng-show="file.isTranscoded" class="media-video-info">
+    <div ng-show="file.isTranscoded" class="media-video-info" ng-class="{active: file.showComment}">
         <div class="media-user">
             {{file.username}}<a href="#" ng-show="file.comment" ng-click="file.showComment=!file.showComment"><i class="fa fa-ellipsis-h"></i></a>
         </div>
@@ -24,7 +24,7 @@
         </div>
         <div class="media-actions">
             <up-like likes="file.likes" up-id="file.id" up-type="models.file"></up-like>
-            <a href="#"></i>Share</a>
+            <a href="#"><i class="fa fa-share"></i>Share</a>
         </div>
     </div>
 </div>
