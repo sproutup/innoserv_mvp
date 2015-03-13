@@ -132,7 +132,8 @@ public class Likes extends TimeStampModel {
 
 	public ObjectNode toJson(){
 		ObjectNode node = Json.newObject();
-		node.put("name", this.user.name);
+        node.put("id", this.user.id);
+        node.put("name", this.user.name);
 		node.put("createdAt", new DateTime(this.createdAt).toString());
 		return node;
 	}

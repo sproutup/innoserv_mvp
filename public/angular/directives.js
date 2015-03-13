@@ -1,5 +1,81 @@
 'use strict';
 
+angular.module('sproutupApp').directive('upLike', ['LikesService', 'AuthService', '$timeout',
+    function (likesService, authService, $timeout) {
+        return {
+            restrict: 'E',
+            replace: true,
+            scope: {
+                likes: '=',
+                id: '=upId',
+                type: '@upType'
+            },
+            templateUrl: 'assets/templates/up-like.html',
+            link: function (scope, element, attrs) {
+                attrs.$observe('likes', function (likes) {
+                    didIlikeItAlready();
+                });
+
+                scope.$watch(function () {
+                        return authService.isLoggedIn();
+                    },
+                    function(newVal, oldVal) {
+                        didIlikeItAlready();
+                    }, true);
+
+                function didIlikeItAlready() {
+                    if(authService.isLoggedIn()) {
+                        var userid = authService.currentUser().id;
+                        if (scope.likes == undefined) {
+                            return false;
+                        }
+                        for (var i = 0; i < scope.likes.length; i++) {
+                            if (scope.likes[i].id == userid) {
+                                scope.upvoted = true;
+                                return true;
+                            }
+                        }
+                    }
+                    scope.upvoted = false;
+                    return false;
+                }
+
+                element.on('click', function () {
+                    console.log("#########################");
+                    console.log("up-like > clicked id/type: " + scope.id + "/" + scope.type);
+                    console.log("up-like > is-logged-in: " + authService.isLoggedIn());
+
+                    if(!authService.isLoggedIn()){
+                        scope.$emit('LoginEvent', {
+                            someProp: 'Sending you an Object!' // send whatever you want
+                        });
+                        return;
+                    }
+
+                    if(scope.likes == undefined){
+                        scope.likes = [];
+                    }
+
+                    console.log("user.id: " + authService.currentUser().id);
+
+                    if(didIlikeItAlready()==false){
+                        likesService.addLike(scope.id, scope.type, authService.currentUser().id).then(
+                            function(data) {
+                                console.log("liked it: " + scope.id);
+                                scope.likes.push(data);
+                                scope.upvoted = true;
+                            }, function(reason) {
+                                console.log('up-files failed: ' + reason);
+                            }
+                        );
+                    };
+
+                });
+            }
+        }
+    }
+]);
+
 angular.module('sproutupApp').directive('upVideo', ['FileService', '$timeout',
     function (fileService, $timeout) {
         return {
@@ -23,9 +99,7 @@ angular.module('sproutupApp').directive('upVideo', ['FileService', '$timeout',
                         // and transformed by directives.
                         // and properly rendered by the browser
                         var flowplr = element.find(".player");
-                        flowplr.flowplayer({
-                            ratio: 16/9
-                        });
+                        flowplr.flowplayer();
                     }, 0);
                 }, 0);
             }
@@ -58,7 +132,8 @@ angular.module('sproutupApp').directive('upFiles', ['FileService',
         return {
             restrict: 'E',
             replace: true,
-            scope: true,
+            scope: {
+            },
             templateUrl: 'assets/templates/up-files.html',
             link: function (scope, element, attrs) {
                 // listen for the event in the relevant $scope
@@ -250,26 +325,7 @@ angular.module('sproutupApp').directive('navbar', function () {
         templateUrl: '/assets/templates/navbar.html',
 
         controller: function($scope, $log, $http, AuthService) {
-
             AuthService.isLoggedIn();
-
-            getTopTags(10);
-
-            function getTopTags(size) {
-                $http({
-                    method: 'GET',
-                    url: '/api/tags/top',
-                    params: {size: size}
-                }).success(function(data, status, headers, config){
-                    // this callback will be called asynchronously
-                    // when the response is available
-                    $scope.toptags = data;
-                }).error(function(data, status, headers, config){
-                    // called asynchronously if an error occurs
-                    // or server returns response with an error status.
-                });
-            }
-
         }
     };
 });

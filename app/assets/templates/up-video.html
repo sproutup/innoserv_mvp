@@ -23,7 +23,7 @@
             {{file.comment}}
         </div>
         <div class="media-actions">
-            <a href="#"><i class="fa fa-rocket"></i>Up ({{file.likes.length || 0}})</a>
+            <up-like likes="file.likes" up-id="file.id" up-type="models.file"></up-like>
             <a href="#"></i>Share</a>
         </div>
     </div>
