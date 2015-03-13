@@ -9,13 +9,6 @@
         </div>
     </div>
 
-    <!-- ask people to share photos or videos - - >
-    <div class="col-sm-12" ng-controller="FileCtrl">
-        <div class="gallery-header">
-            We love photos and videos. We believe photos and videos tell greater product stories than any word does.<br>
-            <span><a href="#" ng-click="upload('md', product.id, 'model.product')"><i class="fa fa-plus-circle fa-lg"></i>Start your show</a> here today. Share your {{product.productName}} experience with everyone!</span>
-        </div>
-    </div -->
     <div ng-controller="FileCtrl">
 
         <!-- ask people to share photos or videos -->
@@ -25,7 +18,7 @@
         </div>
 
         <!-- current user new photo/video: after user clicks "post" button above -->
-        <div ng-show="gallery.showUpload" class="post-new-media-blurb">
+        <div ng-show="gallery.showUpload" class="col-sm-12 post-new-media-blurb">
             <div class="post-user-name">{{user.name}}</div>
             <div class="post-new-media-form">
                 <!-- show an add button if there is no file selected -->
@@ -53,7 +46,6 @@
             </div>
         </div>
     </div>
-
 
     <!--Photo and videos-->
     <up-files ref-id="{{product.id}}" ref-type="models.product"></up-files>
