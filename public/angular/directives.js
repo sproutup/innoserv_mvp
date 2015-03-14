@@ -288,37 +288,41 @@ angular.module('sproutupApp').directive('subjectPresent', function ($parse) {
     };
 });
 
-angular.module('sproutupApp').directive('toptags', function () {
+angular.module('sproutupApp').directive('upToptags', ['TagsService',
+    function (tagService) {
     return {
-        template:   '<div class="col-sm-12 popular-tags-row">'+
-        '<div class="popular-tags-header">Popular tags</div>' +
-        '<div class="popular-tags-list">'+
-        '<button ng-repeat="tag in toptags | orderBy:counter:true" type="button" class="btn btn-popular-tags"><i class="fa fa-tag"></i>{{tag.name}}<span class="popular-tags-count">{{tag.counter}}</span></button>'+
-        '</div>'+
-        '</div>',
+        templateUrl: 'assets/templates/up-toptags.html',
+        scope: {
+            productId: "=",
+            category: "="
+        },
+        link: function (scope, element, attrs) {
+            attrs.$observe('category', function (category) {
+                tagService.getPopularPostTags(scope.productId, scope.category).then(
+                    function(data){
+                        scope.tags = data;
+                    },
+                    function(error){
+                    }
+                );
 
-        controller: function($scope, $log, $http) {
-
-            getTopTags(10);
-
-            function getTopTags(size) {
-                $http({
-                    method: 'GET',
-                    url: '/api/tags/top',
-                    params: {size: size}
-                }).success(function(data, status, headers, config){
-                    // this callback will be called asynchronously
-                    // when the response is available
-                    $scope.toptags = data;
-                }).error(function(data, status, headers, config){
-                    // called asynchronously if an error occurs
-                    // or server returns response with an error status.
-                });
-            }
-
+                switch(scope.category) {
+                    case 0:
+                        scope.cat = "compliments";
+                        break;
+                    case 1:
+                        scope.cat = "suggestions";
+                        break;
+                    case 2:
+                        scope.cat = "questions";
+                        break;
+                    default:
+                        scope.cat = "default";
+                }
+            });
         }
     };
-});
+}]);
 
 angular.module('sproutupApp').directive('navbar', function () {
     return {

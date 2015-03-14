@@ -17,4 +17,10 @@ public class TagController extends Controller {
         return ok(Tag.toJson(Tag.getTopTags(size)));
     }
 
+    @BodyParser.Of(BodyParser.Json.class)
+    public static Result getPopularPostTags(long productId, int category)
+    {
+        return ok(Tag.toJson(Tag.popularTagsInPost(productId, category)));
+    }
+
 }

@@ -177,6 +177,30 @@ public class Tag extends Model {
         return rs;
     }
 
+    public static List<Tag> popularTagsInPost(long productId, int category){
+        String sql = "select t.id as id, t.name as name, count(*) as counter FROM tag t, tag_link tl, Post p " +
+                "where t.id = tl.tag_id " +
+                "and p.id = tl.ref_id " +
+                "and tl.ref_type = 'models.Post' " +
+                "and p.category = " + category + " " +
+                "and p.product_id = " + productId + " " +
+                "group by t.name " +
+                "order by counter desc " +
+                "limit 0, 10";
+
+        // parse the sql
+        RawSql rawSql = RawSqlBuilder.parse(sql)
+                .create();
+
+        // execute the query
+        List<Tag> links = Tag.find.query()
+                .setRawSql(rawSql)
+                .where()
+                .findList();
+
+        return links;
+    }
+
 	/*
 	Raw sql helper function
 	Returns sql that finds all objects with the specified tag and class = refType

@@ -390,9 +390,6 @@ productServices.factory('AuthService', ['$http', '$q', '$cookieStore','$log',
     };
 
     AuthService.isLoggedIn = function(){
-        $log.debug("isLoggedIn");
-        $log.debug("AuthService > isLoggedIn=" + _isLoggedIn);
-
         return _isLoggedIn;
     };
 
@@ -400,19 +397,37 @@ productServices.factory('AuthService', ['$http', '$q', '$cookieStore','$log',
 
 }]);
 
-productServices.factory('TagsService', ['$http','$log', function($http,$log){
+productServices.factory('TagsService', ['$http', '$q', '$log',
+    function($http, $q, $log){
     var urlBase = '/api/tags';
-    var TagsService = {};
+    var tagsService = {};
 
-    TagsService.getTopTags = function(size){
+    tagsService.getTopTags = function(size){
         return $http({
             method: 'GET',
             url: urlBase,
             params: {size: size}
         })
-    }
+    };
 
-    return TagsService;
+    tagsService.getPopularPostTags = function(productId, category){
+        var deferred = $q.defer();
+
+        $http({
+            method: 'GET',
+            url: urlBase + "/post/top/" + productId + "/" + category,
+            headers: {'Content-Type': 'application/json'}
+        }).success(function(data, status, headers, config){
+            deferred.resolve(data);
+        }).error(function(data, status, headers, config) {
+            deferred.reject();
+        });
+
+        return deferred.promise;
+    };
+
+
+    return tagsService;
 
 }]);
 
