@@ -121,7 +121,7 @@ angular.module('sproutupApp').directive('upPhoto', ['FileService',
                 attrs.$observe('file', function (file) {
                     if (file) {
                         console.log("up-photo - file changed: " + file.id);
-                        ctrl.reload();
+                        //ctrl.reload();
                     }
                 });
             }
@@ -141,10 +141,11 @@ angular.module('sproutupApp').directive('upFiles', ['$compile', 'FileService',
                 // listen for the event in the relevant $scope
                 scope.$on('fileUploadEvent', function (event, args) {
                     console.log('on fileUploadEvent - type: ' + args.data.type);
-                    //loadFiles();
+                    loadFiles();
                     //var elem = $compile( "<up-photo file='file'></up-photo>" )( scope );
                     //element.find('.masonry').prepend(elem);
-                    scope.files.unshift(args.data);
+
+                    //scope.files.unshift(args.data);
                 });
 
                 attrs.$observe('refId', function (refId) {
