@@ -125,9 +125,10 @@ fileControllers.controller('FileCtrl', ['$scope', '$rootScope', '$upload', 'File
                                             $log.debug('upload...finished in ' + (endTime - startTime) + ' ms');
 
                                             $log.debug("broadcast fileUploadEvent");
+                                            $log.debug("type: " + result.data.type);
                                             // firing an event downwards
                                             $rootScope.$broadcast('fileUploadEvent', {
-                                                someProp: 'Sending you an Object!' // send whatever you want
+                                                data: result.data
                                             });
                                             $scope.reset();
                                         }
@@ -404,7 +405,6 @@ productControllers.controller('ProductTabCtrl', function($scope, $window, $locat
 productControllers.controller('productListCtrl', ['$scope', 'ProductService',
   function($scope, ProductService) {
     $scope.products = ProductService.query();
- //   $scope.orderProp = 'age';
   }]);
 
 productControllers.controller('productDetailCtrl', ['$scope', '$stateParams', '$log', 'ProductService',

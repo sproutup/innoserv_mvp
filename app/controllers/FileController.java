@@ -51,8 +51,9 @@ public class FileController  extends Controller {
     @SubjectPresent
     public static Result verify(String uuid)
     {
-        if(File.verify(uuid)){
-            return ok();
+        File res = File.verify(uuid);
+        if(res != null){
+            return ok(res.toJson());
         }
         else{
             return notFound();

@@ -112,14 +112,16 @@ angular.module('sproutupApp').directive('upPhoto', ['FileService',
         return {
             restrict: 'E',
             replace: true,
+            require: '^masonry',
             scope: {
                 file: '='
             },
             templateUrl: 'assets/templates/up-photo.html',
-            link: function (scope, element, attrs) {
+            link: function (scope, element, attrs, ctrl) {
                 attrs.$observe('file', function (file) {
                     if (file) {
                         console.log("up-photo - file changed: " + file.id);
+                        ctrl.reload();
                     }
                 });
             }
@@ -127,8 +129,8 @@ angular.module('sproutupApp').directive('upPhoto', ['FileService',
     }
 ]);
 
-angular.module('sproutupApp').directive('upFiles', ['FileService',
-    function (fileService) {
+angular.module('sproutupApp').directive('upFiles', ['$compile', 'FileService',
+    function ($compile, fileService) {
         return {
             restrict: 'E',
             replace: true,
@@ -137,9 +139,12 @@ angular.module('sproutupApp').directive('upFiles', ['FileService',
             templateUrl: 'assets/templates/up-files.html',
             link: function (scope, element, attrs) {
                 // listen for the event in the relevant $scope
-                scope.$on('fileUploadEvent', function (event, data) {
-                    console.log('on fileUploadEvent');
-                    loadFiles();
+                scope.$on('fileUploadEvent', function (event, args) {
+                    console.log('on fileUploadEvent - type: ' + args.data.type);
+                    //loadFiles();
+                    //var elem = $compile( "<up-photo file='file'></up-photo>" )( scope );
+                    //element.find('.masonry').prepend(elem);
+                    scope.files.unshift(args.data);
                 });
 
                 attrs.$observe('refId', function (refId) {
@@ -324,6 +329,33 @@ angular.module('sproutupApp').directive('upToptags', ['TagsService',
     };
 }]);
 
+angular.module('sproutupApp').directive('upProductList', [ 'ProductService',
+    function (productService) {
+        return {
+            templateUrl: 'assets/templates/up-product-list.html',
+            scope: {
+            },
+            link: function (scope, element, attrs) {
+                scope.products = productService.query();
+            }
+        };
+    }]);
+
+angular.module('sproutupApp').directive('upProductItem', [
+    function () {
+        return {
+            templateUrl: 'assets/templates/up-product-item.html',
+            //require: '^upProductList',
+            scope: {
+                product: "="
+            },
+            link: function (scope, element, attrs) {
+                attrs.$observe('product', function (producty) {
+                });
+            }
+        };
+    }]);
+
 angular.module('sproutupApp').directive('navbar', function () {
     return {
         templateUrl: '/assets/templates/navbar.html',
@@ -333,3 +365,5 @@ angular.module('sproutupApp').directive('navbar', function () {
         }
     };
 });
+
+

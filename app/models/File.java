@@ -158,16 +158,16 @@ public class File extends SuperModel {
         return arrayNode;
     }
 
-    public static boolean verify(String id){
+    public static File verify(String id){
         File file = File.findByUUID(UUID.fromString(id));
         if(file != null) {
             file.verified = true;
             file.save();
             file.transcode();
-            return true;
+            return file;
         }
         else {
-            return false;
+            return null;
         }
     }
 
