@@ -64,26 +64,7 @@
 
     <hr>
 
-    <div class="row product-list-container">
-        @for(product <- products) {
-            @if(!product.isFeatured) {
-                <div class="col-lg-4 col-sm-6 col-xs-12 product-list-item">
-                    <a href="/product/@product.slug">
-                        <div class="product-cover-photo" style="background-image: url('@("https://s3.amazonaws.com/sproutup-mvp-cdn/assets/" + product.productEAN +".jpg")')">
-                            <div class="product-cover-info">
-                                <div class="product-cover-title">
-                                    <p>@product.productName</p>
-                                </div>
-                                <div class="product-cover-description">
-                                    <p>@product.productDescription</p>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            }
-        }
-    </div>
+    <up-product-list></up-product-list>
 
     <hr>
 
