@@ -33,18 +33,26 @@
     </div>
 
     <div class="row product-list-container">
-        <h1 class="text-center product-list-header">Featured products</h1>
+        <h1 class="text-center product-list-header">Check out some cool products</h1>
+        <h1 class="text-center product-list-header-2">We are expanding the collaboration with product creators. Stay tuned for more exciting stuff, beta coming in early 2015.</h1>
+
         @for(product <- products) {
             @if(product.isFeatured) {
                 <div class="col-sm-6 col-xs-12 product-list-item">
                     <a href="/product/@product.slug">
                         <div class="product-cover-photo" style="background-image: url('@("https://s3.amazonaws.com/sproutup-mvp-cdn/assets/" + product.productEAN +".jpg")')">
                             <div class="product-cover-info">
+                                <div class="product-category-list">
+                                    <button type="button" class="btn btn-product-category">Smart Home</button>
+                                    <button type="button" class="btn btn-product-category">Lighting</button>
+                                    <button type="button" class="btn btn-product-category">Design</button>
+                                </div>
                                 <div class="product-cover-title">
+                                    <div class="featured-product-label">Featured</div>
                                     <p>@product.productName</p>
                                 </div>
                                 <div class="product-cover-description">
-                                    <p>@product.productDescription</p>
+                                    @product.productDescription
                                 </div>
                             </div>
                         </div>
@@ -54,9 +62,9 @@
         }
     </div>
 
+    <hr>
+
     <div class="row product-list-container">
-        <h1 class="text-center product-list-header">Check out more cool products</h1>
-        <h1 class="text-center product-list-header-2">We are expanding the collaboration with product creators. Stay tuned for more exciting stuff, beta coming in early 2015.</h1>
         @for(product <- products) {
             @if(!product.isFeatured) {
                 <div class="col-lg-4 col-sm-6 col-xs-12 product-list-item">
