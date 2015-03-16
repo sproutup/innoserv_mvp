@@ -136,7 +136,8 @@ function($http, $log, $q, $upload){
             }
         }).success(function(data, status, headers, config){
             $log.debug("file verify returned success");
-            var result = {file : file, status : true};
+            $log.debug("type: " + data.type);
+            var result = {file : file, data : data, status : true};
             deferred.resolve(result);
         }).error(function(data, status, headers, config){
             $log.debug("file verify returned error");
