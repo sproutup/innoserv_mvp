@@ -93,7 +93,7 @@ public class AuthController extends Controller {
     public static Result user(){
         User localUser = Application.getLocalUser(session());
         if(localUser != null){
-            return ok(localUser.toJson(ctx()));
+            return ok(localUser.toJson());
         }
         else {
             return notFound();
