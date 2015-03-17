@@ -1,5 +1,58 @@
 'use strict';
 
+angular.module('sproutupApp').directive('upSlideable', function () {
+    return {
+        restrict:'AC',
+        compile: function (element, attr) {
+            // wrap tag
+            var contents = element.html();
+            element.html('<div class="slideable_content" style="margin:0 !important; padding:0 !important" >' + contents + '</div>');
+
+            return function postLink(scope, element, attrs) {
+                // default properties
+                attrs.duration = (!attrs.duration) ? '1s' : attrs.duration;
+                attrs.easing = (!attrs.easing) ? 'ease-in-out' : attrs.easing;
+                element.css({
+                    'overflow': 'hidden',
+                    'height': '0px',
+                    'transitionProperty': 'height',
+                    'transitionDuration': attrs.duration,
+                    'transitionTimingFunction': attrs.easing
+                });
+            };
+        }
+    };
+});
+
+angular.module('sproutupApp').directive('upSlideableToggle',
+    function() {
+        return {
+            restrict: 'A',
+            link: function(scope, element, attrs) {
+                var target, content;
+                console.log("slideable toggle - init");
+
+                attrs.expanded = false;
+
+                element.bind('click', function() {
+                    console.log("slideable toggle - click event");
+                    if (!target) target = document.querySelector(attrs.upSlideableToggle);
+                    if (!content) content = target.querySelector('.slideable_content');
+
+                    if(!attrs.expanded) {
+                        content.style.border = '1px solid rgba(0,0,0,0)';
+                        var y = content.clientHeight;
+                        content.style.border = 0;
+                        target.style.height = y + 'px';
+                    } else {
+                        target.style.height = '0px';
+                    }
+                    attrs.expanded = !attrs.expanded;
+                });
+            }
+        };
+    });
+
 angular.module('sproutupApp').directive('upLike', ['LikesService', 'AuthService', '$timeout',
     function (likesService, authService, $timeout) {
         return {
@@ -366,5 +419,7 @@ angular.module('sproutupApp').directive('navbar', function () {
         }
     };
 });
+
+
 
 
