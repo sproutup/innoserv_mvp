@@ -59,7 +59,6 @@ sproutupApp.config(['$routeProvider', '$stateProvider', '$locationProvider',
             .state('product.list' ,{
                 url: '',
                 templateUrl: 'views/product-list',
-                controller: 'productListCtrl',
                 onEnter: function(){
                     console.log("enter product list");
                 }
