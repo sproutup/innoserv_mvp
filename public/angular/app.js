@@ -119,11 +119,6 @@ sproutupApp.config(['$routeProvider', '$stateProvider', '$locationProvider', '$u
         $urlRouterProvider.rule(function ($injector, $location) {
             var path = $location.url();
 
-            console.log("url provider > url : " + path );
-            console.log("url provider > path : " + $location.path() );
-            console.log("url provider > hash : " + $location.hash() );
-
-
             if (path.indexOf('/_=_') == 0) {
                 $location.replace().path($location.path().replace('/_=_', ''));
             }
