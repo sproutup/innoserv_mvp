@@ -285,8 +285,8 @@ authControllers.controller('AuthCtrl', ['$scope', '$modal', '$log', 'AuthService
 // Please note that $modalInstance represents a modal window (instance) dependency.
 // It is not the same as the $modal service used above.
 
-authControllers.controller('SignupInstanceCtrl', ['$scope', '$modalInstance', 'AuthService', '$log', 'signup',
-    function ($scope, $modalInstance, AuthService, $log, signup) {
+authControllers.controller('SignupInstanceCtrl', ['$scope', '$location', '$window', '$modalInstance', 'AuthService', '$log', 'signup',
+    function ($scope, $location, $window, $modalInstance, AuthService, $log, signup) {
 
     $scope.ok = function () {
         var dataObject = {
@@ -314,6 +314,30 @@ authControllers.controller('SignupInstanceCtrl', ['$scope', '$modalInstance', 'A
                 else{
                     $scope.signup.error = "Signup failed";
                 }
+            }
+        );
+    };
+
+    $scope.provider = function (provider) {
+        $log.debug("provider: " + provider);
+
+        var currentPath = $location.path();
+        $log.debug("path: " + currentPath);
+
+        var dataObject = {
+            originalUrl : currentPath
+        };
+
+        var promise = AuthService.provider(provider, dataObject);
+
+        promise.then(
+            function(payload){
+                $log.debug(payload);
+                $window.location.href = payload;
+                $modalInstance.close("ok");
+            },
+            function(errorPayload){
+                $log.info('Login failed: ' + new Date());
             }
         );
     };
