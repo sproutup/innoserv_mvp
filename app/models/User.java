@@ -305,6 +305,7 @@ public class User extends Model implements Subject {
         node.put("lastname", this.lastName);
         node.put("zipcode", this.zipcode);
         node.put("roles", Json.toJson(this.getRoles()));
+        node.put("role", this.getRoles().get(0).getName().toLowerCase());
         node.put("permissions", Json.toJson(this.getPermissions()));
         node.put("lastLogin", new DateTime(this.lastLogin).toString());
         node.put("avatarUrl", getAvatar());

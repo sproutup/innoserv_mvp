@@ -9,6 +9,7 @@
         roles :[
             'public',
             'user',
+            'consumer',
             'creator',
             'admin'],
 

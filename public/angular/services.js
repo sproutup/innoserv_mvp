@@ -266,6 +266,14 @@ productServices.factory('AuthService', ['$http', '$q', '$cookieStore','$log',
         return currentUser;
     };
 
+    AuthService.authorize = function(accessLevel, role) {
+        if(role === undefined) {
+            role = currentUser.role;
+        }
+
+        return accessLevel.bitMask & role.bitMask;
+    };
+
     AuthService.user = function(user){
         var deferred = $q.defer();
 
@@ -393,6 +401,10 @@ productServices.factory('AuthService', ['$http', '$q', '$cookieStore','$log',
     AuthService.isLoggedIn = function(){
         return _isLoggedIn;
     };
+
+    AuthService.accessLevels = accessLevels;
+
+    AuthService.userRoles = userRoles;
 
     return AuthService;
 

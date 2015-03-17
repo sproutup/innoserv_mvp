@@ -420,6 +420,41 @@ angular.module('sproutupApp').directive('navbar', function () {
     };
 });
 
+angular.module('sproutupApp').directive('upAccessLevel', ['AuthService', '$log',
+    function(auth, $log) {
+        return {
+            restrict: 'A',
+            scope: true,
+            link: function(scope, element, attrs) {
+                var prevDisp = element.css('display')
+                    , userRole
+                    , accessLevel;
 
+                scope.user = auth.currentUser();
+                scope.$watch('user', function(user) {
+                    $log.debug("up-access-level - watch - user - " + user.role);
+                    if(user.role)
+                        userRole = user.role;
+                    updateCSS();
+                }, true);
 
+                attrs.$observe('upAccessLevel', function(al) {
+                    $log.debug("up-access-level - watch - accesslevel - " + al);
+                    //if(al) accessLevel = $scope.$eval(al);
+                    if(al) accessLevel = al;
+                    updateCSS();
+                });
 
+                function updateCSS() {
+                    if(userRole && accessLevel) {
+                        $log.debug("up-access-level - update css");
+                        if(!auth.authorize(accessLevel, userRole))
+                            element.css('display', 'none');
+                        else
+                            element.css('display', prevDisp);
+                    }
+                }
+            }
+        };
+    }
+]);
