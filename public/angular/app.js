@@ -45,7 +45,32 @@ sproutupApp.config(['$routeProvider', '$stateProvider', '$locationProvider', '$u
             })
             .state('profile' ,{
                 url: '/profile',
+                abstract: true,
                 templateUrl: 'views/profile'
+            })
+            .state('profile.photos' ,{
+                url: '',
+                templateUrl: 'views/profile/photos'
+            })
+            .state('profile.videos' ,{
+                url: '/videos',
+                templateUrl: 'views/profile/videos'
+            })
+            .state('profile.products' ,{
+                url: '/products',
+                templateUrl: 'views/profile/products'
+            })
+            .state('profile.followers' ,{
+                url: '/followers',
+                templateUrl: 'views/profile/followers'
+            })
+            .state('profile.followings' ,{
+                url: '/followings',
+                templateUrl: 'views/profile/followings'
+            })
+            .state('profile.account' ,{
+                url: '/account',
+                templateUrl: 'views/profile/account'
             })
             .state('product', {
                 abstract: true,
@@ -54,7 +79,6 @@ sproutupApp.config(['$routeProvider', '$stateProvider', '$locationProvider', '$u
                 onEnter: function(){
                     console.log("enter product abstract");
                 }
-
             })
             .state('product.list' ,{
                 url: '',

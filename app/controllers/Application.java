@@ -68,13 +68,30 @@ public class Application extends Controller {
 		return localUser;
 	}
 
-	@Restrict({@Group(AppConstants.CONSUMER)})
-	public static Result profile() {
-		final User localUser = getLocalUser(session());
-		return ok(profile.render(localUser));
-	}
+    @Restrict({@Group(AppConstants.CONSUMER)})
+    public static Result profile() {
+        return ok(profile.render());
+    }
 
-	public static Result login() {
+    @Restrict({@Group(AppConstants.CONSUMER)})
+    public static Result profile_photos() {return ok(profile_photos.render()); }
+
+    @Restrict({@Group(AppConstants.CONSUMER)})
+    public static Result profile_videos() {return ok(profile_videos.render()); }
+
+    @Restrict({@Group(AppConstants.CONSUMER)})
+    public static Result profile_products() {return ok(profile_products.render()); }
+
+    @Restrict({@Group(AppConstants.CONSUMER)})
+    public static Result profile_followers() {return ok(profile_followers.render()); }
+
+    @Restrict({@Group(AppConstants.CONSUMER)})
+    public static Result profile_followings() {return ok(profile_followings.render()); }
+
+    @Restrict({@Group(AppConstants.CONSUMER)})
+    public static Result profile_account() {return ok(profile_account.render()); }
+
+    public static Result login() {
 		return ok(login.render(MyUsernamePasswordAuthProvider.LOGIN_FORM));
 	}
 

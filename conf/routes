@@ -45,6 +45,12 @@ GET           /views/home                            controllers.Application.hom
 GET           /views/about                           controllers.Application.about
 GET           /views/creator                         controllers.Application.creator
 GET           /views/profile                         controllers.Application.profile
+GET           /views/profile/photos                  controllers.Application.profile_photos
+GET           /views/profile/videos                  controllers.Application.profile_videos
+GET           /views/profile/products                controllers.Application.profile_products
+GET           /views/profile/followers               controllers.Application.profile_followers
+GET           /views/profile/followings              controllers.Application.profile_followings
+GET           /views/profile/account                 controllers.Application.profile_account
 GET           /views/product-list                    controllers.Products.list
 GET           /views/product-details                 controllers.Products.details
 GET           /views/product-about                   controllers.Products.about
