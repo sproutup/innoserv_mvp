@@ -18,12 +18,6 @@ public class ElasticTranscoder {
     //				Audio and video Elestic transcoder preset codecs defined in AWS
     //------------------------------------------------------------------------------------------
     //  Name:							ID:						Container:	Description:
-    //  SproutUp preset: HLS_2M			1424119370007-dxon1f	ts			System preset: HLS 2M
-    //  SproutUp preset: HLS_1_5M		1424119437602-aylrah	ts			System preset: HLS 1.5M
-    //  SproutUp preset: HLS_1M			1424119499796-5jai56	ts			System preset: HLS 1M
-    //  SproutUp preset: HLS_600k		1424119535877-gb7fak	ts			System preset: HLS 600k
-    //  SproutUp preset: HLS_400k		1424119586893-9x4w7m	ts			System preset: HLS 400k
-    //  SproutUp preset: Web            1424119710459-6kl7mu    mp4
     //------------------------------------------------------------------------------------------
     //  System preset: HLS_2M			1351620000001-200010	ts			System preset: HLS 2M
     //  System preset: HLS_1_5M			1351620000001-200020	ts			System preset: HLS 1.5M
@@ -101,7 +95,7 @@ public class ElasticTranscoder {
     private static String OUTPUT_KEY_PREFIX;
 
     // HLS Presets that will be used to create an adaptive bitrate playlist.
-    private static final String WEB_PRESET_ID           = "1351620000001-100070";
+    private static final String WEB_PRESET_ID           = "1351620000001-000001";
     private static final String HLS_2M_PRESET_ID 		= "1351620000001-200010";
     private static final String HLS_1_5M_PRESET_ID		= "1351620000001-200020";
     private static final String HLS_1M_PRESET_ID		= "1351620000001-200030";
@@ -139,35 +133,35 @@ public class ElasticTranscoder {
         //setup encoding presets for HLS transcoding
         CreateJobOutput mp4 = new CreateJobOutput()
                 //.withThumbnailPattern(outputKey + "/" + output_key + "-{resolution}-{count}")
-                .withKey(outputKey + "/" + outputKey + ".mp4")
+                .withKey(outputKey + ".mp4")
                 .withPresetId(WEB_PRESET_ID);
 
         CreateJobOutput webm = new CreateJobOutput()
-                .withKey(outputKey + "/" + outputKey + ".webm")
+                .withKey(outputKey + ".webm")
                 .withPresetId(WEB_PRESET_ID);
 
         CreateJobOutput hls2m = new CreateJobOutput()
-                .withKey(outputKey + "/" + outputKey + "-hls-2m-")
+                .withKey(outputKey + "-hls-2m-")
                 .withPresetId(HLS_2M_PRESET_ID)
                 .withSegmentDuration(SEGMENT_DURATION);
 
         CreateJobOutput hls15m = new CreateJobOutput()
-                .withKey(outputKey + "/" + outputKey + "-hls-15m-")
+                .withKey(outputKey + "-hls-15m-")
                 .withPresetId(HLS_1_5M_PRESET_ID)
                 .withSegmentDuration(SEGMENT_DURATION);
 
         CreateJobOutput hls1m = new CreateJobOutput()
-                .withKey(outputKey + "/" + outputKey + "-hls-1m-")
+                .withKey(outputKey + "-hls-1m-")
                 .withPresetId(HLS_1M_PRESET_ID)
                 .withSegmentDuration(SEGMENT_DURATION);
 
         CreateJobOutput hls600k = new CreateJobOutput()
-                .withKey(outputKey + "/" + outputKey + "-hls-600k-")
+                .withKey(outputKey + "-hls-600k-")
                 .withPresetId(HLS_600k_PRESET_ID)
                 .withSegmentDuration(SEGMENT_DURATION);
 
         CreateJobOutput hls400k = new CreateJobOutput()
-                .withKey(outputKey + "/" + outputKey + "-hls-400k-")
+                .withKey(outputKey + "-hls-400k-")
                 .withPresetId(HLS_400k_PRESET_ID)
                 .withSegmentDuration(SEGMENT_DURATION);
 
@@ -175,7 +169,7 @@ public class ElasticTranscoder {
 
         // Setup master playlist which can be used to play using adaptive bitrate.
         CreateJobPlaylist playlist = new CreateJobPlaylist()
-                .withName(outputKey + "/" + outputKey)
+                .withName(outputKey)
                 .withFormat("HLSv3")
                 .withOutputKeys(hls2m.getKey(), hls15m.getKey(), hls1m.getKey(), hls600k.getKey(), hls400k.getKey());
 

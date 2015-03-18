@@ -23,38 +23,38 @@
 
 @main(Messages(product.productName + ": " + product.productDescription + " | SproutUp"), moreHead) {
 
-    <div class="product-hero-banner" style="background-image: url('@("https://s3.amazonaws.com/sproutup-mvp-cdn/assets/" + product.productEAN +".jpg")')">
-        <div class="product-info">
-            <div class="col-lg-12">
-                <p class="product-title">@product.productName</p>
-                <p class="product-description">@product.productDescription</p>
-                <ul class="list-inline product-social-buttons">
-                  @if(product.urlHome != null){
-                      <li><a href="http://@product.urlHome" target="_blank"><i class="fa fa-home"></i></a></li>
-                  }
-                  @if(product.urlFacebook != null){
-                      <li><a href="http://@product.urlFacebook" target="_blank"><i class="fa fa-facebook"></i></a></li>
-                  }
-                  @if(product.urlTwitter != null){
-                      <li><a href="http://@product.urlTwitter" target="_blank"><i class="fa fa-twitter"></i></a></li>
-                  }
-                </ul>
-            </div>
-        </div>
-        <!-- Menu in banner -->
-        <div class="col-lg-12 product-menu">
-            <div class="product-menu--content">
-                <a class="product-menu--item" href="#">About</a>
-                <a class="product-menu--item active" href="#">Experience Bar</a>
-                <a class="product-menu--item" href="#">Experience Gallery</a>
-            </div>
-            <div class="product-menu--action">
-                <a class="btn btn-lg btn-following" href="#"><i class="fa fa-check"></i>Following</a>
-                <a class="btn btn-lg btn-outline" href="#">Trial Signup</a>
-                <a class="btn btn-lg btn-outline" href="#">Buy</a>
-            </div>
-        </div>
+<div class="product-hero-banner" style="background-image: url('@("https://s3.amazonaws.com/sproutup-mvp-cdn/assets/" + product.productEAN +".jpg")')">
+<div class="product-info-wrapper">
+    <div class="col-lg-12 product-info">
+        <div class="product-title">@product.productName</div>
+        <div class="product-description">@product.productDescription</div>
+        <ul class="list-inline product-social-buttons">
+            @if(product.urlHome != null){
+            <li><a href="http://@product.urlHome" target="_blank"><i class="fa fa-home"></i></a></li>
+            }
+            @if(product.urlFacebook != null){
+            <li><a href="http://@product.urlFacebook" target="_blank"><i class="fa fa-facebook"></i></a></li>
+            }
+            @if(product.urlTwitter != null){
+            <li><a href="http://@product.urlTwitter" target="_blank"><i class="fa fa-twitter"></i></a></li>
+            }
+        </ul>
     </div>
+</div>
+<!-- Menu in banner -->
+<div class="col-lg-12 product-menu">
+    <div class="product-menu--content">
+        <a class="product-menu--item" href="#">About</a>
+        <a class="product-menu--item" href="#">Experience Bar</a>
+        <a class="product-menu--item active" href="#">Experience Gallery</a>
+    </div>
+    <div class="product-menu--action">
+        <a class="btn btn-lg btn-following" href="#"><i class="fa fa-check"></i>Following</a>
+        <a class="btn btn-lg btn-outline" href="#">Trial Signup</a>
+        <a class="btn btn-lg btn-outline" href="#">Buy</a>
+    </div>
+</div>
+</div>
 
     @product_mock_bar()
 

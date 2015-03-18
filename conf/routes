@@ -45,6 +45,12 @@ GET           /views/home                            controllers.Application.hom
 GET           /views/about                           controllers.Application.about
 GET           /views/creator                         controllers.Application.creator
 GET           /views/profile                         controllers.Application.profile
+GET           /views/profile/photos                  controllers.Application.profile_photos
+GET           /views/profile/videos                  controllers.Application.profile_videos
+GET           /views/profile/products                controllers.Application.profile_products
+GET           /views/profile/followers               controllers.Application.profile_followers
+GET           /views/profile/followings              controllers.Application.profile_followings
+GET           /views/profile/account                 controllers.Application.profile_account
 GET           /views/product-list                    controllers.Products.list
 GET           /views/product-details                 controllers.Products.details
 GET           /views/product-about                   controllers.Products.about
@@ -78,7 +84,8 @@ POST          /api/forum/posts                       controllers.PostController.
 #PUT     /api/forum/posts/:id        controllers.PostController.updateProduct(id: Long)
 #DELETE  /api/forum/posts/:id        controllers.PostController.deleteProduct(id: Long)
 
-GET           /api/tags/top                          controllers.TagController.getTopTags(size: Integer ?= 10)
+GET           /api/tags/top                          controllers.TagController.getTopTags(size: Int ?= 10)
+GET           /api/tags/post/top/:id/:category       controllers.TagController.getPopularPostTags(id: Long, category: Int)
 
 GET           /api/likes/:type/:id                   controllers.LikesController.getLikes(id: Long, type: String)
 POST          /api/likes/:type/:id                   controllers.LikesController.addLikes(id: Long, type: String, user_id: Long)
@@ -93,7 +100,10 @@ POST          /api/auth/login                        controllers.AuthController.
 POST          /api/auth/signup                       controllers.AuthController.signup
 POST          /api/auth/provider/:provider           controllers.AuthController.provider(provider: String)
 
-GET           /media/image/:image                    controllers.Application.image(image: String, x: Integer ?=80, y: Integer ?=80)
+GET           /media/image/:w/x/:image               controllers.Application.image(image: String, w: Int, h: Int = -1)
+GET           /media/image/x/:h/:image               controllers.Application.image(image: String, w: Int = -1, h: Int)
+GET           /media/image/:w/:h/:image              controllers.Application.image(image: String, w: Int, h: Int)
+GET           /media/image/:image                    controllers.Application.image(image: String, w: Int ?=-1, h: Int ?=-1)
 
 # Internal Administration Only - Not visible to public
 GET  /adminstuff/product          				controllers.ProductAdministrationController.index()

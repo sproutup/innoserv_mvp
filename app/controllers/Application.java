@@ -68,13 +68,30 @@ public class Application extends Controller {
 		return localUser;
 	}
 
-	@Restrict({@Group(AppConstants.CONSUMER)})
-	public static Result profile() {
-		final User localUser = getLocalUser(session());
-		return ok(profile.render(localUser));
-	}
+    @Restrict({@Group(AppConstants.CONSUMER)})
+    public static Result profile() {
+        return ok(profile.render());
+    }
 
-	public static Result login() {
+    @Restrict({@Group(AppConstants.CONSUMER)})
+    public static Result profile_photos() {return ok(profile_photos.render()); }
+
+    @Restrict({@Group(AppConstants.CONSUMER)})
+    public static Result profile_videos() {return ok(profile_videos.render()); }
+
+    @Restrict({@Group(AppConstants.CONSUMER)})
+    public static Result profile_products() {return ok(profile_products.render()); }
+
+    @Restrict({@Group(AppConstants.CONSUMER)})
+    public static Result profile_followers() {return ok(profile_followers.render()); }
+
+    @Restrict({@Group(AppConstants.CONSUMER)})
+    public static Result profile_followings() {return ok(profile_followings.render()); }
+
+    @Restrict({@Group(AppConstants.CONSUMER)})
+    public static Result profile_account() {return ok(profile_account.render()); }
+
+    public static Result login() {
 		return ok(login.render(MyUsernamePasswordAuthProvider.LOGIN_FORM));
 	}
 
@@ -124,15 +141,7 @@ public class Application extends Controller {
 
 
     // Scala and render an image from S3
-    public static Result image(String image, int x, int y) {
-
-//        ByteArrayOutputStream hit = (ByteArrayOutputStream) Cache.get(image + x + "x" + y, null);
-//
-//        if(hit!=null){
-//            Logger.debug("cache hit");
-//            return ok(hit).as("image/jpg");
-//        }
-
+    public static Result image(String image, int w, int h) {
         Logger.debug("get object image");
         S3Object obj = S3Plugin.amazonS3.getObject("sproutup-test-upload", image);
 
@@ -140,25 +149,41 @@ public class Application extends Controller {
             BufferedImage thumbnail;
 
             try {
-
-                Logger.debug("get object content stream");
-
                 S3ObjectInputStream originalImage = obj.getObjectContent();
-
                 ByteArrayOutputStream out = new ByteArrayOutputStream();
 
                 Logger.debug("convert image");
 
-                Thumbnails.of(originalImage)
-                        .size(x, y)
-                        .outputFormat("jpg")
-                .toOutputStream(out);
-
-//                Cache.set(image + x + "x" + y, out, 60 * 15, null);
+                if(w==-1 && h==-1){
+                    Thumbnails.of(originalImage)
+                            .size(80, 80)
+                            .outputFormat("jpg")
+                            .toOutputStream(out);
+                }
+                else
+                if(h==-1){
+                    Thumbnails.of(originalImage)
+                            .width(w)
+                            .outputFormat("jpg")
+                            .toOutputStream(out);
+                }
+                else
+                if(w==-1){
+                    Thumbnails.of(originalImage)
+                            .height(h)
+                            .outputFormat("jpg")
+                            .toOutputStream(out);
+                }
+                else {
+                    Thumbnails.of(originalImage)
+                            .size(w, h)
+                            .outputFormat("jpg")
+                            .toOutputStream(out);
+                }
 
                 return ok(out.toByteArray()).as("image/jpg");
             } catch (Exception e) {
-                Logger.debug("error getting object image");
+                Logger.debug("image error: " + e.getMessage());
             }
         }
         return notFound();

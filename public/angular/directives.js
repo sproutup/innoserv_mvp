@@ -1,18 +1,204 @@
 'use strict';
 
+angular.module('sproutupApp').directive('upSlideable', function () {
+    return {
+        restrict:'AC',
+        compile: function (element, attr) {
+            // wrap tag
+            var contents = element.html();
+            element.html('<div class="slideable_content" style="margin:0 !important; padding:0 !important" >' + contents + '</div>');
 
-angular.module('sproutupApp').directive('upFiles', ['FileService',
+            return function postLink(scope, element, attrs) {
+                // default properties
+                attrs.duration = (!attrs.duration) ? '0.4s' : attrs.duration;
+                attrs.easing = (!attrs.easing) ? 'ease-in-out' : attrs.easing;
+                element.css({
+                    'overflow': 'hidden',
+                    'height': '0px',
+                    'transitionProperty': 'height',
+                    'transitionDuration': attrs.duration,
+                    'transitionTimingFunction': attrs.easing
+                });
+            };
+        }
+    };
+});
+
+angular.module('sproutupApp').directive('upSlideableToggle',
+    function() {
+        return {
+            restrict: 'A',
+            link: function(scope, element, attrs) {
+                var target, content;
+                console.log("slideable toggle - init");
+
+                attrs.expanded = false;
+
+                element.bind('click', function() {
+                    console.log("slideable toggle - click event");
+                    if (!target) target = document.querySelector(attrs.upSlideableToggle);
+                    if (!content) content = target.querySelector('.slideable_content');
+
+                    if(!attrs.expanded) {
+                        content.style.border = '1px solid rgba(0,0,0,0)';
+                        var y = content.clientHeight;
+                        content.style.border = 0;
+                        target.style.height = y + 'px';
+                    } else {
+                        target.style.height = '0px';
+                    }
+                    attrs.expanded = !attrs.expanded;
+                });
+            }
+        };
+    });
+
+angular.module('sproutupApp').directive('upLike', ['LikesService', 'AuthService', '$timeout',
+    function (likesService, authService, $timeout) {
+        return {
+            restrict: 'E',
+            replace: true,
+            scope: {
+                likes: '=',
+                id: '=upId',
+                type: '@upType'
+            },
+            templateUrl: 'assets/templates/up-like.html',
+            link: function (scope, element, attrs) {
+                attrs.$observe('likes', function (likes) {
+                    didIlikeItAlready();
+                });
+
+                scope.$watch(function () {
+                        return authService.isLoggedIn();
+                    },
+                    function(newVal, oldVal) {
+                        didIlikeItAlready();
+                    }, true);
+
+                function didIlikeItAlready() {
+                    if(authService.isLoggedIn()) {
+                        var userid = authService.currentUser().id;
+                        if (scope.likes == undefined) {
+                            return false;
+                        }
+                        for (var i = 0; i < scope.likes.length; i++) {
+                            if (scope.likes[i].id == userid) {
+                                scope.upvoted = true;
+                                return true;
+                            }
+                        }
+                    }
+                    scope.upvoted = false;
+                    return false;
+                }
+
+                element.on('click', function () {
+                    console.log("#########################");
+                    console.log("up-like > clicked id/type: " + scope.id + "/" + scope.type);
+                    console.log("up-like > is-logged-in: " + authService.isLoggedIn());
+
+                    if(!authService.isLoggedIn()){
+                        scope.$emit('LoginEvent', {
+                            someProp: 'Sending you an Object!' // send whatever you want
+                        });
+                        return;
+                    }
+
+                    if(scope.likes == undefined){
+                        scope.likes = [];
+                    }
+
+                    console.log("user.id: " + authService.currentUser().id);
+
+                    if(didIlikeItAlready()==false){
+                        likesService.addLike(scope.id, scope.type, authService.currentUser().id).then(
+                            function(data) {
+                                console.log("liked it: " + scope.id);
+                                scope.likes.push(data);
+                                scope.upvoted = true;
+                            }, function(reason) {
+                                console.log('up-files failed: ' + reason);
+                            }
+                        );
+                    };
+
+                });
+            }
+        }
+    }
+]);
+
+angular.module('sproutupApp').directive('upVideo', ['FileService', '$timeout',
+    function (fileService, $timeout) {
+        return {
+            restrict: 'E',
+            replace: true,
+            scope: {
+                file: '='
+            },
+            templateUrl: 'assets/templates/up-video.html',
+            link: function (scope, element, attrs) {
+                attrs.$observe('file', function (file) {
+                    if (file) {
+                        console.log("up-video - file changed: " + file.id);
+                    }
+                });
+                $timeout(function () {
+                    $timeout(function () {
+                        console.log("up-video - loaded: " + attrs.file.id);
+                        // This code will run after
+                        // templateUrl has been loaded, cloned
+                        // and transformed by directives.
+                        // and properly rendered by the browser
+                        var flowplr = element.find(".player");
+                        flowplr.flowplayer();
+                    }, 0);
+                }, 0);
+            }
+        }
+    }
+]);
+
+angular.module('sproutupApp').directive('upPhoto', ['FileService',
     function (fileService) {
         return {
             restrict: 'E',
             replace: true,
-            scope: true,
+            require: '^masonry',
+            scope: {
+                file: '='
+            },
+            templateUrl: 'assets/templates/up-photo.html',
+            link: function (scope, element, attrs, ctrl) {
+                attrs.$observe('file', function (file) {
+                    if (file) {
+                        console.log("up-photo - file changed: " + file.id);
+                        //ctrl.reload();
+                    }
+                });
+            }
+        }
+    }
+]);
+
+angular.module('sproutupApp').directive('upFiles', ['$compile', 'FileService',
+    function ($compile, fileService) {
+        return {
+            restrict: 'E',
+            replace: true,
+            scope: {
+            },
             templateUrl: 'assets/templates/up-files.html',
             link: function (scope, element, attrs) {
                 // listen for the event in the relevant $scope
-                scope.$on('fileUploadEvent', function (event, data) {
-                    console.log('on fileUploadEvent');
+                scope.$on('fileUploadEvent', function (event, args) {
+                    console.log('on fileUploadEvent - type: ' + args.data.type);
                     loadFiles();
+                    //var elem = $compile( "<up-photo file='file'></up-photo>" )( scope );
+                    //element.find('.masonry').prepend(elem);
+
+                    //scope.files.unshift(args.data);
                 });
 
                 attrs.$observe('refId', function (refId) {
@@ -26,12 +212,12 @@ angular.module('sproutupApp').directive('upFiles', ['FileService',
                     var promise = fileService.getAllFiles(attrs.refId, attrs.refType);
 
                     promise.then(function(data) {
-                        console.log('Success: ' + data.lenght);
+                        console.log('up-files received data size: ' + data.length);
                         scope.files = data;
                     }, function(reason) {
-                        console.log('Failed: ' + reason);
+                        console.log('up-files failed: ' + reason);
                     }, function(update) {
-                        console.log('Got notification: ' + update);
+                        console.log('up-files got notification: ' + update);
                     });
                 }
             }
@@ -161,63 +347,114 @@ angular.module('sproutupApp').directive('subjectPresent', function ($parse) {
     };
 });
 
-angular.module('sproutupApp').directive('toptags', function () {
+angular.module('sproutupApp').directive('upToptags', ['TagsService',
+    function (tagService) {
     return {
-        template:   '<div class="col-sm-12 popular-tags-row">'+
-        '<div class="popular-tags-header">Popular tags</div>' +
-        '<div class="popular-tags-list">'+
-        '<button ng-repeat="tag in toptags | orderBy:counter:true" type="button" class="btn btn-popular-tags"><i class="fa fa-tag"></i>{{tag.name}}<span class="popular-tags-count">{{tag.counter}}</span></button>'+
-        '</div>'+
-        '</div>',
+        templateUrl: 'assets/templates/up-toptags.html',
+        scope: {
+            productId: "=",
+            category: "="
+        },
+        link: function (scope, element, attrs) {
+            attrs.$observe('category', function (category) {
+                tagService.getPopularPostTags(scope.productId, scope.category).then(
+                    function(data){
+                        scope.tags = data;
+                    },
+                    function(error){
+                    }
+                );
 
-        controller: function($scope, $log, $http) {
-
-            getTopTags(10);
-
-            function getTopTags(size) {
-                $http({
-                    method: 'GET',
-                    url: '/api/tags/top',
-                    params: {size: size}
-                }).success(function(data, status, headers, config){
-                    // this callback will be called asynchronously
-                    // when the response is available
-                    $scope.toptags = data;
-                }).error(function(data, status, headers, config){
-                    // called asynchronously if an error occurs
-                    // or server returns response with an error status.
-                });
-            }
-
+                switch(scope.category) {
+                    case 0:
+                        scope.cat = "compliments";
+                        break;
+                    case 1:
+                        scope.cat = "suggestions";
+                        break;
+                    case 2:
+                        scope.cat = "questions";
+                        break;
+                    default:
+                        scope.cat = "default";
+                }
+            });
         }
     };
-});
+}]);
+
+angular.module('sproutupApp').directive('upProductList', [ 'ProductService',
+    function (productService) {
+        return {
+            templateUrl: 'assets/templates/up-product-list.html',
+            scope: {
+            },
+            link: function (scope, element, attrs) {
+                scope.products = productService.query();
+            }
+        };
+    }]);
+
+angular.module('sproutupApp').directive('upProductItem', [
+    function () {
+        return {
+            templateUrl: 'assets/templates/up-product-item.html',
+            //require: '^upProductList',
+            scope: {
+                product: "="
+            },
+            link: function (scope, element, attrs) {
+                attrs.$observe('product', function (producty) {
+                });
+            }
+        };
+    }]);
 
 angular.module('sproutupApp').directive('navbar', function () {
     return {
         templateUrl: '/assets/templates/navbar.html',
 
         controller: function($scope, $log, $http, AuthService) {
-
             AuthService.isLoggedIn();
-
-            getTopTags(10);
-
-            function getTopTags(size) {
-                $http({
-                    method: 'GET',
-                    url: '/api/tags/top',
-                    params: {size: size}
-                }).success(function(data, status, headers, config){
-                    // this callback will be called asynchronously
-                    // when the response is available
-                    $scope.toptags = data;
-                }).error(function(data, status, headers, config){
-                    // called asynchronously if an error occurs
-                    // or server returns response with an error status.
-                });
-            }
-
         }
     };
 });
+
+angular.module('sproutupApp').directive('upAccessLevel', ['AuthService', '$log',
+    function(auth, $log) {
+        return {
+            restrict: 'A',
+            scope: true,
+            link: function(scope, element, attrs) {
+                var prevDisp = element.css('display')
+                    , userRole
+                    , accessLevel;
+
+                scope.user = auth.currentUser();
+                scope.$watch('user', function(user) {
+                    $log.debug("up-access-level - watch - user - " + user.role);
+                    if(user.role)
+                        userRole = user.role;
+                    updateCSS();
+                }, true);
+
+                attrs.$observe('upAccessLevel', function(al) {
+                    $log.debug("up-access-level - watch - accesslevel - " + al);
+                    //if(al) accessLevel = $scope.$eval(al);
+                    if(al) accessLevel = al;
+                    updateCSS();
+                });
+
+                function updateCSS() {
+                    if(userRole && accessLevel) {
+                        $log.debug("up-access-level - update css");
+                        if(!auth.authorize(accessLevel, userRole))
+                            element.css('display', 'none');
+                        else
+                            element.css('display', prevDisp);
+                    }
+                }
+            }
+        };
+    }
+]);

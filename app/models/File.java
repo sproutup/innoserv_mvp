@@ -1,5 +1,6 @@
 package models;
 
+import com.amazonaws.services.elastictranscoder.model.Job;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -8,6 +9,7 @@ import play.Logger;
 import play.db.ebean.Model;
 import play.libs.Json;
 import plugins.S3Plugin;
+import utils.ElasticTranscoder;
 
 import javax.persistence.*;
 import java.net.MalformedURLException;
@@ -22,8 +24,9 @@ import java.util.UUID;
  */
 @Entity
 public class File extends SuperModel {
-    public static Finder<Long, File> find = new Model.Finder<Long, File>(Long.class,
-            File.class);
+    private static ElasticTranscoder elasticTranscoder;
+
+    public static Finder<Long, File> find = new Model.Finder<Long, File>(Long.class, File.class);
 
     @Id
     @GeneratedValue
@@ -51,6 +54,9 @@ public class File extends SuperModel {
 
     @Column(columnDefinition = "boolean default false")
     public boolean verified;
+
+    @Column(columnDefinition = "boolean default false")
+    public boolean isTranscoded;
 
     public static File findByUUID(final UUID uuid) {
         return find.where().eq("uuid", uuid).findUnique();
@@ -86,6 +92,20 @@ public class File extends SuperModel {
         }
     }
 
+    private void transcode() {
+        if(type.contains("video/")) {
+            String INPUT_KEY = fileName();
+            String OUTPUT_KEY = this.uuid.toString();
+            String OUTPUT_KEY_PREFIX = this.uuid.toString() + "/";
+            Job job = elasticTranscoder.createElasticTranscoderHlsJob(INPUT_KEY, OUTPUT_KEY, OUTPUT_KEY_PREFIX);
+            Logger.info("  INPUT_KEY: " + INPUT_KEY);
+            Logger.info("  OUTPUT_KEY_PREFIX: " + OUTPUT_KEY_PREFIX);
+            Logger.info("  HLS Transcoder job has been created: ");
+            Logger.info( job + "\n");
+            Logger.info("==========================================================");
+        }
+    }
+
     /*
     Get all files on an object identified by refId and refType
     */
@@ -102,12 +122,24 @@ public class File extends SuperModel {
 
     public ObjectNode toJson(){
         ObjectNode node = Json.newObject();
+        node.put("id", this.id);
         node.put("filename", this.fileName());
         node.put("type", this.type);
-        node.put("url", this.url());
+        ObjectNode urlnode = Json.newObject();
+        if(type.contains("video/")) {
+            urlnode.put("mpeg", this.url().concat(".m3u8"));
+            urlnode.put("webm", this.url().concat(".webm"));
+            urlnode.put("mp4", this.url().concat(".mp4"));
+        }
+        else{
+            urlnode.put("image", this.url());
+        }
+        node.put("url", urlnode);
         node.put("comment", this.comment);
         node.put("username", this.user.name);
         node.put("createdAt", new DateTime(this.createdAt).toString());
+        node.put("isVerified", this.verified);
+        node.put("isTranscoded", this.isTranscoded);
 
         // add likes to the node
         List<Likes> likes = this.getAllLikes();
@@ -126,24 +158,52 @@ public class File extends SuperModel {
         return arrayNode;
     }
 
-    public static boolean verify(String id){
+    public static File verify(String id){
         File file = File.findByUUID(UUID.fromString(id));
         if(file != null) {
             file.verified = true;
             file.save();
+            file.transcode();
+            return file;
+        }
+        else {
+            return null;
+        }
+    }
+
+    public static boolean transcodeCompleted(String id){
+        Logger.debug("file - transcode completed - " + id);
+        File file = File.findByUUID(UUID.fromString(id));
+        if(file != null) {
+            Logger.debug("file - transcode updated - " + id);
+            file.isTranscoded = true;
+            file.save();
             return true;
         }
         else {
+            Logger.debug("file - transcode not found - " + id);
             return false;
         }
     }
 
     public String fileName() {
-        return (uuid + "_"+ user.id + ".jpg");
+        if (type.contains("video/")) {
+            return (uuid + "_" + user.id);
+        } else if (type.contains("image/")) {
+            return (uuid + "_" + user.id + ".jpg");
+        } else{
+            return (uuid + "_" + user.id + ".jpg");
+        }
     }
 
     public String url() {
-        return ("http://d2ggucmtk9u4go.cloudfront.net" + "/" + this.fileName());
+        if (type.contains("video/")) {
+            return ("http://dc2jx5ot5judg.cloudfront.net/" + this.uuid.toString() + "/" + this.uuid.toString() );
+        } else if (type.contains("image/")) {
+            return ("http://d2ggucmtk9u4go.cloudfront.net" + "/" + this.fileName());
+        } else{
+            return ("http://d2ggucmtk9u4go.cloudfront.net" + "/" + this.fileName());
+        }
     }
 
     /**

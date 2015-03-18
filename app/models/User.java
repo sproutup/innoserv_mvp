@@ -305,22 +305,21 @@ public class User extends Model implements Subject {
         node.put("lastname", this.lastName);
         node.put("zipcode", this.zipcode);
         node.put("roles", Json.toJson(this.getRoles()));
+        node.put("role", this.getRoles().get(0).getName().toLowerCase());
         node.put("permissions", Json.toJson(this.getPermissions()));
         node.put("lastLogin", new DateTime(this.lastLogin).toString());
+        node.put("avatarUrl", getAvatar());
         return node;
     }
 
-    public ObjectNode toJson(final Http.Context ctx){
-        ObjectNode node = this.toJson();
-        User u = Application.getLocalUser(ctx.session());
-        if(u.getProviders().contains("facebook")){
-            node.put("avatarUrl", "http://graph.facebook.com/" + u.id + "/picture/?type=large");
+    public String getAvatar(){
+        if(getProviders().contains("facebook")){
+            String facebookId = getAccountByProvider("facebook").providerUserId;
+            return "http://graph.facebook.com/" + facebookId + "/picture/?type=large";
         }
         else{
-            node.put("avatarUrl", "assets/images/general-profile-icon.png");
+            return "assets/images/general-profile-icon.png";
         }
-
-        return node;
     }
 
     public static ArrayNode toJson(List<User> users){

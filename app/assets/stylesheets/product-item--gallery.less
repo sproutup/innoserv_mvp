@@ -11,12 +11,12 @@
   height: 70px;
   width: 100%;
   border-bottom: 1px solid #ccc;
+  padding: 0px;
 }
 
 .gallery-tabs--content {
   float: left;
-  padding-left: 30px;
-  padding-top: 15px;
+  padding: 15px 45px 0px;
 }
 
 .btn-gallery-tab {
@@ -53,7 +53,7 @@
 
 .gallery-header {
   color: @sproutup-purple;
-  padding: 20px 30px;
+  padding: 20px 45px;
   width: 100%;
   font-size: 17pt;
   font-weight: 300;
@@ -81,25 +81,9 @@
 }
 
 .media {
-  margin: 15px;
-}
-
-.media-photo {
-  padding: 3px;
-}
-
-.media-column {
+  margin: 5px;
   overflow: hidden;
   padding: 0px;
-}
-
-.media-video-column {
-    overflow: hidden;
-    padding: 0px;
-}
-
-.media-video {
-  padding: 3px;
 }
 
 .media-photo-background {
@@ -108,16 +92,17 @@
   background-position: center;
   background-repeat: no-repeat;
   color:#fff;
+  margin-bottom: 4px;
 }
 
 .media-photo-overlay {
-  background: -webkit-linear-gradient(top, rgba(0,0,0,0.7), rgba(0,0,0,0));
-  background: -o-linear-gradient(top, rgba(0,0,0,0.7), rgba(0,0,0,0));
-  background: -moz-linear-gradient(top, rgba(0,0,0,0.7), rgba(0,0,0,0));
-  background: linear-gradient(top, rgba(0,0,0,0.7), rgba(0,0,0,0));
+  background: -webkit-linear-gradient(top, rgba(0,0,0,0.5), rgba(0,0,0,0));
+  background: -o-linear-gradient(top, rgba(0,0,0,0.5), rgba(0,0,0,0));
+  background: -moz-linear-gradient(top, rgba(0,0,0,0.5), rgba(0,0,0,0));
+  background: linear-gradient(top, rgba(0,0,0,0.5), rgba(0,0,0,0));
   top: 0;
   left: 0;
-  position: relative;
+  position: absolute;
   width: 100%;
   height: 30%;
   z-index: 1;
@@ -131,7 +116,7 @@
   background: linear-gradient(top, rgba(0,0,0,0.8), rgba(0,0,0,0.3));
   top: 0;
   left: 0;
-  position: relative;
+  position: absolute;
   width: 100%;
   height: 100%;
   overflow: hidden;
@@ -139,7 +124,7 @@
 }
 
 .media-photo-info {
-  padding: 10px;
+  padding: 12px;
   z-index: 3;
   color: @main-text-white;
   overflow: hidden;
@@ -149,15 +134,22 @@
     top: 0px;
     left: 0px;
     position: absolute;
-    margin: 3px;
-    padding: 10px;
+    padding: 12px;
     z-index: 3;
     width: 65%;
     color: @main-text-white;
 }
 
-.media-video-info:before {
-    background-color: rgba(0,0,0,0.55);
+.media-video-info.active {
+  width: 100%;
+  height: 100%;
+}
+
+.media-video-info.active:before {
+  background: -webkit-linear-gradient(top, rgba(0,0,0,0.8), rgba(0,0,0,0.3));
+  background: -o-linear-gradient(top, rgba(0,0,0,0.8), rgba(0,0,0,0.3));
+  background: -moz-linear-gradient(top, rgba(0,0,0,0.8), rgba(0,0,0,0.3));
+  background: linear-gradient(top, rgba(0,0,0,0.8), rgba(0,0,0,0.3));
     position: absolute;
     top: 0px;
     left: 0px;
@@ -167,9 +159,23 @@
     content: "";
 }
 
+.media-video-info:before {
+  background: -webkit-linear-gradient(top, rgba(0,0,0,0.6), rgba(0,0,0,0.2));
+  background: -o-linear-gradient(top, rgba(0,0,0,0.6), rgba(0,0,0,0.2));
+  background: -moz-linear-gradient(top, rgba(0,0,0,0.6), rgba(0,0,0,0.2));
+  background: linear-gradient(top, rgba(0,0,0,0.6), rgba(0,0,0,0.2));
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  content: "";
+}
+
 .media-user {
   font-weight: 400;
-  font-size: 12pt;
+  font-size: 11pt;
   padding-bottom: 8px;
 }
 
@@ -186,6 +192,10 @@
   color: @sproutup-blue-bright;
 }
 
+.media-video-info.active .media-user a {
+  color: @sproutup-blue-bright;
+}
+
 .media-story {
   font-weight: 400;
   font-size: 10pt;
@@ -197,7 +207,7 @@
 .media-actions {
   float: left;
   font-size: 9pt;
-  font-weight: 400;
+  font-weight: 700;
 }
 
 .media-actions a {
@@ -206,17 +216,8 @@
   color: @main-text-white;
 }
 
-.media-actions a i {
-  padding-right: 6px;
-}
-
 .media-actions a:hover {
   color: @sproutup-blue-bright;
-}
-
-.post-new-media-row {
-  margin: 10px 35px;
-  overflow: hidden;
 }
 
 .btn-post-media {
@@ -239,7 +240,7 @@
 }
 
 .post-new-media-blurb {
-  padding: 0px 10px;
+    margin: 10px 45px 30px;
 }
 
 .post-new-media-form {
@@ -350,4 +351,47 @@
 .btn-media-remove:hover {
   background-color: @sproutup-red;
   color: white;
+}
+
+// Masonry
+.masonry .masonry-media-item.photo {
+  width: 310px;
+  height: auto;
+  float: left;
+}
+
+.masonry .masonry-media-item.video {
+  width: 310px;
+  height: auto;
+  float: left;
+}
+
+.masonry .masonry-media-item.video.in-processing {
+  width: 310px;
+  height: 310px;
+  float: left;
+  color: @sproutup-purple;
+  border: 2px dashed @sproutup-purple;
+  margin-bottom: 4px;
+  text-align: center;
+}
+
+.masonry {
+  margin: 0 auto;
+}
+
+.media-photo {
+  width: 310px;
+  height: auto;
+  margin-bottom: 4px;
+}
+
+.video-processing-placeholder {
+  padding-top: 130px;
+}
+
+.video-processing-placeholder p {
+  padding: 20px 10px;
+  font-weight: 400;
+  font-size: 11pt;
 }

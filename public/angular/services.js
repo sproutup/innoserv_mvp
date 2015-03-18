@@ -11,6 +11,103 @@ productServices.factory('FileService', ['$http','$log', '$q', '$upload',
 function($http, $log, $q, $upload){
     var FileService = {};
 
+    function hashFile(file, chunkSize, onLoad, onProgress) {
+        var sha256 = CryptoJS.algo.SHA256.create();
+        var size = file.size;
+        var offset = 0;
+        var chunk = file.slice(offset, offset + chunkSize);
+
+        var hashChunk = function() {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                // Increment hash
+                //sha256.update(e.target.result);
+                sha256.update(reader.result);
+
+                // Update offset for next chunk
+                offset += chunkSize;
+
+                // Hash next chunk if available
+                if(offset < size) {
+                    // Splice the next Blob from the File
+                    chunk = file.slice(offset, offset + chunkSize);
+                    if(onProgress != null){
+                        onProgress((offset/size*100).toFixed(1));
+                    }
+                    // Recurse to hash next chunk
+                    $log.debug("hashChunk - progress - " + offset);
+                    hashChunk();
+                    // Done hashing
+                } else {
+                    // Report digest
+                    $log.debug("hashChunk - finished");
+                    onLoad.call(file, sha256.finalize().toString(CryptoJS.enc.Hex));
+                }
+            };
+
+            reader.readAsArrayBuffer(chunk);
+        };
+
+        // Start hashing chunks
+        $log.debug("hashChunk - start");
+        hashChunk();
+    }
+
+    FileService.sha256 = function(file){
+        var deferred = $q.defer();
+        var sha256 = CryptoJS.algo.SHA256.create();
+        var size = file.size;
+        var offset = 0;
+        var chunkSize = 1048576*10; // 1Mb * 5
+        var chunk = file.slice(offset, offset + chunkSize);
+        var reader = new FileReader();
+        var startTime = +new Date();
+
+        var hashChunk = function(file) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                // Increment hash
+
+                if (reader.readyState == FileReader.DONE) { // DONE == 2
+                    var endTime = +new Date();
+                    console.log('hashed', file.name, 'in', endTime - startTime, 'ms', reader.result.byteLength, 'len');
+                    var wordarray = CryptoJS.lib.WordArray.create(reader.result);
+                    sha256.update(wordarray);
+                }
+
+                // Update offset for next chunk
+                offset += chunkSize;
+
+                // Hash next chunk if available
+                if(offset < size) {
+                    // Splice the next Blob from the File
+                    chunk = file.slice(offset, offset + chunkSize);
+                    var result = {
+                        file : file,
+                        progress : (offset/size*100).toFixed(1)
+                    };
+                    deferred.notify(result);
+                    // Recurse to hash next chunk
+                    hashChunk(file);
+                    // Done hashing
+                } else {
+                    // Report digest
+                    $log.debug("hashChunk - finished");
+                    file.hash = sha256.finalize().toString(CryptoJS.enc.Hex);
+                    deferred.resolve(file);
+                }
+            };
+
+            reader.readAsArrayBuffer(chunk);
+        };
+
+        // Start hashing chunks
+        $log.debug("hashChunk - start");
+        hashChunk(file);
+
+        return deferred.promise;
+    };
+
     FileService.getAllFiles = function(refId, refType){
         var deferred = $q.defer();
 
@@ -27,7 +124,7 @@ function($http, $log, $q, $upload){
         return deferred.promise;
     };
 
-    FileService.verify = function(uuid){
+    FileService.verify = function(file, uuid){
         var deferred = $q.defer();
 
         $http({
@@ -39,10 +136,13 @@ function($http, $log, $q, $upload){
             }
         }).success(function(data, status, headers, config){
             $log.debug("file verify returned success");
-            deferred.resolve(true);
+            $log.debug("type: " + data.type);
+            var result = {file : file, data : data, status : true};
+            deferred.resolve(result);
         }).error(function(data, status, headers, config){
             $log.debug("file verify returned error");
-            deferred.reject(false);
+            var result = {file : file, status : false};
+            deferred.reject(result);
         });
 
         return deferred.promise;
@@ -76,16 +176,19 @@ function($http, $log, $q, $upload){
             //var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
             var percentComplete = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
             console.log('progress: ' + percentComplete + '% ');
-            deferred.notify(percentComplete);
+            var result = {file : file, progress : percentComplete};
+            deferred.notify(result);
         }).success(function (data, status, headers, config) {
             console.log('file uploaded. Response: ' + payload.uuid);
-            deferred.resolve(payload.uuid);
+            var result = {file : file, uuid : payload.uuid};
+            deferred.resolve(result);
         });
 
         return deferred.promise;
     };
 
     FileService.authenticate = function(file, comment, refId, refType){
+        var self = this;
         var deferred = $q.defer();
 
         $log.debug("file: " + file.size);
@@ -95,46 +198,16 @@ function($http, $log, $q, $upload){
         var startTime = +new Date();
         var hash;
 
-        var sha256 = CryptoJS.algo.SHA256.create();
-
-        reader.onprogress = function(progress) {
-            //var chunk = new Uint8Array(reader.result); //.subarray(pos, progress.loaded);
-            //sha256.update(chunk);
-            //pos = progress.loaded;
-            var length = progress.loaded - pos;
-            console.log("pos: " + pos);
-            console.log("length: " + length);
-            //var arr = new Uint8Array(reader.result, pos, length);
-            //sha256.update(chunk);
-            pos = progress.loaded;
-            if(progress.lengthComputable) {
-                console.log((progress.loaded/progress.total*100).toFixed(1)+'%');
-            }
-            var percentComplete = (progress.loaded/progress.total*100).toFixed(1);
-            deferred.notify(percentComplete);
-        };
-
-        reader.onload = function() {
-            if (reader.readyState == FileReader.DONE) { // DONE == 2
-                var endTime = +new Date();
-                console.log('hashed', file.name, 'in', endTime - startTime, 'ms', reader.result.byteLength, 'len');
-                //var chunk = new Uint8Array(reader.result, pos);
-                //if(chunk.length > 0) sha256.update(chunk);
-                //var hash = sha256.finalize();
-
-                //var arrayBuffer = reader.result;
-
-                var chunk = CryptoJS.lib.WordArray.create(reader.result);
-                sha256.update(chunk);
-                hash = sha256.finalize().toString(CryptoJS.enc.Hex);
-                //hash = CryptoJS.SHA256(arrayBuffer).toString(CryptoJS.enc.Hex);
+        this.sha256(file).then(
+            function(file){
+                $log.debug("sha256: " + file.hash);
 
                 $http({
                     method: 'GET',
                     url: '/api/file/policy',
                     headers: {'Content-Type': 'application/json'},
                     params: {
-                        'contentHash' : hash,
+                        'contentHash' : file.hash,
                         'contentName' : file.name,
                         'contentLength': file.size,
                         'contentType': file.type,
@@ -142,23 +215,28 @@ function($http, $log, $q, $upload){
                         'refId': refId,
                         'refType': refType}
                 }).success(function(data, status, headers, config){
-                    $log.debug("file auth returned success");
-                    deferred.resolve(data);
+                    $log.debug("auth rest returned success");
+                    var result = {file : file, data : data};
+                    deferred.resolve(result);
                 }).error(function(data, status, headers, config){
-                    $log.debug("file auth returned error");
+                    $log.debug("auth rest returned error");
                     deferred.reject(null);
                 });
-
-
-                console.log("hashing done");
+            },
+            function(error){
+                $log.debug("error: " + error);
+            },
+            function(result){
+                deferred.notify(result);
             }
-        };
+        );
 
-        reader.readAsArrayBuffer(file);
+        //reader.readAsArrayBuffer(file);
+        //hashFile(file, 4096, onLoad, onProgress );
 
         //var hash = CryptoJS.SHA256("HOORAY").toString(CryptoJS.enc.Hex);
 
-        $log.debug("file auth returned promise");
+        $log.debug("authenticate returned promise");
         return deferred.promise;
     };
 
@@ -171,13 +249,30 @@ productServices.factory('AuthService', ['$http', '$q', '$cookieStore','$log',
     var urlBase = '/api/auth';
     var accessLevels = routingConfig.accessLevels
         , userRoles = routingConfig.userRoles
-        , currentUser = $cookieStore.get('user') || { username: '', role: userRoles.public };
+        , currentUser = $cookieStore.get('user') || { username: '', role: userRoles.public }
+
+    var _isLoggedIn = false;
+
+    $log.debug("AuthService > init");
+    $log.debug("AuthService > isLoggedIn=" + _isLoggedIn);
 
     $cookieStore.remove('user');
 
     function changeUser(user) {
         angular.extend(currentUser, user);
     }
+
+    AuthService.currentUser = function() {
+        return currentUser;
+    };
+
+    AuthService.authorize = function(accessLevel, role) {
+        if(role === undefined) {
+            role = currentUser.role;
+        }
+
+        return accessLevel.bitMask & role.bitMask;
+    };
 
     AuthService.user = function(user){
         var deferred = $q.defer();
@@ -190,7 +285,9 @@ productServices.factory('AuthService', ['$http', '$q', '$cookieStore','$log',
             // this callback will be called asynchronously
             // when the response is available
             changeUser(data);
+            _isLoggedIn = true;
             $log.debug("auth user service returned success: " + currentUser.name);
+            $log.debug("AuthService > isLoggedIn=" + _isLoggedIn);
             deferred.resolve(currentUser);
         }).error(function(data, status, headers, config){
             // called asynchronously if an error occurs
@@ -240,6 +337,7 @@ productServices.factory('AuthService', ['$http', '$q', '$cookieStore','$log',
             // this callback will be called asynchronously
             // when the response is available
             changeUser(data);
+            _isLoggedIn = true;
             $log.debug("login service returned success");
             deferred.resolve("success");
         }).error(function(data, status, headers, config){
@@ -265,6 +363,7 @@ productServices.factory('AuthService', ['$http', '$q', '$cookieStore','$log',
             // this callback will be called asynchronously
             // when the response is available
             changeUser(data);
+            status.isLoggedIn = true;
             deferred.resolve("success");
         }).error(function(data, status, headers, config){
             // called asynchronously if an error occurs
@@ -287,7 +386,7 @@ productServices.factory('AuthService', ['$http', '$q', '$cookieStore','$log',
             // this callback will be called asynchronously
             // when the response is available
             currentUser.name = '';
-            currentUser.isLoggedIn = false;
+            _isLoggedIn = false;
             deferred.resolve("success");
         }).error(function(data, status, headers, config){
             // called asynchronously if an error occurs
@@ -299,37 +398,54 @@ productServices.factory('AuthService', ['$http', '$q', '$cookieStore','$log',
         return deferred.promise;
     };
 
-    AuthService.isLoggedIn = function(user){
-        $log.debug("isLoggedIn");
-        //if(user === undefined) {
-        //    user = currentUser;
-        //}
-        //return user.role.title === userRoles.user.title || user.role.title === userRoles.admin.title;
-
-        return currentUser.name != null
+    AuthService.isLoggedIn = function(){
+        return _isLoggedIn;
     };
+
+    AuthService.accessLevels = accessLevels;
+
+    AuthService.userRoles = userRoles;
 
     return AuthService;
 
 }]);
 
-productServices.factory('TagsService', ['$http','$log', function($http,$log){
+productServices.factory('TagsService', ['$http', '$q', '$log',
+    function($http, $q, $log){
     var urlBase = '/api/tags';
-    var TagsService = {};
+    var tagsService = {};
 
-    TagsService.getTopTags = function(size){
+    tagsService.getTopTags = function(size){
         return $http({
             method: 'GET',
             url: urlBase,
             params: {size: size}
         })
-    }
+    };
 
-    return TagsService;
+    tagsService.getPopularPostTags = function(productId, category){
+        var deferred = $q.defer();
+
+        $http({
+            method: 'GET',
+            url: urlBase + "/post/top/" + productId + "/" + category,
+            headers: {'Content-Type': 'application/json'}
+        }).success(function(data, status, headers, config){
+            deferred.resolve(data);
+        }).error(function(data, status, headers, config) {
+            deferred.reject();
+        });
+
+        return deferred.promise;
+    };
+
+
+    return tagsService;
 
 }]);
 
-productServices.factory('LikesService', ['$http','$log', function($http,$log){
+productServices.factory('LikesService', ['$http','$log','$q',
+    function($http, $log, $q){
   var urlBase = '/api/likes';
   var LikesService = {};
 
@@ -338,7 +454,7 @@ productServices.factory('LikesService', ['$http','$log', function($http,$log){
         method: 'GET',
         url: urlBase + "/" + refType + "/" + refId,
       })
-    }
+    };
 
   LikesService.addLikes = function(refId, refType, userId, data){
     return $http({
@@ -348,7 +464,24 @@ productServices.factory('LikesService', ['$http','$log', function($http,$log){
         data: "{}",
         headers: {'Content-Type': 'application/json'}
       });
-    }
+    };
+
+      LikesService.addLike = function(refId, refType, userId){
+          var deferred = $q.defer();
+          $http({
+              method: 'POST',
+              url: urlBase + "/" + refType + "/" + refId,
+              params: {user_id: userId},
+              data: "{}",
+              headers: {'Content-Type': 'application/json'}
+          }).success(function(data, status, headers, config){
+              deferred.resolve(data);
+          }).error(function(data, status, headers, config) {
+              deferred.reject();
+          });
+
+          return deferred.promise;
+      };
 
   return LikesService;
 

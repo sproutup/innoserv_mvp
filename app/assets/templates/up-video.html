@@ -1,0 +1,30 @@
+<div class="masonry-media-item video">
+    <!-- when video is in process -->
+    <div ng-hide="file.isTranscoded" class="masonry-media-item video in-processing">
+        <div class="video-processing-placeholder">
+            <i class="fa fa-2x fa-circle-o-notch fa-spin"></i>
+            <p>Your video is being processed. It will be ready shortly.</p>
+        </div>
+    </div>
+
+    <!-- when video is completed -->
+    <div ng-show="file.isTranscoded" class="player">
+        <video preload="auto">
+            <source type="application/x-mpegurl" ng-src="{{file.url.mpeg | trusted}}">
+            <source type="video/webm" ng-src="{{file.url.webm | trusted}}">
+            <source type="video/mp4" ng-src="{{file.url.mp4 | trusted}}">
+        </video>
+    </div>
+    <div ng-show="file.isTranscoded" class="media-video-info" ng-class="{active: file.showComment}">
+        <div class="media-user">
+            {{file.username}}<a href="#" ng-show="file.comment" ng-click="file.showComment=!file.showComment"><i class="fa fa-ellipsis-h"></i></a>
+        </div>
+        <div ng-show="file.showComment" class="media-story">
+            {{file.comment}}
+        </div>
+        <div class="media-actions">
+            <up-like likes="file.likes" up-id="file.id" up-type="models.file"></up-like>
+            <a href="#" class="post-actions--item"><i class="fa fa-twitter"></i>Share on Twitter</a>
+        </div>
+    </div>
+</div>

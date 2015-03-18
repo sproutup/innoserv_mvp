@@ -1,0 +1,17 @@
+<div class="masonry-media-item photo">
+    <img class="media-photo" src="{{file.url.image}}?w=280">
+    <div class="media-photo-overlay" ng-class="{active: file.showComment}">
+        <div class="media-photo-info">
+            <div class="media-user">
+                {{file.username}}<a href="#" ng-show="file.comment" ng-click="file.showComment=!file.showComment"><i class="fa fa-ellipsis-h"></i></a>
+            </div>
+            <div ng-show="file.showComment" class="media-story">
+                {{file.comment}}
+            </div>
+            <div class="media-actions">
+                <up-like likes="file.likes" up-id="file.id" up-type="models.file"></up-like>
+                <a href="#" class="post-actions--item"><i class="fa fa-twitter"></i>Share on Twitter</a>
+            </div>
+        </div>
+    </div>
+</div>

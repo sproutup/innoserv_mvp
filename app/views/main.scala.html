@@ -30,13 +30,18 @@
         <link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/about.css")">
         <link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/creator.css")">
         <link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/profile.css")">
+        <link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/profile-edit.css")">
+        <link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/profile-photo.css")">
+        <link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/profile-product.css")">
+        <link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/profile-follow.css")">
+        <link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/profile-video.css")">
 
+
+        <script src="@routes.Assets.at("library/jquery/jquery.min.js")"></script>
 
         <!-- flowplayer -->
         <!-- 1. skin -->
-        <link rel="stylesheet" href="//releases.flowplayer.org/5.5.2/skin/minimalist.css">
-        <!-- 2. jquery library -->
-        <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+        <link rel="stylesheet" href="@routes.Assets.at("stylesheets/skin/minimalist.css")">
         <!-- 3. flowplayer -->
         <script src="//releases.flowplayer.org/5.5.2/flowplayer.min.js"></script>
         <script>
@@ -45,16 +50,18 @@
         </script>
 
         <script type="text/javascript" src="@routes.Application.jsRoutes" defer="defer"></script>
-        <script src="@routes.Assets.at("library/jquery/jquery.min.js")"></script>
         <script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/sha256.js"></script>
         <script src='http://crypto-js.googlecode.com/svn/tags/3.1.2/build/components/lib-typedarrays-min.js'></script>
-        <script src="@routes.Assets.at("javascript/masonry/masonry.pkgd.js")"></script>
+        <script src="@routes.Assets.at("library/masonry/masonry.pkgd.js")"></script>
+        <script src="@routes.Assets.at("library/imagesloaded/imagesloaded.pkgd.js")"></script>
         <script src="@routes.Assets.at("javascripts/angular.js")"></script>
         <script src="@routes.Assets.at("javascripts/angular-route.js")"></script>
         <script src="@routes.Assets.at("javascripts/angular-cookies.min.js")"></script>
         <script src="@routes.Assets.at("javascripts/angular-resource.js")"></script>
         <script src="@routes.Assets.at("javascripts/ng-tags-input.min.js")"></script>
         <script src="@routes.Assets.at("library/angular-file-upload/angular-file-upload.min.js")"></script>
+        <script src="@routes.Assets.at("library/angular-masonry/angular-masonry.js")"></script>
+        <script src="@routes.Assets.at("library/angulike/angulike.js")"></script>
         <script src="@routes.Assets.at("angular/config.js")"></script>
         <script src="@routes.Assets.at("angular/app.js")"></script>
         <script src="@routes.Assets.at("angular/controllers.js")"></script>
@@ -65,6 +72,7 @@
         <script src="@routes.Assets.at("javascripts/moment.min.js")"></script>
         <script src="@routes.Assets.at("javascripts/ui-bootstrap-tpls-0.12.0.min.js")"></script>
         <script src="@routes.Assets.at("javascripts/angular-ui-router.min.js")"></script>
+        <script src="@routes.Assets.at("library/masonry/masonry.pkgd.js")"></script>
 
         <!-- Tooltips -->
         <script>
@@ -88,8 +96,8 @@
 
     </head>
 
-    <body @bodyAttributes>
-    <div ng-controller="AuthCtrl">
+    <body @bodyAttributes ng-controller="AuthCtrl">
+    <div>
 
       <div id="fb-root"></div>
 
@@ -105,7 +113,27 @@
 
       </nav>
 
-      @if(flash.contains(Application.FLASH_ERROR_KEY)) {
+        <div id="suggest-product-section" class="up-slideable row">
+            <h1 class="text-center suggest-product-header">Didn't see a product you love? Suggest it here.</h1>
+            <h1 class="text-center suggest-product-header-2">We feel thrilled to hear from the community what products they love and care about! We will put up a product page for you to share experience and talk with others.</h1>
+            <div class="suggest-product">
+                <div class="col-sm-12 suggest-product-form">
+                    <input type="email" class="form-control suggest-product-form-input" placeholder="Your email address">
+                </div>
+                <div class="col-sm-12 suggest-product-form">
+                    <input type="text" class="form-control suggest-product-form-input" placeholder="Product Name">
+                </div>
+                <div class="col-sm-12 suggest-product-form">
+                    <input type="text" class="form-control suggest-product-form-input" placeholder="Product URL">
+                </div>
+                <div class="col-sm-12 suggest-product-form">
+                    <a class="btn btn-lg btn-suggest-product">Suggest it</a>
+                </div>
+            </div>
+        </div>
+
+
+        @if(flash.contains(Application.FLASH_ERROR_KEY)) {
         <div class="alert-message">
           <div class="alert alert-danger" role="alert">
               <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">

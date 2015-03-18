@@ -9,6 +9,7 @@
         roles :[
             'public',
             'user',
+            'consumer',
             'creator',
             'admin'],
 
@@ -24,7 +25,7 @@
             'public' : "*",
             'anon': ['public'],
             'user' : ['user', 'admin'],
-            'creator' : ['user', 'creator', 'admin'],
+            'creator' : ['creator', 'admin'],
             'admin': ['admin']
         }
 

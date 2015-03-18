@@ -1,0 +1,14 @@
+<div class="col-lg-4 col-sm-6 col-xs-12 product-list-item">
+    <div class="product-cover-photo" style="background-image: url('https://s3.amazonaws.com/sproutup-mvp-cdn/assets/{{product.productEAN}}.jpg')">
+        <a ui-sref="product.detail.about({ slug: product.slug })">
+            <div class="product-cover-info">
+                <div class="product-cover-title">
+                    {{product.productName}}
+                </div>
+                <div class="product-cover-description">
+                    {{product.productDescription}}
+                </div>
+            </div>
+        </a>
+    </div>
+</div>
