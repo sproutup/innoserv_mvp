@@ -1,0 +1,10 @@
+<div ng-repeat="photo in fileService.allUserPhotos()" class="col-lg-3 col-md-3 col-sm-4 media-photo">
+    <div class="media-photo-background"
+         style="background-image: url('{{photo.url.image}}?w=304');">
+        <div class="media-photo-overlay"></div>
+        <div class="media-photo-actions">
+            <a class="media-photo-actions--item" href="#"><i class="fa fa-rocket"></i>Up (89)</a>
+            <a class="media-photo-actions--item" href="#"><i class="fa fa-share"></i>Share</a>
+        </div>
+    </div>
+</div>
