@@ -238,6 +238,20 @@ angular.module('sproutupApp').directive('upProfilePhotos', ['FileService',
     }
 ]);
 
+angular.module('sproutupApp').directive('upProfileVideos', ['FileService',
+    function (fileService) {
+        return {
+            restrict: 'EA',
+            replace: true,
+            scope: true,
+            link: function (scope, element, attrs) {
+                scope.fileService = fileService;
+            },
+            templateUrl: 'assets/templates/up-profile-videos.html'
+        }
+    }
+]);
+
 angular.module('sproutupApp').directive('upProfileInfo', ['AuthService',
     function (authService) {
         return {
