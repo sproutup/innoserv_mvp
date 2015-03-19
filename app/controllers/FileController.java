@@ -31,6 +31,20 @@ public class FileController  extends Controller {
 
     @BodyParser.Of(BodyParser.Json.class)
     @SubjectPresent
+    public static Result getUserFiles() {
+
+        User user = Application.getLocalUser(ctx().session());
+        if(user != null) {
+            // convert to json and return
+            return ok(File.toJson(user.files));
+        }
+        else{
+            return badRequest();
+        }
+    }
+
+    @BodyParser.Of(BodyParser.Json.class)
+    @SubjectPresent
     public static Result authorize(String contentHash, String contentName, Long contentLength, String contentType, String comment, Long refId, String refType)
     {
         User user = Application.getLocalUser(ctx().session());

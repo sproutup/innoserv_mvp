@@ -1,0 +1,33 @@
+<div class="col-lg-12 profile-menu">
+    <div class="profile-menu--content">
+        <a class="profile-menu--item" ui-sref="profile.photos" ui-sref-active="active">
+            <span class="profile-menu--item-value">{{menu.photos}}</span>
+            <span class="profile-menu--item-label">Photos</span>
+        </a>
+        <a class="profile-menu--item" ui-sref="profile.videos" ui-sref-active="active">
+            <span class="profile-menu--item-value">{{menu.videos}}</span>
+            <span class="profile-menu--item-label">Videos</span>
+        </a>
+        <a class="profile-menu--item" ui-sref="profile.products" ui-sref-active="active">
+            <span class="profile-menu--item-value">{{menu.products}}</span>
+            <span class="profile-menu--item-label">Products</span>
+        </a>
+        <!--a class="profile-menu--item" ui-sref="profile.followers" ui-sref-active="active">
+            <span class="profile-menu--item-value">{{menu.followers}}</span>
+            <span class="profile-menu--item-label">Followers</span>
+        </a>
+        <a class="profile-menu--item" ui-sref="profile.followings" ui-sref-active="active">
+            <span class="profile-menu--item-value">{{menu.followings}}</span>
+            <span class="profile-menu--item-label">Followings</span>
+        </a-->
+    </div>
+    <div class="profile-menu--action">
+        <!-- Edit profile is for self -->
+        <a class="btn btn-lg btn-outline" ng-hide="$state.includes('profile.account')" ui-sref="profile.account" ui-sref-active="active">Profile and Account</a>
+        <a class="btn btn-lg btn-outline" ng-show="$state.includes('profile.account')" ui-sref="profile.account" ui-sref-active="active">Cancel</a>
+        <a class="btn btn-lg btn-outline" ng-show="$state.includes('profile.account')" ui-sref="profile.account" ui-sref-active="active">Save</a>
+        <!-- Follow and Message is for others -->
+        <!--a class="btn btn-lg btn-following" href="#"><i class="fa fa-check"></i>Following</a>
+        <a class="btn btn-lg btn-outline" href="#">Message</a-->
+    </div>
+</div>

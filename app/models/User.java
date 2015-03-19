@@ -98,8 +98,11 @@ public class User extends Model implements Subject {
 	//@OneToMany(mappedBy="user")
 	public List<Media> mediaList;
 
-	@OneToMany
-	public List<Post> posts;
+    @OneToMany
+    public List<Post> posts;
+
+    @OneToMany
+    public List<File> files;
 
 	public static final Finder<Long, User> find = new Finder<Long, User>(
 			Long.class, User.class);
@@ -309,6 +312,9 @@ public class User extends Model implements Subject {
         node.put("permissions", Json.toJson(this.getPermissions()));
         node.put("lastLogin", new DateTime(this.lastLogin).toString());
         node.put("avatarUrl", getAvatar());
+        // todo should be based on either tags or role
+        ArrayNode badges = node.putArray("badges");
+        badges.add("Member");
         return node;
     }
 

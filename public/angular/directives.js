@@ -225,6 +225,88 @@ angular.module('sproutupApp').directive('upFiles', ['$compile', 'FileService',
     }
 ]);
 
+angular.module('sproutupApp').directive('upProfilePhotos', ['FileService',
+    function (fileService) {
+        return {
+            restrict: 'EA',
+            scope: true,
+            link: function (scope, element, attrs) {
+                scope.fileService = fileService;
+            },
+            templateUrl: 'assets/templates/up-profile-photos.html'
+        }
+    }
+]);
+
+angular.module('sproutupApp').directive('upProfileInfo', ['AuthService',
+    function (authService) {
+        return {
+            restrict: 'E',
+            scope: {
+
+            },
+            link: function (scope, element, attrs) {
+                scope.user = authService.currentUser();
+            },
+            templateUrl: 'assets/templates/up-profile-info.html'
+        }
+    }
+]);
+
+angular.module('sproutupApp').directive('upProfileMenu', ['AuthService','FileService','$state',
+    function (authService, fileService, $state) {
+        return {
+            restrict: 'E',
+            scope: true,
+            link: function (scope, element, attrs) {
+                scope.user = authService.currentUser();
+                scope.$state = $state;
+                scope.menu = {
+                    photos: fileService.allUserPhotos().length,
+                    videos: fileService.allUserVideos().length
+                };
+            },
+            templateUrl: 'assets/templates/up-profile-menu.html'
+        }
+    }
+]);
+
+angular.module('sproutupApp').directive('upProfile', ['$filter', '$log', 'FileService',
+    function ($filter, $log, fileService) {
+        return {
+            restrict: 'EA',
+            scope: {
+            },
+            controller: function($scope) {
+                var files = $scope.files = [];
+                var photos = $scope.photos = [];
+                var videos = $scope.videos = [];
+
+                fileService.getAllUserFiles().then(
+                    function(data){
+                        $log.debug("up-profile - files loaded");
+                        files = data;
+                        photos = $filter("filter")(files, {type:"image"});
+                        //videos = $filter("filter")(files, {type:"video"});
+                        $log.debug("up-profile - photos "); // + photos.length +" videos " + videos.length);
+                    },
+                    function(error){
+                    }
+                );
+
+                this.photos = photos;
+
+                $scope.select = function(pane) {
+                    pane.selected = true;
+                };
+
+                this.addPane = function(pane) {
+                };
+            }
+        }
+    }
+]);
+
 
 angular.module('sproutupApp').directive('follow', ['FollowService',
     function (FollowService) {
@@ -419,6 +501,26 @@ angular.module('sproutupApp').directive('navbar', function () {
         }
     };
 });
+
+angular.module('sproutupApp').directive('upFbShare', [ '$location', '$window', function ($location, $window) {
+    return {
+        template: '<a class="post-actions--item" target="_blank" ng-href="{{url}}"><i class="fa fa-facebook-square"></i>Share on Facebook</a>',
+        scope: {
+            anchor: "="
+        },
+        link: function (scope, element, attrs) {
+            attrs.$observe('anchor', function(anc) {
+                scope.url = "http://www.facebook.com/share.php?u=" + encodeURIComponent($location.absUrl() + "#" + scope.anchor);
+            });
+
+            //element.on('click', function () {
+            //    $window.open(encodeURIComponent(scope.url));
+            //});
+        }
+    };
+}]);
+
+
 
 angular.module('sproutupApp').directive('upAccessLevel', ['AuthService', '$log',
     function(auth, $log) {
