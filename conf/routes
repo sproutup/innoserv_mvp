@@ -106,6 +106,16 @@ GET           /media/image/x/:h/:image               controllers.Application.ima
 GET           /media/image/:w/:h/:image              controllers.Application.image(image: String, w: Int, h: Int)
 GET           /media/image/:image                    controllers.Application.image(image: String, w: Int ?=-1, h: Int ?=-1)
 
+# Internal Administration Only - Not visible to public
+GET  /adminstuff/product          				controllers.ProductAdministrationController.index()
+GET  /adminstuff/product/list      				controllers.ProductAdministrationController.list(page: Integer ?= 0)
+POST /adminstuff/product            			controllers.ProductAdministrationController.save()
+GET  /adminstuff/product/new        			controllers.ProductAdministrationController.newProduct()
+GET  /adminstuff/product/:ean        			controllers.ProductAdministrationController.details(ean: models.Product)
+DELETE      /adminstuff/product/:id        	controllers.ProductAdministrationController.delete(id: Long)
+#GET  /adminstuff/product/picture/:ean         	controllers.ProductAdministrationController.picture(ean)
+
+
 # Mockups
 GET           /mockups/product/:slug/about           controllers.MockupController.detailsAboutBySlug(slug: String)
 GET           /mockups/product/:slug/bar             controllers.MockupController.detailsBarBySlug(slug: String)
@@ -121,3 +131,4 @@ GET           /mockups/product-list                  controllers.MockupControlle
 
 # catch all. angular will handle all routes except /api/* /views/* /mockups/*
 GET           /*any                                  controllers.Application.main(any)
+

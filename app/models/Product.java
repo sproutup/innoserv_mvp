@@ -41,7 +41,7 @@ import java.util.Map;
 
 @Entity
 @JsonSerialize(using = Product.ProductSerializer.class)
-public class Product extends Model implements PathBindable<Product>,
+public class Product extends TimeStampModel implements PathBindable<Product>,
 		QueryStringBindable<Product>, Taggable {
 
 	private static final long serialVersionUID = 1L;
@@ -55,19 +55,33 @@ public class Product extends Model implements PathBindable<Product>,
 	@Column(unique=true)
 	public String slug;
 	public String productDescription;
+
+	@Column(columnDefinition = "TEXT")
 	public String productLongDescription;
+	
+	@Column(columnDefinition = "TEXT")
 	public String featureList;
+	
 	@Column(columnDefinition = "TEXT")
 	public String missionStatement;
+	
 	@Column(columnDefinition = "TEXT")
 	public String productStory;
 
 	public String urlHome;
 	public String urlFacebook;
 	public String urlTwitter;
+	public String urlCrowdFundingCampaign;
+	public String contactEmailAddress;
 
 	public boolean isFeatured;
+	public boolean activeFlag = true;
+	public boolean trialSignUpFlag = true;
+	public boolean buyFlag = false;
 
+	@OneToOne(cascade = CascadeType.PERSIST, fetch=FetchType.LAZY, mappedBy="product")
+	public ProductAdditionalDetail productAdditionalDetail;
+	
 	@OneToMany(mappedBy="product")
 	public List<Post> postItems;
 
@@ -114,7 +128,6 @@ public class Product extends Model implements PathBindable<Product>,
 	public void slugify() {
 		// update slug every time product is saved
 		try {
-
 			slug = new Slugify().slugify(productName);
 
 			//prevent duplicates
@@ -228,6 +241,15 @@ public class Product extends Model implements PathBindable<Product>,
 				.findList();
 
 		return products;
+	}
+	
+
+	public void setProductAdditionalDetail(
+			ProductAdditionalDetail productAdditionalDetail) {
+		this.productAdditionalDetail = productAdditionalDetail;
+		if (productAdditionalDetail != null) {
+			productAdditionalDetail.setProduct(this);
+        }
 	}
 
 	static class ProductSerializer extends JsonSerializer<Product> {

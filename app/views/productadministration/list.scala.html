@@ -1,0 +1,82 @@
+@(currentPage: com.avaje.ebean.Page[Product])
+@main("Products catalogue") {
+
+  <h2>All products</h2>
+
+    <script>
+     function del(urlToDelete) {
+        $.ajax({
+          url: urlToDelete,
+          type: 'DELETE',
+          success: function(results) {
+            // Refresh the page
+            location.reload();
+          }
+        });
+      }
+   </script>
+
+   <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>EAN</th>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Date added</th>
+        <th>Featured</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+    @for(product <- currentPage.getList()) {
+
+      <tr>
+        <td><a href="@routes.ProductAdministrationController.details(product)">
+          @product.productEAN 
+        </a></td>
+        <td><a href="@routes.ProductAdministrationController.details(product)">@product.productName</a></td>
+        <td><a href="@routes.ProductAdministrationController.details(product)">@product.productDescription</a></td>
+        <td>#</td>
+        <td><a href="@routes.ProductAdministrationController.details(product)">@product.isFeatured</a></td>
+        
+        <td>
+          <a href="@routes.ProductAdministrationController.details(product)">Edit</a>&nbsp;
+          <a href="javascript:del('@routes.ProductAdministrationController.delete(product.id)')">Trash</a> 
+        </td>
+      </tr>
+      }
+  
+    </tbody>
+   </table>
+
+   <div id="pagination" class="pagination">
+            <ul>
+                @if(currentPage.hasPrev) {
+                    <li class="prev">
+                        <a href="@routes.ProductAdministrationController.list(currentPage.getPageIndex - 1)">&larr; </a>
+                    </li>
+                } else {
+                    <li class="prev disabled">
+                        <a>&larr;</a>
+                    </li>
+                }
+                <li class="current">
+                    <a>@currentPage.getDisplayXtoYofZ(" - "," / ")</a>
+                </li>
+                @if(currentPage.hasNext) {
+                    <li class="next">
+                        <a href="@routes.ProductAdministrationController.list(currentPage.getPageIndex + 1)"> &rarr;</a>
+                    </li>
+                } else {
+                    <li class="next disabled">
+                        <a>&rarr;</a>
+                    </li>
+                }
+            </ul>
+        </div>
+
+  
+    
+  <a href="@routes.ProductAdministrationController.newProduct()" class="btn">
+    <i class="icon-plus"></i> New product</a>
+}
