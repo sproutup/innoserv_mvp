@@ -2,7 +2,9 @@ package controllers;
 
 import com.google.common.io.Files;
 
+import models.Company;
 import models.Product;
+import models.ProductAdditionalDetail;
 import models.Tag;
 import play.data.Form;
 import play.mvc.Result;
@@ -52,30 +54,21 @@ public class ProductAdministrationController extends Controller {
     
     Product product = boundForm.get();
     
-    /*
-    MultipartFormData.FilePart part = body.getFile("picture");
-    if(part != null) {
-      File picture = part.getFile();
-
-      try {
-        product.picture = Files.toByteArray(picture);
-      } catch (IOException e) {
-        return internalServerError("Error reading file upload");
-      }
-    }*/
-    /*
-    List<Tag> tags = new ArrayList<Tag>();
-    for (Tag tag : product.tags) {
-      if (tag.id != null) {
-        tags.add(Tag.findById(tag.id));
-      }
-    }
-    
-    product.tags = tags;
-    */
     if (product.id == null) {
       product.save();
     } else {
+    	//update company
+    	if (product.company!=null && product.company.id!=null && !product.company.id.equals("") ) {
+    		Company comp = Company.findbyID(product.company.id);
+    		comp.companyName = product.company.companyName;		
+    		product.company = comp;
+    	}
+    	
+    	/*
+       * nj: I struggled quite a bit to get the detail to update automatically by product.
+       * AFter several trials, I had to call update on detail explicitly to get it working.. 
+       */
+      product.productAdditionalDetail.update();
       product.update();
     }
 

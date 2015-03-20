@@ -8,6 +8,8 @@
     <fieldset>
       <legend>Product (@productForm("productName").valueOr("New"))</legend>
       <input type="hidden" value="@productForm("id").valueOr("")" name="id"/>
+      <input type="hidden" value="@productForm("productAdditionalDetail.id").valueOr("")" name="productAdditionalDetail.id"/>
+      <input type="hidden" value="@productForm("company.id").valueOr("")" name="company.id"/>
       
     <div class="row about-product-row">
         <div class="col-sm-12 about-product-tile">
@@ -15,22 +17,23 @@
             <p class="about-product--header">Profile</p>
             
         Upload Banner Picture here
-            
-                <p>Product Name:&nbsp;<input type="text" size="50" name="@productForm("productName").name">
+            	<p>Company Name:&nbsp;<input type="text" size="50" name="@productForm("company.companyName").name" value="@productForm("company.companyName").value">
                 </p>
-                <p>Product EAN:&nbsp;<input type="text" size="30" name="@productForm("productEAN").name">
+                <p>Product Name:&nbsp;<input type="text" size="50" name="@productForm("productName").name" value="@productForm("productName").value">
                 </p>
-                <p>Short Description:&nbsp;<textarea cols="50" rows="2" name="@productForm("productDescription").name"></textarea>
+                <p>Product EAN:&nbsp;<input type="text" size="30" name="@productForm("productEAN").name" value="@productForm("productEAN").value">
+                </p>
+                <p>Short Description:&nbsp;<textarea cols="50" rows="2" name="@productForm("productDescription").name" onfocus='this.select()'>@productForm("productDescription").value</textarea>
                          <ul class="list-inline product-social-buttons">
-                      <li>Home page URL:&nbsp;<input type="text" size="100" name="@productForm("urlHome").name"/></li>
+                      <li>Home page URL:&nbsp;<input type="text" size="100" name="@productForm("urlHome").name" value="@productForm("urlHome").value"/></li>
                    <br>
-                     <li>Facebook page URL:&nbsp;<input type="text" size="100" name="@productForm("urlFacebook").name"/></li>
-                     <li>Twitter page URL:&nbsp;<input type="text" size="100" name="@productForm("urlTwitter").name"/></li> 
-                     <li>Crowdfunding Campaign page URL:&nbsp;<input type="text" size="100" name="@productForm("urlCrowdFundingCampaign").name"/></li>       
-                     <li>Contact Email:&nbsp;<input type="text" size="100" name="@productForm("contactEmailAddress").name"/></li>                        
-		             <li>Offer Trial Signup:<input type="checkbox" name="@productForm("trialSignUpFlag").name" value="1"></li>
-		             <li>Offer Buy:<input type="checkbox" name="@productForm("buyFlag").name" value="1"></li>
-		             <li>Featured Product:<input type="checkbox" name="@productForm("isFeatured").name" value="1"></li>
+                     <li>Facebook page URL:&nbsp;<input type="text" size="100" name="@productForm("urlFacebook").name" value="@productForm("urlFacebook").value"/></li>
+                     <li>Twitter page URL:&nbsp;<input type="text" size="100" name="@productForm("urlTwitter").name" value="@productForm("urlTwitter").value"/></li> 
+                     <li>Crowdfunding Campaign page URL:&nbsp;<input type="text" size="100" name="@productForm("urlCrowdFundingCampaign").name" value="@productForm("urlCrowdFundingCampaign").value"/></li>       
+                     <li>Contact Email:&nbsp;<input type="text" size="100" name="@productForm("contactEmailAddress").name" value="@productForm("contactEmailAddress").value"/></li>                        
+		             <li>Offer Trial Signup:<input type="checkbox" name="@productForm("trialSignUpFlag").name" value="@productForm("trialSignUpFlag").valueOr("1")"></li>
+		             <li>Offer Buy:<input type="checkbox" name="@productForm("buyFlag").name" value="@productForm("buyFlag").valueOr("1")"></li>
+		             <li>Featured Product:<input type="checkbox" name="@productForm("isFeatured").name" value="@productForm("isFeatured").valueOr("1")"></li>
                 </ul>
              
               </div>
@@ -53,12 +56,12 @@
     <!-- row 2: description and feature list -->
     <div class="row about-product-row">
         <div class="col-sm-7 about-product-tile--left">
-                <p>Long Description: &nbsp; <textarea cols="100" rows="6" name="@productForm("productLongDescription").name"></textarea></p>
+                <p>Long Description: &nbsp; <textarea cols="100" rows="6" name="@productForm("productLongDescription").name" >@productForm("productLongDescription").value</textarea></p>
         </div>
     </div>
 	<div class="row about-product-row">
         <div class="col-sm-7 about-product-tile--left">
-                <p>Product Feature: &nbsp; <textarea cols="100" rows="6" name="@productForm("featureList").name"></textarea></p>
+                <p>Product Feature: &nbsp; <textarea cols="100" rows="6" name="@productForm("featureList").name">@productForm("featureList").value</textarea></p>
         </div>
     </div>
 
@@ -67,7 +70,7 @@
         <div class="col-sm-8 about-product-tile--left">
             <div>
                 <p class="about-product--header">Mission</p>
-                <p><textarea cols="100" rows="6" name="@productForm("missionStatement").name"></textarea></p>
+                <p><textarea cols="100" rows="6" name="@productForm("missionStatement").name">@productForm("missionStatement").value</textarea></p>
             </div>
         </div>
     </div>
@@ -79,13 +82,13 @@
                 <p class="about-product--header">Story</p>
                 <p class="about-product--content">
                 <br>Story picture 1 upload here<br>
-               Paragraph 1:&nbsp; <textarea cols="100" rows="3" name="@productForm("productAdditionalDetail.productStoryPara1").name"></textarea>
+               Paragraph 1:&nbsp; <textarea cols="100" rows="3" name="@productForm("productAdditionalDetail.productStoryPara1").name">@productForm("productAdditionalDetail.productStoryPara1").value</textarea>
                 <br>
-                Paragraph 2:&nbsp; <textarea cols="100" rows="3" name="@productForm("productAdditionalDetail.productStoryPara2").name"></textarea>
+                Paragraph 2:&nbsp; <textarea cols="100" rows="3" name="@productForm("productAdditionalDetail.productStoryPara2").name">@productForm("productAdditionalDetail.productStoryPara2").value</textarea>
                 <br>Story picture 2 upload here<br>
-                Paragraph 3:&nbsp; <textarea cols="100" rows="3" name="@productForm("productAdditionalDetail.productStoryPara3").name"></textarea>
+                Paragraph 3:&nbsp; <textarea cols="100" rows="3" name="@productForm("productAdditionalDetail.productStoryPara3").name">@productForm("productAdditionalDetail.productStoryPara3").value</textarea>
                 <br>
-                Paragraph 4:&nbsp; <textarea cols="100" rows="3" name="@productForm("productAdditionalDetail.productStoryPara4").name"></textarea>
+                Paragraph 4:&nbsp; <textarea cols="100" rows="3" name="@productForm("productAdditionalDetail.productStoryPara4").name">@productForm("productAdditionalDetail.productStoryPara4").value</textarea>
                 
                 </p>
             </div>
@@ -103,66 +106,66 @@
                         <br>
                         Load picture here
                     	<br>
-                    	Name:&nbsp; <input type="text" size="30" name="@productForm("productAdditionalDetail.member1Name").name"/>
+                    	Name:&nbsp; <input type="text" size="30" name="@productForm("productAdditionalDetail.member1Name").name" value="@productForm("productAdditionalDetail.member1Name").value"/>
                 		<br>
-                		Title:&nbsp; <input type="text" size="30" name="@productForm("productAdditionalDetail.member1Title").name"/>
+                		Title:&nbsp; <input type="text" size="30" name="@productForm("productAdditionalDetail.member1Title").name" value="@productForm("productAdditionalDetail.member1Title").value"/>
                 		<br>
-                		Description:&nbsp;<textarea cols="30" rows="2" name="@productForm("productAdditionalDetail.member1Description").name"></textarea>    
+                		Description:&nbsp;<textarea cols="30" rows="2" name="@productForm("productAdditionalDetail.member1Description").name">@productForm("productAdditionalDetail.member1Description").value</textarea>    
                     </div>
                     <div class="col-sm-4 about-product--team-member">
                         <b>Team Member 2</b>
                         <br>
                         Load picture here
                     	<br>
-                    	Name:&nbsp; <input type="text" size="30" name="@productForm("productAdditionalDetail.member2Name").name"/>
+                    	Name:&nbsp; <input type="text" size="30" name="@productForm("productAdditionalDetail.member2Name").name" value="@productForm("productAdditionalDetail.member2Name").value"/>
                 		<br>
-                		Title:&nbsp; <input type="text" size="30" name="@productForm("productAdditionalDetail.member2Title").name"/>
+                		Title:&nbsp; <input type="text" size="30" name="@productForm("productAdditionalDetail.member2Title").name" value="@productForm("productAdditionalDetail.member2Title").value"/>
                 		<br>
-                		Description:&nbsp;<textarea cols="30" rows="2" name="@productForm("productAdditionalDetail.member2Description").name"></textarea>
+                		Description:&nbsp;<textarea cols="30" rows="2" name="@productForm("productAdditionalDetail.member2Description").name" value="@productForm("productAdditionalDetail.member2Description").value"></textarea>
                     </div>
                     <div class="col-sm-4 about-product--team-member">
                         <b>Team Member 3</b>
                         <br>
                         Load picture here
                     	<br>
-                    	Name:&nbsp; <input type="text" size="30" name="@productForm("productAdditionalDetail.member3Name").name"/>
+                    	Name:&nbsp; <input type="text" size="30" name="@productForm("productAdditionalDetail.member3Name").name" value="@productForm("productAdditionalDetail.member3Name").value"/>
                 		<br>
-                		Title:&nbsp; <input type="text" size="30" name="@productForm("productAdditionalDetail.member3Title").name"/>
+                		Title:&nbsp; <input type="text" size="30" name="@productForm("productAdditionalDetail.member3Title").name" value="@productForm("productAdditionalDetail.member3Title").value"/>
                 		<br>
-                		Description:&nbsp;<textarea cols="30" rows="2" name="@productForm("productAdditionalDetail.member3Description").name"></textarea>
+                		Description:&nbsp;<textarea cols="30" rows="2" name="@productForm("productAdditionalDetail.member3Description").name" value="@productForm("productAdditionalDetail.member3Description").value"></textarea>
                     </div>
                      <div class="col-sm-4 about-product--team-member">
                         <b>Team Member 4</b>
                         <br>
                         Load picture here
                     	<br>
-                    	Name:&nbsp; <input type="text" size="30" name="@productForm("productAdditionalDetail.member4Name").name"/>
+                    	Name:&nbsp; <input type="text" size="30" name="@productForm("productAdditionalDetail.member4Name").name" value="@productForm("productAdditionalDetail.member4Name").value"/>
                 		<br>
-                		Title:&nbsp; <input type="text" size="30" name="@productForm("productAdditionalDetail.member4Title").name"/>
+                		Title:&nbsp; <input type="text" size="30" name="@productForm("productAdditionalDetail.member4Title").name" value="@productForm("productAdditionalDetail.member4Title").value"/>
                 		<br>
-                		Description:&nbsp;<textarea cols="30" rows="2" name="@productForm("productAdditionalDetail.member4Description").name"></textarea>
+                		Description:&nbsp;<textarea cols="30" rows="2" name="@productForm("productAdditionalDetail.member4Description").name" value="@productForm("productAdditionalDetail.member4Description").value"></textarea>
                     </div>
                     <div class="col-sm-4 about-product--team-member">
                         <b>Team Member 5</b>
                         <br>
                         Load picture here
                     	<br>
-                    	Name:&nbsp; <input type="text" size="30" name="@productForm("productAdditionalDetail.member5Name").name"/>
+                    	Name:&nbsp; <input type="text" size="30" name="@productForm("productAdditionalDetail.member5Name").name" value="@productForm("productAdditionalDetail.member5Name").value"/>
                 		<br>
-                		Title:&nbsp; <input type="text" size="30" name="@productForm("productAdditionalDetail.member5Title").name"/>
+                		Title:&nbsp; <input type="text" size="30" name="@productForm("productAdditionalDetail.member5Title").name" value="@productForm("productAdditionalDetail.member5Title").value"/>
                 		<br>
-                		Description:&nbsp;<textarea cols="30" rows="2" name="@productForm("productAdditionalDetail.member5Description").name"></textarea>
+                		Description:&nbsp;<textarea cols="30" rows="2" name="@productForm("productAdditionalDetail.member5Description").name" value="@productForm("productAdditionalDetail.member5Description").value"></textarea>
                     </div>
                     <div class="col-sm-4 about-product--team-member">
                         <b>Team Member 6</b>
                         <br>
                         Load picture here
                     	<br>
-                    	Name:&nbsp; <input type="text" size="30" name="@productForm("productAdditionalDetail.member6Name").name"/>
+                    	Name:&nbsp; <input type="text" size="30" name="@productForm("productAdditionalDetail.member6Name").name" value="@productForm("productAdditionalDetail.member6Name").value"/>
                 		<br>
-                		Title:&nbsp; <input type="text" size="30" name="@productForm("productAdditionalDetail.member6Title").name"/>
+                		Title:&nbsp; <input type="text" size="30" name="@productForm("productAdditionalDetail.member6Title").name" value="@productForm("productAdditionalDetail.member6Title").value"/>
                 		<br>
-                		Description:&nbsp;<textarea cols="30" rows="2" name="@productForm("productAdditionalDetail.member6Description").name"></textarea>
+                		Description:&nbsp;<textarea cols="30" rows="2" name="@productForm("productAdditionalDetail.member6Description").name" value="@productForm("productAdditionalDetail.member6Description").value"></textarea>
                     </div>
                 </div>
             </div>

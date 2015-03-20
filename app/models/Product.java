@@ -6,7 +6,6 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.JsonSerializable;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -16,6 +15,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializerProvider;
 
 import org.hibernate.validator.constraints.URL;
+
 import play.Logger;
 import play.api.libs.json.DeserializerContext;
 import play.data.format.Formats;
@@ -28,6 +28,7 @@ import play.libs.F;
 import javax.persistence.*;
 
 import com.avaje.ebean.Page;
+
 import utils.Slugify;
 import utils.Taggable;
 
@@ -49,6 +50,9 @@ public class Product extends TimeStampModel implements PathBindable<Product>,
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	public Long id;
+	
+	@ManyToOne(cascade=CascadeType.ALL)
+	public Company company;
 
 	public String productEAN;
 	public String productName;
@@ -79,7 +83,7 @@ public class Product extends TimeStampModel implements PathBindable<Product>,
 	public boolean trialSignUpFlag = true;
 	public boolean buyFlag = false;
 
-	@OneToOne(cascade = CascadeType.PERSIST, fetch=FetchType.LAZY, mappedBy="product")
+	@OneToOne(cascade=CascadeType.ALL, mappedBy="product")
 	public ProductAdditionalDetail productAdditionalDetail;
 	
 	@OneToMany(mappedBy="product")
@@ -123,6 +127,11 @@ public class Product extends TimeStampModel implements PathBindable<Product>,
 	public void update(Object o) {
 		this.slugify();
 		super.update(o);
+	}
+	
+	public void update() {
+		this.slugify();
+		super.update();
 	}
 
 	public void slugify() {
@@ -180,18 +189,18 @@ public class Product extends TimeStampModel implements PathBindable<Product>,
 	}
 
 	/*
-	 * Look in the db for a product with a productID equal
+	 * Look in the db for a product with a product ID equal
 	 * to the one passed in the URL
 	 */
 	@Override
 	  public Product bind(String key, String value) {
-	    return findbyProductEAN(value);
+	    return findbySlug(value);
 	  }
 
 
 	@Override
 	public F.Option<Product> bind(String key, Map<String, String[]> data) {
-	   return F.Option.Some(findbyProductEAN(data.get("productEAN")[0]));
+	   return F.Option.Some(findbySlug(data.get("slug")[0]));
 	}
 
 	/*
@@ -200,7 +209,7 @@ public class Product extends TimeStampModel implements PathBindable<Product>,
 	 */
 	@Override
 	public String unbind(String s) {
-		return this.productEAN;
+		return this.slug;
 	}
 
 	/*
@@ -209,7 +218,7 @@ public class Product extends TimeStampModel implements PathBindable<Product>,
 	 */
 	@Override
 	public String javascriptUnbind() {
-		return this.productEAN;
+		return this.slug;
 	}
 
 
