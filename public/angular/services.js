@@ -7,9 +7,13 @@ productServices.factory('ProductService', ['$resource',
     return $resource('/api/products/:slug'); // Note the full endpoint address
   }]);
 
-productServices.factory('FileService', ['$http','$log', '$q', '$upload',
-function($http, $log, $q, $upload){
+productServices.factory('FileService', ['$http','$log', '$q', '$upload', '$filter',
+function($http, $log, $q, $upload, $filter){
     var FileService = {};
+
+    var files = [];
+    var photos = [];
+    var videos = [];
 
     function hashFile(file, chunkSize, onLoad, onProgress) {
         var sha256 = CryptoJS.algo.SHA256.create();
@@ -122,6 +126,40 @@ function($http, $log, $q, $upload){
         });
 
         return deferred.promise;
+    };
+
+    /*
+    Get all files belonging to the current session user
+     */
+    FileService.getAllUserFiles = function(){
+        var deferred = $q.defer();
+
+        $http({
+            method: 'GET',
+            url: "/api/file/user"
+        }).success(function(data, status, headers, config){
+            $log.debug("fileservice - getAllUserFiles - success - " + data.length);
+            files = data;
+            photos = $filter("filter")(files, {type:"image"});
+            videos = $filter("filter")(files, {type:"video"});
+            deferred.resolve(data);
+        }).error(function(data, status, headers, config){
+            deferred.resolve(false);
+        });
+
+        return deferred.promise;
+    };
+
+    FileService.allUserFiles = function(){
+        return files;
+    };
+
+    FileService.allUserPhotos = function(){
+        return photos;
+    };
+
+    FileService.allUserVideos = function(){
+        return videos;
     };
 
     FileService.verify = function(file, uuid){
@@ -511,7 +549,7 @@ productServices.factory('FollowService', ['$http', '$q', '$log',
         });
 
         return deferred.promise;
-    }
+    };
 
     FollowService.follow = function(refId, refType, userId, data){
         var deferred = $q.defer();
@@ -535,7 +573,7 @@ productServices.factory('FollowService', ['$http', '$q', '$log',
         });
 
         return deferred.promise;
-    }
+    };
 
     FollowService.unfollow = function(refId, refType, userId, data){
         var deferred = $q.defer();
@@ -559,7 +597,7 @@ productServices.factory('FollowService', ['$http', '$q', '$log',
         });
 
         return deferred.promise;
-    }
+    };
 
     return FollowService;
 

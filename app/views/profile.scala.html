@@ -1,53 +1,9 @@
-<div class="profile-header">
-    <div class="profile-info">
-        <div class="col-lg-12">
-            <div class="profile-user--avatar">
-                <img class="profile-avatar--img-circle" src="@routes.Assets.at("images/user/mike.jpg")">
-            </div>
-            <div class="profile-user--details">
-                <p class="profile-user--name">Mike Santore <span class="profile-user--alias">@@mikesantore</span></p>
-                <p class="profile-user--description">Product geek, designer, extraordinary content writer. Love emerging products.</p>
-                <ul class="list-inline profile-user--badge">
-                    <li class="profile-user--badge-item">Creator</li>
-                    <li class="profile-user--badge-item">Member</li>
-                    <li class="profile-user--badge-item">Champion</li>
-                </ul>
-            </div>
-        </div>
-    </div>
+<div up-profile>
+    <div class="profile-header">
+        <up-profile-info></up-profile-info>
         <!-- Menu in banner -->
-    <div class="col-lg-12 profile-menu">
-        <div class="profile-menu--content">
-            <a class="profile-menu--item" ui-sref="profile.photos" ui-sref-active="active">
-                <span class="profile-menu--item-value">59</span>
-                <span class="profile-menu--item-label">Photos</span>
-            </a>
-            <a class="profile-menu--item" ui-sref="profile.videos" ui-sref-active="active">
-                <span class="profile-menu--item-value">16</span>
-                <span class="profile-menu--item-label">Videos</span>
-            </a>
-            <a class="profile-menu--item" ui-sref="profile.products" ui-sref-active="active">
-                <span class="profile-menu--item-value">99</span>
-                <span class="profile-menu--item-label">Products</span>
-            </a>
-            <a class="profile-menu--item" ui-sref="profile.followers" ui-sref-active="active">
-                <span class="profile-menu--item-value">300</span>
-                <span class="profile-menu--item-label">Followers</span>
-            </a>
-            <a class="profile-menu--item" ui-sref="profile.followings" ui-sref-active="active">
-                <span class="profile-menu--item-value">60</span>
-                <span class="profile-menu--item-label">Followings</span>
-            </a>
-        </div>
-        <div class="profile-menu--action">
-                <!-- Edit profile is for self -->
-            <a class="btn btn-lg btn-outline" ui-sref="profile.account" ui-sref-active="active">Profile and Account</a>
-                <!-- Follow and Message is for others -->
-            <a class="btn btn-lg btn-following" href="#"><i class="fa fa-check"></i>Following</a>
-            <a class="btn btn-lg btn-outline" href="#">Message</a>
-        </div>
+        <up-profile-menu></up-profile-menu>
     </div>
-</div>
 
-<div ui-view class="wrapper-user-profile">
+    <div ui-view class="wrapper-user-profile"></div>
 </div>

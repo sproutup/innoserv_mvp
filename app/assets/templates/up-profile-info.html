@@ -1,0 +1,14 @@
+<div class="profile-info">
+    <div class="col-lg-12">
+        <div class="profile-user--avatar">
+            <img class="profile-avatar--img-circle" ng-src="{{user.avatarUrl}}">
+        </div>
+        <div class="profile-user--details">
+            <p class="profile-user--name">{{user.firstname}} {{user.lastname}}<span class="profile-user--alias">{{user.name}}</span></p>
+            <p class="profile-user--description">{{user.description}}</p>
+            <ul class="list-inline profile-user--badge">
+                <li ng-repeat="badge in user.badges" class="profile-user--badge-item">{{badge}}</li>
+            </ul>
+        </div>
+    </div>
+</div>
