@@ -62,11 +62,11 @@ GET           /assets/*file                          controllers.Assets.at(path=
 GET           /webjars/*file                         controllers.WebJarAssets.at(file)
 
 # Web Service
-#GET     /api/users                 controllers.Users.getUsers
-#GET     /api/users/:id             controllers.Users.getUser(id: Long)
-#POST    /api/users                 controllers.Users.createUser
-#PUT     /api/users/:id             controllers.Users.updateUser(id: Long)
-#DELETE  /api/users/:id             controllers.Users.deleteUser(id: Long)
+#GET           /api/users                             controllers.UserController.getUsers
+#GET           /api/users/:id                         controllers.UserController.getUser(id: Long)
+#POST          /api/users                             controllers.UserController.createUser
+PUT           /api/users/:id                         controllers.UserController.updateUser(id: Long)
+#DELETE        /api/users/:id                         controllers.UserController.deleteUser(id: Long)
 
 GET           /api/products                          controllers.Products.getProducts
 GET           /api/products/:slug                    controllers.Products.getProduct(slug: String)
