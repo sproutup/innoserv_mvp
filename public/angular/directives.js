@@ -285,6 +285,97 @@ angular.module('sproutupApp').directive('upProfileMenu', ['AuthService','FileSer
     }
 ]);
 
+angular.module('sproutupApp').directive('upProfileEditButtons', ['$rootScope','FileService','$state','$log',
+    function ($rootScope, fileService, $state, $log) {
+        return {
+            restrict: 'E',
+            scope: true,
+            link: function (scope, element, attrs) {
+                scope.$state = $state;
+
+                scope.cancel = function () {
+                    $log.debug("up-profile - cancel()");
+                    $rootScope.$broadcast('profile:cancel', {
+                        data: "hello"
+                    });
+                };
+
+                scope.save = function () {
+                    $log.debug("up-profile - save()");
+                    $rootScope.$broadcast('profile:save', {
+                        data: "hello"
+                    });
+                };
+            },
+            templateUrl: 'assets/templates/up-profile-edit-buttons.html'
+        }
+    }
+]);
+
+angular.module('sproutupApp').directive('upProfileEdit', ['$rootScope','AuthService', 'UserService', '$state','$log',
+    function ($rootScope, authService, userService, $state, $log) {
+        return {
+            restrict: 'A',
+            scope: true,
+            link: function (scope, element, attrs) {
+                scope.$state = $state;
+
+                var user = authService.currentUser();
+
+                var updated = {
+                    "id" : user.id,
+                    "email" : user.email,
+                    "firstname" : user.firstname,
+                    "lastname" : user.lastname,
+                    "name" : user.name,
+                    "description" : user.description,
+                    "urlFacebook" : user.urlFacebook,
+                    "urlTwitter" : user.urlTwitter,
+                    "urlPinterest" : user.urlPinterest,
+                    "urlBlog" : user.urlBlog
+                };
+
+                scope.user = updated;
+
+                var previous_state = "profile.photos";
+
+                scope.$on('$stateChangeSuccess', function (ev, to, toParams, from, fromParams) {
+                    //assign the "from" parameter to something
+                    console.log('state change ' + from.name);
+                    if(from.name.length > 0){
+                        previous_state = from.name;
+                    }
+                });
+
+                scope.$on('profile:save', function (event, args) {
+                    console.log('event received profile:save ' + args.data);
+                    userService.update(scope.user).then(
+                        function(data){
+                            $log.debug("up-profile-edit > update success");
+                            user.description = data.description;
+                            user.name = data.name;
+                            user.firstname = data.firstname;
+                            user.lastname = data.lastname;
+                            user.urlFacebook = data.urlFacebook;
+                            user.urlTwitter = data.urlTwitter;
+                            user.urlPinterest = data.urlPinterest;
+                            user.urlBlog = data.urlBlog;
+                        },
+                        function(error){
+                            $log.debug("up-profile-edit > update failed");
+                        }
+                    )
+                });
+
+                scope.$on('profile:cancel', function (event, args) {
+                    console.log('event received profile:cancel ' + args.data);
+                    $state.go(previous_state);
+                });
+            }
+        }
+    }
+]);
+
 angular.module('sproutupApp').directive('upProfile', ['$filter', '$log', 'FileService',
     function ($filter, $log, fileService) {
         return {
@@ -292,35 +383,17 @@ angular.module('sproutupApp').directive('upProfile', ['$filter', '$log', 'FileSe
             scope: {
             },
             controller: function($scope) {
-                var files = $scope.files = [];
-                var photos = $scope.photos = [];
-                var videos = $scope.videos = [];
-
                 fileService.getAllUserFiles().then(
                     function(data){
                         $log.debug("up-profile - files loaded");
-                        files = data;
-                        photos = $filter("filter")(files, {type:"image"});
-                        //videos = $filter("filter")(files, {type:"video"});
-                        $log.debug("up-profile - photos "); // + photos.length +" videos " + videos.length);
                     },
                     function(error){
                     }
                 );
-
-                this.photos = photos;
-
-                $scope.select = function(pane) {
-                    pane.selected = true;
-                };
-
-                this.addPane = function(pane) {
-                };
             }
         }
     }
 ]);
-
 
 angular.module('sproutupApp').directive('follow', ['FollowService',
     function (FollowService) {
@@ -506,15 +579,17 @@ angular.module('sproutupApp').directive('upProductItem', [
         };
     }]);
 
-angular.module('sproutupApp').directive('navbar', function () {
+angular.module('sproutupApp').directive('navbar', [ 'AuthService',
+    function (authService) {
     return {
         templateUrl: '/assets/templates/navbar.html',
-
-        controller: function($scope, $log, $http, AuthService) {
-            AuthService.isLoggedIn();
+        scope: true,
+        link: function (scope, element, attrs) {
+            scope.user = authService.currentUser();
+            scope.isLoggedIn = authService.isLoggedIn();
         }
     };
-});
+}]);
 
 angular.module('sproutupApp').directive('upFbShare', [ '$location', '$window', function ($location, $window) {
     return {

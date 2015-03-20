@@ -7,6 +7,36 @@ productServices.factory('ProductService', ['$resource',
     return $resource('/api/products/:slug'); // Note the full endpoint address
   }]);
 
+productServices.factory('UserService', ['$http','$log', '$q', '$upload', '$filter',
+    function($http, $log, $q, $upload, $filter) {
+        var userService = {};
+
+        userService.update = function(user){
+            var deferred = $q.defer();
+
+            $log.debug("userservice > user.name: " + user.name);
+
+            $http({
+                method: 'PUT',
+                url: '/api/users/' + user.id,
+                headers: {'Content-Type': 'application/json'},
+                data: user
+            }).success(function(data, status, headers, config){
+                $log.debug("userservice > update success");
+                deferred.resolve(data);
+            }).error(function(data, status, headers, config){
+                $log.debug("userservice > failed to update");
+                deferred.reject("userservice > failed to update");
+            });
+
+            return deferred.promise;
+        };
+
+        return userService;
+    }
+]);
+
+
 productServices.factory('FileService', ['$http','$log', '$q', '$upload', '$filter',
 function($http, $log, $q, $upload, $filter){
     var FileService = {};
@@ -287,7 +317,7 @@ productServices.factory('AuthService', ['$http', '$q', '$cookieStore','$log',
     var urlBase = '/api/auth';
     var accessLevels = routingConfig.accessLevels
         , userRoles = routingConfig.userRoles
-        , currentUser = $cookieStore.get('user') || { username: '', role: userRoles.public }
+        , currentUser = $cookieStore.get('user') || { username: '', role: userRoles.public };
 
     var _isLoggedIn = false;
 
