@@ -579,15 +579,17 @@ angular.module('sproutupApp').directive('upProductItem', [
         };
     }]);
 
-angular.module('sproutupApp').directive('navbar', function () {
+angular.module('sproutupApp').directive('navbar', [ 'AuthService',
+    function (authService) {
     return {
         templateUrl: '/assets/templates/navbar.html',
-
-        controller: function($scope, $log, $http, AuthService) {
-            AuthService.isLoggedIn();
+        scope: true,
+        link: function (scope, element, attrs) {
+            scope.user = authService.currentUser();
+            scope.isLoggedIn = authService.isLoggedIn();
         }
     };
-});
+}]);
 
 angular.module('sproutupApp').directive('upFbShare', [ '$location', '$window', function ($location, $window) {
     return {

@@ -317,7 +317,7 @@ productServices.factory('AuthService', ['$http', '$q', '$cookieStore','$log',
     var urlBase = '/api/auth';
     var accessLevels = routingConfig.accessLevels
         , userRoles = routingConfig.userRoles
-        , currentUser = $cookieStore.get('user') || { username: '', role: userRoles.public }
+        , currentUser = $cookieStore.get('user') || { username: '', role: userRoles.public };
 
     var _isLoggedIn = false;
 
