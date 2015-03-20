@@ -1,5 +1,5 @@
 @(currentPage: com.avaje.ebean.Page[Product])
-@main("Products catalogue") {
+@main("Products catalog") {
 
   <h2>All products</h2>
 
@@ -20,9 +20,11 @@
     <thead>
       <tr>
         <th>EAN</th>
+        <th>Product Id</th>
         <th>Name</th>
         <th>Description</th>
         <th>Date added</th>
+        <th>Date updated</th>
         <th>Featured</th>
         <th></th>
       </tr>
@@ -31,17 +33,22 @@
     @for(product <- currentPage.getList()) {
 
       <tr>
-        <td><a href="@routes.ProductAdministrationController.details(product)">
+
+        <td><a href="@routes.ProductAdministrationController.details(product)" target="_self">
           @product.productEAN 
         </a></td>
-        <td><a href="@routes.ProductAdministrationController.details(product)">@product.productName</a></td>
-        <td><a href="@routes.ProductAdministrationController.details(product)">@product.productDescription</a></td>
-        <td>#</td>
-        <td><a href="@routes.ProductAdministrationController.details(product)">@product.isFeatured</a></td>
+        <td><a href="@routes.ProductAdministrationController.details(product)" target="_self">
+          @product.id</a>
+        </td>
+        <td><a href="@routes.ProductAdministrationController.details(product)" target="_self">@product.productName</a></td>
+        <td><a href="@routes.ProductAdministrationController.details(product)" target="_self">@product.productDescription</a></td>
+        <td>@product.createdAt</td>
+        <td>@product.updatedAt</td>
+        <td><a href="@routes.ProductAdministrationController.details(product)" target="_self">@product.isFeatured</a></td>
         
         <td>
-          <a href="@routes.ProductAdministrationController.details(product)">Edit</a>&nbsp;
-          <a href="javascript:del('@routes.ProductAdministrationController.delete(product.id)')">Trash</a> 
+          <a href="@routes.ProductAdministrationController.details(product)" target="_self">Edit</a>&nbsp;
+          <a href="javascript:del('@routes.ProductAdministrationController.delete(product.id)')" target="_self">Trash</a> 
         </td>
       </tr>
       }
@@ -53,7 +60,7 @@
             <ul>
                 @if(currentPage.hasPrev) {
                     <li class="prev">
-                        <a href="@routes.ProductAdministrationController.list(currentPage.getPageIndex - 1)">&larr; </a>
+                        <a href="@routes.ProductAdministrationController.list(currentPage.getPageIndex - 1)" target="_self">&larr; </a>
                     </li>
                 } else {
                     <li class="prev disabled">
@@ -61,11 +68,11 @@
                     </li>
                 }
                 <li class="current">
-                    <a>@currentPage.getDisplayXtoYofZ(" - "," / ")</a>
+                    @currentPage.getDisplayXtoYofZ(" - "," / ")
                 </li>
                 @if(currentPage.hasNext) {
                     <li class="next">
-                        <a href="@routes.ProductAdministrationController.list(currentPage.getPageIndex + 1)"> &rarr;</a>
+                        <a href="@routes.ProductAdministrationController.list(currentPage.getPageIndex + 1)" target="_self"> &rarr;</a>
                     </li>
                 } else {
                     <li class="next disabled">
@@ -77,6 +84,6 @@
 
   
     
-  <a href="@routes.ProductAdministrationController.newProduct()" class="btn">
+  <a href="/adminstuff/product/new" class="btn" target="_self">
     <i class="icon-plus"></i> New product</a>
 }

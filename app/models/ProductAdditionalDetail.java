@@ -1,5 +1,7 @@
 package models;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -22,6 +24,7 @@ public class ProductAdditionalDetail extends TimeStampModel {
 	public Long id;
 
 	@OneToOne
+	@JoinColumn(name="product_id", unique=true)
 	public Product product;
 	
 	@OneToOne
@@ -164,6 +167,34 @@ public class ProductAdditionalDetail extends TimeStampModel {
 	public static Finder<Long, ProductAdditionalDetail> find = new Finder<Long, ProductAdditionalDetail>(
 			Long.class, ProductAdditionalDetail.class);
 
+	public List<ProductAdditionalDetail> getAll() {
+		return find.all();
+	}
 
+	public static ProductAdditionalDetail findbyID(Long id) {
+		return find.byId(id);
+	}
+	
+	@Override
+	public void save() {
+		System.out.println(">>>save");
+		super.save();
+	}
+	
+	@Override
+	public void update(Object o) {
+		System.out.println(">>>update-o");
+		super.update(o);
+	}
+	
+	public void update() {
+		System.out.println(">>>update");
+		super.update();
+	}
+	
+	  @Override
+	  public String toString() {
+	    return String.format("%d %s", id, product);
+	  }
 
 }
