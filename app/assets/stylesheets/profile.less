@@ -106,8 +106,6 @@
   font-weight: 400;
   height: 36px;
   float: left;
-  background-color: @sproutup-green;
-  color: @main-text-white;
   padding: 8px 20px 0px;
   margin-right: 15px;
   border-radius: 2px;
@@ -115,6 +113,16 @@
 
 .profile-menu--message i {
   padding-right: 10px;
+}
+
+.profile-menu--message.success {
+  background-color: @sproutup-green;
+  color: @main-text-white;
+}
+
+.profile-menu--message.error {
+  background-color: @sproutup-grey;
+  color: @main-text;
 }
 
 .profile-menu--action {
