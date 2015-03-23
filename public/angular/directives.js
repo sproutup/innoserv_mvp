@@ -591,8 +591,8 @@ angular.module('sproutupApp').directive('subjectPresent', function ($parse) {
     };
 });
 
-angular.module('sproutupApp').directive('upToptags', ['TagsService',
-    function (tagService) {
+angular.module('sproutupApp').directive('upToptags', ['TagsService', '$timeout',
+    function (tagService, $timeout) {
     return {
         templateUrl: 'assets/templates/up-toptags.html',
         scope: {
@@ -600,7 +600,17 @@ angular.module('sproutupApp').directive('upToptags', ['TagsService',
             category: "="
         },
         link: function (scope, element, attrs) {
-            attrs.$observe('category', function (category) {
+            $timeout(function(){
+                console.log("tags timeout");
+                refresh();
+            });
+
+            //attrs.$observe('category', function (category) {
+            //    console.log("tags observe");
+            //    refresh();
+            //});
+
+            var refresh = function(){
                 tagService.getPopularPostTags(scope.productId, scope.category).then(
                     function(data){
                         scope.tags = data;
@@ -622,7 +632,7 @@ angular.module('sproutupApp').directive('upToptags', ['TagsService',
                     default:
                         scope.cat = "default";
                 }
-            });
+            }
         }
     };
 }]);
