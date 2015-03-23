@@ -364,6 +364,7 @@ angular.module('sproutupApp').directive('upProfileEdit', ['$rootScope','AuthServ
 
                 scope.$on('auth:status', function (event, args) {
                     user = authService.currentUser();
+                    copyUser(updated, user);
                 });
 
                 scope.$watch(
@@ -380,6 +381,19 @@ angular.module('sproutupApp').directive('upProfileEdit', ['$rootScope','AuthServ
                         }
                     }
                 );
+
+                var copyUser = function(copy, orig){
+                    copy.id = orig.id;
+                    copy.email = orig.email;
+                    copy.firstname = orig.firstname;
+                    copy.lastname = orig.lastname;
+                    copy.name = orig.name;
+                    copy.description = orig.description;
+                    copy.urlFacebook = orig.urlFacebook;
+                    copy.urlTwitter = orig.urlTwitter;
+                    copy.urlPinterest = orig.urlPinterest;
+                    copy.urlBlog = orig.urlBlog;
+                };
 
                 var updated = {
                     "id" : user.id,
