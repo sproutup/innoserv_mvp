@@ -285,35 +285,75 @@ angular.module('sproutupApp').directive('upProfileMenu', ['AuthService','FileSer
     }
 ]);
 
-angular.module('sproutupApp').directive('upProfileEditButtons', ['$rootScope','FileService','$state','$log',
-    function ($rootScope, fileService, $state, $log) {
+angular.module('sproutupApp').directive('upProfileEditButtons', ['$rootScope','FileService','$state','$log','$timeout',
+    function ($rootScope, fileService, $state, $log, $timeout) {
         return {
             restrict: 'E',
             scope: true,
             link: function (scope, element, attrs) {
                 scope.$state = $state;
+                scope.state = "pristine";
+                scope.showMessage = false;
+
+                var hideStatusMessage = function(test){
+                   scope.showMessage = false;
+                };
 
                 scope.cancel = function () {
                     $log.debug("up-profile - cancel()");
-                    $rootScope.$broadcast('profile:cancel', {
-                        data: "hello"
-                    });
+                    $rootScope.$broadcast('profile:cancel');
                 };
+
+                //scope.$on('profile:pristine', function (event, args) {
+                //    console.log('event received profile:pristine ' + args.data);
+                //    scope.state = "pristine";
+                //    scope.showMessage = true;
+                //    $timeout(
+                //        function() {
+                //            console.log( "Timeout executed", Date.now() );
+                //            scope.showMessage = false;
+                //        },
+                //        2000
+                //    );
+                //});
+
+                scope.$on('profile:saved', function (event, args) {
+                    console.log('event received profile:saved ');
+                    scope.state = "pristine";
+                    scope.showMessage = true;
+                    $timeout(
+                        function() {
+                            console.log( "Timeout executed", Date.now() );
+                            scope.showMessage = false;
+                        },
+                        1000
+                    );
+                });
+
+                scope.$on('profile:valid', function (event, args) {
+                    console.log('event received profile:valid ');
+                    scope.state = "dirty";
+                });
+
+                scope.$on('profile:invalid', function (event, args) {
+                    console.log('event received profile:invalid ');
+                    scope.state = "pristine";
+                });
 
                 scope.save = function () {
                     $log.debug("up-profile - save()");
-                    $rootScope.$broadcast('profile:save', {
-                        data: "hello"
-                    });
+                    $rootScope.$broadcast('profile:save');
+                    scope.state = "saving";
                 };
+
             },
             templateUrl: 'assets/templates/up-profile-edit-buttons.html'
         }
     }
 ]);
 
-angular.module('sproutupApp').directive('upProfileEdit', ['$rootScope','AuthService', 'UserService', '$state','$log',
-    function ($rootScope, authService, userService, $state, $log) {
+angular.module('sproutupApp').directive('upProfileEdit', ['$rootScope','AuthService', 'UserService', '$state','$log', '$timeout',
+    function ($rootScope, authService, userService, $state, $log, $timeout) {
         return {
             restrict: 'A',
             scope: true,
@@ -321,6 +361,25 @@ angular.module('sproutupApp').directive('upProfileEdit', ['$rootScope','AuthServ
                 scope.$state = $state;
 
                 var user = authService.currentUser();
+
+                scope.$on('auth:status', function (event, args) {
+                    user = authService.currentUser();
+                });
+
+                scope.$watch(
+                    function(scope){
+                        return scope.basicinfoform.$dirty && scope.basicinfoform.$valid;
+                    },
+                    function(newValue, oldValue) {
+                        $log.debug("dirty&valid: " + newValue + " " + oldValue);
+                        if(newValue==true){
+                            $rootScope.$broadcast('profile:valid');
+                        }
+                        else{
+                            $rootScope.$broadcast('profile:invalid');
+                        }
+                    }
+                );
 
                 var updated = {
                     "id" : user.id,
@@ -348,7 +407,7 @@ angular.module('sproutupApp').directive('upProfileEdit', ['$rootScope','AuthServ
                 });
 
                 scope.$on('profile:save', function (event, args) {
-                    console.log('event received profile:save ' + args.data);
+                    console.log('event received profile:save ');
                     userService.update(scope.user).then(
                         function(data){
                             $log.debug("up-profile-edit > update success");
@@ -360,6 +419,8 @@ angular.module('sproutupApp').directive('upProfileEdit', ['$rootScope','AuthServ
                             user.urlTwitter = data.urlTwitter;
                             user.urlPinterest = data.urlPinterest;
                             user.urlBlog = data.urlBlog;
+                            $rootScope.$broadcast('profile:saved');
+                            scope.basicinfoform.$setPristine();
                         },
                         function(error){
                             $log.debug("up-profile-edit > update failed");
@@ -368,7 +429,7 @@ angular.module('sproutupApp').directive('upProfileEdit', ['$rootScope','AuthServ
                 });
 
                 scope.$on('profile:cancel', function (event, args) {
-                    console.log('event received profile:cancel ' + args.data);
+                    console.log('event received profile:cancel ');
                     $state.go(previous_state);
                 });
             }
@@ -579,14 +640,19 @@ angular.module('sproutupApp').directive('upProductItem', [
         };
     }]);
 
-angular.module('sproutupApp').directive('navbar', [ 'AuthService',
-    function (authService) {
+angular.module('sproutupApp').directive('navbar', [ 'AuthService', '$rootScope',
+    function (authService, $rootScope) {
     return {
         templateUrl: '/assets/templates/navbar.html',
         scope: true,
         link: function (scope, element, attrs) {
             scope.user = authService.currentUser();
             scope.isLoggedIn = authService.isLoggedIn();
+            scope.$on('auth:status', function (event, args) {
+                console.log('event received auth:state ' + args.data);
+                scope.user = authService.currentUser();
+                scope.isLoggedIn = authService.isLoggedIn();
+            });
         }
     };
 }]);
