@@ -646,6 +646,11 @@ angular.module('sproutupApp').directive('upProductList', [ 'ProductService',
             scope: {
             },
             link: function (scope, element, attrs) {
+                // filter out the featured products
+                scope.query = {
+                    $ : "",
+                    isFeatured : false
+                };
                 scope.products = productService.query();
             }
         };
