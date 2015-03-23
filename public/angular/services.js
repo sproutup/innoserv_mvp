@@ -311,8 +311,8 @@ function($http, $log, $q, $upload, $filter){
     return FileService;
 }]);
 
-productServices.factory('AuthService', ['$http', '$q', '$cookieStore','$log',
-    function($http, $q, $cookieStore, $log){
+productServices.factory('AuthService', ['$http', '$q', '$cookieStore','$log', '$rootScope',
+    function($http, $q, $cookieStore, $log, $rootScope){
     var AuthService = {};
     var urlBase = '/api/auth';
     var accessLevels = routingConfig.accessLevels
@@ -354,6 +354,7 @@ productServices.factory('AuthService', ['$http', '$q', '$cookieStore','$log',
             // when the response is available
             changeUser(data);
             _isLoggedIn = true;
+            $rootScope.$broadcast('auth:status', {isLoggedIn: status.isLoggedIn});
             $log.debug("auth user service returned success: " + currentUser.name);
             $log.debug("AuthService > isLoggedIn=" + _isLoggedIn);
             deferred.resolve(currentUser);
@@ -406,6 +407,7 @@ productServices.factory('AuthService', ['$http', '$q', '$cookieStore','$log',
             // when the response is available
             changeUser(data);
             _isLoggedIn = true;
+            $rootScope.$broadcast('auth:status', {isLoggedIn: status.isLoggedIn});
             $log.debug("login service returned success");
             deferred.resolve("success");
         }).error(function(data, status, headers, config){
@@ -432,6 +434,7 @@ productServices.factory('AuthService', ['$http', '$q', '$cookieStore','$log',
             // when the response is available
             changeUser(data);
             status.isLoggedIn = true;
+            $rootScope.$broadcast('auth:status', {isLoggedIn: status.isLoggedIn});
             deferred.resolve("success");
         }).error(function(data, status, headers, config){
             // called asynchronously if an error occurs
@@ -455,6 +458,7 @@ productServices.factory('AuthService', ['$http', '$q', '$cookieStore','$log',
             // when the response is available
             currentUser.name = '';
             _isLoggedIn = false;
+            $rootScope.$broadcast('auth:status', {isLoggedIn: status.isLoggedIn});
             deferred.resolve("success");
         }).error(function(data, status, headers, config){
             // called asynchronously if an error occurs

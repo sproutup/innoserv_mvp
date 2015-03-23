@@ -11,7 +11,8 @@ var sproutupApp = angular.module('sproutupApp', [
     'FileControllers',
     'productFilters',
     'productServices',
-    'ngTagsInput'
+    'ngTagsInput',
+    'ngAnimate'
 ]);
 
 sproutupApp.config(function ($provide) {

@@ -15,7 +15,6 @@
         <link rel="shortcut icon" type="image/vnd.microsoft.icon" href="@routes.Assets.at("images/favicon.ico")">
 
         <link rel="stylesheet" href="@routes.Assets.at("library/bootstrap/css/bootstrap.css")">
-        <link rel="stylesheet" href="@routes.Assets.at("library/font-awesome/css/font-awesome.css")">
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
         <link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
         <link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/signup-login-modal.css")">
@@ -50,12 +49,14 @@
         </script>
 
         <script type="text/javascript" src="@routes.Application.jsRoutes" defer="defer"></script>
-        <script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/sha256.js"></script>
-        <script src='http://crypto-js.googlecode.com/svn/tags/3.1.2/build/components/lib-typedarrays-min.js'></script>
+        <script src='@routes.Assets.at("library/crypto-js/core-min.js")'></script>
+        <script src='@routes.Assets.at("library/crypto-js/sha256.js")'></script>
+        <script src='@routes.Assets.at("library/crypto-js/lib-typedarrays-min.js")'></script>
         <script src="@routes.Assets.at("library/masonry/masonry.pkgd.js")"></script>
         <script src="@routes.Assets.at("library/imagesloaded/imagesloaded.pkgd.js")"></script>
         <script src="@routes.Assets.at("javascripts/angular.js")"></script>
         <script src="@routes.Assets.at("javascripts/angular-route.js")"></script>
+        <script src="@routes.Assets.at("javascripts/angular-animate.min.js")"></script>
         <script src="@routes.Assets.at("javascripts/angular-cookies.min.js")"></script>
         <script src="@routes.Assets.at("javascripts/angular-resource.js")"></script>
         <script src="@routes.Assets.at("javascripts/ng-tags-input.min.js")"></script>
