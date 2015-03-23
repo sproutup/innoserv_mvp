@@ -7,6 +7,33 @@ productServices.factory('ProductService', ['$resource',
     return $resource('/api/products/:slug'); // Note the full endpoint address
   }]);
 
+productServices.factory('ProductSuggestionService', ['$http','$log', '$q',
+    function($http, $log, $q) {
+        var productSuggestionService = {};
+
+        productSuggestionService.add = function(suggestion){
+            var deferred = $q.defer();
+
+            $http({
+                method: 'POST',
+                url: '/api/suggest/product',
+                headers: {'Content-Type': 'application/json'},
+                data: suggestion
+            }).success(function(data, status, headers, config){
+                $log.debug("productSuggestionService > add success");
+                deferred.resolve(data);
+            }).error(function(data, status, headers, config){
+                $log.debug("productSuggestionService > failed to update");
+                deferred.reject("productSuggestionService > failed to add");
+            });
+
+            return deferred.promise;
+        };
+
+        return productSuggestionService;
+    }
+]);
+
 productServices.factory('UserService', ['$http','$log', '$q', '$upload', '$filter',
     function($http, $log, $q, $upload, $filter) {
         var userService = {};

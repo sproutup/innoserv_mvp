@@ -5,13 +5,14 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
+import be.objectify.deadbolt.java.actions.SubjectPresent;
 import com.amazonaws.services.s3.model.S3Object;
 import com.amazonaws.services.s3.model.S3ObjectInputStream;
-import models.File;
-import models.Product;
-import models.User;
+import com.fasterxml.jackson.databind.JsonNode;
+import models.*;
 import net.coobird.thumbnailator.Thumbnails;
 import play.Routes;
 import play.Logger;
@@ -139,8 +140,24 @@ public class Application extends Controller {
 		return new SimpleDateFormat("yyyy-dd-MM HH:mm:ss").format(new Date(t));
 	}
 
+    @BodyParser.Of(BodyParser.Json.class)
+    @SubjectPresent
+    public static Result addProductSuggestion() {
+        JsonNode json = request().body().asJson();
+        if (json == null) {
+            return badRequest("Expecting Json data");
+        } else {
+            ProductSuggestion prds = new ProductSuggestion();
+            prds.email = json.path("email").asText();
+            prds.productName = json.path("productName").asText();
+            prds.productUrl = json.path("productUrl").asText();
+            prds.save();
 
-    // Scala and render an image from S3
+            return created();
+        }
+    }
+
+            // Scala and render an image from S3
     public static Result image(String image, int w, int h) {
         Logger.debug("get object image");
         S3Object obj = S3Plugin.amazonS3.getObject("sproutup-test-upload", image);

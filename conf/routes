@@ -3,131 +3,134 @@
 # ~~~~
 
 # Home page
-GET           /                                      controllers.Application.main(any = "none")
+GET           /                                       controllers.Application.main(any = "none")
 
-GET           /assets/javascript/routes.js           controllers.Application.jsRoutes
+GET           /assets/javascript/routes.js            controllers.Application.jsRoutes
 
-GET           /feedback/:id                          controllers.FeedbackManagement.fetchPopupQSurvey(id: Long)
+GET           /feedback/:id                           controllers.FeedbackManagement.fetchPopupQSurvey(id: Long)
 
-GET           /login                                 controllers.Application.login
-POST          /login                                 controllers.Application.doLogin
+GET           /login                                  controllers.Application.login
+POST          /login                                  controllers.Application.doLogin
 
-GET           /logout                                com.feth.play.module.pa.controllers.Authenticate.logout
-GET           /authenticate/:provider                com.feth.play.module.pa.controllers.Authenticate.authenticate(provider: String)
+GET           /logout                                 com.feth.play.module.pa.controllers.Authenticate.logout
+GET           /authenticate/:provider                 com.feth.play.module.pa.controllers.Authenticate.authenticate(provider: String)
 
-GET           /signup                                controllers.Application.signup
-POST          /signup                                controllers.Application.doSignup
+GET           /signup                                 controllers.Application.signup
+POST          /signup                                 controllers.Application.doSignup
 
-GET           /accounts/unverified                   controllers.Signup.unverified
-GET           /authenticate/:provider/denied         controllers.Signup.oAuthDenied(provider: String)
+GET           /accounts/unverified                    controllers.Signup.unverified
+GET           /authenticate/:provider/denied          controllers.Signup.oAuthDenied(provider: String)
 
-GET           /accounts/verify/:token                controllers.Signup.verify(token: String)
-GET           /accounts/exists                       controllers.Signup.exists
-GET           /accounts/afterLogin                   controllers.AuthController.afterLogin
-GET           /accounts/afterAuth                    controllers.AuthController.afterAuth
+GET           /accounts/verify/:token                 controllers.Signup.verify(token: String)
+GET           /accounts/exists                        controllers.Signup.exists
+GET           /accounts/afterLogin                    controllers.AuthController.afterLogin
+GET           /accounts/afterAuth                     controllers.AuthController.afterAuth
 
-GET           /accounts/password/reset/:token        controllers.Signup.resetPassword(token: String)
-POST          /accounts/password/reset               controllers.Signup.doResetPassword
+GET           /accounts/password/reset/:token         controllers.Signup.resetPassword(token: String)
+POST          /accounts/password/reset                controllers.Signup.doResetPassword
 
-GET           /accounts/password/change              controllers.Account.changePassword
-POST          /accounts/password/change              controllers.Account.doChangePassword
+GET           /accounts/password/change               controllers.Account.changePassword
+POST          /accounts/password/change               controllers.Account.doChangePassword
 
-GET           /accounts/verify                       controllers.Account.verifyEmail
+GET           /accounts/verify                        controllers.Account.verifyEmail
 
-GET           /login/password/forgot                 controllers.Signup.forgotPassword(email: String ?= "")
-POST          /login/password/forgot                 controllers.Signup.doForgotPassword
+GET           /login/password/forgot                  controllers.Signup.forgotPassword(email: String ?= "")
+POST          /login/password/forgot                  controllers.Signup.doForgotPassword
 
 # Views used be angular routes
-GET           /views/home                            controllers.Application.home
-GET           /views/about                           controllers.Application.about
-GET           /views/creator                         controllers.Application.creator
-GET           /views/profile                         controllers.Application.profile
-GET           /views/profile/photos                  controllers.Application.profile_photos
-GET           /views/profile/videos                  controllers.Application.profile_videos
-GET           /views/profile/products                controllers.Application.profile_products
-GET           /views/profile/followers               controllers.Application.profile_followers
-GET           /views/profile/followings              controllers.Application.profile_followings
-GET           /views/profile/account                 controllers.Application.profile_account
-GET           /views/product-list                    controllers.Products.list
-GET           /views/product-details                 controllers.Products.details
-GET           /views/product-about                   controllers.Products.about
-GET           /views/product-bar                     controllers.Products.bar
-GET           /views/product-gallery                 controllers.Products.gallery
+GET           /views/home                             controllers.Application.home
+GET           /views/about                            controllers.Application.about
+GET           /views/creator                          controllers.Application.creator
+GET           /views/profile                          controllers.Application.profile
+GET           /views/profile/photos                   controllers.Application.profile_photos
+GET           /views/profile/videos                   controllers.Application.profile_videos
+GET           /views/profile/products                 controllers.Application.profile_products
+GET           /views/profile/followers                controllers.Application.profile_followers
+GET           /views/profile/followings               controllers.Application.profile_followings
+GET           /views/profile/account                  controllers.Application.profile_account
+GET           /views/product-list                     controllers.Products.list
+GET           /views/product-details                  controllers.Products.details
+GET           /views/product-about                    controllers.Products.about
+GET           /views/product-bar                      controllers.Products.bar
+GET           /views/product-gallery                  controllers.Products.gallery
 
 # Map static resources from the /public folder to the /assets URL path
-GET           /assets/*file                          controllers.Assets.at(path="/public", file)
-GET           /webjars/*file                         controllers.WebJarAssets.at(file)
+GET           /assets/*file                           controllers.Assets.at(path="/public", file)
+GET           /webjars/*file                          controllers.WebJarAssets.at(file)
 
 # Web Service
 #GET           /api/users                             controllers.UserController.getUsers
 #GET           /api/users/:id                         controllers.UserController.getUser(id: Long)
 #POST          /api/users                             controllers.UserController.createUser
-PUT           /api/users/:id                         controllers.UserController.updateUser(id: Long)
+PUT           /api/users/:id                          controllers.UserController.updateUser(id: Long)
 #DELETE        /api/users/:id                         controllers.UserController.deleteUser(id: Long)
 
-GET           /api/products                          controllers.Products.getProducts
-GET           /api/products/:slug                    controllers.Products.getProduct(slug: String)
-POST          /api/products                          controllers.Products.createProduct
-PUT           /api/products/:id                      controllers.Products.updateProduct(id: Long)
-DELETE        /api/products/:id                      controllers.Products.deleteProduct(id: Long)
+POST          /api/suggest/product                    controllers.Application.addProductSuggestion
 
-GET           /api/file/policy                       controllers.FileController.authorize(contentHash: String , contentName: String, contentLength: Long, contentType: String, comment: String, refId: Long, refType: String)
-POST          /api/file/verify                       controllers.FileController.verify(uuid: String)
-GET           /api/file/:type/:id                    controllers.FileController.getFiles(id: Long, type: String)
-GET           /api/file/user                         controllers.FileController.getUserFiles
+GET           /api/products                           controllers.Products.getProducts
+GET           /api/products/:slug                     controllers.Products.getProduct(slug: String)
+POST          /api/products                           controllers.Products.createProduct
+PUT           /api/products/:id                       controllers.Products.updateProduct(id: Long)
+DELETE        /api/products/:id                       controllers.Products.deleteProduct(id: Long)
 
-GET           /api/forum/posts                       controllers.PostController.getPosts(prod: Long ?= -1, cat: Long ?= -1)
-GET           /api/forum/posts/:id                   controllers.PostController.getPost(id: Long)
-POST          /api/forum/posts                       controllers.PostController.addPost
+
+GET           /api/file/policy                        controllers.FileController.authorize(contentHash: String , contentName: String, contentLength: Long, contentType: String, comment: String, refId: Long, refType: String)
+POST          /api/file/verify                        controllers.FileController.verify(uuid: String)
+GET           /api/file/:type/:id                     controllers.FileController.getFiles(id: Long, type: String)
+GET           /api/file/user                          controllers.FileController.getUserFiles
+
+GET           /api/forum/posts                        controllers.PostController.getPosts(prod: Long ?= -1, cat: Long ?= -1)
+GET           /api/forum/posts/:id                    controllers.PostController.getPost(id: Long)
+POST          /api/forum/posts                        controllers.PostController.addPost
 #PUT     /api/forum/posts/:id        controllers.PostController.updateProduct(id: Long)
 #DELETE  /api/forum/posts/:id        controllers.PostController.deleteProduct(id: Long)
 
-GET           /api/tags/top                          controllers.TagController.getTopTags(size: Int ?= 10)
-GET           /api/tags/post/top/:id/:category       controllers.TagController.getPopularPostTags(id: Long, category: Int)
+GET           /api/tags/top                           controllers.TagController.getTopTags(size: Int ?= 10)
+GET           /api/tags/post/top/:id/:category        controllers.TagController.getPopularPostTags(id: Long, category: Int)
 
-GET           /api/likes/:type/:id                   controllers.LikesController.getLikes(id: Long, type: String)
-POST          /api/likes/:type/:id                   controllers.LikesController.addLikes(id: Long, type: String, user_id: Long)
+GET           /api/likes/:type/:id                    controllers.LikesController.getLikes(id: Long, type: String)
+POST          /api/likes/:type/:id                    controllers.LikesController.addLikes(id: Long, type: String, user_id: Long)
 
-GET           /api/follow/:type/:id                  controllers.FollowController.isFollowing(id: Long, type: String)
-POST          /api/follow/:type/:id                  controllers.FollowController.follow(id: Long, type: String)
-DELETE        /api/follow/:type/:id                  controllers.FollowController.unfollow(id: Long, type: String)
+GET           /api/follow/:type/:id                   controllers.FollowController.isFollowing(id: Long, type: String)
+POST          /api/follow/:type/:id                   controllers.FollowController.follow(id: Long, type: String)
+DELETE        /api/follow/:type/:id                   controllers.FollowController.unfollow(id: Long, type: String)
 
-GET           /api/auth/user                         controllers.AuthController.user
-GET           /api/auth/logout                       controllers.AuthController.logout
-POST          /api/auth/login                        controllers.AuthController.login
-POST          /api/auth/signup                       controllers.AuthController.signup
-POST          /api/auth/provider/:provider           controllers.AuthController.provider(provider: String)
+GET           /api/auth/user                          controllers.AuthController.user
+GET           /api/auth/logout                        controllers.AuthController.logout
+POST          /api/auth/login                         controllers.AuthController.login
+POST          /api/auth/signup                        controllers.AuthController.signup
+POST          /api/auth/provider/:provider            controllers.AuthController.provider(provider: String)
 
-GET           /media/image/:w/x/:image               controllers.Application.image(image: String, w: Int, h: Int = -1)
-GET           /media/image/x/:h/:image               controllers.Application.image(image: String, w: Int = -1, h: Int)
-GET           /media/image/:w/:h/:image              controllers.Application.image(image: String, w: Int, h: Int)
-GET           /media/image/:image                    controllers.Application.image(image: String, w: Int ?=-1, h: Int ?=-1)
+GET           /media/image/:w/x/:image                controllers.Application.image(image: String, w: Int, h: Int = -1)
+GET           /media/image/x/:h/:image                controllers.Application.image(image: String, w: Int = -1, h: Int)
+GET           /media/image/:w/:h/:image               controllers.Application.image(image: String, w: Int, h: Int)
+GET           /media/image/:image                     controllers.Application.image(image: String, w: Int ?=-1,        h:        Int ?=-1)
 
 # Internal Administration Only - Not visible to public
-GET  /adminstuff/product          				controllers.ProductAdministrationController.index()
-GET  /adminstuff/product/list      				controllers.ProductAdministrationController.list(page: Integer ?= 0)
-POST /adminstuff/product/list            			controllers.ProductAdministrationController.save()
-GET  /adminstuff/product/new        			controllers.ProductAdministrationController.newProduct()
-GET  /adminstuff/product/:slug        			controllers.ProductAdministrationController.details(slug: models.Product)
-DELETE      /adminstuff/product/:id        		controllers.ProductAdministrationController.delete(id: Long)
+GET           /adminstuff/product                     controllers.ProductAdministrationController.index()
+GET           /adminstuff/product/list                controllers.ProductAdministrationController.list(page: Integer ?= 0)
+POST          /adminstuff/product/list                controllers.ProductAdministrationController.save()
+GET           /adminstuff/product/new                 controllers.ProductAdministrationController.newProduct()
+GET           /adminstuff/product/:slug               controllers.ProductAdministrationController.details(slug: models.Product)
+DELETE        /adminstuff/product/:id                 controllers.ProductAdministrationController.delete(id: Long)
 #GET  /adminstuff/product/picture/:ean         	controllers.ProductAdministrationController.picture(ean)
-GET   /adminstuff/uploadmedia           		controllers.MediaManagement.upload
-POST  /adminstuff/doUpload              		controllers.MediaManagement.doUpload()
+GET           /adminstuff/uploadmedia                 controllers.MediaManagement.upload
+POST          /adminstuff/doUpload                    controllers.MediaManagement.doUpload()
 
 
 # Mockups
-GET           /mockups/product/:slug/about           controllers.MockupController.detailsAboutBySlug(slug: String)
-GET           /mockups/product/:slug/bar             controllers.MockupController.detailsBarBySlug(slug: String)
-GET           /mockups/product/:slug/gallery         controllers.MockupController.detailsGalleryBySlug(slug: String)
-GET           /mockups/login                         controllers.MockupController.login()
-GET           /mockups/reset_password                controllers.MockupController.resetPassword()
-GET           /mockups/user_profile                  controllers.MockupController.userProfile()
-GET           /mockups/dashboard/1                   controllers.MockupController.creatorDashboard_1()
-GET           /mockups/dashboard/2                   controllers.MockupController.creatorDashboard_2()
-GET           /mockups/dashboard/3                   controllers.MockupController.creatorDashboard_3()
-GET           /mockups/creator                       controllers.MockupController.forCreator()
-GET           /mockups/product-list                  controllers.MockupController.productList()
+GET           /mockups/product/:slug/about            controllers.MockupController.detailsAboutBySlug(slug: String)
+GET           /mockups/product/:slug/bar              controllers.MockupController.detailsBarBySlug(slug: String)
+GET           /mockups/product/:slug/gallery          controllers.MockupController.detailsGalleryBySlug(slug: String)
+GET           /mockups/login                          controllers.MockupController.login()
+GET           /mockups/reset_password                 controllers.MockupController.resetPassword()
+GET           /mockups/user_profile                   controllers.MockupController.userProfile()
+GET           /mockups/dashboard/1                    controllers.MockupController.creatorDashboard_1()
+GET           /mockups/dashboard/2                    controllers.MockupController.creatorDashboard_2()
+GET           /mockups/dashboard/3                    controllers.MockupController.creatorDashboard_3()
+GET           /mockups/creator                        controllers.MockupController.forCreator()
+GET           /mockups/product-list                   controllers.MockupController.productList()
 
 # catch all. angular will handle all routes except /api/* /views/* /mockups/*
-GET           /*any                                  controllers.Application.main(any)
+GET           /*any                                   controllers.Application.main(any)
 

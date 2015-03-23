@@ -1,5 +1,28 @@
 'use strict';
 
+angular.module('sproutupApp').directive('upProductSuggest', ['ProductSuggestionService', '$log',
+    function(productSuggestionService, $log) {
+        return {
+            restrict: 'E',
+            templateUrl: 'assets/templates/up-product-suggest.html',
+            scope: {},
+            controller: function( $scope, $element, $attrs, $transclude ) {
+                // Controller code goes here.
+                $scope.addSuggestion = function () {
+                    $log.debug("productSuggestionService > add suggestion");
+                    productSuggestionService.add($scope.newSuggestion).then(
+                        function(data){
+                            $scope.addSuggestion.email = "";
+                            $scope.addSuggestion.productName = "";
+                            $scope.addSuggestion.productUrl = "";
+                        }
+                    );
+                }
+            }
+        }
+    }
+]);
+
 angular.module('sproutupApp').directive('upSlideable', function () {
     return {
         restrict:'AC',
