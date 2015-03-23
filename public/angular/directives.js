@@ -267,18 +267,20 @@ angular.module('sproutupApp').directive('upProfileInfo', ['AuthService',
     }
 ]);
 
-angular.module('sproutupApp').directive('upProfileMenu', ['AuthService','FileService','$state',
-    function (authService, fileService, $state) {
+angular.module('sproutupApp').directive('upProfileMenu', ['AuthService','FileService','$state','$timeout',
+    function (authService, fileService, $state, $timeout) {
         return {
             restrict: 'E',
             scope: true,
             link: function (scope, element, attrs) {
-                scope.user = authService.currentUser();
-                scope.$state = $state;
-                scope.menu = {
-                    photos: fileService.allUserPhotos().length,
-                    videos: fileService.allUserVideos().length
-                };
+                $timeout(function(){
+                    scope.user = authService.currentUser();
+                    scope.$state = $state;
+                    scope.menu = {
+                        photos: fileService.allUserPhotos().length,
+                        videos: fileService.allUserVideos().length
+                    };
+                });
             },
             templateUrl: 'assets/templates/up-profile-menu.html'
         }
