@@ -3,24 +3,25 @@
 <div class="product-gallery-page">
 
     <!-- left rail -->
-    <div class="col-sm-9">
+    <div class="col-sm-9 about-left-rail">
         <!-- row 1: intro video -->
         <div class="row about-product-row">
             <div class="col-sm-12 about-product-tile">
-                <div class="about-product--video">
-                    <p class="about-product--header">{{product.productDescription}}</p>
+                <!-- if video is embedded from youtube or vimeo -->
+                <div class="about-product--video embedded">
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/ENAXRU-3Tsw" frameborder="0" allowfullscreen></iframe>
                 </div>
             </div>
         </div>
 
         <!-- row 2: description and feature list -->
         <div class="row about-product-row">
-            <div ng-show="product.productLongDescription" class="col-sm-7 about-product-tile--left">
+            <div ng-show="product.productLongDescription" class="col-sm-7 about-product-tile">
                 <div class="about-product--feature">
                     <p class="about-product--content">{{product.productLongDescription}}</p>
                 </div>
             </div>
-            <div ng-show="product.featureList" class="col-sm-5 about-product-tile--right">
+            <div ng-show="product.featureList" class="col-sm-5 about-product-tile">
                 <div class="about-product--feature">
                     <p class="about-product--content">{{product.featureList}}</p>
                 </div>
@@ -57,13 +58,28 @@
                     <p class="about-product--header">Meet the team</p>
                     <div class="fluid-container about-product--team-content">
                         <div class="col-sm-4 about-product--team-member">
-                            <div class="about-product--team-member-photo" style="background-image: url('@routes.Assets.at("images/user/belleds/alanzhou.jpg")');"></div>
+                            <div class="about-product--team-member-photo" style="background-image: url('@routes.Assets.at("images/user/belleds/alanzhou.jpg")');">
+                                <div class="meet-creator-overlay-info">
+                                    <h1>Meet Creator</h1>
+                                    <h2>Michael Chen</h2>
+                                </div>
+                            </div>
                         </div>
                         <div class="col-sm-4 about-product--team-member">
-                            <div class="about-product--team-member-photo" style="background-image: url('@routes.Assets.at("images/user/belleds/nimayparekh.jpeg")');"></div>
+                            <div class="about-product--team-member-photo" style="background-image: url('@routes.Assets.at("images/user/belleds/nimayparekh.jpeg")');">
+                                <div class="meet-creator-overlay-info">
+                                    <h1>Meet Creator</h1>
+                                    <h2>Michael Chen</h2>
+                                </div>
+                            </div>
                         </div>
                         <div class="col-sm-4 about-product--team-member">
-                            <div class="about-product--team-member-photo" style="background-image: url('@routes.Assets.at("images/user/belleds/danieltaub.png")');"></div>
+                            <div class="about-product--team-member-photo" style="background-image: url('@routes.Assets.at("images/user/belleds/danieltaub.png")');">
+                                <div class="meet-creator-overlay-info">
+                                    <h1>Meet Creator</h1>
+                                    <h2>Michael Chen</h2>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -72,7 +88,7 @@
     </div>
 
     <!-- right rail -->
-    <div class="col-sm-3">
+    <div class="col-sm-3 about-right-rail">
         <!-- row 1: update from creator -->
         <div class="row about-product-row">
             <div class="col-sm-12 about-product-tile">
