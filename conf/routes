@@ -40,6 +40,7 @@ POST          /login/password/forgot                  controllers.Signup.doForgo
 # Views used be angular routes
 GET           /views/home                             controllers.Application.home
 GET           /views/about                            controllers.Application.about
+GET           /views/search                           controllers.Application.search
 GET           /views/creator                          controllers.Application.creator
 GET           /views/profile                          controllers.Application.profile
 GET           /views/profile/photos                   controllers.Application.profile_photos

@@ -1,6 +1,62 @@
 'use strict';
 
 /*
+
+ */
+angular.module('sproutupApp').directive('upSearchIcon', [ '$rootScope', '$log', '$state',
+    function($rootScope, $log, $state){
+        return{
+            restrict: 'A',
+            scope: {},
+            link: function(scope, element, attrs) {
+                var previous_state = "home";
+                var state =  $state.current.name;
+
+                change();
+
+                function change(){
+                    if(state=="search"){
+                        element.find("i").addClass('fa-times');
+                        element.find("i").removeClass('fa-search');
+                    }
+                    else{
+                        element.find("i").addClass('fa-search');
+                        element.find("i").removeClass('fa-times');
+                    }
+                }
+
+                element.bind('click', function() {
+                    $log.debug("search - click()" + state + " " + previous_state);
+                    if(state=="search") {
+                        $state.go(previous_state);
+                    }
+                    else{
+                        $state.go("search");
+                    }
+                });
+
+                scope.$on('$stateChangeSuccess',
+                    function (ev, to, toParams, from, fromParams) {
+                        //assign the "from" parameter to something
+                        console.log('search state change ' + from.name);
+                        state =  $state.current.name;
+                        if(to.name.length > 0 && to.name=="search"){
+                            previous_state = from.name;
+                            element.find("i").addClass('fa-times');
+                            element.find("i").removeClass('fa-search');
+                        }
+                        else{
+                            element.find("i").addClass('fa-search');
+                            element.find("i").removeClass('fa-times');
+                        }
+                    }
+                );
+            }
+        }
+    }
+]);
+
+/*
   General alert message handler
   Usage:
   broadcast a message like this and it will be flashed

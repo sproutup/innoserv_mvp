@@ -54,10 +54,14 @@ public class Application extends Controller {
         return ok(index.render());
     }
 
-	public static Result about() {
-		return ok(about.render());
-	}
-	
+    public static Result about() {
+        return ok(about.render());
+    }
+
+    public static Result search() {
+        return ok(search.render());
+    }
+
 	@Restrict({@Group(AppConstants.CONSUMER),@Group(AppConstants.CREATOR)})
 	public static Result creator() {
 		return ok(creator.render());
