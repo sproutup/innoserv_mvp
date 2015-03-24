@@ -114,31 +114,9 @@
 
       </nav>
 
-        <div class="col-sm-12 alert success" role="alert">
-            Thanks so much for suggesting a product you love. We will take a look and include it in our awesome collections.
-        </div>
+        <up-alert></up-alert>
 
         <up-product-suggest></up-product-suggest>
-
-
-        @if(flash.contains(Application.FLASH_ERROR_KEY)) {
-        <div class="alert-message">
-          <div class="alert alert-danger" role="alert">
-              <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">
-                  Close</span></button>
-              @flash().get(Application.FLASH_ERROR_KEY)
-          </div>
-        </div>
-      }
-      @if(flash.contains(Application.FLASH_MESSAGE_KEY)) {
-        <div class="alert-message">
-          <div class="alert alert-success" role="alert">
-              <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">
-                  Close</span></button>
-              @flash().get(Application.FLASH_MESSAGE_KEY)
-          </div>
-        </div>
-      }
 
       @content
 

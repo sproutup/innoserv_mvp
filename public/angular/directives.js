@@ -1,5 +1,40 @@
 'use strict';
 
+angular.module('sproutupApp').directive('upAlert', ['$timeout',
+    function($timeout) {
+        return{
+            restrict: 'EA',
+            replace: true,
+            template: '<div ng-show="state.show" class="col-sm-12 alert" ng-class="state.status" role="alert">{{state.message}}</div>',
+            scope: {},
+            link: function(scope, element, attrs){
+                scope.state = {
+                    message: "",
+                    status: "",
+                    show: false
+                };
+
+                scope.$on('alert:success', function (event, args) {
+                    scope.state.message = args.message;
+                    scope.state.status = "success";
+                    scope.state.show = true;
+
+                    $timeout(
+                        function(){
+                            scope.state.message = "";
+                            scope.state.status = "";
+                            scope.state.show = false;
+                        },
+                        1000,
+                        true,
+                        scope
+                    );
+                });
+            }
+        }
+    }
+]);
+
 angular.module('sproutupApp').directive('upProductSuggest', ['ProductSuggestionService', '$log',
     function(productSuggestionService, $log) {
         return {
@@ -350,30 +385,9 @@ angular.module('sproutupApp').directive('upProfileEditButtons', ['$rootScope','F
                     $rootScope.$broadcast('profile:cancel');
                 };
 
-                //scope.$on('profile:pristine', function (event, args) {
-                //    console.log('event received profile:pristine ' + args.data);
-                //    scope.state = "pristine";
-                //    scope.showMessage = true;
-                //    $timeout(
-                //        function() {
-                //            console.log( "Timeout executed", Date.now() );
-                //            scope.showMessage = false;
-                //        },
-                //        2000
-                //    );
-                //});
-
                 scope.$on('profile:saved', function (event, args) {
                     console.log('event received profile:saved ');
                     scope.state = "pristine";
-                    scope.showMessage = true;
-                    $timeout(
-                        function() {
-                            console.log( "Timeout executed", Date.now() );
-                            scope.showMessage = false;
-                        },
-                        1000
-                    );
                 });
 
                 scope.$on('profile:valid', function (event, args) {
@@ -480,6 +494,9 @@ angular.module('sproutupApp').directive('upProfileEdit', ['$rootScope','AuthServ
                             user.urlPinterest = data.urlPinterest;
                             user.urlBlog = data.urlBlog;
                             $rootScope.$broadcast('profile:saved');
+                            $rootScope.$broadcast('alert:success', {
+                                message: 'Profile saved'
+                            });
                             scope.basicinfoform.$setPristine();
                         },
                         function(error){
