@@ -12,9 +12,9 @@ angular.module('sproutupApp').directive('upProductSuggest', ['ProductSuggestionS
                     $log.debug("productSuggestionService > add suggestion");
                     productSuggestionService.add($scope.newSuggestion).then(
                         function(data){
-                            $scope.addSuggestion.email = "";
-                            $scope.addSuggestion.productName = "";
-                            $scope.addSuggestion.productUrl = "";
+                            $scope.newSuggestion.email = "";
+                            $scope.newSuggestion.productName = "";
+                            $scope.newSuggestion.productUrl = "";
                         }
                     );
                 }
@@ -164,18 +164,39 @@ angular.module('sproutupApp').directive('upVideo', ['FileService', '$timeout',
             link: function (scope, element, attrs) {
                 attrs.$observe('file', function (file) {
                     if (file) {
-                        console.log("up-video - file changed: " + file.id);
+                        console.log("up-video - file changed: ", file);
                     }
                 });
+
+                angular.element(document).ready(function () {
+                    console.log('Hello World');
+                    //flowplayer(function (api, root) {
+                    //
+                    //    api.bind("load", function () {
+                    //        console.log("up-video - load");
+                    //
+                    //        // do something when a new video is about to be loaded
+                    //
+                    //    }).bind("ready", function () {
+                    //        console.log("up-video - ready");
+                    //
+                    //        // do something when a video is loaded and ready to play
+                    //
+                    //    });
+                    //
+                    //});
+                });
+
+
                 $timeout(function () {
                     $timeout(function () {
-                        console.log("up-video - loaded: " + attrs.file.id);
+                        console.log("up-video - loaded: ");
                         // This code will run after
                         // templateUrl has been loaded, cloned
                         // and transformed by directives.
                         // and properly rendered by the browser
                         var flowplr = element.find(".player");
-                        flowplr.flowplayer();
+                        var api = flowplr.flowplayer();
                     }, 0);
                 }, 0);
             }
