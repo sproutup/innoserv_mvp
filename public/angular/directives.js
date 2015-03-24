@@ -16,12 +16,10 @@ angular.module('sproutupApp').directive('upSearchIcon', [ '$rootScope', '$log', 
 
                 function change(){
                     if(state=="search"){
-                        element.find("i").addClass('fa-times');
-                        element.find("i").removeClass('fa-search');
+                        element.find("i").addClass('active');
                     }
                     else{
-                        element.find("i").addClass('fa-search');
-                        element.find("i").removeClass('fa-times');
+                        element.find("i").removeClass('active');
                     }
                 }
 
@@ -42,12 +40,10 @@ angular.module('sproutupApp').directive('upSearchIcon', [ '$rootScope', '$log', 
                         state =  $state.current.name;
                         if(to.name.length > 0 && to.name=="search"){
                             previous_state = from.name;
-                            element.find("i").addClass('fa-times');
-                            element.find("i").removeClass('fa-search');
+                            element.find("i").addClass('active');
                         }
                         else{
-                            element.find("i").addClass('fa-search');
-                            element.find("i").removeClass('fa-times');
+                            element.find("i").removeClass('active');
                         }
                     }
                 );
