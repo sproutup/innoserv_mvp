@@ -1,5 +1,13 @@
 'use strict';
 
+/*
+  General alert message handler
+  Usage:
+  broadcast a message like this and it will be flashed
+  $rootScope.$broadcast('alert:success', {
+    message: 'insert message here'
+  });
+ */
 angular.module('sproutupApp').directive('upAlert', ['$timeout',
     function($timeout) {
         return{

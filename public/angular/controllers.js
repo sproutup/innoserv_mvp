@@ -130,6 +130,9 @@ fileControllers.controller('FileCtrl', ['$scope', '$rootScope', '$upload', 'File
                                             $rootScope.$broadcast('fileUploadEvent', {
                                                 data: result.data
                                             });
+                                            $rootScope.$broadcast('alert:success', {
+                                                message: 'Upload success'
+                                            });
                                             $scope.reset();
                                         }
                                     )
