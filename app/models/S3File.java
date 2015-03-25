@@ -111,7 +111,7 @@ public class S3File extends Model {
 		}
 		else {
 			this.bucket = S3Plugin.s3Bucket;
-
+			
 			super.save(); // assigns an id
 
 			PutObjectRequest putObjectRequest = new PutObjectRequest(bucket, getActualFileName(), file);
@@ -189,6 +189,7 @@ public class S3File extends Model {
 		}
 	}
 
+		
 	@Override
 	public void delete() {
 		if (S3Plugin.amazonS3 == null) {

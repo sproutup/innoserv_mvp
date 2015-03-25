@@ -1,17 +1,23 @@
 package models;
 
 import com.amazonaws.services.elastictranscoder.model.Job;
+import com.amazonaws.services.s3.model.CannedAccessControlList;
+import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+
 import org.joda.time.DateTime;
+
 import play.Logger;
 import play.db.ebean.Model;
 import play.libs.Json;
 import plugins.S3Plugin;
 import utils.ElasticTranscoder;
 
+import javax.activation.MimetypesFileTypeMap;
 import javax.persistence.*;
+
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
@@ -57,7 +63,14 @@ public class File extends SuperModel {
 
     @Column(columnDefinition = "boolean default false")
     public boolean isTranscoded;
-
+    
+    @Transient
+	public java.io.File mediaUploadedfile;
+    @Transient
+	public String mediaLinkType;
+    @Transient
+    public String submittedBy = "0_admin";//uploaded by SproutUp Administrator (when not logged on)
+    
     public static File findByUUID(final UUID uuid) {
         return find.where().eq("uuid", uuid).findUnique();
     }
@@ -87,14 +100,14 @@ public class File extends SuperModel {
             throw new RuntimeException("Could not delete");
         }
         else {
-            S3Plugin.amazonS3.deleteObject(bucket, fileName());
+            S3Plugin.amazonS3.deleteObject(bucket, getFileName());
             super.delete();
         }
     }
 
     private void transcode() {
-        if(type.contains("video/")) {
-            String INPUT_KEY = fileName();
+        if(type.contains("video/") || type.equals("video")) {
+            String INPUT_KEY = getFileName();
             String OUTPUT_KEY = this.uuid.toString();
             String OUTPUT_KEY_PREFIX = this.uuid.toString() + "/";
             Job job = elasticTranscoder.createElasticTranscoderHlsJob(INPUT_KEY, OUTPUT_KEY, OUTPUT_KEY_PREFIX);
@@ -105,6 +118,89 @@ public class File extends SuperModel {
             Logger.info("==========================================================");
         }
     }
+    
+    /*
+	* (non-Javadoc)
+	* For uploading the company media from Play
+	*/
+	public void companyMediaUpload() {
+		this.uuid = UUID.randomUUID();
+	    this.length = mediaUploadedfile.length();
+				
+		MimetypesFileTypeMap mfm = new MimetypesFileTypeMap();
+		this.type = "video";
+		if(originalName!=null && mfm.getContentType(originalName).contains("image/")){
+			type = "image";
+		}	
+	    this.name = this.getFileName();
+		
+		// upload file on S3
+        if (S3Plugin.amazonS3 == null) {
+            Logger.error("Could not save because amazonS3 was null");
+            throw new RuntimeException("Could not save");
+        } else {
+            if(this.bucket == null) {
+                this.bucket = S3Plugin.s3Bucket;
+            }
+        }
+		PutObjectRequest putObjectRequest = new PutObjectRequest(bucket, getFileName(), mediaUploadedfile);
+		putObjectRequest.withCannedAcl(CannedAccessControlList.PublicRead); // public for all
+		putObjectRequest.setStorageClass("REDUCED_REDUNDANCY");
+		S3Plugin.amazonS3.putObject(putObjectRequest); 
+
+		//persist the data in File table
+		this.save(); // assigns an id
+        
+		//update the Product table
+		List<Product> products = new Product().findbyCompanyID(refId);
+		if (products!=null && products.size()==1){
+			Product product = products.get(0);
+			boolean flag = true;
+			switch (mediaLinkType) {
+            case "banner_photo":  product.productAdditionalDetail.bannerPhoto = this;
+            	break;
+            case "description_video1":  product.productAdditionalDetail.descriptionVideo1 = this;
+            	break;
+            case "description_video2":  product.productAdditionalDetail.descriptionVideo2 = this;
+            	break;
+            case "description_video3":  product.productAdditionalDetail.descriptionVideo3 = this;
+            	break;
+            case "description_photo1":  product.productAdditionalDetail.descriptionPhoto1 = this;
+            	break;
+            case "description_photo2":  product.productAdditionalDetail.descriptionPhoto2 = this;
+        		break;
+            case "story_photo1":  product.productAdditionalDetail.storyPhoto1 = this;
+        		break;
+            case "story_photo2":  product.productAdditionalDetail.storyPhoto2 = this;
+    			break;	
+            case "member1photo":  product.productAdditionalDetail.member1Photo = this;
+    			break;
+            case "member2photo":  product.productAdditionalDetail.member2Photo = this;
+    			break;
+            case "member3photo":  product.productAdditionalDetail.member3Photo = this;
+            	break;
+            case "member4photo":  product.productAdditionalDetail.member4Photo = this;
+        		break;
+            case "member5photo":  product.productAdditionalDetail.member5Photo = this;
+        		break;
+        	case "member6photo":  product.productAdditionalDetail.member6Photo = this;
+        		break;
+        	default: flag = false;
+            	break;	
+			}
+			if (flag){
+				System.out.println("Updating product now..");
+				product.update();
+			}
+		} else {
+			Logger.error("Could not update Product table; several products found to update");
+		}
+		
+		//transcoder work
+        this.transcode();
+		
+	}
+
 
     /*
     Get all files on an object identified by refId and refType
@@ -123,16 +219,16 @@ public class File extends SuperModel {
     public ObjectNode toJson(){
         ObjectNode node = Json.newObject();
         node.put("id", this.id);
-        node.put("filename", this.fileName());
+        node.put("filename", this.getFileName());
         node.put("type", this.type);
         ObjectNode urlnode = Json.newObject();
-        if(type.contains("video/")) {
-            urlnode.put("mpeg", this.url().concat(".m3u8"));
-            urlnode.put("webm", this.url().concat(".webm"));
-            urlnode.put("mp4", this.url().concat(".mp4"));
+        if(type.contains("video/") || type.equals("video")) {
+            urlnode.put("mpeg", this.getURL().concat(".m3u8"));
+            urlnode.put("webm", this.getURL().concat(".webm"));
+            urlnode.put("mp4", this.getURL().concat(".mp4"));
         }
         else{
-            urlnode.put("image", this.url());
+            urlnode.put("image", this.getURL());
         }
         node.put("url", urlnode);
         node.put("comment", this.comment);
@@ -186,23 +282,26 @@ public class File extends SuperModel {
         }
     }
 
-    public String fileName() {
-        if (type.contains("video/")) {
-            return (uuid + "_" + user.id);
+    public String getFileName() {
+    	if (user!=null){
+    		submittedBy = user.id.toString();
+    	}
+        if (type.contains("video/") || type.equals("video")) {
+            return (uuid + "_" + submittedBy);
         } else if (type.contains("image/")) {
-            return (uuid + "_" + user.id + ".jpg");
+            return (uuid + "_" + submittedBy + ".jpg");
         } else{
-            return (uuid + "_" + user.id + ".jpg");
+            return (uuid + "_" + submittedBy + ".jpg");
         }
     }
 
-    public String url() {
-        if (type.contains("video/")) {
+    public String getURL() {
+        if (type.contains("video/") || type.equals("video")) {
             return ("http://dc2jx5ot5judg.cloudfront.net/" + this.uuid.toString() + "/" + this.uuid.toString() );
         } else if (type.contains("image/")) {
-            return ("http://d2ggucmtk9u4go.cloudfront.net" + "/" + this.fileName());
+            return ("http://d2ggucmtk9u4go.cloudfront.net" + "/" + this.getFileName());
         } else{
-            return ("http://d2ggucmtk9u4go.cloudfront.net" + "/" + this.fileName());
+            return ("http://d2ggucmtk9u4go.cloudfront.net" + "/" + this.getFileName());
         }
     }
 
@@ -216,15 +315,15 @@ public class File extends SuperModel {
         this.bucket = bucketName;
         this.folder = "";
         this.user = user;
-        this.name = this.fileName();
+        this.name = this.getFileName();
         this.save();
 
         URL endpointUrl;
         try {
             if (regionName.equals("us-west-2")) {
-                endpointUrl = new URL("https://" + bucketName + ".s3.amazonaws.com/" + this.fileName());
+                endpointUrl = new URL("https://" + bucketName + ".s3.amazonaws.com/" + this.getFileName());
             } else {
-                endpointUrl = new URL("https://s3-" + regionName + ".amazonaws.com/" + bucketName + "/" + this.fileName());
+                endpointUrl = new URL("https://s3-" + regionName + ".amazonaws.com/" + bucketName + "/" + this.getFileName());
             }
         } catch (MalformedURLException e) {
             throw new RuntimeException("Unable to parse service endpoint: " + e.getMessage());
@@ -261,7 +360,7 @@ public class File extends SuperModel {
         node.put("authorization", authorization);
 
         node.put("uuid", this.uuid.toString());
-        node.put("filename", this.fileName());
+        node.put("filename", this.getFileName());
 
         // make the call to Amazon S3
 //        String response = utils.HttpUtils.invokeHttpRequest(endpointUrl, "PUT", headers, objectContent);

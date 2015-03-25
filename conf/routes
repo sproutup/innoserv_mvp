@@ -106,13 +106,17 @@ GET           /media/image/:image                    controllers.Application.ima
 # Internal Administration Only - Not visible to public
 GET  /adminstuff/product          				controllers.ProductAdministrationController.index()
 GET  /adminstuff/product/list      				controllers.ProductAdministrationController.list(page: Integer ?= 0)
-POST /adminstuff/product/list            			controllers.ProductAdministrationController.save()
+POST /adminstuff/product/list            		controllers.ProductAdministrationController.save()
 GET  /adminstuff/product/new        			controllers.ProductAdministrationController.newProduct()
 GET  /adminstuff/product/:slug        			controllers.ProductAdministrationController.details(slug: models.Product)
 DELETE      /adminstuff/product/:id        		controllers.ProductAdministrationController.delete(id: Long)
 #GET  /adminstuff/product/picture/:ean         	controllers.ProductAdministrationController.picture(ean)
-GET   /adminstuff/uploadmedia           		controllers.MediaManagement.upload
-POST  /adminstuff/doUpload              		controllers.MediaManagement.doUpload()
+
+#GET   /adminstuff/company/uploadmedia    		controllers.MediaManagement.uploadCompanyMedia()
+GET   /adminstuff/company/uploadmedia/:companyslug/:mediaType    	controllers.MediaManagement.uploadCompanyMedia(companyslug : String, mediaType : String)
+POST  /adminstuff/company/domediaupload  		controllers.MediaManagement.doCompanyMediaUpload()
+GET   /adminstuff/uploadmedia           		controllers.MediaManagement.upload()
+POST  /adminstuff/doupload              		controllers.MediaManagement.doUpload()
 
 
 # Mockups

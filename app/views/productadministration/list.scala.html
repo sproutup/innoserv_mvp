@@ -26,6 +26,7 @@
         <th>Date added</th>
         <th>Date updated</th>
         <th>Featured</th>
+        <th>is Active</th>
         <th></th>
       </tr>
     </thead>
@@ -45,10 +46,11 @@
         <td>@product.createdAt</td>
         <td>@product.updatedAt</td>
         <td><a href="@routes.ProductAdministrationController.details(product)" target="_self">@product.isFeatured</a></td>
+        <td><a href="@routes.ProductAdministrationController.details(product)" target="_self">@product.activeFlag</a></td>
         
         <td>
           <a href="@routes.ProductAdministrationController.details(product)" target="_self">Edit</a>&nbsp;
-          <a href="javascript:del('@routes.ProductAdministrationController.delete(product.id)')" target="_self">Trash</a> 
+          <!-- a href="javascript:del('@routes.ProductAdministrationController.delete(product.id)')" target="_self">Trash</a>  -->
         </td>
       </tr>
       }

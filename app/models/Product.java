@@ -79,9 +79,11 @@ public class Product extends TimeStampModel implements PathBindable<Product>,
 	public String contactEmailAddress;
 
 	public boolean isFeatured;
-	public boolean activeFlag = true;
-	public boolean trialSignUpFlag = true;
-	public boolean buyFlag = false;
+	@Column(nullable=false, columnDefinition="boolean default true")
+	public boolean activeFlag;
+	
+	public boolean trialSignUpFlag;
+	public boolean buyFlag;
 
 	@OneToOne(cascade=CascadeType.ALL, mappedBy="product")
 	public ProductAdditionalDetail productAdditionalDetail;
@@ -157,6 +159,11 @@ public class Product extends TimeStampModel implements PathBindable<Product>,
 	public List<Product> findbyProductName(String productName) {
 		List<Product> results;
 		 return results = find.where().eq("productName", productName).findList();
+	}
+
+	public List<Product> findbyCompanyID(Long companyID) {
+		List<Product> results;
+		 return results = find.where().eq("company_id", companyID).findList();
 	}
 
 	public Product getDetailwithMedia(Long id) {

@@ -36,7 +36,10 @@ public class ProductAdministrationController extends Controller {
 
   //@SecureSocial.SecuredAction
   public static Result newProduct() {
-    return ok(detail_about.render(productForm));
+	  Product prod = new Product();
+	  prod.activeFlag=true;
+	  
+	  return ok(detail_about.render(productForm.fill(prod)));
   }
 
   public static Result details(Product product) {
@@ -53,7 +56,6 @@ public class ProductAdministrationController extends Controller {
     }
     
     Product product = boundForm.get();
-    
     if (product.id == null) {
       product.save();
     } else {
@@ -68,8 +70,11 @@ public class ProductAdministrationController extends Controller {
        * nj: I struggled quite a bit to get the detail to update automatically by product.
        * AFter several trials, I had to call update on detail explicitly to get it working.. 
        */
-      product.productAdditionalDetail.update();
-      product.update();
+    	ProductAdditionalDetail pad = ProductAdditionalDetail.findbyProductID(product.id);
+    	if (pad!=null){
+    		product.productAdditionalDetail.update();
+    	}
+    	product.update();
     }
 
     flash("success",
@@ -77,13 +82,7 @@ public class ProductAdministrationController extends Controller {
 
     return redirect(routes.ProductAdministrationController.list(1));
   }
-  /*
-  public static Result picture(String ean) {
-    final Product product = Product.findbyProductEAN(ean);
-    if(product == null) return notFound();
-    return ok(product.picture);
-  }
-   */
+
   public static Result delete(Long id) {
     final Product product = Product.findbyID(id);
     if(product == null) {
