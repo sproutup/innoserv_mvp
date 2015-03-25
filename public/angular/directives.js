@@ -1,7 +1,9 @@
 'use strict';
 
 /*
-
+    Search icon directive
+    Listens for stage changes and sets the search icon accordingly.
+    After search return to previous state.
  */
 angular.module('sproutupApp').directive('upSearchIcon', [ '$rootScope', '$log', '$state',
     function($rootScope, $log, $state){
@@ -12,9 +14,9 @@ angular.module('sproutupApp').directive('upSearchIcon', [ '$rootScope', '$log', 
                 var previous_state = "home";
                 var state =  $state.current.name;
 
-                change();
+                update();
 
-                function change(){
+                function update(){
                     if(state=="search"){
                         element.find("i").addClass('active');
                     }
@@ -38,13 +40,7 @@ angular.module('sproutupApp').directive('upSearchIcon', [ '$rootScope', '$log', 
                         //assign the "from" parameter to something
                         console.log('search state change ' + from.name);
                         state =  $state.current.name;
-                        if(to.name.length > 0 && to.name=="search"){
-                            previous_state = from.name;
-                            element.find("i").addClass('active');
-                        }
-                        else{
-                            element.find("i").removeClass('active');
-                        }
+                        update();
                     }
                 );
             }
@@ -760,19 +756,25 @@ angular.module('sproutupApp').directive('upToptags', ['TagsService', '$timeout',
     };
 }]);
 
+/*
+    Product List
+ */
 angular.module('sproutupApp').directive('upProductList', [ 'ProductService',
     function (productService) {
         return {
-            templateUrl: 'assets/templates/up-product-list.html',
+            restrict: 'A',
+            transclude:true,
             scope: {
             },
-            link: function (scope, element, attrs) {
-                // filter out the featured products
-                scope.query = {
-                    $ : "",
-                    isFeatured : false
-                };
+            link: function (scope, element, attrs, ctrl, transclude) {
+                // get the product list
+                scope.query = "";
                 scope.products = productService.query();
+
+                // add the directive scope to the transcluded content
+                transclude(scope, function(clone, scope) {
+                    element.append(clone);
+                });
             }
         };
     }]);
