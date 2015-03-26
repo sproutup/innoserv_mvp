@@ -175,9 +175,12 @@ public class ProductAdditionalDetail extends TimeStampModel {
 		return find.byId(id);
 	}
 	
+	public  static ProductAdditionalDetail findbyProductID(Long productID) {
+		return find.where().eq("product_id", productID).findUnique();
+	}
+	
 	@Override
 	public void save() {
-		System.out.println(">>>save");
 		super.save();
 	}
 	

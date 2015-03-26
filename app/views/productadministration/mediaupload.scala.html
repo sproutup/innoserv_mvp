@@ -1,0 +1,75 @@
+@(companymediaUploadForm: Form[File])(companies: List[models.Company])
+
+@import helper._
+@implicitFieldConstructor = @{ FieldConstructor(twitterBootstrapBasic.f) }
+
+@main(Messages("Company About Us - Media upload")) {
+
+  <div class="row">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <h1 class="form-header">Company About Us - Media upload</h1>
+        </div>
+
+        <div class="row signup-form-block">
+          <div class="col-md-8 col-md-offset-2">
+
+        @helper.form(action = routes.MediaManagement.doCompanyMediaUpload, 'enctype -> "multipart/form-data") {
+		<input type="hidden" name="previousURI" value="@request.uri"/>
+		<input type="hidden" name="previousURL" value="@request.getHeader("referer")"/>
+		
+          @select(
+          companymediaUploadForm("comment"),
+          companies.map {c =>
+            (c.id.toString+"_"+c.companyName) -> c.companyName
+          },
+          '_label -> "Company Name",'_default -> "-- Select --"
+          )
+
+          @inputText(
+          companymediaUploadForm("submittedBy"),
+          '_label -> "Submitted By"
+          )
+
+          @inputFile(
+          companymediaUploadForm("upload")
+          )
+
+		  @select(
+  			 companymediaUploadForm("mediaLinkType"),
+   				options=Seq(
+   				"banner_photo" -> "Banner Photo",
+   				"description_video1" -> "Description Video 1",
+   				"description_video2" -> "Description Video 2",
+   				"description_video3" -> "Description Video 3",
+   				"description_photo1" -> "Description Photo 1",
+   				"description_photo2" -> "Description Photo 2",
+   				"description_photo3" -> "Description Photo 3",
+   				"story_photo1" -> "Story Photo 1",
+   				"story_photo2" -> "Story Photo 2",
+   				"member1photo" -> "Member 1 Photo ",
+   				"member2photo" -> "Member 2 Photo ",
+   				"member3photo" -> "Member 3 Photo ",
+   				"member4photo" -> "Member 4 Photo ",
+   				"member5photo" -> "Member 5 Photo ",
+   				"member6photo" -> "Member 6 Photo "
+   				),
+   				'_label -> "Media Type", '_default -> "-- Select --"
+			)
+			
+          <div>
+            <input class="btn btn-primary btn-lg btn-block" type="submit">
+          </div>
+        }
+      </div>
+    </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <hr>
+
+}

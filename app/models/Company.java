@@ -31,7 +31,7 @@ public class Company extends TimeStampModel{
 
 	
 	
-	public List<Company> getAll() {
+	public static List<Company> getAll() {
 		return find.all();
 	}
 

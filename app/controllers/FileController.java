@@ -1,7 +1,10 @@
 package controllers;
 
 import be.objectify.deadbolt.java.actions.SubjectPresent;
+
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.typesafe.config.ConfigFactory;
+
 import models.File;
 import models.Likes;
 import models.Post;
@@ -10,6 +13,7 @@ import play.Logger;
 import play.mvc.BodyParser;
 import play.mvc.Controller;
 import play.mvc.Result;
+import plugins.S3Plugin;
 
 import java.util.List;
 
@@ -55,7 +59,7 @@ public class FileController  extends Controller {
         file.refId = refId;
         file.refType = refType;
         file.comment = comment;
-        ObjectNode policy = file.authorize("sproutup-test-upload", "us-west-2", "AKIAJM5X5NV444LJEUSA", "UHpVP/axa3eOmfCOcSQFGXwK4fzYMzHV8aYkh38X", contentHash, user, contentLength);
+        ObjectNode policy = file.authorize(S3Plugin.s3Bucket, "us-west-2", S3Plugin.accessKey, S3Plugin.secretKey, contentHash, user, contentLength);
         file.save();
         Logger.debug("policy: " + policy);
         return ok(policy);
