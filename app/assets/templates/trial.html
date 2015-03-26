@@ -3,8 +3,11 @@
         <!-- email login -->
         <form name="trialForm" class="signupForm" novalidate>
             <div class="signup-login-form-header">
-                <h1>Interested in product tryout?</h1>
-                <h2>Super! Please confirm below and we will get back to you shortly. Thank you!</h2>
+                <h1>What is tryout?</h1>
+                <h2>An exciting opportunity to get a first-hand experience on the product for a limited time.</h2>
+            </div>
+            <div class="signup-login-form-header">
+                <h2>Interested? Super! Please confirm below and we will get back to you shortly. Thank you!</h2>
             </div>
             <div class="signup-login-form">
                 <div class="signup-login-form--error-message" ng-show="signup.error"><i class="fa fa-minus-circle"></i>{{signup.error}}</div>
@@ -22,7 +25,7 @@
                 </div>
 
                 <!-- agreement -->
-                <button ng-disabled="trialForm.$invalid && !trial.isLoggedIn" class="btn btn-lg signup-login-btn" type="submit" ng-click="ok()">Yes, can't wait!</button>
+                <button ng-disabled="trialForm.$invalid && !trial.isLoggedIn" class="btn btn-lg signup-login-btn" type="submit" ng-click="ok()">Yes, I want a spot in line!</button>
                 <div class="signup-agreement">
                     By entering the product tryout waitlist, I agree to SproutUp's <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.
                 </div>

@@ -666,7 +666,7 @@ angular.module('sproutupApp').directive('upTrial', ['ProductTrialService', 'Auth
 
                 function changeButtonToFollowing() {
                     isFollowing = true;
-                    element.html('<i class="fa fa-check"></i>In Line for Tryout.');
+                    element.html('<i class="fa fa-check"></i>I am in for Tryout.');
                     element.addClass("btn-following");
                     element.removeClass("btn-outline");
                     element.addClass("disabled");
