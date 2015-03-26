@@ -666,7 +666,7 @@ angular.module('sproutupApp').directive('upTrial', ['ProductTrialService', 'Auth
 
                 function changeButtonToFollowing() {
                     isFollowing = true;
-                    element.html('<i class="fa fa-check"></i>Signed up for Trial');
+                    element.html('<i class="fa fa-check"></i>Signed Up for Trytout');
                     element.addClass("btn-following");
                     element.removeClass("btn-outline");
                     element.addClass("disabled");
@@ -674,7 +674,7 @@ angular.module('sproutupApp').directive('upTrial', ['ProductTrialService', 'Auth
 
                 function changeButtonToFollow() {
                     isFollowing = false;
-                    element.html('Try');
+                    element.html('Interested in Tryout?');
                     element.removeClass("btn-following");
                     element.addClass("btn-outline");
                 }
