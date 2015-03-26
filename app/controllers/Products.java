@@ -71,21 +71,21 @@ public class Products extends Controller {
     public static Result getProducts()
     {
         List<Product> products_ = new Product().getAll();
-        return ok(Json.toJson(products_));
+        return ok(Product.toJson(products_));
     }
 
     @BodyParser.Of(BodyParser.Json.class)
     public static Result getProduct(Long id)
     {
         Product item = new Product().findbyID(id);
-        return item == null ? notFound("Product not found [" + id + "]") : ok(Json.toJson(item));
+        return item == null ? notFound("Product not found [" + id + "]") : ok(item.toJson());
     }
 
     @BodyParser.Of(BodyParser.Json.class)
     public static Result getProduct(String slug)
     {
         Product item = new Product().findbySlug(slug);
-        return item == null ? notFound("Product not found [" + slug + "]") : ok(Json.toJson(item));
+        return item == null ? notFound("Product not found [" + slug + "]") : ok(item.toJson());
     }
 
     @BodyParser.Of(BodyParser.Json.class)
@@ -95,7 +95,7 @@ public class Products extends Controller {
         Logger.debug("create product " + newProduct.productName);
         try {
             newProduct.save();
-            return created(Json.toJson(newProduct));
+            return created(newProduct.toJson());
         }
         catch(PersistenceException e){
             return play.mvc.Results.badRequest(e.getMessage());
@@ -115,7 +115,7 @@ public class Products extends Controller {
             if(updated.urlFacebook != null) { existing.urlFacebook = updated.urlFacebook; };
             if(updated.urlTwitter != null) { existing.urlTwitter = updated.urlTwitter; };
             existing.save();
-            return ok(Json.toJson(existing));
+            return ok(existing.toJson());
         }
         else{
             return play.mvc.Results.notFound("Product not found");

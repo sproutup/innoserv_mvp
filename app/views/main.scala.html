@@ -15,7 +15,6 @@
         <link rel="shortcut icon" type="image/vnd.microsoft.icon" href="@routes.Assets.at("images/favicon.ico")">
 
         <link rel="stylesheet" href="@routes.Assets.at("library/bootstrap/css/bootstrap.css")">
-        <link rel="stylesheet" href="@routes.Assets.at("library/font-awesome/css/font-awesome.css")">
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
         <link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
         <link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/signup-login-modal.css")">
@@ -50,12 +49,14 @@
         </script>
 
         <script type="text/javascript" src="@routes.Application.jsRoutes" defer="defer"></script>
-        <script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/sha256.js"></script>
-        <script src='http://crypto-js.googlecode.com/svn/tags/3.1.2/build/components/lib-typedarrays-min.js'></script>
+        <script src='@routes.Assets.at("library/crypto-js/core-min.js")'></script>
+        <script src='@routes.Assets.at("library/crypto-js/sha256.js")'></script>
+        <script src='@routes.Assets.at("library/crypto-js/lib-typedarrays-min.js")'></script>
         <script src="@routes.Assets.at("library/masonry/masonry.pkgd.js")"></script>
         <script src="@routes.Assets.at("library/imagesloaded/imagesloaded.pkgd.js")"></script>
         <script src="@routes.Assets.at("javascripts/angular.js")"></script>
         <script src="@routes.Assets.at("javascripts/angular-route.js")"></script>
+        <script src="@routes.Assets.at("javascripts/angular-animate.min.js")"></script>
         <script src="@routes.Assets.at("javascripts/angular-cookies.min.js")"></script>
         <script src="@routes.Assets.at("javascripts/angular-resource.js")"></script>
         <script src="@routes.Assets.at("javascripts/ng-tags-input.min.js")"></script>
@@ -113,44 +114,9 @@
 
       </nav>
 
-        <div id="suggest-product-section" class="up-slideable row">
-            <h1 class="text-center suggest-product-header">Didn't see a product you love? Suggest it here.</h1>
-            <h1 class="text-center suggest-product-header-2">We feel thrilled to hear from the community what products they love and care about! We will put up a product page for you to share experience and talk with others.</h1>
-            <div class="suggest-product">
-                <div class="col-sm-12 suggest-product-form">
-                    <input type="email" class="form-control suggest-product-form-input" placeholder="Your email address">
-                </div>
-                <div class="col-sm-12 suggest-product-form">
-                    <input type="text" class="form-control suggest-product-form-input" placeholder="Product Name">
-                </div>
-                <div class="col-sm-12 suggest-product-form">
-                    <input type="text" class="form-control suggest-product-form-input" placeholder="Product URL">
-                </div>
-                <div class="col-sm-12 suggest-product-form">
-                    <a class="btn btn-lg btn-suggest-product">Suggest it</a>
-                </div>
-            </div>
-        </div>
+        <up-alert></up-alert>
 
-
-        @if(flash.contains(Application.FLASH_ERROR_KEY)) {
-        <div class="alert-message">
-          <div class="alert alert-danger" role="alert">
-              <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">
-                  Close</span></button>
-              @flash().get(Application.FLASH_ERROR_KEY)
-          </div>
-        </div>
-      }
-      @if(flash.contains(Application.FLASH_MESSAGE_KEY)) {
-        <div class="alert-message">
-          <div class="alert alert-success" role="alert">
-              <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">
-                  Close</span></button>
-              @flash().get(Application.FLASH_MESSAGE_KEY)
-          </div>
-        </div>
-      }
+        <up-product-suggest></up-product-suggest>
 
       @content
 

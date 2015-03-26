@@ -22,6 +22,7 @@ import models.TokenAction.Type;
 
 import org.joda.time.DateTime;
 
+import play.api.data.validation.Constraint;
 import play.api.mvc.Session;
 import play.data.format.Formats;
 import play.data.validation.Constraints;
@@ -63,7 +64,15 @@ public class User extends Model implements Subject {
 
 	public String phoneNumber;
 
-	/*
+    @Constraints.MaxLength(1024)
+    public String description;
+
+    public String urlFacebook;
+    public String urlTwitter;
+    public String urlPinterest;
+    public String urlBlog;
+
+    /*
 	 * ship address
 	 */
 	public String streetAddress1;
@@ -304,8 +313,14 @@ public class User extends Model implements Subject {
         ObjectNode node = Json.newObject();
         node.put("id", this.id);
         node.put("name", this.name);
+        node.put("email", this.email);
         node.put("firstname", this.firstName);
         node.put("lastname", this.lastName);
+        node.put("description", this.description);
+        node.put("urlFacebook", this.urlFacebook);
+        node.put("urlTwitter", this.urlTwitter);
+        node.put("urlPinterest", this.urlPinterest);
+        node.put("urlBlog", this.urlBlog);
         node.put("zipcode", this.zipcode);
         node.put("roles", Json.toJson(this.getRoles()));
         node.put("role", this.getRoles().get(0).getName().toLowerCase());

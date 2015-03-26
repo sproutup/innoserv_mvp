@@ -1,5 +1,119 @@
 'use strict';
 
+/*
+    Search icon directive
+    Listens for stage changes and sets the search icon accordingly.
+    After search return to previous state.
+ */
+angular.module('sproutupApp').directive('upSearchIcon', [ '$rootScope', '$log', '$state',
+    function($rootScope, $log, $state){
+        return{
+            restrict: 'A',
+            scope: {},
+            link: function(scope, element, attrs) {
+                var previous_state = "home";
+                var state =  $state.current.name;
+
+                update();
+
+                function update(){
+                    if(state=="search"){
+                        element.find("i").addClass('active');
+                    }
+                    else{
+                        element.find("i").removeClass('active');
+                    }
+                }
+
+                element.bind('click', function() {
+                    $log.debug("search - click()" + state + " " + previous_state);
+                    if(state=="search") {
+                        $state.go(previous_state);
+                    }
+                    else{
+                        $state.go("search");
+                    }
+                });
+
+                scope.$on('$stateChangeSuccess',
+                    function (ev, to, toParams, from, fromParams) {
+                        //assign the "from" parameter to something
+                        console.log('search state change ' + from.name);
+                        state =  $state.current.name;
+                        update();
+                    }
+                );
+            }
+        }
+    }
+]);
+
+/*
+  General alert message handler
+  Usage:
+  broadcast a message like this and it will be flashed
+  $rootScope.$broadcast('alert:success', {
+    message: 'insert message here'
+  });
+ */
+angular.module('sproutupApp').directive('upAlert', ['$timeout',
+    function($timeout) {
+        return{
+            restrict: 'EA',
+            replace: true,
+            template: '<div ng-show="state.show" class="col-sm-12 alert" ng-class="state.status" role="alert">{{state.message}}</div>',
+            scope: {},
+            link: function(scope, element, attrs){
+                scope.state = {
+                    message: "",
+                    status: "",
+                    show: false
+                };
+
+                scope.$on('alert:success', function (event, args) {
+                    scope.state.message = args.message;
+                    scope.state.status = "success";
+                    scope.state.show = true;
+
+                    $timeout(
+                        function(){
+                            scope.state.message = "";
+                            scope.state.status = "";
+                            scope.state.show = false;
+                        },
+                        1000,
+                        true,
+                        scope
+                    );
+                });
+            }
+        }
+    }
+]);
+
+angular.module('sproutupApp').directive('upProductSuggest', ['ProductSuggestionService', '$log',
+    function(productSuggestionService, $log) {
+        return {
+            restrict: 'E',
+            templateUrl: 'assets/templates/up-product-suggest.html',
+            scope: {},
+            controller: function( $scope, $element, $attrs, $transclude ) {
+                // Controller code goes here.
+                $scope.addSuggestion = function () {
+                    $log.debug("productSuggestionService > add suggestion");
+                    productSuggestionService.add($scope.newSuggestion).then(
+                        function(data){
+                            $scope.newSuggestion.email = "";
+                            $scope.newSuggestion.productName = "";
+                            $scope.newSuggestion.productUrl = "";
+                        }
+                    );
+                }
+            }
+        }
+    }
+]);
+
 angular.module('sproutupApp').directive('upSlideable', function () {
     return {
         restrict:'AC',
@@ -141,18 +255,39 @@ angular.module('sproutupApp').directive('upVideo', ['FileService', '$timeout',
             link: function (scope, element, attrs) {
                 attrs.$observe('file', function (file) {
                     if (file) {
-                        console.log("up-video - file changed: " + file.id);
+                        console.log("up-video - file changed: ", file);
                     }
                 });
+
+                angular.element(document).ready(function () {
+                    console.log('Hello World');
+                    //flowplayer(function (api, root) {
+                    //
+                    //    api.bind("load", function () {
+                    //        console.log("up-video - load");
+                    //
+                    //        // do something when a new video is about to be loaded
+                    //
+                    //    }).bind("ready", function () {
+                    //        console.log("up-video - ready");
+                    //
+                    //        // do something when a video is loaded and ready to play
+                    //
+                    //    });
+                    //
+                    //});
+                });
+
+
                 $timeout(function () {
                     $timeout(function () {
-                        console.log("up-video - loaded: " + attrs.file.id);
+                        console.log("up-video - loaded: ");
                         // This code will run after
                         // templateUrl has been loaded, cloned
                         // and transformed by directives.
                         // and properly rendered by the browser
                         var flowplr = element.find(".player");
-                        flowplr.flowplayer();
+                        var api = flowplr.flowplayer();
                     }, 0);
                 }, 0);
             }
@@ -267,20 +402,170 @@ angular.module('sproutupApp').directive('upProfileInfo', ['AuthService',
     }
 ]);
 
-angular.module('sproutupApp').directive('upProfileMenu', ['AuthService','FileService','$state',
-    function (authService, fileService, $state) {
+angular.module('sproutupApp').directive('upProfileMenu', ['AuthService','FileService','$state','$timeout',
+    function (authService, fileService, $state, $timeout) {
         return {
             restrict: 'E',
             scope: true,
             link: function (scope, element, attrs) {
-                scope.user = authService.currentUser();
-                scope.$state = $state;
-                scope.menu = {
-                    photos: fileService.allUserPhotos().length,
-                    videos: fileService.allUserVideos().length
-                };
+                $timeout(function(){
+                    scope.user = authService.currentUser();
+                    scope.$state = $state;
+                    scope.menu = {
+                        photos: fileService.allUserPhotos().length,
+                        videos: fileService.allUserVideos().length
+                    };
+                });
             },
             templateUrl: 'assets/templates/up-profile-menu.html'
+        }
+    }
+]);
+
+angular.module('sproutupApp').directive('upProfileEditButtons', ['$rootScope','FileService','$state','$log','$timeout',
+    function ($rootScope, fileService, $state, $log, $timeout) {
+        return {
+            restrict: 'E',
+            scope: true,
+            link: function (scope, element, attrs) {
+                scope.$state = $state;
+                scope.state = "pristine";
+                scope.showMessage = false;
+
+                var hideStatusMessage = function(test){
+                   scope.showMessage = false;
+                };
+
+                scope.cancel = function () {
+                    $log.debug("up-profile - cancel()");
+                    $rootScope.$broadcast('profile:cancel');
+                };
+
+                scope.$on('profile:saved', function (event, args) {
+                    console.log('event received profile:saved ');
+                    scope.state = "pristine";
+                });
+
+                scope.$on('profile:valid', function (event, args) {
+                    console.log('event received profile:valid ');
+                    scope.state = "dirty";
+                });
+
+                scope.$on('profile:invalid', function (event, args) {
+                    console.log('event received profile:invalid ');
+                    scope.state = "pristine";
+                });
+
+                scope.save = function () {
+                    $log.debug("up-profile - save()");
+                    $rootScope.$broadcast('profile:save');
+                    scope.state = "saving";
+                };
+
+            },
+            templateUrl: 'assets/templates/up-profile-edit-buttons.html'
+        }
+    }
+]);
+
+angular.module('sproutupApp').directive('upProfileEdit', ['$rootScope','AuthService', 'UserService', '$state','$log', '$timeout',
+    function ($rootScope, authService, userService, $state, $log, $timeout) {
+        return {
+            restrict: 'A',
+            scope: true,
+            link: function (scope, element, attrs) {
+                scope.$state = $state;
+
+                var user = authService.currentUser();
+
+                scope.$on('auth:status', function (event, args) {
+                    user = authService.currentUser();
+                    copyUser(updated, user);
+                });
+
+                scope.$watch(
+                    function(scope){
+                        return scope.basicinfoform.$dirty && scope.basicinfoform.$valid;
+                    },
+                    function(newValue, oldValue) {
+                        $log.debug("dirty&valid: " + newValue + " " + oldValue);
+                        if(newValue==true){
+                            $rootScope.$broadcast('profile:valid');
+                        }
+                        else{
+                            $rootScope.$broadcast('profile:invalid');
+                        }
+                    }
+                );
+
+                var copyUser = function(copy, orig){
+                    copy.id = orig.id;
+                    copy.email = orig.email;
+                    copy.firstname = orig.firstname;
+                    copy.lastname = orig.lastname;
+                    copy.name = orig.name;
+                    copy.description = orig.description;
+                    copy.urlFacebook = orig.urlFacebook;
+                    copy.urlTwitter = orig.urlTwitter;
+                    copy.urlPinterest = orig.urlPinterest;
+                    copy.urlBlog = orig.urlBlog;
+                };
+
+                var updated = {
+                    "id" : user.id,
+                    "email" : user.email,
+                    "firstname" : user.firstname,
+                    "lastname" : user.lastname,
+                    "name" : user.name,
+                    "description" : user.description,
+                    "urlFacebook" : user.urlFacebook,
+                    "urlTwitter" : user.urlTwitter,
+                    "urlPinterest" : user.urlPinterest,
+                    "urlBlog" : user.urlBlog
+                };
+
+                scope.user = updated;
+
+                var previous_state = "profile.photos";
+
+                scope.$on('$stateChangeSuccess', function (ev, to, toParams, from, fromParams) {
+                    //assign the "from" parameter to something
+                    console.log('state change ' + from.name);
+                    if(from.name.length > 0){
+                        previous_state = from.name;
+                    }
+                });
+
+                scope.$on('profile:save', function (event, args) {
+                    console.log('event received profile:save ');
+                    userService.update(scope.user).then(
+                        function(data){
+                            $log.debug("up-profile-edit > update success");
+                            user.description = data.description;
+                            user.name = data.name;
+                            user.firstname = data.firstname;
+                            user.lastname = data.lastname;
+                            user.urlFacebook = data.urlFacebook;
+                            user.urlTwitter = data.urlTwitter;
+                            user.urlPinterest = data.urlPinterest;
+                            user.urlBlog = data.urlBlog;
+                            $rootScope.$broadcast('profile:saved');
+                            $rootScope.$broadcast('alert:success', {
+                                message: 'Profile saved'
+                            });
+                            scope.basicinfoform.$setPristine();
+                        },
+                        function(error){
+                            $log.debug("up-profile-edit > update failed");
+                        }
+                    )
+                });
+
+                scope.$on('profile:cancel', function (event, args) {
+                    console.log('event received profile:cancel ');
+                    $state.go(previous_state);
+                });
+            }
         }
     }
 ]);
@@ -292,35 +577,17 @@ angular.module('sproutupApp').directive('upProfile', ['$filter', '$log', 'FileSe
             scope: {
             },
             controller: function($scope) {
-                var files = $scope.files = [];
-                var photos = $scope.photos = [];
-                var videos = $scope.videos = [];
-
                 fileService.getAllUserFiles().then(
                     function(data){
                         $log.debug("up-profile - files loaded");
-                        files = data;
-                        photos = $filter("filter")(files, {type:"image"});
-                        //videos = $filter("filter")(files, {type:"video"});
-                        $log.debug("up-profile - photos "); // + photos.length +" videos " + videos.length);
                     },
                     function(error){
                     }
                 );
-
-                this.photos = photos;
-
-                $scope.select = function(pane) {
-                    pane.selected = true;
-                };
-
-                this.addPane = function(pane) {
-                };
             }
         }
     }
 ]);
-
 
 angular.module('sproutupApp').directive('follow', ['FollowService',
     function (FollowService) {
@@ -443,8 +710,8 @@ angular.module('sproutupApp').directive('subjectPresent', function ($parse) {
     };
 });
 
-angular.module('sproutupApp').directive('upToptags', ['TagsService',
-    function (tagService) {
+angular.module('sproutupApp').directive('upToptags', ['TagsService', '$timeout',
+    function (tagService, $timeout) {
     return {
         templateUrl: 'assets/templates/up-toptags.html',
         scope: {
@@ -452,7 +719,17 @@ angular.module('sproutupApp').directive('upToptags', ['TagsService',
             category: "="
         },
         link: function (scope, element, attrs) {
-            attrs.$observe('category', function (category) {
+            $timeout(function(){
+                console.log("tags timeout");
+                refresh();
+            });
+
+            //attrs.$observe('category', function (category) {
+            //    console.log("tags observe");
+            //    refresh();
+            //});
+
+            var refresh = function(){
                 tagService.getPopularPostTags(scope.productId, scope.category).then(
                     function(data){
                         scope.tags = data;
@@ -474,19 +751,30 @@ angular.module('sproutupApp').directive('upToptags', ['TagsService',
                     default:
                         scope.cat = "default";
                 }
-            });
+            }
         }
     };
 }]);
 
+/*
+    Product List
+ */
 angular.module('sproutupApp').directive('upProductList', [ 'ProductService',
     function (productService) {
         return {
-            templateUrl: 'assets/templates/up-product-list.html',
+            restrict: 'A',
+            transclude:true,
             scope: {
             },
-            link: function (scope, element, attrs) {
+            link: function (scope, element, attrs, ctrl, transclude) {
+                // get the product list
+                scope.query = "";
                 scope.products = productService.query();
+
+                // add the directive scope to the transcluded content
+                transclude(scope, function(clone, scope) {
+                    element.append(clone);
+                });
             }
         };
     }]);
@@ -506,15 +794,22 @@ angular.module('sproutupApp').directive('upProductItem', [
         };
     }]);
 
-angular.module('sproutupApp').directive('navbar', function () {
+angular.module('sproutupApp').directive('navbar', [ 'AuthService', '$rootScope',
+    function (authService, $rootScope) {
     return {
         templateUrl: '/assets/templates/navbar.html',
-
-        controller: function($scope, $log, $http, AuthService) {
-            AuthService.isLoggedIn();
+        scope: true,
+        link: function (scope, element, attrs) {
+            scope.user = authService.currentUser();
+            scope.isLoggedIn = authService.isLoggedIn();
+            scope.$on('auth:status', function (event, args) {
+                console.log('event received auth:state ' + args.data);
+                scope.user = authService.currentUser();
+                scope.isLoggedIn = authService.isLoggedIn();
+            });
         }
     };
-});
+}]);
 
 angular.module('sproutupApp').directive('upFbShare', [ '$location', '$window', function ($location, $window) {
     return {

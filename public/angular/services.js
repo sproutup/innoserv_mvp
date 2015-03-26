@@ -7,6 +7,63 @@ productServices.factory('ProductService', ['$resource',
     return $resource('/api/products/:slug'); // Note the full endpoint address
   }]);
 
+productServices.factory('ProductSuggestionService', ['$http','$log', '$q',
+    function($http, $log, $q) {
+        var productSuggestionService = {};
+
+        productSuggestionService.add = function(suggestion){
+            var deferred = $q.defer();
+
+            $http({
+                method: 'POST',
+                url: '/api/suggest/product',
+                headers: {'Content-Type': 'application/json'},
+                data: suggestion
+            }).success(function(data, status, headers, config){
+                $log.debug("productSuggestionService > add success");
+                deferred.resolve(data);
+            }).error(function(data, status, headers, config){
+                $log.debug("productSuggestionService > failed to update");
+                deferred.reject("productSuggestionService > failed to add");
+            });
+
+            return deferred.promise;
+        };
+
+        return productSuggestionService;
+    }
+]);
+
+productServices.factory('UserService', ['$http','$log', '$q', '$upload', '$filter',
+    function($http, $log, $q, $upload, $filter) {
+        var userService = {};
+
+        userService.update = function(user){
+            var deferred = $q.defer();
+
+            $log.debug("userservice > user.name: " + user.name);
+
+            $http({
+                method: 'PUT',
+                url: '/api/users/' + user.id,
+                headers: {'Content-Type': 'application/json'},
+                data: user
+            }).success(function(data, status, headers, config){
+                $log.debug("userservice > update success");
+                deferred.resolve(data);
+            }).error(function(data, status, headers, config){
+                $log.debug("userservice > failed to update");
+                deferred.reject("userservice > failed to update");
+            });
+
+            return deferred.promise;
+        };
+
+        return userService;
+    }
+]);
+
+
 productServices.factory('FileService', ['$http','$log', '$q', '$upload', '$filter',
 function($http, $log, $q, $upload, $filter){
     var FileService = {};
@@ -281,13 +338,13 @@ function($http, $log, $q, $upload, $filter){
     return FileService;
 }]);
 
-productServices.factory('AuthService', ['$http', '$q', '$cookieStore','$log',
-    function($http, $q, $cookieStore, $log){
+productServices.factory('AuthService', ['$http', '$q', '$cookieStore','$log', '$rootScope',
+    function($http, $q, $cookieStore, $log, $rootScope){
     var AuthService = {};
     var urlBase = '/api/auth';
     var accessLevels = routingConfig.accessLevels
         , userRoles = routingConfig.userRoles
-        , currentUser = $cookieStore.get('user') || { username: '', role: userRoles.public }
+        , currentUser = $cookieStore.get('user') || { username: '', role: userRoles.public };
 
     var _isLoggedIn = false;
 
@@ -324,6 +381,7 @@ productServices.factory('AuthService', ['$http', '$q', '$cookieStore','$log',
             // when the response is available
             changeUser(data);
             _isLoggedIn = true;
+            $rootScope.$broadcast('auth:status', {isLoggedIn: status.isLoggedIn});
             $log.debug("auth user service returned success: " + currentUser.name);
             $log.debug("AuthService > isLoggedIn=" + _isLoggedIn);
             deferred.resolve(currentUser);
@@ -376,6 +434,7 @@ productServices.factory('AuthService', ['$http', '$q', '$cookieStore','$log',
             // when the response is available
             changeUser(data);
             _isLoggedIn = true;
+            $rootScope.$broadcast('auth:status', {isLoggedIn: status.isLoggedIn});
             $log.debug("login service returned success");
             deferred.resolve("success");
         }).error(function(data, status, headers, config){
@@ -402,6 +461,7 @@ productServices.factory('AuthService', ['$http', '$q', '$cookieStore','$log',
             // when the response is available
             changeUser(data);
             status.isLoggedIn = true;
+            $rootScope.$broadcast('auth:status', {isLoggedIn: status.isLoggedIn});
             deferred.resolve("success");
         }).error(function(data, status, headers, config){
             // called asynchronously if an error occurs
@@ -425,6 +485,7 @@ productServices.factory('AuthService', ['$http', '$q', '$cookieStore','$log',
             // when the response is available
             currentUser.name = '';
             _isLoggedIn = false;
+            $rootScope.$broadcast('auth:status', {isLoggedIn: status.isLoggedIn});
             deferred.resolve("success");
         }).error(function(data, status, headers, config){
             // called asynchronously if an error occurs

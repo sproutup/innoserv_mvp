@@ -1,26 +1,12 @@
 package models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.databind.JsonSerializable;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.JsonSerializer;
-import com.fasterxml.jackson.databind.JsonDeserializer;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.JsonNodeFactory;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 
-import org.hibernate.validator.constraints.URL;
-
+import org.joda.time.DateTime;
 import play.Logger;
-import play.api.libs.json.DeserializerContext;
-import play.data.format.Formats;
-import play.data.validation.Constraints;
-import play.db.ebean.Model;
+import play.libs.Json;
 import play.mvc.PathBindable;
 import play.mvc.QueryStringBindable;
 import play.libs.F;
@@ -33,16 +19,11 @@ import utils.Slugify;
 import utils.Taggable;
 
 import java.io.IOException;
-import java.lang.Boolean;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
 @Entity
-@JsonSerialize(using = Product.ProductSerializer.class)
-public class Product extends TimeStampModel implements PathBindable<Product>,
+public class Product extends SuperModel implements PathBindable<Product>,
 		QueryStringBindable<Product>, Taggable {
 
 	private static final long serialVersionUID = 1L;
@@ -258,7 +239,6 @@ public class Product extends TimeStampModel implements PathBindable<Product>,
 
 		return products;
 	}
-	
 
 	public void setProductAdditionalDetail(
 			ProductAdditionalDetail productAdditionalDetail) {
@@ -268,25 +248,42 @@ public class Product extends TimeStampModel implements PathBindable<Product>,
         }
 	}
 
-	static class ProductSerializer extends JsonSerializer<Product> {
-		@Override
-		public void serialize(Product product, JsonGenerator generator, SerializerProvider provider)
-				throws IOException {
-			generator.writeStartObject();
-			generator.writeObjectField("id", product.id);
-			generator.writeStringField("productEAN", product.productEAN);
-			generator.writeStringField("productName", product.productName);
-			generator.writeStringField("slug", product.slug);
-			generator.writeStringField("productDescription", product.productDescription);
-			generator.writeStringField("productLongDescription", product.productLongDescription);
-			generator.writeStringField("featureList", product.featureList);
-			generator.writeStringField("missionStatement", product.missionStatement);
-			generator.writeStringField("productStory", product.productStory);
-			generator.writeStringField("urlHome", product.urlHome);
-			generator.writeStringField("urlFacebook", product.urlFacebook);
-			generator.writeStringField("urlTwitter", product.urlTwitter);
-			generator.writeBooleanField("isFeatured", product.isFeatured);
-			generator.writeEndObject();
-		}
-	}
+    public ObjectNode toJson(){
+        ObjectNode node = Json.newObject();
+        node.put("id", this.id);
+        node.put("productEAN", this.productEAN);
+        node.put("productName", this.productName);
+        node.put("slug", this.slug);
+        node.put("productDescription", this.productDescription);
+        node.put("productLongDescription", this.productLongDescription);
+        node.put("featureList", this.featureList);
+        node.put("missionStatement", this.missionStatement);
+        node.put("productStory", this.productStory);
+        node.put("urlHome", this.urlHome);
+        node.put("urlFacebook", this.urlFacebook);
+        node.put("urlTwitter", this.urlTwitter);
+        node.put("isFeatured", this.isFeatured);
+        node.put("createdAt", new DateTime(this.createdAt).toString());
+        node.put("updatedAt", new DateTime(this.updatedAt).toString());
+//        if(this.user != null) {
+//            node.put("user", this.user.toJson());
+//        }
+        List<Likes> likes = this.getAllLikes();
+        if(likes.size()>0){
+            node.put("likes", Likes.toJson(likes));
+        }
+        List<Tag> tags = this.getAllTags();
+        if(tags.size()>0){
+            node.put("tags", Tag.toJson(tags));
+        }
+        return node;
+    }
+
+    public static ArrayNode toJson(List<Product> products){
+        ArrayNode arrayNode = new ArrayNode(JsonNodeFactory.instance);
+        for (Product product : products){
+            arrayNode.add(product.toJson());
+        }
+        return arrayNode;
+    }
 }

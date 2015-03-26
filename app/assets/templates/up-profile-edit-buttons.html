@@ -1,0 +1,11 @@
+<a class="btn btn-lg btn-outline" ng-hide="$state.includes('profile.account')" ui-sref="profile.account" ui-sref-active="active">Edit Profile</a>
+
+<a id="profile-cancel" class="btn btn-lg btn-outline" ng-click="cancel()" ng-show="$state.includes('profile.account')" ui-sref-active="active">Cancel</a>
+
+<a id="profile-save" ng-disabled="state=='pristine'" class="btn btn-lg btn-outline" ng-click="save()" ng-show="$state.includes('profile.account') && state!='saving'" ui-sref-active="active">
+    Save
+</a>
+
+<a ng-show="state=='saving'" class="btn btn-lg btn-outline--save" href="#">
+    <i class="fa fa-circle-o-notch fa-spin"></i>
+</a>

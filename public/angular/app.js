@@ -11,7 +11,8 @@ var sproutupApp = angular.module('sproutupApp', [
     'FileControllers',
     'productFilters',
     'productServices',
-    'ngTagsInput'
+    'ngTagsInput',
+    'ngAnimate'
 ]);
 
 sproutupApp.config(function ($provide) {
@@ -38,6 +39,10 @@ sproutupApp.config(['$routeProvider', '$stateProvider', '$locationProvider', '$u
             .state('about' ,{
                 url: '/about',
                 templateUrl: 'views/about'
+            })
+            .state('search' ,{
+                url: '/search',
+                templateUrl: 'views/search'
             })
             .state('creator' ,{
                 url: '/creator',

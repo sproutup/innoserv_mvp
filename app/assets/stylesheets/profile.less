@@ -64,7 +64,7 @@
   font-weight: 300;
   font-size: 13pt;
   margin-bottom: 15px;
-  max-width: 600px;
+  max-width: 640px;
   line-height: 1.5;
 }
 
@@ -99,6 +99,43 @@
   float: left;
   padding-left: 30px;
   padding-top: 11px;
+}
+
+.profile-menu--message {
+  font-size: 10pt;
+  font-weight: 400;
+  height: 36px;
+  float: left;
+  padding: 8px 20px 0px;
+  margin-right: 15px;
+  border-radius: 2px;
+}
+
+.animate-show.ng-hide-add.ng-hide-add-active,
+.animate-show.ng-hide-remove.ng-hide-remove-active {
+  -webkit-transition: all .2s ease-in-out;
+  -o-transition: all .2s ease-in-out;
+  transition: all .2s ease-in-out;
+}
+
+.animate-show.ng-hide {
+  line-height: 0;
+  opacity: 0;
+  padding: 0 10px;
+}
+
+.profile-menu--message i {
+  padding-right: 10px;
+}
+
+.profile-menu--message.success {
+  background-color: @sproutup-green;
+  color: @main-text-white;
+}
+
+.profile-menu--message.error {
+  background-color: @sproutup-grey;
+  color: @main-text;
 }
 
 .profile-menu--action {
@@ -143,8 +180,9 @@
   font-weight: 400;
 }
 
-.btn-outline {
+.btn-outline--save {
   height: 36px;
+  width: 69px;
   margin-left: 5px;
   margin-right: 5px;
   border: solid 1px @sproutup-btn-outline;
@@ -158,12 +196,12 @@
   padding-right: 20px;
 }
 
-.btn-outline:hover {
+.btn-outline--save:hover {
   border: solid 1px @sproutup-blue-bright;
   color: @sproutup-blue-bright;
 }
 
-.btn-outline:focus {
+.btn-outline--save:focus {
   border: solid 1px @sproutup-btn-outline;
   color: @sproutup-btn-outline;
 }
