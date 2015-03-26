@@ -68,6 +68,9 @@ PUT           /api/users/:id                          controllers.UserController
 
 POST          /api/suggest/product                    controllers.Application.addProductSuggestion
 
+POST          /api/trial/product                      controllers.Application.addProductTrial
+GET           /api/trial/product/:type/:id            controllers.Application.getProductTrial(id: Long, type: String)
+
 GET           /api/products                           controllers.Products.getProducts
 GET           /api/products/:slug                     controllers.Products.getProduct(slug: String)
 POST          /api/products                           controllers.Products.createProduct

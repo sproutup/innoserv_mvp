@@ -161,6 +161,51 @@ public class Application extends Controller {
         }
     }
 
+    @BodyParser.Of(BodyParser.Json.class)
+    public static Result addProductTrial() {
+        JsonNode json = request().body().asJson();
+        if (json == null) {
+            return badRequest("Expecting Json data");
+        } else {
+            ProductTrial trial = new ProductTrial();
+            trial.email = json.path("email").asText();
+            trial.name = json.path("name").asText();
+            Product prod = Product.findbyID(json.path("product_id").asLong());
+            if(prod != null){
+                trial.product = prod;
+            }
+            User user = Application.getLocalUser(ctx().session());
+            if (user != null) {
+                trial.user = user;
+                trial.email = user.email;
+                trial.name = user.firstName + " " + user.lastName;
+            }
+
+            trial.save();
+
+            return created();
+        }
+    }
+
+    @SubjectPresent
+    public static Result getProductTrial(Long product_id, String type){
+        User user = Application.getLocalUser(ctx().session());
+        if (user == null) {
+            return badRequest("User not found");
+        } else {
+            ProductTrial trial = ProductTrial.find.where()
+                    .eq("user_id", user.id)
+                    .eq("product_id", product_id)
+                    .eq("active", "1").findUnique();
+            if(trial != null){
+                return ok();
+            }
+            else{
+                return notFound();
+            }
+        }
+    }
+
             // Scala and render an image from S3
     public static Result image(String image, int w, int h) {
         Logger.debug("get object image");

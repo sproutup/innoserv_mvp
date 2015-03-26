@@ -657,6 +657,65 @@ angular.module('sproutupApp').directive('follow', ['FollowService',
     };
 }]);
 
+angular.module('sproutupApp').directive('upTrial', ['ProductTrialService', 'AuthService',
+    function (trialService, authService) {
+        return {
+            restrict: 'A',
+            link: function (scope, element, attrs) {
+                var isFollowing = false;
+
+                function changeButtonToFollowing() {
+                    isFollowing = true;
+                    element.html('<i class="fa fa-check"></i>Signed up for Trial');
+                    element.addClass("btn-following");
+                    element.removeClass("btn-outline");
+                    element.addClass("disabled");
+                }
+
+                function changeButtonToFollow() {
+                    isFollowing = false;
+                    element.html('Try');
+                    element.removeClass("btn-following");
+                    element.addClass("btn-outline");
+                }
+
+                attrs.$observe('refId', function(refId) {
+                    if (refId) {
+                        console.log("refId observe: " + refId);
+                        trialService.didSignUp(refId, attrs.refType)
+                            .then(
+                            function(payload){
+                                changeButtonToFollowing();
+                            },
+                            function(errorPayload){
+                                changeButtonToFollow();
+                            }
+                        );
+                    }
+                });
+
+                element.on('click', function () {
+                    console.log("refId: "+ attrs.refId);
+                    if(authService.isLoggedIn()){
+                        scope.trial('sm', {"product_id": attrs.refId, "isLoggedIn": true}).then(
+                            function(){
+                                console.log("trial success");
+                                changeButtonToFollowing();
+                            },
+                            function(){
+                                console.log("trial error");
+                            }
+                        );
+                    }
+                    else {
+                        scope.trial('sm', {"product_id": attrs.refId, "isLoggedIn": false});
+                    }
+                });
+            }
+        };
+    }
+]);
+
 angular.module('sproutupApp').directive('avatar', function () {
     return {
         restrict: 'E',

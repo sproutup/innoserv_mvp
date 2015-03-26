@@ -159,8 +159,8 @@ fileControllers.controller('FileCtrl', ['$scope', '$rootScope', '$upload', 'File
 
 var authControllers = angular.module('AuthControllers', ['ui.bootstrap']);
 
-authControllers.controller('AuthCtrl', ['$scope', '$modal', '$log', 'AuthService',
-    function ($scope, $modal, $log, AuthService) {
+authControllers.controller('AuthCtrl', ['$scope', '$modal', '$log', 'AuthService', '$q',
+    function ($scope, $modal, $log, AuthService, $q) {
 
     $scope.signup = {
         'email': '',
@@ -190,6 +190,11 @@ authControllers.controller('AuthCtrl', ['$scope', '$modal', '$log', 'AuthService
     $scope.$on('LoginEvent', function(event, mass) {
         $log.debug("LoginEvent received");
         $scope.login('sm');
+    });
+
+    $scope.$on('auth:trial', function(event, mass) {
+        $log.debug("Trial Event received");
+        $scope.trial('sm');
     });
 
     function updateUser() {
@@ -264,6 +269,39 @@ authControllers.controller('AuthCtrl', ['$scope', '$modal', '$log', 'AuthService
         });
     };
 
+    $scope.trial = function (size, items) {
+
+        var deferred = $q.defer();
+
+        $log.debug("trial modal prod id: " + items.product_id);
+        var trialInstance = $modal.open({
+            templateUrl: '/assets/templates/trial.html',
+            controller: 'TrialInstanceCtrl',
+            size: size,
+            resolve: {
+                items: function () {
+                    return items;
+                }
+            }
+        });
+
+        trialInstance.result.then(function (result) {
+            $log.debug("trial return");
+            deferred.resolve();
+            //updateUser();
+        }, function (result) {
+            $log.info('trial dismissed at: ' + new Date());
+            if(result == "signup"){
+                $scope.signup('sm');
+            }
+            if(result == "login"){
+                $scope.login('sm');
+            }
+            deferred.reject();
+        });
+
+        return deferred.promise;
+    };
 
     $scope.logout = function (size) {
         var promise = AuthService.logout();
@@ -413,6 +451,56 @@ authControllers.controller('LoginInstanceCtrl', ['$scope', '$location', '$window
         );
     };
 }]);
+
+authControllers.controller('TrialInstanceCtrl', ['$scope', '$modalInstance', '$rootScope', '$location', '$window', 'ProductTrialService', '$log', 'items',
+    function ($scope, $modalInstance, $rootScope, $location, $window, trialService, $log, items) {
+
+        $log.debug("trial instance items: ", items);
+        $scope.trial = {
+            "isLoggedIn" : items.isLoggedIn
+        };
+
+        $scope.ok = function () {
+            var dataObject = {
+                "name" : $scope.trial.name,
+                "email" : $scope.trial.email,
+                "product_id": items.product_id
+            };
+
+            // reset error message
+            $scope.trial.error = "";
+
+            var promise = trialService.add(dataObject);
+
+            promise.then(
+                function(payload){
+                    // this callback will be called asynchronously
+                    // when the response is available
+                    $rootScope.$broadcast('alert:success', {
+                        message: 'Signed up for trial'
+                    });
+                    $modalInstance.close($scope.signup);
+                },
+                function(errorPayload){
+                    $log.info('Trial failed: ' + errorPayload + " " + new Date());
+                    $scope.trial.error = "Trial failed";
+                }
+            );
+        };
+
+        $scope.login = function () {
+            $modalInstance.dismiss('login');
+        };
+
+        $scope.signup = function () {
+            $modalInstance.dismiss('signup');
+        };
+
+        $scope.cancel = function () {
+            $modalInstance.dismiss('cancel');
+        };
+    }]);
+
 
 // products
 var productControllers = angular.module('productControllers', []);

@@ -34,6 +34,54 @@ productServices.factory('ProductSuggestionService', ['$http','$log', '$q',
     }
 ]);
 
+productServices.factory('ProductTrialService', ['$http','$log', '$q',
+    function($http, $log, $q) {
+        var productTrialService = {};
+
+        productTrialService.add = function(trial){
+            var deferred = $q.defer();
+
+            $http({
+                method: 'POST',
+                url: '/api/trial/product',
+                headers: {'Content-Type': 'application/json'},
+                data: trial
+            }).success(function(data, status, headers, config){
+                $log.debug("productTrialService > add success");
+                deferred.resolve(data);
+            }).error(function(data, status, headers, config){
+                $log.debug("productTrialService > failed to add");
+                deferred.reject("failed to add");
+            });
+
+            return deferred.promise;
+        };
+
+        productTrialService.didSignUp = function(refId, refType){
+            var deferred = $q.defer();
+
+            return $http({
+                method: 'GET',
+                url: "/api/trial/product" + "/" + refType + "/" + refId
+            }).success(function(data, status, headers, config){
+                // this callback will be called asynchronously
+                // when the response is available
+                $log.debug("isFollowing = true");
+                deferred.resolve(true);
+            }).error(function(data, status, headers, config){
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+                $log.debug("isFollowing = false");
+                deferred.reject(false);
+            });
+
+            return deferred.promise;
+        };
+
+        return productTrialService;
+    }
+]);
+
 productServices.factory('UserService', ['$http','$log', '$q', '$upload', '$filter',
     function($http, $log, $q, $upload, $filter) {
         var userService = {};
