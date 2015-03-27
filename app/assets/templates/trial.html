@@ -9,21 +9,22 @@
             <div class="signup-login-form-header">
                 <h2>Interested? Super! Please confirm below and we will get back to you shortly. Thank you!</h2>
             </div>
-            <div class="signup-login-form">
-                <div class="signup-login-form--error-message" ng-show="signup.error"><i class="fa fa-minus-circle"></i>{{signup.error}}</div>
+            <div ng-hide="trial.isLoggedIn" class="signup-login-form">
                 <!-- full name -->
-                <input ng-hide="trial.isLoggedIn" ng-model="trial.name" required="" class="form-control signup-login-input" id="name" type="text" name="yourName" placeholder="Your name">
+                <input ng-model="trial.name" required="" class="form-control signup-login-input" id="name" type="text" name="yourName" placeholder="Your name">
                 <div ng-show="trialForm.$submitted || trialForm.yourName.$touched">
                     <div class="signup-login-form--error-message" ng-show="trialForm.yourName.$error.required"><i class="fa fa-minus-circle"></i>Please tell us your name</div>
                 </div>
 
                 <!-- email -->
-                <input ng-hide="trial.isLoggedIn" ng-model="trial.email" required="" class="form-control signup-login-input" id="email" type="email" name="yourEmail" placeholder="Email address">
+                <input ng-model="trial.email" required="" class="form-control signup-login-input" id="email" type="email" name="yourEmail" placeholder="Email address">
                 <div ng-show="trialForm.$submitted || trialForm.yourEmail.$touched">
                     <div class="signup-login-form--error-message" ng-show="trialForm.yourEmail.$error.required"><i class="fa fa-minus-circle"></i>Can't sign up tryout without an email</div>
                     <div class="signup-login-form--error-message" ng-show="trialForm.yourEmail.$error.email"><i class="fa fa-minus-circle"></i>Err, you sure the email is valid?</div>
                 </div>
+            </div>
 
+            <div class="signup-login-form">
                 <!-- agreement -->
                 <button ng-disabled="trialForm.$invalid && !trial.isLoggedIn" class="btn btn-lg signup-login-btn" type="submit" ng-click="ok()">Yes, I want a spot in line!</button>
                 <div class="signup-agreement">
