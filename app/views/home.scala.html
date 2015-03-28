@@ -40,24 +40,23 @@
         @for(product <- products) {
             @if(product.isFeatured) {
                 <div class="col-sm-6 col-xs-12 product-list-item">
-                        <div class="product-cover-photo" style="background-image: url('@("https://s3.amazonaws.com/sproutup-mvp-cdn/assets/" + product.productEAN +".jpg")')">
-                            <div class="product-category-list">
-                                <button type="button" class="btn btn-product-category">Smart Home</button>
-                                <button type="button" class="btn btn-product-category">Lighting</button>
-                                <button type="button" class="btn btn-product-category">Design</button>
-                            </div>
-                            <a href="/product/@product.slug">
-                                <div class="product-cover-info">
-                                    <div class="product-cover-title">
-                                        <div class="featured-product-label">Featured</div>
-                                        <p>@product.productName</p>
-                                    </div>
-                                    <div class="product-cover-description">
-                                        @product.productDescription
-                                    </div>
-                                </div>
-                            </a>
+                    <div class="product-cover-photo" style="background-image: url('@("https://s3.amazonaws.com/sproutup-mvp-cdn/assets/" + product.productEAN +".jpg")')">
+                        <!-- Todo: Add tags for featured products -->
+                        <div class="product-category-list">
+
                         </div>
+                        <a href="/product/@product.slug">
+                            <div class="product-cover-info">
+                                <div class="product-cover-title">
+                                    <div class="featured-product-label">Featured</div>
+                                    <p>@product.productName</p>
+                                </div>
+                                <div class="product-cover-description">
+                                    @product.productDescription
+                                </div>
+                            </div>
+                        </a>
+                    </div>
                 </div>
             }
         }
