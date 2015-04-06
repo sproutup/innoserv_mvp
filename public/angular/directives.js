@@ -209,8 +209,8 @@ angular.module('sproutupApp').directive('upSlideable', function () {
     };
 });
 
-angular.module('sproutupApp').directive('upSlideableToggle',
-    function() {
+angular.module('sproutupApp').directive('upSlideableToggle', ['$rootScope',
+    function($rootScope) {
         return {
             restrict: 'A',
             link: function(scope, element, attrs) {
@@ -234,9 +234,20 @@ angular.module('sproutupApp').directive('upSlideableToggle',
                     }
                     attrs.expanded = !attrs.expanded;
                 });
+
+                $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams){
+                    console.log("product suggest > state changed event");
+                    if (!target) target = document.querySelector(attrs.upSlideableToggle);
+                    if (!content) content = target.querySelector('.slideable_content');
+                    if(attrs.expanded) {
+                        target.style.height = '0px';
+                        attrs.expanded = !attrs.expanded;
+                    }
+                })
             }
         };
-    });
+    }
+]);
 
 angular.module('sproutupApp').directive('upLike', ['LikesService', 'AuthService', '$timeout',
     function (likesService, authService, $timeout) {
