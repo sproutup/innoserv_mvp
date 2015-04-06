@@ -477,7 +477,7 @@ authControllers.controller('TrialInstanceCtrl', ['$scope', '$modalInstance', '$r
                     // this callback will be called asynchronously
                     // when the response is available
                     $rootScope.$broadcast('alert:success', {
-                        message: 'Signed up for trial'
+                        message: 'Thanks! You have a spot in line :)'
                     });
                     $modalInstance.close($scope.signup);
                 },

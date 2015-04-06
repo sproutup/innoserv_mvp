@@ -62,7 +62,6 @@ public class Application extends Controller {
         return ok(search.render());
     }
 
-	@Restrict({@Group(AppConstants.CONSUMER),@Group(AppConstants.CREATOR)})
 	public static Result creator() {
 		return ok(creator.render());
 	}

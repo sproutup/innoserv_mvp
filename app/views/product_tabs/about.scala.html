@@ -18,11 +18,13 @@
         <div class="row about-product-row">
             <div ng-show="product.productLongDescription" class="col-sm-7 about-product-tile">
                 <div class="about-product--feature">
+                    <p class="about-product--header">Our Product</p>
                     <p class="about-product--content">{{product.productLongDescription}}</p>
                 </div>
             </div>
             <div ng-show="product.featureList" class="col-sm-5 about-product-tile">
                 <div class="about-product--feature">
+                    <p class="about-product--header">Cool Features</p>
                     <p class="about-product--content">{{product.featureList}}</p>
                 </div>
             </div>
@@ -30,13 +32,13 @@
 
         <!-- row 3: mission statements -->
         <div ng-show="product.missionStatement" class="row about-product-row">
-            <div class="col-sm-8 about-product-tile--left">
+            <div class="col-sm-8 about-product-tile">
                 <div class="about-product--mission">
                     <p class="about-product--header">Mission</p>
                     <p class="about-product--content">{{product.missionStatement}}</p>
                 </div>
             </div>
-            <div class="col-sm-4 about-product-tile--right">
+            <div class="col-sm-4 about-product-tile">
                 <div class="about-product--mission-creator" style="background-image: url('@routes.Assets.at("images/user/belleds/michaelchen.jpeg")')"></div>
             </div>
         </div>

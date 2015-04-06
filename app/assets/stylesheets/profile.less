@@ -39,7 +39,6 @@
   -webkit-border-radius: 500px;
   -moz-border-radius: 500px;
   border-radius: 500px;
-  border: solid 1px #f5f5f5;
 }
 
 .profile-user--details {
@@ -85,20 +84,22 @@
 }
 
 .profile-menu {
-  background: -webkit-linear-gradient(bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.5));
-  background: -o-linear-gradient(bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.5));
-  background: -moz-linear-gradient(bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.5));
-  background: linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.5));
+  background: -webkit-linear-gradient(bottom, rgba(0,0,0,0.6), rgba(0,0,0,0.85));
+  background: -o-linear-gradient(bottom, rgba(0,0,0,0.6), rgba(0,0,0,0.85));
+  background: -moz-linear-gradient(bottom, rgba(0,0,0,0.6), rgba(0,0,0,0.85));
+  background: linear-gradient(to bottom, rgba(0,0,0,0.6), rgba(0,0,0,0.85));
   height: 70px;
   width: 100%;
   position: absolute;
   bottom: 0;
+  border-top: solid 1px #4a4a4a;
+  border-bottom: solid 1px #4a4a4a;
 }
 
 .profile-menu--content {
   float: left;
   padding-left: 30px;
-  padding-top: 11px;
+  padding-top: 8px;
 }
 
 .profile-menu--message {
@@ -149,21 +150,21 @@
 
 .profile-menu--item {
   float: left;
-  color: rgba(255,255,255,0.7);
-  padding-right: 36px;
+  color: rgba(255,255,255,0.75);
+  margin-right: 25px;
+  padding: 0px 10px 8px;
   text-decoration: none !important;
-  -webkit-transition: all .2s ease-in-out;
-  -o-transition: all .2s ease-in-out;
-  transition: all .2s ease-in-out;
 }
 
 .profile-menu--item.active {
-  color: @main-text-white;
+  color: @sproutup-blue-bright;
+  border-bottom: solid 7px @sproutup-blue-bright;
 }
 
 .profile-menu--item:hover {
   color: @sproutup-blue-bright;
   text-decoration: none !important;
+  border-bottom: solid 7px @sproutup-blue-bright;
 }
 
 .profile-menu--item-value {

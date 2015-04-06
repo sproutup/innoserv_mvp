@@ -152,7 +152,7 @@ angular.module('sproutupApp').directive('upAlert', ['$timeout',
                             scope.state.status = "";
                             scope.state.show = false;
                         },
-                        1000,
+                        2000,
                         true,
                         scope
                     );
@@ -622,7 +622,7 @@ angular.module('sproutupApp').directive('upProfileEdit', ['$rootScope','AuthServ
                             user.urlBlog = data.urlBlog;
                             $rootScope.$broadcast('profile:saved');
                             $rootScope.$broadcast('alert:success', {
-                                message: 'Profile saved'
+                                message: 'Your profile is saved'
                             });
                             scope.basicinfoform.$setPristine();
                         },
@@ -737,7 +737,7 @@ angular.module('sproutupApp').directive('upTrial', ['ProductTrialService', 'Auth
 
                 function changeButtonToFollowing() {
                     isFollowing = true;
-                    element.html('<i class="fa fa-check"></i>Signed up for Trial');
+                    element.html('<i class="fa fa-check"></i>I am in for Tryout.');
                     element.addClass("btn-following");
                     element.removeClass("btn-outline");
                     element.addClass("disabled");
@@ -745,7 +745,7 @@ angular.module('sproutupApp').directive('upTrial', ['ProductTrialService', 'Auth
 
                 function changeButtonToFollow() {
                     isFollowing = false;
-                    element.html('Try');
+                    element.html('Interested in Tryout?');
                     element.removeClass("btn-following");
                     element.addClass("btn-outline");
                 }
