@@ -45,8 +45,7 @@ public class Application extends Controller {
     }
 
     public static Result home() {
-        List<Product>products = new Product().getAll();
-        return ok(home.render(products));
+        return ok(home.render());
     }
 
     public static Result index() {

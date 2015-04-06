@@ -3,7 +3,7 @@
 <div class="product-gallery-page">
 
     <!-- left rail -->
-    <div class="col-sm-9 about-left-rail">
+    <div class="col-sm-8 about-left-rail">
         <!-- row 1: intro video -->
         <div class="row about-product-row">
             <div class="col-sm-12 about-product-tile">
@@ -90,7 +90,7 @@
     </div>
 
     <!-- right rail -->
-    <div class="col-sm-3 about-right-rail">
+    <div class="col-sm-4 about-right-rail">
         <!-- row 1: update from creator -->
         <div class="row about-product-row">
             <div class="col-sm-12 about-product-tile">
@@ -99,49 +99,43 @@
                         <i class="fa fa-bullhorn"></i>
                         Updates from creator
                     </p>
-                    <p class="about-product--content">
-                        Feb 20, 2015<br><br>We are launching a product trial program with our next generation Q bulb. Please SIGNUP soon, and get an early access on the latest and greatest innovation!
-                    </p>
+                    <p class="about-product--content">Feb 20, 2015<br><br>We are launching a product trial program with our next generation Q bulb. Please SIGNUP soon, and get an early access on the latest and greatest innovation!</p>
                 </div>
             </div>
-        </div>
-
-        <div class="row about-product-row">
-            <up-facebook-like></up-facebook-like>
         </div>
 
         <!--div class="fb-post"
         data-href="https://www.facebook.com/FacebookDevelopers/posts/10152128760693553"
         data-width="500"></div-->
-        <div class="col-sm-12">
-            <up-facebook-post product="product.id"></up-facebook-post>
+        <div class="row about-product-row">
+            <div class="col-sm-12 about-product-tile">
+                <up-facebook-post product="product.id"></up-facebook-post>
+            </div>
         </div>
 
         <!-- row 2: creator twitter -->
-        <div class="row about-product-row">
-            <div class="col-sm-12 about-product-tile">
-                <div class="about-product--twitter">
-                    <p class="about-product--header-right">
-                        <i class="fa fa-twitter"></i>
-                        @@BelledsTech</p>
-                    <p class="about-product--content">
-                        @@MIT-born @@BelledsTech sells smart lights that change to the beat of music, so you can have a dance party anywhere http://goo.gl/3iPVG3</p>
-                </div>
-            </div>
-        </div>
+        <!--<div class="row about-product-row">-->
+            <!--<div class="col-sm-12 about-product-tile">-->
+                <!--<div class="about-product--twitter">-->
+                    <!--<p class="about-product--header-right">-->
+                        <!--<i class="fa fa-twitter"></i>-->
+                        <!--@@BelledsTech</p>-->
+                    <!--<p class="about-product--content">@@MIT-born @@BelledsTech sells smart lights that change to the beat of music, so you can have a dance party anywhere http://goo.gl/3iPVG3</p>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
 
         <!-- row 3: creator facebook -->
-        <div class="row about-product-row">
-            <div class="col-sm-12 about-product-tile">
-                <div class="about-product--facebook">
-                    <p class="about-product--header-right">
-                        <i class="fa fa-facebook"></i>
-                        Belleds on Facebook</p>
-                    <p class="about-product--content">
-                        Congratulations to Belleds! We won third-place prize of MIT-CHIEF competition this weekend. And we are on MIT news today!</p>
-                </div>
-            </div>
-        </div>
+        <!--<div class="row about-product-row">-->
+            <!--<div class="col-sm-12 about-product-tile">-->
+                <!--<div class="about-product--facebook">-->
+                    <!--<p class="about-product--header-right">-->
+                        <!--<i class="fa fa-facebook"></i>-->
+                        <!--Belleds on Facebook</p>-->
+                    <!--<p class="about-product--content">Congratulations to Belleds! We won third-place prize of MIT-CHIEF competition this weekend. And we are on MIT news today!</p>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
 
         <!-- row 4: user quote -->
         <div class="row about-product-row">
@@ -161,8 +155,17 @@
                 <div class="about-product--trendy">
                     <p class="about-product--header-right"><i class="fa fa-picture-o"></i>Trendy photo</p>
                 </div>
-                <div class="about-product--trendy-photo" style="background-image: url('@("https://s3.amazonaws.com/sproutup-mvp-cdn/1_Belleds/b6f514b0-17fc-4fcd-a43f-4e4bb481773f_%40josh.png")')"></div>
-                <p class="about-product--trendy-photo-footer">Sent by <span class="about-product--trendy-photo-em">Josh Abdul</span>, Upvotes: <span class="about-product--trendy-photo-em">100</span></p>
+                <div class="about-product--trendy-photo" style="background-image: url('@("https://s3.amazonaws.com/sproutup-mvp-cdn/1_Belleds/b6f514b0-17fc-4fcd-a43f-4e4bb481773f_%40josh.png")')">
+                    <div class="media-photo-overlay">
+                        <div class="media-photo-info">
+                            <div class="media-user">Tao Ni</div>
+                            <div class="media-actions">
+                                <a href="#" class="post-actions--item"><i class="fa fa-rocket"></i>Upvote (89)</a>
+                                <a href="#" class="post-actions--item"><i class="fa fa-twitter"></i>Share on Twitter</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
