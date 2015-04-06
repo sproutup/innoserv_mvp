@@ -126,7 +126,8 @@ GET   /adminstuff/company/uploadmedia/:companyslug/:mediaType    	controllers.Me
 POST  /adminstuff/company/domediaupload  		controllers.MediaManagement.doCompanyMediaUpload()
 GET   /adminstuff/uploadmedia           		controllers.MediaManagement.upload()
 POST  /adminstuff/doupload              		controllers.MediaManagement.doUpload()
-
+GET   /adminstuff/socialmediapost           	controllers.SocialMediaPostAdminController.newPost()
+POST  /adminstuff/dosocialmediapost             controllers.SocialMediaPostAdminController.save()
 
 
 # Mockups

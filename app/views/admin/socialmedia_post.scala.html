@@ -1,0 +1,103 @@
+@(socialMediaPostForm: Form[Post])(products: List[models.Product])
+
+@import helper._
+@implicitFieldConstructor = @{ FieldConstructor(twitterBootstrapBasic.f) }
+
+@main(Messages("Socail Media Post upload")) {
+
+  <div class="row">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <h1 class="form-header">Social Media Post upload</h1>
+        </div>
+
+        <div class="row signup-form-block">
+          <div class="col-md-8 col-md-offset-2">
+
+        @helper.form(action = routes.SocialMediaPostAdminController.save(), 'enctype -> "multipart/form-data") {
+		
+          @select(
+          socialMediaPostForm("product.id"),
+          products.map {p =>
+            (p.id.toString) -> p.productName
+          },
+          '_label -> "Product Name",'_default -> "-- Select --"
+          )
+
+          @inputText(
+          socialMediaPostForm("title"),
+          '_label -> "Post Title"
+          )
+          
+          @select(
+  			 socialMediaPostForm("category"),
+   				options=Seq(
+   				"0" -> "COMPLIMENT",
+   				"1" -> "SUGGESTION",
+   				"2" -> "QUESTION"
+   				),
+   				'_label -> "Post Type", '_default -> "--Select--"
+			)
+          
+          @textarea(field = socialMediaPostForm("content"), 
+          '_label -> "Post Content", 
+          'rows -> 2, 'cols -> 50
+          )
+		
+		  @inputText(
+          socialMediaPostForm("postedAt"),
+          '_label -> "Posted Date and Time",
+          'type -> "datetime-local"
+          )		
+			
+		  @inputText(
+          socialMediaPostForm("user.name"),
+          '_label -> "User Name"
+          )	
+			
+		  @inputText(
+          	socialMediaPostForm("user.urlTwitter"),
+          '_label -> "Twitter Handle"
+          )
+          
+          @inputText(
+          	socialMediaPostForm("user.urlFacebook"),
+          '_label -> "Facebook URL"
+          )
+          
+          @inputText(
+          	socialMediaPostForm("user.urlPinterest"),
+          '_label -> "Pineterest Handle"
+          )
+          
+          @select(
+  			 socialMediaPostForm("user.externalType"),
+   				options=Seq(
+   				"TWT" -> "Twitter",
+   				"FB" -> "Facebook",
+   				"PT" -> "PinTerest",
+   				"BG" -> "Blog"
+   				),
+   				'_label -> "User Social Handle/Name", '_default -> "--Select--"
+			)
+    
+    	  @inputFile(
+          socialMediaPostForm("upload")
+          )
+			
+          <div>
+            <input class="btn btn-primary btn-lg btn-block" type="submit">
+          </div>
+        }
+      </div>
+    </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <hr>
+
+}

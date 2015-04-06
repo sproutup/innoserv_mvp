@@ -104,7 +104,7 @@ public class Post extends SuperModel implements Taggable {
 			return (List<Post>) find.where()
 				.eq("category", categoryName)
 				.eq("product_id", productID)
-				.eq("active_flag", "0")
+				.eq("active_flag", "1")
 				.orderBy("date_time_stamp desc");
 	}
 		

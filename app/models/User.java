@@ -89,9 +89,20 @@ public class User extends Model implements Subject {
 	@Formats.DateTime(pattern = "yyyy-MM-dd HH:mm:ss")
 	public Date lastLogin;
 
+	@Column(nullable=false)
 	public boolean active;
 
 	public boolean emailValidated;
+
+	/**
+	 * An external user e.g. twitter post, FB post someone who hasn't signed up on SproutUp yet
+	 */
+	public boolean external;
+	
+	/**
+	 * e.g. TWT, FB, IG, Trial signup
+	 */
+	public String externalType;
 
 	@ManyToMany
 	public List<SecurityRole> roles;
@@ -323,7 +334,11 @@ public class User extends Model implements Subject {
         node.put("urlBlog", this.urlBlog);
         node.put("zipcode", this.zipcode);
         node.put("roles", Json.toJson(this.getRoles()));
-        node.put("role", this.getRoles().get(0).getName().toLowerCase());
+        if (this.getRoles()!=null && this.getRoles().size()>0){
+        	node.put("role", this.getRoles().get(0).getName().toLowerCase());
+        } else {
+        	node.put("role", "external");
+        }
         node.put("permissions", Json.toJson(this.getPermissions()));
         node.put("lastLogin", new DateTime(this.lastLogin).toString());
         node.put("avatarUrl", getAvatar());
