@@ -99,6 +99,8 @@ GET           /api/follow/:type/:id                   controllers.FollowControll
 POST          /api/follow/:type/:id                   controllers.FollowController.follow(id: Long, type: String)
 DELETE        /api/follow/:type/:id                   controllers.FollowController.unfollow(id: Long, type: String)
 
+GET           /api/facebook/:endpoint/posts           controllers.FacebookController.getPosts(endpoint: Long)
+
 GET           /api/auth/user                          controllers.AuthController.user
 GET           /api/auth/logout                        controllers.AuthController.logout
 POST          /api/auth/login                         controllers.AuthController.login

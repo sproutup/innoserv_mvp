@@ -1,5 +1,76 @@
 'use strict';
 
+// <div class="fb-post" data-href="https://www.facebook.com/belledstech/posts/360314004151782" data-width="500"><div class="fb-xfbml-parse-ignore"><blockquote cite="https://www.facebook.com/belledstech/posts/360314004151782"><p>Awesome interface for Nook to control the Q developed by Ronald!</p>Posted by <a href="https://www.facebook.com/belledstech">Belleds</a> on <a href="https://www.facebook.com/belledstech/posts/360314004151782">Tuesday, March 17, 2015</a></blockquote></div></div>
+
+angular.module('sproutupApp').directive ('upFacebookPost', ['Facebook', 'FacebookService', '$log', '$parse',
+    function(facebook, facebookService, $log, $parse) {
+        return{
+            template: "<div ng-repeat='post in posts | limitTo:3' class='fb-post' " +
+            "data-href='https://www.facebook.com/belledstech/posts/{{post.post_id}}'>{{post.post_id}}</div>",
+            restrict: 'E',
+            scope: {
+                product: "="
+            },
+            link: function(scope, element, attrs){
+                scope.$watch(function() {
+                    // This is for convenience, to notify if Facebook is loaded and ready to go.
+                    return facebook.isReady() && scope.product != undefined;
+                }, function(newVal) {
+                    if(newVal){
+                        $log.debug("facebook > ready ", newVal);
+                        // You might want to use this to disable/show/hide buttons and else
+                        scope.facebookReady = true;
+
+                        $log.debug("facebook > productId = ", scope.product);
+
+                        facebookService.get(scope.product).then(
+                            function(data){
+                                $log.debug("facebook > received post data");
+                                data.data.forEach(
+                                    function(post){
+                                        post.post_id = post.id.split("_")[1];
+                                    }
+                                );
+                                scope.posts = data.data;
+                                facebook.parseXFBML();
+                            },
+                            function(error){
+
+                            }
+                        );
+                    }
+                    else{
+                        $log.debug("facebook > not ready ", newVal);
+                    }
+
+                    //facebook.login(function(){
+                    //
+                    //    facebook.api('/me', function(response) {
+                    //        console.log(JSON.stringify(response));
+                    //    });
+                    //
+                    //}, {scope: 'publish_actions'});
+
+                    //facebook.api('/me/feed', 'post', {message: 'Hello, world!'});
+
+                });
+
+                scope.login = function() {
+                    // From now on you can use the Facebook service just as Facebook api says
+                    facebook.login(function(response) {
+                        // Do something with response.
+                    });
+                };
+                //FB.login(function(){}, {scope: 'read_stream'});
+                //read_stream
+                //facebook.api();
+                //facebook.login();
+
+            }
+        };
+    }
+]);
+
 /*
     Search icon directive
     Listens for stage changes and sets the search icon accordingly.

@@ -19,7 +19,6 @@
         <link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
         <link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/signup-login-modal.css")">
         <link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/index.css")">
-        <link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/product-list.css")">
         <link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/product-item.css")">
         <link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/product-item--about.css")">
         <link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/product-item--bar.css")">
@@ -60,9 +59,10 @@
         <script src="@routes.Assets.at("javascripts/angular-cookies.min.js")"></script>
         <script src="@routes.Assets.at("javascripts/angular-resource.js")"></script>
         <script src="@routes.Assets.at("javascripts/ng-tags-input.min.js")"></script>
+        <script src="@routes.Assets.at("javascripts/angular-facebook.js")"></script>
         <script src="@routes.Assets.at("library/angular-file-upload/angular-file-upload.min.js")"></script>
         <script src="@routes.Assets.at("library/angular-masonry/angular-masonry.js")"></script>
-        <script src="@routes.Assets.at("library/angulike/angulike.js")"></script>
+        <script src="@routes.Assets.at("app/components/facebook/facebook-directive.js")"></script>
         <script src="@routes.Assets.at("angular/config.js")"></script>
         <script src="@routes.Assets.at("angular/app.js")"></script>
         <script src="@routes.Assets.at("angular/controllers.js")"></script>
@@ -100,19 +100,17 @@
     <body @bodyAttributes ng-controller="AuthCtrl">
     <div>
 
-      <div id="fb-root"></div>
+        <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
 
-      <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+            <div class="navbar-header">
+                <a class="navbar-brand" ui-sref="home">
+                    <img class="logo" src="@routes.Assets.at("images/logo.png")">
+                </a>
+            </div>
 
-        <div class="navbar-header">
-          <a class="navbar-brand" ui-sref="home">
-            <img class="logo" src="@routes.Assets.at("images/logo.png")">
-          </a>
-        </div>
+            <navbar></navbar>
 
-          <navbar></navbar>
-
-      </nav>
+        </nav>
 
         <up-alert></up-alert>
 

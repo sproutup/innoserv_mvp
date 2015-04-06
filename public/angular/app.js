@@ -12,7 +12,8 @@ var sproutupApp = angular.module('sproutupApp', [
     'productFilters',
     'productServices',
     'ngTagsInput',
-    'ngAnimate'
+    'ngAnimate',
+    'facebook'
 ]);
 
 sproutupApp.config(function ($provide) {
@@ -24,6 +25,24 @@ sproutupApp.config(function ($provide) {
         };
     });
 });
+
+sproutupApp.config([
+        'FacebookProvider',
+        function(FacebookProvider) {
+            var myAppId = '427426070766217';
+
+            // You can set appId with setApp method
+            // FacebookProvider.setAppId('myAppId');
+
+            /**
+             * After setting appId you need to initialize the module.
+             * You can pass the appId on the init method as a shortcut too.
+             */
+            FacebookProvider.init(myAppId);
+
+        }
+    ]
+);
 
 sproutupApp.config(['$routeProvider', '$stateProvider', '$locationProvider', '$urlRouterProvider',
     function($routeProvider, $stateProvider, $locationProvider, $urlRouterProvider ) {

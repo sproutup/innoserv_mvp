@@ -7,6 +7,34 @@ productServices.factory('ProductService', ['$resource',
     return $resource('/api/products/:slug'); // Note the full endpoint address
   }]);
 
+
+productServices.factory('FacebookService', ['$http','$log', '$q',
+    function($http, $log, $q) {
+        var facebookService = {};
+
+        facebookService.get = function(id){
+            var deferred = $q.defer();
+
+            $http({
+                method: 'GET',
+                url: '/api/facebook/' + id + '/posts',
+                headers: {'Content-Type': 'application/json'}
+            }).success(function(data, status, headers, config){
+                $log.debug("facebookService > add success");
+                deferred.resolve(data);
+            }).error(function(data, status, headers, config){
+                $log.debug("facebookService > failed");
+                deferred.reject("facebookService > failed");
+            });
+
+            return deferred.promise;
+        };
+
+        return facebookService;
+    }
+]);
+
+
 productServices.factory('ProductSuggestionService', ['$http','$log', '$q',
     function($http, $log, $q) {
         var productSuggestionService = {};
