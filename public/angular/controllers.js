@@ -159,8 +159,8 @@ fileControllers.controller('FileCtrl', ['$scope', '$rootScope', '$upload', 'File
 
 var authControllers = angular.module('AuthControllers', ['ui.bootstrap']);
 
-authControllers.controller('AuthCtrl', ['$scope', '$modal', '$log', 'AuthService', '$q',
-    function ($scope, $modal, $log, AuthService, $q) {
+authControllers.controller('AuthCtrl', ['$scope', '$modal', '$log', 'AuthService', '$q', '$state',
+    function ($scope, $modal, $log, AuthService, $q, $state) {
 
     $scope.signup = {
         'email': '',
@@ -312,6 +312,7 @@ authControllers.controller('AuthCtrl', ['$scope', '$modal', '$log', 'AuthService
                 // when the response is available
                 $scope.user.isLoggedIn = false;
                 $scope.user.name = '';
+                $state.go('home');
                 $log.info('logout success: ' + new Date());
             },
             function(errorPayload){
