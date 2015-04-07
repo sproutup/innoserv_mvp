@@ -1,5 +1,31 @@
 'use strict';
 
+
+angular.module('sproutupApp').directive('upTwitterTimeline',
+    function(){
+        return{
+            templateUrl: 'assets/templates/up-twitter-timeline.html',
+            restrict: "E",
+            scope:{
+
+            },
+            link: function(scope, element, attrs){
+                twttr.widgets.createTimeline(
+                    '585242050129440768',
+                    document.getElementById('timeline'),
+                    {
+                        width: '604',
+                        height: '700',
+                        userId: '2945733392',
+                        related: 'twitterdev,twitterapi'
+                    }).then(function (el) {
+                        console.log("Embedded a timeline.")
+                    });
+            }
+        }
+    }
+);
+
 // <div class="fb-post" data-href="https://www.facebook.com/belledstech/posts/360314004151782" data-width="500"><div class="fb-xfbml-parse-ignore"><blockquote cite="https://www.facebook.com/belledstech/posts/360314004151782"><p>Awesome interface for Nook to control the Q developed by Ronald!</p>Posted by <a href="https://www.facebook.com/belledstech">Belleds</a> on <a href="https://www.facebook.com/belledstech/posts/360314004151782">Tuesday, March 17, 2015</a></blockquote></div></div>
 
 angular.module('sproutupApp').directive ('upFacebookPost', ['Facebook', 'FacebookService', '$log', '$parse',
