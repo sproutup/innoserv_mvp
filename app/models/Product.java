@@ -76,6 +76,9 @@ public class Product extends SuperModel implements PathBindable<Product>,
 	@OrderBy("dateTimeStamp desc")
 	public List<Media> mediaItems;
 
+	@Transient
+	public String tags; //comma separated values of tags
+	
 	public static Finder<Long, Product> find = new Finder<Long, Product>(
 			Long.class, Product.class);
 

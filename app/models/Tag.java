@@ -132,14 +132,11 @@ public class Tag extends Model {
 	public static void removeAllTags(Long refId, String refType) {
 
 		// find all tag links
-		List<TagLink> links = TagLink.find.where()
-				.eq("refId", refId)
-				.eq("refType", refType)
-				.findList();
+		List<Tag> tags = getAllTags(refId, refType);
 
-		// delete tag links one by one
-		for (TagLink element : links) {
-			element.delete();
+		// delete taglinks one by one
+		for (Tag element : tags) {
+			removeTag(element.name, refId, refType);
 		}
 	}
 
@@ -161,12 +158,12 @@ public class Tag extends Model {
 				.create();
 
 		// execute the query
-		List<Tag> links = Tag.find.query()
+		List<Tag> tagwlinks = Tag.find.query()
 				.setRawSql(rawSql)
 				.where()
 				.findList();
 
-		return links;
+		return tagwlinks;
 	}
 
     /*
