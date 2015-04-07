@@ -334,7 +334,8 @@ authControllers.controller('SignupInstanceCtrl', ['$scope', '$location', '$windo
         var dataObject = {
             "name" : $scope.signup.name,
             "email" : $scope.signup.email,
-            "password" : $scope.signup.password
+            "password" : $scope.signup.password,
+            "nickname" : $scope.signup.name.toLowerCase().replace(/\W+/g, '')
         };
 
         // reset error message

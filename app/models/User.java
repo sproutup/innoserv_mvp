@@ -58,6 +58,8 @@ public class User extends Model implements Subject {
 
 	public String name;
 
+	public String nickname;
+
 	public String firstName;
 
 	public String lastName;
@@ -243,6 +245,8 @@ public class User extends Model implements Subject {
 		  if (lastName != null) {
 		    user.lastName = lastName;
 		  }
+			// \W = Anything that isn't a word character (including punctuation etc)
+			user.nickname = user.name.toLowerCase().replaceAll("\\W","");
 		}
 
 		user.save();
@@ -323,7 +327,8 @@ public class User extends Model implements Subject {
     public ObjectNode toJson(){
         ObjectNode node = Json.newObject();
         node.put("id", this.id);
-        node.put("name", this.name);
+		node.put("name", this.name);
+		node.put("nickname", this.nickname);
         node.put("email", this.email);
         node.put("firstname", this.firstName);
         node.put("lastname", this.lastName);
