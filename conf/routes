@@ -101,6 +101,8 @@ DELETE        /api/follow/:type/:id                   controllers.FollowControll
 
 GET           /api/facebook/:endpoint/posts           controllers.FacebookController.getPosts(endpoint: Long)
 
+GET           /api/twitter/:username/timeline         controllers.TwitterController.getTimeline(username: String)
+
 GET           /api/auth/user                          controllers.AuthController.user
 GET           /api/auth/logout                        controllers.AuthController.logout
 POST          /api/auth/login                         controllers.AuthController.login
