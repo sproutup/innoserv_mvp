@@ -472,6 +472,7 @@ angular.module('sproutupApp').directive('upProfilePhotos', ['FileService',
     function (fileService) {
         return {
             restrict: 'EA',
+            replace: true,
             scope: true,
             link: function (scope, element, attrs) {
                 scope.fileService = fileService;
@@ -612,6 +613,7 @@ angular.module('sproutupApp').directive('upProfileEdit', ['$rootScope','AuthServ
                     copy.firstname = orig.firstname;
                     copy.lastname = orig.lastname;
                     copy.name = orig.name;
+                    copy.nickname = orig.nickname;
                     copy.description = orig.description;
                     copy.urlFacebook = orig.urlFacebook;
                     copy.urlTwitter = orig.urlTwitter;
@@ -625,6 +627,7 @@ angular.module('sproutupApp').directive('upProfileEdit', ['$rootScope','AuthServ
                     "firstname" : user.firstname,
                     "lastname" : user.lastname,
                     "name" : user.name,
+                    "nickname" : user.nickname,
                     "description" : user.description,
                     "urlFacebook" : user.urlFacebook,
                     "urlTwitter" : user.urlTwitter,
@@ -651,6 +654,7 @@ angular.module('sproutupApp').directive('upProfileEdit', ['$rootScope','AuthServ
                             $log.debug("up-profile-edit > update success");
                             user.description = data.description;
                             user.name = data.name;
+                            user.nickname = data.nickname;
                             user.firstname = data.firstname;
                             user.lastname = data.lastname;
                             user.urlFacebook = data.urlFacebook;
