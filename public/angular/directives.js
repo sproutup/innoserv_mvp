@@ -446,6 +446,7 @@ angular.module('sproutupApp').directive('upProfilePhotos', ['FileService',
     function (fileService) {
         return {
             restrict: 'EA',
+            replace: true,
             scope: true,
             link: function (scope, element, attrs) {
                 scope.fileService = fileService;
