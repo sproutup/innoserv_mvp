@@ -186,12 +186,10 @@ public class ProductAdditionalDetail extends TimeStampModel {
 	
 	@Override
 	public void update(Object o) {
-		System.out.println(">>>update-o");
 		super.update(o);
 	}
 	
 	public void update() {
-		System.out.println(">>>update");
 		super.update();
 	}
 	

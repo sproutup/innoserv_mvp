@@ -20,14 +20,20 @@ public class TimeStampModel extends Model{
 
 	  @PrePersist
 	  void createdAt() {
-	    this.createdAt = this.updatedAt = new Date();
-	  }
+	    if (this.createdAt==null){
+		  this.createdAt = this.updatedAt = new Date();
+	    }
+	  } 
 
 	  @PreUpdate
 	  void updatedAt() {
 	    this.updatedAt = new Date();
 	  }
 
+	  void createdAt(Date dt) {
+		    this.createdAt = this.updatedAt = dt;
+	  }
+	  
 	  @Override
 	  public void save() {
 	    createdAt();

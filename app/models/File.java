@@ -201,6 +201,41 @@ public class File extends SuperModel {
 		
 	}
 
+	/*
+	* (non-Javadoc)
+	* For uploading the user profile photo from admin page/play
+	*/
+	public void userPhotoUpload() {
+		this.uuid = UUID.randomUUID();
+	    this.length = mediaUploadedfile.length();
+				
+		this.type = "image";
+	    this.name = this.getFileName();
+		
+		// upload file on S3
+        if (S3Plugin.amazonS3 == null) {
+            Logger.error("Could not save because amazonS3 was null");
+            throw new RuntimeException("Could not save");
+        } else {
+            if(this.bucket == null) {
+                this.bucket = S3Plugin.s3Bucket;
+            }
+        }
+		PutObjectRequest putObjectRequest = new PutObjectRequest(bucket, getFileName(), mediaUploadedfile);
+		putObjectRequest.withCannedAcl(CannedAccessControlList.PublicRead); // public for all
+		putObjectRequest.setStorageClass("REDUCED_REDUNDANCY");
+		S3Plugin.amazonS3.putObject(putObjectRequest); 
+
+		//persist the data in File table
+		this.save(); // assigns an id
+        
+		//update the User table
+		this.user = User.find.byId(refId);
+		user.files.add(this);
+		user.update();
+		
+	}
+
 
     /*
     Get all files on an object identified by refId and refType
