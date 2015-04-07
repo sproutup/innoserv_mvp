@@ -41,6 +41,9 @@ public class UserController extends Controller {
                 Logger.debug("user controller > name > " + name.asText());
                 user.name = name.asText();
             }
+            if(root.has("nickname")){
+                user.nickname = root.path("nickname").asText();
+            }
             JsonNode desc = root.path("description");
             if (!desc.isMissingNode()) {
                 Logger.debug("user controller > description > " + desc.asText());

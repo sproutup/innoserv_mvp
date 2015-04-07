@@ -6,11 +6,8 @@
             <div class="profile-edit--header">Basic Information</div>
                 <!-- full name -->
             <div class="row profile-input-row">
-                <div class="col-sm-6 profile-input-cell">
-                    <input type="text" class="form-control profile-edit-input" placeholder="First Name" ng-model="user.firstname" required>
-                </div>
-                <div class="col-sm-6 profile-input-cell">
-                    <input type="text" class="form-control profile-edit-input" placeholder="Last Name" ng-model="user.lastname" required>
+                <div class="col-sm-12 profile-input-cell">
+                    <input type="text" class="form-control profile-edit-input" placeholder="Full Name" ng-model="user.name" required>
                 </div>
             </div>
                 <!-- email and username -->
@@ -19,7 +16,7 @@
                     <input type="email" disabled class="form-control profile-edit-input" placeholder="Email" ng-model="user.email">
                 </div>
                 <div class="col-sm-6 profile-input-cell">
-                    <input type="text" class="form-control profile-edit-input left-feedback" placeholder="Pick a username" ng-model="user.name" required>
+                    <input type="text" class="form-control profile-edit-input left-feedback" placeholder="Pick a nickname" ng-model="user.nickname" required>
                     <span class="fa fa-lg">@@</span>
                 </div>
             </div>
@@ -67,7 +64,7 @@
             </div>
             <div class="row profile-input-row">
                 <div class="col-sm-12 profile-input-cell">
-                    <input type="text" class="form-control profile-edit-input left-feedback" placeholder="Your Twitter: twitte.com/@@username" ng-model="user.urlTwitter">
+                    <input type="text" class="form-control profile-edit-input left-feedback" placeholder="Your Twitter: twitter.com/@@username" ng-model="user.urlTwitter">
                     <span class="fa fa-lg fa-twitter-square"></span>
                 </div>
             </div>
