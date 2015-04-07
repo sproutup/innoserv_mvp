@@ -43,6 +43,15 @@ public class ProductAdministrationController extends Controller {
   }
 
   public static Result details(Product product) {
+	List<Tag> tags = product.getAllTags();
+	String tagName = "";
+	for (int i = 0; i < tags.size(); i++) {
+		tagName += tags.get(i).name;
+		if (i<(tags.size()-1))
+			tagName = tagName + ", ";
+	}
+	product.tags = tagName;
+	
     Form<Product> filledForm = productForm.fill(product);
     return ok(detail_about.render(filledForm));
   }
@@ -76,7 +85,21 @@ public class ProductAdministrationController extends Controller {
     	}
     	product.update();
     }
-
+    
+    /*
+     * save tags
+     */
+    //remove existing tags
+    product.removeAllTags();
+    
+    //parse and add tags again
+    if (product.tags!=null && product.tags.trim().length() > 0){
+    	String[] tag = product.tags.split(",");
+    	for (int i=0; i < tag.length; i++) {
+    	    product.addTag(tag[i].trim());
+    	}
+    }
+    
     flash("success",
         String.format("Successfully added product %s", product));
 
