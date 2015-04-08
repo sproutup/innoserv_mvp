@@ -6,6 +6,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+import com.feth.play.module.pa.providers.oauth1.twitter.TwitterAuthUser;
+import com.feth.play.module.pa.providers.oauth2.facebook.FacebookAuthUser;
+import play.Logger;
 import play.db.ebean.Model;
 
 import com.feth.play.module.pa.user.AuthUser;
@@ -26,6 +29,8 @@ public class LinkedAccount extends Model {
 	public User user;
 
 	public String providerUserId;
+	public String providerUserName;
+	public String providerUserImageUrl;
 	public String providerKey;
 
 	public static final Finder<Long, LinkedAccount> find = new Finder<Long, LinkedAccount>(
@@ -45,6 +50,16 @@ public class LinkedAccount extends Model {
 	public void update(final AuthUser authUser) {
 		this.providerKey = authUser.getProvider();
 		this.providerUserId = authUser.getId();
+		if(authUser instanceof TwitterAuthUser) {
+			final TwitterAuthUser twitter = (TwitterAuthUser) authUser;
+			providerUserImageUrl = twitter.getPicture();
+			providerUserName = twitter.getScreenName();
+		}
+		if(authUser instanceof FacebookAuthUser) {
+			final FacebookAuthUser facebook = (FacebookAuthUser) authUser;
+			providerUserImageUrl = facebook.getPicture();
+			providerUserName = facebook.getEmail();
+		}
 	}
 
 	public static LinkedAccount create(final LinkedAccount acc) {
