@@ -34,101 +34,75 @@ public class TwitterController extends Controller {
     public static final String TWITTER_ACCESS_SECRET = "twitter.access.secret";
     private static ObjectMapper mapper = new ObjectMapper(); // can reuse, share globally
 
-//    public static Promise<Result> index() {
-//        Promise<Integer> promiseOfInt = Promise.promise(
-//                new Function0<Integer>() {
-//                    public Integer apply() {
-//                        return intensiveComputation();
-//                    }
-//                }
-//        );
-//        return promiseOfInt.map(
-//                new Function<Integer, Result>() {
-//                    public Result apply(Integer i) {
-//                        return ok("Got result: " + i);
-//                    }
-//                }
-//        );
-//    }
-
-
-//    OAuthService service = new ServiceBuilder().provider(TwitterApi.class).apiKey(grailsApplication.config.oauth.providers.twitter.key).apiSecret(grailsApplication.config.oauth.providers.twitter.secret).build()
-//    OAuthRequest request = new OAuthRequest(Verb.GET, 'https://api.twitter.com/1.1/search/tweets.json?q=%23' + URLEncoder.encode(tag) + '&count=100&result_type=mixed&lang=en');
-//    Token accessToken = new Token(grailsApplication.config.oauth.providers.twitter.accessToken, grailsApplication.config.oauth.providers.twitter.accessSecret)
-//    service.signRequest(accessToken, request);
-//    Response response = request.send();
-//    JSONElement jsonMap = grails.converters.JSON.parse(response.getBody());
     private static final String PROTECTED_RESOURCE_URL = "https://api.twitter.com/1.1/account/verify_credentials.json";
+    private static final String USERS_SHOW_URL = "https://api.twitter.com/1.1/users/show.json";
+
+    public static Result getUserShow(Long product_id) {
+        Product prod = Product.findbyID(product_id);
+        // if product is not found return
+        Logger.debug("twitter api > get user/show");
+        if(prod == null || prod.urlTwitter == null || prod.urlTwitter.length() < 1){
+            Logger.debug("twitter api > get user/show > not found");
+            return notFound();
+        }
+        Logger.debug("twitter api > get user/show > found > ", prod.urlTwitter);
+        String endpoint = prod.urlTwitter.substring(prod.urlTwitter.lastIndexOf(".com/")+5);
+        return getApi(USERS_SHOW_URL+"?screen_name="+endpoint);
+    }
 
 
-    public static Result getTimeline(String username) {
+    public static Result getApi(String endpoint) {
         String access_token = Play.application().configuration().getString(TWITTER_ACCESS_TOKEN);
         String access_secret = Play.application().configuration().getString(TWITTER_ACCESS_SECRET);
 
-        Logger.debug("twitter api > get timeline");
+        Logger.debug("twitter api > get > ", endpoint);
 
-        // If you choose to use a callback, "oauth_verifier" will be the return value by Twitter (request param)
-        OAuthService service = new ServiceBuilder()
-                .provider(TwitterApi.class)
-                .apiKey("62ibZBjJp4ETSwT3T5B7abFVR")
-                .apiSecret("YyM3hcsssmwErxovtB52l4LXxFs1uKThbjM2RwIy3jlMLgBEyp")
-                .build();
-        Scanner in = new Scanner(System.in);
+        byte[] bytes = (byte[]) Cache.get("twitter:" + endpoint);
+        if (bytes != null) {
+            Logger.debug("twitter api: cache hit");
+            // Create an immutable reader
+            final ObjectReader reader = mapper.reader();
+            // Use the reader for thread safe access
+            final JsonNode newNode;
+            try {
+                newNode = reader.readTree(new ByteArrayInputStream(bytes));
+                return ok(newNode);
+            } catch (IOException e) {
+                return badRequest();
+            }
+        } else {
+            Logger.debug("twitter api: cache miss");
+            // If you choose to use a callback, "oauth_verifier" will be the return value by Twitter (request param)
+            OAuthService service = new ServiceBuilder()
+                    .provider(TwitterApi.class)
+                    .apiKey("62ibZBjJp4ETSwT3T5B7abFVR")
+                    .apiSecret("YyM3hcsssmwErxovtB52l4LXxFs1uKThbjM2RwIy3jlMLgBEyp")
+                    .build();
 
-        System.out.println("=== Twitter's OAuth Workflow ===");
-        System.out.println();
+            System.out.println("=== Twitter's OAuth Workflow ===");
 
-        // Obtain the Request Token
-        System.out.println("Fetching the Request Token...");
-        Token requestToken = service.getRequestToken();
-        System.out.println("Got the Request Token!");
-        System.out.println();
+            System.out.println("Create an Access Token...");
+            Token accessToken = new Token(access_token, access_secret);
 
-        System.out.println("Now go and authorize Scribe here:");
-        System.out.println(service.getAuthorizationUrl(requestToken));
-        System.out.println("And paste the verifier here");
-        System.out.print(">>");
-        Verifier verifier = new Verifier("test");
-        System.out.println();
+            // Now let's go and ask for a protected resource!
+            System.out.println("Now we're going to access a protected resource...");
+            OAuthRequest request = new OAuthRequest(Verb.GET, endpoint);
+            service.signRequest(accessToken, request);
+            Response response = request.send();
+            System.out.println("Got it!");
+            try {
+                JsonNode actualObj = mapper.readTree(response.getBody());
+                // Create an immutable writer (in this case using the default settings)
+                final ObjectWriter writer = mapper.writer();
+                // Use the writer for thread safe access.
+                bytes = writer.writeValueAsBytes(actualObj);
+                // Cache for 60 minutes
+                Cache.set("twitter:" + endpoint, bytes, 60 * 60);
 
-        // Trade the Request Token and Verfier for the Access Token
-        System.out.println("Trading the Request Token for an Access Token...");
-//        Token accessToken = service.getAccessToken(requestToken, verifier);
-        Token accessToken = new Token(access_token, access_secret);
-        System.out.println("Got the Access Token!");
-        System.out.println("(if you're curious, it looks like this: " + accessToken + " )");
-        System.out.println();
-
-        // Now let's go and ask for a protected resource!
-        System.out.println("Now we're going to access a protected resource...");
-        OAuthRequest request = new OAuthRequest(Verb.GET, PROTECTED_RESOURCE_URL);
-        service.signRequest(accessToken, request);
-        Response response = request.send();
-        System.out.println("Got it! Lets see what we found...");
-        System.out.println();
-        System.out.println(response.getBody());
-
-        System.out.println();
-        System.out.println("That's it man! Go and build something awesome with Scribe! :)");
-        return ok();
+                return ok(actualObj);
+            } catch (IOException e) {
+                return badRequest();
+            }
+        }
     }
-
-//    public static Promise<Result> getAccessToken() {
-//        String app_id = Play.application().configuration().getString(FACEBOOK_APP_ID);
-//        String app_secret = Play.application().configuration().getString(FACEBOOK_APP_SECRET);
-//
-//        final Promise<Result> resultPromise = WS.url("https://graph.facebook.com/oauth/access_token")
-//                .setQueryParameter("client_id", app_id)
-//                .setQueryParameter("client_secret", app_secret)
-//                .setQueryParameter("grant_type", "client_credentials")
-//                .get()
-//                .map(
-//                    new Function<WSResponse, Result>() {
-//                        public Result apply(WSResponse response) {
-//                            return ok(response.asJson());
-//                        }
-//                    }
-//                );
-//        return resultPromise;
-//    }
 }
