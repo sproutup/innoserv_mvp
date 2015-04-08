@@ -29,6 +29,24 @@ productServices.factory('TwitterService', ['$http','$log', '$q',
             return deferred.promise;
         };
 
+        twitterService.search = function(id){
+            var deferred = $q.defer();
+
+            $http({
+                method: 'GET',
+                url: '/api/twitter/' + id + '/search',
+                headers: {'Content-Type': 'application/json'}
+            }).success(function(data, status, headers, config){
+                $log.debug("twitterService > search success");
+                deferred.resolve(data);
+            }).error(function(data, status, headers, config){
+                $log.debug("twitterService > failed");
+                deferred.reject("twitterService > failed");
+            });
+
+            return deferred.promise;
+        };
+
         return twitterService;
     }
 ]);

@@ -9,17 +9,22 @@ angular.module('sproutupApp').directive('upTwitterTweet', ['TwitterService',
                 productId: "="
             },
             link: function(scope, element, attrs){
-                twitterService.show(scope.productId).then(
+                twitterService.search(scope.productId).then(
                     function(data){
-                        twttr.widgets.createTweet(
-                            '585592584619352000',
-                            element,
-                            {
-                                width: '604',
-                                height: '700'
-                            }).then(function (el) {
-                                console.log("Embedded a tweet.")
-                            });
+                        var arrayLength = data.statuses.length;
+                        for (var i = 0; i < arrayLength; i++) {
+                            //Do something
+                            element.append("<div id='tweet"+i+"'</div>")
+                            twttr.widgets.createTweet(
+                                data.statuses[i].id_str,
+                                document.getElementById('tweet'+i),
+                                {
+//                                    theme: 'dark'
+                                }).then(function (el) {
+                                    console.log("Embedded a tweet.")
+                                });
+                        }
+                        data.statuses
                     },
                     function(error){
 

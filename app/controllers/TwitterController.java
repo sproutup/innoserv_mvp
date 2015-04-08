@@ -53,14 +53,14 @@ public class TwitterController extends Controller {
     public static Result getSearch(Long product_id) {
         Product prod = Product.findbyID(product_id);
         // if product is not found return
-        Logger.debug("twitter api > get user/show");
+        Logger.debug("twitter api > search");
         if(prod == null || prod.urlTwitter == null || prod.urlTwitter.length() < 1){
-            Logger.debug("twitter api > get user/show > not found");
+            Logger.debug("twitter api > not found");
             return notFound();
         }
-        Logger.debug("twitter api > get user/show > found > ", prod.urlTwitter);
+        Logger.debug("twitter api > found > ", prod.urlTwitter);
         String endpoint = prod.urlTwitter.substring(prod.urlTwitter.lastIndexOf(".com/")+5);
-        return getApi("https://api.twitter.com/1.1/search/tweets.json?q="+endpoint);
+        return getApi("https://api.twitter.com/1.1/search/tweets.json?count=3&q="+endpoint);
     }
 
     public static Result getApi(String endpoint) {
