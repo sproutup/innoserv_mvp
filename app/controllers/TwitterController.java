@@ -50,6 +50,18 @@ public class TwitterController extends Controller {
         return getApi(USERS_SHOW_URL+"?screen_name="+endpoint);
     }
 
+    public static Result getSearch(Long product_id) {
+        Product prod = Product.findbyID(product_id);
+        // if product is not found return
+        Logger.debug("twitter api > get user/show");
+        if(prod == null || prod.urlTwitter == null || prod.urlTwitter.length() < 1){
+            Logger.debug("twitter api > get user/show > not found");
+            return notFound();
+        }
+        Logger.debug("twitter api > get user/show > found > ", prod.urlTwitter);
+        String endpoint = prod.urlTwitter.substring(prod.urlTwitter.lastIndexOf(".com/")+5);
+        return getApi("https://api.twitter.com/1.1/search/tweets.json?q="+endpoint);
+    }
 
     public static Result getApi(String endpoint) {
         String access_token = Play.application().configuration().getString(TWITTER_ACCESS_TOKEN);

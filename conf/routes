@@ -104,6 +104,7 @@ DELETE        /api/follow/:type/:id                   controllers.FollowControll
 GET           /api/facebook/:endpoint/posts           controllers.FacebookController.getPosts(endpoint: Long)
 
 GET           /api/twitter/:productId/show            controllers.TwitterController.getUserShow(productId: Long)
+GET           /api/twitter/:productId/search          controllers.TwitterController.getSearch(productId: Long)
 
 GET           /api/auth/user                          controllers.AuthController.user
 GET           /api/auth/logout                        controllers.AuthController.logout

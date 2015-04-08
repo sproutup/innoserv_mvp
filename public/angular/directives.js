@@ -1,5 +1,35 @@
 'use strict';
 
+angular.module('sproutupApp').directive('upTwitterTweet', ['TwitterService',
+    function(twitterService){
+        return{
+            templateUrl: 'assets/templates/up-twitter-tweet.html',
+            restrict: "E",
+            scope:{
+                productId: "="
+            },
+            link: function(scope, element, attrs){
+                twitterService.show(scope.productId).then(
+                    function(data){
+                        twttr.widgets.createTweet(
+                            '585592584619352000',
+                            element,
+                            {
+                                width: '604',
+                                height: '700'
+                            }).then(function (el) {
+                                console.log("Embedded a tweet.")
+                            });
+                    },
+                    function(error){
+
+                    }
+                );
+            }
+        }
+    }
+]);
+
 
 angular.module('sproutupApp').directive('upTwitterTimeline', ['TwitterService',
     function(twitterService){
