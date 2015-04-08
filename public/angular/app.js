@@ -59,6 +59,14 @@ sproutupApp.config(['$routeProvider', '$stateProvider', '$locationProvider', '$u
                 url: '/about',
                 templateUrl: 'views/about'
             })
+            .state('terms' ,{
+                url: '/terms',
+                templateUrl: 'views/terms'
+            })
+            .state('privacy' ,{
+                url: '/privacy',
+                templateUrl: 'views/privacy'
+            })
             .state('search' ,{
                 url: '/search',
                 templateUrl: 'views/search'
