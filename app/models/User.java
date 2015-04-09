@@ -249,8 +249,7 @@ public class User extends Model implements Subject {
 		  if (lastName != null) {
 		    user.lastName = lastName;
 		  }
-			// \W = Anything that isn't a word character (including punctuation etc)
-			user.nickname = user.name.toLowerCase().replaceAll("\\W","");
+
 		}
 
 		if(authUser instanceof TwitterAuthUser) {
@@ -262,7 +261,12 @@ public class User extends Model implements Subject {
 			final FacebookAuthUser facebook = (FacebookAuthUser) authUser;
 			user.urlFacebook = facebook.getProfileLink();
 		}
+		
+		// \W = Anything that isn't a word character (including punctuation etc)
+		//user.nickname = user.name.toLowerCase().replaceAll("\\W","");
+		user.nickname = user.generateUserNickName();
 
+		
 		user.save();
 		user.saveManyToManyAssociations("roles");
 		// user.saveManyToManyAssociations("permissions");
@@ -418,6 +422,7 @@ public class User extends Model implements Subject {
     
     public String generateUserNickName() {
         Random generator = new Random();
+        String nick;
         /**
 		 * generate random numbers
 		 */
@@ -425,16 +430,23 @@ public class User extends Model implements Subject {
         if (email != null && email.length() > 0) {
         	//generate nick name based on email alias
     		int numberGen2 = generator.nextInt(99);//2 digit random number
-            return (email.substring(0, email.indexOf("@")).toLowerCase() + numberGen2);
+            nick = (email.substring(0, email.indexOf("@")).toLowerCase() + numberGen2);
         } else {
         	lastName = getLastName();
             firstName = getFirstName();
         	//generate nick name based on fullname
     		int numberGen1 = generator.nextInt(999);//3 digit random number
 
-            return ((firstName + lastName + Integer.toString(numberGen1)).toLowerCase());
-            
+            nick = ((firstName + lastName + Integer.toString(numberGen1)).toLowerCase());
         }
+        //check if its unique
+        if(isNickNameUnique(nick)){
+        	return nick;
+        } else {
+        	//regenerate
+        	return this.generateUserNickName();
+        }
+        
     }
     
     
@@ -505,15 +517,5 @@ public class User extends Model implements Subject {
         return arrayNode;
     }
     
-    public static void main(String[] args)  //all the action happens here!    
-    {
-    	User usr = new User();
-    	usr.name = "Nitin Jain";
-    	HashSet<String> nicks = usr.generateListOfUserNickNames();
-    	for (String nick : nicks){
-    		System.out.print(nick);
-    	}
-    	
-    	
-    }
+
 }
