@@ -40,6 +40,8 @@ POST          /login/password/forgot                  controllers.Signup.doForgo
 # Views used be angular routes
 GET           /views/home                             controllers.Application.home
 GET           /views/about                            controllers.Application.about
+GET           /views/terms                            controllers.Application.terms
+GET           /views/privacy                          controllers.Application.privacy
 GET           /views/search                           controllers.Application.search
 GET           /views/creator                          controllers.Application.creator
 GET           /views/profile                          controllers.Application.profile
@@ -100,6 +102,9 @@ POST          /api/follow/:type/:id                   controllers.FollowControll
 DELETE        /api/follow/:type/:id                   controllers.FollowController.unfollow(id: Long, type: String)
 
 GET           /api/facebook/:endpoint/posts           controllers.FacebookController.getPosts(endpoint: Long)
+
+GET           /api/twitter/:productId/show            controllers.TwitterController.getUserShow(productId: Long)
+GET           /api/twitter/:productId/search          controllers.TwitterController.getSearch(productId: Long)
 
 GET           /api/auth/user                          controllers.AuthController.user
 GET           /api/auth/logout                        controllers.AuthController.logout

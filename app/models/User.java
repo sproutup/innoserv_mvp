@@ -9,6 +9,8 @@ import com.avaje.ebean.ExpressionList;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.feth.play.module.pa.providers.oauth1.twitter.TwitterAuthUser;
+import com.feth.play.module.pa.providers.oauth2.facebook.FacebookAuthUser;
 import com.feth.play.module.pa.providers.password.UsernamePasswordAuthUser;
 import com.feth.play.module.pa.user.AuthUser;
 import com.feth.play.module.pa.user.AuthUserIdentity;
@@ -22,6 +24,7 @@ import models.TokenAction.Type;
 
 import org.joda.time.DateTime;
 
+import play.Logger;
 import play.api.data.validation.Constraint;
 import play.api.mvc.Session;
 import play.data.format.Formats;
@@ -208,6 +211,7 @@ public class User extends Model implements Subject {
 	}	
 	
 	public static User create(final AuthUser authUser, String role) {
+		Logger.debug("user > create");
 		final User user = new User();
 		user.roles = Collections.singletonList(SecurityRole
 				.findByRoleName(role));
@@ -247,6 +251,16 @@ public class User extends Model implements Subject {
 		  }
 			// \W = Anything that isn't a word character (including punctuation etc)
 			user.nickname = user.name.toLowerCase().replaceAll("\\W","");
+		}
+
+		if(authUser instanceof TwitterAuthUser) {
+			final TwitterAuthUser twitter = (TwitterAuthUser) authUser;
+			user.urlTwitter = "https://twitter.com/" + twitter.getScreenName();
+		}
+
+		if(authUser instanceof FacebookAuthUser) {
+			final FacebookAuthUser facebook = (FacebookAuthUser) authUser;
+			user.urlFacebook = facebook.getProfileLink();
 		}
 
 		user.save();
@@ -354,10 +368,15 @@ public class User extends Model implements Subject {
     }
 
     public String getAvatar(){
-        if(getProviders().contains("facebook")){
-            String facebookId = getAccountByProvider("facebook").providerUserId;
-            return "http://graph.facebook.com/" + facebookId + "/picture/?type=large";
-        }
+		if(getProviders().contains("facebook")){
+			return getAccountByProvider("facebook").providerUserImageUrl;
+			//return "http://graph.facebook.com/" + facebookId + "/picture/?type=large";
+		}
+		else
+		if(getProviders().contains("twitter")){
+			return getAccountByProvider("twitter").providerUserImageUrl;
+			//return "http://graph.facebook.com/" + facebookId + "/picture/?type=large";
+		}
         else{
             return "assets/images/general-profile-icon.png";
         }

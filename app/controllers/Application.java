@@ -57,6 +57,14 @@ public class Application extends Controller {
         return ok(about.render());
     }
 
+    public static Result terms() {
+        return ok(terms.render());
+    }
+
+    public static Result privacy() {
+        return ok(privacy.render());
+    }
+
     public static Result search() {
         return ok(search.render());
     }

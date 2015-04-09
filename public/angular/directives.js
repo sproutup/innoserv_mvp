@@ -1,30 +1,72 @@
 'use strict';
 
+angular.module('sproutupApp').directive('upTwitterTweet', ['TwitterService',
+    function(twitterService){
+        return{
+            templateUrl: 'assets/templates/up-twitter-tweet.html',
+            restrict: "E",
+            scope:{
+                productId: "="
+            },
+            link: function(scope, element, attrs){
+                twitterService.search(scope.productId).then(
+                    function(data){
+                        var arrayLength = data.statuses.length;
+                        for (var i = 0; i < arrayLength; i++) {
+                            //Do something
+                            element.append("<div id='tweet"+i+"'</div>")
+                            twttr.widgets.createTweet(
+                                data.statuses[i].id_str,
+                                document.getElementById('tweet'+i),
+                                {
+//                                    theme: 'dark'
+                                }).then(function (el) {
+                                    console.log("Embedded a tweet.")
+                                });
+                        }
+                        data.statuses
+                    },
+                    function(error){
 
-angular.module('sproutupApp').directive('upTwitterTimeline',
-    function(){
+                    }
+                );
+            }
+        }
+    }
+]);
+
+
+angular.module('sproutupApp').directive('upTwitterTimeline', ['TwitterService',
+    function(twitterService){
         return{
             templateUrl: 'assets/templates/up-twitter-timeline.html',
             restrict: "E",
             scope:{
-
+                productId: "="
             },
             link: function(scope, element, attrs){
-                twttr.widgets.createTimeline(
-                    '585242050129440768',
-                    document.getElementById('timeline'),
-                    {
-                        width: '604',
-                        height: '700',
-                        userId: '2945733392',
-                        related: 'twitterdev,twitterapi'
-                    }).then(function (el) {
-                        console.log("Embedded a timeline.")
-                    });
+                twitterService.show(scope.productId).then(
+                    function(data){
+                        twttr.widgets.createTimeline(
+                            '585242050129440768',
+                            document.getElementById('timeline'),
+                            {
+                                width: '604',
+                                height: '700',
+                                userId: data.id_str,
+                                related: 'twitterdev,twitterapi'
+                            }).then(function (el) {
+                                console.log("Embedded a timeline.")
+                            });
+                    },
+                    function(error){
+
+                    }
+                );
             }
         }
     }
-);
+]);
 
 // <div class="fb-post" data-href="https://www.facebook.com/belledstech/posts/360314004151782" data-width="500"><div class="fb-xfbml-parse-ignore"><blockquote cite="https://www.facebook.com/belledstech/posts/360314004151782"><p>Awesome interface for Nook to control the Q developed by Ronald!</p>Posted by <a href="https://www.facebook.com/belledstech">Belleds</a> on <a href="https://www.facebook.com/belledstech/posts/360314004151782">Tuesday, March 17, 2015</a></blockquote></div></div>
 

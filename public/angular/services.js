@@ -7,6 +7,49 @@ productServices.factory('ProductService', ['$resource',
     return $resource('/api/products/:slug'); // Note the full endpoint address
   }]);
 
+productServices.factory('TwitterService', ['$http','$log', '$q',
+    function($http, $log, $q) {
+        var twitterService = {};
+
+        twitterService.show = function(id){
+            var deferred = $q.defer();
+
+            $http({
+                method: 'GET',
+                url: '/api/twitter/' + id + '/show',
+                headers: {'Content-Type': 'application/json'}
+            }).success(function(data, status, headers, config){
+                $log.debug("twitterService > show success");
+                deferred.resolve(data);
+            }).error(function(data, status, headers, config){
+                $log.debug("twitterService > failed");
+                deferred.reject("twitterService > failed");
+            });
+
+            return deferred.promise;
+        };
+
+        twitterService.search = function(id){
+            var deferred = $q.defer();
+
+            $http({
+                method: 'GET',
+                url: '/api/twitter/' + id + '/search',
+                headers: {'Content-Type': 'application/json'}
+            }).success(function(data, status, headers, config){
+                $log.debug("twitterService > search success");
+                deferred.resolve(data);
+            }).error(function(data, status, headers, config){
+                $log.debug("twitterService > failed");
+                deferred.reject("twitterService > failed");
+            });
+
+            return deferred.promise;
+        };
+
+        return twitterService;
+    }
+]);
 
 productServices.factory('FacebookService', ['$http','$log', '$q',
     function($http, $log, $q) {

@@ -10,7 +10,7 @@
 </div>
 
 <!-- main forum -->
-<div class="col-sm-9 forum-left-rail">
+<div class="col-sm-8 forum-left-rail">
 
     <div class="row leading-row">
         <div class="col-sm-12">
@@ -34,7 +34,7 @@
         </div>
         <div class="col-sm-10 post-blurb">
             <form ng-submit="processNewPostForm()">
-                <div class="post-user-name">{{user.name}}</div>
+                <div class="post-user-name">{{user.name}}<span>@@{{user.nickname}}</span></div>
                 <div class="post-new-form">
                     <input ng-model="forum.newPostForm.title" class="form-control post-new-textbox" placeholder="Give a title if you like">
                     <textarea ng-model="forum.newPostForm.content" placeholder="Write something here. Being specific is great!" class="form-control post-new-textarea" rows="3"></textarea>
@@ -56,7 +56,7 @@
                 <img class="img-responsive post-user-img-circle img-center" ng-src="{{post.user.avatarUrl}}">
             </div>
             <div class="col-sm-10 post-blurb">
-                <div class="post-user-name">{{post.user.name}}</div>
+                <div class="post-user-name">{{post.user.name}}<span>@@{{post.user.nickname}}</span></div>
                 <div ng-show="post.tags.length>0" class="post-tags">
                     <button type="button" ng-repeat="tag in post.tags" class="btn btn-tags">
                         <i class="fa fa-tag"></i>{{tag.name}}</button>
@@ -83,7 +83,7 @@
                 </div>
                 <form ng-submit="processNewCommentForm(post)">
                     <div class="col-md-10 col-sm-10 post-comment-blurb">
-                        <div class="post-comment-user-name">{{user.name}}</div>
+                        <div class="post-comment-user-name">{{user.name}}<span>@@{{user.nickname}}</span></div>
                         <div class="post-comment-form">
                             <textarea ng-model="forum.newCommentForm[post.id].content" name="content" class="form-control post-comment-textarea" rows="2"></textarea>
                         </div>
@@ -117,7 +117,7 @@
 </div>
 
 <!-- right rail -->
-<div class="col-sm-3 forum-right-rail">
+<div class="col-sm-4 forum-right-rail">
     <!-- row 1: popular tags -->
     <up-toptags product-id="product.id" category="0"></up-toptags>
     <up-toptags product-id="product.id" category="1"></up-toptags>
@@ -127,7 +127,9 @@
     <div class="col-sm-12 user-tweets-row">
         <div class="user-tweets-header">Latest user tweets</div>
 
-        <div class="user-tweet-blurb">
+        <up-twitter-tweet product-id="product.id"></up-twitter-tweet>
+
+        <!--div class="user-tweet-blurb">
             <div class="user-tweet--user">
                 Tim Richard <span class="user-tweet--user-handle">@@trichard</span>
             </div>
@@ -149,7 +151,7 @@
             <div class="user-tweet--content">
                 Just got a <a href="#">#belleds</a> Q bulb package today. Installation is like breeze, wi-fi music works right out of the box! Super cool lighting for kids room!!
             </div>
-        </div>
+        </div-->
     </div>
 
 </div>
