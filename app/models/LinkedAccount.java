@@ -52,7 +52,7 @@ public class LinkedAccount extends Model {
 		this.providerUserId = authUser.getId();
 		if(authUser instanceof TwitterAuthUser) {
 			final TwitterAuthUser twitter = (TwitterAuthUser) authUser;
-			providerUserImageUrl = twitter.getPicture();
+			providerUserImageUrl = twitter.getPicture().replace("_normal","");
 			providerUserName = twitter.getScreenName();
 		}
 		if(authUser instanceof FacebookAuthUser) {
