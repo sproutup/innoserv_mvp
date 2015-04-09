@@ -249,8 +249,7 @@ public class User extends Model implements Subject {
 		  if (lastName != null) {
 		    user.lastName = lastName;
 		  }
-			// \W = Anything that isn't a word character (including punctuation etc)
-			user.nickname = user.name.toLowerCase().replaceAll("\\W","");
+
 		}
 
 		if(authUser instanceof TwitterAuthUser) {
@@ -262,7 +261,12 @@ public class User extends Model implements Subject {
 			final FacebookAuthUser facebook = (FacebookAuthUser) authUser;
 			user.urlFacebook = facebook.getProfileLink();
 		}
+		
+		// \W = Anything that isn't a word character (including punctuation etc)
+		//user.nickname = user.name.toLowerCase().replaceAll("\\W","");
+		user.nickname = user.generateUserNickName();
 
+		
 		user.save();
 		user.saveManyToManyAssociations("roles");
 		// user.saveManyToManyAssociations("permissions");
@@ -381,7 +385,130 @@ public class User extends Model implements Subject {
             return "assets/images/general-profile-icon.png";
         }
     }
+    
+    public String getFirstName(){
+    	if (firstName == null || firstName == "") {
+            //fetch it from the fullname
+    		String[] bits = name.split(" ");
+    		firstName = bits[0];
+        }
+    	return firstName;
+    }
+    
+    public String getLastName(){
+    	if (lastName == null || lastName == "") {
+            //fetch it from the fullname
+    		if (name != null && name.length() > 0) {
+	    		String[] bits = name.split(" ");
+	    		if (bits.length==2){
+	    			lastName = bits[1];
+	    		} else if (bits.length==3){
+	    			lastName = bits[2];
+	    		}
+    		}
+        }
+    	return lastName;
 
+    }
+    
+    public boolean isNickNameUnique(String nickname) {
+    	
+    	User usr = find.where().eq("nickname", nickname).findUnique();
+    	if (usr==null || usr.nickname==null || usr.nickname==""){
+    		return true;
+    	}
+    	return false;
+    }
+    
+    public String generateUserNickName() {
+        Random generator = new Random();
+        String nick;
+        /**
+		 * generate random numbers
+		 */
+
+        if (email != null && email.length() > 0) {
+        	//generate nick name based on email alias
+    		int numberGen2 = generator.nextInt(99);//2 digit random number
+            nick = (email.substring(0, email.indexOf("@")).toLowerCase() + numberGen2);
+        } else {
+        	lastName = getLastName();
+            firstName = getFirstName();
+        	//generate nick name based on fullname
+    		int numberGen1 = generator.nextInt(999);//3 digit random number
+
+            nick = ((firstName + lastName + Integer.toString(numberGen1)).toLowerCase());
+        }
+        //check if its unique
+        if(isNickNameUnique(nick)){
+        	return nick;
+        } else {
+        	//regenerate
+        	return this.generateUserNickName();
+        }
+        
+    }
+    
+    
+    
+    public HashSet<String> generateListOfUserNickNames() {
+    	
+        HashSet<String> usernames = new HashSet<String>();
+        Random generator = new Random();
+        /**
+		 * generate random number
+		 */
+		int numberGen = generator.nextInt(999);
+		
+        lastName = getLastName();
+        firstName = getFirstName();
+        
+        if (email != null && email.length() > 0) {
+            usernames.add(email.substring(0, email.indexOf("@")).toLowerCase());
+            usernames.add(email.substring(0, email.indexOf("@")).toLowerCase() + numberGen);
+        }
+        
+        if (firstName != null && firstName.length() > 0){
+        	usernames.add((firstName + Integer.toString(numberGen)).toLowerCase());
+            usernames.add((firstName + lastName + Integer.toString(numberGen)).toLowerCase());
+        }
+        
+        if (firstName != null && firstName.length() > 0 && lastName != null && lastName.length() > 0) {
+            usernames.add((firstName.charAt(0) + lastName).toLowerCase());
+            usernames.add((firstName.charAt(0) + "." + lastName).toLowerCase());
+            usernames.add((lastName + firstName.charAt(0)).toLowerCase());
+            usernames.add((lastName + "." + firstName.charAt(0) + Integer.toString(numberGen)).toLowerCase());
+            usernames.add((firstName + lastName).toLowerCase());
+            usernames.add((firstName + lastName + Integer.toString(numberGen)).toLowerCase());
+            usernames.add((firstName + "." + lastName).toLowerCase());
+            usernames.add((firstName + lastName.charAt(0)).toLowerCase());
+            usernames.add((firstName + "." + lastName.charAt(0)).toLowerCase());
+            usernames.add((lastName.charAt(0) + firstName).toLowerCase());
+            usernames.add((lastName.charAt(0) + "." + firstName).toLowerCase());
+            //usernames.add((lastName.charAt(0) + firstName.charAt(0)) + Integer.toString(numberGen).toLowerCase());
+            //usernames.add((lastName.charAt(0) + "." + firstName.charAt(0)).toLowerCase()+Integer.toString(numberGen));
+            //usernames.add((firstName.charAt(0) + lastName.charAt(0) + Integer.toString(numberGen)).toLowerCase());
+            //usernames.add((firstName.charAt(0) + "." + lastName.charAt(0) + Integer.toString(numberGen)).toLowerCase());
+            
+            if (lastName.length() > 4) {
+                usernames.add((firstName + lastName.substring(0, 4)).toLowerCase());
+                usernames.add((firstName + "." + lastName.substring(0, 4)).toLowerCase());
+            }
+            if (lastName.length() > 5) {
+                usernames.add((firstName + lastName.substring(0, 5)).toLowerCase());
+                usernames.add((firstName + "." + lastName.substring(0, 5)).toLowerCase());
+            }
+            if (lastName.length() > 6) {
+                usernames.add((firstName + lastName.substring(0, 6)).toLowerCase());
+                usernames.add((firstName + "." + lastName.substring(0, 6)).toLowerCase());
+            }
+
+        }
+        return usernames;
+    }
+
+    
+    
     public static ArrayNode toJson(List<User> users){
         ArrayNode arrayNode = new ArrayNode(JsonNodeFactory.instance);
         for (User user : users){
@@ -389,4 +516,6 @@ public class User extends Model implements Subject {
         }
         return arrayNode;
     }
+    
+
 }
