@@ -175,7 +175,7 @@ public class Tag extends Model {
     }
 
     public static List<Tag> popularTagsInPost(long productId, int category){
-        String sql = "select t.id as id, t.name as name, count(*) as counter FROM tag t, tag_link tl, Post p " +
+        String sql = "select t.id as id, t.name as name, count(*) as counter FROM tag t, tag_link tl, post p " +
                 "where t.id = tl.tag_id " +
                 "and p.id = tl.ref_id " +
                 "and tl.ref_type = 'models.Post' " +
