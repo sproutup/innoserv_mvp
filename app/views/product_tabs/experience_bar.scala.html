@@ -57,13 +57,13 @@
             </div>
             <div class="col-sm-10 post-blurb">
                 <div class="post-user-name">{{post.user.name}}<span>@@{{post.user.nickname}}</span></div>
-                <div ng-show="post.tags.length>0" class="post-tags">
-                    <button type="button" ng-repeat="tag in post.tags" class="btn btn-tags">
-                        <i class="fa fa-tag"></i>{{tag.name}}</button>
-                </div>
                 <div ng-show="post.title" class="post-title">{{post.title}}</div>
                 <div class="post-content">
                     <p>{{post.content}}</p>
+                </div>
+                <div ng-show="post.tags.length>0" class="post-tags">
+                    <button type="button" ng-repeat="tag in post.tags" class="btn btn-tags">
+                        <i class="fa fa-tag"></i>{{tag.name}}</button>
                 </div>
                 <div class="post-actions">
                     <up-like likes="post.likes" up-id="post.id" up-type="models.post"></up-like>
@@ -101,7 +101,7 @@
                     <img class="img-responsive post-comment-user-img-circle img-center" ng-src="{{comment.user.avatarUrl}}">
                 </div>
                 <div class="col-md-10 col-sm-10 post-comment-blurb">
-                    <div class="post-comment-user-name">{{comment.user.name}}</div>
+                    <div class="post-comment-user-name">{{comment.user.name}}<span>@@{{post.user.nickname}}</div>
                     <div class="post-comment-content">
                         <p>{{comment.content}}</p>
                     </div>
