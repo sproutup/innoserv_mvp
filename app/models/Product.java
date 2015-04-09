@@ -265,6 +265,9 @@ public class Product extends SuperModel implements PathBindable<Product>,
         node.put("urlHome", this.urlHome);
         node.put("urlFacebook", this.urlFacebook);
         node.put("urlTwitter", this.urlTwitter);
+		if(this.urlTwitter != null && this.urlTwitter.length() > 10){
+			node.put("twitterUserName", this.urlTwitter.substring(this.urlTwitter.lastIndexOf(".com/")+5));
+		}
         node.put("isFeatured", this.isFeatured);
         node.put("createdAt", new DateTime(this.createdAt).toString());
         node.put("updatedAt", new DateTime(this.updatedAt).toString());

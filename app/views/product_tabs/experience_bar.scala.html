@@ -57,18 +57,18 @@
             </div>
             <div class="col-sm-10 post-blurb">
                 <div class="post-user-name">{{post.user.name}}<span>@@{{post.user.nickname}}</span></div>
-                <div ng-show="post.tags.length>0" class="post-tags">
-                    <button type="button" ng-repeat="tag in post.tags" class="btn btn-tags">
-                        <i class="fa fa-tag"></i>{{tag.name}}</button>
-                </div>
                 <div ng-show="post.title" class="post-title">{{post.title}}</div>
                 <div class="post-content">
                     <p>{{post.content}}</p>
                 </div>
+                <div ng-show="post.tags.length>0" class="post-tags">
+                    <button type="button" ng-repeat="tag in post.tags" class="btn btn-tags">
+                        <i class="fa fa-tag"></i>{{tag.name}}</button>
+                </div>
                 <div class="post-actions">
                     <up-like likes="post.likes" up-id="post.id" up-type="models.post"></up-like>
                     <commentlink></commentlink>
-                    <a class="post-actions--item" subject-present="todo()" user="user" login="login('sm')" href="#"><i class="fa fa-twitter"></i>Share on Twitter</a>
+                    <up-twitter-share name="post.user.name" product="product" hash="'post-'+post.id"></up-twitter-share>
                 </div>
                 <div class="post-timestamp">{{post.createdAt | fromNow}}</div>
             </div>
@@ -101,13 +101,13 @@
                     <img class="img-responsive post-comment-user-img-circle img-center" ng-src="{{comment.user.avatarUrl}}">
                 </div>
                 <div class="col-md-10 col-sm-10 post-comment-blurb">
-                    <div class="post-comment-user-name">{{comment.user.name}}</div>
+                    <div class="post-comment-user-name">{{comment.user.name}}<span>@@{{post.user.nickname}}</div>
                     <div class="post-comment-content">
                         <p>{{comment.content}}</p>
                     </div>
                     <div class="post-comment-actions">
                         <a subject-present="addLike(comment, 1)" login="login('sm')" class="post-actions--item" href="#"><i class="fa fa-rocket"></i>Up ({{comment.likes.length || 0}})</a>
-                        <a class="post-actions--item" href="#"><i class="fa fa-twitter"></i>Share on Twitter</a>
+                        <up-twitter-share name="comment.user.name" product="product" hash="'post-'+comment.id"></up-twitter-share>
                     </div>
                     <div class="post-comment-timestamp">{{comment.createdAt | fromNow}}</div>
                 </div>
