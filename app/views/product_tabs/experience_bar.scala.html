@@ -68,7 +68,7 @@
                 <div class="post-actions">
                     <up-like likes="post.likes" up-id="post.id" up-type="models.post"></up-like>
                     <commentlink></commentlink>
-                    <a class="post-actions--item" subject-present="todo()" user="user" login="login('sm')" href="#"><i class="fa fa-twitter"></i>Share on Twitter</a>
+                    <up-twitter-share name="post.user.name" product="product" hash="'post-'+post.id"></up-twitter-share>
                 </div>
                 <div class="post-timestamp">{{post.createdAt | fromNow}}</div>
             </div>
@@ -107,7 +107,7 @@
                     </div>
                     <div class="post-comment-actions">
                         <a subject-present="addLike(comment, 1)" login="login('sm')" class="post-actions--item" href="#"><i class="fa fa-rocket"></i>Up ({{comment.likes.length || 0}})</a>
-                        <a class="post-actions--item" href="#"><i class="fa fa-twitter"></i>Share on Twitter</a>
+                        <up-twitter-share name="comment.user.name" product="product" hash="'post-'+comment.id"></up-twitter-share>
                     </div>
                     <div class="post-comment-timestamp">{{comment.createdAt | fromNow}}</div>
                 </div>

@@ -18,3 +18,12 @@ angular.module('sproutupApp').filter('trusted', ['$sce', function ($sce) {
         return $sce.trustAsResourceUrl(url);
     };
 }]);
+
+/*
+ * Filter for encoding strings for use in URL query strings
+ */
+angular.module('sproutupApp').filter('urlEncode', [
+    function() {
+        return window.encodeURIComponent;
+    }
+]);
