@@ -1,5 +1,33 @@
 'use strict';
 
+angular.module('sproutupApp').directive('upTwitterShare',['$location',
+    function($location){
+        return{
+            templateUrl: 'assets/templates/up-twitter-share.html',
+            replace: true,
+            restrict: "E",
+            scope:{
+                hash: "=",
+                product: "=",
+                name: "="
+            },
+            link: function(scope, element, attrs){
+                attrs.$observe('hash', function (hash) {
+                    scope.url = "url=" + window.encodeURIComponent("http://sproutup.co" + $location.path() + '#' + scope.hash);
+                    scope.text = "text=" + window.encodeURIComponent("Check out what " + scope.name + " said about " + scope.product.productName + " @sproutupco");
+                    if(scope.product.twitterUserName != null){
+                        console.log('twitter share user: ', scope.product.twitterUserName);
+                        scope.text += " @" + scope.product.twitterUserName;
+                    }
+                    scope.path = "https://twitter.com/intent/tweet?" + scope.url + "&" + scope.text;
+                    console.log('twitter share: ', scope.path);
+                });
+            }
+        }
+    }
+]);
+
+
 angular.module('sproutupApp').directive('upTwitterTweet', ['TwitterService',
     function(twitterService){
         return{
@@ -19,6 +47,7 @@ angular.module('sproutupApp').directive('upTwitterTweet', ['TwitterService',
                                 data.statuses[i].id_str,
                                 document.getElementById('tweet'+i),
                                 {
+//                                    cards: 'hidden'
 //                                    theme: 'dark'
                                 }).then(function (el) {
                                     console.log("Embedded a tweet.")
