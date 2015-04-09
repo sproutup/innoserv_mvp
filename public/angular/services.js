@@ -579,7 +579,7 @@ productServices.factory('AuthService', ['$http', '$q', '$cookieStore','$log', '$
             // this callback will be called asynchronously
             // when the response is available
             changeUser(data);
-            status.isLoggedIn = true;
+            _isLoggedIn = true;
             $rootScope.$broadcast('auth:status', {isLoggedIn: status.isLoggedIn});
             deferred.resolve("success");
         }).error(function(data, status, headers, config){
