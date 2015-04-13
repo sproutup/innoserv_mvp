@@ -147,6 +147,7 @@ GET           /mockups/dashboard/2                    controllers.MockupControll
 GET           /mockups/dashboard/3                    controllers.MockupController.creatorDashboard_3()
 GET           /mockups/creator                        controllers.MockupController.forCreator()
 GET           /mockups/product-list                   controllers.MockupController.productList()
+GET           /mockups/user_settings                  controllers.MockupController.userSettings()
 
 # catch all. angular will handle all routes except /api/* /views/* /mockups/*
 GET           /*any                                   controllers.Application.main(any)
