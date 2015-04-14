@@ -745,14 +745,28 @@ angular.module('sproutupApp').directive('upProfileMenu', ['AuthService','FileSer
             restrict: 'E',
             scope: true,
             link: function (scope, element, attrs) {
-                $timeout(function(){
-                    scope.user = authService.currentUser();
-                    scope.$state = $state;
-                    scope.menu = {
-                        photos: fileService.allUserPhotos().length,
-                        videos: fileService.allUserVideos().length
-                    };
-                });
+                scope.menu = {
+                    photos: 0,
+                    videos: 0
+                };
+
+                // wait for user files to load and then show value
+                scope.$watch(function () {
+                    return fileService.allUserPhotos().length;
+                },
+                function(newVal, oldVal) {
+                    console.log("watch user photos: ", newVal);
+                    scope.menu.photos = newVal;
+                }, true);
+
+                // wait for user files to load and then show value
+                scope.$watch(function () {
+                    return fileService.allUserVideos().length;
+                },
+                function(newVal, oldVal) {
+                    console.log("watch user videos: ", newVal);
+                    scope.menu.videos = newVal;
+                }, true);
             },
             templateUrl: 'assets/templates/up-profile-menu.html'
         }
