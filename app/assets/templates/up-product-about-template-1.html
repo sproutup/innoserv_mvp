@@ -1,9 +1,12 @@
 <div>
     <!-- row 1: intro video -->
-    <!-- row 1: intro video -->
     <div class="row about-product-row">
         <div ng-if="product.video">
-            <up-video file="product.video" overlay="false"></up-video>
+            <div class="col-sm-12 about-product-tile">
+                <div class="about-product--video">
+                    <up-video file="product.video" overlay="false"></up-video>
+                </div>
+            </div>
         </div>
     </div>
 
