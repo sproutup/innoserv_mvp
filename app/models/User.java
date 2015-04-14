@@ -128,6 +128,10 @@ public class User extends Model implements Subject {
 
     @OneToMany
     public List<File> files;
+    
+    @Transient
+    public boolean randomNumberflag= false;
+    
 
 	public static final Finder<Long, User> find = new Finder<Long, User>(
 			Long.class, User.class);
@@ -264,7 +268,7 @@ public class User extends Model implements Subject {
 		
 		// \W = Anything that isn't a word character (including punctuation etc)
 		//user.nickname = user.name.toLowerCase().replaceAll("\\W","");
-		user.nickname = user.generateUserNickName();
+		user.nickname = user.generateUniqueUserNickName();
 
 		
 		user.save();
@@ -400,9 +404,9 @@ public class User extends Model implements Subject {
             //fetch it from the fullname
     		if (name != null && name.length() > 0) {
 	    		String[] bits = name.split(" ");
-	    		if (bits.length==2){
+	    		if (bits.length==2){//name with no middle name
 	    			lastName = bits[1];
-	    		} else if (bits.length==3){
+	    		} else if (bits.length==3){//name with Middle Name
 	    			lastName = bits[2];
 	    		}
     		}
@@ -411,6 +415,10 @@ public class User extends Model implements Subject {
 
     }
     
+    /*
+     *  The username may be claimed by a suspended or deactivated account. 
+     *  Suspended and deactivated usernames are not immediately available for use, so we are not checking if user is active or not.
+     */
     public boolean isNickNameUnique(String nickname) {
     	
     	User usr = find.where().eq("nickname", nickname).findUnique();
@@ -420,90 +428,107 @@ public class User extends Model implements Subject {
     	return false;
     }
     
-    public String generateUserNickName() {
-        Random generator = new Random();
-        String nick;
+    public String generateUniqueUserNickName() {
+        
+    	ArrayList<String> list = generateListOfUserNickNames();
+    	
+        //iterate through the list while we get the unique name
+    	if(!randomNumberflag){	
+	        for (String temp: list){
+	        	if(isNickNameUnique(temp)){
+	            	nickname = temp;
+	        		return nickname;
+	    	    }
+	        }
+        }
         /**
-		 * generate random numbers
+		 * Unique name didn't work without numbers
+		 * generate nick name suffix with random numbers
 		 */
-
-        if (email != null && email.length() > 0) {
-        	//generate nick name based on email alias
-    		int numberGen2 = generator.nextInt(99);//2 digit random number
-            nick = (email.substring(0, email.indexOf("@")).toLowerCase() + numberGen2);
-        } else {
-        	lastName = getLastName();
-            firstName = getFirstName();
-        	//generate nick name based on fullname
-    		int numberGen1 = generator.nextInt(999);//3 digit random number
-
-            nick = ((firstName + lastName + Integer.toString(numberGen1)).toLowerCase());
-        }
-        //check if its unique
-        if(isNickNameUnique(nick)){
-        	return nick;
-        } else {
-        	//regenerate
-        	return this.generateUserNickName();
-        }
+        
+	    randomNumberflag= true;
+    	Random generator = new Random();
+        /**
+		 * generate random number
+		 */
+		int numberGen = generator.nextInt(99);
+	     for (String temp: list){
+	        	if(isNickNameUnique(temp+numberGen)){
+	            	nickname = temp+numberGen;
+	        		return nickname;
+	    	    }
+	        }
+        return generateUniqueUserNickName();
         
     }
     
     
+    /**
+     * Policy - Extracted and enhanced from Twitter
+     * 
+     * Username cannot be longer than 15 characters. Though Full name can be longer (20 characters); 
+     * Usernames are kept shorter for the sake of ease. Minimum size is 3 characters
+     * A username can only contain alphanumeric characters (letters A-Z, numbers 0-9) with the exception of underscores (No symbols, dashes, or spaces).  
+     * @return
+     */
     
-    public HashSet<String> generateListOfUserNickNames() {
+    public ArrayList<String> generateListOfUserNickNames() {
     	
-        HashSet<String> usernames = new HashSet<String>();
-        Random generator = new Random();
-        /**
-		 * generate random number
-		 */
-		int numberGen = generator.nextInt(999);
-		
+    	ArrayList<String> usernames = new ArrayList<String>();
+      		
         lastName = getLastName();
-        firstName = getFirstName();
+        
+        String lName = null;
+        String fName = null;
+        
+        if (lastName!=null){
+        	lName = lastName.replaceAll("[^\\w\\s\\_]", "");
+        }
+        
+        fName = getFirstName().replaceAll("[^\\w\\s\\_]", "");
         
         if (email != null && email.length() > 0) {
             usernames.add(email.substring(0, email.indexOf("@")).toLowerCase());
-            usernames.add(email.substring(0, email.indexOf("@")).toLowerCase() + numberGen);
+            //usernames.add(email.substring(0, email.indexOf("@")).toLowerCase() + numberGen);
         }
         
-        if (firstName != null && firstName.length() > 0){
-        	usernames.add((firstName + Integer.toString(numberGen)).toLowerCase());
-            usernames.add((firstName + lastName + Integer.toString(numberGen)).toLowerCase());
-        }
-        
-        if (firstName != null && firstName.length() > 0 && lastName != null && lastName.length() > 0) {
-            usernames.add((firstName.charAt(0) + lastName).toLowerCase());
-            usernames.add((firstName.charAt(0) + "." + lastName).toLowerCase());
-            usernames.add((lastName + firstName.charAt(0)).toLowerCase());
-            usernames.add((lastName + "." + firstName.charAt(0) + Integer.toString(numberGen)).toLowerCase());
-            usernames.add((firstName + lastName).toLowerCase());
-            usernames.add((firstName + lastName + Integer.toString(numberGen)).toLowerCase());
-            usernames.add((firstName + "." + lastName).toLowerCase());
-            usernames.add((firstName + lastName.charAt(0)).toLowerCase());
-            usernames.add((firstName + "." + lastName.charAt(0)).toLowerCase());
-            usernames.add((lastName.charAt(0) + firstName).toLowerCase());
-            usernames.add((lastName.charAt(0) + "." + firstName).toLowerCase());
-            //usernames.add((lastName.charAt(0) + firstName.charAt(0)) + Integer.toString(numberGen).toLowerCase());
-            //usernames.add((lastName.charAt(0) + "." + firstName.charAt(0)).toLowerCase()+Integer.toString(numberGen));
-            //usernames.add((firstName.charAt(0) + lastName.charAt(0) + Integer.toString(numberGen)).toLowerCase());
-            //usernames.add((firstName.charAt(0) + "." + lastName.charAt(0) + Integer.toString(numberGen)).toLowerCase());
+        if (fName != null && fName.length() > 0 && lName != null && lName.length() > 0) {
+        	usernames.add((fName + lName).toLowerCase());
+        	usernames.add((lName + fName).toLowerCase());
+        	usernames.add((fName.charAt(0) + lName).toLowerCase());
+            usernames.add((fName.charAt(0) + "." + lName).toLowerCase());
+            usernames.add((lName + fName.charAt(0)).toLowerCase());
+            //usernames.add((lName + "." + fName.charAt(0) + Integer.toString(numberGen)).toLowerCase());
+            //usernames.add((fName + lName + Integer.toString(numberGen)).toLowerCase());
+            usernames.add((fName + "." + lName).toLowerCase());
+            usernames.add((fName + lName.charAt(0)).toLowerCase());
+            usernames.add((fName + "." + lName.charAt(0)).toLowerCase());
+            usernames.add((lName.charAt(0) + fName).toLowerCase());
+            usernames.add((lName.charAt(0) + "." + fName).toLowerCase());
+            //usernames.add((lName.charAt(0) + fName.charAt(0)) + Integer.toString(numberGen).toLowerCase());
+            //usernames.add((lName.charAt(0) + "." + fName.charAt(0)).toLowerCase()+Integer.toString(numberGen));
+            //usernames.add((fName.charAt(0) + lName.charAt(0) + Integer.toString(numberGen)).toLowerCase());
+            //usernames.add((fName.charAt(0) + "." + lName.charAt(0) + Integer.toString(numberGen)).toLowerCase());
             
-            if (lastName.length() > 4) {
-                usernames.add((firstName + lastName.substring(0, 4)).toLowerCase());
-                usernames.add((firstName + "." + lastName.substring(0, 4)).toLowerCase());
+            if (lName!=null && lName.length() > 4) {
+                usernames.add((fName + lName.substring(0, 4)).toLowerCase());
+                usernames.add((fName + "." + lName.substring(0, 4)).toLowerCase());
             }
-            if (lastName.length() > 5) {
-                usernames.add((firstName + lastName.substring(0, 5)).toLowerCase());
-                usernames.add((firstName + "." + lastName.substring(0, 5)).toLowerCase());
+            if (lName!=null && lName.length() > 5) {
+                usernames.add((fName + lName.substring(0, 5)).toLowerCase());
+                usernames.add((fName + "." + lName.substring(0, 5)).toLowerCase());
             }
-            if (lastName.length() > 6) {
-                usernames.add((firstName + lastName.substring(0, 6)).toLowerCase());
-                usernames.add((firstName + "." + lastName.substring(0, 6)).toLowerCase());
+            if (lName!=null && lName.length() > 6) {
+                usernames.add((fName + lName.substring(0, 6)).toLowerCase());
+                usernames.add((fName + "." + lName.substring(0, 6)).toLowerCase());
             }
-
+  
         }
+        
+        if (fName != null && fName.length() > 2 && (lName == null || lName.length() == 0)){
+        	usernames.add((fName).toLowerCase());
+        }
+        
         return usernames;
     }
 
