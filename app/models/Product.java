@@ -282,6 +282,71 @@ public class Product extends SuperModel implements PathBindable<Product>,
         if(tags.size()>0){
             node.put("tags", Tag.toJson(tags));
         }
+
+		if(this.productAdditionalDetail!=null) {
+			if(productAdditionalDetail.descriptionVideo1!=null) {
+				node.put("video", productAdditionalDetail.descriptionVideo1.toJson());
+			}
+
+			ArrayNode storyArrayNode = new ArrayNode(JsonNodeFactory.instance);
+			if (this.productAdditionalDetail.productStoryPara1 != null) {
+				storyArrayNode.add(this.productAdditionalDetail.productStoryPara1);
+			}
+			if (this.productAdditionalDetail.productStoryPara2 != null) {
+				storyArrayNode.add(this.productAdditionalDetail.productStoryPara2);
+			}
+			if (this.productAdditionalDetail.productStoryPara3 != null) {
+				storyArrayNode.add(this.productAdditionalDetail.productStoryPara3);
+			}
+			if (this.productAdditionalDetail.productStoryPara4 != null) {
+				storyArrayNode.add(this.productAdditionalDetail.productStoryPara4);
+			}
+			node.put("story", storyArrayNode);
+
+			ArrayNode teamArrayNode = new ArrayNode(JsonNodeFactory.instance);
+
+			if (this.productAdditionalDetail.member1Name != null && this.productAdditionalDetail.member1Name != "") {
+				ObjectNode member = Json.newObject();
+				member.put("name", this.productAdditionalDetail.member1Name);
+				member.put("description", this.productAdditionalDetail.member1Description);
+				member.put("title", this.productAdditionalDetail.member1Title);
+				if (this.productAdditionalDetail.member1Photo != null) {
+					member.put("photo", this.productAdditionalDetail.member1Photo.toJson());
+				}
+				teamArrayNode.add(member);
+			}
+			if (this.productAdditionalDetail.member2Name != null && this.productAdditionalDetail.member2Name != "") {
+				ObjectNode member = Json.newObject();
+				member.put("name", this.productAdditionalDetail.member2Name);
+				member.put("description", this.productAdditionalDetail.member2Description);
+				member.put("title", this.productAdditionalDetail.member2Title);
+				if (this.productAdditionalDetail.member2Photo != null) {
+					member.put("photo", this.productAdditionalDetail.member2Photo.toJson());
+				}
+				teamArrayNode.add(member);
+			}
+			if (this.productAdditionalDetail.member3Name != null && this.productAdditionalDetail.member3Name != "") {
+				ObjectNode member = Json.newObject();
+				member.put("name", this.productAdditionalDetail.member3Name);
+				member.put("description", this.productAdditionalDetail.member3Description);
+				member.put("title", this.productAdditionalDetail.member3Title);
+				if (this.productAdditionalDetail.member3Photo != null) {
+					member.put("photo", this.productAdditionalDetail.member3Photo.toJson());
+				}
+				teamArrayNode.add(member);
+			}
+			if (this.productAdditionalDetail.member4Name != null && this.productAdditionalDetail.member4Name != "") {
+				ObjectNode member = Json.newObject();
+				member.put("name", this.productAdditionalDetail.member4Name);
+				member.put("description", this.productAdditionalDetail.member4Description);
+				member.put("title", this.productAdditionalDetail.member4Title);
+				if (this.productAdditionalDetail.member4Photo != null) {
+					member.put("photo", this.productAdditionalDetail.member4Photo.toJson());
+				}
+				teamArrayNode.add(member);
+			}
+			node.put("team", teamArrayNode);
+		}
         return node;
     }
 

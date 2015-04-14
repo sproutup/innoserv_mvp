@@ -1,0 +1,34 @@
+<div>
+    <div>
+        <!-- row 1: intro video -->
+        <div class="row about-product-row">
+            <div ng-if="product.video">
+                <up-video file="product.video" overlay="false"></up-video>
+            </div>
+        </div>
+    </div>
+
+    <div class="row about-product-row">
+        <!-- left column -->
+        <div class="col-sm-4 about-product-column">
+            <div class="about-product-tile--in-column" up-product-about-description product="product"></div>
+
+            <div class="about-product-tile--in-column" up-product-about-features product="product"></div>
+
+            <up-product-about-team product="product" just-creator="true"></up-product-about-team>
+        </div>
+
+        <!-- right column -->
+        <div class="col-sm-8 about-product-column">
+
+            <div class="about-product-tile--in-column">
+                <div class="about-product--mission" up-product-about-mission product="product" equal-height=".secondrow">
+                </div>
+            </div>
+
+            <div ng-show="!product.productStory" class="about-product-tile--in-column" up-product-about-story product="product" equal-height="false">
+            </div>
+        </div>
+    </div>
+
+</div>

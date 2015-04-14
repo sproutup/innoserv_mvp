@@ -1,0 +1,8 @@
+<div>
+    <div ng-if="product.id % 2">
+        <up-product-about-template1 product="product"></up-product-about-template1>
+    </div>
+    <div ng-if="!(product.id % 2)">
+        <up-product-about-template2 product="product"></up-product-about-template2>
+    </div>
+</div>

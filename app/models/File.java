@@ -129,10 +129,20 @@ public class File extends SuperModel {
 				
 		MimetypesFileTypeMap mfm = new MimetypesFileTypeMap();
 		this.type = "video";
-		if(originalName!=null && mfm.getContentType(originalName).contains("image/")){
-			type = "image";
-		}	
-	    this.name = this.getFileName();
+        if(originalName!=null && originalName.contains(".jpg")){
+            type = "image/jpeg";
+        }
+        if(originalName!=null && originalName.contains(".jpeg")){
+            type = "image/jpeg";
+        }
+        if(originalName!=null && originalName.contains(".png")){
+            type = "image/png";
+        }
+        if(originalName!=null && originalName.contains(".gif")){
+            type = "image/gif";
+        }
+
+        this.name = this.getFileName();
 		
 		// upload file on S3
         if (S3Plugin.amazonS3 == null) {
@@ -267,7 +277,7 @@ public class File extends SuperModel {
         }
         node.put("url", urlnode);
         node.put("comment", this.comment);
-        node.put("username", this.user.name);
+        node.put("username", this.user!= null ? this.user.name : "");
         node.put("createdAt", new DateTime(this.createdAt).toString());
         node.put("isVerified", this.verified);
         node.put("isTranscoded", this.isTranscoded);
