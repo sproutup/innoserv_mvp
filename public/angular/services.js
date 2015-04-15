@@ -120,6 +120,32 @@ productServices.factory('FacebookService', ['$http','$log', '$q',
     }
 ]);
 
+productServices.factory('EarlyAccessRequestService', ['$http','$log', '$q',
+    function($http, $log, $q) {
+        var earlyAccessRequestService = {};
+
+        earlyAccessRequestService.add = function(request){
+            var deferred = $q.defer();
+
+            $http({
+                method: 'POST',
+                url: '/api/creator/access',
+                headers: {'Content-Type': 'application/json'},
+                data: request
+            }).success(function(data, status, headers, config){
+                $log.debug("earlyAccessRequestService > add success");
+                deferred.resolve(data);
+            }).error(function(data, status, headers, config){
+                $log.debug("earlyAccessRequestService > failed to update");
+                deferred.reject("earlyAccessRequestService > failed to add");
+            });
+
+            return deferred.promise;
+        };
+
+        return earlyAccessRequestService;
+    }
+]);
 
 productServices.factory('ProductSuggestionService', ['$http','$log', '$q',
     function($http, $log, $q) {

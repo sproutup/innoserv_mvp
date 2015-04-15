@@ -415,6 +415,29 @@ angular.module('sproutupApp').directive('upAlert', ['$timeout',
     }
 ]);
 
+angular.module('sproutupApp').directive('upEarlyAccessRequest', ['EarlyAccessRequestService', '$log',
+    function(earlyAccessRequestService, $log) {
+        return {
+            restrict: 'E',
+            templateUrl: 'assets/templates/up-early-access-request.html',
+            scope: {},
+            controller: function( $scope, $element, $attrs, $transclude ) {
+                // Controller code goes here.
+                $scope.addRequest = function () {
+                    $log.debug("earlyAccessRequestService > add request");
+                    earlyAccessRequestService.add($scope.newRequest).then(
+                        function(data){
+                            $scope.newRequest.email = "";
+                            $scope.newRequest.name = "";
+                            $scope.newRequest.productUrl = "";
+                        }
+                    );
+                }
+            }
+        }
+    }
+]);
+
 angular.module('sproutupApp').directive('upProductSuggest', ['ProductSuggestionService', '$log',
     function(productSuggestionService, $log) {
         return {

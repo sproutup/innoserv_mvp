@@ -168,6 +168,22 @@ public class Application extends Controller {
     }
 
     @BodyParser.Of(BodyParser.Json.class)
+    public static Result addEarlyAccessRequest() {
+        JsonNode json = request().body().asJson();
+        if (json == null) {
+            return badRequest("Expecting Json data");
+        } else {
+            EarlyAccessRequest req = new EarlyAccessRequest();
+            req.email = json.path("email").asText();
+            req.name = json.path("name").asText();
+            req.productUrl = json.path("productUrl").asText();
+            req.save();
+
+            return created();
+        }
+    }
+
+    @BodyParser.Of(BodyParser.Json.class)
     public static Result addProductTrial() {
         JsonNode json = request().body().asJson();
         if (json == null) {

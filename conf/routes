@@ -69,6 +69,7 @@ PUT           /api/users/:id                          controllers.UserController
 #DELETE        /api/users/:id                         controllers.UserController.deleteUser(id: Long)
 
 POST          /api/suggest/product                    controllers.Application.addProductSuggestion
+POST          /api/creator/access                     controllers.Application.addEarlyAccessRequest
 
 POST          /api/trial/product                      controllers.Application.addProductTrial
 GET           /api/trial/product/:type/:id            controllers.Application.getProductTrial(id: Long, type: String)
