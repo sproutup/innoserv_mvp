@@ -193,26 +193,33 @@ angular.module('sproutupApp').directive('upTwitterTweet', ['TwitterService',
                 productId: "="
             },
             link: function(scope, element, attrs){
-                twitterService.search(scope.productId).then(
-                    function(data){
-                        var arrayLength = data.statuses.length;
-                        for (var i = 0; i < arrayLength; i++) {
-                            //Do something
-                            element.append("<div id='tweet"+i+"'</div>")
-                            twttr.widgets.createTweet(
-                                data.statuses[i].id_str,
-                                document.getElementById('tweet'+i),
-                                {
+
+                twttr.ready(
+                    function (twttr) {
+                        // bind events here
+                        console.log("twttr ready, adding tweet handler")
+                        twitterService.search(scope.productId).then(
+                            function(data){
+                                var arrayLength = data.statuses.length;
+                                for (var i = 0; i < arrayLength; i++) {
+                                    console.log("twttr create tweet.")
+                                    element.append("<div id='tweet"+i+"'</div>");
+                                    twttr.widgets.createTweet(
+                                        data.statuses[i].id_str,
+                                        document.getElementById('tweet'+i),
+                                        {
 //                                    cards: 'hidden'
 //                                    theme: 'dark'
-                                }).then(function (el) {
-                                    console.log("Embedded a tweet.")
-                                });
-                        }
-                        data.statuses
-                    },
-                    function(error){
+                                        }).then(function (el) {
+                                            console.log("twttr tweet embedded")
+                                        });
+                                }
+                                data.statuses
+                            },
+                            function(error){
 
+                            }
+                        );
                     }
                 );
             }
