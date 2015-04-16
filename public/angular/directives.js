@@ -190,10 +190,63 @@ angular.module('sproutupApp').directive('upTwitterTweet', ['TwitterService','$ti
             templateUrl: 'assets/templates/up-twitter-tweet.html',
             restrict: "E",
             scope:{
-                productId: "="
+                productId: "=",
+                api: "@"
             },
             link: function(scope, element, attrs){
                 scope.twttrReady = false;
+
+                scope.user_timeline = function(){
+                    console.log("twttr render user_timeline");
+                    twitterService.user_timeline(scope.productId).then(
+                        function(data){
+                            var arrayLength = data.statuses.length;
+                            for (var i = 0; i < arrayLength; i++) {
+                                console.log("twttr render create tweet.")
+                                element.append("<div id='tweet"+i+"'</div>");
+                                twttr.widgets.createTweet(
+                                    data[i].id_str,
+                                    document.getElementById('tweet'+i),
+                                    {
+//                                    cards: 'hidden'
+//                                    theme: 'dark'
+                                    }).then(function (el) {
+                                        console.log("twttr render tweet embedded success")
+                                    });
+                            }
+                            data.statuses
+                        },
+                        function(error){
+
+                        }
+                    );
+                };
+
+                scope.search = function() {
+                    console.log("twttr render search")
+                    twitterService.search(scope.productId).then(
+                        function(data){
+                            var arrayLength = data.statuses.length;
+                            for (var i = 0; i < arrayLength; i++) {
+                                console.log("twttr render create tweet.")
+                                element.append("<div id='tweet"+i+"'</div>");
+                                twttr.widgets.createTweet(
+                                    data.statuses[i].id_str,
+                                    document.getElementById('tweet'+i),
+                                    {
+//                                    cards: 'hidden'
+//                                    theme: 'dark'
+                                    }).then(function (el) {
+                                        console.log("twttr render tweet embedded success")
+                                    });
+                            }
+                            data.statuses
+                        },
+                        function(error){
+
+                        }
+                    );
+                };
 
                 scope.render = function() {
                     //scope.prodId = scope.productId || -1;
@@ -218,28 +271,13 @@ angular.module('sproutupApp').directive('upTwitterTweet', ['TwitterService','$ti
                         return;
                     }
 
-                    twitterService.search(scope.productId).then(
-                        function(data){
-                            var arrayLength = data.statuses.length;
-                            for (var i = 0; i < arrayLength; i++) {
-                                console.log("twttr render create tweet.")
-                                element.append("<div id='tweet"+i+"'</div>");
-                                twttr.widgets.createTweet(
-                                    data.statuses[i].id_str,
-                                    document.getElementById('tweet'+i),
-                                    {
-//                                    cards: 'hidden'
-//                                    theme: 'dark'
-                                    }).then(function (el) {
-                                        console.log("twttr render tweet embedded success")
-                                    });
-                            }
-                            data.statuses
-                        },
-                        function(error){
-
-                        }
-                    );
+                    console.log("twttr render api: ", scope.api);
+                    if(scope.api == "statuses/user_timeline"){
+                        scope.user_timeline();
+                    }
+                    else{
+                        scope.search();
+                    }
                 };
 
                 attrs.$observe('productId', function() {

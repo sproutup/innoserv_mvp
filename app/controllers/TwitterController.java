@@ -36,6 +36,7 @@ public class TwitterController extends Controller {
 
     private static final String PROTECTED_RESOURCE_URL = "https://api.twitter.com/1.1/account/verify_credentials.json";
     private static final String USERS_SHOW_URL = "https://api.twitter.com/1.1/users/show.json";
+    private static final String STATUSES_USER_TIMELINE_URL = "https://api.twitter.com/1.1/statuses/user_timeline.json";
 
     public static Result getUserShow(Long product_id) {
         Product prod = Product.findbyID(product_id);
@@ -48,6 +49,19 @@ public class TwitterController extends Controller {
         Logger.debug("twitter api > get user/show > found > ", prod.urlTwitter);
         String endpoint = prod.urlTwitter.substring(prod.urlTwitter.lastIndexOf(".com/")+5);
         return getApi(USERS_SHOW_URL+"?screen_name="+endpoint);
+    }
+
+    public static Result getUserTimeline(Long productId) {
+        Product prod = Product.findbyID(productId);
+        // if product is not found return
+        Logger.debug("twitter api > get statuses/timeline");
+        if(prod == null || prod.urlTwitter == null || prod.urlTwitter.length() < 1){
+            Logger.debug("twitter api > get statuses/timeline > not found");
+            return notFound();
+        }
+        Logger.debug("twitter api > get statuses/timeline > found > ", prod.urlTwitter);
+        String endpoint = prod.urlTwitter.substring(prod.urlTwitter.lastIndexOf(".com/")+5);
+        return getApi(STATUSES_USER_TIMELINE_URL + "?screen_name=" + endpoint);
     }
 
     public static Result getSearch(Long product_id) {
