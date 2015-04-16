@@ -7,7 +7,7 @@
                     <up-photo file="file" user="user"></up-photo>
                 </div>
                 <div ng-switch-when="video/">
-                    <up-video file="file" user="user"></up-video>
+                    <up-video file="file" user="user" overlay="true"></up-video>
                 </div>
                 <div ng-switch-default>?-{{file.type}}</div>
             </div>
