@@ -209,8 +209,7 @@
     position:relative;
     margin:0 0 20px;
     border:2px solid @sproutup-green;
-    color:#000;
-    background:#fff;
+    background-color: @sproutup-green;
     /* css3 */
     -webkit-border-radius:0px;
     -moz-border-radius:0px;
@@ -238,29 +237,38 @@
     left:43px; /* value = (:before left) + (:before border-left) - (:after border-left) */
     border-width:13px 13px 0;
     border-style:solid;
-    border-color:#fff transparent;
+    border-color:@sproutup-green transparent;
     /* reduce the damage in FF3.0 */
     display:block;
     width:0;
 }
 
+.about-product--quote-logo {
+  width: 40px;
+  height: 40px;
+  margin-top: 15px;
+  margin-left: 20px;
+}
+
 .about-product--quote-content {
     font-weight: 400;
-    color: @main-text;
+    color: @main-text-white;
     font-size: 12pt;
-    padding-top: 20px;
-    padding-left: 20px;
-    padding-right: 20px;
-    padding-bottom: 10px;
+  padding: 15px 20px 10px;
 }
 
 .about-product--quote-user {
-    padding-left: 25px;
-    padding-right: 20px;
+    padding-left: 20px;
     margin-bottom: 20px;
     font-weight: 700;
     font-size: 11pt;
-    color: #6BC224;
+    color: @main-text-white;
+}
+
+.about-product--quote-user span {
+  padding-left: 15px;
+  font-weight: 400;
+  font-size: 11pt;
 }
 
 .about-product--trendy {
