@@ -61,7 +61,7 @@ public class TwitterController extends Controller {
         }
         Logger.debug("twitter api > get statuses/timeline > found > ", prod.urlTwitter);
         String endpoint = prod.urlTwitter.substring(prod.urlTwitter.lastIndexOf(".com/")+5);
-        return getApi(STATUSES_USER_TIMELINE_URL + "?screen_name=" + endpoint);
+        return getApi(STATUSES_USER_TIMELINE_URL + "?count=5&screen_name=" + endpoint);
     }
 
     public static Result getSearch(Long product_id) {
@@ -74,7 +74,7 @@ public class TwitterController extends Controller {
         }
         Logger.debug("twitter api > found > ", prod.urlTwitter);
         String endpoint = prod.urlTwitter.substring(prod.urlTwitter.lastIndexOf(".com/")+5);
-        return getApi("https://api.twitter.com/1.1/search/tweets.json?count=3&q="+endpoint);
+        return getApi("https://api.twitter.com/1.1/search/tweets.json?count=5&q="+endpoint);
     }
 
     public static Result getApi(String endpoint) {
