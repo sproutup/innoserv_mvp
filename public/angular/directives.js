@@ -1230,15 +1230,25 @@ angular.module('sproutupApp').directive('upToptags', ['TagsService', '$timeout',
             category: "="
         },
         link: function (scope, element, attrs) {
-            $timeout(function(){
-                console.log("tags timeout");
-                refresh();
+            attrs.$observe('productId', function (productId) {
+                console.log("up-top-tags observe");
+                if(scope.productId === undefined){
+                    console.log("up-top-tags : product id type = ", typeof scope.productId);
+                    // wait and try again
+                    $timeout(
+                        function(){
+                            console.log("up-top-tags timeout : product id type = ", typeof scope.productId);
+                            refresh();
+                        },
+                        1000,
+                        true,
+                        scope
+                    );
+                }
+                else{
+                    refresh();
+                }
             });
-
-            //attrs.$observe('category', function (category) {
-            //    console.log("tags observe");
-            //    refresh();
-            //});
 
             var refresh = function(){
                 tagService.getPopularPostTags(scope.productId, scope.category).then(
