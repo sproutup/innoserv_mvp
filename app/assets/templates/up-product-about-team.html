@@ -1,4 +1,4 @@
-<div ng-if="justCreator==false" ng-repeat="member in product.team" ng-hide="$first" class="col-sm-4 about-product--team-member">
+<div ng-if="justCreator==false" ng-repeat="member in product.team" ng-hide="$first" class="col-md-4 col-sm-6 about-product--team-member">
     <div class="about-product--team-member-photo" style="background-image: url('{{member.photo.url.image}}?w=280&h=280')">
         <div class="meet-creator-overlay-info">
             <h1>Meet {{member.title}}</h1>
@@ -6,7 +6,7 @@
         </div>
     </div>
 </div>
-<div ng-if="justCreator==true && product.team.length > 0" class="about-product--mission-creator  secondrow">
+<div ng-if="justCreator==true && product.team.length > 0" class="about-product--mission-creator secondrow">
     <div class="about-product--mission-creator" style="background-image: url('{{product.team[0].photo.url.image}}?w=280&h=280')">
         <div class="meet-creator-overlay-info">
             <h1>Meet {{product.team[0].title}}</h1>
