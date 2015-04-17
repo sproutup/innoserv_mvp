@@ -25,12 +25,6 @@
         <!-- user quote -->
         <div class="row about-product-row">
             <div class="col-sm-12 about-product-tile">
-                <up-twitter-tweet product-id="product.id" api="statuses/user_timeline"></up-twitter-tweet>
-            </div>
-        </div>
-
-        <div class="row about-product-row">
-            <div class="col-sm-12 about-product-tile">
                 <div class="about-product--quote">
                     <div class="triangle-border">
                         <img class="about-product--quote-logo" src="@routes.Assets.at("images/logo-round.png")">
@@ -41,10 +35,11 @@
             </div>
         </div>
 
+        <!-- tweets from user timeline -->
         <div class="row about-product-row">
             <div class="col-sm-12 about-product-tile">
                 <div class="about-product--twitter">
-                    <up-twitter-tweet product-id="product.id"></up-twitter-tweet>
+                    <up-twitter-tweet product-id="product.id" api="statuses/user_timeline"></up-twitter-tweet>
                 </div>
             </div>
         </div>

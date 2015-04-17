@@ -200,7 +200,7 @@ angular.module('sproutupApp').directive('upTwitterTweet', ['TwitterService','$ti
                     console.log("twttr render user_timeline");
                     twitterService.user_timeline(scope.productId).then(
                         function(data){
-                            var arrayLength = data.statuses.length;
+                            var arrayLength = data.length;
                             for (var i = 0; i < arrayLength; i++) {
                                 console.log("twttr render create tweet.")
                                 element.append("<div id='tweet"+i+"'</div>");
@@ -214,7 +214,6 @@ angular.module('sproutupApp').directive('upTwitterTweet', ['TwitterService','$ti
                                         console.log("twttr render tweet embedded success")
                                     });
                             }
-                            data.statuses
                         },
                         function(error){
 
@@ -240,7 +239,6 @@ angular.module('sproutupApp').directive('upTwitterTweet', ['TwitterService','$ti
                                         console.log("twttr render tweet embedded success")
                                     });
                             }
-                            data.statuses
                         },
                         function(error){
 
