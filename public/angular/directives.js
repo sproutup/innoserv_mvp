@@ -45,8 +45,8 @@ angular.module('sproutupApp').directive('upProductAboutTemplate2',
     }
 );
 
-angular.module('sproutupApp').directive('upProductAboutDescription', ['Utils',
-    function(utils){
+angular.module('sproutupApp').directive('upProductAboutDescription', ['Utils', '$window',
+    function(utils, $window){
         return{
             templateUrl: 'assets/templates/up-product-about-description.html',
             replace: false,
@@ -62,13 +62,31 @@ angular.module('sproutupApp').directive('upProductAboutDescription', ['Utils',
                         utils.equalHeight(".about-product--feature");
                     }
                 });
+
+                var w = angular.element($window);
+
+                scope.getWindowDimensions = function () {
+                    return { 'h': w.height(), 'w': w.width() };
+                };
+
+                scope.$watch(scope.getWindowDimensions, function (newValue, oldValue) {
+                    scope.windowHeight = newValue.h;
+                    scope.windowWidth = newValue.w;
+                    if(scope.equalHeight == true) {
+                        utils.equalHeight(".about-product--feature");
+                    }
+                }, true);
+
+                w.bind('resize', function () {
+                    scope.$apply();
+                });
             }
         }
     }
 ]);
 
-angular.module('sproutupApp').directive('upProductAboutFeatures', ['Utils',
-    function(utils){
+angular.module('sproutupApp').directive('upProductAboutFeatures', ['Utils', '$window',
+    function(utils, $window){
         return{
             templateUrl: 'assets/templates/up-product-about-features.html',
             replace: false,
@@ -84,13 +102,32 @@ angular.module('sproutupApp').directive('upProductAboutFeatures', ['Utils',
                         utils.equalHeight(".about-product--feature");
                     }
                 });
+
+                var w = angular.element($window);
+
+                scope.getWindowDimensions = function () {
+                    return { 'h': w.height(), 'w': w.width() };
+                };
+
+                scope.$watch(scope.getWindowDimensions, function (newValue, oldValue) {
+                    scope.windowHeight = newValue.h;
+                    scope.windowWidth = newValue.w;
+                    if(scope.equalHeight == true) {
+                        utils.equalHeight(".about-product--feature");
+                    }
+                }, true);
+
+                w.bind('resize', function () {
+                    scope.$apply();
+                });
+
             }
         }
     }
 ]);
 
-angular.module('sproutupApp').directive('upProductAboutMission', ['Utils',
-    function(utils){
+angular.module('sproutupApp').directive('upProductAboutMission', ['Utils', '$window',
+    function(utils, $window){
         return{
             templateUrl: 'assets/templates/up-product-about-mission.html',
             replace: false,
@@ -106,6 +143,25 @@ angular.module('sproutupApp').directive('upProductAboutMission', ['Utils',
                         utils.equalHeight(equalHeight);
                     }
                 });
+
+                var w = angular.element($window);
+
+                scope.getWindowDimensions = function () {
+                    return { 'h': w.height(), 'w': w.width() };
+                };
+
+                scope.$watch(scope.getWindowDimensions, function (newValue, oldValue) {
+                    scope.windowHeight = newValue.h;
+                    scope.windowWidth = newValue.w;
+                    if(scope.equalHeight != null) {
+                         utils.equalHeight(equalHeight);
+                    }
+                }, true);
+
+                w.bind('resize', function () {
+                    scope.$apply();
+                });
+
             }
         }
     }
@@ -133,8 +189,8 @@ angular.module('sproutupApp').directive('upProductAboutStory', ['Utils',
     }
 ]);
 
-angular.module('sproutupApp').directive('upProductAboutTeam', ['Utils',
-    function(utils){
+angular.module('sproutupApp').directive('upProductAboutTeam', ['Utils', '$window',
+    function(utils, $window){
         return{
             templateUrl: 'assets/templates/up-product-about-team.html',
             replace: false,
@@ -151,6 +207,25 @@ angular.module('sproutupApp').directive('upProductAboutTeam', ['Utils',
                         utils.equalHeight(scope.equalHeight);
                     }
                 });
+
+                var w = angular.element($window);
+
+                scope.getWindowDimensions = function () {
+                    return { 'h': w.height(), 'w': w.width() };
+                };
+
+                scope.$watch(scope.getWindowDimensions, function (newValue, oldValue) {
+                    scope.windowHeight = newValue.h;
+                    scope.windowWidth = newValue.w;
+                    if(scope.equalHeight != null) {
+                        utils.equalHeight(scope.equalHeight);
+                    }
+                }, true);
+
+                w.bind('resize', function () {
+                    scope.$apply();
+                });
+
             }
         }
     }
