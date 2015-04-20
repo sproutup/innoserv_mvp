@@ -65,6 +65,10 @@ public class Application extends Controller {
         return ok(privacy.render());
     }
 
+    public static Result news() {
+        return ok(news.render());
+    }
+
     public static Result search() {
         return ok(search.render());
     }
