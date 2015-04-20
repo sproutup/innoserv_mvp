@@ -42,6 +42,7 @@ GET           /views/home                                                    con
 GET           /views/about                                                   controllers.Application.about
 GET           /views/terms                                                   controllers.Application.terms
 GET           /views/privacy                                                 controllers.Application.privacy
+GET           /views/news                                                    controllers.Application.news
 GET           /views/search                                                  controllers.Application.search
 GET           /views/creator                                                 controllers.Application.creator
 GET           /views/profile                                                 controllers.Application.profile
