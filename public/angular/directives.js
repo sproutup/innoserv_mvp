@@ -577,6 +577,9 @@ angular.module('sproutupApp').directive('upEarlyAccessRequest', ['EarlyAccessReq
                     $log.debug("earlyAccessRequestService > add request");
                     earlyAccessRequestService.add($scope.newRequest).then(
                         function(data){
+                            $rootScope.$broadcast('alert:success', {
+                                message: 'Your request has been saved'
+                            });
                             $scope.newRequest.email = "";
                             $scope.newRequest.name = "";
                             $scope.newRequest.productUrl = "";
