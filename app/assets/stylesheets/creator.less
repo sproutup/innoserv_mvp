@@ -230,6 +230,11 @@
   transition: all .2s;
 }
 
+.early-access-signup-form .early-access-signup-form-input.ng-invalid.ng-touched {
+  border: 1px solid @sproutup-error-message;
+  color: @sproutup-orange;
+}
+
 .btn-early-access-signup {
   width: 25%;
   height: 50px;
@@ -329,6 +334,11 @@
     width: 100%;
   }
 
+  .early-access-signup-form--error-message {
+    color: @sproutup-error-message;
+    width: 100%;
+  }
+
   .btn-early-access-signup {
     width: 100%;
   }
@@ -354,5 +364,18 @@
   .how-it-works--content {
     font-size: 12pt;
     font-weight: 400;
+  }
+
+  .early-access-signup-form-input {
+    width: 70%;
+  }
+
+  .early-access-signup-form--error-message {
+    color: @sproutup-error-message;
+    width: 70%;
+  }
+
+  .btn-early-access-signup {
+    width: 70%;
   }
 }
