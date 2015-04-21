@@ -583,6 +583,8 @@ angular.module('sproutupApp').directive('upEarlyAccessRequest', ['EarlyAccessReq
                             $scope.newRequest.email = "";
                             $scope.newRequest.name = "";
                             $scope.newRequest.productUrl = "";
+                            $scope.request.$setPristine();
+                            $scope.request.$setUntouched();
                         }
                     );
                 }
@@ -606,6 +608,8 @@ angular.module('sproutupApp').directive('upProductSuggest', ['ProductSuggestionS
                             $scope.newSuggestion.email = "";
                             $scope.newSuggestion.productName = "";
                             $scope.newSuggestion.productUrl = "";
+                            $scope.suggestion.$setPristine();
+                            $scope.suggestion.$setUntouched();
                         }
                     );
                 }
