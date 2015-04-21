@@ -555,7 +555,7 @@ angular.module('sproutupApp').directive('upAlert', ['$timeout',
                             scope.state.status = "";
                             scope.state.show = false;
                         },
-                        2000,
+                        3000,
                         true,
                         scope
                     );
@@ -578,7 +578,7 @@ angular.module('sproutupApp').directive('upEarlyAccessRequest', ['EarlyAccessReq
                     earlyAccessRequestService.add($scope.newRequest).then(
                         function(data){
                             $rootScope.$broadcast('alert:success', {
-                                message: 'Your request has been saved'
+                                message: 'Thank you! Your request is received. Will get back to you shortly!'
                             });
                             $scope.newRequest.email = "";
                             $scope.newRequest.name = "";
