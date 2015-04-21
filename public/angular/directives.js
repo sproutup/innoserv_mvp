@@ -565,8 +565,8 @@ angular.module('sproutupApp').directive('upAlert', ['$timeout',
     }
 ]);
 
-angular.module('sproutupApp').directive('upEarlyAccessRequest', ['EarlyAccessRequestService', '$log',
-    function(earlyAccessRequestService, $log) {
+angular.module('sproutupApp').directive('upEarlyAccessRequest', ['EarlyAccessRequestService', '$log', '$rootScope',
+    function(earlyAccessRequestService, $log, $rootScope) {
         return {
             restrict: 'E',
             templateUrl: 'assets/templates/up-early-access-request.html',
