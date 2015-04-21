@@ -555,7 +555,7 @@ angular.module('sproutupApp').directive('upAlert', ['$timeout',
                             scope.state.status = "";
                             scope.state.show = false;
                         },
-                        2000,
+                        3000,
                         true,
                         scope
                     );
@@ -565,8 +565,8 @@ angular.module('sproutupApp').directive('upAlert', ['$timeout',
     }
 ]);
 
-angular.module('sproutupApp').directive('upEarlyAccessRequest', ['EarlyAccessRequestService', '$log',
-    function(earlyAccessRequestService, $log) {
+angular.module('sproutupApp').directive('upEarlyAccessRequest', ['EarlyAccessRequestService', '$log', '$rootScope',
+    function(earlyAccessRequestService, $log, $rootScope) {
         return {
             restrict: 'E',
             templateUrl: 'assets/templates/up-early-access-request.html',
@@ -577,9 +577,14 @@ angular.module('sproutupApp').directive('upEarlyAccessRequest', ['EarlyAccessReq
                     $log.debug("earlyAccessRequestService > add request");
                     earlyAccessRequestService.add($scope.newRequest).then(
                         function(data){
+                            $rootScope.$broadcast('alert:success', {
+                                message: 'Thank you! Your request is received. Will get back to you shortly!'
+                            });
                             $scope.newRequest.email = "";
                             $scope.newRequest.name = "";
                             $scope.newRequest.productUrl = "";
+                            $scope.request.$setPristine();
+                            $scope.request.$setUntouched();
                         }
                     );
                 }
@@ -603,6 +608,8 @@ angular.module('sproutupApp').directive('upProductSuggest', ['ProductSuggestionS
                             $scope.newSuggestion.email = "";
                             $scope.newSuggestion.productName = "";
                             $scope.newSuggestion.productUrl = "";
+                            $scope.suggestion.$setPristine();
+                            $scope.suggestion.$setUntouched();
                         }
                     );
                 }
