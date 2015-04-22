@@ -1,3 +1,3 @@
 #!/bin/bash
 
-sudo activator clean stage -mem 512
+sudo activator info clean stage -mem 512
