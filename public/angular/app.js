@@ -75,6 +75,10 @@ sproutupApp.config(['$routeProvider', '$stateProvider', '$locationProvider', '$u
                 url: '/search',
                 templateUrl: 'views/search'
             })
+            .state('community' ,{
+                url: '/community',
+                templateUrl: 'views/community'
+            })
             .state('creator' ,{
                 url: '/creator',
                 templateUrl: 'views/creator'

@@ -77,6 +77,10 @@ public class Application extends Controller {
 		return ok(creator.render());
 	}
 
+    public static Result community() {
+        return ok(community.render());
+    }
+
 	public static User getLocalUser(final Session session) {
 		final AuthUser currentAuthUser = PlayAuthenticate.getUser(session);
 		final User localUser = User.findByAuthUserIdentity(currentAuthUser);
