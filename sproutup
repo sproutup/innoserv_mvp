@@ -77,7 +77,7 @@ COMMAND=$1
 
 NAME=sproutup
 PORT=9000
-APP_DIR=~/workspace/sproutup_mvp/target/universal/stage
+APP_DIR=/opt/app/sproutup
 APP_OPTS="-Dconfig.file=${APP_DIR}/conf/application-prod.conf -J-javaagent:/home/ubuntu/newrelic/newrelic.jar"
 
 # ***********************************************
@@ -143,6 +143,16 @@ setColor()
 resetColor()
 {
         tput sgr0 2>/dev/null
+}
+
+waitForPIDFile(){
+        x=0
+        while [ "$x" -lt 60 ]; do
+                [[ -f $PID_FILE ]] && break
+                printf "."
+                x=$((x+1))
+                sleep 2
+        done
 }
 
 # Checks if RUNNING_PID file exists and whether the process is really running.
@@ -241,23 +251,23 @@ checkArgs()
 
 checkAppStarted()
 {
-	# Wait a bit 
-	sleep 3
+	# Wait a bit
+        waitForPIDFile
 
 	# Check if RUNNING_PID file exists and if process is really running
 	checkPidFile
 	if [ $? != 1 ]
 	then
-		echoError
+		echoError "PID check failed:$?"
 		cat $TMP_LOG 1>&2
 		exit 1
 	fi
 
-	local HTTP_RESPONSE_CODE
+        local HTTP_RESPONSE_CODE
 
 	# Issue HTTP GET request using wget to check if the app is really started. Of course this
 	# command assumes that your server supports GET for the root URL.
-	HTTP_RESPONSE_CODE=`wget -SO- "http://localhost:$PORT/" 2>&1 | grep "HTTP/" | awk '{print $2}'`
+	HTTP_RESPONSE_CODE=`wget -SO- --wait=5 --retry-connrefused=on "http://localhost:$PORT/" 2>&1 | grep "HTTP/" | awk '{print $2}'`
 
 	# The same functionality but using curl. For your convenience.
 	#HTTP_RESPONSE_CODE=`curl --connect-timeout 20 --retry 3 -o /dev/null --silent --write-out "%{http_code}" http://localhost:$PORT/`
@@ -282,14 +292,13 @@ fi
 case "${COMMAND}" in
 	start)
 		echoProgress "Starting $NAME at port $PORT"
-		echo "$NAME $APP_ARGS $APP_OPTS"
 
 		checkPidFile
 		case $? in
 			1)	echoOK "$(printPid) already started"
 				exit ;;
-			2)	# Delete the RUNNING_PID FILE			
-				rm $PID_FILE ;;		
+			2)	# Delete the RUNNING_PID FILE
+				rm $PID_FILE ;;
 		esac
 
 		SCRIPT_TO_RUN=$APP_DIR/bin/$NAME
@@ -298,15 +307,14 @@ case "${COMMAND}" in
 			echoError "Play script doesn't exist!"
 			exit 1
 		fi
-			
+
 		# * * * Run the Play application * * *
 		TMP_LOG=`mktemp`
 		PID=`$SCRIPT_TO_RUN $APP_ARGS $APP_OPTS > /dev/null 2>$TMP_LOG & echo $!`
-
 		# Check if successfully started
 		if [ $? != 0 ]
 		then
-			echoError
+			echoError $?
 			exit 1
 		else
 			checkAppStarted
