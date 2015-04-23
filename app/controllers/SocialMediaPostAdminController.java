@@ -14,6 +14,7 @@ import models.File;
 import models.Post;
 import models.Product;
 import models.User;
+import play.Play;
 import play.data.Form;
 import play.data.validation.ValidationError;
 import play.mvc.Controller;
@@ -31,10 +32,12 @@ import play.db.ebean.Model;
 public class SocialMediaPostAdminController extends Controller{
 
 	  private static final Form<Post> socialMediaPostForm = Form.form(Post.class);
-
+	  private static final Boolean admin_enabled = Boolean.parseBoolean(Play.application().configuration().getString("admin.enabled"));
 
 	  //@SecureSocial.SecuredAction
 	  public static Result newPost() {
+		  if(!admin_enabled){return notFound();};
+
 		  List<Product> products = new Product().getAll();
 		  Post post = new Post();
 		  post.activeFlag=true;
@@ -44,6 +47,8 @@ public class SocialMediaPostAdminController extends Controller{
 	  }
 
 	  public static Result save() {
+        if(!admin_enabled){return notFound();};
+
 	    MultipartFormData body = request().body().asMultipartFormData();
 	    Map<String, String[]> mp = body.asFormUrlEncoded();
 		MultipartFormData.FilePart uploadFilePart = body.getFile("upload");

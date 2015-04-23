@@ -16,55 +16,80 @@ import views.html.mockups.*;
 public class MockupController extends Controller {
 
     private static final Form<S3File> mediaUploadForm = Form.form(S3File.class);
+    private static final Boolean mockups_enabled = Boolean.parseBoolean(Play.application().configuration().getString("mockups.enabled"));
 
     public static Result detailsAboutBySlug(String name) {
+        if(!mockups_enabled){return notFound();};
+
         Product product = new Product().findbySlug(name);
         return ok(product_mock_1.render(product, mediaUploadForm));
     }
 
     public static Result detailsBarBySlug(String name) {
+        if(!mockups_enabled){return notFound();};
+
         Product product = new Product().findbySlug(name);
         return ok(product_mock_2.render(product, mediaUploadForm));
     }
 
     public static Result detailsGalleryBySlug(String name) {
+        if(!mockups_enabled){return notFound();};
+
         Product product = new Product().findbySlug(name);
         return ok(product_mock_3.render(product, mediaUploadForm));
     }
 
     public static Result login() {
+        if(!mockups_enabled){return notFound();};
+
         return ok(login_mock.render());
     }
 
     public static Result resetPassword() {
+        if(!mockups_enabled){return notFound();};
+
         return ok(reset_password_mock.render());
     }
 
     public static Result userProfile() {
+        if(!mockups_enabled){return notFound();};
+
         return ok(user_profile_mock.render());
     }
 
     public static Result creatorDashboard_1() {
+        if(!mockups_enabled){return notFound();};
+
         return ok(creator_dashboard_mock_1.render());
     }
 
     public static Result creatorDashboard_2() {
+        if(!mockups_enabled){return notFound();};
+
         return ok(creator_dashboard_mock_2.render());
     }
 
     public static Result creatorDashboard_3() {
+        if(!mockups_enabled){return notFound();};
+
         return ok(creator_dashboard_mock_3.render());
     }
 
     public static Result forCreator() {
+        if(!mockups_enabled){return notFound();};
+
         return ok(for_creator_mock.render());
     }
 
     public static Result productList () {
+        if(!mockups_enabled){return notFound();};
+
         return ok(product_list_mock.render());
     }
 
     public static Result userSettings() {
+        if(!mockups_enabled){return notFound();};
+
         return ok(user_settings_mock.render());
     }
 }

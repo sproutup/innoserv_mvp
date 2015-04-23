@@ -6,6 +6,8 @@ import models.Company;
 import models.Product;
 import models.ProductAdditionalDetail;
 import models.Tag;
+import play.Logger;
+import play.Play;
 import play.data.Form;
 import play.mvc.Result;
 import play.mvc.Controller;
@@ -24,18 +26,24 @@ import views.html.productadministration.*;
 public class ProductAdministrationController extends Controller {
 
   private static final Form<Product> productForm = Form.form(Product.class);
+  private static final Boolean admin_enabled = Boolean.parseBoolean(Play.application().configuration().getString("admin.enabled"));
 
   public static Result index() {
     return redirect(routes.ProductAdministrationController.list(0));
   }
 
   public static Result list(Integer page) {
+    if(!admin_enabled){return notFound();};
+
+    Logger.debug("mode: " + play.api.Play.current().mode());
     Page<Product> products = Product.find(page);//findAll();
     return ok(list.render(products));
   }
 
   //@SecureSocial.SecuredAction
   public static Result newProduct() {
+    if(!admin_enabled){return notFound();};
+
 	  Product prod = new Product();
 	  prod.activeFlag=true;
 	  
@@ -43,6 +51,8 @@ public class ProductAdministrationController extends Controller {
   }
 
   public static Result details(Product product) {
+    if(!admin_enabled){return notFound();};
+
 	List<Tag> tags = product.getAllTags();
 	String tagName = "";
 	for (int i = 0; i < tags.size(); i++) {
@@ -57,6 +67,8 @@ public class ProductAdministrationController extends Controller {
   }
 
   public static Result save() {
+    if(!admin_enabled){return notFound();};
+
     MultipartFormData body = request().body().asMultipartFormData();
     Form<Product> boundForm = productForm.bindFromRequest();
     if(boundForm.hasErrors()) {
@@ -107,6 +119,8 @@ public class ProductAdministrationController extends Controller {
   }
 
   public static Result delete(Long id) {
+    if(!admin_enabled){return notFound();};
+
     final Product product = Product.findbyID(id);
     if(product == null) {
         return notFound(String.format("Product %s does not exists.", id));

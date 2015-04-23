@@ -7,4 +7,4 @@ if [ -f $path/RUNNING_PID ]; then
     sudo kill -SIGTERM `sudo cat $path/RUNNING_PID`
 fi
 
-$path/bin/sproutup -Dconfig.file=conf/application-prod.conf -Dhttp.port=80 -J-javaagent:/home/ubuntu/newrelic/newrelic.jar &
+$path/bin/sproutup -Dconfig.file=conf/application-prod.conf -Dhttp.port=9000 -J-javaagent:/home/ubuntu/newrelic/newrelic.jar &

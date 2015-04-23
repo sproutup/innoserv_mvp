@@ -36,9 +36,9 @@
   background:#555;
   width: 140px;
   height: 140px;
-  -webkit-border-radius: 500px;
-  -moz-border-radius: 500px;
-  border-radius: 500px;
+  -webkit-border-radius: 140px;
+  -moz-border-radius: 140px;
+  border-radius: 140px;
 }
 
 .team-section-title {
@@ -51,9 +51,12 @@
 }
 
 .team-section-subtitle {
+  max-width: 1024px;
+  margin-left: auto;
+  margin-right: auto;
   padding-bottom: 50px;
-  padding-left: 7%;
-  padding-right: 7%;
+  padding-left: 15px;
+  padding-right: 15px;
   line-height: 1.5;
   font-size: 14pt;
   font-family: "lato", Helvetica, Arial, sans-serif;
@@ -61,8 +64,9 @@
 }
 
 .team-member {
-  margin-bottom: 50px;
   text-align: center;
+  margin: 0px 0px 30px;
+  overflow: hidden;
 }
 
 .team-member img {
@@ -89,6 +93,16 @@
   line-height: 1.5;
 }
 
+.team-member > h4 a {
+  color: @main-text-white;
+  text-decoration: underline;
+}
+
+.team-member > h4 a:hover {
+  color: @sproutup-blue-bright;
+  text-decoration: underline;
+}
+
 ul.social-buttons li a {
   display: block;
   width: 36px;
@@ -109,4 +123,10 @@ ul.social-buttons li a:hover {
   border: solid 1px @sproutup-blue;
   background-color: @sproutup-blue;
   color: #fff;
+}
+
+.sproutup-team {
+  max-width: 1120px;
+  margin-left: auto;
+  margin-right: auto;
 }
