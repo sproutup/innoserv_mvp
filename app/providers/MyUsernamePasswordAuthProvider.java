@@ -138,6 +138,8 @@ public class MyUsernamePasswordAuthProvider
 			if (u.emailValidated) {
 				// This user exists, has its email validated and is active
                 Logger.debug("This user exists, has its email validated and is active");
+                //send a welcome email to user after it has verified email
+                this.sendWelcomeMessageMailing(u,context);
 				return SignupResult.USER_EXISTS;
 			} else { // this user exists, is active but has not yet validated its email
 				// if verifyemail is needed
@@ -145,7 +147,7 @@ public class MyUsernamePasswordAuthProvider
                     Logger.debug("This user exists, is active but has not yet validated its email");
 					return SignupResult.USER_EXISTS_UNVERIFIED;
 				} else {//verifyemail is not required
-					Logger.debug("Email verification is not needed");
+					//Logger.debug("Email verification is not needed");
 					return SignupResult.USER_EXISTS;
 				}
 			}
@@ -158,11 +160,11 @@ public class MyUsernamePasswordAuthProvider
 		 then the user gets logged in directly
 		 */
 		if (verifyEmailFlag){
-			//Logger.debug("2 email verification is needed");
+			//Logger.debug("email verification is needed");
+			this.sendVerifyEmailMailingAfterSignup(newUser,context);
 			return SignupResult.USER_CREATED_UNVERIFIED;
 		} else {//verifyemail is not required
-			//Logger.debug("3 email verification is not needed");
-			this.sendVerifyEmailMailingAfterSignup(newUser,context);
+			//Logger.debug("email verification is not needed");
 			this.sendWelcomeMessageMailing(newUser,context);
 			return SignupResult.USER_CREATED;
 		}
@@ -404,6 +406,7 @@ public class MyUsernamePasswordAuthProvider
 
 	public void sendVerifyEmailMailingAfterSignup(final User user,
 			final Context ctx) {
+		//Logger.debug("send verify message called");
 
 		final String subject = getVerifyEmailMailingSubjectAfterSignup(user,
 				ctx);
@@ -439,6 +442,7 @@ public class MyUsernamePasswordAuthProvider
 
 	public void sendWelcomeMessageMailing(final User user, final Context ctx) {
 		try {
+			//Logger.debug("send welcome message called");
 			final String subject = getWelcomeMessageMailingSubject(user, ctx);
 			final Body body = getWelcomeMessageMailingBody(user, ctx);
 			sendMail(subject, body, getEmailName(user));
