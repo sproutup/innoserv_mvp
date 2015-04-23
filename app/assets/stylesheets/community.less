@@ -1,5 +1,9 @@
 @import "global";
 
+.community-page {
+  margin: 0px;
+}
+
 .community-header {
   width: 100%;
   height: 360px;
@@ -33,7 +37,7 @@
   font-weight: 300;
   font-size: 40pt;
   color: @main-text;
-  padding: 30px 10px 10px;
+  padding: 20px 10px 10px;
 }
 
 .community-subtitle {
@@ -42,13 +46,15 @@
   font-size: 16pt;
   color: @main-text;
   padding: 10px 10px 0px;
-  max-width: 700px;
+  max-width: 800px;
   margin: 0px auto;
   line-height: 1.5;
 }
 
 .community-block {
-  margin: 20px 10px;
+  margin: 20px auto;
+  padding: 0px 10px;
+  max-width: 1200px;
 }
 
 .community-blurb {
@@ -62,6 +68,7 @@
 
 .community-blurb.no {
   background-color: @sproutup-orange;
+  min-height: 150px;
 }
 
 .community-blurb.features {
@@ -69,18 +76,42 @@
 }
 
 .community-blurb-content {
-  padding: 10px;
-  color: @main-text-white;
+  padding: 10px 5px;
+  color: #ffffff;
 }
 
-.community-blurb-content.features {
-  padding: 10px;
-  color: @main-text;
+.community-blurb-content i {
+  padding: 20px 0px 0px;
 }
 
 .community-blurb-content h1 {
   font-weight: 400;
-  font-size: 18pt;
+  font-size: 30pt;
   text-align: center;
-  padding: 0px;
+  padding: 10px 0px 10px;
+}
+
+.community-blurb.no .community-blurb-content h1 {
+  font-weight: 300;
+  font-size: 20pt;
+}
+
+.community-blurb-content p {
+  font-weight: 400;
+  font-size: 13pt;
+  text-align: center;
+}
+
+.community-blurb-content.features {
+  color: @main-text;
+}
+
+.community-blurb-content.features h1 {
+  font-weight: 400;
+  font-size: 14pt;
+}
+
+.community-blurb-content.features p {
+  font-weight: 300;
+  font-size: 12pt;
 }
