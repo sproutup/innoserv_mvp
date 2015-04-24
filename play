@@ -330,6 +330,8 @@ case "${COMMAND}" in
 	start)
 		echoProgress "Starting $NAME at port $PORT"
 
+		rm $STDOUT_LOG >/dev/null 2>&1
+
 		checkPidFile
 		case $? in
 			1)	echoOK "$(printPid) already started"
@@ -347,7 +349,7 @@ case "${COMMAND}" in
 
 		# * * * Run the Play application * * *
 		TMP_LOG=`mktemp`
-		PID=`$EXEC > /dev/null 2>$TMP_LOG & echo $!`
+		PID=`$EXEC > $STDOUT_LOG 2>$TMP_LOG & echo $!`
 		# Check if successfully started
 		if [ $? != 0 ]
 		then
