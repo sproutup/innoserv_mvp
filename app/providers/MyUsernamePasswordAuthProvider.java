@@ -1,5 +1,6 @@
 package providers;
 
+import com.feth.play.module.mail.Mailer;
 import com.feth.play.module.mail.Mailer.Mail.Body;
 import com.feth.play.module.pa.PlayAuthenticate;
 import com.feth.play.module.pa.providers.password.UsernamePasswordAuthProvider;
@@ -118,6 +119,7 @@ public class MyUsernamePasswordAuthProvider
 
 	public MyUsernamePasswordAuthProvider(Application app) {
 		super(app);
+		
 	}
 
 	protected Form<MySignup> getSignupForm() {
@@ -419,16 +421,12 @@ public class MyUsernamePasswordAuthProvider
 		return getEmailName(user.email, user.name);
 	}
 	
-	protected String getWelcomeMessageMailingSubject(final User user,
-			final Context ctx) {
+	protected String getWelcomeMessageMailingSubject(final User user) {
 		return Messages.get("playauthenticate.welcome.message.title");
 	}
 	
 	protected Body getWelcomeMessageMailingBody(
-			final User user, final Context ctx) {
-
-        final Lang lang = Lang.preferred(ctx.request().acceptLanguages());
-		final String langCode = lang.code();
+			final User user, String langCode) {
 
         String html = getEmailTemplate(
                 "views.html.account.email.welcome_email", langCode, null,
@@ -442,9 +440,20 @@ public class MyUsernamePasswordAuthProvider
 
 	public void sendWelcomeMessageMailing(final User user, final Context ctx) {
 		try {
+			String langCode = "en";
+			
+			
+	        if(ctx!=null){
+				Lang lang = Lang.preferred(ctx.request().acceptLanguages());
+		        langCode = lang.code();
+	        }
 			//Logger.debug("send welcome message called");
-			final String subject = getWelcomeMessageMailingSubject(user, ctx);
-			final Body body = getWelcomeMessageMailingBody(user, ctx);
+			String subject = getWelcomeMessageMailingSubject(user);
+			Body body = getWelcomeMessageMailingBody(user, langCode);
+			if (mailer==null) {
+				mailer = Mailer.getCustomMailer(getConfiguration().getConfig(
+					SETTING_KEY_MAIL));
+			}
 			sendMail(subject, body, getEmailName(user));
 		} catch (Exception e) {
 			Logger.error(e.toString());

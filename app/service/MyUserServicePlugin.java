@@ -2,13 +2,19 @@ package service;
 
 import models.User;
 import play.Application;
+import play.Logger;
+import play.mvc.Http.Context;
+import providers.MyUsernamePasswordAuthProvider;
 
+import com.amazonaws.services.opsworks.model.App;
 import com.feth.play.module.pa.user.AuthUser;
 import com.feth.play.module.pa.user.AuthUserIdentity;
+import com.feth.play.module.pa.providers.oauth2.facebook.FacebookAuthUser;
 import com.feth.play.module.pa.service.UserServicePlugin;
 
 public class MyUserServicePlugin extends UserServicePlugin {
 
+	
 	public MyUserServicePlugin(final Application app) {
 		super(app);
 	}
@@ -17,7 +23,15 @@ public class MyUserServicePlugin extends UserServicePlugin {
 	public Object save(final AuthUser authUser) {
 		final boolean isLinked = User.existsByAuthUserIdentity(authUser);
 		if (!isLinked) {
-			return User.create(authUser).id;
+			Logger.debug("MyUserServicePlugin > save");
+			 User usr = User.create(authUser);
+			 //TODO replace this with message queue way of sending email
+			 //send welcome email
+			 if(authUser instanceof FacebookAuthUser) {
+				 MyUsernamePasswordAuthProvider prv = new MyUsernamePasswordAuthProvider(super.getApplication());
+				 prv.sendWelcomeMessageMailing(usr, null);
+			 }
+			 return usr.id;
 		} else {
 			// we have this user already, so return null
 			return null;
