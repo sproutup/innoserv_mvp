@@ -28,7 +28,7 @@
   margin: 0;
   padding-top: 30px;
   padding-bottom: 70px;
-  font-size: 20pt;
+  font-size: 24pt;
   line-height: 1.5;
 }
 
@@ -90,7 +90,7 @@
   max-width: 800px;
   padding: 20px 10px 0px;
   line-height: 1.5;
-  font-size: 13pt;
+  font-size: 14pt;
   font-weight: 400;
   color: @main-text;
 }
@@ -209,9 +209,11 @@
 }
 
 .early-access-signup-header {
-  padding: 0 27% 20px;
+  margin: 0px auto;
+  max-width: 800px;
+  padding: 0px 10px 20px;
   font-weight: 300;
-  font-size: 13pt;
+  font-size: 14pt;
   color: @main-text;
 }
 
@@ -270,14 +272,24 @@
 }
 
 .how-it-works--blurb {
-  padding: 20px 10px 10px;
+  padding: 20px 10px;
+  margin: 0px auto;
+}
+
+.how-it-works--blurb.story,
+.how-it-works--blurb.analytics {
+  max-width: 1000px;
+}
+
+.how-it-works--blurb.collaborate {
+  max-width: 1250px;
 }
 
 .how-it-works--title {
-  font-size: 20pt;
-  font-weight: 300;
+  font-size: 18pt;
+  font-weight: 400;
   color: @main-text-2;
-  padding-top: 10px;
+  padding: 10px;
 }
 
 .how-it-works--title-seq {
@@ -296,32 +308,35 @@
 
 .how-it-works--title-separator {
   border-top: dashed 1px @sproutup-grey;
-  max-width: 500px;
   padding: 0px 10px;
 }
 
 .how-it-works--main {
   padding: 30px 10px 10px;
-  margin: 0px auto;
-  max-width: 850px;
 }
 
 .how-it-works--content {
+  text-align: center;
   font-size: 12pt;
   font-weight: 400;
   color: @main-text;
   margin: 0px;
-  padding: 20px;
+  padding: 10px 15px;
 }
 
 .how-it-works--content p {
-  padding-bottom: 10px;
+  padding: 20px 0px 0px;
 }
 
 .how-it-works--content p span {
   color: @sproutup-blue;
-  font-weight: 700;
-  padding-bottom: 20px;
+  font-weight: 400;
+}
+
+.how-it-works--content img {
+  width: auto;
+  max-height: 330px;
+  margin: 0px auto;
 }
 
 .how-it-works--screenshot {
@@ -358,7 +373,6 @@
     font-size: 11pt;
     font-weight: 400;
   }
-
 }
 
 @media(min-width:767px) and (max-width:992px) {
@@ -383,5 +397,11 @@
 
   .btn-early-access-signup {
     width: 70%;
+  }
+
+  .how-it-works--content img {
+    width: auto;
+    max-height: 420px;
+    margin: 0px auto;
   }
 }
