@@ -342,7 +342,7 @@ public class File extends SuperModel {
 
     public String getURL() {
         if (type.contains("video/") || type.equals("video")) {
-            return ("http://dc2jx5ot5judg.cloudfront.net/" + this.uuid.toString() + "/" + this.uuid.toString() );
+            return ("http://dc2jx5ot5judg.cloudfront.net" + "/" + this.uuid.toString() + "/" + this.uuid.toString() );
         } else if (type.contains("image/")) {
             return ("http://d2ggucmtk9u4go.cloudfront.net" + "/" + this.getFileName());
         } else{

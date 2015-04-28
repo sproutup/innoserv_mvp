@@ -11,6 +11,7 @@ import com.amazonaws.services.elastictranscoder.model.CreateJobPlaylist;
 import com.amazonaws.services.elastictranscoder.model.CreateJobRequest;
 import com.amazonaws.services.elastictranscoder.model.Job;
 import com.amazonaws.services.elastictranscoder.model.JobInput;
+import play.Play;
 
 public class ElasticTranscoder {
 
@@ -81,9 +82,6 @@ public class ElasticTranscoder {
     //  System preset: iPod Touch		1351620000001-100040	mp4			System preset: iPhone 1, 3, iPod classic
     //------------------------------------------------------------------------------------------------------
 
-
-    private static final String PIPELINE_ID = "1423684927042-ajd6jz";
-
     // This is the name of the input key that you would like to transcode.
     // The input bucket is specified in the AWS Elastic Transcoder web interface
     private static String INPUT_KEY;
@@ -111,6 +109,8 @@ public class ElasticTranscoder {
     // @throws Exception
     public static Job createElasticTranscoderHlsJob(String input_key, String output_key, String output_key_prefix) {
         Region usWest2 = Region.getRegion(Regions.US_WEST_2);
+
+        String aws_pipeline_id = Play.application().configuration().getString("aws.elastictranscoder.pipeline.id");
 
         // Clients are built using the default credentials provider chain.  This
         // will attempt to get your credentials in the following order:
@@ -175,7 +175,7 @@ public class ElasticTranscoder {
 
         // Create the EC2 pipeline job.
         CreateJobRequest createJobRequest = new CreateJobRequest()
-                .withPipelineId(PIPELINE_ID)
+                .withPipelineId(aws_pipeline_id)
                 .withInput(input)
                 .withOutputKeyPrefix(OUTPUT_KEY_PREFIX)
                 .withOutputs(outputs)

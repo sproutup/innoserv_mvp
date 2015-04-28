@@ -1,0 +1,39 @@
+{
+    "Name": "", 
+    "InputBucket": "", 
+    "OutputBucket": "", 
+    "Role": "", 
+    "AwsKmsKeyArn": "", 
+    "Notifications": {
+        "Progressing": "", 
+        "Completed": "", 
+        "Warning": "", 
+        "Error": ""
+    }, 
+    "ContentConfig": {
+        "Bucket": "", 
+        "StorageClass": "", 
+        "Permissions": [
+            {
+                "GranteeType": "", 
+                "Grantee": "", 
+                "Access": [
+                    ""
+                ]
+            }
+        ]
+    }, 
+    "ThumbnailConfig": {
+        "Bucket": "", 
+        "StorageClass": "", 
+        "Permissions": [
+            {
+                "GranteeType": "", 
+                "Grantee": "", 
+                "Access": [
+                    ""
+                ]
+            }
+        ]
+    }
+}
