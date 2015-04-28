@@ -4,6 +4,7 @@ import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.services.sqs.AmazonSQS;
 import com.amazonaws.services.sqs.AmazonSQSClient;
 import com.amazonaws.services.sqs.model.*;
+import play.Play;
 import plugins.S3Plugin;
 
 import java.io.FileInputStream;
@@ -15,9 +16,7 @@ import java.util.Properties;
  */
 public class AWSSimpleQueueService {
 
-    private BasicAWSCredentials credentials;
     private AmazonSQS sqs;
-    private String simpleQueue = "video-processing";
     private static volatile  AWSSimpleQueueService awssqsUtil = new AWSSimpleQueueService();
 
     /**
@@ -27,9 +26,7 @@ public class AWSSimpleQueueService {
      */
     private   AWSSimpleQueueService(){
         try{
-            this.credentials = new BasicAWSCredentials(S3Plugin.accessKey, S3Plugin.secretKey);
-
-            this.sqs = new AmazonSQSClient(this.credentials);
+            this.sqs = new AmazonSQSClient();
             /**
              * My queue is in singapore region which has following endpoint for sqs
              * https://sqs.ap-southeast-1.amazonaws.com
@@ -58,7 +55,7 @@ public class AWSSimpleQueueService {
     }
 
     public String getQueueName(){
-        return awssqsUtil.simpleQueue;
+        return Play.application().configuration().getString("aws.sqs.queue");
     }
 
     /**

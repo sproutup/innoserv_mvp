@@ -14,6 +14,7 @@ import com.amazonaws.services.s3.model.S3ObjectInputStream;
 import com.fasterxml.jackson.databind.JsonNode;
 import models.*;
 import net.coobird.thumbnailator.Thumbnails;
+import play.Play;
 import play.Routes;
 import play.Logger;
 import play.api.cache.Cache;
@@ -239,7 +240,8 @@ public class Application extends Controller {
             // Scala and render an image from S3
     public static Result image(String image, int w, int h) {
         Logger.debug("get object image");
-        S3Object obj = S3Plugin.amazonS3.getObject("sproutup-test-upload", image);
+        String s3_bucket = Play.application().configuration().getString("aws.s3.bucket.files");
+        S3Object obj = S3Plugin.amazonS3.getObject(s3_bucket, image);
 
         if (obj != null) {
             BufferedImage thumbnail;

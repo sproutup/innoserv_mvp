@@ -120,6 +120,7 @@ public class Global extends GlobalSettings {
 			}
 		}
 
+/*
 		//load products data
         try {
 
@@ -142,6 +143,7 @@ public class Global extends GlobalSettings {
 			e.printStackTrace();
 		}
 
+*/
 
 
 	}

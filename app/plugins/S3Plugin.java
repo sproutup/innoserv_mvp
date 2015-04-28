@@ -2,6 +2,7 @@ package plugins;
 
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.BasicAWSCredentials;
+import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.regions.Region;
@@ -12,9 +13,7 @@ import play.Plugin;
 
 public class S3Plugin extends Plugin {
 
-  public static final String AWS_S3_BUCKET = "aws.s3.bucket";
-  public static final String AWS_ACCESS_KEY = "aws.access.key";
-  public static final String AWS_SECRET_KEY = "aws.secret.key";
+  public static final String AWS_S3_BUCKET = "aws.s3.bucket.files";
   private final Application application;
 
   public static AmazonS3 amazonS3;
@@ -29,23 +28,19 @@ public class S3Plugin extends Plugin {
 
   @Override
   public void onStart() {
-    accessKey = application.configuration().getString(AWS_ACCESS_KEY);
-    secretKey = application.configuration().getString(AWS_SECRET_KEY);
+    DefaultAWSCredentialsProviderChain cred = new DefaultAWSCredentialsProviderChain();
+    accessKey = cred.getCredentials().getAWSAccessKeyId();
+    secretKey = cred.getCredentials().getAWSSecretKey();
     s3Bucket = application.configuration().getString(AWS_S3_BUCKET);
 
-    if ((accessKey != null) && (secretKey != null)) {
-      AWSCredentials awsCredentials = new BasicAWSCredentials(accessKey, secretKey);
-      amazonS3 = new AmazonS3Client(awsCredentials);
+    amazonS3 = new AmazonS3Client();
 //      amazonS3.createBucket(s3Bucket);
-      Logger.info("Using S3 Bucket: " + s3Bucket);
-    }
+    Logger.info("Using S3 Bucket: " + s3Bucket);
   }
 
   @Override
   public boolean enabled() {
-    return (application.configuration().keys().contains(AWS_ACCESS_KEY) &&
-    application.configuration().keys().contains(AWS_SECRET_KEY) &&
-    application.configuration().keys().contains(AWS_S3_BUCKET));
+    return (application.configuration().keys().contains(AWS_S3_BUCKET));
   }
 
 }
