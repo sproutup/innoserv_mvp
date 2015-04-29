@@ -10,6 +10,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.joda.time.DateTime;
 
 import play.Logger;
+import play.Play;
 import play.db.ebean.Model;
 import play.libs.Json;
 import plugins.S3Plugin;
@@ -114,7 +115,7 @@ public class File extends SuperModel {
             Logger.info("  INPUT_KEY: " + INPUT_KEY);
             Logger.info("  OUTPUT_KEY_PREFIX: " + OUTPUT_KEY_PREFIX);
             Logger.info("  HLS Transcoder job has been created: ");
-            Logger.info( job + "\n");
+            Logger.info(job + "\n");
             Logger.info("==========================================================");
         }
     }
@@ -340,13 +341,21 @@ public class File extends SuperModel {
         }
     }
 
+    public String getCloudfrontFiles(){
+        return Play.application().configuration().getString("aws.cloudfront.files");
+    }
+
+    public String getCloudfrontVideos(){
+        return Play.application().configuration().getString("aws.cloudfront.videos");
+    }
+
     public String getURL() {
         if (type.contains("video/") || type.equals("video")) {
-            return ("http://dc2jx5ot5judg.cloudfront.net" + "/" + this.uuid.toString() + "/" + this.uuid.toString() );
+            return ("http://" + getCloudfrontVideos() + "/" + this.uuid.toString() + "/" + this.uuid.toString() );
         } else if (type.contains("image/")) {
-            return ("http://d2ggucmtk9u4go.cloudfront.net" + "/" + this.getFileName());
+            return ("http://" + getCloudfrontFiles() + "/" + this.getFileName());
         } else{
-            return ("http://d2ggucmtk9u4go.cloudfront.net" + "/" + this.getFileName());
+            return ("http://" + getCloudfrontFiles() + "/" + this.getFileName());
         }
     }
 
