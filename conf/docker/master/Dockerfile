@@ -1,6 +1,5 @@
 FROM dockerfile/java
 MAINTAINER Peter Andersen <peter@sproutup.co>
-# Usage: ADD [source directory or URL] [destination directory]
 ADD files /
 WORKDIR /opt/docker
 RUN ["chown", "-R", "daemon", "."]
