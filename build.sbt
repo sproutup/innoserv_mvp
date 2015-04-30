@@ -19,7 +19,8 @@ val appDependencies = Seq(
   "org.webjars" %% "webjars-play" % "2.3.0",
   "org.webjars" % "bootstrap" % "3.2.0",
   "com.amazonaws" % "aws-java-sdk" % "1.9.17",
-  "joda-time" % "joda-time" % "2.7"
+  "joda-time" % "joda-time" % "2.7",
+  "com.typesafe.play.plugins" %% "play-plugins-redis" % "2.3.1"
 )
 
 libraryDependencies += "com.github.tototoshi" %% "play-flyway" % "1.2.0"
@@ -28,6 +29,8 @@ libraryDependencies += "net.coobird" % "thumbnailator" % "0.4.8"
 
 libraryDependencies += "org.scribe" % "scribe" % "1.3.6"
 
+
+resolvers += "org.sedis" at "http://pk11-scratch.googlecode.com/svn/trunk"
 
 //  Uncomment the next line for local development of the Play Authenticate core:
 lazy val playAuthenticate = project.in(file("modules/play-authenticate")).enablePlugins(PlayJava)
