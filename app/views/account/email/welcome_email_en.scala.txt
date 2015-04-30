@@ -1,13 +1,32 @@
 @(url: String, token: String, name: String, email: String)
 
-Dear @name,
-	You're officially part of our community! Thank you for joining SproutUp community. 
-	
-	We look forward to your participation.
-	
-	Your login is your email id @email. Start enjoying SproutUp by visiting us at http://trial.sproutup.co now.
+Hi there,
 
+Welcome to SproutUp Beta - the smart way for open collaboration between creators and early adopters.
 
-	Cheers,
-	Nitin and Tao
-	Founders of SproutUp
+Here's how you can get started:
+
+COLLABORATE - Share your best ideas with product creators
+
+TELL OTHERS - Post pictures and videos of your experience
+
+TRY IT - Request product trials and experience first-hand
+
+GIVE KUDOS - Recognize peers for their innovative contributions
+
+Starting collaborating at SproutUp Beta now at http://www.sproutup.co!
+
+Cheers,
+
+Nitin & Tao
+Co-Founders
+SproutUp
+
+Questions or suggestions? Ping us at team@@sproutup.co.
+
+----------------------------------------------------------------
+
+Sent from SproutUp HQ
+10423 Armory Ave, Kensington, MD 20895
+
+© SproutUp Co, 2015

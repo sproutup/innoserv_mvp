@@ -61,7 +61,7 @@ public class TwitterController extends Controller {
         }
         Logger.debug("twitter api > get statuses/timeline > found > ", prod.urlTwitter);
         String endpoint = prod.urlTwitter.substring(prod.urlTwitter.lastIndexOf(".com/")+5);
-        return getApi(STATUSES_USER_TIMELINE_URL + "?count=5&screen_name=" + endpoint);
+        return getApi(STATUSES_USER_TIMELINE_URL + "?count=3&screen_name=" + endpoint);
     }
 
     public static Result getSearch(Long product_id) {

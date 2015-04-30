@@ -28,7 +28,7 @@ angular.module('sproutupApp').directive('upBackgroundImage',
                         url = attr.upFallbackImage ? attr.upFallbackImage : missingDefault;
                     }
                     element.css({
-                        'background-image': 'url(' + url +')'
+                        'background-image': 'url(' + url + attr.upBackgroundAttr + ')'
                     });
                 });
 
@@ -39,7 +39,7 @@ angular.module('sproutupApp').directive('upBackgroundImage',
                     url = attr.upFallbackImage ? attr.upFallbackImage : missingDefault;
                 }
                 element.css({
-                    'background-image': 'url(' + url +')'
+                    'background-image': 'url(' + url + attr.upBackgroundAttr +')'
                 });
             }
         };
