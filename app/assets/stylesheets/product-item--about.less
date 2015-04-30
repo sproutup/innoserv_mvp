@@ -61,7 +61,7 @@
 
 .about-product--header {
     font-weight: 300;
-    font-size: 22pt;
+    font-size: 24pt;
     padding-top: 20px;
     padding-left: 20px;
     margin-bottom: 0px;
@@ -69,26 +69,33 @@
 
 .about-product--content {
     font-weight: 400;
-    font-size: 12pt;
+    font-size: 14pt;
     padding: 20px 20px 30px;
     margin-bottom: 0px;
   white-space: pre-wrap;
+  line-height: 1.5;
 }
 
 .about-product--content i {
   padding-right: 10px;
 }
 
-.about-product--feature {
-    background-color: @sproutup-gold;
+.about-product--feature.right {
+  background-color: @sproutup-cyan;
+  width: 100%;
+  color: @main-text;
+}
+
+.about-product--feature.left {
+    background-color: @sproutup-lightpurple;
     width: 100%;
-    color: @main-text;
+    color: @main-text-white;
 }
 
 .about-product--mission {
     background-color: @sproutup-green;
     width: 100%;
-    color: #ffffff;
+    color: @main-text-white;
 }
 
 .about-product--mission-creator {
