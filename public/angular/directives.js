@@ -807,6 +807,7 @@ angular.module('sproutupApp').directive('upLike', ['LikesService', 'AuthService'
 angular.module('sproutupApp').directive('upVideo', ['FileService', '$timeout',
     function (fileService, $timeout) {
         return {
+            require: '^masonry',
             restrict: 'E',
             replace: true,
             scope: {
@@ -814,7 +815,7 @@ angular.module('sproutupApp').directive('upVideo', ['FileService', '$timeout',
                 overlay: '='
             },
             templateUrl: 'assets/templates/up-video.html',
-            link: function (scope, element, attrs) {
+            link: function (scope, element, attrs, masonry) {
                 attrs.$observe('file', function (file) {
                     if (file) {
                         console.log("up-video - file changed: ", file);
@@ -850,6 +851,11 @@ angular.module('sproutupApp').directive('upVideo', ['FileService', '$timeout',
                         // and properly rendered by the browser
                         var flowplr = element.find(".player");
                         var api = flowplr.flowplayer();
+                        api.bind("ready", function(e, api) {
+                            console.log("up-video > flowplayer ready", scope.file);
+                           // do your thing
+                            masonry.reload();
+                        });
                     }, 0);
                 }, 0);
             }
@@ -870,9 +876,15 @@ angular.module('sproutupApp').directive('upPhoto', ['FileService',
             link: function (scope, element, attrs, ctrl) {
                 attrs.$observe('file', function (file) {
                     if (file) {
-                        console.log("up-photo - file changed: " + file.id);
-                        //ctrl.reload();
+                        console.log("up-photo - file changed: " + scope.file.id);
+                        ctrl.reload();
                     }
+                });
+
+                // initialize Masonry after all images have loaded
+                imagesLoaded( element[0], function() {
+                    console.log("image loaded" + scope.file.id);
+                    //msnry = new Masonry( container );
                 });
             }
         }
@@ -888,6 +900,20 @@ angular.module('sproutupApp').directive('upFiles', ['$compile', 'FileService',
             },
             templateUrl: 'assets/templates/up-files.html',
             link: function (scope, element, attrs) {
+                flowplayer(function (api, root) {
+
+                  api.bind("load", function () {
+                    console.log("video loading")
+                    // do something when a new video is about to be loaded
+
+                  }).bind("ready", function () {
+                    console.log("video ready")
+                    // do something when a video is loaded and ready to play
+
+                  });
+
+                });
+
                 // listen for the event in the relevant $scope
                 scope.$on('fileUploadEvent', function (event, args) {
                     console.log('on fileUploadEvent - type: ' + args.data.type);
