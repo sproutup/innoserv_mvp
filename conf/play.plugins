@@ -18,3 +18,4 @@
 #10140:com.feth.play.module.pa.providers.wwwauth.negotiate.SpnegoAuthProvider
 #10150:com.feth.play.module.pa.providers.oauth2.eventbrite.EventBriteAuthProvider
 1000:com.github.tototoshi.play2.flyway.Plugin
+550:com.typesafe.plugin.RedisPlugin
