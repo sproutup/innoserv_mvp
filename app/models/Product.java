@@ -284,6 +284,10 @@ public class Product extends SuperModel implements PathBindable<Product>,
         }
 
 		if(this.productAdditionalDetail!=null) {
+			if(productAdditionalDetail.bannerPhoto!=null) {
+				node.put("banner", productAdditionalDetail.bannerPhoto.toJson());
+			}
+
 			if(productAdditionalDetail.descriptionVideo1!=null) {
 				node.put("video", productAdditionalDetail.descriptionVideo1.toJson());
 			}
