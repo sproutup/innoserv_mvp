@@ -70,7 +70,7 @@ public class Products extends Controller {
     @BodyParser.Of(BodyParser.Json.class)
     public static Result getProducts()
     {
-        List<Product> products_ = new Product().getAll();
+        List<Product> products_ = new Product().getAllActive();
         return ok(Product.toJson(products_));
     }
 

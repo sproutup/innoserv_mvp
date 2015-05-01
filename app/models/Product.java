@@ -99,6 +99,11 @@ public class Product extends SuperModel implements PathBindable<Product>,
 		return find.all();
 	}
 
+	public List<Product> getAllActive() {
+		return find.where().eq("activeFlag", "1").findList();
+	}
+
+	
 	public static Product findbyID(Long id) {
 		return find.byId(id);
 	}
