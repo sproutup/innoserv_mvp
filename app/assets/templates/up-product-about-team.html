@@ -6,6 +6,14 @@
         </div>
     </div>
 </div>
+<div ng-if="justCreator==all" ng-repeat="member in product.team" class="col-md-4 col-sm-6 about-product--team-member">
+    <div class="about-product--team-member-photo" style="background-image: url('{{member.photo.url.image}}?w=280&h=280')">
+        <div class="meet-creator-overlay-info">
+            <h1>Meet {{member.title}}</h1>
+            <h2>{{member.name}}</h2>
+        </div>
+    </div>
+</div>
 <div ng-if="justCreator==true && product.team.length > 0" class="about-product--mission-creator secondrow">
     <div class="about-product--mission-creator" style="background-image: url('{{product.team[0].photo.url.image}}?w=280&h=280')">
         <div class="meet-creator-overlay-info">
