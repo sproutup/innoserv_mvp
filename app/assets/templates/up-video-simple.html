@@ -1,0 +1,9 @@
+<div>
+    <div class="player">
+        <video preload="auto">
+            <source type="application/x-mpegurl" ng-src="{{file.url.mpeg | trusted}}">
+            <source type="video/webm" ng-src="{{file.url.webm | trusted}}">
+            <source type="video/mp4" ng-src="{{file.url.mp4 | trusted}}">
+        </video>
+    </div>
+</div>
