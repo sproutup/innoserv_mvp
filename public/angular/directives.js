@@ -200,7 +200,7 @@ angular.module('sproutupApp').directive('upProductAboutMission', ['Utils', '$win
                     scope.windowHeight = newValue.h;
                     scope.windowWidth = newValue.w;
                     if(scope.equalHeight != null) {
-                         utils.equalHeight(equalHeight);
+                         utils.equalHeight(scope.equalHeight);
                     }
                 }, true);
 
@@ -822,26 +822,6 @@ angular.module('sproutupApp').directive('upVideo', ['FileService', '$timeout',
                     }
                 });
 
-                angular.element(document).ready(function () {
-                    console.log('Hello World');
-                    //flowplayer(function (api, root) {
-                    //
-                    //    api.bind("load", function () {
-                    //        console.log("up-video - load");
-                    //
-                    //        // do something when a new video is about to be loaded
-                    //
-                    //    }).bind("ready", function () {
-                    //        console.log("up-video - ready");
-                    //
-                    //        // do something when a video is loaded and ready to play
-                    //
-                    //    });
-                    //
-                    //});
-                });
-
-
                 $timeout(function () {
                     $timeout(function () {
                         console.log("up-video - loaded: ");
@@ -853,7 +833,6 @@ angular.module('sproutupApp').directive('upVideo', ['FileService', '$timeout',
                         var api = flowplr.flowplayer();
                         api.bind("ready", function(e, api) {
                             console.log("up-video > flowplayer ready", scope.file);
-                           // do your thing
                             masonry.reload();
                         });
                     }, 0);
@@ -862,6 +841,37 @@ angular.module('sproutupApp').directive('upVideo', ['FileService', '$timeout',
         }
     }
 ]);
+
+
+angular.module('sproutupApp').directive('upVideoSimple', ['FileService', '$timeout',
+    function (fileService, $timeout) {
+        return {
+            restrict: 'E',
+            replace: true,
+            scope: {
+                file: '=',
+                overlay: '='
+            },
+            templateUrl: 'assets/templates/up-video-simple.html',
+            link: function (scope, element, attrs) {
+                attrs.$observe('file', function (file) {
+                    if (file) {
+                        console.log("up-video - file changed: ", file);
+                    }
+                });
+
+                $timeout(function () {
+                    $timeout(function () {
+                        console.log("up-video-simple - loaded: ");
+                        var flowplr = element.find(".player");
+                        var api = flowplr.flowplayer();
+                    }, 0);
+                }, 0);
+            }
+        }
+    }
+]);
+
 
 angular.module('sproutupApp').directive('upPhoto', ['FileService',
     function (fileService) {

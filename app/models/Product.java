@@ -354,6 +354,26 @@ public class Product extends SuperModel implements PathBindable<Product>,
 				}
 				teamArrayNode.add(member);
 			}
+			if (this.productAdditionalDetail.member5Name != null && this.productAdditionalDetail.member5Name != "") {
+				ObjectNode member = Json.newObject();
+				member.put("name", this.productAdditionalDetail.member5Name);
+				member.put("description", this.productAdditionalDetail.member5Description);
+				member.put("title", this.productAdditionalDetail.member5Title);
+				if (this.productAdditionalDetail.member5Photo != null) {
+					member.put("photo", this.productAdditionalDetail.member5Photo.toJson());
+				}
+				teamArrayNode.add(member);
+			}
+			if (this.productAdditionalDetail.member6Name != null && this.productAdditionalDetail.member6Name != "") {
+				ObjectNode member = Json.newObject();
+				member.put("name", this.productAdditionalDetail.member6Name);
+				member.put("description", this.productAdditionalDetail.member6Description);
+				member.put("title", this.productAdditionalDetail.member6Title);
+				if (this.productAdditionalDetail.member6Photo != null) {
+					member.put("photo", this.productAdditionalDetail.member6Photo.toJson());
+				}
+				teamArrayNode.add(member);
+			}
 			node.put("team", teamArrayNode);
 		}
         return node;
