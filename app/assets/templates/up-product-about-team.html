@@ -1,7 +1,7 @@
 <div ng-if="justCreator==false" ng-repeat="member in product.team" ng-hide="$first" class="col-md-4 col-sm-6 about-product--team-member">
     <div class="about-product--team-member-photo" style="background-image: url('{{member.photo.url.image}}?w=280&h=280')">
         <div class="meet-creator-overlay-info">
-            <h1>Meet {{member.title}}</h1>
+            <h1>{{member.title}}</h1>
             <h2>{{member.name}}</h2>
         </div>
     </div>
@@ -9,7 +9,7 @@
 <div ng-if="justCreator==all" ng-repeat="member in product.team" class="col-md-4 col-sm-6 about-product--team-member">
     <div class="about-product--team-member-photo" style="background-image: url('{{member.photo.url.image}}?w=280&h=280')">
         <div class="meet-creator-overlay-info">
-            <h1>Meet {{member.title}}</h1>
+            <h1>{{member.title}}</h1>
             <h2>{{member.name}}</h2>
         </div>
     </div>
