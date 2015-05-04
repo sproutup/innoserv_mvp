@@ -145,23 +145,63 @@ angular.module('sproutupApp').directive('upSameHeight', ['Utils', '$window', '$t
             },
             link: function(scope, element, attrs){
                 scope.setHeight = function(){
-                    var children = element.children();
+                    //var children = element.children();
+                    var children = element.find(".watch");
+                    var heights = [];
                     for(var i=0;i<children.length;i++){
-                        console.log("height ", $(children[i]).height());
+                        angular.element(children[i]).height('auto');
+                    }
+                    for(var i=0;i<children.length;i++){
+                        console.log("height ",angular.element(children[i]).height());
+                        heights.push(angular.element(children[i]).height());
                     }
 
-                    var heights = element.find(".watch").map(function(item) {
-                            return item.height;
-                        });
+                    //var heights = element.children().map(function(child) {
+                    //    return angular.element(child).height();
+                    //});
+
+                    //var heightsx = element.find(".watch").map(function(item) {
+                    //        return item.height;
+                    //    });
+
+                    var pageOne = angular.element(element.children()[0]);
 
                     var maxHeight = Math.max.apply(null, heights);
-                    console.log("up-same-height ", heights);
-                    //element.find(".watch").height(maxHeight);
+
+                    if(maxHeight == 0 || !isFinite(maxHeight)) {
+                        console.log("up-same-height try again...");
+                        // wait and try again
+                        $timeout(
+                            function () {
+                                scope.setHeight();
+                            },
+                            1000,
+                            true,
+                            scope
+                        );
+                    }
+                    else{
+                        element.find(".watch").height(maxHeight);
+                        console.log("up-same-height ", heights, maxHeight, element.height(), element[0].offsetHeight, pageOne.height());
+                        //element.find(".watch").height(maxHeight);
+                        for(var i=0;i<children.length;i++){
+                            console.log("height ",angular.element(children[i]).height());
+                            angular.element(children[i]).height(maxHeight);
+                        }
+                    }
                 };
 
                 $timeout(function () {
                     scope.setHeight();
-                }, 0);
+                }, 100);
+
+                $timeout(function () {
+                    scope.setHeight();
+                }, 500);
+
+                $timeout(function () {
+                    scope.setHeight();
+                }, 1000);
 
                 var w = angular.element($window);
 
