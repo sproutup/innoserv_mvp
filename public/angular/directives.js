@@ -164,12 +164,12 @@ angular.module('sproutupApp').directive('upSameHeight', ['Utils', '$window', '$t
                     //        return item.height;
                     //    });
 
-                    var pageOne = angular.element(element.children()[0]);
+                    //var pageOne = angular.element(element.children()[0]);
 
                     var maxHeight = Math.max.apply(null, heights);
 
                     if(maxHeight == 0 || !isFinite(maxHeight)) {
-                        console.log("up-same-height try again...");
+                        //console.log("up-same-height try again...");
                         // wait and try again
                         $timeout(
                             function () {
@@ -182,12 +182,12 @@ angular.module('sproutupApp').directive('upSameHeight', ['Utils', '$window', '$t
                     }
                     else{
                         element.find(".watch").height(maxHeight);
-                        console.log("up-same-height ", heights, maxHeight, element.height(), element[0].offsetHeight, pageOne.height());
+                        //console.log("up-same-height ", heights, maxHeight, element.height(), element[0].offsetHeight, pageOne.height());
                         //element.find(".watch").height(maxHeight);
-                        for(var i=0;i<children.length;i++){
-                            console.log("height ",angular.element(children[i]).height());
-                            angular.element(children[i]).height(maxHeight);
-                        }
+                        //for(var i=0;i<children.length;i++){
+                        //    //console.log("height ",angular.element(children[i]).height());
+                        //    angular.element(children[i]).height(maxHeight);
+                        //}
                     }
                 };
 
