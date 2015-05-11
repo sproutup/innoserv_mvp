@@ -117,19 +117,31 @@ public class Product extends SuperModel implements PathBindable<Product>,
 
 	@Override
 	public void save() {
+		cacheRemove();
 		this.slugify();
 		super.save();
 	}
 
 	@Override
 	public void update(Object o) {
+		cacheRemove();
 		this.slugify();
 		super.update(o);
 	}
 	
 	public void update() {
+		cacheRemove();
 		this.slugify();
 		super.update();
+	}
+
+	/*
+		Clear product item from cache
+	 */
+	private void cacheRemove(){
+		if(this.id != null) {
+			play.cache.Cache.remove("product:" + this.id);
+		}
 	}
 
 	public void slugify() {
