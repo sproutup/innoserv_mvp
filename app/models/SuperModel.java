@@ -51,7 +51,6 @@ public class SuperModel extends TimeStampModel implements Likeable, Taggable, Fo
 
   @Override
   public List<Likes> getAllLikes() {
-    Logger.debug("getAllLikes:" + this.getClass().getName());
     return Likes.getAllLikes(this.id, this.getClass().getName());
   }
 

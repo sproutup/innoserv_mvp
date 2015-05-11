@@ -10,18 +10,18 @@
         </div>
     </div>
 
-    <div class="row about-product-row">
-        <div class="col-sm-7 about-product-tile" up-product-about-description product="product" equal-height="true">
+    <div class="row about-product-row" up-same-height>
+        <div class="col-sm-7 about-product-tile" up-product-about-description product="product">
         </div>
-        <div class="col-sm-5 about-product-tile" up-product-about-features product="product" equal-height="true">
+        <div class="col-sm-5 about-product-tile" up-product-about-features product="product">
         </div>
     </div>
 
     <!-- row 3: mission statements -->
-    <div ng-show="product.missionStatement" class="row about-product-row">
-        <div class="col-md-8 col-sm-7 about-product-tile" up-product-about-mission product="product" equal-height=".secondrow">
+    <div ng-show="product.missionStatement" class="row about-product-row" up-same-height>
+        <div class="col-md-8 col-sm-7 about-product-tile" up-product-about-mission product="product">
         </div>
-        <div class="col-md-4 col-sm-5 about-product-tile" up-product-about-team product="product" just-creator="true" equal-height=".secondrow">
+        <div class="col-md-4 col-sm-5 about-product-tile" up-product-about-team product="product" just-creator="true">
         </div>
     </div>
 

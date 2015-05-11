@@ -1,11 +1,17 @@
 package models;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectReader;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import org.joda.time.DateTime;
+import org.xerial.snappy.Snappy;
 import play.Logger;
+import play.api.cache.Cache;
+import play.cache.*;
 import play.libs.Json;
 import play.mvc.PathBindable;
 import play.mvc.QueryStringBindable;
@@ -27,8 +33,9 @@ public class Product extends SuperModel implements PathBindable<Product>,
 		QueryStringBindable<Product>, Taggable {
 
 	private static final long serialVersionUID = 1L;
+    private static ObjectMapper mapper = new ObjectMapper(); // can reuse, share globally
 
-	@Id
+    @Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	public Long id;
 	
@@ -110,19 +117,31 @@ public class Product extends SuperModel implements PathBindable<Product>,
 
 	@Override
 	public void save() {
+		cacheRemove();
 		this.slugify();
 		super.save();
 	}
 
 	@Override
 	public void update(Object o) {
+		cacheRemove();
 		this.slugify();
 		super.update(o);
 	}
 	
 	public void update() {
+		cacheRemove();
 		this.slugify();
 		super.update();
+	}
+
+	/*
+		Clear product item from cache
+	 */
+	private void cacheRemove(){
+		if(this.id != null) {
+			play.cache.Cache.remove("product:" + this.id);
+		}
 	}
 
 	public void slugify() {
@@ -256,7 +275,45 @@ public class Product extends SuperModel implements PathBindable<Product>,
         }
 	}
 
-    public ObjectNode toJson(){
+    public ObjectNode toJson() {
+        //org.xerial.snappy.Snappy.compress(src, dest);
+//        String input = "Hello snappy-java! Snappy-java is a JNI-based wrapper of "
+//                + "Snappy, a fast compresser/decompresser.";
+//        byte[] compressed = Snappy.compress(input.getBytes("UTF-8"));
+//        byte[] uncompressed = Snappy.uncompress(compressed);
+//
+//        String result = new String(uncompressed, "UTF-8");
+//        System.out.println(result);
+        ObjectNode node;
+        final ObjectReader reader = mapper.reader();
+
+        byte[] compressed = (byte[]) play.cache.Cache.get("product:" + this.id);
+        if (compressed != null) {
+            Logger.debug("product: cache hit");
+            try {
+                byte[] uncompressed = Snappy.uncompress(compressed);
+                String result = new String(uncompressed, "UTF-8");
+                node = (ObjectNode) mapper.readTree(result);
+            } catch(Exception e){
+                return null;
+            };
+            return node;
+        }
+        else{
+            Logger.debug("product: cache miss");
+            node =  this.toJsonRaw();
+            String src = node.toString();
+            try {
+                compressed = Snappy.compress(src.getBytes());
+                play.cache.Cache.set("product:" + this.id, compressed);
+            } catch(Exception e){
+                return null;
+            }
+            return node;
+        }
+    }
+
+    private ObjectNode toJsonRaw(){
         ObjectNode node = Json.newObject();
         node.put("id", this.id);
         node.put("productEAN", this.productEAN);
