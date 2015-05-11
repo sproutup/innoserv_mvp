@@ -1,0 +1,86 @@
+@moreHead = {
+<link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/creator-dashboard.css")">
+}
+
+@main(Messages("My product | SproutUp: Redefine Commerce for Emerging Products"), moreHead) {
+
+<div class="row add-new-product-page">
+    <h1>Add a new product</h1>
+
+    <!-- Basic Information -->
+    <div class="product-edit--header">Basic Information</div>
+    <div class="row product-input-row">
+        <div class="col-sm-6 product-input-cell">
+            <input type="text" class="form-control product-edit-input" placeholder="Product name">
+        </div>
+        <div class="col-sm-6 product-input-cell">
+            <input type="text" class="form-control product-edit-input" placeholder="Company name">
+        </div>
+    </div>
+    <div class="row product-input-row">
+        <div class="col-sm-12 product-input-cell">
+            <input type="text" class="form-control product-edit-input" placeholder="Product punchline, please be concise">
+        </div>
+    </div>
+    <div class="row product-input-row">
+        <div class="col-sm-12 product-input-cell">
+            <input type="text" class="form-control product-edit-input left-feedback" placeholder="Product page: www.example.com">
+            <span class="fa fa-lg fa-home"></span>
+        </div>
+    </div>
+    <div class="row product-input-row">
+        <div class="col-sm-12 product-input-cell">
+            <input type="text" class="form-control product-edit-input left-feedback" placeholder="Product Facebook: facebook.com/example">
+            <span class="fa fa-lg fa-facebook-square"></span>
+        </div>
+    </div>
+    <div class="row product-input-row">
+        <div class="col-sm-12 product-input-cell">
+            <input type="text" class="form-control product-edit-input left-feedback" placeholder="Product Twitter: twitte.com/example">
+            <span class="fa fa-lg fa-twitter-square"></span>
+        </div>
+    </div>
+    <div class="row product-input-row">
+        <div class="col-sm-12 product-input-cell">
+            <input type="text" class="form-control product-edit-input left-feedback" placeholder="Product Pinterest: pinterest.com/example">
+            <span class="fa fa-lg fa-pinterest-square"></span>
+        </div>
+    </div>
+
+    <!-- Video -->
+    <div class="product-edit--header">Product Video</div>
+    <div class="row product-input-row">
+         <div class="col-sm-12 product-input-cell">
+            <input type="text" class="form-control product-edit-input left-feedback" placeholder="Product video URL (YouTube, Vimeo, etc.)">
+            <span class="fa fa-lg fa-video-camera"></span>
+        </div>
+    </div>
+
+    <!-- Product description -->
+    <div class="product-edit--header">Detailed Product Information</div>
+    <div class="row product-input-row">
+        <div class="col-sm-12 product-input-cell">
+            <textarea class="form-control product-edit-input-textarea" placeholder="Detailed product description" rows="2"></textarea>
+        </div>
+    </div>
+    <div class="row product-input-row">
+        <div class="col-sm-12 product-input-cell">
+            <textarea class="form-control product-edit-input-textarea" placeholder="List cool features about your product here" rows="2"></textarea>
+        </div>
+    </div>
+    <div class="row product-input-row">
+        <div class="col-sm-12 product-input-cell">
+            <textarea class="form-control product-edit-input-textarea" placeholder="The mission of your company and product" rows="2"></textarea>
+        </div>
+    </div>
+
+    <!-- Our Story -->
+    <div class="product-edit--header">Your Story</div>
+    <div class="row product-input-row">
+        <div class="col-sm-12 product-input-cell">
+            <textarea class="form-control product-edit-input-textarea" placeholder="Tell a compelling story about your product, company, and team" rows="2"></textarea>
+        </div>
+    </div>
+
+</div>
+}

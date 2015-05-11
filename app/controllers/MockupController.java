@@ -92,4 +92,10 @@ public class MockupController extends Controller {
 
         return ok(user_settings_mock.render());
     }
+
+    public static Result addNewProduct() {
+        if(!mockups_enabled){return notFound();};
+
+        return ok(add_new_product_mock.render());
+    }
 }
