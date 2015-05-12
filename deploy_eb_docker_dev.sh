@@ -1,5 +1,5 @@
 activator warn clean docker:stage
-cp ~/workspace/sproutup_mvp/conf/docker/master/Dockerfile ~/workspace/sproutup_mvp/target/docker/Dockerfile
+cp conf/docker/master/Dockerfile target/docker/Dockerfile
 cd target/docker
 eb init -r us-west-2 -p docker -k endurance dev
 eb deploy
