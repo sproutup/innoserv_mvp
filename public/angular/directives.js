@@ -1521,7 +1521,7 @@ angular.module('sproutupApp').directive('upToptags', ['TagsService', '$timeout',
 /*
     Product List
  */
-angular.module('sproutupApp').directive('upProductList', [ 'ProductService',
+angular.module('sproutupApp').directive('upProductList', [ 'ProductServicex',
     function (productService) {
         return {
             restrict: 'A',
@@ -1531,7 +1531,16 @@ angular.module('sproutupApp').directive('upProductList', [ 'ProductService',
             link: function (scope, element, attrs, ctrl, transclude) {
                 // get the product list
                 scope.query = "";
-                scope.products = productService.query();
+                productService.query().then(
+                    function(result){
+                        scope.products = result;
+                        for (var i = 0; i < scope.products.length; i++) {
+                            scope.products[i].random = Math.random();
+                            console.log("random: ", scope.products[i].random);
+                        }
+                    }
+                );
+
 
                 // add the directive scope to the transcluded content
                 transclude(scope, function(clone, scope) {
