@@ -439,10 +439,33 @@ function($http, $log, $q, $upload, $filter){
         }).success(function(data, status, headers, config){
             $log.debug("file verify returned success");
             $log.debug("type: " + data.type);
-            var result = {file : file, data : data, status : true};
+            var result = {file : file, data : data, uuid : uuid, status : true};
             deferred.resolve(result);
         }).error(function(data, status, headers, config){
             $log.debug("file verify returned error");
+            var result = {file : file, uuid : uuid, status : false};
+            deferred.reject(result);
+        });
+
+        return deferred.promise;
+    };
+
+    FileService.addAvatar = function(file, uuid){
+        var deferred = $q.defer();
+
+        $http({
+            method: 'POST',
+            url: '/api/file/avatar',
+            headers: {'Content-Type': 'application/json'},
+            params: {
+                'uuid' : uuid
+            }
+        }).success(function(data, status, headers, config){
+            $log.debug("add avatar returned success");
+            var result = {file : file, data : data, status : true};
+            deferred.resolve(result);
+        }).error(function(data, status, headers, config){
+            $log.debug("add avatar returned error");
             var result = {file : file, status : false};
             deferred.reject(result);
         });

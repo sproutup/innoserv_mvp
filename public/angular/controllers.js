@@ -49,9 +49,9 @@ fileControllers.controller('FileCtrl', ['$scope', '$rootScope', '$upload', 'File
             );
         };
 
-        $scope.$watch('product', function(product) {
-            $log.debug("watch product found: " + product.id);
-        });
+//        $scope.$watch('product', function(product) {
+//            $log.debug("watch product found: " + product.id);
+//        });
 
         $scope.$watch('files', function(files) {
             $log.debug("watch files...");
@@ -610,7 +610,6 @@ productControllers.controller('ForumCtrl', ['$scope', 'ForumService', 'LikesServ
             // this callback will be called asynchronously
             // when the response is available
             $scope.posts = data;
-            $log.debug("posts: " + $scope.posts);
         })
         .error(function(data, status, headers, config){
             // called asynchronously if an error occurs

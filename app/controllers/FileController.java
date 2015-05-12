@@ -16,6 +16,7 @@ import play.mvc.Result;
 import plugins.S3Plugin;
 
 import java.util.List;
+import java.util.UUID;
 
 
 /**
@@ -72,6 +73,23 @@ public class FileController  extends Controller {
         File res = File.verify(uuid);
         if(res != null){
             return ok(res.toJson());
+        }
+        else{
+            return notFound();
+        }
+    }
+
+    @BodyParser.Of(BodyParser.Json.class)
+    @SubjectPresent
+    public static Result addAvatar(String uuid)
+    {
+        File file = File.findByUUID(UUID.fromString(uuid));
+        if(file != null) {
+            Logger.debug("add avatar to user");
+            User user = Application.getLocalUser(ctx().session());
+            user.setAvatar(file);
+            user.save();
+            return ok();
         }
         else{
             return notFound();

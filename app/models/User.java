@@ -109,6 +109,10 @@ public class User extends Model implements Subject {
 	 */
 	public String externalType;
 
+	@OneToOne
+	public File avatar;
+
+
 	@ManyToMany
 	public List<SecurityRole> roles;
 
@@ -376,6 +380,10 @@ public class User extends Model implements Subject {
     }
 
     public String getAvatar(){
+		if(avatar != null){
+			return avatar.getURL();
+		}
+		else
 		if(getProviders().contains("facebook")){
 			return getAccountByProvider("facebook").providerUserImageUrl;
 			//return "http://graph.facebook.com/" + facebookId + "/picture/?type=large";
@@ -389,6 +397,11 @@ public class User extends Model implements Subject {
             return "assets/images/general-profile-icon.png";
         }
     }
+
+	public void setAvatar(File file){
+		// set the avatar url
+		this.avatar = file;
+	}
     
     public String getFirstName(){
     	if (firstName == null || firstName == "") {

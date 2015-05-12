@@ -1,7 +1,7 @@
-<div class="profile-info">
+<div class="profile-info" ng-controller="FileCtrl">
     <div class="col-lg-12">
         <div class="col-sm-2 profile-user--avatar">
-            <img class="img-responsive img-circle profile-avatar--img-circle" ng-src="{{user.avatarUrl}}">
+            <up-avatar-upload user="user"></up-avatar-upload>
         </div>
         <div class="col-sm-10 profile-user--details">
             <p class="profile-user--name">{{user.name}}<span class="profile-user--alias">@{{user.nickname}}</span></p>

@@ -270,11 +270,9 @@ angular.module('sproutupApp').directive('upTwitterShare',['$location',
                     scope.url = "url=" + window.encodeURIComponent("http://sproutup.co" + $location.path() + '#' + scope.hash);
                     scope.text = "text=" + window.encodeURIComponent("Check out what " + scope.name + " said about " + scope.product.productName + " @sproutupco");
                     if(scope.product.twitterUserName != null){
-                        console.log('twitter share user: ', scope.product.twitterUserName);
                         scope.text += " @" + scope.product.twitterUserName;
                     }
                     scope.path = "https://twitter.com/intent/tweet?" + scope.url + "&" + scope.text;
-                    console.log('twitter share: ', scope.path);
                 });
             }
         }
@@ -300,7 +298,6 @@ angular.module('sproutupApp').directive('upTwitterTweet', ['TwitterService','$ti
                         function(data){
                             var arrayLength = data.length;
                             for (var i = 0; i < arrayLength; i++) {
-                                console.log("twttr render create tweet.")
                                 element.append("<div id='tweet"+i+"'</div>");
                                 twttr.widgets.createTweet(
                                     data[i].id_str,
@@ -309,7 +306,6 @@ angular.module('sproutupApp').directive('upTwitterTweet', ['TwitterService','$ti
 //                                    cards: 'hidden'
 //                                    theme: 'dark'
                                     }).then(function (el) {
-                                        console.log("twttr render tweet embedded success")
                                     });
                             }
                         },
@@ -325,7 +321,6 @@ angular.module('sproutupApp').directive('upTwitterTweet', ['TwitterService','$ti
                         function(data){
                             var arrayLength = data.statuses.length;
                             for (var i = 0; i < arrayLength; i++) {
-                                console.log("twttr render create tweet.")
                                 element.append("<div id='tweet"+i+"'</div>");
                                 twttr.widgets.createTweet(
                                     data.statuses[i].id_str,
@@ -334,7 +329,6 @@ angular.module('sproutupApp').directive('upTwitterTweet', ['TwitterService','$ti
 //                                    cards: 'hidden'
 //                                    theme: 'dark'
                                     }).then(function (el) {
-                                        console.log("twttr render tweet embedded success")
                                     });
                             }
                         },
@@ -367,7 +361,6 @@ angular.module('sproutupApp').directive('upTwitterTweet', ['TwitterService','$ti
                         return;
                     }
 
-                    console.log("twttr render api: ", scope.api);
                     if(scope.api == "statuses/user_timeline"){
                         scope.user_timeline();
                     }
@@ -377,7 +370,7 @@ angular.module('sproutupApp').directive('upTwitterTweet', ['TwitterService','$ti
                 };
 
                 attrs.$observe('productId', function() {
-                    console.log("twttr : observe product id type = ", typeof scope.productId);
+//                    console.log("twttr : observe product id type = ", typeof scope.productId);
                     scope.render();
                 });
 
@@ -776,6 +769,113 @@ angular.module('sproutupApp').directive('upLike', ['LikesService', 'AuthService'
                     };
 
                 });
+            }
+        }
+    }
+]);
+
+angular.module('sproutupApp').directive('upAvatarUpload', ['FileService', 'AuthService', '$timeout',
+    function (fileService, authService, $timeout) {
+        return {
+            restrict: 'EA',
+            replace: true,
+            scope: {
+                user: '='
+            },
+            templateUrl: 'assets/templates/up-avatar-upload.html',
+            link: function (scope, element, attrs) {
+                attrs.$observe('file', function (file) {
+                    if (file) {
+                        console.log("up-video - file changed: ", file);
+                    }
+                });
+
+                $timeout(function () {
+                }, 0);
+
+                scope.$watch(function(scope) { return scope.files },
+                function(files) {
+                    console.log("watch files...");
+                    if (files != null) {
+                        for (var i = 0; i < files.length; i++) {
+                            scope.errorMsg = null;
+                            (function(file) {
+                                console.log("generate thumbnail");
+                                generateThumb(file);
+                            })(files[i]);
+                        }
+                    }
+                });
+
+                function generateThumb(file) {
+                    if (file != null) {
+                        console.log("set thumbnail...found file of type: " + file.type);
+                        if (file.type.indexOf('image') > -1) {
+                            console.log("set thumbnail...reader supported");
+                            $timeout(function() {
+                                console.log("set thumbnail...timeout entered");
+                                var fileReader = new FileReader();
+                                fileReader.readAsDataURL(file);
+                                fileReader.onload = function(e) {
+                                    $timeout(function() {
+                                        console.log("set thumbnail url");
+                                        file.dataUrl = e.target.result;
+                                    });
+                                }
+                            });
+                        }
+                        else
+                        if (file.type.indexOf('video') > -1) {
+                            console.log("set thumbnail...reader supported");
+                            file.dataUrl = "/assets/images/video-thumbnail.png";
+                        }
+                    }
+                };
+
+                scope.upload = function (files, message, refId, refType) {
+                    console.log("upload: ", refId, refType, files);
+                    fileService.authenticate(scope.files[0], message, refId, refType).then(
+                        function (result) {
+                            console.log("upload auth returned");
+                            scope.files[0].progress = 50;
+
+                            fileService.upload(result.file, result.data).then(
+                                function (result) {
+                                    // verify that upload to s3 is done
+                                    fileService.verify(result.file, result.uuid).then(
+                                        function (result) {
+                                            result.file.progress = 100;
+                                            fileService.addAvatar(result.file, result.uuid).then(
+                                                function (result) {
+                                                    result.file.progress = 100;
+                                                    authService.user().then(
+                                                        function(result){
+                                                            scope.files[0].dataUrl = null;
+                                                            scope.files = null;
+                                                        }
+                                                    )
+                                                }
+                                            )
+                                        }
+                                    )
+                                },
+                                function (error) {
+                                    // todo handle error
+                                },
+                                function (result) {
+                                    console.log("progress: ", result);
+                                    scope.files[0].progress = (50 + (result.progress / 2)).toFixed(1);
+                                }
+                            );
+                        },
+                        function (errorPayload) {
+                        },
+                        function (result) {
+                            console.log("progress: ", result);
+                            scope.files[0].progress = (result.progress / 2).toFixed(1);
+                        }
+                    );
+                }
             }
         }
     }
