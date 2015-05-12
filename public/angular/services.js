@@ -50,6 +50,30 @@ productServices.factory('ProductService', ['$resource',
     }
 ]);
 
+productServices.factory('ProductServicex', ['$http','$log', '$q',
+    function($http, $log, $q) {
+        var productService = {};
+
+        productService.query = function(){
+            var deferred = $q.defer();
+
+            $http({
+                method: 'GET',
+                url: '/api/products',
+                headers: {'Content-Type': 'application/json'}
+            }).success(function(data, status, headers, config){
+                deferred.resolve(data);
+            }).error(function(data, status, headers, config){
+                deferred.reject("product service : error querying products");
+            });
+
+            return deferred.promise;
+        };
+
+        return productService;
+    }
+]);
+
 productServices.factory('TwitterService', ['$http','$log', '$q',
     function($http, $log, $q) {
         var twitterService = {};

@@ -36,7 +36,7 @@
         <h1 class="text-center product-list-header">Our favorites</h1>
         <h1 class="text-center product-list-header-2">We are still in beta – adding new products every day.</h1>
 
-        <div ng-repeat="product in products | filter: {isFeatured:true}">
+        <div ng-repeat="product in products | filter: {isFeatured:true} | orderBy:'random'">
             <up-product-item product="product"></up-product-item>
         </div>
     </div>
