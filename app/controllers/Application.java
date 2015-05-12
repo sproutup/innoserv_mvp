@@ -279,6 +279,8 @@ public class Application extends Controller {
                             .toOutputStream(out);
                 }
 
+                response().setHeader(CACHE_CONTROL, "max-age=86400");
+
                 return ok(out.toByteArray()).as("image/jpg");
             } catch (Exception e) {
                 Logger.debug("image error: " + e.getMessage());
