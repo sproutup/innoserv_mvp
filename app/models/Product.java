@@ -1,5 +1,6 @@
 package models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectReader;
@@ -38,7 +39,8 @@ public class Product extends SuperModel implements PathBindable<Product>,
     @Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	public Long id;
-	
+
+	@JsonIgnore
 	@ManyToOne(cascade=CascadeType.ALL)
 	public Company company;
 

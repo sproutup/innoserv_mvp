@@ -54,6 +54,7 @@ GET           /views/profile/followers                                       con
 GET           /views/profile/followings                                      controllers.Application.profile_followings
 GET           /views/profile/account                                         controllers.Application.profile_account
 GET           /views/product-list                                            controllers.Products.list
+GET           /views/product-add                                             controllers.Products.add
 GET           /views/product-details                                         controllers.Products.details
 GET           /views/product-about                                           controllers.Products.about
 GET           /views/product-bar                                             controllers.Products.bar
@@ -81,6 +82,12 @@ GET           /api/products/:slug                                            con
 POST          /api/products                                                  controllers.Products.createProduct
 PUT           /api/products/:id                                              controllers.Products.updateProduct(id: Long)
 DELETE        /api/products/:id                                              controllers.Products.deleteProduct(id: Long)
+
+GET           /api/company                                                  controllers.CompanyController.query
+#GET           /api/company/:id                                              controllers.CompanyController.getCompany(id: Long)
+POST          /api/company                                                  controllers.CompanyController.save
+#PUT           /api/company/:id                                              controllers.CompanyController.save(id: Long)
+#DELETE        /api/company/:id                                              controllers.CompanyController.deleteCompany(id: Long)
 
 
 GET           /api/file/policy                                               controllers.FileController.authorize(contentHash: String , contentName: String, contentLength: Long, contentType: String, comment: String, refId: Long, refType: String)

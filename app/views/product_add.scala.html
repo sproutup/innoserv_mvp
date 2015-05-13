@@ -1,0 +1,101 @@
+@()
+
+<div class="row add-new-product-page" up-product-create user="user">
+    <h1>Add a new product</h1>
+    <h2>Hi CREATOR, thanks for joining our Beta! Please let us know a little bit more about your product, and we will get back to you shortly.</h2>
+
+    <form name="productForm" novalidate>
+    <!-- Basic Information -->
+    <div class="product-edit--header">Basic Information</div>
+    <div class="row product-input-row">
+        <div class="col-sm-6 product-input-cell">
+            <input name="productName" type="text" class="form-control product-edit-input" placeholder="Product name" ng-model="product.productName" required="">
+        </div>
+        <div class="col-sm-6 product-input-cell">
+            <input ng-disabled="product.company.companyName != null" name="companyName" type="text" class="form-control product-edit-input" placeholder="Company name" ng-model="product.company.companyName" required="">
+        </div>
+    </div>
+    <div class="row product-input-row">
+        <div class="col-sm-12 product-input-cell">
+            <input name="productDescription" type="text" class="form-control product-edit-input" placeholder="Product punchline, please be concise" ng-model="product.productDescription" required="">
+        </div>
+    </div>
+
+    <!-- URLs -->
+    <div class="product-edit--header">Website, Social Media</div>
+    <div class="row product-input-row">
+        <div class="col-sm-12 product-input-cell">
+            <input type="text" class="form-control product-edit-input left-feedback" placeholder="Product page: www.example.com" ng-model="product.urlHome" required>
+            <span class="fa fa-lg fa-home"></span>
+        </div>
+    </div>
+    <div class="row product-input-row">
+        <div class="col-sm-12 product-input-cell">
+            <input type="text" class="form-control product-edit-input left-feedback" placeholder="Product Facebook: facebook.com/example" ng-model="product.urlFacebook" required>
+            <span class="fa fa-lg fa-facebook-square"></span>
+        </div>
+    </div>
+    <div class="row product-input-row">
+        <div class="col-sm-12 product-input-cell">
+            <input type="text" class="form-control product-edit-input left-feedback" placeholder="Product Twitter: twitter.com/example" ng-model="product.urlTwitter" required>
+            <span class="fa fa-lg fa-twitter-square"></span>
+        </div>
+    </div>
+    <!--div class="row product-input-row">
+        <div class="col-sm-12 product-input-cell">
+            <input type="text" class="form-control product-edit-input left-feedback" placeholder="Product Instagram: instagram.com/example" ng-model="product.email">
+            <span class="fa fa-lg fa-instagram"></span>
+        </div>
+    </div-->
+
+    <!-- Video -->
+    <div class="product-edit--header">Product Video</div>
+    <div class="row product-input-row">
+        <div class="col-sm-12 product-input-cell">
+            <input type="text" class="form-control product-edit-input left-feedback" placeholder="Product video URL (YouTube, Vimeo, etc.)" ng-model="product.video.url">
+            <span class="fa fa-lg fa-video-camera"></span>
+        </div>
+    </div>
+
+    <!-- Product description -->
+    <!-- div class="product-edit--header">Detailed Product Information</div>
+    <div class="row product-input-row">
+        <div class="col-sm-12 product-input-cell">
+            <textarea class="form-control product-edit-input-textarea" placeholder="Detailed product description" rows="2"></textarea>
+        </div>
+    </div>
+    <div class="row product-input-row">
+        <div class="col-sm-12 product-input-cell">
+            <textarea class="form-control product-edit-input-textarea" placeholder="List cool features about your product here" rows="2"></textarea>
+        </div>
+    </div>
+    <div class="row product-input-row">
+        <div class="col-sm-12 product-input-cell">
+            <textarea class="form-control product-edit-input-textarea" placeholder="The mission of your company and product" rows="2"></textarea>
+        </div>
+    </div -->
+
+    <!-- Our Story -->
+    <!-- div class="product-edit--header">Your Story</div>
+    <div class="row product-input-row">
+        <div class="col-sm-12 product-input-cell">
+            <textarea class="form-control product-edit-input-textarea" placeholder="Tell a compelling story about your product, company, and team" rows="2"></textarea>
+        </div>
+    </div -->
+
+    <div class="add-product-actions">
+        <a ng-disabled="productForm.$invalid" class="btn btn-lg add-product-btn save" type="submit" ng-click="save()">Add Product</a>
+        <a class="btn btn-lg add-product-btn cancel" type="submit" ng-click="cancel()">Cancel</a>
+    </div>
+    </form>
+
+    <div>
+        <pre>form = {{product | json}}</pre>
+        <pre>user = {{user | json}}</pre>
+
+        <code>productForm.productName.$valid = {{productForm.productName.$valid}}</code><br>
+        <code>productForm.productName.$error = {{productForm.productName.$error}}</code><br>
+        <code>productForm.$valid = {{productForm.$valid}}</code><br>
+        <code>productForm.$error.required = {{!!productForm.$error.required}}</code><br>
+    </div>
+</div>

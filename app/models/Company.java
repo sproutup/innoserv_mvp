@@ -2,14 +2,14 @@ package models;
 
 import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.JsonNodeFactory;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+import org.joda.time.DateTime;
 import play.db.ebean.Model.Finder;
+import play.libs.Json;
 
 @Entity
 public class Company extends TimeStampModel{
@@ -29,8 +29,9 @@ public class Company extends TimeStampModel{
 	public static Finder<Long, Company> find = new Finder<Long, Company>(
 			Long.class, Company.class);
 
-	
-	
+	@OneToMany
+	public List<User> users;
+
 	public static List<Company> getAll() {
 		return find.all();
 	}
@@ -38,6 +39,19 @@ public class Company extends TimeStampModel{
 	public static Company findbyID(Long id) {
 		return find.byId(id);
 	}
-	
 
+	public ObjectNode toJson(){
+		ObjectNode node = Json.newObject();
+		node.put("id", this.id);
+		node.put("name", this.companyName);
+		return node;
+	}
+
+	public static ArrayNode toJson(List<Company> companies){
+		ArrayNode arrayNode = new ArrayNode(JsonNodeFactory.instance);
+		for (Company company : companies){
+			arrayNode.add(company.toJson());
+		}
+		return arrayNode;
+	}
 }

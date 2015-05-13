@@ -1,5 +1,4 @@
 <div class="col-sm-12 popular-tags-row" ng-hide="tags.length<1">
-    <div class="popular-tags-header" ng-class="cat">Popular tags in {{cat}}</div>
     <div class="popular-tags-list">
         <button ng-repeat="tag in tags | orderBy:counter:true" ng-class="cat" type="button" class="btn btn-popular-tags"><i class="fa fa-tag"></i>{{tag.name}}<span class="popular-tags-count">{{tag.counter}}</span></button>
     </div>
