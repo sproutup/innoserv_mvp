@@ -4,53 +4,28 @@
         <div class="col-sm-6 profile-left-rail">
             <!-- Basic Information -->
             <div class="profile-edit--header">Basic Information</div>
-                <!-- full name -->
+            <!-- full name -->
             <div class="row profile-input-row">
                 <div class="col-sm-12 profile-input-cell">
-                    <input type="text" class="form-control profile-edit-input" placeholder="Full Name" ng-model="user.name" required>
+                    <input type="text" class="form-control form-validate form-input medium" placeholder="Full Name" ng-model="user.name" required>
                 </div>
             </div>
-                <!-- email and username -->
+            <!-- email and username -->
             <div class="row profile-input-row">
                 <div class="col-sm-6 profile-input-cell">
-                    <input type="email" disabled class="form-control profile-edit-input" placeholder="Email" ng-model="user.email">
+                    <input type="email" disabled class="form-control form-validate form-input medium" placeholder="Email" ng-model="user.email">
                 </div>
                 <div class="col-sm-6 profile-input-cell">
-                    <input type="text" class="form-control profile-edit-input left-feedback" placeholder="Pick a nickname" ng-model="user.nickname" required>
+                    <input type="text" class="form-control form-validate form-input medium left-feedback" placeholder="Pick a nickname" ng-model="user.nickname" required>
                     <span class="fa fa-lg">@@</span>
                 </div>
             </div>
-                <!-- short description -->
+            <!-- short description -->
             <div class="row profile-input-row">
                 <div class="col-sm-12 profile-input-cell">
-                    <textarea class="form-control profile-edit-input-textarea" placeholder="Short description about yourself" rows="2" ng-model="user.description"></textarea>
+                    <textarea class="form-control form-input-textarea no-resize" placeholder="Short description about yourself" rows="2" ng-model="user.description"></textarea>
                 </div>
             </div>
-
-                <!-- Change Password -->
-            <!--div class="profile-edit--header">Change Password</div>
-            <div class="row profile-input-row">
-                <div class="col-sm-6 profile-input-cell">
-                    <input type="password" class="form-control profile-edit-input" placeholder="New password">
-                </div>
-                <div class="col-sm-6 profile-input-cell">
-                    <input type="password" class="form-control profile-edit-input" placeholder="Confirm new password">
-                </div>
-            </div-->
-
-                <!-- Shipping Address -->
-            <!--div class="profile-edit--header">Shipping Address</div>
-            <div class="row profile-input-row">
-                <div class="col-sm-12 profile-input-cell">
-                    <input type="text" class="form-control profile-edit-input" placeholder="Simply type a location and see our auto-filling magic">
-                </div>
-            </div-->
-
-                <!-- payment -->
-            <!--div class="profile-edit--header">Credit Cards</div>
-            <div class="profile-edit--description">
-                Your payment information will appear after you first check-out. Hope to see you soon!
-            </div-->
 
         </div>
 
@@ -58,25 +33,25 @@
             <div class="profile-edit--header">Social Networks</div>
             <div class="row profile-input-row">
                 <div class="col-sm-12 profile-input-cell">
-                    <input type="text" class="form-control profile-edit-input left-feedback" placeholder="Your Facebook: facebook.com/example" ng-model="user.urlFacebook">
+                    <input type="text" class="form-control form-input medium left-feedback" placeholder="Your Facebook: facebook.com/example" ng-model="user.urlFacebook">
                     <span class="fa fa-lg fa-facebook-square"></span>
                 </div>
             </div>
             <div class="row profile-input-row">
                 <div class="col-sm-12 profile-input-cell">
-                    <input type="text" class="form-control profile-edit-input left-feedback" placeholder="Your Twitter: twitter.com/@@username" ng-model="user.urlTwitter">
+                    <input type="text" class="form-control form-input medium left-feedback" placeholder="Your Twitter: twitter.com/@@username" ng-model="user.urlTwitter">
                     <span class="fa fa-lg fa-twitter-square"></span>
                 </div>
             </div>
             <div class="row profile-input-row">
                 <div class="col-sm-12 profile-input-cell">
-                    <input type="text" class="form-control profile-edit-input left-feedback" placeholder="Your Pinterest, pinterest.com/example" ng-model="user.urlPinterest">
+                    <input type="text" class="form-control form-input medium left-feedback" placeholder="Your Pinterest, pinterest.com/example" ng-model="user.urlPinterest">
                     <span class="fa fa-lg fa-pinterest-square"></span>
                 </div>
             </div>
             <div class="row profile-input-row">
                 <div class="col-sm-12 profile-input-cell">
-                    <input type="text" class="form-control profile-edit-input left-feedback" placeholder="Your blog" ng-model="user.urlBlog">
+                    <input type="text" class="form-control form-input medium left-feedback" placeholder="Your blog" ng-model="user.urlBlog">
                     <span class="fa fa-lg fa-rss-square"></span>
                 </div>
             </div>
