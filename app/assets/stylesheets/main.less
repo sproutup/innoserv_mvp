@@ -175,6 +175,15 @@ input:-ms-input-placeholder {
   outline: 0 !important;
 }
 
+.form-validate.ng-invalid.ng-touched {
+  border: 1px solid @sproutup-error-message;
+  color: @sproutup-orange;
+}
+
+.form-validate.ng-valid.ng-touched {
+  border: 1px solid @sproutup-green;
+}
+
 .login-angle-down {
   padding-left: 8px;
 }
@@ -294,19 +303,4 @@ a:focus {
 .sproutup-footer-links li a:hover {
   color: @sproutup-blue-bright;
 }
-
-.contact-form--error-message {
-  color: @sproutup-error-message;
-  width: 50%;
-  text-align: left;
-  font-weight: 400;
-  font-size: 10pt;
-  margin: 0px auto;
-  padding: 0px 10px 15px;
-}
-
-.contact-form--error-message i {
-  padding-right: 5px;
-}
-
 

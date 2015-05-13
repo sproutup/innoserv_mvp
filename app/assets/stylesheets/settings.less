@@ -29,40 +29,54 @@
   background-color: @sproutup-orange-hover;
 }
 
-.user-settings-wrapper .list-group {
+.list-group {
   border-radius: 0px;
-  font-weight: 400;
-  font-size: 10pt;
-  color: @main-text;
+  font-weight: 700;
+  font-size: 11pt;
 }
 
-.user-settings-wrapper .list-group-item {
+.list-group-item {
   background-color: #fafafa;
-  height: 50px;
-  padding-top: 15px;
+  height: 56px;
+  padding-top: 17px;
 }
 
-.user-settings-wrapper .list-group-item.active {
+a.list-group-item {
+  color: @sproutup-blue;
+}
+
+a.list-group-item:hover {
+  color: @sproutup-blue;
+}
+
+.list-group-item.active {
   background-color: @sproutup-blue;
 }
 
-.user-settings-wrapper .list-group-item:first-child {
+.list-group-item span {
+  font-weight: 400;
+  font-size: 10pt;
+  color: @main-text-2;
+  float: right;
+}
+
+.list-group-item:first-child {
   border-top-left-radius: 0px;
   border-top-right-radius: 0px;
   margin-bottom: 0;
 }
 
-.user-settings-wrapper .list-group-item:last-child {
+.list-group-item:last-child {
   border-bottom-left-radius: 0px;
   border-bottom-right-radius: 0px;
   margin-bottom: 0;
 }
 
-.user-settings-wrapper .panel {
+.panel {
   border-radius: 0px;
 }
 
-.user-settings-wrapper .panel-default > .panel-heading {
+.panel-default > .panel-heading {
   background-color: #fafafa;
   color: @main-text-2;
   height: 50px;
@@ -71,7 +85,7 @@
   padding-top: 15px;
 }
 
-.user-settings-wrapper .control-label {
+.control-label {
   padding-top: 10px;
   font-weight: 400;
   font-size: 10pt;
@@ -81,7 +95,7 @@
 .user-settings-input {
   border: 1px solid @form-border;
   height: 40px;
-  border-radius: 2px;
+  border-radius: 0px;
   font-size: 11pt;
   font-weight: 400;
   color: @main-text;

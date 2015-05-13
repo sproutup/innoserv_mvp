@@ -1,0 +1,109 @@
+@moreHead = {
+<link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/creator-dashboard.css")">
+}
+
+@main(Messages("Dashboard Mock | SproutUp"), moreHead) {
+
+<div class="row dashboard-page">
+    <!-- TOC -->
+    <div class="col-sm-3">
+        <div class="list-group">
+            <a href="#" class="list-group-item active">Products<span class="badge">1</span></a>
+            <a href="#" class="list-group-item">Analytics<span>Coming soon</span></a>
+            <a href="#" class="list-group-item">Users<span>Coming soon</span></a>
+            <a href="#" class="list-group-item">Feedback<span>Coming soon</span></a>
+        </div>
+    </div>
+
+    <!-- Content -->
+    <div class="col-sm-9">
+        <div class="dashboard-product-banner" style="background-image: url('@("https://s3.amazonaws.com/sproutup-mvp-cdn/assets/11112.jpg")')">
+            <div class="col-lg-12 dashboard-product-title">
+                <h1>Soma Carafe</h1>
+            </div>
+        </div>
+        <!-- Basic Information -->
+        <div class="product-edit--header">Basic Information</div>
+        <div class="row product-input-row">
+            <div class="col-sm-6 product-input-cell">
+                <input type="text" class="form-control form-validate form-input medium" placeholder="Product name">
+            </div>
+            <div class="col-sm-6 product-input-cell">
+                <input type="text" class="form-control form-input medium" placeholder="Company name">
+            </div>
+        </div>
+        <div class="row product-input-row">
+            <div class="col-sm-12 product-input-cell">
+                <input type="text" class="form-control form-input medium" placeholder="Product punchline, please be concise">
+            </div>
+        </div>
+
+        <!-- URLs -->
+        <div class="product-edit--header">Website, Social Media</div>
+        <div class="row product-input-row">
+            <div class="col-sm-12 product-input-cell">
+                <input type="text" class="form-control form-input medium left-feedback" placeholder="Product page: www.example.com">
+                <span class="fa fa-lg fa-home"></span>
+            </div>
+        </div>
+        <div class="row product-input-row">
+            <div class="col-sm-12 product-input-cell">
+                <input type="text" class="form-control form-input medium left-feedback" placeholder="Product Facebook: facebook.com/example">
+                <span class="fa fa-lg fa-facebook-square"></span>
+            </div>
+        </div>
+        <div class="row product-input-row">
+            <div class="col-sm-12 product-input-cell">
+                <input type="text" class="form-control form-input medium left-feedback" placeholder="Product Twitter: twitte.com/example">
+                <span class="fa fa-lg fa-twitter-square"></span>
+            </div>
+        </div>
+        <div class="row product-input-row">
+            <div class="col-sm-12 product-input-cell">
+                <input type="text" class="form-control form-input medium left-feedback" placeholder="Product Instagram: instagram.com/example">
+                <span class="fa fa-lg fa-instagram"></span>
+            </div>
+        </div>
+
+        <!-- Video -->
+        <div class="product-edit--header">Product Video</div>
+        <div class="row product-input-row">
+           <div class="col-sm-12 product-input-cell">
+            <input type="text" class="form-control form-input medium left-feedback" placeholder="Product video URL (YouTube, Vimeo, etc.)">
+            <span class="fa fa-lg fa-video-camera"></span>
+        </div>
+    </div>
+
+    <!-- Product description -->
+    <div class="product-edit--header">Detailed Product Information</div>
+    <div class="row product-input-row">
+        <div class="col-sm-12 product-input-cell">
+            <textarea class="form-control form-input-textarea" placeholder="Detailed product description" rows="2"></textarea>
+        </div>
+    </div>
+    <div class="row product-input-row">
+        <div class="col-sm-12 product-input-cell">
+            <textarea class="form-control form-input-textarea" placeholder="List cool features about your product here" rows="2"></textarea>
+        </div>
+    </div>
+    <div class="row product-input-row">
+        <div class="col-sm-12 product-input-cell">
+            <textarea class="form-control form-input-textarea" placeholder="The mission of your company and product" rows="2"></textarea>
+        </div>
+    </div>
+
+    <!-- Our Story -->
+    <div class="product-edit--header">Your Story</div>
+    <div class="row product-input-row">
+        <div class="col-sm-12 product-input-cell">
+            <textarea class="form-control form-input-textarea" placeholder="Tell a compelling story about your product, company, and team" rows="2"></textarea>
+        </div>
+    </div>
+
+    <div class="add-product-actions">
+        <button class="btn btn-lg add-product-btn save" type="submit">Add Product</button>
+        <button class="btn btn-lg add-product-btn cancel" type="submit">Cancel</button>
+    </div>
+
+</div>
+}
