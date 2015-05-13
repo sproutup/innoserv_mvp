@@ -1,12 +1,14 @@
 package controllers;
 
-import models.S3File;
-import models.Product;
+import com.fasterxml.jackson.databind.JsonNode;
+import models.*;
 import play.data.Form;
 import play.*;
 import play.libs.Json;
 import play.mvc.*;
 import views.html.*;
+
+import java.util.Iterator;
 import java.util.List;
 import javax.persistence.PersistenceException;
 
@@ -42,6 +44,10 @@ public class Products extends Controller {
 
     public static Result gallery() {
         return ok(views.html.product_tabs.experience_gallery.render());
+    }
+
+    public static Result add() {
+        return ok(views.html.product_add.render());
     }
 
     //
@@ -91,14 +97,57 @@ public class Products extends Controller {
     @BodyParser.Of(BodyParser.Json.class)
     public static Result createProduct()
     {
-        models.Product newProduct = Json.fromJson(request().body().asJson(), models.Product.class);
-        Logger.debug("create product " + newProduct.productName);
-        try {
-            newProduct.save();
-            return created(newProduct.toJson());
-        }
-        catch(PersistenceException e){
-            return play.mvc.Results.badRequest(e.getMessage());
+        Logger.debug("create product ");
+        JsonNode json = request().body().asJson();
+        if (json == null) {
+            return badRequest("Expecting Json data");
+        } else {
+            try {
+                Product prod = new Product();
+                prod.productName = json.findPath("productName").textValue();
+                prod.slug = json.findPath("slug").textValue();
+                prod.productDescription = json.findPath("productDescription").textValue();
+                prod.urlHome = json.findPath("urlHome").textValue();
+                prod.urlFacebook = json.findPath("urlFacebook").textValue();
+                prod.urlTwitter = json.findPath("urlTwitter").textValue();
+                prod.urlCrowdFundingCampaign = json.findPath("urlCrowdFundingCampaign").textValue();
+
+                JsonNode compid = json.path("company").path("id");
+                JsonNode compname = json.path("company").path("companyName");
+
+                // check if company exists or needs to be created
+                if(compid.isMissingNode()){
+                    if(!compname.isMissingNode()){
+                        Company comp = new Company();
+                        comp.companyName = compname.asText();
+                        comp.save();
+                        prod.company = comp;
+                    }
+                    else{
+                        return badRequest("Not found [company name]:");
+                    }
+                }
+                else{
+                    Company comp = Company.findbyID(compid.asLong());
+                    if(comp!=null) {
+                        prod.company = comp;
+                    }
+                    else{
+                        return badRequest("Not found [company id]:" + compid.asLong());
+                    }
+                }
+
+                // Save the product
+                if (prod.productName != null) {
+                    prod.save();
+                    return created(prod.toJson());
+                } else {
+                    return badRequest("Missing parameter [productName]");
+                }
+            }
+            catch(PersistenceException e){
+                return play.mvc.Results.badRequest(e.getMessage());
+            }
         }
     }
 

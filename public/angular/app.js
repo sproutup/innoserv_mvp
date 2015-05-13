@@ -127,6 +127,13 @@ sproutupApp.config(['$routeProvider', '$stateProvider', '$locationProvider', '$u
                     console.log("enter product list");
                 }
             })
+            .state('product.add' ,{
+                url: '/add',
+                templateUrl: 'views/product-add',
+                onEnter: function(){
+                    console.log("enter product add");
+                }
+            })
             .state('product.detail', {
                 url: '/:slug',
                 abstract: true,

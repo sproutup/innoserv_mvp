@@ -50,6 +50,12 @@ productServices.factory('ProductService', ['$resource',
     }
 ]);
 
+productServices.factory('CompanyService', ['$resource',
+    function($resource) {
+        return $resource('/api/company/:id'); // Note the full endpoint address
+    }
+]);
+
 productServices.factory('ProductServicex', ['$http','$log', '$q',
     function($http, $log, $q) {
         var productService = {};

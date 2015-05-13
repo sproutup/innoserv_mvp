@@ -1550,6 +1550,57 @@ angular.module('sproutupApp').directive('upProductList', [ 'ProductServicex',
         };
     }]);
 
+angular.module('sproutupApp').directive('upProductCreate', [ 'ProductService', 'CompanyService', '$state',
+    function (productService, companyService, $state) {
+        return {
+            restrict: 'A',
+            transclude:true,
+            scope: {
+                user: "="
+            },
+            link: function (scope, element, attrs, ctrl, transclude) {
+                attrs.$observe('user', function (user) {
+                    console.log("product add: user observe");
+                    if(scope.user === undefined){
+                    }
+                    else{
+                        if(scope.user.company.id != null){
+                            console.log("product add: found company", scope.user.company.name);
+                            scope.product = {
+                                company : {
+                                    id: scope.user.company.id,
+                                    companyName: scope.user.company.name
+                                    }
+                                };
+                        }
+                        else{
+                            console.log("product add: didn't find company");
+                        }
+                    }
+                });
+
+                scope.save = function(){
+                    console.log("product save", scope.product);
+                    productService.save(scope.product,function(){
+                        console.log("product save success", scope.product);
+                    });
+                }
+
+                scope.cancel = function(){
+                    console.log("product cancel");
+                    $state.go('home');
+                }
+
+                // add the directive scope to the transcluded content
+                transclude(scope, function(clone, scope) {
+                    element.append(clone);
+                    console.log("product add: clone");
+                });
+            }
+        };
+    }]);
+
+
 angular.module('sproutupApp').directive('upProductItem', [
     function () {
         return {

@@ -127,8 +127,11 @@ public class User extends Model implements Subject {
 	//@OneToMany(mappedBy="user")
 	public List<Media> mediaList;
 
-    @OneToMany
-    public List<Post> posts;
+	@OneToMany
+	public List<Post> posts;
+
+	@ManyToOne
+	public Company company;
 
     @OneToMany
     public List<File> files;
@@ -373,7 +376,12 @@ public class User extends Model implements Subject {
         node.put("permissions", Json.toJson(this.getPermissions()));
         node.put("lastLogin", new DateTime(this.lastLogin).toString());
         node.put("avatarUrl", getAvatar());
-        // todo should be based on either tags or role
+
+		if(this.company!=null){
+			node.put("company", this.company.toJson());
+		}
+
+		// todo should be based on either tags or role
         ArrayNode badges = node.putArray("badges");
         badges.add("Member");
         return node;
