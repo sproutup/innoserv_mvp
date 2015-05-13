@@ -2,20 +2,25 @@
     <h1 class="text-center suggest-product-header">Do you know about something we don’t? Suggest it here. </h1>
     <h1 class="text-center suggest-product-header-2">Help us fine-tune and develop a wicked product showcase. We’re still in beta and could totally use the suggestions!</h1>
     <form name="suggestion" novalidate>
-        <div class="suggest-product">
+        <div class="row suggest-product">
             <!-- Email -->
             <div class="col-sm-12 suggest-product-form">
-                <input type="email" class="form-control suggest-product-form-input" placeholder="Your email address" name="yourEmail" ng-model="newSuggestion.email" required="">
+                <input type="email" class="form-control form-validate form-input large" placeholder="Your email address" name="yourEmail" ng-model="newSuggestion.email" required="">
             </div>
+            <div ng-show="suggestion.$submitted || suggestion.yourEmail.$touched">
+                <div class="form--error-message" ng-show="suggestion.yourEmail.$error.required"><i class="fa fa-minus-circle"></i>Please tell us your email</div>
+                <div class="form--error-message" ng-show="suggestion.yourEmail.$error.email"><i class="fa fa-minus-circle"></i>Err, you sure the email is valid?</div>
+            </div>
+
 
             <!-- Product Name -->
             <div class="col-sm-12 suggest-product-form">
-                <input type="text" class="form-control suggest-product-form-input" placeholder="Product Name" name="productName" ng-model="newSuggestion.productName" required="">
+                <input type="text" class="form-control form-validate form-input large" placeholder="Product Name" name="productName" ng-model="newSuggestion.productName" required="">
             </div>
 
             <!-- Product URL -->
             <div class="col-sm-12 suggest-product-form">
-                <input type="url" class="form-control suggest-product-form-input" placeholder="Product URL" name="productURL" ng-model="newSuggestion.productUrl" required="">
+                <input type="text" class="form-control form-validate form-input large" placeholder="Product URL" name="productURL" ng-model="newSuggestion.productUrl" required="">
             </div>
 
             <div class="col-sm-12 suggest-product-form">

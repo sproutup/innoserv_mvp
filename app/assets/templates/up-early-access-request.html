@@ -3,7 +3,7 @@
         <h2 class="how-it-works--header">You in? Hit us up and get early access!</h2>
     </div>
     <form name="request" novalidate>
-        <div class="col-sm-12 early-access-signup">
+        <div class="row early-access-signup">
             <div class="early-access-signup-header">
                 <p>SproutUp Beta is Freemium.</p>
                 <p>Take advantage of our Beta phase and get your product up on SproutUp without paying a dime. We’ll be launching a subscription plan later this summer. We’ve got super things planned and would love to co-create with you to make this everything you need it to be.</p>
@@ -12,28 +12,21 @@
 
             <!-- Name -->
             <div class="col-sm-12 early-access-signup-form">
-                <input type="text" class="form-control early-access-signup-form-input" placeholder="Your name" name="yourName" ng-model="newRequest.name" required="">
-            </div>
-            <div ng-show="request.$submitted || request.yourName.$touched">
-                <div class="contact-form--error-message" ng-show="request.yourName.$error.required"><i class="fa fa-minus-circle"></i>Please tell us your name</div>
+                <input type="text" class="form-control form-validate form-input large" placeholder="Your name" name="yourName" ng-model="newRequest.name" required="">
             </div>
 
             <!-- Email -->
             <div class="col-sm-12 early-access-signup-form">
-                <input type="email" class="form-control early-access-signup-form-input" placeholder="Your email address" name="yourEmail" ng-model="newRequest.email" required="">
+                <input type="email" class="form-control form-validate form-input large" placeholder="Your email address" name="yourEmail" ng-model="newRequest.email" required="">
             </div>
             <div ng-show="request.$submitted || request.yourEmail.$touched">
-                <div class="contact-form--error-message" ng-show="request.yourEmail.$error.required"><i class="fa fa-minus-circle"></i>Please tell us your email</div>
-                <div class="contact-form--error-message" ng-show="request.yourEmail.$error.email"><i class="fa fa-minus-circle"></i>Err, you sure the email is valid?</div>
+                <div class="form--error-message" ng-show="request.yourEmail.$error.required"><i class="fa fa-minus-circle"></i>Please tell us your email</div>
+                <div class="form--error-message" ng-show="request.yourEmail.$error.email"><i class="fa fa-minus-circle"></i>Err, you sure the email is valid?</div>
             </div>
 
             <!-- Product URL-->
             <div class="col-sm-12 early-access-signup-form">
-                <input type="url" class="form-control early-access-signup-form-input" placeholder="Please provide your product website URL" name="productURL" ng-model="newRequest.productUrl" required="">
-            </div>
-            <div ng-show="request.$submitted || request.productURL.$touched">
-                <div class="contact-form--error-message" ng-show="request.productURL.$error.required"><i class="fa fa-minus-circle"></i>Please tell us a URL to your product</div>
-                <div class="contact-form--error-message" ng-show="request.productURL.$error.url"><i class="fa fa-minus-circle"></i>Err, this does not look like a URL</div>
+                <input type="text" class="form-control form-validate form-input large" placeholder="Please provide your product website URL" name="productURL" ng-model="newRequest.productUrl" required="">
             </div>
 
             <div class="col-sm-12 early-access-signup-form">
