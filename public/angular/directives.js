@@ -1368,7 +1368,7 @@ angular.module('sproutupApp').directive('upTrial', ['ProductTrialService', 'Auth
 
                 function changeButtonToFollow() {
                     isFollowing = false;
-                    element.html('Interested in Tryout?');
+                    element.html('Request a trial?');
                     element.removeClass("btn-following");
                     element.addClass("btn-outline");
                 }
