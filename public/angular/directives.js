@@ -1564,7 +1564,7 @@ angular.module('sproutupApp').directive('upProductCreate', [ 'ProductService', '
                     if(scope.user === undefined){
                     }
                     else{
-                        if(scope.user.company.id != null){
+                        if(scope.user.company != null){
                             console.log("product add: found company", scope.user.company.name);
                             scope.product = {
                                 company : {

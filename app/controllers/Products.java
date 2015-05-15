@@ -103,6 +103,8 @@ public class Products extends Controller {
             return badRequest("Expecting Json data");
         } else {
             try {
+                User user = Application.getLocalUser(ctx().session());
+
                 Product prod = new Product();
                 prod.productName = json.findPath("productName").textValue();
                 prod.slug = json.findPath("slug").textValue();
@@ -116,25 +118,27 @@ public class Products extends Controller {
                 JsonNode compname = json.path("company").path("companyName");
 
                 // check if company exists or needs to be created
-                if(compid.isMissingNode()){
+                if(user.company==null){
+                    Logger.debug("creating company...");
                     if(!compname.isMissingNode()){
+                        // create new company
                         Company comp = new Company();
                         comp.companyName = compname.asText();
                         comp.save();
+
+                        // update product with the new company
                         prod.company = comp;
+
+                        // update user with the new company
+                        user.company = comp;
+                        user.save();
                     }
                     else{
                         return badRequest("Not found [company name]:");
                     }
                 }
                 else{
-                    Company comp = Company.findbyID(compid.asLong());
-                    if(comp!=null) {
-                        prod.company = comp;
-                    }
-                    else{
-                        return badRequest("Not found [company id]:" + compid.asLong());
-                    }
+                    prod.company = user.company;
                 }
 
                 // Save the product
