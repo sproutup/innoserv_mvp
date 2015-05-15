@@ -1550,8 +1550,8 @@ angular.module('sproutupApp').directive('upProductList', [ 'ProductServicex',
         };
     }]);
 
-angular.module('sproutupApp').directive('upProductCreate', [ 'ProductService', 'CompanyService', '$state',
-    function (productService, companyService, $state) {
+angular.module('sproutupApp').directive('upProductCreate', [ 'ProductService', 'CompanyService', '$state', '$rootScope', 'AuthService',
+    function (productService, companyService, $state, $rootScope, authService) {
         return {
             restrict: 'A',
             transclude:true,
@@ -1581,8 +1581,16 @@ angular.module('sproutupApp').directive('upProductCreate', [ 'ProductService', '
 
                 scope.save = function(){
                     console.log("product save", scope.product);
-                    productService.save(scope.product,function(){
-                        console.log("product save success", scope.product);
+                    productService.save(scope.product,function(newProduct){
+                        console.log("product save success", newProduct);
+                        $rootScope.$broadcast('alert:success', {
+                            message: 'Product added'
+                        });
+                        authService.user().then(
+                            function(result){
+                                $state.go('dashboard.products.info', {slug: newProduct.slug} );
+                            }
+                        )
                     });
                 }
 
@@ -1600,8 +1608,8 @@ angular.module('sproutupApp').directive('upProductCreate', [ 'ProductService', '
         };
     }]);
 
-angular.module('sproutupApp').directive('upProductUpdate', [ 'ProductService', 'CompanyService', '$state', "$rootScope",
-    function (productService, companyService, $state, $rootScope) {
+angular.module('sproutupApp').directive('upProductUpdate', [ 'ProductService', 'CompanyService', '$state', "$rootScope", 'AuthService',
+    function (productService, companyService, $state, $rootScope, authService) {
         return {
             restrict: 'A',
             transclude:true,
@@ -1620,9 +1628,14 @@ angular.module('sproutupApp').directive('upProductUpdate', [ 'ProductService', '
                         function(data) {
                             // success
                             console.log("product update success");
-                            $rootScope.$broadcast('alert:success', {
-                                message: 'Product updated'
-                            });
+                            authService.user().then(
+                                function(result){
+                                    $rootScope.$broadcast('alert:success', {
+                                        message: 'Product updated'
+                                    });
+                                    $state.go('dashboard.products.info', {slug: data.slug} );
+                                }
+                            )
                         },
                         function(error) {
                             // error handler
