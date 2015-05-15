@@ -83,6 +83,33 @@ sproutupApp.config(['$routeProvider', '$stateProvider', '$locationProvider', '$u
                 url: '/creator',
                 templateUrl: 'views/creator'
             })
+            .state('dashboard' ,{
+                url: '/dashboard',
+                abstract: false,
+                templateUrl: 'views/dashboard'
+            })
+            .state('dashboard.products' ,{
+                url: '/products/:slug',
+                abstract: true,
+                controller: 'productDetailCtrl',
+                templateUrl: 'views/dashboard/products'
+            })
+            .state('dashboard.products.info' ,{
+                url: '/info',
+                templateUrl: 'views/dashboard/products/info'
+            })
+            .state('dashboard.products.analytics' ,{
+                url: '/analytics',
+                templateUrl: 'views/dashboard/products/analytics'
+            })
+            .state('dashboard.products.users' ,{
+                url: '/users',
+                templateUrl: 'views/dashboard/products/users'
+            })
+            .state('dashboard.products.feedback' ,{
+                url: '/feedback',
+                templateUrl: 'views/dashboard/products/feedback'
+            })
             .state('profile' ,{
                 url: '/profile',
                 abstract: true,

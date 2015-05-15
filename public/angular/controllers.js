@@ -524,11 +524,19 @@ productControllers.controller('productListCtrl', ['$scope', 'ProductService',
     $scope.products = ProductService.query();
   }]);
 
-productControllers.controller('productDetailCtrl', ['$scope', '$stateParams', '$log', 'ProductService',
-  function($scope, $stateParams, $log, ProductService) {
+productControllers.controller('productDetailCtrl', ['$scope', '$stateParams', '$state', '$log', 'ProductService',
+  function($scope, $stateParams, $state, $log, ProductService) {
     $log.debug("entered product details ctrl. slug=" + $stateParams.slug);
-    $scope.product = ProductService.get({slug: $stateParams.slug}, function(product) {
-    });
+    ProductService.get({slug: $stateParams.slug}).$promise.then(
+        function(data) {
+            // success
+            $scope.product = data;
+        },
+        function(error) {
+            // error handler
+            $state.go("home");
+        }
+    );
   }]);
 
 productControllers.controller('ForumCtrl', ['$scope', 'ForumService', 'LikesService', '$log',

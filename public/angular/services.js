@@ -46,7 +46,7 @@ productServices.factory('Utils', ['$log',
 
 productServices.factory('ProductService', ['$resource',
     function($resource) {
-        return $resource('/api/products/:slug'); // Note the full endpoint address
+        return $resource('/api/products/:slug', {slug:'@slug'}, {update:{method:'PUT'}} ); // Note the full endpoint address
     }
 ]);
 

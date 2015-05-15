@@ -89,6 +89,36 @@ public class Application extends Controller {
 	}
 
     @Restrict({@Group(AppConstants.CONSUMER)})
+    public static Result dashboard() {
+        return ok(views.html.dashboard.main.render());
+    }
+
+    @Restrict({@Group(AppConstants.CONSUMER)})
+    public static Result dashboard_products() {
+        return ok(views.html.dashboard.products.main.render());
+    }
+
+    @Restrict({@Group(AppConstants.CONSUMER)})
+    public static Result dashboard_products_info() {
+        return ok(views.html.dashboard.products.info.render());
+    }
+
+    @Restrict({@Group(AppConstants.CONSUMER)})
+    public static Result dashboard_products_analytics() {
+        return ok(views.html.dashboard.products.analytics.render());
+    }
+
+    @Restrict({@Group(AppConstants.CONSUMER)})
+    public static Result dashboard_products_users() {
+        return ok(views.html.dashboard.products.users.render());
+    }
+
+    @Restrict({@Group(AppConstants.CONSUMER)})
+    public static Result dashboard_products_feedback() {
+        return ok(views.html.dashboard.products.feedback.render());
+    }
+
+    @Restrict({@Group(AppConstants.CONSUMER)})
     public static Result profile() {
         return ok(profile.render());
     }
@@ -160,7 +190,6 @@ public class Application extends Controller {
 	}
 
     @BodyParser.Of(BodyParser.Json.class)
-    @SubjectPresent
     public static Result addProductSuggestion() {
         JsonNode json = request().body().asJson();
         if (json == null) {

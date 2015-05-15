@@ -46,6 +46,12 @@ GET           /views/news                                                    con
 GET           /views/search                                                  controllers.Application.search
 GET           /views/community                                               controllers.Application.community
 GET           /views/creator                                                 controllers.Application.creator
+GET           /views/dashboard                                               controllers.Application.dashboard
+GET           /views/dashboard/products                                      controllers.Application.dashboard_products
+GET           /views/dashboard/products/info                                 controllers.Application.dashboard_products_info
+GET           /views/dashboard/products/analytics                            controllers.Application.dashboard_products_analytics
+GET           /views/dashboard/products/users                                controllers.Application.dashboard_products_users
+GET           /views/dashboard/products/feedback                             controllers.Application.dashboard_products_feedback
 GET           /views/profile                                                 controllers.Application.profile
 GET           /views/profile/photos                                          controllers.Application.profile_photos
 GET           /views/profile/videos                                          controllers.Application.profile_videos
@@ -80,7 +86,8 @@ GET           /api/trial/product/:type/:id                                   con
 GET           /api/products                                                  controllers.Products.getProducts
 GET           /api/products/:slug                                            controllers.Products.getProduct(slug: String)
 POST          /api/products                                                  controllers.Products.createProduct
-PUT           /api/products/:id                                              controllers.Products.updateProduct(id: Long)
+PUT           /api/products/:slug                                            controllers.Products.updateProduct(slug: String)
+POST          /api/products/:slug                                            controllers.Products.updateProduct(slug: String)
 DELETE        /api/products/:id                                              controllers.Products.deleteProduct(id: Long)
 
 GET           /api/company                                                  controllers.CompanyController.query

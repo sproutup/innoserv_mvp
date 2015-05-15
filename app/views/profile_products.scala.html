@@ -1,74 +1,7 @@
 <div class="profile-product-page">
     <div class="row product-list-container">
-        <div class="col-lg-3 col-md-4 col-sm-6 product-list-item">
-            <a href="#">
-                <div class="product-cover-photo" style="background-image: url('https://s3.amazonaws.com/sproutup-mvp-cdn/assets/11111.jpg')">
-                    <div class="product-cover-info">
-                        <div class="product-cover-title">
-                            <p>Belleds</p>
-                        </div>
-                        <div class="product-cover-description">
-                            <p>Smart lighting and audio platform</p>
-                        </div>
-                    </div>
-                </div>
-            </a>
-        </div>
-        <div class="col-lg-3 col-md-4 col-sm-6 product-list-item">
-            <a href="#">
-                <div class="product-cover-photo" style="background-image: url('https://s3.amazonaws.com/sproutup-mvp-cdn/assets/11112.jpg')">
-                    <div class="product-cover-info">
-                        <div class="product-cover-title">
-                            <p>Soma Water</p>
-                        </div>
-                        <div class="product-cover-description">
-                            <p>Beautiful water filter</p>
-                        </div>
-                    </div>
-                </div>
-            </a>
-        </div>
-        <div class="col-lg-3 col-md-4 col-sm-6 product-list-item">
-            <a href="#">
-                <div class="product-cover-photo" style="background-image: url('https://s3.amazonaws.com/sproutup-mvp-cdn/assets/11113.jpg')">
-                    <div class="product-cover-info">
-                        <div class="product-cover-title">
-                            <p>Soma Water</p>
-                        </div>
-                        <div class="product-cover-description">
-                            <p>Beautiful water filter</p>
-                        </div>
-                    </div>
-                </div>
-            </a>
-        </div>
-        <div class="col-lg-3 col-md-4 col-sm-6 product-list-item">
-            <a href="#">
-                <div class="product-cover-photo" style="background-image: url('https://s3.amazonaws.com/sproutup-mvp-cdn/assets/11114.jpg')">
-                    <div class="product-cover-info">
-                        <div class="product-cover-title">
-                            <p>Soma Water</p>
-                        </div>
-                        <div class="product-cover-description">
-                            <p>Beautiful water filter</p>
-                        </div>
-                    </div>
-                </div>
-            </a>
-        </div>
-        <div class="col-lg-3 col-md-4 col-sm-6 product-list-item">
-            <a href="#">
-                <div class="product-cover-photo" style="background-image: url('https://s3.amazonaws.com/sproutup-mvp-cdn/assets/11115.jpg')">
-                    <div class="product-cover-info">
-                        <div class="product-cover-title">
-                            <p>Mushroom Mini Farm</p>
-                        </div>
-                        <div class="product-cover-description">
-                            <p>Beautiful water filter</p>
-                        </div>
-                    </div>
-                </div>
-            </a>
+        <div ng-repeat="product in user.company.products">
+            <up-product-item product="product"></up-product-item>
         </div>
     </div>
 </div>

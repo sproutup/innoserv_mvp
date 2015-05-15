@@ -151,20 +151,47 @@ public class Products extends Controller {
         }
     }
 
-    public static Result updateProduct(Long id)
+//    public static Result updateProduct(Long id)
+//    {
+//        Product existing = new Product().findbyID(id);
+//        if(existing != null) {
+//            models.Product updated = Json.fromJson(request().body().asJson(), models.Product.class);
+//            if(updated.productName != null) { existing.productName = updated.productName; };
+//            if(updated.productEAN != null) { existing.productEAN = updated.productEAN; };
+//            if(updated.productDescription != null) { existing.productDescription = updated.productDescription; };
+//            if(updated.productLongDescription != null) { existing.productLongDescription = updated.productLongDescription; };
+//            if(updated.urlHome != null) { existing.urlHome = updated.urlHome; };
+//            if(updated.urlFacebook != null) { existing.urlFacebook = updated.urlFacebook; };
+//            if(updated.urlTwitter != null) { existing.urlTwitter = updated.urlTwitter; };
+//            existing.save();
+//            return ok(existing.toJson());
+//        }
+//        else{
+//            return play.mvc.Results.notFound("Product not found");
+//        }
+//    }
+
+    public static Result updateProduct(String slug)
     {
-        Product existing = new Product().findbyID(id);
-        if(existing != null) {
-            models.Product updated = Json.fromJson(request().body().asJson(), models.Product.class);
-            if(updated.productName != null) { existing.productName = updated.productName; };
-            if(updated.productEAN != null) { existing.productEAN = updated.productEAN; };
-            if(updated.productDescription != null) { existing.productDescription = updated.productDescription; };
-            if(updated.productLongDescription != null) { existing.productLongDescription = updated.productLongDescription; };
-            if(updated.urlHome != null) { existing.urlHome = updated.urlHome; };
-            if(updated.urlFacebook != null) { existing.urlFacebook = updated.urlFacebook; };
-            if(updated.urlTwitter != null) { existing.urlTwitter = updated.urlTwitter; };
-            existing.save();
-            return ok(existing.toJson());
+        Product prod = new Product().findbySlug(slug);
+        if(prod != null) {
+//            models.Product updated = Json.fromJson(request().body().asJson(), models.Product.class);
+
+            JsonNode json = request().body().asJson();
+
+            prod.productName = json.findPath("productName").textValue();
+            prod.slug = json.findPath("slug").textValue();
+            prod.productDescription = json.findPath("productDescription").textValue();
+            prod.urlHome = json.findPath("urlHome").textValue();
+            prod.urlFacebook = json.findPath("urlFacebook").textValue();
+            prod.urlTwitter = json.findPath("urlTwitter").textValue();
+            prod.urlCrowdFundingCampaign = json.findPath("urlCrowdFundingCampaign").textValue();
+            prod.productLongDescription = json.findPath("productLongDescription").textValue();
+            prod.featureList = json.findPath("featureList").textValue();
+            prod.missionStatement = json.findPath("missionStatement").textValue();
+            prod.productStory = json.findPath("productStory").textValue();
+            prod.save();
+            return ok(prod.toJson());
         }
         else{
             return play.mvc.Results.notFound("Product not found");

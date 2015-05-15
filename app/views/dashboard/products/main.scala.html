@@ -1,0 +1,19 @@
+<!-- Banner -->
+<div class="dashboard-product-banner" style="background-image: url('@("https://s3.amazonaws.com/sproutup-mvp-cdn/assets/11112.jpg")')">
+<div class="col-lg-12 dashboard-product-title">
+    <h1>{{product.productName}}</h1>
+</div>
+</div>
+
+<!-- TOC -->
+<div class="col-sm-3">
+    <div class="list-group">
+        <a ui-sref="dashboard.products.info({ slug: product.slug })" class="list-group-item" ui-sref-active="active">Product Information</a>
+        <a ui-sref="dashboard.products.analytics({ slug: product.slug })" class="list-group-item" ui-sref-active="active">Analytics<span>Coming soon</span></a>
+        <a ui-sref="dashboard.products.users({ slug: product.slug })" class="list-group-item" ui-sref-active="active">Users<span>Coming soon</span></a>
+        <a ui-sref="dashboard.products.feedback({ slug: product.slug })" class="list-group-item" ui-sref-active="active">Feedback<span>Coming soon</span></a>
+    </div>
+</div>
+
+<!-- menu item content goes here -->
+<div ui-view></div>

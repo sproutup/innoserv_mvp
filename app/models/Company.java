@@ -44,6 +44,7 @@ public class Company extends TimeStampModel{
 		ObjectNode node = Json.newObject();
 		node.put("id", this.id);
 		node.put("name", this.companyName);
+		node.put("products", Product.toJson(this.products));
 		return node;
 	}
 

@@ -22,7 +22,6 @@ angular.module('sproutupApp').directive('upBackgroundImage',
             link: function(scope, element, attr) {
 
                 attr.$observe('upBackgroundImage', function (upBackgroundImage){
-                    console.log("background image > ", attr.upBackgroundImage );
                     var url = attr.upBackgroundImage
                     if(!attr.upBackgroundImage){
                         url = attr.upFallbackImage ? attr.upFallbackImage : missingDefault;
@@ -31,8 +30,6 @@ angular.module('sproutupApp').directive('upBackgroundImage',
                         'background-image': 'url(' + url + attr.upBackgroundAttr + ')'
                     });
                 });
-
-                console.log("background image > ", attr.upBackgroundImage );
 
                 var url = attr.upBackgroundImage
                 if(!attr.upBackgroundImage){
@@ -1086,8 +1083,12 @@ angular.module('sproutupApp').directive('upProfileMenu', ['AuthService','FileSer
             link: function (scope, element, attrs) {
                 scope.menu = {
                     photos: 0,
-                    videos: 0
+                    videos: 0,
+                    products: 0
                 };
+
+                // get the number of products on this user from the user profile
+                scope.menu.products = scope.user.company.products.length;
 
                 // wait for user files to load and then show value
                 scope.$watch(function () {
@@ -1536,7 +1537,6 @@ angular.module('sproutupApp').directive('upProductList', [ 'ProductServicex',
                         scope.products = result;
                         for (var i = 0; i < scope.products.length; i++) {
                             scope.products[i].random = Math.random();
-                            console.log("random: ", scope.products[i].random);
                         }
                     }
                 );
@@ -1584,6 +1584,54 @@ angular.module('sproutupApp').directive('upProductCreate', [ 'ProductService', '
                     productService.save(scope.product,function(){
                         console.log("product save success", scope.product);
                     });
+                }
+
+                scope.cancel = function(){
+                    console.log("product cancel");
+                    $state.go('home');
+                }
+
+                // add the directive scope to the transcluded content
+                transclude(scope, function(clone, scope) {
+                    element.append(clone);
+                    console.log("product add: clone");
+                });
+            }
+        };
+    }]);
+
+angular.module('sproutupApp').directive('upProductUpdate', [ 'ProductService', 'CompanyService', '$state', "$rootScope",
+    function (productService, companyService, $state, $rootScope) {
+        return {
+            restrict: 'A',
+            transclude:true,
+            scope: {
+                product: "="
+            },
+            link: function (scope, element, attrs, ctrl, transclude) {
+                attrs.$observe('product', function (product) {
+                    console.log("product update: product observe");
+                });
+
+                scope.update = function(){
+                    console.log("product update", scope.product);
+
+                    scope.product.$save({},
+                        function(data) {
+                            // success
+                            console.log("product update success");
+                            $rootScope.$broadcast('alert:success', {
+                                message: 'Product updated'
+                            });
+                        },
+                        function(error) {
+                            // error handler
+                            console.log("product update error");
+                            $rootScope.$broadcast('alert:error', {
+                                message: 'Product update failed'
+                            });
+                        }
+                    );
                 }
 
                 scope.cancel = function(){
