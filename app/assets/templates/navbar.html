@@ -22,12 +22,14 @@
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{user.name}}<i class="fa fa-angle-down login-angle-down"></i></a>
             <ul class="dropdown-menu" role="menu">
                 <li><a ui-sref="profile.photos">My Profile</a></li>
+                <hr ng-hide="user.company == null">
                 <li class="header-in-dropdown-menu" ng-hide="user.company == null">My Products</li>
                 <ul class="submenu-in-dropdown-menu">
                     <li ng-repeat="userproduct in user.company.products">
                         <a ui-sref="dashboard.products.info({ slug: userproduct.slug })">{{userproduct.productName}}</a>
                     </li>
                 </ul>
+                <hr ng-hide="user.company == null">
                 <li><a ui-sref="product.add">Add product</a></li>
 
                 <li><a href="" ng-click="logout()">Log Out</a></li>
