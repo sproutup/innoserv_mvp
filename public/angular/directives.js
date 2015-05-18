@@ -488,6 +488,40 @@ angular.module('sproutupApp').directive ('upFacebookPost', ['Facebook', 'Faceboo
 ]);
 
 /*
+    Facebook share button
+*/
+angular.module('sproutupApp').directive ('upFacebookLikeShare', ['Facebook', '$location', '$log', '$parse',
+    function(facebook, $location, $log, $parse) {
+        return{
+            template: "<div class='fb-like' data-href='{{path}}' data-layout='button_count'" +
+                      "data-action='like' data-show-faces='true' data-share='true'></div>",
+            restrict: 'E',
+            scope: {
+            },
+            link: function(scope, element, attrs){
+                scope.$watch(function() {
+                    // This is for convenience, to notify if Facebook is loaded and ready to go.
+                    return facebook.isReady();
+                }, function(newVal) {
+                    if(newVal){
+                        $log.debug("facebook > ready ", newVal);
+                        scope.path = $location.path();
+                        // You might want to use this to disable/show/hide buttons and else
+                        scope.facebookReady = true;
+
+                        facebook.parseXFBML();
+                    }
+                    else{
+                        $log.debug("facebook > not ready ", newVal);
+                    }
+                });
+            }
+        };
+    }
+]);
+
+
+/*
     Search icon directive
     Listens for stage changes and sets the search icon accordingly.
     After search return to previous state.
