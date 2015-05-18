@@ -2,9 +2,6 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 
-# Home page
-GET           /                                                              controllers.Application.main(any = "none")
-
 GET           /assets/javascript/routes.js                                   controllers.Application.jsRoutes
 
 GET           /feedback/:id                                                  controllers.FeedbackManagement.fetchPopupQSurvey(id: Long)
@@ -168,7 +165,13 @@ GET           /mockups/user_settings                                         con
 GET           /mockups/new-product                                           controllers.MockupController.addNewProduct()
 
 # catch all. angular will handle all routes except /api/* /views/* /mockups/*
+GET           /                                                              controllers.Application.main(any = "none")
 GET           /about                                                         controllers.Application.main_about()
+GET           /community                                                     controllers.Application.main_community()
+GET           /creator             											 controllers.Application.main_creator()
+GET           /news  														 controllers.Application.main_news()
+GET           /privacy  													 controllers.Application.main_privacy()
+GET           /terms  														 controllers.Application.main_terms()
 GET           /product/:slug                                                 controllers.Application.main_product_about(slug: String)
 GET           /product/:slug/about                                           controllers.Application.main_product_about(slug: String)
 GET           /product/:slug/bar                                             controllers.Application.main_product_bar(slug: String)

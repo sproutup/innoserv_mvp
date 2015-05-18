@@ -42,12 +42,31 @@ public class Application extends Controller {
 	public static final String FLASH_ERROR_KEY = "error";
 
     public static Result main(String any) {
-        Logger.debug("Path: " + request().path());
-        return ok(index.render("","",""));
+        return ok(index.render("SproutUp - Smart way for creators to openly collaborate with early adopters","SproutUp is focused on helping emerging product creators transition from early stage to successful viral brands. As an open collaboration platform, SproutUp provides interactive tools for creators to engage with a community of early adopters and technology enthusiasts.","sproutup.co"));
     }
 
     public static Result main_about() {
-        return ok(index.render("About ", "", "sproutup.co" + request().uri() ));
+        return ok(index.render("About Us - SproutUp", "Our root, our team and our mission", "sproutup.co" + request().uri() ));
+    }
+
+    public static Result main_community() {
+        return ok(index.render("Community - SproutUp", "Welcome to SproutUp. We are a community of early adopters, enthusiasts, and even some curious onlookers interested in influencing the next wave of innovation.", "sproutup.co" + request().uri() ));   
+    }
+
+    public static Result main_creator() {
+        return ok(index.render("Creator - SproutUp", "Creating something rad? Collaborate with your enthusiasts to SproutUp", "sproutup.co" + request().uri() ));   
+    }
+
+    public static Result main_news() {
+        return ok(index.render("News and Press Releases - SproutUp", "SproutUp news and press releases", "sproutup.co" + request().uri() )); 
+    }
+
+    public static Result main_privacy() {
+        return ok(index.render("Privacy Policy - SproutUp", "Privacy Policy - SproutUp", "sproutup.co" + request().uri() )); 
+    }
+
+    public static Result main_terms() {
+        return ok(index.render("Terms of Service - SproutUp", "Terms of Service - SproutUp", "sproutup.co" + request().uri() )); 
     }
 
     public static Result main_product_about(String slug) {
