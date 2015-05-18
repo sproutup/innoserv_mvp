@@ -46,6 +46,10 @@ public class Application extends Controller {
         return ok(index.render("","",""));
     }
 
+    public static Result main_about() {
+        return ok(index.render("About ", "", "sproutup.co" + request().uri() ));
+    }
+
     public static Result main_product_about(String slug) {
         // set meta tags
         Product product = new Product().findbySlug(slug);
