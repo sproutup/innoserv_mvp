@@ -1,6 +1,35 @@
-@()
+@(title: String, description: String, url: String)
 
-@main(Messages("SproutUp - Smart way for creators to openly collaborate with early adopters")) {
+@moreHead = {
+    <meta name="description" content="@description">
+    <meta name="keywords" content="e-commerce, marketplace, emerging products, crowdfunding, marketing, sharing economy, creator, early adopter, enthusiasts, user feedback, social media">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta property="og:title" content="@title" />
+    <meta property="og:site_name" content="Sproutup"/>
+    <meta property="og:url" content="@url" />
+    <meta property="og:description" content="@description" />
+
+    <!--meta property="og:image" content="http://example.com/ogp.jpg" />
+    <meta property="og:image:secure_url" content="https://secure.example.com/ogp.jpg" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="400" />
+    <meta property="og:image:height" content="300" /-->
+
+    <!--meta property="og:video" content="http://example.com/movie.swf" />
+    <meta property="og:video:secure_url" content="https://secure.example.com/movie.swf" />
+    <meta property="og:video:type" content="application/x-shockwave-flash" />
+    <meta property="og:video:width" content="400" />
+    <meta property="og:video:height" content="300" /-->
+
+    <meta property="fb:app_id" content="384805921694899" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="en_US" />            <!-- Default -->
+    <!--meta property="article:author" content="https://www.facebook.com/fareedzakaria" />
+    <meta property="article:publisher" content="https://www.facebook.com/cnn" /-->
+}
+
+@main(title, moreHead) {
     <div ui-view autoscroll="true"></div>
 }
 

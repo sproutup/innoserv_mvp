@@ -42,7 +42,26 @@ public class Application extends Controller {
 	public static final String FLASH_ERROR_KEY = "error";
 
     public static Result main(String any) {
-        return ok(index.render());
+        Logger.debug("Path: " + request().path());
+        return ok(index.render("","",""));
+    }
+
+    public static Result main_product_about(String slug) {
+        // set meta tags
+        Product product = new Product().findbySlug(slug);
+        return ok(index.render("About " + product.productName, product.productDescription, "sproutup.co" + request().uri() ));
+    }
+
+    public static Result main_product_bar(String slug) {
+        // set meta tags
+        Product product = new Product().findbySlug(slug);
+        return ok(index.render("Collaborate " + product.productName, product.productDescription, "sproutup.co" + request().uri() ));
+    }
+
+    public static Result main_product_gallery(String slug) {
+        // set meta tags
+        Product product = new Product().findbySlug(slug);
+        return ok(index.render("Gallery " + product.productName, product.productDescription, "sproutup.co" + request().uri() ));
     }
 
     public static Result home() {
@@ -51,7 +70,7 @@ public class Application extends Controller {
 
     public static Result index() {
         List<Product>products = new Product().getAll();
-        return ok(index.render());
+        return ok(index.render("","",""));
     }
 
     public static Result about() {
