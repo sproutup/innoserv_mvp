@@ -277,6 +277,66 @@ angular.module('sproutupApp').directive('upTwitterShare',['$location',
 ]);
 
 
+angular.module('sproutupApp').directive('upTwitterTweetButton',['$location', '$timeout',
+    function($location, $timeout){
+        return{
+            template: '<div id="container"></div>',
+            replace: true,
+            restrict: "E",
+            scope:{
+                text: "@"
+            },
+            link: function(scope, element, attrs){
+                scope.twttrReady = false;
+                scope.textReady = false;
+
+                twttr.ready(
+                    function (twttr) {
+                        console.log("tweet button - twttr ready");
+                        scope.twttrReady = true;
+                        scope.render();
+                    }
+                );
+
+                attrs.$observe('text', function() {
+                    console.log("twttr button: text observe", scope.text);
+                    if(scope.twttrReady){
+                        scope.textReady = true;
+                    }
+                    scope.render();
+                });
+
+                scope.render = function() {
+                    if(scope.twttrReady == false){
+                        console.log("twttr button render : twitter not ready yet");
+                        return;
+                    }
+
+                    if(scope.textReady == false){
+                        console.log("twttr button render : text not ready yet");
+                        return;
+                    }
+
+                    console.log("twttr button render");
+
+                    scope.url = "http://sproutup.co" + $location.path();
+                    var children = element.find(".container");
+
+                    console.log("twttr button render", element[0]);
+
+                    twttr.widgets.createShareButton(
+                        scope.url,
+                        element[0],
+                        {
+                            text: scope.text
+                        }
+                    );
+                };
+            }
+        }
+    }
+]);
+
 angular.module('sproutupApp').directive('upTwitterTweet', ['TwitterService','$timeout',
     function(twitterService, $timeout){
         return{
@@ -1720,7 +1780,7 @@ angular.module('sproutupApp').directive('navbar', [ 'AuthService', '$rootScope',
             scope.user = authService.currentUser();
             scope.isLoggedIn = authService.isLoggedIn();
             scope.$on('auth:status', function (event, args) {
-                console.log('event received auth:state ' + args.data);
+                console.log('event received auth:state ');
                 scope.user = authService.currentUser();
                 scope.isLoggedIn = authService.isLoggedIn();
             });
