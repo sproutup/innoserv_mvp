@@ -74,10 +74,10 @@ public class Application extends Controller {
         Product product = new Product().findbySlug(slug);
         JsonNode node = product.toJson();
         if(node.path("video").path("url").path("mp4").isMissingNode()) {
-            return ok(index.render("About " + product.productName, product.productDescription, "sproutup.co" + request().uri()));
+            return ok(index.render("SproutUp presents you " + product.productName, product.productDescription, "sproutup.co" + request().uri()));
         }
         else{
-            return ok(index_video.render("About " + product.productName, product.productDescription, "sproutup.co" + request().uri(),
+            return ok(index_video.render("SproutUp presents you " + product.productName, product.productDescription, "sproutup.co" + request().uri(),
                     node.path("video").path("url").path("mp4").toString(), "video/mp4"));
         }
     }
@@ -85,13 +85,13 @@ public class Application extends Controller {
     public static Result main_product_bar(String slug) {
         // set meta tags
         Product product = new Product().findbySlug(slug);
-        return ok(index.render("Collaborate " + product.productName, product.productDescription, "sproutup.co" + request().uri() ));
+        return ok(index.render("Share your experience with " + product.productName, product.productDescription, "sproutup.co" + request().uri() ));
     }
 
     public static Result main_product_gallery(String slug) {
         // set meta tags
         Product product = new Product().findbySlug(slug);
-        return ok(index.render("Gallery " + product.productName, product.productDescription, "sproutup.co" + request().uri() ));
+        return ok(index.render("Photo and video gallery of " + product.productName, product.productDescription, "sproutup.co" + request().uri() ));
     }
 
     public static Result home() {
