@@ -42,7 +42,7 @@ public class Application extends Controller {
 	public static final String FLASH_ERROR_KEY = "error";
 
     public static Result main(String any) {
-        return ok(index.render("SproutUp - Smart way for creators to openly collaborate with early adopters","SproutUp is focused on helping emerging product creators transition from early stage to successful viral brands. As an open collaboration platform, SproutUp provides interactive tools for creators to engage with a community of early adopters and technology enthusiasts.","sproutup.co"));
+        return ok(index.render("SproutUp - Smart way for creators to openly collaborate with early adopters","SproutUp is focused on helping emerging product creators transition from early stage to successful viral brands. As an open collaboration platform, SproutUp provides interactive tools for creators to engage with a community of early adopters and technology enthusiasts.","sproutup.co" ));
     }
 
     public static Result main_about() {
@@ -72,7 +72,14 @@ public class Application extends Controller {
     public static Result main_product_about(String slug) {
         // set meta tags
         Product product = new Product().findbySlug(slug);
-        return ok(index.render("About " + product.productName, product.productDescription, "sproutup.co" + request().uri() ));
+        JsonNode node = product.toJson();
+        if(node.path("video").path("url").path("mp4").isMissingNode()) {
+            return ok(index.render("About " + product.productName, product.productDescription, "sproutup.co" + request().uri()));
+        }
+        else{
+            return ok(index_video.render("About " + product.productName, product.productDescription, "sproutup.co" + request().uri(),
+                    node.path("video").path("url").path("mp4").toString(), "video/mp4"));
+        }
     }
 
     public static Result main_product_bar(String slug) {

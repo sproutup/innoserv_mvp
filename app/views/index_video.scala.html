@@ -1,0 +1,27 @@
+@(title: String, description: String, url: String, video: String, videoType: String)
+
+@moreHead = {
+    <meta name="description" content="@description">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta property="og:title" content="@title" />
+    <meta property="og:site_name" content="Sproutup"/>
+    <meta property="og:url" content="@url" />
+    <meta property="og:description" content="@description" />
+
+    <meta property="og:video" content="@video" />
+    <!--meta property="og:video:secure_url" content="https://secure.example.com/movie.swf" /-->
+    <meta property="og:video:type" content="@videoType" />
+    <!--meta property="og:video:width" content="400" />
+    <meta property="og:video:height" content="300" /-->
+
+    <meta property="fb:app_id" content="384805921694899" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="en_US" />            <!-- Default -->
+}
+
+@main(title, moreHead) {
+    <div ui-view autoscroll="true"></div>
+}
+
+@footer()
