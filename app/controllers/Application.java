@@ -42,31 +42,31 @@ public class Application extends Controller {
 	public static final String FLASH_ERROR_KEY = "error";
 
     public static Result main(String any) {
-        return ok(index.render("SproutUp - Smart way for creators to openly collaborate with early adopters","SproutUp is focused on helping emerging product creators transition from early stage to successful viral brands. As an open collaboration platform, SproutUp provides interactive tools for creators to engage with a community of early adopters and technology enthusiasts.","sproutup.co" ));
+        return ok(index.render("SproutUp - Smart way for creators to openly collaborate with early adopters","SproutUp is focused on helping emerging product creators transition from early stage to successful viral brands. As an open collaboration platform, SproutUp provides interactive tools for creators to engage with a community of early adopters and technology enthusiasts.","http://sproutup.co" ));
     }
 
     public static Result main_about() {
-        return ok(index.render("About Us - SproutUp", "Our root, our team and our mission", "sproutup.co" + request().uri() ));
+        return ok(index.render("About Us - SproutUp", "Our root, our team and our mission", "http://sproutup.co" + request().uri() ));
     }
 
     public static Result main_community() {
-        return ok(index.render("Community - SproutUp", "Welcome to SproutUp. We are a community of early adopters, enthusiasts, and even some curious onlookers interested in influencing the next wave of innovation.", "sproutup.co" + request().uri() ));   
+        return ok(index.render("Community - SproutUp", "Welcome to SproutUp. We are a community of early adopters, enthusiasts, and even some curious onlookers interested in influencing the next wave of innovation.", "http://sproutup.co" + request().uri() ));
     }
 
     public static Result main_creator() {
-        return ok(index.render("Creator - SproutUp", "Creating something rad? Collaborate with your enthusiasts to SproutUp", "sproutup.co" + request().uri() ));   
+        return ok(index.render("Creator - SproutUp", "Creating something rad? Collaborate with your enthusiasts to SproutUp", "http://sproutup.co" + request().uri() ));
     }
 
     public static Result main_news() {
-        return ok(index.render("News and Press Releases - SproutUp", "SproutUp news and press releases", "sproutup.co" + request().uri() )); 
+        return ok(index.render("News and Press Releases - SproutUp", "SproutUp news and press releases", "http://sproutup.co" + request().uri() ));
     }
 
     public static Result main_privacy() {
-        return ok(index.render("Privacy Policy - SproutUp", "Privacy Policy - SproutUp", "sproutup.co" + request().uri() )); 
+        return ok(index.render("Privacy Policy - SproutUp", "Privacy Policy - SproutUp", "http://sproutup.co" + request().uri() ));
     }
 
     public static Result main_terms() {
-        return ok(index.render("Terms of Service - SproutUp", "Terms of Service - SproutUp", "sproutup.co" + request().uri() )); 
+        return ok(index.render("Terms of Service - SproutUp", "Terms of Service - SproutUp", "http://sproutup.co" + request().uri() ));
     }
 
     public static Result main_product_about(String slug) {
@@ -74,24 +74,24 @@ public class Application extends Controller {
         Product product = new Product().findbySlug(slug);
         JsonNode node = product.toJson();
         if(node.path("video").path("url").path("mp4").isMissingNode()) {
-            return ok(index.render("SproutUp presents you " + product.productName, product.productDescription, "sproutup.co" + request().uri()));
+            return ok(index.render("SproutUp presents you " + product.productName, product.productDescription, "http://sproutup.co" + request().uri()));
         }
         else{
-            return ok(index_video.render("SproutUp presents you " + product.productName, product.productDescription, "sproutup.co" + request().uri(),
-                    node.path("video").path("url").path("mp4").toString(), "video/mp4"));
+            return ok(index_video.render("SproutUp presents you " + product.productName, product.productDescription, "http://sproutup.co" + request().uri(),
+                    node.path("video").path("url").path("mp4").asText(), "video/mp4"));
         }
     }
 
     public static Result main_product_bar(String slug) {
         // set meta tags
         Product product = new Product().findbySlug(slug);
-        return ok(index.render("Share your experience with " + product.productName, product.productDescription, "sproutup.co" + request().uri() ));
+        return ok(index.render("Share your experience with " + product.productName, product.productDescription, "http://sproutup.co" + request().uri() ));
     }
 
     public static Result main_product_gallery(String slug) {
         // set meta tags
         Product product = new Product().findbySlug(slug);
-        return ok(index.render("Photo and video gallery of " + product.productName, product.productDescription, "sproutup.co" + request().uri() ));
+        return ok(index.render("Photo and video gallery of " + product.productName, product.productDescription, "http://sproutup.co" + request().uri() ));
     }
 
     public static Result home() {
