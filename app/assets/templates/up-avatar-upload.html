@@ -1,12 +1,11 @@
 <div>
-    <div ng-show="files[0].dataUrl == null" ng-file-select disabled="disabled" style="background-image: url('{{user.avatarUrl}}');"
-         ng-file-change="upload(files, 'profile img', user.id, 'models.user')" ng-model="files" class="post-new-media-file">
+    <div ng-show="files[0].dataUrl == null" ng-file-select disabled="disabled" style="background-image: url('{{user.avatarUrl}}?w=256');"
+         ng-file-change="upload(files, 'profile img', user.id, 'models.user')" ng-model="files" class="upload-new-avatar">
         <a class="btn btn-lg btn-media-upload">
             <i class="fa fa-plus-circle"></i>
         </a>
     </div>
-    <!-- show an delete button if there is a file selected -->
-    <div ng-show="files[0].dataUrl != null" class="post-new-media-file" style="background-image: url('{{files[0].dataUrl}}');">
+    <div ng-show="files[0].dataUrl != null" class="upload-new-avatar" style="background-image: url('{{files[0].dataUrl}}');">
         <a ng-click="reset()" ng-show="files[0].dataUrl != null" ng-hide="files[0].progress >= 0" class="btn btn-lg btn-media-remove" href="#">
             <i class="fa fa-times"></i>
         </a>
@@ -14,5 +13,4 @@
             <div class="progress-bar" ng-style="{ 'width': files[0].progress + '%' }" role="progressbar" style="width: 0%;"></div>
         </div>
     </div>
-    <!--<img class="img-responsive img-circle profile-avatar&#45;&#45;img-circle" ng-src="{{user.avatarUrl}}">-->
 </div>
