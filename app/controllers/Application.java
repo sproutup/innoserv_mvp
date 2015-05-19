@@ -78,7 +78,7 @@ public class Application extends Controller {
         }
         else{
             return ok(index_video.render("SproutUp presents you " + product.productName, product.productDescription, "http://sproutup.co" + request().uri(),
-                    node.path("video").path("url").path("mp4").asText(), "video/mp4"));
+                    node.path("video").path("url").path("mp4").asText(), node.path("video").path("url").path("mp4").asText().replace("http://", "https://"), "video/mp4"));
         }
     }
 

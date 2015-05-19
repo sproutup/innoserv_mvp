@@ -1,4 +1,4 @@
-@(title: String, description: String, url: String, video: String, videoType: String)
+@(title: String, description: String, url: String, video: String, videoSecure: String, videoType: String)
 
 @moreHead = {
     <meta name="description" content="@description">
@@ -10,7 +10,7 @@
     <meta property="og:description" content="@description" />
 
     <meta property="og:video" content="@video" />
-    <!--meta property="og:video:secure_url" content="https://secure.example.com/movie.swf" /-->
+    <meta property="og:video:secure_url" content="@videoSecure" />
     <meta property="og:video:type" content="@videoType" />
     <!--meta property="og:video:width" content="400" />
     <meta property="og:video:height" content="300" /-->
