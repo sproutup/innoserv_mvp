@@ -28,8 +28,8 @@
     </div>
     <div class="product-menu--action">
         <a follow="" ref-id="{{product.id}}" ref-type="model.Product" class="btn btn-lg btn-outline" href="#">Follow</a>
-        <a up-trial="" ref-id="{{product.id}}" ref-type="model.Product" class="btn btn-lg btn-outline" href="#">Request a trial</a>
-        <!--a class="btn btn-lg btn-outline" href="#">Buy</a-->
+        <a ng-hide="!product.isAvailableForTrial" up-trial="" ref-id="{{product.id}}" ref-type="model.Product" class="btn btn-lg btn-outline" href="#">Request a trial</a>
+        <a ng-hide="!product.isAvailableToBuy" class="btn btn-lg btn-outline" target="_blank" ng-href="{{product.urlHome}}">Buy</a>
     </div>
 </div>
 </div>
