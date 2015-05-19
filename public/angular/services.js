@@ -692,7 +692,6 @@ productServices.factory('AuthService', ['$http', '$q', '$cookieStore','$log', '$
         }).success(function(data, status, headers, config){
             // this callback will be called asynchronously
             // when the response is available
-            changeUser(data);
             _isLoggedIn = true;
             $rootScope.$broadcast('auth:status', {isLoggedIn: status.isLoggedIn});
             $log.debug("login service returned success");
@@ -719,7 +718,6 @@ productServices.factory('AuthService', ['$http', '$q', '$cookieStore','$log', '$
         }).success(function(data, status, headers, config){
             // this callback will be called asynchronously
             // when the response is available
-            changeUser(data);
             _isLoggedIn = true;
             $rootScope.$broadcast('auth:status', {isLoggedIn: status.isLoggedIn});
             deferred.resolve("success");
