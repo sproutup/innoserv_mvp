@@ -72,19 +72,19 @@ public class Application extends Controller {
     public static Result main_product_about(String slug) {
         // set meta tags
         Product product = new Product().findbySlug(slug);
-        return ok(index.render("About " + product.productName, product.productDescription, "sproutup.co" + request().uri() ));
+        return ok(index.render("SproutUp presents you " + product.productName, product.productDescription, "sproutup.co" + request().uri() ));
     }
 
     public static Result main_product_bar(String slug) {
         // set meta tags
         Product product = new Product().findbySlug(slug);
-        return ok(index.render("Collaborate " + product.productName, product.productDescription, "sproutup.co" + request().uri() ));
+        return ok(index.render("Share your experience with " + product.productName, product.productDescription, "sproutup.co" + request().uri() ));
     }
 
     public static Result main_product_gallery(String slug) {
         // set meta tags
         Product product = new Product().findbySlug(slug);
-        return ok(index.render("Gallery " + product.productName, product.productDescription, "sproutup.co" + request().uri() ));
+        return ok(index.render("Photo and video gallery of " + product.productName, product.productDescription, "sproutup.co" + request().uri() ));
     }
 
     public static Result home() {
