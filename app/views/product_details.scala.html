@@ -11,10 +11,12 @@
             <li ng-show="product.urlTwitter"><a href="http://{{product.urlTwitter}}" target="_blank"><i class="fa fa-twitter"></i></a></li>
         </ul>
         <div class="fb-share-button">
-            <up-facebook-like-share></up-facebook-like-share>
+            <button class="btn btn-facebook-share btn-sm"><i class="fa fa-facebook"></i>Share</button>
+            <!-- <up-facebook-like-share></up-facebook-like-share> -->
         </div>
         <div class="tw-share-button">
-            <up-twitter-tweet-button text="Check out {{product.productName}} @@sproutupco"></up-twitter-tweet-button>
+            <button class="btn btn-twitter-share btn-sm"><i class="fa fa-twitter"></i>Tweet</button>
+            <!-- <up-twitter-tweet-button text="Check out {{product.productName}} @@sproutupco"></up-twitter-tweet-button> -->
         </div>
     </div>
 </div>
