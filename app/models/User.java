@@ -389,7 +389,7 @@ public class User extends Model implements Subject {
 
     public String getAvatar(){
 		if(avatar != null){
-			return avatar.getURL();
+			return avatar.getURL() + "?w=256";
 		}
 		else
 		if(getProviders().contains("facebook")){
