@@ -3,28 +3,29 @@
     <div class="marketing-container">
             <div class="row">
                 <div class="marketing-header">
-                    <h1>Smart way for creators to openly collaborate with early adopters</h1>
+                    <h1>Together, we help products grow</h1>
+                    <!-- <h1>Smart way for creators to openly collaborate with early adopters</h1> -->
                 </div>
                 <div class="marketing-blurb">
-                    <div class="col-md-3 col-sm-6">
+                    <!-- <div class="col-md-3 col-sm-6">
                         <img class="img-circle img-responsive img-center marketing-img" src="@routes.Assets.at("images/index/discover.jpg")" alt="">
                         <h2 class="marketing-title">Rad things</h2>
                         <p class="marketing-content">Discover new gadgets, technology and design innovations.</p>
-                    </div>
-                    <div class="col-md-3 col-sm-6">
+                    </div> -->
+                    <div class="col-md-4">
                         <img class="img-circle img-responsive img-center marketing-img" src="@routes.Assets.at("images/index/touch.jpg")" alt="">
-                        <h2 class="marketing-title">Try it out</h2>
-                        <p class="marketing-content">Satisfy your curiosity and elevate your tech savvy status.</p>
+                        <h2 class="marketing-title">Try out</h2>
+                        <p class="marketing-content">Try out rad products that you like. Request and receive it at your doorstep.</p>
                     </div>
-                    <div class="col-md-3 col-sm-6">
+                    <div class="col-md-4">
                         <img class="img-circle img-responsive img-center marketing-img" src="@routes.Assets.at("images/index/share.jpg")" alt="">
-                        <h2 class="marketing-title">Co-create</h2>
+                        <h2 class="marketing-title">Geek out</h2>
                         <p class="marketing-content">Share your best ideas on how to take emerging products to the next level.</p>
                     </div>
-                    <div class="col-md-3 col-sm-6">
+                    <div class="col-md-4">
                         <img class="img-circle img-responsive img-center marketing-img" src="@routes.Assets.at("images/index/community.jpg")" alt="">
                         <h2 class="marketing-title">Team up</h2>
-                        <p class="marketing-content">Become part of a community of creators, social influencers and enthusiasts.</p>
+                        <p class="marketing-content">Become part of a community of creators, social influencers and early adopters.</p>
                     </div>
                 </div>
             </div>
@@ -33,24 +34,15 @@
 
     <!-- Featured product list -->
     <div class="row product-list-container" up-product-list>
-        <h1 class="text-center product-list-header">Our favorites</h1>
-        <h1 class="text-center product-list-header-2">We are still in beta – adding new products every day.</h1>
+        <h1 class="text-center product-list-header">Rad things</h1>
+        <h1 class="text-center product-list-header-2">Discover new gadgets, technology and design innovations.</h1>
 
-        <div ng-repeat="product in products | filter: {isFeatured:true} | orderBy:'random'">
-            <up-product-item product="product"></up-product-item>
-        </div>
-    </div>
-
-    <hr>
-
-    <div class="row product-list-container" up-product-list>
-        <h1 class="text-center product-list-header">More rad products</h1>
         <div class="col-sm-12 product-list--search-area">
             <input ng-model="query" class="form-control product-list--search-input" placeholder="Search products">
             <span class="fa fa-search"></span>
         </div>
 
-        <div ng-repeat="product in products | filter: {$:query, isFeatured:false}">
+        <div ng-repeat="product in products | orderBy:'random'">
             <up-product-item product="product"></up-product-item>
         </div>
     </div>
