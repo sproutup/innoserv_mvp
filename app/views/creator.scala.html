@@ -6,7 +6,7 @@
                 <div class="intro-message">
                     <h1>Creating something rad?</h1>
                     <h3>Collaborate with your enthusiasts to SproutUp</h3>
-                    <a href="#" class="btn btn-lg btn-lg-outline">Get started</a>
+                    <a ng-show="!user.isLoggedIn" ng-click="signup('sm')" href="#" class="btn btn-lg btn-lg-outline">Get started</a>
                 </div>
             </div>
         </div>
