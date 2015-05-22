@@ -43,7 +43,7 @@ sproutupApp.run(
 sproutupApp.config([
         'FacebookProvider',
         function(FacebookProvider) {
-            var myAppId = '427426070766217';
+            var myAppId = '384805921694899';
 
             // You can set appId with setApp method
             // FacebookProvider.setAppId('myAppId');
