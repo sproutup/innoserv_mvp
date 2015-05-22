@@ -266,7 +266,7 @@ sproutupApp.config(['$routeProvider', '$stateProvider', '$locationProvider', '$u
                     console.log("enter product detail about");
                 },
                 data: {
-                    title: 'SproutUp presents you '
+                    title: 'Product - About'
                 }
             })
             .state('product.detail.bar', {
@@ -277,7 +277,7 @@ sproutupApp.config(['$routeProvider', '$stateProvider', '$locationProvider', '$u
                     console.log("enter product detail bar");
                 },
                 data: {
-                    title: 'Share your experience with '
+                    title: 'Product - Geekout'
                 }
             })
             .state('product.detail.bar.suggestion', {
@@ -311,7 +311,7 @@ sproutupApp.config(['$routeProvider', '$stateProvider', '$locationProvider', '$u
                     console.log("enter product detail gallery");
                 },
                 data: {
-                    title: 'Photo and video gallery of '
+                    title: 'Product - Gallery'
                 }
             })
         ;
