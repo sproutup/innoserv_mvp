@@ -44,43 +44,43 @@ public class Application extends Controller {
     public static Result main(String any) {
         return ok(index.render("SproutUp - Smart way for creators to openly collaborate with early adopters",
                 "SproutUp is focused on helping emerging product creators transition from early stage to successful viral brands. As an open collaboration platform, SproutUp provides interactive tools for creators to engage with a community of early adopters and technology enthusiasts.",
-                "http://sproutup.co",
+                "http://www.sproutup.co",
                 "www.sproutup.co/assets/images/creator/creator_banner.jpg",
                 "image/jpg" ));
     }
 
     public static Result main_about() {
-        return ok(index.render("About Us - SproutUp", "Our root, our team and our mission", "http://sproutup.co" + request().uri(),
+        return ok(index.render("About Us - SproutUp", "Our root, our team and our mission", "http://www.sproutup.co" + request().uri(),
                 "www.sproutup.co/assets/images/creator/creator_banner.jpg",
                 "image/jpg" ));
     }
 
     public static Result main_community() {
-        return ok(index.render("Community - SproutUp", "Welcome to SproutUp. We are a community of early adopters, enthusiasts, and even some curious onlookers interested in influencing the next wave of innovation.", "http://sproutup.co" + request().uri(),
+        return ok(index.render("Community - SproutUp", "Welcome to SproutUp. We are a community of early adopters, enthusiasts, and even some curious onlookers interested in influencing the next wave of innovation.", "http://www.sproutup.co" + request().uri(),
                 "www.sproutup.co/assets/images/creator/creator_banner.jpg",
                 "image/jpg" ));
     }
 
     public static Result main_creator() {
-        return ok(index.render("Creator - SproutUp", "Creating something rad? Collaborate with your enthusiasts to SproutUp", "http://sproutup.co" + request().uri(),
+        return ok(index.render("Creator - SproutUp", "Creating something rad? Collaborate with your enthusiasts to SproutUp", "http://www.sproutup.co" + request().uri(),
                 "www.sproutup.co/assets/images/creator/creator_banner.jpg",
                 "image/jpg" ));
     }
 
     public static Result main_news() {
-        return ok(index.render("News and Press Releases - SproutUp", "SproutUp news and press releases", "http://sproutup.co" + request().uri(),
+        return ok(index.render("News and Press Releases - SproutUp", "SproutUp news and press releases", "http://www.sproutup.co" + request().uri(),
                 "www.sproutup.co/assets/images/creator/creator_banner.jpg",
                 "image/jpg" ));
     }
 
     public static Result main_privacy() {
-        return ok(index.render("Privacy Policy - SproutUp", "Privacy Policy - SproutUp", "http://sproutup.co" + request().uri(),
+        return ok(index.render("Privacy Policy - SproutUp", "Privacy Policy - SproutUp", "http://www.sproutup.co" + request().uri(),
                 "www.sproutup.co/assets/images/creator/creator_banner.jpg",
                 "image/jpg" ));
     }
 
     public static Result main_terms() {
-        return ok(index.render("Terms of Service - SproutUp", "Terms of Service - SproutUp", "http://sproutup.co" + request().uri(),
+        return ok(index.render("Terms of Service - SproutUp", "Terms of Service - SproutUp", "http://www.sproutup.co" + request().uri(),
                 "www.sproutup.co/assets/images/creator/creator_banner.jpg",
                 "image/jpg" ));
     }
@@ -90,12 +90,12 @@ public class Application extends Controller {
         Product product = new Product().findbySlug(slug);
         JsonNode node = product.toJson();
         if(!node.path("banner").path("url").path("image").isMissingNode()) {
-            return ok(index.render("SproutUp presents you " + product.productName, product.productDescription, "http://sproutup.co" + request().uri(),
-                    node.path("banner").path("url").path("image").asText(),
+            return ok(index.render(product.productName + ": " + product.productDescription + " - presented by SproutUp", product.productDescription, "http://www.sproutup.co" + request().uri(),
+                    node.path("banner").path("url").path("image").asText()+"?w=1600",
                     node.path("banner").path("type").asText() ));
         }
         else{
-            return ok(index.render("SproutUp presents you " + product.productName, product.productDescription, "http://sproutup.co" + request().uri(),
+            return ok(index.render(product.productName + ": " + product.productDescription + " - presented by SproutUp", product.productDescription, "http://www.sproutup.co" + request().uri(),
                     "",
                     "" ));
         }
@@ -104,17 +104,19 @@ public class Application extends Controller {
     public static Result main_product_bar(String slug) {
         // set meta tags
         Product product = new Product().findbySlug(slug);
-        return ok(index.render("Share your experience with " + product.productName, product.productDescription, "http://sproutup.co" + request().uri(),
-                "www.sproutup.co/assets/images/creator/creator_banner.jpg",
-                "image/jpg" ));
+        JsonNode node = product.toJson();
+        return ok(index.render(product.productName + ": " + product.productDescription + " - presented by SproutUp", product.productDescription, "http://www.sproutup.co" + request().uri(),
+                node.path("banner").path("url").path("image").asText()+"?w=1600",
+                node.path("banner").path("type").asText() ));
     }
 
     public static Result main_product_gallery(String slug) {
         // set meta tags
         Product product = new Product().findbySlug(slug);
-        return ok(index.render("Photo and video gallery of " + product.productName, product.productDescription, "http://sproutup.co" + request().uri(),
-                "www.sproutup.co/assets/images/creator/creator_banner.jpg",
-                "image/jpg" ));
+        JsonNode node = product.toJson();
+        return ok(index.render(product.productName + ": " + product.productDescription + " - presented by SproutUp", product.productDescription, "http://www.sproutup.co" + request().uri(),
+                node.path("banner").path("url").path("image").asText()+"?w=1600",
+                node.path("banner").path("type").asText() ));
     }
 
     public static Result home() {

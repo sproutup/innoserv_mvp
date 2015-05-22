@@ -280,9 +280,7 @@ angular.module('sproutupApp').directive('upTwitterShare',['$location',
 angular.module('sproutupApp').directive('upTwitterTweetButton',['$location', '$timeout',
     function($location, $timeout){
         return{
-            template: '<div id="container"></div>',
-            replace: true,
-            restrict: "E",
+            restrict: "A",
             scope:{
                 text: "@"
             },
@@ -320,17 +318,11 @@ angular.module('sproutupApp').directive('upTwitterTweetButton',['$location', '$t
                     console.log("twttr button render");
 
                     scope.url = "http://sproutup.co" + $location.path();
-                    var children = element.find(".container");
+                    scope.intent = "https://twitter.com/intent/tweet?text=" + encodeURIComponent(scope.text) + "&via=sproutupco&url=" + scope.url;
 
-                    console.log("twttr button render", element[0]);
+                    attrs.$set('href', scope.intent);
 
-                    twttr.widgets.createShareButton(
-                        scope.url,
-                        element[0],
-                        {
-                            text: scope.text
-                        }
-                    );
+//                    twttr.widgets.load();
                 };
             }
         }
@@ -553,9 +545,7 @@ angular.module('sproutupApp').directive ('upFacebookPost', ['Facebook', 'Faceboo
 angular.module('sproutupApp').directive ('upFacebookLikeShare', ['Facebook', '$location', '$log', '$parse',
     function(facebook, $location, $log, $parse) {
         return{
-            template: "<div class='fb-like' data-href='{{path}}' data-layout='button_count'" +
-                      "data-action='like' data-show-faces='true' data-share='true'></div>",
-            restrict: 'E',
+            restrict: 'A',
             scope: {
             },
             link: function(scope, element, attrs){
@@ -565,15 +555,22 @@ angular.module('sproutupApp').directive ('upFacebookLikeShare', ['Facebook', '$l
                 }, function(newVal) {
                     if(newVal){
                         $log.debug("facebook > ready ", newVal);
-                        scope.path = $location.path();
+                        scope.path = "http://www.sproutup.co" + $location.path();
                         // You might want to use this to disable/show/hide buttons and else
                         scope.facebookReady = true;
-
-                        facebook.parseXFBML();
                     }
                     else{
                         $log.debug("facebook > not ready ", newVal);
                     }
+                });
+
+                element.bind('click', function() {
+                    console.log("facebook share: ", scope.path );
+                    FB.ui(
+                     {
+                      method: 'share',
+                      href: scope.path
+                    }, function(response){});
                 });
             }
         };
