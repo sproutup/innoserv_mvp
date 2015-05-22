@@ -26,6 +26,20 @@ sproutupApp.config(function ($provide) {
     });
 });
 
+sproutupApp.run(
+    [          '$rootScope', '$state', '$stateParams',
+        function ($rootScope,   $state,   $stateParams) {
+
+            // It's very handy to add references to $state and $stateParams to the $rootScope
+            // so that you can access them from any scope within your applications.For example,
+            // <li ng-class="{ active: $state.includes('contacts.list') }"> will set the <li>
+            // to active whenever 'contacts.list' or one of its decendents is active.
+            $rootScope.$state = $state;
+            $rootScope.$stateParams = $stateParams;
+        }
+    ]
+);
+
 sproutupApp.config([
         'FacebookProvider',
         function(FacebookProvider) {
@@ -53,91 +67,154 @@ sproutupApp.config(['$routeProvider', '$stateProvider', '$locationProvider', '$u
         $stateProvider
             .state('home' ,{
                 url: '/',
-                templateUrl: 'views/home'
+                templateUrl: 'views/home',
+                data: {
+                    title: 'SproutUp - Smart way for creators to openly collaborate with early adopters'
+                }
             })
             .state('about' ,{
                 url: '/about',
-                templateUrl: 'views/about'
+                templateUrl: 'views/about',
+                data: {
+                    title: 'About Us - SproutUp'
+                }
             })
             .state('terms' ,{
                 url: '/terms',
-                templateUrl: 'views/terms'
+                templateUrl: 'views/terms',
+                data: {
+                    title: 'Terms of Service - SproutUp'
+                }
             })
             .state('privacy' ,{
                 url: '/privacy',
-                templateUrl: 'views/privacy'
+                templateUrl: 'views/privacy',
+                data: {
+                    title: 'Privacy Policy - SproutUp'
+                }
             })
             .state('news' ,{
                 url: '/news',
-                templateUrl: 'views/news'
+                templateUrl: 'views/news',
+                data: {
+                    title: 'News and Press Releases - SproutUp'
+                }
             })
             .state('search' ,{
                 url: '/search',
-                templateUrl: 'views/search'
+                templateUrl: 'views/search',
+                data: {
+                    title: 'Search'
+                }
             })
             .state('community' ,{
                 url: '/community',
-                templateUrl: 'views/community'
+                templateUrl: 'views/community',
+                data: {
+                    title: 'Community - SproutUp'
+                }
             })
             .state('creator' ,{
                 url: '/creator',
-                templateUrl: 'views/creator'
+                templateUrl: 'views/creator',
+                data: {
+                    title: 'Creator - SproutUp'
+                }
             })
             .state('dashboard' ,{
                 url: '/dashboard',
                 abstract: false,
-                templateUrl: 'views/dashboard'
+                templateUrl: 'views/dashboard',
+                data: {
+                    title: 'Dashboard'
+                }
             })
             .state('dashboard.products' ,{
                 url: '/products/:slug',
                 abstract: true,
                 controller: 'productDetailCtrl',
-                templateUrl: 'views/dashboard/products'
+                templateUrl: 'views/dashboard/products',
+                data: {
+                    title: ''
+                }
             })
             .state('dashboard.products.info' ,{
                 url: '/info',
-                templateUrl: 'views/dashboard/products/info'
+                templateUrl: 'views/dashboard/products/info',
+                data: {
+                    title: ''
+                }
             })
             .state('dashboard.products.analytics' ,{
                 url: '/analytics',
-                templateUrl: 'views/dashboard/products/analytics'
+                templateUrl: 'views/dashboard/products/analytics',
+                data: {
+                    title: ''
+                }
             })
             .state('dashboard.products.users' ,{
                 url: '/users',
-                templateUrl: 'views/dashboard/products/users'
+                templateUrl: 'views/dashboard/products/users',
+                data: {
+                    title: ''
+                }
             })
             .state('dashboard.products.feedback' ,{
                 url: '/feedback',
-                templateUrl: 'views/dashboard/products/feedback'
+                templateUrl: 'views/dashboard/products/feedback',
+                data: {
+                    title: ''
+                }
             })
             .state('profile' ,{
                 url: '/profile',
                 abstract: true,
-                templateUrl: 'views/profile'
+                templateUrl: 'views/profile',
+                data: {
+                    title: ''
+                }
             })
             .state('profile.photos' ,{
                 url: '',
-                templateUrl: 'views/profile/photos'
+                templateUrl: 'views/profile/photos',
+                data: {
+                    title: ''
+                }
             })
             .state('profile.videos' ,{
                 url: '/videos',
-                templateUrl: 'views/profile/videos'
+                templateUrl: 'views/profile/videos',
+                data: {
+                    title: ''
+                }
             })
             .state('profile.products' ,{
                 url: '/products',
-                templateUrl: 'views/profile/products'
+                templateUrl: 'views/profile/products',
+                data: {
+                    title: ''
+                }
             })
             .state('profile.followers' ,{
                 url: '/followers',
-                templateUrl: 'views/profile/followers'
+                templateUrl: 'views/profile/followers',
+                data: {
+                    title: ''
+                }
             })
             .state('profile.followings' ,{
                 url: '/followings',
-                templateUrl: 'views/profile/followings'
+                templateUrl: 'views/profile/followings',
+                data: {
+                    title: ''
+                }
             })
             .state('profile.account' ,{
                 url: '/account',
-                templateUrl: 'views/profile/account'
+                templateUrl: 'views/profile/account',
+                data: {
+                    title: ''
+                }
             })
             .state('product', {
                 abstract: true,
@@ -145,6 +222,9 @@ sproutupApp.config(['$routeProvider', '$stateProvider', '$locationProvider', '$u
                 template: '<div ui-view></div>',
                 onEnter: function(){
                     console.log("enter product abstract");
+                },
+                data: {
+                    title: ''
                 }
             })
             .state('product.list' ,{
@@ -152,6 +232,9 @@ sproutupApp.config(['$routeProvider', '$stateProvider', '$locationProvider', '$u
                 templateUrl: 'views/product-list',
                 onEnter: function(){
                     console.log("enter product list");
+                },
+                data: {
+                    title: ''
                 }
             })
             .state('product.add' ,{
@@ -159,6 +242,9 @@ sproutupApp.config(['$routeProvider', '$stateProvider', '$locationProvider', '$u
                 templateUrl: 'views/product-add',
                 onEnter: function(){
                     console.log("enter product add");
+                },
+                data: {
+                    title: 'Add product'
                 }
             })
             .state('product.detail', {
@@ -168,6 +254,9 @@ sproutupApp.config(['$routeProvider', '$stateProvider', '$locationProvider', '$u
                 controller: 'productDetailCtrl',
                 onEnter: function(){
                     console.log("enter product detail");
+                },
+                data: {
+                    title: ''
                 }
             })
             .state('product.detail.about', {
@@ -175,6 +264,9 @@ sproutupApp.config(['$routeProvider', '$stateProvider', '$locationProvider', '$u
                 templateUrl: 'views/product-about',
                 onEnter: function(){
                     console.log("enter product detail about");
+                },
+                data: {
+                    title: 'SproutUp presents you '
                 }
             })
             .state('product.detail.bar', {
@@ -183,6 +275,9 @@ sproutupApp.config(['$routeProvider', '$stateProvider', '$locationProvider', '$u
                 controller: 'ForumCtrl',
                 onEnter: function(){
                     console.log("enter product detail bar");
+                },
+                data: {
+                    title: 'Share your experience with '
                 }
             })
             .state('product.detail.bar.suggestion', {
@@ -192,6 +287,9 @@ sproutupApp.config(['$routeProvider', '$stateProvider', '$locationProvider', '$u
                 },
                 onEnter: function(){
                     console.log("enter product detail bar suggestion");
+                },
+                data: {
+                    title: ''
                 }
             })
             .state('product.detail.bar.question', {
@@ -201,6 +299,9 @@ sproutupApp.config(['$routeProvider', '$stateProvider', '$locationProvider', '$u
                 },
                 onEnter: function(){
                     console.log("enter product detail bar question");
+                },
+                data: {
+                    title: ''
                 }
             })
             .state('product.detail.gallery', {
@@ -208,6 +309,9 @@ sproutupApp.config(['$routeProvider', '$stateProvider', '$locationProvider', '$u
                 templateUrl: 'views/product-gallery',
                 onEnter: function(){
                     console.log("enter product detail gallery");
+                },
+                data: {
+                    title: 'Photo and video gallery of '
                 }
             })
         ;

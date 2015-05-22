@@ -7,7 +7,7 @@
 <!DOCTYPE html>
 <html lang="@lang().code()" ng-app="sproutupApp" @htmlAttributes>
     <head>
-        <title>@title</title>
+        <title ng-bind="$state.current.data.title">@title</title>
         @moreHead
 
         <link rel="shortcut icon" type="image/vnd.microsoft.icon" href="@routes.Assets.at("images/favicon.ico")">
