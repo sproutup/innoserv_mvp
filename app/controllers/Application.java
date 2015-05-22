@@ -90,12 +90,12 @@ public class Application extends Controller {
         Product product = new Product().findbySlug(slug);
         JsonNode node = product.toJson();
         if(!node.path("banner").path("url").path("image").isMissingNode()) {
-            return ok(index.render("SproutUp presents you " + product.productName, product.productDescription, "http://sproutup.co" + request().uri(),
+            return ok(index.render(product.productName + ": " + product.productDescription + " - presented by SproutUp", product.productDescription, "http://sproutup.co" + request().uri(),
                     node.path("banner").path("url").path("image").asText(),
                     node.path("banner").path("type").asText() ));
         }
         else{
-            return ok(index.render("SproutUp presents you " + product.productName, product.productDescription, "http://sproutup.co" + request().uri(),
+            return ok(index.render(product.productName + ": " + product.productDescription + " - presented by SproutUp", product.productDescription, "http://sproutup.co" + request().uri(),
                     "",
                     "" ));
         }
@@ -104,7 +104,7 @@ public class Application extends Controller {
     public static Result main_product_bar(String slug) {
         // set meta tags
         Product product = new Product().findbySlug(slug);
-        return ok(index.render("Share your experience with " + product.productName, product.productDescription, "http://sproutup.co" + request().uri(),
+        return ok(index.render(product.productName + ": " + product.productDescription + " - presented by SproutUp", product.productDescription, "http://sproutup.co" + request().uri(),
                 "www.sproutup.co/assets/images/creator/creator_banner.jpg",
                 "image/jpg" ));
     }
@@ -112,7 +112,7 @@ public class Application extends Controller {
     public static Result main_product_gallery(String slug) {
         // set meta tags
         Product product = new Product().findbySlug(slug);
-        return ok(index.render("Photo and video gallery of " + product.productName, product.productDescription, "http://sproutup.co" + request().uri(),
+        return ok(index.render(product.productName + ": " + product.productDescription + " - presented by SproutUp", product.productDescription, "http://sproutup.co" + request().uri(),
                 "www.sproutup.co/assets/images/creator/creator_banner.jpg",
                 "image/jpg" ));
     }
