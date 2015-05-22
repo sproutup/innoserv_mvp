@@ -91,7 +91,7 @@ public class Application extends Controller {
         JsonNode node = product.toJson();
         if(!node.path("banner").path("url").path("image").isMissingNode()) {
             return ok(index.render(product.productName + ": " + product.productDescription + " - presented by SproutUp", product.productDescription, "http://www.sproutup.co" + request().uri(),
-                    node.path("banner").path("url").path("image").asText(),
+                    node.path("banner").path("url").path("image").asText()+"?w=1600",
                     node.path("banner").path("type").asText() ));
         }
         else{
@@ -104,17 +104,19 @@ public class Application extends Controller {
     public static Result main_product_bar(String slug) {
         // set meta tags
         Product product = new Product().findbySlug(slug);
+        JsonNode node = product.toJson();
         return ok(index.render(product.productName + ": " + product.productDescription + " - presented by SproutUp", product.productDescription, "http://www.sproutup.co" + request().uri(),
-                "www.sproutup.co/assets/images/creator/creator_banner.jpg",
-                "image/jpg" ));
+                node.path("banner").path("url").path("image").asText()+"?w=1600",
+                node.path("banner").path("type").asText() ));
     }
 
     public static Result main_product_gallery(String slug) {
         // set meta tags
         Product product = new Product().findbySlug(slug);
+        JsonNode node = product.toJson();
         return ok(index.render(product.productName + ": " + product.productDescription + " - presented by SproutUp", product.productDescription, "http://www.sproutup.co" + request().uri(),
-                "www.sproutup.co/assets/images/creator/creator_banner.jpg",
-                "image/jpg" ));
+                node.path("banner").path("url").path("image").asText()+"?w=1600",
+                node.path("banner").path("type").asText() ));
     }
 
     public static Result home() {
