@@ -1,5 +1,7 @@
 @(title: String, description: String, url: String, image: String, imageType: String)
 
+@import play.api.Play._
+
 @moreHead = {
     <meta name="description" content="@description">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -21,7 +23,7 @@
     <meta property="og:video:width" content="400" />
     <meta property="og:video:height" content="300" /-->
 
-    <meta property="fb:app_id" content="384805921694899" />
+    <meta property="fb:app_id" content="@{play.api.Play.current.configuration.getString("facebook.app.id")}" />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="en_US" />            <!-- Default -->
     <!--meta property="article:author" content="https://www.facebook.com/fareedzakaria" />
