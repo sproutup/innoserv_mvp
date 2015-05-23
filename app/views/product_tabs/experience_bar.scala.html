@@ -3,9 +3,12 @@
 <!-- tabs: share compliments, make suggestions, ask questions -->
 <div class="col-lg-12 bar-tabs">
     <div class="bar-tabs--content">
-        <a ui-sref="product.detail.bar({ slug: product.slug })" ng-click="changeCategory(0)" class="btn btn-lg btn-share-compliments" ng-class="{'active': forum.selectedCategory==0}" href="#">Compliments</a>
-        <a ui-sref="product.detail.bar.suggestion({ slug: product.slug })" ng-click="changeCategory(1)" class="btn btn-lg btn-make-suggestions" ng-class="{'active': forum.selectedCategory==1}" href="#">Suggestions</a>
-        <a ui-sref="product.detail.bar.question({ slug: product.slug })" ng-click="changeCategory(2)" class="btn btn-lg btn-ask-questions" ng-class="{'active': forum.selectedCategory==2}" href="#">Questions</a>
+        <a ui-sref="product.detail.bar({ slug: product.slug })" ng-click="changeCategory(0)" class="btn btn-lg btn-make-suggestions" ng-class="{'active': forum.selectedCategory==0}" href="#">Suggestions</a>
+        
+        <a ui-sref="product.detail.bar.question({ slug: product.slug })" ng-click="changeCategory(1)" class="btn btn-lg btn-ask-questions" ng-class="{'active': forum.selectedCategory==1}" href="#">Questions</a>
+
+        <a ui-sref="product.detail.bar.compliment({ slug: product.slug })" ng-click="changeCategory(2)" class="btn btn-lg btn-share-compliments" ng-class="{'active': forum.selectedCategory==2}" href="#">Compliments</a>
+        
     </div>
 </div>
 
@@ -16,14 +19,17 @@
         <div class="col-sm-12">
             <div ui-view></div>
             <div ng-show="forum.selectedCategory==0" class="new-post">
-                <a subject-present="forum.showNewPost = !forum.showNewPost" login="login('sm')" href="#"><i class="fa fa-plus-circle fa-lg new-post-btn"></i></a><a subject-present="forum.showNewPost = !forum.showNewPost" login="login('sm')" href="#" class="new-post-link compliments">Share what you LOVE about {{product.productName}}.</a>
-            </div>
-            <div ng-show="forum.selectedCategory==1" class="new-post">
                 <a subject-present="forum.showNewPost = !forum.showNewPost" login="login('sm')" href="#"><i class="fa fa-plus-circle fa-lg new-post-btn"></i></a><a subject-present="forum.showNewPost = !forum.showNewPost" login="login('sm')" href="#" class="new-post-link suggestions">Wanna help make our product better? Post your great IDEAS here.</a>
             </div>
-            <div ng-show="forum.selectedCategory==2" class="new-post">
+
+            <div ng-show="forum.selectedCategory==1" class="new-post">
                 <a subject-present="forum.showNewPost = !forum.showNewPost" login="login('sm')" href="#"><i class="fa fa-plus-circle fa-lg new-post-btn"></i></a><a subject-present="forum.showNewPost = !forum.showNewPost" login="login('sm')" href="#" class="new-post-link questions">There is no such thing as a bad question. ASK away and we’ll do our best to help you out.</a>
             </div>
+
+            <div ng-show="forum.selectedCategory==2" class="new-post">
+                <a subject-present="forum.showNewPost = !forum.showNewPost" login="login('sm')" href="#"><i class="fa fa-plus-circle fa-lg new-post-btn"></i></a><a subject-present="forum.showNewPost = !forum.showNewPost" login="login('sm')" href="#" class="new-post-link compliments">Share what you LOVE about {{product.productName}}.</a>
+            </div>
+    
         </div>
     </div>
 
