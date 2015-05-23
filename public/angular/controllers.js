@@ -545,8 +545,8 @@ productControllers.controller('ForumCtrl', ['$scope', 'ForumService', 'LikesServ
     $scope.posts = [];
     $scope.forum = {
         showNewPost : false,
-        selectedCategory : 0,   // default to 0 = compliments
-        category : ["compliments","suggestions","questions"]
+        selectedCategory : 0,   // default to 0 = suggestions
+        category : ["suggestions","questions", "compliments"]
     };
 
       $log.debug("forum ctrl loaded");

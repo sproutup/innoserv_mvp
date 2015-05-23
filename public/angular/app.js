@@ -280,28 +280,28 @@ sproutupApp.config(['$routeProvider', '$stateProvider', '$locationProvider', '$u
                     title: 'Product - Geekout'
                 }
             })
-            .state('product.detail.bar.suggestion', {
-                url: '/suggestion',
-                controller: function($scope){
-                    $scope.changeCategory(1);
-                },
-                onEnter: function(){
-                    console.log("enter product detail bar suggestion");
-                },
-                data: {
-                    title: ''
-                }
-            })
             .state('product.detail.bar.question', {
                 url: '/question',
                 controller: function($scope){
-                    $scope.changeCategory(2);
+                    $scope.changeCategory(1);
                 },
                 onEnter: function(){
                     console.log("enter product detail bar question");
                 },
                 data: {
-                    title: ''
+                    title: 'Product - Geekout'
+                }
+            })
+            .state('product.detail.bar.compliment', {
+                url: '/compliment',
+                controller: function($scope){
+                    $scope.changeCategory(2);
+                },
+                onEnter: function(){
+                    console.log("enter product detail bar compliment");
+                },
+                data: {
+                    title: 'Product - Geekout'
                 }
             })
             .state('product.detail.gallery', {

@@ -1594,13 +1594,13 @@ angular.module('sproutupApp').directive('upToptags', ['TagsService', '$timeout',
 
                 switch(scope.category) {
                     case 0:
-                        scope.cat = "compliments";
-                        break;
-                    case 1:
                         scope.cat = "suggestions";
                         break;
-                    case 2:
+                    case 1:
                         scope.cat = "questions";
+                        break;
+                    case 2:
+                        scope.cat = "compliments";
                         break;
                     default:
                         scope.cat = "default";
