@@ -54,12 +54,12 @@ public class TwitterController extends Controller {
     public static Result getUserTimeline(Long productId) {
         Product prod = Product.findbyID(productId);
         // if product is not found return
-        Logger.debug("twitter api > get statuses/timeline");
+        Logger.debug("twitter api > get statuses/timeline ", productId);
         if(prod == null || prod.urlTwitter == null || prod.urlTwitter.length() < 1){
             Logger.debug("twitter api > get statuses/timeline > not found");
             return notFound();
         }
-        Logger.debug("twitter api > get statuses/timeline > found > ", prod.urlTwitter);
+        Logger.debug("twitter api > get statuses/timeline > found > " + prod.urlTwitter);
         String endpoint = prod.urlTwitter.substring(prod.urlTwitter.lastIndexOf(".com/")+5);
         return getApi(STATUSES_USER_TIMELINE_URL + "?count=3&screen_name=" + endpoint);
     }
@@ -99,10 +99,11 @@ public class TwitterController extends Controller {
         } else {
             Logger.debug("twitter api: cache miss");
             // If you choose to use a callback, "oauth_verifier" will be the return value by Twitter (request param)
+            Logger.debug("twitter key: " + Play.application().configuration().getString("twitter.access.token"));
             OAuthService service = new ServiceBuilder()
                     .provider(TwitterApi.class)
-                    .apiKey("62ibZBjJp4ETSwT3T5B7abFVR")
-                    .apiSecret("YyM3hcsssmwErxovtB52l4LXxFs1uKThbjM2RwIy3jlMLgBEyp")
+                    .apiKey(Play.application().configuration().getString("twitter.consumer.key"))
+                    .apiSecret(Play.application().configuration().getString("twitter.consumer.secret"))
                     .build();
 
             System.out.println("=== Twitter's OAuth Workflow ===");
