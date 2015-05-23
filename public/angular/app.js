@@ -69,7 +69,7 @@ sproutupApp.config(['$routeProvider', '$stateProvider', '$locationProvider', '$u
                 url: '/',
                 templateUrl: 'views/home',
                 data: {
-                    title: 'SproutUp - Smart way for creators to openly collaborate with early adopters'
+                    title: 'SproutUp - Together, we help products grow'
                 }
             })
             .state('about' ,{

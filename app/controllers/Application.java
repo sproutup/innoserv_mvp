@@ -42,8 +42,8 @@ public class Application extends Controller {
 	public static final String FLASH_ERROR_KEY = "error";
 
     public static Result main(String any) {
-        return ok(index.render("SproutUp - Smart way for creators to openly collaborate with early adopters",
-                "SproutUp is focused on helping emerging product creators transition from early stage to successful viral brands. As an open collaboration platform, SproutUp provides interactive tools for creators to engage with a community of early adopters and technology enthusiasts.",
+        return ok(index.render("SproutUp - Together, we help products grow",
+                "SproutUp is focused on helping emerging product creators transition from early stage to successful brands. As an open collaboration platform, SproutUp provides interactive tools for creators to engage with a community of social influencers, early adopters and technology enthusiasts.",
                 "http://www.sproutup.co",
                 "www.sproutup.co/assets/images/creator/creator_banner.jpg",
                 "image/jpg" ));
