@@ -41,7 +41,7 @@
             <span class="fa fa-search"></span>
         </div>
 
-        <div ng-repeat="product in products | filter: {$:query}" | orderBy:'random'">
+        <div ng-repeat="product in products | filter: {$:query} | orderBy:'random'">
             <up-product-item product="product"></up-product-item>
         </div>
     </div>
