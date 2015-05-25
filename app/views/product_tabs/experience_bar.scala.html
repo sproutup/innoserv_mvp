@@ -43,7 +43,7 @@
                 <div class="post-user-name">{{user.name}}<span>@@{{user.nickname}}</span></div>
                 <div class="post-new-form">
                     <input ng-model="forum.newPostForm.title" class="form-control post-new-textbox" placeholder="Give a title if you like">
-                    <textarea ng-model="forum.newPostForm.content" placeholder="Write something here. Being specific is great!" class="form-control post-new-textarea" rows="3"></textarea>
+                    <textarea ng-model="forum.newPostForm.content" ng-maxlength="8192" placeholder="Write something here. Being specific is great!" class="form-control post-new-textarea" rows="3"></textarea>
                     <tags-input ng-model="forum.newPostForm.tags"></tags-input>
                 </div>
                 <div class="post-new-comment-actions">
