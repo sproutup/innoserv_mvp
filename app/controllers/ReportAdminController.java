@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import models.ProductTrial;
 import models.User;
 
 import com.avaje.ebean.*;
@@ -38,7 +39,13 @@ public class ReportAdminController extends Controller {
     return ok(userlist.render(users));
   }
 
-  
+  public static Result trialList(Integer page) {
+	    if(!admin_enabled){return notFound();};
+
+	    Logger.debug("mode: " + play.api.Play.current().mode());
+	    Page<ProductTrial> trials = ProductTrial.find(page);//findAll();
+	    return ok(trial_list.render(trials));
+  }  
 
 //  public static Result details(User user) {
 //    if(!admin_enabled){return notFound();};

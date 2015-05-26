@@ -152,7 +152,7 @@ POST          /adminstuff/dosocialmediapost                                  con
 
 GET           /adminstuff/user                                            	 controllers.ReportAdminController.index()
 GET           /adminstuff/user/list                                       	 controllers.ReportAdminController.userList(page: Integer ?= 0)
-
+GET           /adminstuff/trial/list                                       	 controllers.ReportAdminController.trialList(page: Integer ?= 0)
 
 # Mockups
 GET           /mockups/product/:slug/about                                   controllers.MockupController.detailsAboutBySlug(slug: String)
