@@ -192,7 +192,7 @@ public class User extends TimeStampModel implements Subject {
 	public static Page<User> find(int page) {
 	    return
 	            find.where()
-	                .orderBy("id asc")
+	                .orderBy("id desc")
 	                .findPagingList(100)
 	                .setFetchAhead(false)
 	                .getPage(page);
