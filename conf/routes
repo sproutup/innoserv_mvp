@@ -150,6 +150,9 @@ POST          /adminstuff/doupload                                           con
 GET           /adminstuff/socialmediapost                                    controllers.SocialMediaPostAdminController.newPost()
 POST          /adminstuff/dosocialmediapost                                  controllers.SocialMediaPostAdminController.save()
 
+GET           /adminstuff/user                                            	 controllers.ReportAdminController.index()
+GET           /adminstuff/user/list                                       	 controllers.ReportAdminController.userList(page: Integer ?= 0)
+
 
 # Mockups
 GET           /mockups/product/:slug/about                                   controllers.MockupController.detailsAboutBySlug(slug: String)
