@@ -86,4 +86,10 @@ public class MockupController extends Controller {
 
         return ok(add_new_product_mock.render());
     }
+
+    public static Result wizard() {
+        if(!mockups_enabled){return notFound();};
+
+        return ok(wizard.render());
+    }
 }

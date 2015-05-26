@@ -166,6 +166,7 @@ GET           /mockups/creator                                               con
 GET           /mockups/product-list                                          controllers.MockupController.productList()
 GET           /mockups/user_settings                                         controllers.MockupController.userSettings()
 GET           /mockups/new-product                                           controllers.MockupController.addNewProduct()
+GET           /mockups/wizard                                           controllers.MockupController.wizard()
 
 # catch all. angular will handle all routes except /api/* /views/* /mockups/*
 GET           /                                                              controllers.Application.main(any = "none")
@@ -180,4 +181,3 @@ GET           /product/:slug/about                                           con
 GET           /product/:slug/bar                                             controllers.Application.main_product_bar(slug: String)
 GET           /product/:slug/gallery                                         controllers.Application.main_product_gallery(slug: String)
 GET           /*any                                                          controllers.Application.main(any)
-
