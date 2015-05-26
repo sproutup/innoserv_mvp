@@ -74,7 +74,7 @@ public class TwitterController extends Controller {
         }
         Logger.debug("twitter api > found > ", prod.urlTwitter);
         String endpoint = prod.urlTwitter.substring(prod.urlTwitter.lastIndexOf(".com/")+5);
-        return getApi("https://api.twitter.com/1.1/search/tweets.json?count=5&q="+endpoint);
+        return getApi("https://api.twitter.com/1.1/search/tweets.json?count=5&q=%40"+endpoint);
     }
 
     public static Result getApi(String endpoint) {

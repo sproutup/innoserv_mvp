@@ -6,6 +6,7 @@ import be.objectify.deadbolt.core.models.Subject;
 
 import com.avaje.ebean.Ebean;
 import com.avaje.ebean.ExpressionList;
+import com.avaje.ebean.Page;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -43,7 +44,7 @@ import java.util.*;
  */
 @Entity
 @Table(name = "users")
-public class User extends Model implements Subject {
+public class User extends TimeStampModel implements Subject {
 	/**
 	 *
 	 */
@@ -187,6 +188,15 @@ public class User extends Model implements Subject {
 			return getAuthUserFind(identity).findUnique();
 		}
 	}
+	
+	public static Page<User> find(int page) {
+	    return
+	            find.where()
+	                .orderBy("id asc")
+	                .findPagingList(100)
+	                .setFetchAhead(false)
+	                .getPage(page);
+	}
 
 	public static User findByUsernamePasswordIdentity(
 			final UsernamePasswordAuthUser identity) {
@@ -326,7 +336,8 @@ public class User extends Model implements Subject {
 	public static void verify(final User unverified) {
 		// You might want to wrap this into a transaction
 		unverified.emailValidated = true;
-		unverified.save();
+		//unverified.save();
+		unverified.update();
 		TokenAction.deleteByUser(unverified, Type.EMAIL_VERIFICATION);
 	}
 
@@ -344,6 +355,7 @@ public class User extends Model implements Subject {
 		}
 		a.providerUserId = authUser.getHashedPassword();
 		a.save();
+		super.update();
 	}
 
 	public void resetPassword(final UsernamePasswordAuthUser authUser,
