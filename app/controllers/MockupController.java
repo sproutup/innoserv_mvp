@@ -92,4 +92,10 @@ public class MockupController extends Controller {
 
         return ok(wizard.render());
     }
+
+    public static Result tryout() {
+        if(!mockups_enabled){return notFound();};
+
+        return ok(tryout.render());
+    }
 }
