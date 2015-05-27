@@ -73,7 +73,7 @@ GET           /webjars/*file                                                 con
 
 # Web Service
 #GET           /api/users                             controllers.UserController.getUsers
-#GET           /api/users/:id                         controllers.UserController.getUser(id: Long)
+GET           /api/users/:nickname                                           controllers.UserController.getUser(nickname: String)
 #POST          /api/users                             controllers.UserController.createUser
 PUT           /api/users/:id                                                 controllers.UserController.updateUser(id: Long)
 #DELETE        /api/users/:id                         controllers.UserController.deleteUser(id: Long)

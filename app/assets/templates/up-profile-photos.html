@@ -1,5 +1,5 @@
 <div masonry masonry-options="{ isFitWidth: true, transitionDuration: 0, gutter: 4}" class="masonry">
-    <div ng-repeat="photo in fileService.allUserPhotos() | orderBy: 'createdAt':true" class="masonry-brick">
+    <div ng-repeat="photo in user.files | orderBy: 'createdAt':true | filter:{ type: 'image' }" class="masonry-brick">
         <up-photo file="photo"></up-photo>
     </div>
 </div>

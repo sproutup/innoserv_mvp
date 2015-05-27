@@ -3,6 +3,7 @@ package controllers;
 import be.objectify.deadbolt.java.actions.SubjectPresent;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import models.Product;
 import models.User;
 import play.Logger;
 import play.libs.Json;
@@ -16,6 +17,13 @@ import java.io.IOException;
  * Created by peter on 3/19/15.
  */
 public class UserController extends Controller {
+
+    @BodyParser.Of(BodyParser.Json.class)
+    public static Result getUser(String nickname)
+    {
+        User user = new User().findByNickname(nickname);
+        return user == null ? notFound("User not found [" + nickname + "]") : ok(user.toJson());
+    }
 
     @BodyParser.Of(BodyParser.Json.class)
     @SubjectPresent
