@@ -25,10 +25,27 @@
                 <textarea class="form-control form-input-textarea no-resize" placeholder="Short description about yourself" rows="2" ng-model="user.description"></textarea>
             </div>
         </div>
+
+        <!-- Address -->
+        <div class="profile-edit--header">Your Address</div>
+        <div class="row profile-input-row">
+            <div class="col-sm-12 profile-input-cell">
+                <input type="text" class="form-control form-validate form-input medium" placeholder="Enter your address">
+            </div>
+        </div>
+
+        <!-- Phone number -->
+        <div class="profile-edit--header">Mobile Number</div>
+        <div class="row profile-input-row">
+            <div class="col-sm-12 profile-input-cell">
+                <input type="text" class="form-control form-validate form-input medium" placeholder="Enter your mobile number. Please include the country code for non-US number.">
+            </div>
+        </div>
+
+        <!-- Save & Cancel button -->
         <div class="add-product-actions">
             <button class="btn btn-lg add-product-btn save" type="submit" ng-click="save()">Save</button>
             <button class="btn btn-lg add-product-btn cancel" type="submit" ng-click="cancel()">Cancel</button>
         </div>
     </form>
 </div>
-
