@@ -29,8 +29,8 @@
         <a ui-sref="product.detail.gallery({ slug: product.slug })" class="product-menu--item" ui-sref-active="active" href="#">Gallery</a>
     </div>
     <div class="product-menu--action">
+        <a ng-hide="!product.isAvailableForTrial" up-trial="" ref-id="{{product.id}}" ref-type="model.Product" class="btn btn-lg btn-outline" href="#">Request Product Trial</a>
         <a follow="" ref-id="{{product.id}}" ref-type="model.Product" class="btn btn-lg btn-outline" href="#">Follow</a>
-        <a ng-hide="!product.isAvailableForTrial" up-trial="" ref-id="{{product.id}}" ref-type="model.Product" class="btn btn-lg btn-outline" href="#">Request a trial</a>
         <a ng-hide="!product.isAvailableToBuy" class="btn btn-lg btn-outline" target="_blank" ng-href="http://{{product.urlHome}}">Buy</a>
     </div>
 </div>
