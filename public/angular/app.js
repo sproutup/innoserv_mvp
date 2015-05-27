@@ -126,7 +126,7 @@ sproutupApp.config(['$routeProvider', '$stateProvider', '$locationProvider', '$u
             .state('settings' ,{
                 url: '/settings',
                 abstract: true,
-                templateUrl: 'views/settings/main',
+                templateUrl: 'views/settings',
                 data: {
                     title: 'Settings'
                 }
@@ -143,6 +143,13 @@ sproutupApp.config(['$routeProvider', '$stateProvider', '$locationProvider', '$u
                 templateUrl: 'views/settings/social',
                 data: {
                     title: 'Social Profile'
+                }
+            })
+            .state('settings.trials' ,{
+                url: '/trials',
+                templateUrl: 'views/settings/trials',
+                data: {
+                    title: 'Trials'
                 }
             })
             .state('dashboard' ,{

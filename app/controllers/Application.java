@@ -178,6 +178,11 @@ public class Application extends Controller {
     }
 
     @Restrict({@Group(AppConstants.CONSUMER)})
+    public static Result settings_trials() {
+        return ok(views.html.settings.trials.render());
+    }
+
+    @Restrict({@Group(AppConstants.CONSUMER)})
     public static Result dashboard() {
         return ok(views.html.dashboard.main.render());
     }

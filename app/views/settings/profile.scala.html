@@ -1,1 +1,34 @@
-<div>Profile</div>
+<!-- Content -->
+<div class="col-sm-9" product="product" up-user-profile-form>
+    <form name="basicinfoform" class="" novalidate>
+        <!-- Basic Information -->
+        <div class="profile-edit--header">Basic Information</div>
+        <!-- full name -->
+        <div class="row profile-input-row">
+            <div class="col-sm-12 profile-input-cell">
+                <input type="text" class="form-control form-validate form-input medium" placeholder="Full Name" ng-model="user.name" required>
+            </div>
+        </div>
+        <!-- email and username -->
+        <div class="row profile-input-row">
+            <div class="col-sm-6 profile-input-cell">
+                <input type="email" disabled class="form-control form-validate form-input medium" placeholder="Email" ng-model="user.email">
+            </div>
+            <div class="col-sm-6 profile-input-cell">
+                <input type="text" class="form-control form-validate form-input medium left-feedback" placeholder="Pick a nickname" ng-model="user.nickname" required>
+                <span class="fa fa-lg">@@</span>
+            </div>
+        </div>
+        <!-- short description -->
+        <div class="row profile-input-row">
+            <div class="col-sm-12 profile-input-cell">
+                <textarea class="form-control form-input-textarea no-resize" placeholder="Short description about yourself" rows="2" ng-model="user.description"></textarea>
+            </div>
+        </div>
+        <div class="add-product-actions">
+            <button class="btn btn-lg add-product-btn save" type="submit" ng-click="save()">Save</button>
+            <button class="btn btn-lg add-product-btn cancel" type="submit" ng-click="cancel()">Cancel</button>
+        </div>
+    </form>
+</div>
+

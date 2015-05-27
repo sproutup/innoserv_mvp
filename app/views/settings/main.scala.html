@@ -1,3 +1,18 @@
-<div class="row settings-page">
-    <div ui-view></div>
+<!-- Banner -->
+<div class="dashboard-product-banner" up-background-image="{{user.avatarUrl}}" up-background-attr="?w=1600" up-fallback-image="/assets/images/default-product-banner.jpg">
+    <div class="col-lg-12 dashboard-product-title">
+        <h1>{{user.name}}</h1>
+    </div>
 </div>
+
+<!-- TOC -->
+<div class="col-sm-3">
+    <div class="list-group">
+        <a ui-sref="settings.profile" class="list-group-item" ui-sref-active="active">Profile</a>
+        <a ui-sref="settings.social" class="list-group-item" ui-sref-active="active">Social</a>
+        <a ui-sref="settings.trials" class="list-group-item" ui-sref-active="active">Trials</a>
+    </div>
+</div>
+
+<!-- menu item content goes here -->
+<div ui-view></div>
