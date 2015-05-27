@@ -1,18 +1,20 @@
 <!-- Banner -->
-<div class="dashboard-product-banner" up-background-image="{{user.avatarUrl}}" up-background-attr="?w=1600" up-fallback-image="/assets/images/default-product-banner.jpg">
-    <div class="col-lg-12 dashboard-product-title">
-        <h1>{{user.name}}</h1>
+<div class="row dashboard-page">
+    <div class="dashboard-banner" up-background-image="/assets/images/general-profile-cover.png" up-background-attr="?w=1600">
+        <div class="col-lg-12 dashboard-title">
+            <h1>{{user.name}}<span>{{user.nickname}}</span></h1>
+        </div>
     </div>
-</div>
 
-<!-- TOC -->
-<div class="col-sm-3">
-    <div class="list-group">
-        <a ui-sref="settings.profile" class="list-group-item" ui-sref-active="active">Profile</a>
-        <a ui-sref="settings.social" class="list-group-item" ui-sref-active="active">Social</a>
-        <a ui-sref="settings.trials" class="list-group-item" ui-sref-active="active">Trials</a>
+    <!-- TOC -->
+    <div class="col-sm-3">
+        <div class="list-group">
+            <a ui-sref="settings.profile" class="list-group-item" ui-sref-active="active">Profile</a>
+            <a ui-sref="settings.social" class="list-group-item" ui-sref-active="active">Social Media</a>
+            <a ui-sref="settings.trials" class="list-group-item" ui-sref-active="active">Product Trials</a>
+        </div>
     </div>
-</div>
 
-<!-- menu item content goes here -->
-<div ui-view></div>
+    <!-- menu item content goes here -->
+    <div ui-view></div>
+</div>
