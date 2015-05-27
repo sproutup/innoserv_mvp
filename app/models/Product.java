@@ -200,7 +200,7 @@ public class Product extends SuperModel implements PathBindable<Product>,
 		    return
 		            find.where()
 		                .orderBy("id asc")
-		                .findPagingList(10)
+		                .findPagingList(100)
 		                .setFetchAhead(false)
 		                .getPage(page);
 	}

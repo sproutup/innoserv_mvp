@@ -1,7 +1,11 @@
 @(currentPage: com.avaje.ebean.Page[Product])
 @main("Products catalog") {
 
-  <h2>All products</h2>
+  <h2>All products
+  <a href="/adminstuff/product/new" class="btn" target="_self">
+    <i class="icon-plus"></i> &nbsp;+ (New)</a>
+  
+  </h2>
 
     <script>
      function del(urlToDelete) {
