@@ -880,7 +880,8 @@ angular.module('sproutupApp').directive('upAvatarUpload', ['FileService', 'AuthS
                     }
                 });
 
-                attrs.$observe('user', function (user) {
+                scope.$watch('user', function(newValue, oldValue) {
+                //attrs.$observe('user', function (user) {
                     if (scope.user) {
                         if(scope.user.id == authService.currentUser().id){
                             scope.myself = true;
@@ -1628,8 +1629,8 @@ angular.module('sproutupApp').directive('upProductItem', [
         };
     }]);
 
-angular.module('sproutupApp').directive('upUserProfileForm', [ '$state', "$rootScope", 'AuthService', 'UserService',
-    function ($state, $rootScope, authService, userServiceOld) {
+angular.module('sproutupApp').directive('upUserProfileForm', [ '$state', "$rootScope", 'AuthService', 'UserServiceOld',
+    function ($state, $rootScope, authService, userService) {
         return {
             restrict: 'A',
             transclude:true,
