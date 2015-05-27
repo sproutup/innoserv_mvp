@@ -56,6 +56,12 @@ productServices.factory('CompanyService', ['$resource',
     }
 ]);
 
+productServices.factory('UserService', ['$resource',
+    function($resource) {
+        return $resource('/api/users/:nickname', {nickname:'@nickname'}, {update:{method:'PUT'}} ); // Note the full endpoint address
+    }
+]);
+
 productServices.factory('ProductServicex', ['$http','$log', '$q',
     function($http, $log, $q) {
         var productService = {};
@@ -271,7 +277,7 @@ productServices.factory('ProductTrialService', ['$http','$log', '$q',
     }
 ]);
 
-productServices.factory('UserService', ['$http','$log', '$q', '$upload', '$filter',
+productServices.factory('UserServiceOld', ['$http','$log', '$q', '$upload', '$filter',
     function($http, $log, $q, $upload, $filter) {
         var userService = {};
 

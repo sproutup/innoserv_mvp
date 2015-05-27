@@ -198,11 +198,12 @@ sproutupApp.config(['$routeProvider', '$stateProvider', '$locationProvider', '$u
                 }
             })
             .state('profile' ,{
-                url: '/profile',
+                url: '/user/:nickname',
                 abstract: true,
                 templateUrl: 'views/profile',
+                controller: 'userDetailCtrl',
                 data: {
-                    title: ''
+                    title: 'User Profile'
                 }
             })
             .state('profile.photos' ,{

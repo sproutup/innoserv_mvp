@@ -539,6 +539,21 @@ productControllers.controller('productDetailCtrl', ['$scope', '$stateParams', '$
     );
   }]);
 
+productControllers.controller('userDetailCtrl', ['$scope', '$stateParams', '$state', '$log', 'UserService',
+  function($scope, $stateParams, $state, $log, userService) {
+    $log.debug("entered user details ctrl. nickname=" + $stateParams.nickname);
+    userService.get({nickname: $stateParams.nickname}).$promise.then(
+        function(data) {
+            // success
+            $scope.stranger = data;
+        },
+        function(error) {
+            // error handler
+            $state.go("home");
+        }
+    );
+  }]);
+
 productControllers.controller('ForumCtrl', ['$scope', 'ForumService', 'LikesService', '$log',
   function($scope, ForumService, LikesService, $log) {
 

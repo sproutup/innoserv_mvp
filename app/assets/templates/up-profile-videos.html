@@ -1,5 +1,5 @@
 <div masonry masonry-options="{ isFitWidth: true, transitionDuration: 0, gutter: 4}" class="masonry">
-    <div ng-repeat="video in fileService.allUserVideos() | orderBy: 'createdAt':true" class="masonry-brick">
+    <div ng-repeat="video in fileService.allUserVideos() | orderBy: 'createdAt':true | filter:{ type: 'video' }" class="masonry-brick">
         <up-video file="video"></up-video>
     </div>
 </div>

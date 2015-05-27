@@ -203,6 +203,10 @@ public class User extends TimeStampModel implements Subject {
 		return getUsernamePasswordAuthUserFind(identity).findUnique();
 	}
 
+	public static User findByNickname(String value){
+		return find.where().eq("nickname", value).findUnique();
+	}
+
 	private static ExpressionList<User> getUsernamePasswordAuthUserFind(
 			final UsernamePasswordAuthUser identity) {
 		return getEmailUserFind(identity.getEmail()).eq(
@@ -391,6 +395,10 @@ public class User extends TimeStampModel implements Subject {
 
 		if(this.company!=null){
 			node.put("company", this.company.toJson());
+		}
+
+		if(this.files!=null){
+			node.put("files", File.toJson(this.files));
 		}
 
 		// todo should be based on either tags or role
