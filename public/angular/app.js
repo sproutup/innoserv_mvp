@@ -123,6 +123,28 @@ sproutupApp.config(['$routeProvider', '$stateProvider', '$locationProvider', '$u
                     title: 'Creator - SproutUp'
                 }
             })
+            .state('settings' ,{
+                url: '/settings',
+                abstract: true,
+                templateUrl: 'views/settings/main',
+                data: {
+                    title: 'Settings'
+                }
+            })
+            .state('settings.profile' ,{
+                url: '/profile',
+                templateUrl: 'views/settings/profile',
+                data: {
+                    title: 'Profile'
+                }
+            })
+            .state('settings.social' ,{
+                url: '/social',
+                templateUrl: 'views/settings/social',
+                data: {
+                    title: 'Social Profile'
+                }
+            })
             .state('dashboard' ,{
                 url: '/dashboard',
                 abstract: false,

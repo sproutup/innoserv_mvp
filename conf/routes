@@ -43,6 +43,9 @@ GET           /views/news                                                    con
 GET           /views/search                                                  controllers.Application.search
 GET           /views/community                                               controllers.Application.community
 GET           /views/creator                                                 controllers.Application.creator
+GET           /views/settings                                                controllers.Application.settings
+GET           /views/settings/profile                                        controllers.Application.settings_profile
+GET           /views/settings/social                                         controllers.Application.settings_social
 GET           /views/dashboard                                               controllers.Application.dashboard
 GET           /views/dashboard/products                                      controllers.Application.dashboard_products
 GET           /views/dashboard/products/info                                 controllers.Application.dashboard_products_info
