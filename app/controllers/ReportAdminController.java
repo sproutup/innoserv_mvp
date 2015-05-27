@@ -32,6 +32,10 @@ public class ReportAdminController extends Controller {
     return redirect(routes.ReportAdminController.userList(0));
   }
 
+  public static Result home() {
+	    return ok(admin.render());
+  }
+  
   public static Result userList(Integer page) {
     if(!admin_enabled){return notFound();};
 

@@ -134,6 +134,7 @@ GET           /media/image/:w/:h/:image                                      con
 GET           /media/image/:image                                            controllers.Application.image(image: String, w: Int ?=-1,        h:        Int ?=-1)
 
 # Internal Administration Only - Not visible to public
+GET           /adminstuff                                            		 controllers.ReportAdminController.home()
 GET           /adminstuff/product                                            controllers.ProductAdministrationController.index()
 GET           /adminstuff/product/list                                       controllers.ProductAdministrationController.list(page: Integer ?= 0)
 POST          /adminstuff/product/list                                       controllers.ProductAdministrationController.save()
