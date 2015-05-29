@@ -38,9 +38,15 @@
       <tr>
 
         <td>@trial.id</td>
-        <td>@trial.user.id</td>
+        @if(trial.user ==null){
+        <td>Null</td>
         <td>@trial.name</td>
+        <td>@trial.email</td>
+        } else {
+        <td>@trial.user.id</td>
+        <td>@trial.user.name</td>
         <td>@trial.user.email &nbsp;/ @trial.user.urlTwitter</td>
+        }
         <td>@trial.product.id</td>
         <td>@trial.product.productName</td>
         <td>@trial.createdAt</td>
