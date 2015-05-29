@@ -21,7 +21,7 @@
         <li ng-show="isLoggedIn" class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{user.name}}<i class="fa fa-angle-down login-angle-down"></i></a>
             <ul class="dropdown-menu" role="menu">
-                <li><a ui-sref="profile.photos">My Profile</a></li>
+                <li><a ui-sref="profile.photos({ nickname: user.nickname })">My Profile</a></li>
                 <hr ng-hide="user.company == null">
                 <li class="header-in-dropdown-menu" ng-hide="user.company == null">My Products</li>
                 <ul class="submenu-in-dropdown-menu">
@@ -31,7 +31,7 @@
                 </ul>
                 <hr ng-hide="user.company == null">
                 <li><a ui-sref="product.add">Add product</a></li>
-
+                <li><a ui-sref="settings.profile">Settings</a></li>
                 <li><a href="" ng-click="logout()">Log Out</a></li>
             </ul>
         </li>

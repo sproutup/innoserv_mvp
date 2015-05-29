@@ -1,0 +1,96 @@
+@moreHead = {}
+
+@main(Messages(""), moreHead) {
+
+    <!-- if no twitter account provided already -->
+<div class="product-trial-banner" style="background-image: url('https://s3.amazonaws.com/sproutup-mvp-cdn/assets/11112.jpg')">
+    <div class="product-info-wrapper">
+        <div class="col-lg-12 product-info">
+            <div class="signup-wizard">
+                <h1>Thanks for requesting Product Trial. Before we start...</h1>
+                <h2>Please let us know your twitter account</h2>
+
+                <div class="signup-wizard-row">
+                    <input type="text" class="form-control form-input large" placeholder="@@username" required>
+                    <input type="text" class="form-control form-input large" placeholder="If you have an inivitation code from us, enter here">
+                </div>
+
+                <p>At this point, Product Trial is only available to qualified social influencers. We use your twitter handle to determine your eligibility.</p>
+
+                <div class="signup-wizard-actions">
+                    <button class="btn btn-lg add-product-btn save">Continue</button>
+                    <button class="btn btn-lg add-product-btn cancel">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- after users enter twitter account -->
+<div class="product-trial-banner" style="background-image: url('https://s3.amazonaws.com/sproutup-mvp-cdn/assets/11112.jpg')">
+    <div class="product-info-wrapper">
+        <div class="col-lg-12 product-info">
+            <div class="signup-wizard">
+                <h1>We are trying to find out more about your influence in twittersphere...</h1>
+                <div class="signup-status"><i class="fa fa-4x fa-spinner fa-spin"></i></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- if twitter account provided and qualified as an influencer -->
+<div class="product-trial-banner" style="background-image: url('https://s3.amazonaws.com/sproutup-mvp-cdn/assets/11112.jpg')">
+    <div class="product-info-wrapper">
+        <div class="col-lg-12 product-info">
+            <div class="signup-wizard">
+                <h1>Thanks for requesting Product Trial. A few more things to ask...</h1>
+                <h2>Please let us know your shipping address, phone number, and why you'd like to try Soma Carafe.</h2>
+
+                <div class="signup-wizard-row">
+                    <input type="text" class="form-control form-input large" placeholder="Your shipping address" required>
+                    <input type="text" class="form-control form-input large" placeholder="Your phone number" required>
+                    <textarea class="form-control form-input-textarea no-resize" placeholder="Briefly describe why you're interested in trying Soma Carafe" rows="1"></textarea>
+                </div>
+
+                <p>Once you sign up, the product will be shipped to the address you provided. You may be contacted by phone for shipping and trial related questions.</p>
+
+                <div class="signup-wizard-actions">
+                    <button class="btn btn-lg add-product-btn save">Continue</button>
+                    <button class="btn btn-lg add-product-btn cancel">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- after signing up for request -->
+<div class="product-trial-banner" style="background-image: url('https://s3.amazonaws.com/sproutup-mvp-cdn/assets/11112.jpg')">
+    <div class="product-info-wrapper">
+        <div class="col-lg-12 product-info">
+            <div class="signup-wizard">
+                <h1>Congratulations! You're in line for Product Trial.</h1>
+                <h2>It's exciting and we know you can't wait! Just relax, and you will be contacted by our team when we ship it.</h2>
+                <div class="signup-wizard-actions">
+                    <button class="btn btn-lg add-product-btn save">Cool, got it</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- if not qualified for product trial -->
+<div class="product-trial-banner" style="background-image: url('https://s3.amazonaws.com/sproutup-mvp-cdn/assets/11112.jpg')">
+    <div class="product-info-wrapper">
+        <div class="col-lg-12 product-info">
+            <div class="signup-wizard">
+                <h1>Thanks for requesting Product Trial.</h1>
+                <h2>At this point, Product Trial is only available to qualified social influencers. But hey, we know you come here because you are enthusiastic about emerging products. We've captured your interest and will get back when Product Trial is generally available.</h2>
+                <div class="signup-wizard-actions">
+                    <button class="btn btn-lg add-product-btn save">Okay, got it</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+}

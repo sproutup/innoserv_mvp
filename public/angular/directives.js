@@ -872,9 +872,20 @@ angular.module('sproutupApp').directive('upAvatarUpload', ['FileService', 'AuthS
             },
             templateUrl: 'assets/templates/up-avatar-upload.html',
             link: function (scope, element, attrs) {
+                scope.myself = false;
+
                 attrs.$observe('file', function (file) {
                     if (file) {
                         console.log("up-video - file changed: ", file);
+                    }
+                });
+
+                scope.$watch('user', function(newValue, oldValue) {
+                //attrs.$observe('user', function (user) {
+                    if (scope.user) {
+                        if(scope.user.id == authService.currentUser().id){
+                            scope.myself = true;
+                        }
                     }
                 });
 
@@ -1128,9 +1139,10 @@ angular.module('sproutupApp').directive('upProfilePhotos', ['FileService',
         return {
             restrict: 'EA',
             replace: true,
-            scope: true,
+            scope: {
+                user: "="
+            },
             link: function (scope, element, attrs) {
-                scope.fileService = fileService;
             },
             templateUrl: 'assets/templates/up-profile-photos.html'
         }
@@ -1156,21 +1168,22 @@ angular.module('sproutupApp').directive('upProfileInfo', ['AuthService',
         return {
             restrict: 'E',
             scope: {
-
+                user: "="
             },
             link: function (scope, element, attrs) {
-                scope.user = authService.currentUser();
             },
             templateUrl: 'assets/templates/up-profile-info.html'
         }
     }
 ]);
 
-angular.module('sproutupApp').directive('upProfileMenu', ['AuthService','FileService','$state','$timeout',
-    function (authService, fileService, $state, $timeout) {
+angular.module('sproutupApp').directive('upProfileMenu', ['AuthService','$filter','$state',
+    function (authService, $filter, $state) {
         return {
             restrict: 'E',
-            scope: true,
+            scope: {
+                user: "="
+            },
             link: function (scope, element, attrs) {
                 scope.menu = {
                     photos: 0,
@@ -1178,179 +1191,27 @@ angular.module('sproutupApp').directive('upProfileMenu', ['AuthService','FileSer
                     products: 0
                 };
 
-                // get the number of products on this user from the user profile
-                scope.menu.products = scope.user.company.products.length;
+                scope.$watch('user', function(newValue, oldValue) {
+                    console.log("profile : watch user: ", scope.user );
+                    // get the number of products on this user from the user profile
+                    if(scope.user && scope.user.company){
+                        scope.menu.products = scope.user.company.products.length;
+                    }
+                    else{
+                        scope.menu.products = 0;
+                    }
 
-                // wait for user files to load and then show value
-                scope.$watch(function () {
-                    return fileService.allUserPhotos().length;
-                },
-                function(newVal, oldVal) {
-                    console.log("watch user photos: ", newVal);
-                    scope.menu.photos = newVal;
-                }, true);
-
-                // wait for user files to load and then show value
-                scope.$watch(function () {
-                    return fileService.allUserVideos().length;
-                },
-                function(newVal, oldVal) {
-                    console.log("watch user videos: ", newVal);
-                    scope.menu.videos = newVal;
-                }, true);
+                    if(scope.user && scope.user.files){
+                        scope.menu.photos = $filter("filter")(scope.user.files, {type:"image"}).length;
+                        scope.menu.videos = $filter("filter")(scope.user.files, {type:"video"}).length;
+                    }
+                    else{
+                        scope.menu.photos = 0;
+                        scope.menu.videos = 0;
+                    }
+                });
             },
             templateUrl: 'assets/templates/up-profile-menu.html'
-        }
-    }
-]);
-
-angular.module('sproutupApp').directive('upProfileEditButtons', ['$rootScope','FileService','$state','$log','$timeout',
-    function ($rootScope, fileService, $state, $log, $timeout) {
-        return {
-            restrict: 'E',
-            scope: true,
-            link: function (scope, element, attrs) {
-                scope.$state = $state;
-                scope.state = "pristine";
-                scope.showMessage = false;
-
-                var hideStatusMessage = function(test){
-                   scope.showMessage = false;
-                };
-
-                scope.cancel = function () {
-                    $log.debug("up-profile - cancel()");
-                    $rootScope.$broadcast('profile:cancel');
-                };
-
-                scope.$on('profile:saved', function (event, args) {
-                    console.log('event received profile:saved ');
-                    scope.state = "pristine";
-                });
-
-                scope.$on('profile:valid', function (event, args) {
-                    console.log('event received profile:valid ');
-                    scope.state = "dirty";
-                });
-
-                scope.$on('profile:invalid', function (event, args) {
-                    console.log('event received profile:invalid ');
-                    scope.state = "pristine";
-                });
-
-                scope.save = function () {
-                    $log.debug("up-profile - save()");
-                    $rootScope.$broadcast('profile:save');
-                    scope.state = "saving";
-                };
-
-            },
-            templateUrl: 'assets/templates/up-profile-edit-buttons.html'
-        }
-    }
-]);
-
-angular.module('sproutupApp').directive('upProfileEdit', ['$rootScope','AuthService', 'UserService', '$state','$log', '$timeout',
-    function ($rootScope, authService, userService, $state, $log, $timeout) {
-        return {
-            restrict: 'A',
-            scope: true,
-            link: function (scope, element, attrs) {
-                scope.$state = $state;
-
-                var user = authService.currentUser();
-
-                scope.$on('auth:status', function (event, args) {
-                    user = authService.currentUser();
-                    copyUser(updated, user);
-                });
-
-                scope.$watch(
-                    function(scope){
-                        return scope.basicinfoform.$dirty && scope.basicinfoform.$valid;
-                    },
-                    function(newValue, oldValue) {
-                        $log.debug("dirty&valid: " + newValue + " " + oldValue);
-                        if(newValue==true){
-                            $rootScope.$broadcast('profile:valid');
-                        }
-                        else{
-                            $rootScope.$broadcast('profile:invalid');
-                        }
-                    }
-                );
-
-                var copyUser = function(copy, orig){
-                    copy.id = orig.id;
-                    copy.email = orig.email;
-                    copy.firstname = orig.firstname;
-                    copy.lastname = orig.lastname;
-                    copy.name = orig.name;
-                    copy.nickname = orig.nickname;
-                    copy.description = orig.description;
-                    copy.urlFacebook = orig.urlFacebook;
-                    copy.urlTwitter = orig.urlTwitter;
-                    copy.urlPinterest = orig.urlPinterest;
-                    copy.urlBlog = orig.urlBlog;
-                };
-
-                var updated = {
-                    "id" : user.id,
-                    "email" : user.email,
-                    "firstname" : user.firstname,
-                    "lastname" : user.lastname,
-                    "name" : user.name,
-                    "nickname" : user.nickname,
-                    "description" : user.description,
-                    "urlFacebook" : user.urlFacebook,
-                    "urlTwitter" : user.urlTwitter,
-                    "urlPinterest" : user.urlPinterest,
-                    "urlBlog" : user.urlBlog
-                };
-
-                scope.user = updated;
-
-                var previous_state = "profile.photos";
-
-                scope.$on('$stateChangeSuccess', function (ev, to, toParams, from, fromParams) {
-                    //assign the "from" parameter to something
-                    console.log('state change ' + from.name);
-                    if(from.name.length > 0){
-                        previous_state = from.name;
-                    }
-                });
-
-                scope.$on('profile:save', function (event, args) {
-                    console.log('event received profile:save ');
-                    userService.update(scope.user).then(
-                        function(data){
-                            $log.debug("up-profile-edit > update success");
-                            user.description = data.description;
-                            user.name = data.name;
-                            user.nickname = data.nickname;
-                            user.firstname = data.firstname;
-                            user.lastname = data.lastname;
-                            user.urlFacebook = data.urlFacebook;
-                            user.urlTwitter = data.urlTwitter;
-                            user.urlPinterest = data.urlPinterest;
-                            user.urlBlog = data.urlBlog;
-                            $rootScope.$broadcast('profile:saved');
-                            $rootScope.$broadcast('alert:success', {
-                                message: 'Your profile is saved'
-                            });
-                            scope.basicinfoform.$setPristine();
-                        },
-                        function(error){
-                            $log.debug("up-profile-edit > update failed");
-                        }
-                    )
-                });
-
-                scope.$on('profile:cancel', function (event, args) {
-                    console.log('event received profile:cancel ');
-                    $state.go(previous_state);
-                });
-            }
         }
     }
 ]);
@@ -1451,7 +1312,7 @@ angular.module('sproutupApp').directive('upTrial', ['ProductTrialService', 'Auth
 
                 function changeButtonToFollowing() {
                     isFollowing = true;
-                    element.html('<i class="fa fa-check"></i>I am in for Tryout.');
+                    element.html('<i class="fa fa-check"></i>Product Trial Requested');
                     element.addClass("btn-following");
                     element.removeClass("btn-outline");
                     element.addClass("disabled");
@@ -1459,7 +1320,7 @@ angular.module('sproutupApp').directive('upTrial', ['ProductTrialService', 'Auth
 
                 function changeButtonToFollow() {
                     isFollowing = false;
-                    element.html('Request a trial');
+                    element.html('Request Product Trial');
                     element.removeClass("btn-following");
                     element.addClass("btn-outline");
                 }
@@ -1767,6 +1628,75 @@ angular.module('sproutupApp').directive('upProductItem', [
             }
         };
     }]);
+
+angular.module('sproutupApp').directive('upUserProfileForm', [ '$state', "$rootScope", 'AuthService', 'UserServiceOld',
+    function ($state, $rootScope, authService, userService) {
+        return {
+            restrict: 'A',
+            transclude:true,
+            scope: {
+            },
+            link: function (scope, element, attrs, ctrl, transclude) {
+
+                var currentuser = authService.currentUser();
+
+                var copyUser = function(copy, orig){
+                    copy.id = orig.id;
+                    copy.email = orig.email;
+                    copy.firstname = orig.firstname;
+                    copy.lastname = orig.lastname;
+                    copy.name = orig.name;
+                    copy.nickname = orig.nickname;
+                    copy.description = orig.description;
+                };
+
+                var updated = {
+                    "id" : currentuser.id,
+                    "email" : currentuser.email,
+                    "firstname" : currentuser.firstname,
+                    "lastname" : currentuser.lastname,
+                    "name" : currentuser.name,
+                    "nickname" : currentuser.nickname,
+                    "description" : currentuser.description,
+                };
+
+                scope.user = updated;
+
+                scope.save = function(){
+                    console.log("profile save", scope.user);
+                    userService.update(scope.user).then(
+                        function(data){
+                            console.log("up-profile-edit > update success");
+                            currentuser.description = data.description;
+                            currentuser.name = data.name;
+                            currentuser.nickname = data.nickname;
+                            currentuser.firstname = data.firstname;
+                            currentuser.lastname = data.lastname;
+                            $rootScope.$broadcast('alert:success', {
+                                message: 'Your profile is saved'
+                            });
+                            scope.basicinfoform.$setPristine();
+                        },
+                        function(error){
+                            console.log("up-profile-edit > update failed");
+                        }
+                    )
+                }
+
+                scope.cancel = function(){
+                    console.log("profile cancel");
+                    $state.go('home');
+                }
+
+                // add the directive scope to the transcluded content
+                transclude(scope, function(clone, scope) {
+                    element.append(clone);
+                    console.log("profile add: clone");
+                });
+            }
+        };
+    }]);
+
 
 angular.module('sproutupApp').directive('navbar', [ 'AuthService', '$rootScope',
     function (authService, $rootScope) {

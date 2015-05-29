@@ -1,5 +1,7 @@
 <div>
-    <div ng-show="files[0].dataUrl == null" ng-file-select disabled="disabled" style="background-image: url('{{user.avatarUrl}}');"
+    <div ng-show="myself == false" style="background-image: url('{{user.avatarUrl}}');" class="upload-new-avatar">
+    </div>
+    <div ng-show="files[0].dataUrl == null && myself" ng-file-select disabled="disabled" style="background-image: url('{{user.avatarUrl}}');"
          ng-file-change="upload(files, 'profile img', user.id, 'models.user')" ng-model="files" class="upload-new-avatar">
         <a class="btn btn-lg btn-media-upload">
             <i class="fa fa-plus-circle"></i>

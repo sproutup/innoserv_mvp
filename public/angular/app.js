@@ -123,6 +123,35 @@ sproutupApp.config(['$routeProvider', '$stateProvider', '$locationProvider', '$u
                     title: 'Creator - SproutUp'
                 }
             })
+            .state('settings' ,{
+                url: '/settings',
+                abstract: true,
+                templateUrl: 'views/settings',
+                data: {
+                    title: 'Settings'
+                }
+            })
+            .state('settings.profile' ,{
+                url: '/profile',
+                templateUrl: 'views/settings/profile',
+                data: {
+                    title: 'Profile'
+                }
+            })
+            .state('settings.social' ,{
+                url: '/social',
+                templateUrl: 'views/settings/social',
+                data: {
+                    title: 'Social Profile'
+                }
+            })
+            .state('settings.trials' ,{
+                url: '/trials',
+                templateUrl: 'views/settings/trials',
+                data: {
+                    title: 'Trials'
+                }
+            })
             .state('dashboard' ,{
                 url: '/dashboard',
                 abstract: false,
@@ -169,11 +198,12 @@ sproutupApp.config(['$routeProvider', '$stateProvider', '$locationProvider', '$u
                 }
             })
             .state('profile' ,{
-                url: '/profile',
+                url: '/user/:nickname',
                 abstract: true,
                 templateUrl: 'views/profile',
+                controller: 'userDetailCtrl',
                 data: {
-                    title: ''
+                    title: 'User Profile'
                 }
             })
             .state('profile.photos' ,{

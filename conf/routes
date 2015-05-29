@@ -43,6 +43,10 @@ GET           /views/news                                                    con
 GET           /views/search                                                  controllers.Application.search
 GET           /views/community                                               controllers.Application.community
 GET           /views/creator                                                 controllers.Application.creator
+GET           /views/settings                                                controllers.Application.settings
+GET           /views/settings/profile                                        controllers.Application.settings_profile
+GET           /views/settings/social                                         controllers.Application.settings_social
+GET           /views/settings/trials                                         controllers.Application.settings_trials
 GET           /views/dashboard                                               controllers.Application.dashboard
 GET           /views/dashboard/products                                      controllers.Application.dashboard_products
 GET           /views/dashboard/products/info                                 controllers.Application.dashboard_products_info
@@ -69,7 +73,7 @@ GET           /webjars/*file                                                 con
 
 # Web Service
 #GET           /api/users                             controllers.UserController.getUsers
-#GET           /api/users/:id                         controllers.UserController.getUser(id: Long)
+GET           /api/users/:nickname                                           controllers.UserController.getUser(nickname: String)
 #POST          /api/users                             controllers.UserController.createUser
 PUT           /api/users/:id                                                 controllers.UserController.updateUser(id: Long)
 #DELETE        /api/users/:id                         controllers.UserController.deleteUser(id: Long)
@@ -169,6 +173,7 @@ GET           /mockups/product-list                                          con
 GET           /mockups/user_settings                                         controllers.MockupController.userSettings()
 GET           /mockups/new-product                                           controllers.MockupController.addNewProduct()
 GET           /mockups/wizard                                           controllers.MockupController.wizard()
+GET           /mockups/tryout                                           controllers.MockupController.tryout()
 
 # catch all. angular will handle all routes except /api/* /views/* /mockups/*
 GET           /                                                              controllers.Application.main(any = "none")
