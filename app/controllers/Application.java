@@ -213,6 +213,17 @@ public class Application extends Controller {
     }
 
     @Restrict({@Group(AppConstants.CONSUMER)})
+    public static Result wizard() {
+        return ok(views.html.wizard.main.render());
+    }
+
+    @Restrict({@Group(AppConstants.CONSUMER)})
+    public static Result wizard_twitter() {return ok(views.html.wizard.twitter.render()); }
+
+    @Restrict({@Group(AppConstants.CONSUMER)})
+    public static Result wizard_email() {return ok(views.html.wizard.email.render()); }
+
+    @Restrict({@Group(AppConstants.CONSUMER)})
     public static Result profile() {
         return ok(profile.render());
     }

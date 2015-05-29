@@ -53,6 +53,9 @@ GET           /views/dashboard/products/info                                 con
 GET           /views/dashboard/products/analytics                            controllers.Application.dashboard_products_analytics
 GET           /views/dashboard/products/users                                controllers.Application.dashboard_products_users
 GET           /views/dashboard/products/feedback                             controllers.Application.dashboard_products_feedback
+GET           /views/wizard                                                  controllers.Application.wizard
+GET           /views/wizard/twitter                                          controllers.Application.wizard_twitter
+GET           /views/wizard/email                                            controllers.Application.wizard_email
 GET           /views/profile                                                 controllers.Application.profile
 GET           /views/profile/photos                                          controllers.Application.profile_photos
 GET           /views/profile/videos                                          controllers.Application.profile_videos

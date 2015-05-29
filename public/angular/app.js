@@ -197,6 +197,29 @@ sproutupApp.config(['$routeProvider', '$stateProvider', '$locationProvider', '$u
                     title: ''
                 }
             })
+            .state('wizard' ,{
+                url: '/wizard',
+                abstract: true,
+                templateUrl: 'views/wizard',
+                controller: 'userDetailCtrl',
+                data: {
+                    title: 'Wizard'
+                }
+            })
+            .state('wizard.twitter' ,{
+                url: '/twitter',
+                templateUrl: 'views/wizard/twitter',
+                data: {
+                    title: 'Twitter account'
+                }
+            })
+            .state('wizard.email' ,{
+                url: '/email',
+                templateUrl: 'views/wizard/email',
+                data: {
+                    title: 'Email'
+                }
+            })
             .state('profile' ,{
                 url: '/user/:nickname',
                 abstract: true,
