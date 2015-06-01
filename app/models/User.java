@@ -462,7 +462,7 @@ public class User extends TimeStampModel implements Subject {
 	 */
 	public Product hasProduct(String slug){
 		for (int i = 0; i < this.company.products.size(); i++) {
-			if(this.company.products.get(i).slug == slug){
+			if(this.company.products.get(i).slug.equals(slug)){
 				return this.company.products.get(i);
 			}
 		}
