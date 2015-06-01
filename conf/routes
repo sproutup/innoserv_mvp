@@ -78,7 +78,8 @@ GET           /webjars/*file                                                 con
 #GET           /api/users                             controllers.UserController.getUsers
 GET           /api/users/:nickname                                           controllers.UserController.getUser(nickname: String)
 #POST          /api/users                             controllers.UserController.createUser
-PUT           /api/users/:id                                                 controllers.UserController.updateUser(id: Long)
+POST          /api/users/:nickname                                           controllers.UserController.updateUser(nickname: String)
+PUT           /api/users/:nickname                                           controllers.UserController.updateUser(nickname: String)
 #DELETE        /api/users/:id                         controllers.UserController.deleteUser(id: Long)
 
 POST          /api/suggest/product                                           controllers.Application.addProductSuggestion

@@ -201,9 +201,16 @@ sproutupApp.config(['$routeProvider', '$stateProvider', '$locationProvider', '$u
                 url: '/wizard',
                 abstract: true,
                 templateUrl: 'views/wizard',
-                controller: 'userDetailCtrl',
+                controller: 'signupWizardCtrl',
                 data: {
                     title: 'Wizard'
+                }
+            })
+            .state('wizard.start' ,{
+                url: '',
+                template: '<div>Starting wizard...</div>',
+                data: {
+                    title: 'Twitter account'
                 }
             })
             .state('wizard.twitter' ,{
@@ -216,6 +223,7 @@ sproutupApp.config(['$routeProvider', '$stateProvider', '$locationProvider', '$u
             .state('wizard.email' ,{
                 url: '/email',
                 templateUrl: 'views/wizard/email',
+                controller: 'signupWizardEmailCtrl',
                 data: {
                     title: 'Email'
                 }
