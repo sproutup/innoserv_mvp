@@ -155,8 +155,26 @@
   color: @input-placeholder-text;
 }
 
+.form-input:focus + .fa {
+  color: @sproutup-blue;
+}
+
+.form-input +  .url-prefix {
+  position: relative;
+  top: -47px;
+  left: 16px;
+  padding: 0;
+  color: @sproutup-blue;
+  font-size: 13pt;
+  font-weight: 400;
+}
+
 .form-input.left-feedback {
   padding-left: 48px;
+}
+
+.signup-wizard .form-input.left-feedback {
+    padding-left: 110px;
 }
 
 .form-input-textarea {

@@ -6,9 +6,9 @@
         <div class="product-title">{{product.productName}}</div>
         <div class="product-description">{{product.productDescription}}</div>
         <ul class="list-inline product-social-buttons">
-            <li ng-show="product.urlHome"><a href="http://{{product.urlHome}}" target="_blank"><i class="fa fa-home"></i></a></li>
-            <li ng-show="product.urlFacebook"><a href="http://{{product.urlFacebook}}" target="_blank"><i class="fa fa-facebook"></i></a></li>
-            <li ng-show="product.urlTwitter"><a href="http://{{product.urlTwitter}}" target="_blank"><i class="fa fa-twitter"></i></a></li>
+            <li ng-show="product.urlHome"><a href="{{product.urlHome}}" target="_blank"><i class="fa fa-home"></i></a></li>
+            <li ng-show="product.urlFacebook"><a href="{{product.urlFacebook}}" target="_blank"><i class="fa fa-facebook"></i></a></li>
+            <li ng-show="product.urlTwitter"><a href="{{product.urlTwitter}}" target="_blank"><i class="fa fa-twitter"></i></a></li>
         </ul>
         <div class="fb-share-button">
             <a up-facebook-like-share ng-click="share()" xxhref="https://www.facebook.com/sharer.php?p[url]=http://www.producthunt.com/posts/paragraphs" target="_blank" class="btn btn-xs btn-facebook-share"><i class="fa fa-facebook"></i>Share</a>
