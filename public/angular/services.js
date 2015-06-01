@@ -629,7 +629,12 @@ productServices.factory('AuthService', ['$http', '$q', '$cookieStore','$log', '$
 
     AuthService.authorize = function(accessLevel, role) {
         if(role === undefined) {
-            role = currentUser.role;
+            if(!currentUser == null){
+                role = currentUser.role;
+            }
+            else{
+                return false;
+            }
         }
 
         return accessLevel.bitMask & role.bitMask;
@@ -747,7 +752,7 @@ productServices.factory('AuthService', ['$http', '$q', '$cookieStore','$log', '$
         }).success(function(data, status, headers, config){
             // this callback will be called asynchronously
             // when the response is available
-            currentUser.name = '';
+            currentUser = { username: '', role: userRoles.public };
             _isLoggedIn = false;
             $rootScope.$broadcast('auth:status', {isLoggedIn: status.isLoggedIn});
             deferred.resolve("success");
