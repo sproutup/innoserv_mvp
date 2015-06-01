@@ -455,6 +455,19 @@ public class User extends TimeStampModel implements Subject {
     	return lastName;
 
     }
+
+	/*
+	 * check if user has a product with this slug
+	 * returns product or null
+	 */
+	public Product hasProduct(String slug){
+		for (int i = 0; i < this.company.products.size(); i++) {
+			if(this.company.products.get(i).slug == slug){
+				return this.company.products.get(i);
+			}
+		}
+		return null;
+	}
     
     /*
      *  The username may be claimed by a suspended or deactivated account. 
