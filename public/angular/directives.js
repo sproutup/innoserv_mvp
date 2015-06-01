@@ -1539,7 +1539,7 @@ angular.module('sproutupApp').directive('upProductCreate', [ 'ProductService', '
                     productService.save(scope.product,function(newProduct){
                         console.log("product save success", newProduct);
                         $rootScope.$broadcast('alert:success', {
-                            message: 'Product added'
+                            message: 'Thanks for adding a product! We will review quickly and then will make it live.'
                         });
                         authService.user().then(
                             function(result){
