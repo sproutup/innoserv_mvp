@@ -327,8 +327,8 @@ authControllers.controller('AuthCtrl', ['$scope', '$modal', '$log', 'AuthService
 // Please note that $modalInstance represents a modal window (instance) dependency.
 // It is not the same as the $modal service used above.
 
-authControllers.controller('SignupInstanceCtrl', ['$scope', '$location', '$window', '$modalInstance', 'AuthService', '$log', 'signup',
-    function ($scope, $location, $window, $modalInstance, AuthService, $log, signup) {
+authControllers.controller('SignupInstanceCtrl', ['$scope', '$location', '$window', '$modalInstance', 'AuthService', '$log', 'signup', '$state',
+    function ($scope, $location, $window, $modalInstance, AuthService, $log, signup, $state) {
 
     $scope.ok = function () {
         var dataObject = {
@@ -348,6 +348,7 @@ authControllers.controller('SignupInstanceCtrl', ['$scope', '$location', '$windo
                 // this callback will be called asynchronously
                 // when the response is available
                 $modalInstance.close($scope.signup);
+                $state.go("wizard.start");
             },
             function(errorPayload){
                 $log.info('Signup failed: ' + errorPayload + " " + new Date());
@@ -571,6 +572,59 @@ productControllers.controller('userDetailCtrl', ['$scope', '$stateParams', '$sta
             $state.go("home");
         }
     );
+  }]);
+
+productControllers.controller('signupWizardCtrl', ['$scope', '$stateParams', '$state', '$log', 'AuthService',
+  function($scope, $stateParams, $state, $log, authService) {
+    $log.debug("signup wizard");
+    var user = authService.currentUser();
+    switch(user.providerKey){
+        case "twitter":
+            $log.debug("signup wizard -> twitter");
+            if(user.email == null || user.email.length < 1){
+                $log.debug("signup wizard -> ask for email");
+                $state.go("wizard.email");
+                return;
+            }
+            break;
+        case "facebook":
+            if(user.urlTwitter == null || user.urlTwitter.length < 1){
+                $log.debug("signup wizard -> ask for twitter link");
+                $state.go("wizard.twitter");
+                return;
+            }
+            break;
+        case "password":
+            if(user.urlTwitter == null || user.urlTwitter.length < 1){
+                $log.debug("signup wizard -> ask for twitter link");
+                $state.go("wizard.twitter");
+                return;
+            }
+            break;
+    }
+    $state.go("home");
+  }]);
+
+productControllers.controller('signupWizardEmailCtrl', ['$scope', '$stateParams', '$state', '$log', 'AuthService','UserService',
+  function($scope, $stateParams, $state, $log, authService, userService) {
+    $log.debug("signup wizard email");
+    var currentuser = authService.currentUser();
+
+    $scope.save = function() {
+        $log.debug("signup wizard -> save email");
+        userService.get({nickname: currentuser.nickname}).$promise.then(
+            function(user) {
+                // success
+                user.email = $scope.user.email;
+                user.$save();
+            },
+            function(error) {
+                // error handler
+                $state.go("home");
+            }
+        );
+    }
+
   }]);
 
 productControllers.controller('ForumCtrl', ['$scope', 'ForumService', 'LikesService', '$log',

@@ -1,8 +1,11 @@
 <h1>Thanks for signing up with Twitter! One more thing to ask...</h1>
 <h2>Please let us know your email for communicating about latest products, services and other updates.</h2>
-<div class="signup-wizard-row">
-    <input class="form-control form-input large" placeholder="Your email" required="" type="email">
-</div>
-<div class="signup-wizard-actions">
-    <button class="btn btn-lg add-product-btn save">Continue</button>
-</div>
+<form name="basicinfoform" class="" novalidate>
+    <div class="signup-wizard-row">
+        <input class="form-control form-input large" placeholder="Your email" required="" type="email" ng-model="user.email">
+    </div>
+    <div class="signup-wizard-actions">
+        <button ng-disabled="basicinfoform.$invalid" class="btn btn-lg add-product-btn save" type="submit" ng-click="save()">Continue</button>
+    </div>
+</form>
+

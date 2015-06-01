@@ -391,6 +391,7 @@ public class User extends TimeStampModel implements Subject {
         }
         node.put("permissions", Json.toJson(this.getPermissions()));
         node.put("lastLogin", new DateTime(this.lastLogin).toString());
+		node.put("providerKey", this.linkedAccounts.get(0).providerKey);
         node.put("avatarUrl", getAvatar());
 
 		if(this.company!=null){
