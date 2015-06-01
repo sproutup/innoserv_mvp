@@ -697,8 +697,8 @@ angular.module('sproutupApp').directive('upEarlyAccessRequest', ['EarlyAccessReq
     }
 ]);
 
-angular.module('sproutupApp').directive('upProductSuggest', ['ProductSuggestionService', '$log',
-    function(productSuggestionService, $log) {
+angular.module('sproutupApp').directive('upProductSuggest', ['ProductSuggestionService', '$log', '$rootScope',
+    function(productSuggestionService, $log, $rootScope) {
         return {
             restrict: 'E',
             templateUrl: 'assets/templates/up-product-suggest.html',
@@ -714,6 +714,9 @@ angular.module('sproutupApp').directive('upProductSuggest', ['ProductSuggestionS
                             $scope.newSuggestion.productUrl = "";
                             $scope.suggestion.$setPristine();
                             $scope.suggestion.$setUntouched();
+                            $rootScope.$broadcast('alert:success', {
+                                message: "Thanks for your suggestion. We will check it out!"
+                             });
                         }
                     );
                 }
@@ -1628,6 +1631,76 @@ angular.module('sproutupApp').directive('upProductItem', [
             }
         };
     }]);
+
+angular.module('sproutupApp').directive('upWizard', [ '$state', "$rootScope", 'AuthService', 'UserServiceOld',
+    function ($state, $rootScope, authService, userService) {
+        return {
+            restrict: 'A',
+            transclude:true,
+            scope: {
+            },
+            link: function (scope, element, attrs, ctrl, transclude) {
+
+                var currentuser = authService.currentUser();
+
+                var copyUser = function(copy, orig){
+                    copy.id = orig.id;
+                    copy.email = orig.email;
+                    copy.firstname = orig.firstname;
+                    copy.lastname = orig.lastname;
+                    copy.name = orig.name;
+                    copy.nickname = orig.nickname;
+                    copy.description = orig.description;
+                };
+
+                var updated = {
+                    "id" : currentuser.id,
+                    "email" : currentuser.email,
+                    "firstname" : currentuser.firstname,
+                    "lastname" : currentuser.lastname,
+                    "name" : currentuser.name,
+                    "nickname" : currentuser.nickname,
+                    "description" : currentuser.description,
+                };
+
+                scope.user = updated;
+
+                scope.save = function(){
+                    console.log("profile save", scope.user);
+                    userService.update(scope.user).then(
+                        function(data){
+                            console.log("up-profile-edit > update success");
+                            currentuser.description = data.description;
+                            currentuser.name = data.name;
+                            currentuser.nickname = data.nickname;
+                            currentuser.firstname = data.firstname;
+                            currentuser.lastname = data.lastname;
+                            $rootScope.$broadcast('alert:success', {
+                                message: 'Your profile is saved'
+                            });
+                            scope.basicinfoform.$setPristine();
+                        },
+                        function(error){
+                            console.log("up-profile-edit > update failed");
+                        }
+                    )
+                }
+
+                scope.cancel = function(){
+                    console.log("profile cancel");
+                    $state.go('home');
+                }
+
+                // add the directive scope to the transcluded content
+                transclude(scope, function(clone, scope) {
+                    element.append(clone);
+                    console.log("profile add: clone");
+                });
+            }
+        };
+    }]);
+
+
 
 angular.module('sproutupApp').directive('upUserProfileForm', [ '$state', "$rootScope", 'AuthService', 'UserServiceOld',
     function ($state, $rootScope, authService, userService) {
