@@ -128,6 +128,15 @@ public class Application extends Controller {
                 node.path("banner").path("type").asText() ));
     }
 
+    public static Result main_user(String nickname) {
+        // set meta tags
+        User user = new User().findByNickname(nickname);
+        JsonNode node = user.toJson();
+        return ok(index.render(user.name + " on SproutUp", "Check out photos and videos by " + user.name , "http://www.sproutup.co" + request().uri(),
+                node.path("avatarUrl").asText(),
+                "image/jpeg" ));
+    }
+
     public static Result home() {
         return ok(home.render());
     }
