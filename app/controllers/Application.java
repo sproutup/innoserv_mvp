@@ -90,12 +90,16 @@ public class Application extends Controller {
         Product product = new Product().findbySlug(slug);
         JsonNode node = product.toJson();
         if(!node.path("banner").path("url").path("image").isMissingNode()) {
-            return ok(index.render(product.productName + ": " + product.productDescription + " - presented by SproutUp", product.productDescription, "http://www.sproutup.co" + request().uri(),
+            return ok(index.render(
+			product.productName + " on SproutUp",
+			product.productName + " - " + product.productDescription, "http://www.sproutup.co" + request().uri(),
                     node.path("banner").path("url").path("image").asText()+"?w=1600",
                     node.path("banner").path("type").asText() ));
         }
         else{
-            return ok(index.render(product.productName + ": " + product.productDescription + " - presented by SproutUp", product.productDescription, "http://www.sproutup.co" + request().uri(),
+            return ok(index.render(
+			product.productName + " on SproutUp",
+			product.productName + " - " + product.productDescription, "http://www.sproutup.co" + request().uri(),
                     "",
                     "" ));
         }
@@ -105,7 +109,9 @@ public class Application extends Controller {
         // set meta tags
         Product product = new Product().findbySlug(slug);
         JsonNode node = product.toJson();
-        return ok(index.render(product.productName + ": " + product.productDescription + " - presented by SproutUp", product.productDescription, "http://www.sproutup.co" + request().uri(),
+        return ok(index.render(
+		product.productName + " on SproutUp",
+		product.productName + " - " + product.productDescription, "http://www.sproutup.co" + request().uri(),
                 node.path("banner").path("url").path("image").asText()+"?w=1600",
                 node.path("banner").path("type").asText() ));
     }
@@ -114,7 +120,10 @@ public class Application extends Controller {
         // set meta tags
         Product product = new Product().findbySlug(slug);
         JsonNode node = product.toJson();
-        return ok(index.render(product.productName + ": " + product.productDescription + " - presented by SproutUp", product.productDescription, "http://www.sproutup.co" + request().uri(),
+        return ok(index.render(
+		product.productName + " on SproutUp",
+		product.productName + " - " + product.productDescription,
+		"http://www.sproutup.co" + request().uri(),
                 node.path("banner").path("url").path("image").asText()+"?w=1600",
                 node.path("banner").path("type").asText() ));
     }
