@@ -1,5 +1,6 @@
 package controllers;
 
+import be.objectify.deadbolt.java.actions.SubjectPresent;
 import com.fasterxml.jackson.databind.JsonNode;
 import models.*;
 import play.data.Form;
@@ -95,6 +96,7 @@ public class Products extends Controller {
     }
 
     @BodyParser.Of(BodyParser.Json.class)
+    @SubjectPresent
     public static Result createProduct()
     {
         Logger.debug("create product ");
@@ -175,14 +177,13 @@ public class Products extends Controller {
 //        }
 //    }
 
+    @SubjectPresent
     public static Result updateProduct(String slug)
     {
-        Product prod = new Product().findbySlug(slug);
+        User user = Application.getLocalUser(ctx().session());
+        Product prod = user.hasProduct(slug);
         if(prod != null) {
-//            models.Product updated = Json.fromJson(request().body().asJson(), models.Product.class);
-
             JsonNode json = request().body().asJson();
-
             prod.productName = json.findPath("productName").textValue();
             prod.slug = json.findPath("slug").textValue();
             prod.productDescription = json.findPath("productDescription").textValue();
@@ -202,6 +203,7 @@ public class Products extends Controller {
         }
     }
 
+    @SubjectPresent
     public static Result deleteProduct(Long id)
     {
         Product del = new Product().findbyID(id);
