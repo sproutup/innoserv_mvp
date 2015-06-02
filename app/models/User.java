@@ -378,9 +378,11 @@ public class User extends TimeStampModel implements Subject {
         node.put("firstname", this.firstName);
         node.put("lastname", this.lastName);
         node.put("description", this.description);
+		node.put("address", this.streetAddress1);
+		node.put("phone", this.phoneNumber);
         node.put("urlFacebook", this.urlFacebook);
         node.put("urlTwitter", this.urlTwitter);
-        node.put("urlPinterest", this.urlPinterest);
+        node.put("urlPinterest", this.urlPinterest.toString());
         node.put("urlBlog", this.urlBlog);
         node.put("zipcode", this.zipcode);
         node.put("roles", Json.toJson(this.getRoles()));
@@ -392,7 +394,7 @@ public class User extends TimeStampModel implements Subject {
         node.put("permissions", Json.toJson(this.getPermissions()));
         node.put("lastLogin", new DateTime(this.lastLogin).toString());
 		node.put("providerKey", this.linkedAccounts.get(0).providerKey);
-        node.put("avatarUrl", getAvatar());
+		node.put("avatarUrl", getAvatar());
 
 		if(this.company!=null){
 			node.put("company", this.company.toJson());

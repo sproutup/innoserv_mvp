@@ -1,5 +1,5 @@
 <!-- Content -->
-<div class="col-sm-9" product="product" up-user-profile-form>
+<div class="col-sm-9">
     <form name="basicinfoform" class="" novalidate>
         <!-- Basic Information -->
         <div class="profile-edit--header">Basic Information</div>
@@ -30,7 +30,7 @@
         <div class="profile-edit--header">Your Address</div>
         <div class="row profile-input-row">
             <div class="col-sm-12 profile-input-cell">
-                <input type="text" class="form-control form-validate form-input medium" placeholder="Enter your address">
+                <input type="text" g-places-autocomplete="" class="form-control form-validate form-input medium" placeholder="Enter your address" ng-model="user.address">
             </div>
         </div>
 
@@ -38,14 +38,13 @@
         <div class="profile-edit--header">Mobile Number</div>
         <div class="row profile-input-row">
             <div class="col-sm-12 profile-input-cell">
-                <input type="text" class="form-control form-validate form-input medium" placeholder="Enter your mobile number. Please include the country code for non-US number.">
+                <input type="text" class="form-control form-validate form-input medium" placeholder="Enter your mobile number. Please include the country code for non-US number." ng-model="user.phone">
             </div>
         </div>
 
         <!-- Save & Cancel button -->
         <div class="add-product-actions">
-            <button class="btn btn-lg add-product-btn save" type="submit" ng-click="save()">Save</button>
-            <button class="btn btn-lg add-product-btn cancel" type="submit" ng-click="cancel()">Cancel</button>
+            <button ng-disabled="basicinfoform.$invalid || basicinfoform.$pristine" class="btn btn-lg add-product-btn save" type="submit" ng-click="save()">Save Changes</button>
         </div>
     </form>
 </div>

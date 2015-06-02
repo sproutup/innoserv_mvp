@@ -134,6 +134,7 @@ sproutupApp.config(['$routeProvider', '$stateProvider', '$locationProvider', '$u
             .state('settings.profile' ,{
                 url: '/profile',
                 templateUrl: 'views/settings/profile',
+                controller: 'settingsProfileCtrl',
                 data: {
                     title: 'Profile'
                 }
@@ -141,6 +142,7 @@ sproutupApp.config(['$routeProvider', '$stateProvider', '$locationProvider', '$u
             .state('settings.social' ,{
                 url: '/social',
                 templateUrl: 'views/settings/social',
+                controller: 'settingsSocialCtrl',
                 data: {
                     title: 'Social Profile'
                 }
@@ -216,6 +218,7 @@ sproutupApp.config(['$routeProvider', '$stateProvider', '$locationProvider', '$u
             .state('wizard.twitter' ,{
                 url: '/twitter',
                 templateUrl: 'views/wizard/twitter',
+                controller: 'signupWizardTwitterCtrl',
                 data: {
                     title: 'Twitter account'
                 }

@@ -72,6 +72,16 @@ public class UserController extends Controller {
                 Logger.debug("user controller > description > " + desc.asText());
                 user.description = desc.asText();
             }
+            JsonNode address = root.path("address");
+            if (!desc.isMissingNode()) {
+                Logger.debug("user controller > address > " + address.asText());
+                user.streetAddress1 = address.asText();
+            }
+            JsonNode phone = root.path("phone");
+            if (!phone.isMissingNode()) {
+                Logger.debug("user controller > phone > " + phone.asText());
+                user.phoneNumber = phone.asText();
+            }
             JsonNode urlFacebook = root.path("urlFacebook");
             if (!urlFacebook.isMissingNode()) {
                 user.urlFacebook = urlFacebook.asText();

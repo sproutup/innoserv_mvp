@@ -1616,7 +1616,6 @@ angular.module('sproutupApp').directive('upProductUpdate', [ 'ProductService', '
         };
     }]);
 
-
 angular.module('sproutupApp').directive('upProductItem', [
     function () {
         return {
@@ -1631,6 +1630,40 @@ angular.module('sproutupApp').directive('upProductItem', [
             }
         };
     }]);
+
+angular.module('sproutupApp').directive('httpPrefix', function() {
+    return {
+        restrict: 'A',
+        require: 'ngModel',
+        scope: {
+            httpPrefix: "@"
+        },
+        link: function(scope, element, attrs, controller) {
+            function ensureHttpPrefix(value) {
+                // If input starts with a @ then strip and prepend twitter url
+                if (value) console.log("test:", scope.httpPrefix, value.indexOf('@'));
+                if(value && value.indexOf('@') === 0) {
+                    console.log("found @");
+                    controller.$setViewValue('http://' + scope.httpPrefix + value.slice(1) );
+                    controller.$render();
+                    return 'http://' + scope.httpPrefix + value.slice(1);
+                }
+                // Need to add prefix if we don't have http:// prefix already AND we don't have part of it
+                else if(value && !/^(https?):\/\//i.test(value)
+                   && 'http://'.indexOf(value) === -1 && 'https://'.indexOf(value) === -1) {
+                    console.log("found missing prefix");
+                    controller.$setViewValue('http://' + scope.httpPrefix + value);
+                    controller.$render();
+                    return 'http://' + scope.httpPrefix + value;
+                }
+                else
+                    return value;
+            }
+            controller.$formatters.push(ensureHttpPrefix);
+            controller.$parsers.push(ensureHttpPrefix);
+        }
+    };
+});
 
 angular.module('sproutupApp').directive('upWizard', [ '$state', "$rootScope", 'AuthService', 'UserServiceOld',
     function ($state, $rootScope, authService, userService) {

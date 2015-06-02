@@ -617,6 +617,7 @@ productControllers.controller('signupWizardEmailCtrl', ['$scope', '$stateParams'
                 // success
                 user.email = $scope.user.email;
                 user.$save();
+                $state.go("home");
             },
             function(error) {
                 // error handler
@@ -625,6 +626,85 @@ productControllers.controller('signupWizardEmailCtrl', ['$scope', '$stateParams'
         );
     }
 
+  }]);
+
+productControllers.controller('signupWizardTwitterCtrl', ['$scope', '$stateParams', '$state', '$log', 'AuthService','UserService',
+  function($scope, $stateParams, $state, $log, authService, userService) {
+    $log.debug("signup wizard twitter");
+    var currentuser = authService.currentUser();
+
+    $scope.save = function() {
+        $log.debug("signup wizard -> save twitter");
+        userService.get({nickname: currentuser.nickname}).$promise.then(
+            function(user) {
+                // success
+                user.urlTwitter = $scope.user.urlTwitter;
+                user.$save();
+                $state.go("home");
+            },
+            function(error) {
+                // error handler
+                $state.go("home");
+            }
+        );
+    }
+
+  }]);
+
+productControllers.controller('settingsProfileCtrl', ['$scope', '$stateParams', '$state', '$log', 'AuthService','UserService',
+  function($scope, $stateParams, $state, $log, authService, userService) {
+    $log.debug("settings.profile controller");
+
+    var currentuser = authService.currentUser();
+
+    userService.get({nickname: currentuser.nickname}).$promise.then(
+        function(user) {
+            // success
+            $scope.user = user;
+            $scope.basicinfoform.$setPristine();
+            $scope.basicinfoform.$setUntouched();
+        },
+        function(error) {
+            // error handler
+            $log.debug("settings.social controller - error getting user");
+            $state.go("home");
+        }
+    );
+
+    $scope.save = function() {
+        $log.debug("settings.profile controller - save()");
+        $scope.user.$save();
+        $scope.basicinfoform.$setPristine();
+        $scope.basicinfoform.$setUntouched();
+    }
+  }]);
+
+productControllers.controller('settingsSocialCtrl', ['$scope', '$stateParams', '$state', '$log', 'AuthService','UserService',
+  function($scope, $stateParams, $state, $log, authService, userService) {
+    $log.debug("settings.social controller");
+
+    var currentuser = authService.currentUser();
+
+    userService.get({nickname: currentuser.nickname}).$promise.then(
+        function(user) {
+            // success
+            $scope.user = user;
+            $scope.basicinfoform.$setPristine();
+            $scope.basicinfoform.$setUntouched();
+        },
+        function(error) {
+            // error handler
+            $log.debug("settings.social controller - error getting user");
+            $state.go("home");
+        }
+    );
+
+    $scope.save = function() {
+        $log.debug("settings.social controller - save()");
+        $scope.user.$save();
+        $scope.basicinfoform.$setPristine();
+        $scope.basicinfoform.$setUntouched();
+    }
   }]);
 
 productControllers.controller('ForumCtrl', ['$scope', 'ForumService', 'LikesService', '$log',
