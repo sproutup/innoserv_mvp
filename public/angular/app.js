@@ -165,7 +165,7 @@ sproutupApp.config(['$routeProvider', '$stateProvider', '$locationProvider', '$u
             .state('dashboard.products' ,{
                 url: '/products/:slug',
                 abstract: true,
-                controller: 'productDetailCtrl',
+                controller: 'productDashboardCtrl',
                 templateUrl: 'views/dashboard/products',
                 data: {
                     title: ''

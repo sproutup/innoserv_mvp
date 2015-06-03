@@ -529,6 +529,22 @@ productControllers.controller('productDetailCtrl', ['$scope', '$stateParams', '$
   function($scope, $stateParams, $state, $log, ProductService, authService) {
     $log.debug("entered product details ctrl. slug=" + $stateParams.slug);
 
+    ProductService.get({slug: $stateParams.slug}).$promise.then(
+        function(data) {
+            // success
+            $scope.product = data;
+        },
+        function(error) {
+            // error handler
+            $state.go("home");
+        }
+    );
+  }]);
+
+productControllers.controller('productDashboardCtrl', ['$scope', '$stateParams', '$state', '$log', 'ProductService', 'AuthService',
+  function($scope, $stateParams, $state, $log, ProductService, authService) {
+    $log.debug("entered product details ctrl. slug=" + $stateParams.slug);
+
     var isThisMyProduct = false;
 
     if(authService.isLoggedIn()) {
