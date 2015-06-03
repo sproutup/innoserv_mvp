@@ -382,7 +382,7 @@ public class User extends TimeStampModel implements Subject {
 		node.put("phone", this.phoneNumber);
         node.put("urlFacebook", this.urlFacebook);
         node.put("urlTwitter", this.urlTwitter);
-        node.put("urlPinterest", this.urlPinterest.toString());
+        node.put("urlPinterest", this.urlPinterest);
         node.put("urlBlog", this.urlBlog);
         node.put("zipcode", this.zipcode);
         node.put("roles", Json.toJson(this.getRoles()));
