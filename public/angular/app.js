@@ -13,7 +13,10 @@ var sproutupApp = angular.module('sproutupApp', [
     'productServices',
     'ngTagsInput',
     'ngAnimate',
-    'facebook'
+    'facebook',
+    'angulartics',
+    'angulartics.google.analytics',
+    'angulartics.mixpanel'
 ]);
 
 sproutupApp.config(function ($provide) {
