@@ -16,7 +16,8 @@ var sproutupApp = angular.module('sproutupApp', [
     'facebook',
     'angulartics',
     'angulartics.google.analytics',
-    'angulartics.mixpanel'
+    'angulartics.mixpanel',
+    'angulartics.scroll'
 ]);
 
 sproutupApp.config(function ($provide) {
@@ -29,8 +30,16 @@ sproutupApp.config(function ($provide) {
     });
 });
 
-sproutupApp.run(['$rootScope', '$state', '$stateParams', '$analytics', '$location',
-        function ($rootScope,   $state,   $stateParams, $analytics, $location) {
+sproutupApp.config(function ($analyticsProvider) {
+  // turn off automatic tracking
+  $analyticsProvider.virtualPageviews(false);
+  $analyticsProvider.firstPageview(false);
+  $analyticsProvider.withBase(false);
+  console.log("## Virtual page views are turned off");
+});
+
+sproutupApp.run(['$rootScope', '$state', '$stateParams',
+        function ($rootScope,   $state,   $stateParams) {
 
             // It's very handy to add references to $state and $stateParams to the $rootScope
             // so that you can access them from any scope within your applications.For example,
@@ -39,11 +48,11 @@ sproutupApp.run(['$rootScope', '$state', '$stateParams', '$analytics', '$locatio
             $rootScope.$state = $state;
             $rootScope.$stateParams = $stateParams;
 
-            $rootScope.$on('$stateChangeSuccess',
-                function(event, toState, toParams, fromState, fromParams){
-                    // do something
-                    $analytics.pageTrack($location.path());
-                })
+            // $rootScope.$on('$stateChangeSuccess',
+            //     function(event, toState, toParams, fromState, fromParams){
+            //         // do something
+            //         $analytics.pageTrack($location.path());
+            //     })
         }
     ]
 );
