@@ -1390,7 +1390,8 @@ angular.module('sproutupApp').directive('commentlink', function () {
     };
 });
 
-angular.module('sproutupApp').directive('subjectPresent', function ($parse) {
+angular.module('sproutupApp').directive('subjectPresent', ['$parse', 'AuthService',
+    function ($parse, authService) {
     return {
         restrict: 'A',
         link: function (scope, element, attrs) {
@@ -1398,7 +1399,7 @@ angular.module('sproutupApp').directive('subjectPresent', function ($parse) {
             var onLogin = $parse(attrs.login);
 
             element.on('click', function () {
-                if(scope.user.isLoggedIn){
+                if(authService.isLoggedIn){
                     console.log(attrs.subjectPresent);
 
                     // The event originated outside of angular,
@@ -1416,7 +1417,7 @@ angular.module('sproutupApp').directive('subjectPresent', function ($parse) {
             });
         }
     };
-});
+}]);
 
 angular.module('sproutupApp').directive('upToptags', ['TagsService', '$timeout',
     function (tagService, $timeout) {
@@ -1808,15 +1809,14 @@ angular.module('sproutupApp').directive('navbar', [ 'AuthService', '$rootScope',
     function (authService, $rootScope) {
     return {
         templateUrl: '/assets/templates/navbar.html',
-        scope: true,
+        //template: '<div>{{auth.user.name}} {{auth.isLoggedIn}}</div>',
+        controller: 'AuthCtrl',
+        controllerAs: 'auth',
+        bindToController: true,
+//        scope: {
+            //isLoggedIn: '='
+//        },
         link: function (scope, element, attrs) {
-            scope.user = authService.currentUser();
-            scope.isLoggedIn = authService.isLoggedIn();
-            scope.$on('auth:status', function (event, args) {
-                console.log('event received auth:state ');
-                scope.user = authService.currentUser();
-                scope.isLoggedIn = authService.isLoggedIn();
-            });
         }
     };
 }]);

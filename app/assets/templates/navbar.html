@@ -1,38 +1,39 @@
 <div class="collapse navbar-collapse navbar-right">
     <ul class="nav navbar-nav navbar-item">
         <li><a href="#" up-search-icon><i class="fa fa-search"></i></a></li>
-        <li><a ui-sref="community">Community</a></li>
+        <li><a ui-sref="community">{{auth.isLoggedIn}}Community</a></li>
         <li><a ui-sref="creator">Creators</a></li>
         <li><a ui-sref="about">About Us</a></li>
         <li><a up-slideable-toggle="#suggest-product-section" href="">Suggest a Product</a></li>
 
-        <li ng-show="!isLoggedIn">
+        <li ng-show="!auth.isLoggedIn">
             <a href="" ng-click="signup('sm')">Join</a>
         </li>
 
-        <li ng-show="!isLoggedIn">
+        <li ng-show="!auth.isLoggedIn">
             <a href="" ng-click="login('sm')">Log In</a>
         </li>
 
-        <li ng-show="isLoggedIn">
-            <img class="profile-img" ng-src="{{user.avatarUrl}}">
+        <li ng-show="auth.isLoggedIn">
+            <img class="profile-img" ng-src="{{auth.user.avatarUrl}}">
         </li>
 
-        <li ng-show="isLoggedIn" class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{user.name}}<i class="fa fa-angle-down login-angle-down"></i></a>
+        <li ng-show="auth.isLoggedIn" class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{auth.user.name}}<i class="fa fa-angle-down login-angle-down"></i></a>
             <ul class="dropdown-menu" role="menu">
-                <li><a ui-sref="profile.photos({ nickname: user.nickname })">My Profile</a></li>
-                <hr ng-hide="user.company == null">
-                <li class="header-in-dropdown-menu" ng-hide="user.company == null">My Products</li>
+                <li><a ui-sref="profile.photos({ nickname: auth.user.nickname })">My Profile</a></li>
+                <hr ng-hide="auth.user.company == null">
+                <li class="header-in-dropdown-menu" ng-hide="auth.user.company == null">My Products</li>
                 <ul class="submenu-in-dropdown-menu">
-                    <li ng-repeat="userproduct in user.company.products">
+                    <li ng-repeat="userproduct in auth.user.company.products">
                         <a ui-sref="dashboard.products.info({ slug: userproduct.slug })">{{userproduct.productName}}</a>
                     </li>
                 </ul>
-                <hr ng-hide="user.company == null">
+                <hr ng-hide="auth.user.company == null">
                 <li><a ui-sref="product.add">Add product</a></li>
                 <li><a ui-sref="settings.profile">Settings</a></li>
-                <li><a href="" ng-click="logout()">Log Out</a></li>
+                <li><a ui-sref="wizard.start">Wizard</a></li>
+                <li><a href="" ng-click="auth.logout()">Log Out</a></li>
             </ul>
         </li>
     </ul>
