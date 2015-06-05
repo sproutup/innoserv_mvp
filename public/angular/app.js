@@ -33,8 +33,8 @@ sproutupApp.config(function ($provide) {
 sproutupApp.config(function ($analyticsProvider) {
   // turn off automatic tracking
   $analyticsProvider.virtualPageviews(false);
-  $analyticsProvider.firstPageview(false);
-  $analyticsProvider.withBase(false);
+  $analyticsProvider.firstPageview(true);
+  $analyticsProvider.withBase(true);
   console.log("## Virtual page views are turned off");
 });
 
