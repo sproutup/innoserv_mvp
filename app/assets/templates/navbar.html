@@ -1,10 +1,10 @@
 <div class="collapse navbar-collapse navbar-right">
     <ul class="nav navbar-nav navbar-item">
-        <li><a href="#" up-search-icon><i class="fa fa-search"></i></a></li>
-        <li><a ui-sref="community">Community</a></li>
-        <li><a ui-sref="creator">Creators</a></li>
-        <li><a ui-sref="about">About Us</a></li>
-        <li><a up-slideable-toggle="#suggest-product-section" href="">Suggest a Product</a></li>
+        <li><a analytics-on="click" analytics-event="Enter Product Search" href="#" up-search-icon><i class="fa fa-search"></i></a></li>
+        <li><a analytics-on="click" analytics-event="Enter Community Page" ui-sref="community">Community</a></li>
+        <li><a analytics-on="click" analytics-event="Enter Creators Page" ui-sref="creator">Creators</a></li>
+        <li><a analytics-on="click" analytics-event="Enter About Us Page" ui-sref="about">About Us</a></li>
+        <li><a up-slideable-toggle="#suggest-product-section" href="" analytics-on="click" analytics-event="Suggest a Product">Suggest a Product</a></li>
 
         <li ng-show="!isLoggedIn">
             <a href="" ng-click="signup('sm')">Join</a>
@@ -19,20 +19,20 @@
         </li>
 
         <li ng-show="isLoggedIn" class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{user.name}}<i class="fa fa-angle-down login-angle-down"></i></a>
+            <a href="#" analytics-on="click" analytics-event="User Menu" class="dropdown-toggle" data-toggle="dropdown">{{user.name}}<i class="fa fa-angle-down login-angle-down"></i></a>
             <ul class="dropdown-menu" role="menu">
-                <li><a ui-sref="profile.photos({ nickname: user.nickname })">My Profile</a></li>
+                <li><a analytics-on="click" analytics-event="Enter User Profile" ui-sref="profile.photos({ nickname: user.nickname })">My Profile</a></li>
                 <hr ng-hide="user.company == null">
                 <li class="header-in-dropdown-menu" ng-hide="user.company == null">My Products</li>
                 <ul class="submenu-in-dropdown-menu">
                     <li ng-repeat="userproduct in user.company.products">
-                        <a ui-sref="dashboard.products.info({ slug: userproduct.slug })">{{userproduct.productName}}</a>
+                        <a analytics-on="click" analytics-event="Enter Product Dashboard: {{userproduct.productName}}" ui-sref="dashboard.products.info({ slug: userproduct.slug })">{{userproduct.productName}}</a>
                     </li>
                 </ul>
                 <hr ng-hide="user.company == null">
-                <li><a ui-sref="product.add">Add product</a></li>
-                <li><a ui-sref="settings.profile">Settings</a></li>
-                <li><a href="" ng-click="logout()">Log Out</a></li>
+                <li><a analytics-on="click" analytics-event="Enter Add Product" ui-sref="product.add">Add product</a></li>
+                <li><a analytics-on="click" analytics-event="Enter User Settings" ui-sref="settings.profile">Settings</a></li>
+                <li><a href="" analytics-on="click" analytics-event="Log Out" ng-click="logout()">Log Out</a></li>
             </ul>
         </li>
     </ul>

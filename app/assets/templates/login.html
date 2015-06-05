@@ -2,9 +2,9 @@
     <div class="row">
         <form name="providerForm" novalidate>
         <!-- facebook login -->
-        <button type="submit" ng-click="provider('facebook')" class="btn btn-lg btn-facebook"><i class="fa fa-facebook-square"></i>Log in with Facebook</button>
+        <button analytics-on="click" analytics-event="Log in with Facebook" type="submit" ng-click="provider('facebook')" class="btn btn-lg btn-facebook"><i class="fa fa-facebook-square"></i>Log in with Facebook</button>
         <!-- twitter login -->
-        <button type="submit" ng-click="provider('twitter')" class="btn btn-lg btn-twitter"><i class="fa fa-twitter-square"></i>Log in with Twitter</button>
+        <button analytics-on="click" analytics-event="Log in with Twitter" type="submit" ng-click="provider('twitter')" class="btn btn-lg btn-twitter"><i class="fa fa-twitter-square"></i>Log in with Twitter</button>
         </form>
         <!-- separator -->
         <div class="signup-or-separator">
@@ -19,7 +19,7 @@
                 </div>
                 <input ng-model="login.email" class="form-control signup-login-input" id="email" type="text" required placeholder="Email address">
                 <input ng-model="login.password" class="form-control signup-login-input" id="password" type="password" required placeholder="Password">
-                <button ng-disabled="loginForm.$invalid" ng-click="ok()" class="btn btn-lg signup-login-btn" type="submit">Log in</button>
+                <button analytics-on="click" analytics-event="Log in with email" ng-disabled="loginForm.$invalid" ng-click="ok()" class="btn btn-lg signup-login-btn" type="submit">Log in</button>
             </div>
         </form>
         <!-- footer -->
