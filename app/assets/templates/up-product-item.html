@@ -3,7 +3,7 @@
         <div class="product-category-list">
             <button ng-repeat="tag in product.tags" class="btn btn-product-category" type="button">{{tag.name}}</button>
         </div>
-        <a analytics-on="click" analytics-event="Enter Product Page: {{product.productName}}" ui-sref="product.detail.about({ slug: product.slug })">
+        <a analytics-on="click" analytics-event="Enter Product: {{product.productName}}" ui-sref="product.detail.about({ slug: product.slug })">
             <div class="product-cover-info">
                 <div class="product-cover-title">
                     <div ng-show="product.isAvailableForTrial" class="featured-product-label">Try me!</div>
