@@ -119,6 +119,18 @@ function authService($http, $q, $cookieStore, $log, userService){
         var deferred = $q.defer();
         $log.debug("auth - save()");
 
+        $http({
+            method: 'POST',
+            url: '/api/users/' + model.user.nickname,
+            headers: {'Content-Type': 'application/json'},
+            data: model.user
+        }).success(function(data, status, headers, config){
+            $log.debug("productSuggestionService > add success");
+            deferred.resolve(data);
+        }).error(function(data, status, headers, config){
+            $log.debug("productSuggestionService > failed to update");
+            deferred.reject("productSuggestionService > failed to add");
+        });
 
         return deferred.promise;
     }
