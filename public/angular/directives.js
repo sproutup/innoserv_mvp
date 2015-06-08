@@ -886,7 +886,7 @@ angular.module('sproutupApp').directive('upAvatarUpload', ['FileService', 'AuthS
                 scope.$watch('user', function(newValue, oldValue) {
                 //attrs.$observe('user', function (user) {
                     if (scope.user) {
-                        if(scope.user.id == authService.currentUser().id){
+                        if(scope.user.id == authService.m.user.id){
                             scope.myself = true;
                         }
                     }

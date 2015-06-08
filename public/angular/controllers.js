@@ -575,29 +575,13 @@ productControllers.controller('signupWizardEmailCtrl', ['$scope', '$stateParams'
 
     $scope.save = function() {
         $log.debug("signup wizard -> save email");
-
-
         user.email = $scope.user.email;
         authService.save().then(function(data){
             $state.go("home");
         })
-
-
-//        userService.get({nickname: currentuser.nickname}).$promise.then(
-//            function(user) {
-//                // success
-//                user.email = $scope.user.email;
-//                user.$save();
-//                $state.go("home");
-//            },
-//            function(error) {
-//                // error handler
-//                $state.go("home");
-//            }
-//        );
     }
-
-  }]);
+  }]
+);
 
 productControllers.controller('signupWizardTwitterCtrl', ['$scope', '$stateParams', '$state', '$log', 'AuthService','UserService',
   function($scope, $stateParams, $state, $log, authService, userService) {
@@ -611,18 +595,6 @@ productControllers.controller('signupWizardTwitterCtrl', ['$scope', '$stateParam
         authService.save().then(function(data){
             $state.go("home");
         })
-//        userService.get({nickname: currentuser.nickname}).$promise.then(
-//            function(user) {
-//                // success
-//                user.urlTwitter = $scope.user.urlTwitter;
-//                user.$save();
-//                $state.go("home");
-//            },
-//            function(error) {
-//                // error handler
-//                $state.go("home");
-//            }
-//        );
     }
 
   }]);
