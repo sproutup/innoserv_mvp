@@ -75,7 +75,10 @@
         <script src="@routes.Assets.at("javascripts/moment.min.js")"></script>
         <script src="@routes.Assets.at("javascripts/ui-bootstrap-tpls-0.12.0.min.js")"></script>
         <script src="@routes.Assets.at("javascripts/angular-ui-router.min.js")"></script>
-        <script data-main="/javascripts/main.js" src="/lib/requirejs/require.js"></script>
+        <!--script data-main="/javascripts/main.js" src="/lib/requirejs/require.js"></script-->
+
+        <script src="@routes.Assets.at("app/services/auth.service.js")"></script>
+        <script src="@routes.Assets.at("app/services/user.service.js")"></script>
 
         <!-- Tooltips -->
         <script>
@@ -117,17 +120,14 @@
 
       @content
 
-      <!-- Google Analytics -->
-      <script>
-      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    <div ng-controller="AuthCtrl as ctrl" class="well">
+        <h2>Logged in user</h2>
+        <dt>Name</dt>
+        <dd>{{ctrl.m.user.name}}</dd>
+        <dt>isLoggedIn</dt>
+        <dd>{{ctrl.m.isLoggedIn | json}}</dd>
+    </div>
 
-      ga('create', 'UA-58001090-1', 'auto');
-      ga('send', 'pageview');
-
-      </script>
     </div>
     </body>
 

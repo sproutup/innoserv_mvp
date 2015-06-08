@@ -603,7 +603,7 @@ function($http, $log, $q, $upload, $filter){
 
     return FileService;
 }]);
-
+/*
 productServices.factory('AuthService', ['$http', '$q', '$cookieStore','$log', '$rootScope',
     function($http, $q, $cookieStore, $log, $rootScope){
     var AuthService = {};
@@ -781,7 +781,7 @@ productServices.factory('AuthService', ['$http', '$q', '$cookieStore','$log', '$
     return AuthService;
 
 }]);
-
+*/
 productServices.factory('TagsService', ['$http', '$q', '$log',
     function($http, $q, $log){
     var urlBase = '/api/tags';

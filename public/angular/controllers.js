@@ -2,28 +2,6 @@
 
 /* Controllers */
 
-/*
-sproutupApp.controller('productTabCtrl', function($scope) {
-  $scope.phones = [
-    {'name': 'Nexus S',
-     'snippet': 'Fast just got faster with Nexus S.'},
-    {'name': 'Motorola XOOM™ with Wi-Fi',
-     'snippet': 'The Next, Next Generation tablet.'},
-    {'name': 'MOTOROLA XOOM™',
-     'snippet': 'The Next, Next Generation tablet.'}
-  ];
-});
-
-function My1Ctrl() {}
-My1Ctrl.$inject = [];
-
-function My2Ctrl() {}
-My2Ctrl.$inject = [];
-
-function My3Ctrl() {}
-My3Ctrl.$inject = [];
-*/
-
 var fileControllers = angular.module('FileControllers', ['ui.bootstrap']);
 
 fileControllers.controller('FileCtrl', ['$scope', '$rootScope', '$upload', 'FileService', '$timeout', '$modal', '$log',
@@ -163,10 +141,9 @@ authControllers.controller('AuthCtrl', ['$scope', '$modal', '$log', 'AuthService
     function ($scope, $modal, $log, authService, $q, $state) {
 
     var vm = this;
+    vm.m = authService.m;
     vm.user = authService.user;
     vm.isLoggedIn = authService.isLoggedIn;
-
-//    console.log("auth controller: ", vm.user);
 
     $scope.signup = {
         'email': '',
@@ -178,40 +155,6 @@ authControllers.controller('AuthCtrl', ['$scope', '$modal', '$log', 'AuthService
         'password': '',
         'confirm': ''
     };
-
-    activate();
-
-    function activate() {
-        return authService.getUser().then(function () {
-            vm.user = authService.user;
-            vm.isLoggedIn = authService.isLoggedIn;
-            console.log('isLoggedIn', vm.isLoggedIn, vm.user);
-            }
-        );
-    }
-
-
-    $scope.$watch('vm.isLoggedIn', function(current, original) {
-        $log.info('vm.isLoggedIn was %s', original);
-        $log.info('vm.isLoggedIn is now %s', vm.isLoggedIn);
-        $log.info('vm.isLoggedIn is now %s', authService.isLoggedIn);
-        console.log('isLoggedIn', vm.isLoggedIn, vm.user);
-    });
-
-    $scope.$watch('authService.isLoggedIn', function(current, original) {
-        $log.info('vm.isLoggedIn was %s', original);
-        $log.info('vm.isLoggedIn is now %s', current);
-        $log.info('vm.isLoggedIn is now %s', authService.isLoggedIn);
-    });
-
-//    $scope.user ={
-//        isLoggedIn : false,
-//        name : 'Test'
-//    }
-
-//    var isLoggedIn = false;
-
-//    updateUser();
 
     $scope.$on('SignupEvent', function(event, mass) {
         $log.debug("SignupEvent received");
@@ -228,33 +171,7 @@ authControllers.controller('AuthCtrl', ['$scope', '$modal', '$log', 'AuthService
         $scope.trial('sm');
     });
 
-//    function updateUser() {
-//        AuthService.getUser()
-//            .then(
-//            function(payload){
-//                // this callback will be called asynchronously
-//                // when the response is available
-//                angular.extend($scope.user, payload);
-//                isLoggedIn = true;
-//                $scope.user.isLoggedIn = true;
-//            },
-//            function(errorPayload){
-//                // called asynchronously if an error occurs
-//                // or server returns response with an error status.
-//                isLoggedIn = false;
-//                $scope.user.isLoggedIn = false;
-//            }
-//        );
-//    }
-
-//    $scope.isLoggedIn = function(){return isLoggedIn}
-//
-//    $scope.currentUser = function() {
-//        return $scope.user;
-//    }
-
     $scope.signup = function (size) {
-
         var signupInstance = $modal.open({
             templateUrl: '/assets/templates/signup.html',
             controller: 'SignupInstanceCtrl',
@@ -268,7 +185,6 @@ authControllers.controller('AuthCtrl', ['$scope', '$modal', '$log', 'AuthService
 
         signupInstance.result.then(function (signup) {
             $log.info('Modal signup at: ' + new Date());
-            //updateUser();
             $state.go("wizard.start");
         }, function (result) {
             $log.info('Modal dismissed at: ' + new Date());
@@ -279,7 +195,6 @@ authControllers.controller('AuthCtrl', ['$scope', '$modal', '$log', 'AuthService
     };
 
     $scope.login = function (size) {
-
         var loginInstance = $modal.open({
             templateUrl: '/assets/templates/login.html',
             controller: 'LoginInstanceCtrl',
@@ -304,7 +219,6 @@ authControllers.controller('AuthCtrl', ['$scope', '$modal', '$log', 'AuthService
     };
 
     $scope.trial = function (size, items) {
-
         var deferred = $q.defer();
 
         $log.debug("trial modal prod id: " + items.product_id);
@@ -339,19 +253,12 @@ authControllers.controller('AuthCtrl', ['$scope', '$modal', '$log', 'AuthService
 
     vm.logout = function (size) {
         var promise = authService.logout();
-
         promise.then(
             function(payload){
-                // this callback will be called asynchronously
-                // when the response is available
-                vm.user = authService.user;
-                vm.isLoggedIn = authService.isLoggedIn;
                 $log.info('logout success: ' + new Date());
                 $state.go('home');
             },
             function(errorPayload){
-                // called asynchronously if an error occurs
-                // or server returns response with an error status.
                 $log.info('logout failed: ' + new Date());
             }
         );
@@ -627,14 +534,12 @@ productControllers.controller('signupWizardCtrl', ['$scope', '$stateParams', '$s
   function($scope, $stateParams, $state, $log, authService) {
     $log.debug("signup wizard");
 
-    var user = authService.currentUser();
     var vm = this;
-    vm.user = authService.user;
-    $scope.user = authService.user;
+    vm = authService.m;
 
     console.log("wizard: ", vm.user);
 
-    switch(user.providerKey){
+    switch(vm.user.providerKey){
         case "twitter":
             $log.debug("signup wizard -> twitter");
             if(vm.user.email == null || vm.user.email.length < 1){
@@ -651,6 +556,7 @@ productControllers.controller('signupWizardCtrl', ['$scope', '$stateParams', '$s
             }
             break;
         case "password":
+            $log.debug("signup wizard -> password");
             if(vm.user.urlTwitter == null || vm.user.urlTwitter.length < 1){
                 $log.debug("signup wizard -> ask for twitter link");
                 $state.go("wizard.twitter");
@@ -664,22 +570,31 @@ productControllers.controller('signupWizardCtrl', ['$scope', '$stateParams', '$s
 productControllers.controller('signupWizardEmailCtrl', ['$scope', '$stateParams', '$state', '$log', 'AuthService','UserService',
   function($scope, $stateParams, $state, $log, authService, userService) {
     $log.debug("signup wizard email");
-    var currentuser = authService.currentUser();
+    var vm = this;
+    vm = authService.m;
 
     $scope.save = function() {
         $log.debug("signup wizard -> save email");
-        userService.get({nickname: currentuser.nickname}).$promise.then(
-            function(user) {
-                // success
-                user.email = $scope.user.email;
-                user.$save();
-                $state.go("home");
-            },
-            function(error) {
-                // error handler
-                $state.go("home");
-            }
-        );
+
+
+        user.email = $scope.user.email;
+        authService.save().then(function(data){
+            $state.go("home");
+        })
+
+
+//        userService.get({nickname: currentuser.nickname}).$promise.then(
+//            function(user) {
+//                // success
+//                user.email = $scope.user.email;
+//                user.$save();
+//                $state.go("home");
+//            },
+//            function(error) {
+//                // error handler
+//                $state.go("home");
+//            }
+//        );
     }
 
   }]);
@@ -687,22 +602,27 @@ productControllers.controller('signupWizardEmailCtrl', ['$scope', '$stateParams'
 productControllers.controller('signupWizardTwitterCtrl', ['$scope', '$stateParams', '$state', '$log', 'AuthService','UserService',
   function($scope, $stateParams, $state, $log, authService, userService) {
     $log.debug("signup wizard twitter");
-    var currentuser = authService.currentUser();
+    var vm = this;
+    vm = authService.m;
 
     $scope.save = function() {
         $log.debug("signup wizard -> save twitter");
-        userService.get({nickname: currentuser.nickname}).$promise.then(
-            function(user) {
-                // success
-                user.urlTwitter = $scope.user.urlTwitter;
-                user.$save();
-                $state.go("home");
-            },
-            function(error) {
-                // error handler
-                $state.go("home");
-            }
-        );
+        vm.user.urlTwitter = $scope.user.urlTwitter;
+        authService.save().then(function(data){
+            $state.go("home");
+        })
+//        userService.get({nickname: currentuser.nickname}).$promise.then(
+//            function(user) {
+//                // success
+//                user.urlTwitter = $scope.user.urlTwitter;
+//                user.$save();
+//                $state.go("home");
+//            },
+//            function(error) {
+//                // error handler
+//                $state.go("home");
+//            }
+//        );
     }
 
   }]);

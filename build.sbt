@@ -46,7 +46,7 @@ lazy val root = project.in(file("."))
     libraryDependencies ++= appDependencies
   )
 
-JsEngineKeys.engineType := JsEngineKeys.EngineType.Node
+//JsEngineKeys.engineType := JsEngineKeys.EngineType.Node
 
 pipelineStages := Seq(rjs)
 

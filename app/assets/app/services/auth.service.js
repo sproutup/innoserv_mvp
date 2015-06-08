@@ -1,32 +1,57 @@
 // factory
 angular
-    .module('app')
+    .module('sproutupApp')
     .factory('AuthService', authService);
 
-authService.$inject = ['$http', '$q', '$cookieStore','$log', '$rootScope'];
+authService.$inject = ['$http', '$q', '$cookieStore', '$log', 'UserService'];
 
-function authService($http, $q, $cookieStore, $log, $rootScope){
+function authService($http, $q, $cookieStore, $log, userService){
     var user = {};
     var isLoggedIn = false;
     var urlBase = '/api/auth';
-    var accessLevels = routingConfig.accessLevels
-        , userRoles = routingConfig.userRoles
+    var accessLevels = routingConfig.accessLevels,
+        userRoles = routingConfig.userRoles;
 //        , currentUser = $cookieStore.get('user') || { username: '', role: userRoles.public };
 
-    var service = {
-        authorize: authorize,
-        provider: getContacts,
-        login: login,
-        logout: logout,
-        user: user,
-        isLoggedIn: isLoggedIn
+    var model = {
+      user: {name: 'Peter'},
+      isLoggedIn: false
     };
+
+    var service = {
+        m: model,
+        authorize: authorize,
+        getUser: getAuthenticatedUser,
+        save: save,
+        provider: provider,
+        login: login,
+        logout: logout
+    };
+
+    activate();
 
     return service;
 
-    $log.debug("AuthService > init");
+    function activate() {
+        /**
+         * Step 1
+         * Ask the getAvengers function for the
+         * avenger data and wait for the promise
+         */
 
-    $cookieStore.remove('user');
+        return getAuthenticatedUser().then(function() {
+            /**
+             * Step 4
+             * Perform an action on resolve of final promise
+             */
+            console.log('Return User');
+        });
+    }
+
+
+//    $log.debug("AuthService > init");
+
+//    $cookieStore.remove('user');
 
     function changeUser(user) {
         angular.extend(currentUser, user);
@@ -37,9 +62,9 @@ function authService($http, $q, $cookieStore, $log, $rootScope){
         return currentUser;
     }
 
-    AuthService.authorize = function(accessLevel, role) {
+    function authorize(accessLevel, role) {
         if(role === undefined) {
-            if(!currentUser == null){
+            if(currentUser !== null){
                 role = currentUser.role;
             }
             else{
@@ -48,9 +73,9 @@ function authService($http, $q, $cookieStore, $log, $rootScope){
         }
 
         return accessLevel.bitMask & role.bitMask;
-    };
+    }
 
-    AuthService.getUser = function(){
+    function getAuthenticatedUser(){
         var deferred = $q.defer();
 
         $http({
@@ -60,18 +85,23 @@ function authService($http, $q, $cookieStore, $log, $rootScope){
         }).success(function(data, status, headers, config){
             switch(status){
                 case 200:
-                    angular.extend(AuthService.user,data);
-                    AuthService.isLoggedIn = true;
+                    //angular.extend(user, data);
+                    //isLoggedIn = true;
+                    model.isLoggedIn = true;
+                    angular.extend(model.user, data);
                     console.log("status: ", status);
-                    changeUser(data);
-                    $log.debug("auth user service returned success: " + currentUser.name);
-                    deferred.resolve(AuthService.user);
+                    //changeUser(data);
+                    $log.debug("auth user service returned success: " + model.user.name);
+                    deferred.resolve(model.user);
                     break;
-                case 204: // no content
-                default:
-                    AuthService.isLoggedIn = false;
+                case 204: // no content	
+                    model.isLoggedIn = false;
                     $log.debug("user not logged in");
                     deferred.reject("user not logged in");
+                    break;
+                default:
+                    $log.debug("unhandled return value");
+                    deferred.reject("auth user - unhandled return value");
                     break;
             }
         }).error(function(data, status, headers, config){
@@ -83,10 +113,18 @@ function authService($http, $q, $cookieStore, $log, $rootScope){
 
         $log.debug("auth user service returned promise");
         return deferred.promise;
-    };
+    }
+
+    function save(){
+        var deferred = $q.defer();
+        $log.debug("auth - save()");
 
 
-    AuthService.provider = function(provider, path){
+        return deferred.promise;
+    }
+
+
+    function provider(authprovider, path){
         var deferred = $q.defer();
         // get the current path
         //var currentPath = $location.path();
@@ -95,7 +133,7 @@ function authService($http, $q, $cookieStore, $log, $rootScope){
 
         $http({
             method: 'POST',
-            url: '/api/auth/provider/' + provider,
+            url: '/api/auth/provider/' + authprovider,
             data: path,
             headers: {'Content-Type': 'application/json'}
         }).success(function(data, status, headers, config){
@@ -108,9 +146,9 @@ function authService($http, $q, $cookieStore, $log, $rootScope){
 
         $log.debug("provider returned promise");
         return deferred.promise;
-    };
+    }
 
-    AuthService.login = function(user){
+    function login(user) {
         var deferred = $q.defer();
 
         $http({
@@ -121,9 +159,12 @@ function authService($http, $q, $cookieStore, $log, $rootScope){
         }).success(function(data, status, headers, config){
             // this callback will be called asynchronously
             // when the response is available
-            angular.extend(AuthService.user,data);
-            AuthService.isLoggedIn = true;
             $log.debug("login service returned success");
+            getAuthenticatedUser().then(function () {
+                $log.debug("login service get user success");
+                }
+            );
+
             deferred.resolve("success");
         }).error(function(data, status, headers, config){
             // called asynchronously if an error occurs
@@ -134,9 +175,9 @@ function authService($http, $q, $cookieStore, $log, $rootScope){
 
         $log.debug("login service returned promise");
         return deferred.promise;
-    };
+    }
 
-    AuthService.signup = function(user){
+    function signup(user){
         var deferred = $q.defer();
 
         $http({
@@ -147,8 +188,8 @@ function authService($http, $q, $cookieStore, $log, $rootScope){
         }).success(function(data, status, headers, config){
             // this callback will be called asynchronously
             // when the response is available
-            angular.extend(AuthService.user,data);
-            AuthService.isLoggedIn = true;
+            angular.extend(model.user,data);
+            model.isLoggedIn = true;
             deferred.resolve("success");
         }).error(function(data, status, headers, config){
             // called asynchronously if an error occurs
@@ -158,9 +199,9 @@ function authService($http, $q, $cookieStore, $log, $rootScope){
 
         $log.debug("auth signup service returned promise");
         return deferred.promise;
-    };
+    }
 
-    AuthService.logout = function(){
+    function logout(){
         var deferred = $q.defer();
 
         $http({
@@ -170,8 +211,8 @@ function authService($http, $q, $cookieStore, $log, $rootScope){
         }).success(function(data, status, headers, config){
             // this callback will be called asynchronously
             // when the response is available
-            AuthService.user = {};
-            AuthService.isLoggedIn = false;
+            model.isLoggedIn = false;
+            model.user = {};
             deferred.resolve("success");
         }).error(function(data, status, headers, config){
             // called asynchronously if an error occurs
@@ -181,9 +222,9 @@ function authService($http, $q, $cookieStore, $log, $rootScope){
 
         $log.debug("auth signup service returned promise");
         return deferred.promise;
-    };
+    }
 
     AuthService.accessLevels = accessLevels;
 
     AuthService.userRoles = userRoles;
-};
+}

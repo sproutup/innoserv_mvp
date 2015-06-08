@@ -6,30 +6,30 @@
         <li><a ui-sref="about">About Us</a></li>
         <li><a up-slideable-toggle="#suggest-product-section" href="">Suggest a Product</a></li>
 
-        <li ng-show="!auth.isLoggedIn">
+        <li ng-show="!auth.m.isLoggedIn">
             <a href="" ng-click="signup('sm')">Join</a>
         </li>
 
-        <li ng-show="!auth.isLoggedIn">
+        <li ng-show="!auth.m.isLoggedIn">
             <a href="" ng-click="login('sm')">Log In</a>
         </li>
 
-        <li ng-show="auth.isLoggedIn">
-            <img class="profile-img" ng-src="{{auth.user.avatarUrl}}">
+        <li ng-show="auth.m.isLoggedIn">
+            <img class="profile-img" ng-src="{{auth.m.user.avatarUrl}}">
         </li>
 
-        <li ng-show="auth.isLoggedIn" class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{auth.user.name}}<i class="fa fa-angle-down login-angle-down"></i></a>
+        <li ng-show="auth.m.isLoggedIn" class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{auth.m.user.name}}<i class="fa fa-angle-down login-angle-down"></i></a>
             <ul class="dropdown-menu" role="menu">
-                <li><a ui-sref="profile.photos({ nickname: auth.user.nickname })">My Profile</a></li>
-                <hr ng-hide="auth.user.company == null">
-                <li class="header-in-dropdown-menu" ng-hide="auth.user.company == null">My Products</li>
+                <li><a ui-sref="profile.photos({ nickname: auth.m.user.nickname })">My Profile</a></li>
+                <hr ng-hide="auth.m.user.company == null">
+                <li class="header-in-dropdown-menu" ng-hide="auth.m.user.company == null">My Products</li>
                 <ul class="submenu-in-dropdown-menu">
-                    <li ng-repeat="userproduct in auth.user.company.products">
+                    <li ng-repeat="userproduct in auth.m.user.company.products">
                         <a ui-sref="dashboard.products.info({ slug: userproduct.slug })">{{userproduct.productName}}</a>
                     </li>
                 </ul>
-                <hr ng-hide="auth.user.company == null">
+                <hr ng-hide="auth.m.user.company == null">
                 <li><a ui-sref="product.add">Add product</a></li>
                 <li><a ui-sref="settings.profile">Settings</a></li>
                 <li><a ui-sref="wizard.start">Wizard</a></li>
