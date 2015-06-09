@@ -1564,59 +1564,6 @@ angular.module('sproutupApp').directive('upProductCreate', [ 'ProductService', '
         };
     }]);
 
-angular.module('sproutupApp').directive('upProductUpdate', [ 'ProductService', 'CompanyService', '$state', "$rootScope", 'AuthService',
-    function (productService, companyService, $state, $rootScope, authService) {
-        return {
-            restrict: 'A',
-            transclude:true,
-            scope: {
-                product: "="
-            },
-            link: function (scope, element, attrs, ctrl, transclude) {
-                attrs.$observe('product', function (product) {
-                    console.log("product update: product observe");
-                });
-
-                scope.update = function(){
-                    console.log("product update", scope.product);
-
-                    scope.product.$save({},
-                        function(data) {
-                            // success
-                            console.log("product update success");
-                            authService.user().then(
-                                function(result){
-                                    $rootScope.$broadcast('alert:success', {
-                                        message: 'Product updated'
-                                    });
-                                    $state.go('dashboard.products.info', {slug: data.slug} );
-                                }
-                            )
-                        },
-                        function(error) {
-                            // error handler
-                            console.log("product update error");
-                            $rootScope.$broadcast('alert:error', {
-                                message: 'Product update failed'
-                            });
-                        }
-                    );
-                }
-
-                scope.cancel = function(){
-                    console.log("product cancel");
-                    $state.go('home');
-                }
-
-                // add the directive scope to the transcluded content
-                transclude(scope, function(clone, scope) {
-                    element.append(clone);
-                    console.log("product add: clone");
-                });
-            }
-        };
-    }]);
-
 angular.module('sproutupApp').directive('upProductItem', [
     function () {
         return {

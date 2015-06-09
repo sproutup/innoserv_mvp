@@ -481,40 +481,6 @@ productControllers.controller('productDetailCtrl', ['$scope', '$stateParams', '$
     );
   }]);
 
-productControllers.controller('productDashboardCtrl', ['$scope', '$stateParams', '$state', '$log', 'ProductService', 'AuthService',
-  function($scope, $stateParams, $state, $log, ProductService, authService) {
-    $log.debug("entered product details ctrl. slug=" + $stateParams.slug);
-
-    var isThisMyProduct = false;
-
-    if(authService.isLoggedIn()) {
-        var user = authService.currentUser();
-        if (user.company.products == undefined) {
-            $state.go("home");
-        }
-        for (var i = 0; i < user.company.products.length; i++) {
-            if (user.company.products[i].slug == $stateParams.slug) {
-                isThisMyProduct = true;
-            }
-        }
-    }
-
-    if(isThisMyProduct == false){
-        $state.go("home");
-    }
-
-    ProductService.get({slug: $stateParams.slug}).$promise.then(
-        function(data) {
-            // success
-            $scope.product = data;
-        },
-        function(error) {
-            // error handler
-            $state.go("home");
-        }
-    );
-  }]);
-
 productControllers.controller('userDetailCtrl', ['$scope', '$stateParams', '$state', '$log', 'UserService',
   function($scope, $stateParams, $state, $log, userService) {
     $log.debug("entered user details ctrl. nickname=" + $stateParams.nickname);

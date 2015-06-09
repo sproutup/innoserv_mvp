@@ -3,11 +3,11 @@ angular
     .module('sproutupApp')
     .factory('AuthService', authService);
 
-authService.$inject = ['$http', '$q', '$cookieStore', '$log', 'UserService'];
+authService.$inject = ['$http', '$q', '$cookieStore', '$log', 'UserService', '$timeout'];
 
-function authService($http, $q, $cookieStore, $log, userService){
+function authService($http, $q, $cookieStore, $log, userService, $timeout){
     var user = {};
-    var isLoggedIn = false;
+    var isReady = false;
     var urlBase = '/api/auth';
     var accessLevels = routingConfig.accessLevels,
         userRoles = routingConfig.userRoles;
@@ -25,7 +25,8 @@ function authService($http, $q, $cookieStore, $log, userService){
         save: save,
         provider: provider,
         login: login,
-        logout: logout
+        logout: logout,
+        ready: ready
     };
 
     activate();
@@ -33,25 +34,20 @@ function authService($http, $q, $cookieStore, $log, userService){
     return service;
 
     function activate() {
-        /**
-         * Step 1
-         * Ask the getAvengers function for the
-         * avenger data and wait for the promise
-         */
-
         return getAuthenticatedUser().then(function() {
-            /**
-             * Step 4
-             * Perform an action on resolve of final promise
-             */
             console.log('Return User');
         });
     }
 
-
-//    $log.debug("AuthService > init");
-
-//    $cookieStore.remove('user');
+    /*
+    *   Return true when user auth data has been received
+    */
+    function ready(){
+//        var deferred = $q.defer();
+//        deferred.resolve(model.user);
+        return isReady;
+//        return deferred.promise;
+    }
 
     function changeUser(user) {
         angular.extend(currentUser, user);
@@ -87,6 +83,7 @@ function authService($http, $q, $cookieStore, $log, userService){
                 case 200:
                     //angular.extend(user, data);
                     //isLoggedIn = true;
+                    isReady = true;
                     model.isLoggedIn = true;
                     angular.extend(model.user, data);
                     console.log("status: ", status);
@@ -94,7 +91,8 @@ function authService($http, $q, $cookieStore, $log, userService){
                     $log.debug("auth user service returned success: " + model.user.name);
                     deferred.resolve(model.user);
                     break;
-                case 204: // no content	
+                case 204: // no content
+                    isReady = true;
                     model.isLoggedIn = false;
                     $log.debug("user not logged in");
                     deferred.reject("user not logged in");
