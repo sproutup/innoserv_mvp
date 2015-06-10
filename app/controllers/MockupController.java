@@ -45,6 +45,12 @@ public class MockupController extends Controller {
         return ok(login_mock.render());
     }
 
+    public static Result signup() {
+        if(!mockups_enabled){return notFound();};
+
+        return ok(signup_mock.render());
+    }
+
     public static Result resetPassword() {
         if(!mockups_enabled){return notFound();};
 

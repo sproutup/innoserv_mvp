@@ -169,6 +169,7 @@ GET           /mockups/product/:slug/about                                   con
 GET           /mockups/product/:slug/bar                                     controllers.MockupController.detailsBarBySlug(slug: String)
 GET           /mockups/product/:slug/gallery                                 controllers.MockupController.detailsGalleryBySlug(slug: String)
 GET           /mockups/login                                                 controllers.MockupController.login()
+GET           /mockups/signup                                                 controllers.MockupController.signup()
 GET           /mockups/reset_password                                        controllers.MockupController.resetPassword()
 GET           /mockups/user_profile                                          controllers.MockupController.userProfile()
 GET           /mockups/dashboard                                             controllers.MockupController.creatorDashboard()
