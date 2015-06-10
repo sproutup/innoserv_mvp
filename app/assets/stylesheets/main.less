@@ -8,7 +8,6 @@ body {
   font-family: "lato", Helvetica, Arial, sans-serif;
   width: 100%;
   height: 100%;
-  margin-top: 70px;
 }
 
 .modal-open {
@@ -20,40 +19,35 @@ body {
 .navbar {
   margin-bottom: 0px;
   margin-top: 0px;
-  padding-left: 15px;
-  padding-right: 15px;
-  height: 70px;
+    padding: 0px 100px;
+    background-color: rgba(0, 0, 0, 0.6);
+    border: none;
+    border-radius: 0px;
 }
 
 .navbar-brand {
-  padding: 17px 15px 0px;
+  padding: 20px 15px 0px;
 }
 
 .navbar-nav {
-  padding-top: 12px;
+  padding-top: 6px;
+  padding-bottom: 6px;
 }
 
 .navbar-default .navbar-nav > li > a {
-  color: @sproutup-navbar-menu;
+  color: @main-text-white;
 }
 
 .navbar-default .navbar-nav > li > a:focus {
-  color: @sproutup-navbar-menu;
+  color: #fff;
 }
 
 .navbar-default .navbar-nav > li > a:hover {
-  color: @main-text;
+  color: #fff;
 }
 
 .navbar-right {
   padding-right: 0px;
-}
-
-.navbar-collapse {
-  margin-bottom: 0px;
-  margin-top: 0px;
-  padding-right: 15px;
-  height: 70px;
 }
 
 .dropdown-menu {
@@ -136,7 +130,16 @@ body {
 }
 
 .navbar-toggle {
-  margin-top: 16px;
+    margin: 10px 0px;
+    border: none;
+}
+
+.navbar-default .navbar-toggle .icon-bar {
+    background-color: @secondary-text;
+}
+
+.navbar-default .navbar-collapse, .navbar-default .navbar-form {
+    border-color: @main-text;
 }
 
 .navbar-default .navbar-nav > .open > a,
@@ -149,6 +152,7 @@ body {
   font-family: "Lato", Helvetica, Arial, sans-serif;
   font-weight: 400;
   font-size: 11pt;
+  color: @main-text-white;
 }
 
 .navbar-item .fa-search.active {
@@ -156,16 +160,25 @@ body {
 }
 
 .logo {
-  width: 224px;
+  width: 160px;
 }
 
 @media (max-width:767px) {
   .logo {
-    width: 180px;
+      width: 120px;
+  }
+
+  .navbar {
+      margin-bottom: 0px;
+      margin-top: 0px;
+      padding: 0px 10px;
+      background-color: rgba(0, 0, 0, 0.8);
+      border: none;
+      border-radius: 0px;
   }
 
   .navbar-brand {
-    padding: 21px 0px 0px;
+    padding: 15px 0px 0px;
   }
 }
 
@@ -206,7 +219,7 @@ ul.sproutup-social-buttons li a:hover {
 }
 
 footer {
-  margin-top: 30px;
+  margin: 0px;
   padding-top: 20px;
   padding-bottom: 20px;
   background-color: @sproutup-footer;
@@ -387,3 +400,6 @@ a:focus {
   color: @sproutup-blue-bright;
 }
 
+.main-content {
+    padding: 60px 0px;
+}
