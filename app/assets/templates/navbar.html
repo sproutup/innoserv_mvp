@@ -6,8 +6,12 @@
             <a href="" ng-click="login('sm')">Log In</a>
         </li>
 
-        <li ng-show="!isLoggedIn">
-            <a href="" ng-click="signup('sm')">Sign Up</a>
+        <li ng-show="!isLoggedIn" class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Sign Up</a>
+            <ul class="dropdown-menu" role="menu">
+                <li><a analytics-on="click" analytics-event="Sign up as Creator">Product Creator</a></li>
+                <li><a analytics-on="click" analytics-event="Sign up as Influencer">Influencer</a></li>
+            </ul>
         </li>
 
         <li ng-show="isLoggedIn">

@@ -38,12 +38,16 @@ body {
   color: @main-text-white;
 }
 
+.navbar-default .navbar-nav > .open > a:focus {
+    color: white;
+}
+
 .navbar-default .navbar-nav > li > a:focus {
-  color: #fff;
+  color: @main-text-white;
 }
 
 .navbar-default .navbar-nav > li > a:hover {
-  color: #fff;
+  color: white;
 }
 
 .navbar-right {
@@ -51,10 +55,11 @@ body {
 }
 
 .dropdown-menu {
-  top: 57px;
+  top: 52px;
   min-width: 180px;
   padding-top: 10px;
   padding-bottom: 10px;
+  border-radius: 0px;
 }
 
 .dropdown-menu:before {
@@ -169,17 +174,28 @@ body {
   }
 
   .navbar {
-      margin-bottom: 0px;
-      margin-top: 0px;
-      padding: 0px 10px;
-      background-color: rgba(0, 0, 0, 0.8);
-      border: none;
-      border-radius: 0px;
+      padding: 0px 15px;
+      margin: 0px;
   }
 
   .navbar-brand {
     padding: 15px 0px 0px;
   }
+
+  .dropdown-menu:before {
+    position: absolute;
+    display: inline-block;
+    border: none;
+    content: '';
+  }
+
+  .dropdown-menu:after {
+      position: absolute;
+      display: inline-block;
+    border: none;
+    content: '';
+  }
+
 }
 
 .profile-img {
