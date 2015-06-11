@@ -25,17 +25,52 @@ body {
     border-radius: 0px;
 }
 
+.navbar-influencer {
+    margin-bottom: 0px;
+    margin-top: 0px;
+    padding: 0px 40px;
+    background-color: rgba(0, 0, 0, 0.7);
+    border: none;
+    border-radius: 0px;
+}
+
 .navbar-brand {
-  padding: 20px 15px 0px;
+  padding: 22px 15px 0px;
+}
+
+.navbar-influencer .navbar-brand {
+    padding-top: 12px;
+    padding-right: 30px;
+    padding-bottom: 0px;
+    padding-left: 0px;
+}
+
+.logo {
+  width: 160px;
+}
+
+.navbar-influencer .logo {
+    width: 46px;
 }
 
 .navbar-nav {
-  padding-top: 6px;
-  padding-bottom: 6px;
+    padding: 8px 0px;
+}
+
+.navbar-influencer .navbar-nav {
+    padding: 10px 0px;
 }
 
 .navbar-default .navbar-nav > li > a {
   color: @main-text-white;
+}
+
+.navbar-influencer .navbar-left > li > a {
+    color: @sproutup-grey;
+}
+
+.navbar-influencer .navbar-left > li > a.active-navbar-item {
+    color: white;
 }
 
 .navbar-default .navbar-nav > .open > a:focus {
@@ -164,10 +199,6 @@ body {
   color: @sproutup-blue;
 }
 
-.logo {
-  width: 160px;
-}
-
 @media (max-width:767px) {
   .logo {
       width: 120px;
@@ -180,6 +211,10 @@ body {
 
   .navbar-brand {
     padding: 15px 0px 0px;
+  }
+
+  .navbar-influencer .logo {
+      width: 32px;
   }
 
   .dropdown-menu:before {
@@ -204,7 +239,8 @@ body {
   -webkit-border-radius: 500px;
   -moz-border-radius: 500px;
   border-radius: 500px;
-  margin-top: 3px;
+  border: 2px solid @sproutup-grey;
+  margin-top: 4px;
   margin-left: 15px;
 }
 
