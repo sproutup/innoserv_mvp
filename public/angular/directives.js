@@ -1821,6 +1821,23 @@ angular.module('sproutupApp').directive('navbar', [ 'AuthService', '$rootScope',
     };
 }]);
 
+angular.module('sproutupApp').directive('navbarInfluencer', [ 'AuthService', '$rootScope',
+    function (authService, $rootScope) {
+    return {
+        templateUrl: '/assets/templates/navbar-influencer.html',
+        scope: true,
+        link: function (scope, element, attrs) {
+            scope.user = authService.currentUser();
+            scope.isLoggedIn = authService.isLoggedIn();
+            scope.$on('auth:status', function (event, args) {
+                console.log('event received auth:state ');
+                scope.user = authService.currentUser();
+                scope.isLoggedIn = authService.isLoggedIn();
+            });
+        }
+    };
+}]);
+
 angular.module('sproutupApp').directive('upFbShare', [ '$location', '$window', function ($location, $window) {
     return {
         template: '<a class="post-actions--item" target="_blank" ng-href="{{url}}"><i class="fa fa-facebook-square"></i>Share on Facebook</a>',

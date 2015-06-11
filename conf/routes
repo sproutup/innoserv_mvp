@@ -175,7 +175,7 @@ GET           /mockups/reset_password                                        con
 GET           /mockups/user_profile                                          controllers.MockupController.userProfile()
 GET           /mockups/dashboard                                             controllers.MockupController.creatorDashboard()
 GET           /mockups/creator                                               controllers.MockupController.forCreator()
-GET           /mockups/product-list                                          controllers.MockupController.productList()
+GET           /mockups/product_list                                          controllers.MockupController.productList()
 GET           /mockups/user_settings                                         controllers.MockupController.userSettings()
 GET           /mockups/new-product                                           controllers.MockupController.addNewProduct()
 GET           /mockups/wizard                                                controllers.MockupController.wizard()
