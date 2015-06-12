@@ -15,6 +15,14 @@
         <li class="dropdown">
             <a href="#" analytics-on="click" analytics-event="User Menu" class="dropdown-toggle" data-toggle="dropdown">{{user.name}}<i class="fa fa-angle-down login-angle-down"></i></a>
             <ul class="dropdown-menu" role="menu">
+                <li class="header-in-dropdown-menu" ng-hide="user.company == null">My Products</li>
+                <ul class="submenu-in-dropdown-menu">
+                    <li ng-repeat="userproduct in user.company.products">
+                        <a analytics-on="click" analytics-event="Enter Product Dashboard: {{userproduct.productName}}" ui-sref="dashboard.products.info({ slug: userproduct.slug })">{{userproduct.productName}}</a>
+                    </li>
+                </ul>
+                <hr ng-hide="user.company == null">
+                <li><a analytics-on="click" analytics-event="Enter Add Product" ui-sref="product.add">Add product</a></li>
                 <li><a analytics-on="click" analytics-event="Enter User Settings" ui-sref="settings.profile">Settings</a></li>
                 <li><a href="" analytics-on="click" analytics-event="Log Out" ng-click="logout()">Log Out</a></li>
             </ul>
