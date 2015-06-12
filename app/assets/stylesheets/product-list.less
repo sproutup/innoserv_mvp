@@ -51,6 +51,11 @@
   overflow: hidden;
 }
 
+.product-list-item-wrapper {
+    margin: 0px;
+    padding: 0px;
+}
+
 .product-list-item {
   padding: 4px;
 }
@@ -73,10 +78,10 @@
 }
 
 .product-cover-info::before {
-  background: -webkit-linear-gradient(top, rgba(0,0,0,0.25), rgba(0,0,0,0.65));
-  background: -o-linear-gradient(top, rgba(0,0,0,0.25), rgba(0,0,0,0.65));
-  background: -moz-linear-gradient(top, rgba(0,0,0,0.25), rgba(0,0,0,0.65));
-  background: linear-gradient(top, rgba(0,0,0,0.25), rgba(0,0,0,0.65));
+  background: -webkit-linear-gradient(top, rgba(0,0,0,0.2), rgba(0,0,0,0.6));
+  background: -o-linear-gradient(top, rgba(0,0,0,0.2), rgba(0,0,0,0.6));
+  background: -moz-linear-gradient(top, rgba(0,0,0,0.2), rgba(0,0,0,0.6));
+  background: linear-gradient(top, rgba(0,0,0,0.2), rgba(0,0,0,0.6));
   position: absolute;
   top: 0;
   right: 0;
@@ -100,6 +105,10 @@ a .product-cover-title {
 a .product-cover-title p {
   padding: 0px;
   margin: 0px;
+}
+
+a .product-cover-title p:hover {
+    text-decoration: none !important;
 }
 
 a .product-cover-description {
@@ -128,20 +137,24 @@ a .product-cover-description {
   text-align: center;
 }
 
-.trial-user-list {
+.trial-user-list-title {
     left: 0px;
-    bottom: 10px;
-    padding: 20px;
-    width: 100%;
+    bottom: 80px;
+    padding: 20px 20px 5px;
+    font-weight: 300;
+    font-size: 11pt;
+    color: @main-text-white;
     position: absolute;
     z-index: 3;
 }
 
-.trial-user-list p {
-    padding-bottom: 5px;
-    font-weight: 300;
-    font-size: 11pt;
-    color: @main-text-white;
+.trial-user-list {
+    left: 0px;
+    bottom: 5px;
+    padding: 20px;
+    width: 100%;
+    position: absolute;
+    z-index: 3;
 }
 
 .trial-user-img {
@@ -174,15 +187,13 @@ a .product-cover-description {
   height: 28px;
   border-radius: 0px;
   padding-top: 4px;
-  -webkit-transition: all .2s ease-in-out;
-  -o-transition: all .2s ease-in-out;
-  transition: all .2s ease-in-out;
-  box-shadow: 0px 0px 2px 1px rgba(169, 169, 169, 0.4);
-  -moz-box-shadow: 0px 0px 2px 1px rgba(169, 169, 169, 0.4);
-  -webkit-box-shadow: 0px 0px 2px 1px rgba(169, 169, 169, 0.4);
 }
 
 .btn-product-category:hover {
   background-color: rgba(255, 255, 255, 0.9);
   color: @main-text;
+}
+
+.btn-product-category:active {
+    box-shadow: none !important;
 }
