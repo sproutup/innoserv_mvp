@@ -6,98 +6,194 @@
 
 @main_influencer("Product List", moreHead) {
 
-<div class="product-list">
-    <div class="col-sm-12 product-list--search-area">
-        <input class="form-control product-list--search-input" placeholder="Search products">
-        <span class="fa fa-search"></span>
+<div class="product-list-wrapper">
+
+    <div class="row sproutup-tabs">
+        <div class="col-lg-12">
+            <div class="sproutup-tabs--content">
+                <a class="btn btn-lg btn-sproutup-tab active" href="#">Available for Trial</a>
+                <a class="btn btn-lg btn-sproutup-tab" href="#">Coming Soon</a>
+            </div>
+        </div>
     </div>
 
-    <div class="row product-list-container">
-        <div class="col-md-4 col-sm-6 col-xs-12 product-list-item">
-            <a href="#">
+    <div class="product-list">
+        <div class="product-list-header">
+            <h1>We try our best to surprise you with the most innovative products. Request a trial and get hands-on experience.</h2>
+        </div>
+
+        <div class="row product-list--search-area">
+            <div class="col-sm-12">
+                <input class="form-control product-list--search-input" placeholder="Search products">
+                <span class="fa fa-search"></span>
+            </div>
+        </div>
+
+        <div class="row product-list-container">
+            <div class="col-md-4 col-sm-6 col-xs-12 product-list-item">
                 <div class="product-cover-photo" style="background-image: url('https://s3.amazonaws.com/sproutup-mvp-cdn/assets/11111.jpg')">
-                    <div class="product-cover-info">
-                        <div class="product-category-list">
-                            <button class="btn btn-product-category">LED</button>
-                            <button class="btn btn-product-category">Home</button>
-                            <button class="btn btn-product-category">Smart Device</button>
+                    <div class="product-category-list">
+                        <button class="btn btn-product-category">LED</button>
+                        <button class="btn btn-product-category">Home</button>
+                        <button class="btn btn-product-category">Smart Device</button>
+                    </div>
+                    <a href="#">
+                        <div class="product-cover-info">
+                            <div class="product-cover-title">Belleds</div>
+                            <div class="product-cover-description">Smart LED lighting and audio platform, smart LED lighting and audio platform</div>
+                            <div class="trial-user-list-title">1 TRIALS</div>
+                            <div class="trial-user-list">
+                                <img class="trial-user-img" src="@routes.Assets.at("images/about/team/beth.jpg")">
+                            </div>
                         </div>
-                        <div class="product-cover-title">Belleds</div>
-                        <div class="product-cover-description">Smart LED lighting and audio platform, smart LED lighting and audio platform</div>
-                        <div class="trial-user-list-title">4 TRIALS</div>
-                        <div class="trial-user-list">
-                            <a href="#"><img class="trial-user-img" src="@routes.Assets.at("images/about/team/beth.jpg")"></a>
-                            <a href="#"><img class="trial-user-img" src="@routes.Assets.at("images/about/team/nitin.jpg")"></a>
-                            <a href="#"><img class="trial-user-img" src="@routes.Assets.at("images/about/team/peter.jpg")"></a>
-                            <a href="#"><img class="trial-user-img" src="@routes.Assets.at("images/about/team/tao.jpg")"></a>
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6 col-xs-12 product-list-item">
+                <a href="#">
+                    <div class="product-cover-photo" style="background-image: url('https://s3.amazonaws.com/sproutup-mvp-cdn/assets/11112.jpg')">
+                        <div class="product-cover-info">
+                            <div class="product-category-list">
+                                <button type="button" class="btn btn-product-category">Home</button>
+                                <button type="button" class="btn btn-product-category">Eco Friendly</button>
+                                <button type="button" class="btn btn-product-category">Design</button>
+                            </div>
+                            <div class="product-cover-title">Soma Water</div>
+                            <div class="product-cover-description">Beautifully innovative all-natural water filters</div>
+                            <div class="trial-user-list-title">4 TRIALS</div>
+                            <div class="trial-user-list">
+                                <img class="trial-user-img" src="@routes.Assets.at("images/about/team/beth.jpg")">
+                                <img class="trial-user-img" src="@routes.Assets.at("images/about/team/nitin.jpg")">
+                                <img class="trial-user-img" src="@routes.Assets.at("images/about/team/peter.jpg")">
+                                <img class="trial-user-img" src="@routes.Assets.at("images/about/team/tao.jpg")">
+                            </div>
                         </div>
                     </div>
-                </div>
-            </a>
+                </a>
+            </div>
+            <div class="col-md-4 col-sm-6 col-xs-12 product-list-item">
+                <a href="#">
+                    <div class="product-cover-photo" style="background-image: url('https://s3.amazonaws.com/sproutup-mvp-cdn/assets/11121.jpg')">
+                        <div class="product-cover-info">
+                            <div class="product-category-list">
+                                <button type="button" class="btn btn-product-category">Gadget</button>
+                                <button type="button" class="btn btn-product-category">Camera</button>
+                                <button type="button" class="btn btn-product-category">iPhone</button>
+                                <button type="button" class="btn btn-product-category">GoPro</button>
+                                <button type="button" class="btn btn-product-category">Robot</button>
+                                <button type="button" class="btn btn-product-category">Time Lapse</button>
+                            </div>
+                            <div class="product-cover-title">Galelio</div>
+                            <div class="product-cover-description">Smart dock for iPhone and GoPro</div>
+                            <div class="trial-user-list-title">NO TRIALS YET. BE THE FIRST!</div>
+                            <div class="trial-user-list">
+                                <img class="trial-user-img" src="@routes.Assets.at("images/default-avatar.png")">
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-4 col-sm-6 col-xs-12 product-list-item">
+                <a href="#">
+                    <div class="product-cover-photo" style="background-image: url('https://s3.amazonaws.com/sproutup-mvp-cdn/assets/11117.jpg')">
+                        <div class="product-cover-info">
+                            <div class="product-category-list">
+                                <button type="button" class="btn btn-product-category">Speaker</button>
+                                <button type="button" class="btn btn-product-category">Design</button>
+                            </div>
+                            <div class="product-cover-title">Hidden Radio</div>
+                            <div class="product-cover-description">Smart dock for iPhone and GoPro</div>
+                            <div class="trial-user-list-title">NO TRIALS YET. BE THE FIRST!</div>
+                            <div class="trial-user-list">
+                                <img class="trial-user-img" src="@routes.Assets.at("images/default-avatar.png")">
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
         </div>
-        <div class="col-md-4 col-sm-6 col-xs-12 product-list-item">
-            <a href="#">
-                <div class="product-cover-photo" style="background-image: url('https://s3.amazonaws.com/sproutup-mvp-cdn/assets/11112.jpg')">
-                    <div class="product-cover-info">
-                        <div class="product-category-list">
-                            <button type="button" class="btn btn-product-category">Home</button>
-                            <button type="button" class="btn btn-product-category">Eco Friendly</button>
-                            <button type="button" class="btn btn-product-category">Design</button>
-                        </div>
-                        <div class="product-cover-title">Soma Water</div>
-                        <div class="product-cover-description">Beautifully innovative all-natural water filters</div>
-                        <div class="trial-user-list-title">4 TRIALS</div>
-                        <div class="trial-user-list">
-                            <a href="#"><img class="trial-user-img" src="@routes.Assets.at("images/about/team/beth.jpg")"></a>
-                            <a href="#"><img class="trial-user-img" src="@routes.Assets.at("images/about/team/nitin.jpg")"></a>
-                            <a href="#"><img class="trial-user-img" src="@routes.Assets.at("images/about/team/peter.jpg")"></a>
-                            <a href="#"><img class="trial-user-img" src="@routes.Assets.at("images/about/team/tao.jpg")"></a>
-                        </div>
-                    </div>
-                </div>
-            </a>
+
+    </div>
+
+    <div class="product-list">
+        <!-- Coming soon -->
+        <div class="product-list-header">
+            <h1>Product creators are working hard to make it happen! Reserve a spot for trial when it becomes available.</h2>
         </div>
-        <div class="col-md-4 col-sm-6 col-xs-12 product-list-item">
-            <a href="#">
-                <div class="product-cover-photo" style="background-image: url('https://s3.amazonaws.com/sproutup-mvp-cdn/assets/11121.jpg')">
-                    <div class="product-cover-info">
-                        <div class="product-category-list">
-                            <button type="button" class="btn btn-product-category">Gadget</button>
-                            <button type="button" class="btn btn-product-category">Camera</button>
-                            <button type="button" class="btn btn-product-category">iPhone</button>
-                            <button type="button" class="btn btn-product-category">GoPro</button>
-                            <button type="button" class="btn btn-product-category">Robot</button>
-                            <button type="button" class="btn btn-product-category">Time Lapse</button>
-                        </div>
-                        <div class="product-cover-title">Galelio</div>
-                        <div class="product-cover-description">Smart dock for iPhone and GoPro</div>
-                        <div class="trial-user-list-title">NO TRIALS YET. BE THE FIRST!</div>
-                        <div class="trial-user-list">
-                            <img class="trial-user-img" src="@routes.Assets.at("images/default-avatar.png")">
-                        </div>
-                    </div>
-                </div>
-            </a>
+
+        <div class="row product-list--search-area">
+            <div class="col-sm-12">
+                <input class="form-control product-list--search-input" placeholder="Search products">
+                <span class="fa fa-search"></span>
+            </div>
         </div>
-        <div class="col-md-4 col-sm-6 col-xs-12 product-list-item">
-            <a href="#">
-                <div class="product-cover-photo" style="background-image: url('https://s3.amazonaws.com/sproutup-mvp-cdn/assets/11117.jpg')">
-                    <div class="product-cover-info">
-                        <div class="product-category-list">
-                            <button type="button" class="btn btn-product-category">Speaker</button>
-                            <button type="button" class="btn btn-product-category">Design</button>
-                        </div>
-                        <div class="product-cover-title">Hidden Radio</div>
-                        <div class="product-cover-description">Smart dock for iPhone and GoPro</div>
-                        <div class="trial-user-list-title">NO TRIALS YET. BE THE FIRST!</div>
-                        <div class="trial-user-list">
-                            <img class="trial-user-img" src="@routes.Assets.at("images/default-avatar.png")">
+
+        <div class="row product-list-container">
+            <div class="col-md-4 col-sm-6 col-xs-12 product-list-item">
+                <a href="#">
+                    <div class="product-cover-photo" style="background-image: url('https://s3.amazonaws.com/sproutup-mvp-cdn/assets/11111.jpg')">
+                        <div class="product-cover-info">
+                            <div class="product-category-list">
+                                <button class="btn btn-product-category">LED</button>
+                                <button class="btn btn-product-category">Home</button>
+                                <button class="btn btn-product-category">Smart Device</button>
+                            </div>
+                            <div class="product-cover-title">Belleds</div>
+                            <div class="product-cover-description">Smart LED lighting and audio platform, smart LED lighting and audio platform</div>
                         </div>
                     </div>
-                </div>
-            </a>
+                </a>
+            </div>
+            <div class="col-md-4 col-sm-6 col-xs-12 product-list-item">
+                <a href="#">
+                    <div class="product-cover-photo" style="background-image: url('https://s3.amazonaws.com/sproutup-mvp-cdn/assets/11112.jpg')">
+                        <div class="product-cover-info">
+                            <div class="product-category-list">
+                                <button type="button" class="btn btn-product-category">Home</button>
+                                <button type="button" class="btn btn-product-category">Eco Friendly</button>
+                                <button type="button" class="btn btn-product-category">Design</button>
+                            </div>
+                            <div class="product-cover-title">Soma Water</div>
+                            <div class="product-cover-description">Beautifully innovative all-natural water filters</div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-4 col-sm-6 col-xs-12 product-list-item">
+                <a href="#">
+                    <div class="product-cover-photo" style="background-image: url('https://s3.amazonaws.com/sproutup-mvp-cdn/assets/11121.jpg')">
+                        <div class="product-cover-info">
+                            <div class="product-category-list">
+                                <button type="button" class="btn btn-product-category">Gadget</button>
+                                <button type="button" class="btn btn-product-category">Camera</button>
+                                <button type="button" class="btn btn-product-category">iPhone</button>
+                                <button type="button" class="btn btn-product-category">GoPro</button>
+                                <button type="button" class="btn btn-product-category">Robot</button>
+                                <button type="button" class="btn btn-product-category">Time Lapse</button>
+                            </div>
+                            <div class="product-cover-title">Galelio</div>
+                            <div class="product-cover-description">Smart dock for iPhone and GoPro</div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-4 col-sm-6 col-xs-12 product-list-item">
+                <a href="#">
+                    <div class="product-cover-photo" style="background-image: url('https://s3.amazonaws.com/sproutup-mvp-cdn/assets/11117.jpg')">
+                        <div class="product-cover-info">
+                            <div class="product-category-list">
+                                <button type="button" class="btn btn-product-category">Speaker</button>
+                                <button type="button" class="btn btn-product-category">Design</button>
+                            </div>
+                            <div class="product-cover-title">Hidden Radio</div>
+                            <div class="product-cover-description">Smart dock for iPhone and GoPro</div>
+                        </div>
+                    </div>
+                </a>
+            </div>
         </div>
     </div>
+
 </div>
 
 @footer()
