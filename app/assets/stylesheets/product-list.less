@@ -73,10 +73,10 @@
 }
 
 .product-cover-info::before {
-  background: -webkit-linear-gradient(top, rgba(0,0,0,0), rgba(0,0,0,0.5));
-  background: -o-linear-gradient(top, rgba(0,0,0,0), rgba(0,0,0,0.5));
-  background: -moz-linear-gradient(top, rgba(0,0,0,0), rgba(0,0,0,0.5));
-  background: linear-gradient(top, rgba(0,0,0,0), rgba(0,0,0,0.5));
+  background: -webkit-linear-gradient(top, rgba(0,0,0,0.25), rgba(0,0,0,0.65));
+  background: -o-linear-gradient(top, rgba(0,0,0,0.25), rgba(0,0,0,0.65));
+  background: -moz-linear-gradient(top, rgba(0,0,0,0.25), rgba(0,0,0,0.65));
+  background: linear-gradient(top, rgba(0,0,0,0.25), rgba(0,0,0,0.65));
   position: absolute;
   top: 0;
   right: 0;
@@ -87,11 +87,12 @@
 
 a .product-cover-title {
   color: white;
-  left: 20px;
-  bottom: 80px;
-  width: 90%;
+  left: 0px;
+  top: 120px;
+  padding: 20px;
+  width: 100%;
   font-weight: 100;
-  font-size: 22pt;
+  font-size: 21pt;
   position: absolute;
   z-index: 3;
 }
@@ -100,6 +101,19 @@ a .product-cover-title p {
   padding: 0px;
   margin: 0px;
 }
+
+a .product-cover-description {
+  color: white;
+  width: 100%;
+  font-weight: 300;
+  font-size: 11pt;
+  left: 0px;
+  padding: 20px;
+  z-index: 3;
+  top: 170px;
+  position: absolute;
+}
+
 
 .featured-product-label {
   background-color: @sproutup-green;
@@ -114,22 +128,37 @@ a .product-cover-title p {
   text-align: center;
 }
 
-a .product-cover-description {
-  color: white;
-  width: 90%;
-  font-weight: 300;
-  font-size: 10.5pt;
-  left: 20px;
-  z-index: 3;
-  left: 20px;
-  top: 410px;
-  position: absolute;
+.trial-user-list {
+    left: 0px;
+    bottom: 10px;
+    padding: 20px;
+    width: 100%;
+    position: absolute;
+    z-index: 3;
+}
+
+.trial-user-list p {
+    padding-bottom: 5px;
+    font-weight: 300;
+    font-size: 11pt;
+    color: @main-text-white;
+}
+
+.trial-user-img {
+    width: 45px;
+    height: 45px;
+    -webkit-border-radius: 60px;
+    -moz-border-radius: 60px;
+    border-radius: 60px;
+    border: 1px solid @sproutup-grey;
+    margin-right: 4px;
 }
 
 .product-category-list {
-  left: 20px;
-  top: 20px;
-  width: 90%;
+  left: 0px;
+  top: 0px;
+  padding: 20px;
+  width: 100%;
   z-index: 3;
   position: absolute;
 }

@@ -91,7 +91,7 @@ public class User extends TimeStampModel implements Subject {
 
 	public Date dateofbirth;
 
-	
+
 	@Formats.DateTime(pattern = "yyyy-MM-dd HH:mm:ss")
 	public Date lastLogin;
 
@@ -104,7 +104,7 @@ public class User extends TimeStampModel implements Subject {
 	 * An external user e.g. twitter post, FB post someone who hasn't signed up on SproutUp yet
 	 */
 	public boolean external;
-	
+
 	/**
 	 * e.g. TWT, FB, IG, Trial signup
 	 */
@@ -123,7 +123,7 @@ public class User extends TimeStampModel implements Subject {
 	@ManyToMany
 	public List<UserPermission> permissions;
 
-	//user submitted media 
+	//user submitted media
 	@OneToMany(cascade = CascadeType.ALL)
 	//@OneToMany(mappedBy="user")
 	public List<Media> mediaList;
@@ -136,10 +136,10 @@ public class User extends TimeStampModel implements Subject {
 
     @OneToMany
     public List<File> files;
-    
+
     @Transient
     public boolean randomNumberflag= false;
-    
+
 
 	public static final Finder<Long, User> find = new Finder<Long, User>(
 			Long.class, User.class);
@@ -188,7 +188,7 @@ public class User extends TimeStampModel implements Subject {
 			return getAuthUserFind(identity).findUnique();
 		}
 	}
-	
+
 	public static Page<User> find(int page) {
 	    return
 	            find.where()
@@ -229,12 +229,12 @@ public class User extends TimeStampModel implements Subject {
 	 * @param authUser
 	 * @return
 	 */
-	
+
 	public static User create(final AuthUser authUser) {
-		
+
 		return create (authUser, UserRole.CONSUMER.name());
-	}	
-	
+	}
+
 	public static User create(final AuthUser authUser, String role) {
 		Logger.debug("user > create");
 		final User user = new User();
@@ -246,7 +246,7 @@ public class User extends TimeStampModel implements Subject {
 		user.lastLogin = new Date();
 		user.linkedAccounts = Collections.singletonList(LinkedAccount
 				.create(authUser));
-		
+
 		if (authUser instanceof EmailIdentity) {
 			final EmailIdentity identity = (EmailIdentity) authUser;
 			// Remember, even when getting them from FB & Co., emails should be
@@ -286,12 +286,12 @@ public class User extends TimeStampModel implements Subject {
 			final FacebookAuthUser facebook = (FacebookAuthUser) authUser;
 			user.urlFacebook = facebook.getProfileLink();
 		}
-		
+
 		// \W = Anything that isn't a word character (including punctuation etc)
 		//user.nickname = user.name.toLowerCase().replaceAll("\\W","");
 		user.nickname = user.generateUniqueUserNickName();
 
-		
+
 		user.save();
 		user.saveManyToManyAssociations("roles");
 		// user.saveManyToManyAssociations("permissions");
@@ -425,7 +425,7 @@ public class User extends TimeStampModel implements Subject {
 			//return "http://graph.facebook.com/" + facebookId + "/picture/?type=large";
 		}
         else{
-            return "assets/images/general-profile-icon.png";
+            return "assets/images/default-avatar.png";
         }
     }
 
@@ -433,7 +433,7 @@ public class User extends TimeStampModel implements Subject {
 		// set the avatar url
 		this.avatar = file;
 	}
-    
+
     public String getFirstName(){
     	if (firstName == null || firstName == "") {
             //fetch it from the fullname
@@ -442,7 +442,7 @@ public class User extends TimeStampModel implements Subject {
         }
     	return firstName;
     }
-    
+
     public String getLastName(){
     	if (lastName == null || lastName == "") {
             //fetch it from the fullname
@@ -471,26 +471,26 @@ public class User extends TimeStampModel implements Subject {
 		}
 		return null;
 	}
-    
+
     /*
-     *  The username may be claimed by a suspended or deactivated account. 
+     *  The username may be claimed by a suspended or deactivated account.
      *  Suspended and deactivated usernames are not immediately available for use, so we are not checking if user is active or not.
      */
     public boolean isNickNameUnique(String nickname) {
-    	
+
     	User usr = find.where().eq("nickname", nickname).findUnique();
     	if (usr==null || usr.nickname==null || usr.nickname==""){
     		return true;
     	}
     	return false;
     }
-    
+
     public String generateUniqueUserNickName() {
-        
+
     	ArrayList<String> list = generateListOfUserNickNames();
-    	
+
         //iterate through the list while we get the unique name
-    	if(!randomNumberflag){	
+    	if(!randomNumberflag){
 	        for (String temp: list){
 	        	if(isNickNameUnique(temp)){
 	            	nickname = temp;
@@ -502,7 +502,7 @@ public class User extends TimeStampModel implements Subject {
 		 * Unique name didn't work without numbers
 		 * generate nick name suffix with random numbers
 		 */
-        
+
 	    randomNumberflag= true;
     	Random generator = new Random();
         /**
@@ -516,39 +516,39 @@ public class User extends TimeStampModel implements Subject {
 	    	    }
 	        }
         return generateUniqueUserNickName();
-        
+
     }
-    
-    
+
+
     /**
      * Policy - Extracted and enhanced from Twitter
-     * 
-     * Username cannot be longer than 15 characters. Though Full name can be longer (20 characters); 
+     *
+     * Username cannot be longer than 15 characters. Though Full name can be longer (20 characters);
      * Usernames are kept shorter for the sake of ease. Minimum size is 3 characters
-     * A username can only contain alphanumeric characters (letters A-Z, numbers 0-9) with the exception of underscores (No symbols, dashes, or spaces).  
+     * A username can only contain alphanumeric characters (letters A-Z, numbers 0-9) with the exception of underscores (No symbols, dashes, or spaces).
      * @return
      */
-    
+
     public ArrayList<String> generateListOfUserNickNames() {
-    	
+
     	ArrayList<String> usernames = new ArrayList<String>();
-      		
+
         lastName = getLastName();
-        
+
         String lName = null;
         String fName = null;
-        
+
         if (lastName!=null){
         	lName = lastName.replaceAll("[^\\w\\s\\_]", "");
         }
-        
+
         fName = getFirstName().replaceAll("[^\\w\\s\\_]", "");
-        
+
         if (email != null && email.length() > 0) {
             usernames.add(email.substring(0, email.indexOf("@")).toLowerCase());
             //usernames.add(email.substring(0, email.indexOf("@")).toLowerCase() + numberGen);
         }
-        
+
         if (fName != null && fName.length() > 0 && lName != null && lName.length() > 0) {
         	usernames.add((fName + lName).toLowerCase());
         	usernames.add((lName + fName).toLowerCase());
@@ -566,7 +566,7 @@ public class User extends TimeStampModel implements Subject {
             //usernames.add((lName.charAt(0) + "." + fName.charAt(0)).toLowerCase()+Integer.toString(numberGen));
             //usernames.add((fName.charAt(0) + lName.charAt(0) + Integer.toString(numberGen)).toLowerCase());
             //usernames.add((fName.charAt(0) + "." + lName.charAt(0) + Integer.toString(numberGen)).toLowerCase());
-            
+
             if (lName!=null && lName.length() > 4) {
                 usernames.add((fName + lName.substring(0, 4)).toLowerCase());
                 usernames.add((fName + "." + lName.substring(0, 4)).toLowerCase());
@@ -579,18 +579,18 @@ public class User extends TimeStampModel implements Subject {
                 usernames.add((fName + lName.substring(0, 6)).toLowerCase());
                 usernames.add((fName + "." + lName.substring(0, 6)).toLowerCase());
             }
-  
+
         }
-        
+
         if (fName != null && fName.length() > 2 && (lName == null || lName.length() == 0)){
         	usernames.add((fName).toLowerCase());
         }
-        
+
         return usernames;
     }
 
-    
-    
+
+
     public static ArrayNode toJson(List<User> users){
         ArrayNode arrayNode = new ArrayNode(JsonNodeFactory.instance);
         for (User user : users){
@@ -598,6 +598,6 @@ public class User extends TimeStampModel implements Subject {
         }
         return arrayNode;
     }
-    
+
 
 }
