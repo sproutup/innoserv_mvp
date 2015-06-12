@@ -1,9 +1,8 @@
 <div class="collapse navbar-collapse" id="sproutup-collapse-navbar">
     <ul class="nav navbar-nav navbar-item navbar-left">
-        <li><a href="#" class="active-navbar-item">PRODUCTS</a></li>
+        <li><a href="#">PRODUCTS</a></li>
         <li><a href="#">TRIALS</a></li>
         <li><a href="#">PERKS</a></li>
-        <li><a href="#">PROFILE</a></li>
     </ul>
 
     <ul class="nav navbar-nav navbar-item navbar-right">
@@ -15,6 +14,7 @@
         <li class="dropdown">
             <a href="#" analytics-on="click" analytics-event="User Menu" class="dropdown-toggle" data-toggle="dropdown">{{user.name}}<i class="fa fa-angle-down login-angle-down"></i></a>
             <ul class="dropdown-menu" role="menu">
+                <li><a href="#">My Profile</a></li>
                 <li><a analytics-on="click" analytics-event="Enter User Settings" ui-sref="settings.profile">Settings</a></li>
                 <li><a href="" analytics-on="click" analytics-event="Log Out" ng-click="logout()">Log Out</a></li>
             </ul>
