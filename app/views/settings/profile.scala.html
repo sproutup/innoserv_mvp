@@ -26,11 +26,32 @@
             </div>
         </div>
 
-        <!-- Address -->
-        <div class="profile-edit--header">Your Address</div>
+        <!-- Gender -->
+        <div class="profile-edit--header">Gender</div>
         <div class="row profile-input-row">
             <div class="col-sm-12 profile-input-cell">
-                <input type="text" g-places-autocomplete="" class="form-control form-validate form-input medium" placeholder="Enter your address" ng-model="user.address">
+                <div class="radio">
+                    <label><input type="radio" value="female" checked>Female</label>
+                </div>
+                <div class="radio">
+                    <label><input type="radio" value="male">Male</label>
+                </div>
+            </div>
+        </div>
+
+        <!-- Interests -->
+        <div class="profile-edit--header">Product Categories</div>
+        <div class="row profile-input-row">
+            <div class="col-sm-12 profile-input-cell">
+                <input type="text" class="form-control form-input medium" placeholder="Tell us what product categories you are mostly interested in, e.g. smart home, pet toy...">
+            </div>
+        </div>
+
+        <!-- Address -->
+        <div class="profile-edit--header">Shipping Address</div>
+        <div class="row profile-input-row">
+            <div class="col-sm-12 profile-input-cell">
+                <input type="text" g-places-autocomplete="" class="form-control form-input medium" placeholder="Enter your address" ng-model="user.address">
             </div>
         </div>
 
@@ -38,7 +59,7 @@
         <div class="profile-edit--header">Mobile Number</div>
         <div class="row profile-input-row">
             <div class="col-sm-12 profile-input-cell">
-                <input type="text" class="form-control form-validate form-input medium" placeholder="Enter your mobile number. Please include the country code for non-US number." ng-model="user.phone">
+                <input type="text" class="form-control form-input medium" placeholder="Enter your mobile number. Please include the country code for non-US number." ng-model="user.phone">
             </div>
         </div>
 
