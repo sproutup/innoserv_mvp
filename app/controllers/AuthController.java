@@ -96,7 +96,7 @@ public class AuthController extends Controller {
             return ok(localUser.toJson());
         }
         else {
-            return notFound();
+            return noContent();
         }
     }
 
