@@ -603,7 +603,7 @@ function($http, $log, $q, $upload, $filter){
 
     return FileService;
 }]);
-
+/*
 productServices.factory('AuthService', ['$http', '$q', '$cookieStore','$log', '$rootScope',
     function($http, $q, $cookieStore, $log, $rootScope){
     var AuthService = {};
@@ -612,15 +612,16 @@ productServices.factory('AuthService', ['$http', '$q', '$cookieStore','$log', '$
         , userRoles = routingConfig.userRoles
         , currentUser = $cookieStore.get('user') || { username: '', role: userRoles.public };
 
-    var _isLoggedIn = false;
+    AuthService.user = {};
+    AuthService.isLoggedIn = false;
 
     $log.debug("AuthService > init");
-    $log.debug("AuthService > isLoggedIn=" + _isLoggedIn);
 
     $cookieStore.remove('user');
 
     function changeUser(user) {
         angular.extend(currentUser, user);
+        AuthService.user = user;
     }
 
     AuthService.currentUser = function() {
@@ -640,7 +641,7 @@ productServices.factory('AuthService', ['$http', '$q', '$cookieStore','$log', '$
         return accessLevel.bitMask & role.bitMask;
     };
 
-    AuthService.user = function(user){
+    AuthService.getUser = function(){
         var deferred = $q.defer();
 
         $http({
@@ -648,19 +649,27 @@ productServices.factory('AuthService', ['$http', '$q', '$cookieStore','$log', '$
             url: '/api/auth/user',
             headers: {'Content-Type': 'application/json'}
         }).success(function(data, status, headers, config){
-            // this callback will be called asynchronously
-            // when the response is available
-            changeUser(data);
-            _isLoggedIn = true;
-            $rootScope.$broadcast('auth:status', {isLoggedIn: status.isLoggedIn});
-            $log.debug("auth user service returned success: " + currentUser.name);
-            $log.debug("AuthService > isLoggedIn=" + _isLoggedIn);
-            deferred.resolve(currentUser);
+            switch(status){
+                case 200:
+                    angular.extend(AuthService.user,data);
+                    AuthService.isLoggedIn = true;
+                    console.log("status: ", status);
+                    changeUser(data);
+                    $log.debug("auth user service returned success: " + currentUser.name);
+                    deferred.resolve(AuthService.user);
+                    break;
+                case 204: // no content
+                default:
+                    AuthService.isLoggedIn = false;
+                    $log.debug("user not logged in");
+                    deferred.reject("user not logged in");
+                    break;
+            }
         }).error(function(data, status, headers, config){
             // called asynchronously if an error occurs
             // or server returns response with an error status.
             $log.debug("auth user service returned error");
-            deferred.reject("failed to login");
+            deferred.reject("auth user - failed to get user");
         });
 
         $log.debug("auth user service returned promise");
@@ -703,8 +712,8 @@ productServices.factory('AuthService', ['$http', '$q', '$cookieStore','$log', '$
         }).success(function(data, status, headers, config){
             // this callback will be called asynchronously
             // when the response is available
-            _isLoggedIn = true;
-            $rootScope.$broadcast('auth:status', {isLoggedIn: status.isLoggedIn});
+            angular.extend(AuthService.user,data);
+            AuthService.isLoggedIn = true;
             $log.debug("login service returned success");
             deferred.resolve("success");
         }).error(function(data, status, headers, config){
@@ -729,8 +738,8 @@ productServices.factory('AuthService', ['$http', '$q', '$cookieStore','$log', '$
         }).success(function(data, status, headers, config){
             // this callback will be called asynchronously
             // when the response is available
-            _isLoggedIn = true;
-            $rootScope.$broadcast('auth:status', {isLoggedIn: status.isLoggedIn});
+            angular.extend(AuthService.user,data);
+            AuthService.isLoggedIn = true;
             deferred.resolve("success");
         }).error(function(data, status, headers, config){
             // called asynchronously if an error occurs
@@ -752,9 +761,8 @@ productServices.factory('AuthService', ['$http', '$q', '$cookieStore','$log', '$
         }).success(function(data, status, headers, config){
             // this callback will be called asynchronously
             // when the response is available
-            currentUser = { username: '', role: userRoles.public };
-            _isLoggedIn = false;
-            $rootScope.$broadcast('auth:status', {isLoggedIn: status.isLoggedIn});
+            AuthService.user = {};
+            AuthService.isLoggedIn = false;
             deferred.resolve("success");
         }).error(function(data, status, headers, config){
             // called asynchronously if an error occurs
@@ -766,10 +774,6 @@ productServices.factory('AuthService', ['$http', '$q', '$cookieStore','$log', '$
         return deferred.promise;
     };
 
-    AuthService.isLoggedIn = function(){
-        return _isLoggedIn;
-    };
-
     AuthService.accessLevels = accessLevels;
 
     AuthService.userRoles = userRoles;
@@ -777,7 +781,7 @@ productServices.factory('AuthService', ['$http', '$q', '$cookieStore','$log', '$
     return AuthService;
 
 }]);
-
+*/
 productServices.factory('TagsService', ['$http', '$q', '$log',
     function($http, $q, $log){
     var urlBase = '/api/tags';

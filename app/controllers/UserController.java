@@ -40,6 +40,12 @@ public class UserController extends Controller {
     }
 
     private static Result update(User user){
+        User sessionuser = Application.getLocalUser(ctx().session());
+        // User can only update own profile
+        if(sessionuser.id != user.id){
+            return forbidden();
+        }
+
         if(user != null) {
             JsonNode root = request().body().asJson();
 

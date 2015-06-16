@@ -886,7 +886,7 @@ angular.module('sproutupApp').directive('upAvatarUpload', ['FileService', 'AuthS
                 scope.$watch('user', function(newValue, oldValue) {
                 //attrs.$observe('user', function (user) {
                     if (scope.user) {
-                        if(scope.user.id == authService.currentUser().id){
+                        if(scope.user.id == authService.m.user.id){
                             scope.myself = true;
                         }
                     }
@@ -1390,7 +1390,8 @@ angular.module('sproutupApp').directive('commentlink', function () {
     };
 });
 
-angular.module('sproutupApp').directive('subjectPresent', function ($parse) {
+angular.module('sproutupApp').directive('subjectPresent', ['$parse', 'AuthService',
+    function ($parse, authService) {
     return {
         restrict: 'A',
         link: function (scope, element, attrs) {
@@ -1398,7 +1399,7 @@ angular.module('sproutupApp').directive('subjectPresent', function ($parse) {
             var onLogin = $parse(attrs.login);
 
             element.on('click', function () {
-                if(scope.user.isLoggedIn){
+                if(authService.isLoggedIn){
                     console.log(attrs.subjectPresent);
 
                     // The event originated outside of angular,
@@ -1416,7 +1417,7 @@ angular.module('sproutupApp').directive('subjectPresent', function ($parse) {
             });
         }
     };
-});
+}]);
 
 angular.module('sproutupApp').directive('upToptags', ['TagsService', '$timeout',
     function (tagService, $timeout) {
@@ -1547,59 +1548,6 @@ angular.module('sproutupApp').directive('upProductCreate', [ 'ProductService', '
                             }
                         )
                     });
-                }
-
-                scope.cancel = function(){
-                    console.log("product cancel");
-                    $state.go('home');
-                }
-
-                // add the directive scope to the transcluded content
-                transclude(scope, function(clone, scope) {
-                    element.append(clone);
-                    console.log("product add: clone");
-                });
-            }
-        };
-    }]);
-
-angular.module('sproutupApp').directive('upProductUpdate', [ 'ProductService', 'CompanyService', '$state', "$rootScope", 'AuthService',
-    function (productService, companyService, $state, $rootScope, authService) {
-        return {
-            restrict: 'A',
-            transclude:true,
-            scope: {
-                product: "="
-            },
-            link: function (scope, element, attrs, ctrl, transclude) {
-                attrs.$observe('product', function (product) {
-                    console.log("product update: product observe");
-                });
-
-                scope.update = function(){
-                    console.log("product update", scope.product);
-
-                    scope.product.$save({},
-                        function(data) {
-                            // success
-                            console.log("product update success");
-                            authService.user().then(
-                                function(result){
-                                    $rootScope.$broadcast('alert:success', {
-                                        message: 'Product updated'
-                                    });
-                                    $state.go('dashboard.products.info', {slug: data.slug} );
-                                }
-                            )
-                        },
-                        function(error) {
-                            // error handler
-                            console.log("product update error");
-                            $rootScope.$broadcast('alert:error', {
-                                message: 'Product update failed'
-                            });
-                        }
-                    );
                 }
 
                 scope.cancel = function(){
@@ -1808,15 +1756,14 @@ angular.module('sproutupApp').directive('navbar', [ 'AuthService', '$rootScope',
     function (authService, $rootScope) {
     return {
         templateUrl: '/assets/templates/navbar.html',
-        scope: true,
+        //template: '<div>{{auth.user.name}} {{auth.isLoggedIn}}</div>',
+        controller: 'AuthCtrl',
+        controllerAs: 'auth',
+        bindToController: true,
+//        scope: {
+            //isLoggedIn: '='
+//        },
         link: function (scope, element, attrs) {
-            scope.user = authService.currentUser();
-            scope.isLoggedIn = authService.isLoggedIn();
-            scope.$on('auth:status', function (event, args) {
-                console.log('event received auth:state ');
-                scope.user = authService.currentUser();
-                scope.isLoggedIn = authService.isLoggedIn();
-            });
         }
     };
 }]);
