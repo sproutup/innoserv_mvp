@@ -5,6 +5,7 @@
 @main(Messages(""), moreHead) {
     <div class="row marketing-container">
         <div class="signup-login-area">
+
             <!-- facebook login -->
             <a href="/authenticate/facebook">
                 <button analytics-on="click" analytics-event="Sign up with Facebook" type="submit" ng-click="provider('facebook')" class="btn btn-lg btn-facebook"><i class="fa fa-facebook-square"></i>Sign up with Facebook</button>
@@ -49,10 +50,6 @@
                     <button analytics-on="click" analytics-event="Sign up with email" ng-disabled="signupForm.$invalid" class="btn btn-lg signup-login-btn" type="submit" ng-click="ok()">Sign up</button>
                 </div>
             </form>
-
-            <!-- footer -->
-            <hr class="signup-login-form-separator">
-            <div ng-click="login()" class="signup-login-form-footer">Already in SproutUp community? <a href="#">Log in</a></div>
         </div>
     </div>
 
