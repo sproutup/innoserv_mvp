@@ -10,21 +10,22 @@
         </div>
     </div>
 
-    <div class="row about-product-row" up-same-height>
-        <div class="col-sm-6 about-product-tile" up-product-about-description product="product">
+    <div class="row about-product-row">
+        <div class="col-sm-12 about-product-tile" up-product-about-description product="product">
         </div>
-        <div class="col-sm-6 about-product-tile" up-product-about-features product="product">
+    </div>
+
+    <div class="row about-product-row">
+        <div class="col-sm-12 about-product-tile" up-product-about-features product="product">
         </div>
     </div>
 
     <!-- row 3: mission statements -->
-    <div ng-show="product.missionStatement" class="row about-product-row" up-same-height>
-        <div class="col-md-8 col-sm-7 about-product-tile" up-product-about-mission product="product">
-        </div>
-        <div class="col-md-4 col-sm-5 about-product-tile" up-product-about-team product="product" just-creator="true">
+    <div ng-show="product.missionStatement" class="row about-product-row">
+        <div class="col-md-12 about-product-tile" up-product-about-mission product="product">
         </div>
     </div>
-
+    
     <!-- row 4: product story -->
     <div ng-show="!product.productStory" class="row about-product-row">
         <div class="col-sm-12 about-product-tile" up-product-about-story product="product" equal-height="false">
