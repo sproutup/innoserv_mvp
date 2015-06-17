@@ -34,11 +34,11 @@
 }
 
 .product-info-wrapper {
-	padding-top: 120px;
+	padding-top: 100px;
 	margin-left: 45px;
 	margin-right: 45px;
-  overflow: hidden;
-	text-align: center;
+	overflow: hidden;
+	text-align: left;
 }
 
 .product-trial-banner .product-info-wrapper {
@@ -49,30 +49,32 @@
 }
 
 .product-info {
-  overflow: hidden;
-  margin: 0;
-  padding: 0;
+	overflow: hidden;
+	margin: 0;
+	padding: 0;
 }
 
 .product-menu {
-  background: -webkit-linear-gradient(bottom, rgba(0,0,0,0.6), rgba(0,0,0,0.85));
-  background: -o-linear-gradient(bottom, rgba(0,0,0,0.6), rgba(0,0,0,0.85));
-  background: -moz-linear-gradient(bottom, rgba(0,0,0,0.6), rgba(0,0,0,0.85));
-  background: linear-gradient(to bottom, rgba(0,0,0,0.6), rgba(0,0,0,0.85));
-  height: 64px;
-  width: 100%;
-  position: absolute;
-  bottom: 0;
-  padding: 0;
-  border-top: solid 1px #4a4a4a;
-  border-bottom: solid 1px #4a4a4a;
+	background: -webkit-linear-gradient(bottom, rgba(0,0,0,0.6), rgba(0,0,0,0.85));
+	background: -o-linear-gradient(bottom, rgba(0,0,0,0.6), rgba(0,0,0,0.85));
+	background: -moz-linear-gradient(bottom, rgba(0,0,0,0.6), rgba(0,0,0,0.85));
+	background: linear-gradient(to bottom, rgba(0,0,0,0.6), rgba(0,0,0,0.85));
+	height: 64px;
+	width: 100%;
+	position: absolute;
+	bottom: 0;
+	padding: 0;
+	border-top: solid 1px #4a4a4a;
+	border-bottom: solid 1px #4a4a4a;
 }
 
 .product-menu--content {
-	float: left;
-	padding: 20px 45px 0px;
+	text-align: center;
+	max-width: 240px;
+	padding: 20px 0px 0px;
+	margin: 0px 15px;
 	font-size: 12pt;
-  font-weight: 400;
+	font-weight: 400;
 }
 
 .product-menu--action {
@@ -83,75 +85,75 @@
 }
 
 .product-menu--item {
-  color: rgba(255, 255, 255, 0.75);
-  padding: 0px 10px 15px;
-  margin-right: 20px;
+	color: rgba(255, 255, 255, 0.75);
+	padding: 0px 10px 16px;
+	margin: 0px;
 	text-decoration: none !important;
 }
 
 .product-menu--item.active {
-  color: @sproutup-blue-bright;
-  border-bottom: solid 7px @sproutup-blue-bright;
+	color: @sproutup-blue-bright;
+	border-bottom: solid 7px @sproutup-blue-bright;
 }
 
 .product-menu--item:hover {
 	color: @sproutup-blue-bright;
 	text-decoration: none !important;
-  border-bottom: solid 7px @sproutup-blue-bright;
+	border-bottom: solid 7px @sproutup-blue-bright;
 }
 
 .btn-following {
-  height: 36px;
-  margin-left: 5px;
-  margin-right: 5px;
-  font-weight: 400;
-  font-size: 10pt;
-  color: white;
-  border: solid 1px @sproutup-blue;
-  background-color: @sproutup-blue;
-  border-radius: 2px;
-  padding-top: 8px;
-  padding-left: 20px;
-  padding-right: 20px;
+	height: 36px;
+	margin-left: 5px;
+	margin-right: 5px;
+	font-weight: 400;
+	font-size: 10pt;
+	color: white;
+	border: solid 1px @sproutup-blue;
+	background-color: @sproutup-blue;
+	border-radius: 2px;
+	padding-top: 8px;
+	padding-left: 20px;
+	padding-right: 20px;
 }
 
 .btn-following i {
-  padding-right: 8px;
+	padding-right: 8px;
 }
 
 .btn-following:hover {
-  color: white;
+	color: white;
 }
 
 .btn-following:focus {
-  color: white;
-  background-color: @sproutup-blue;
-  border: solid 1px @sproutup-blue;
+	color: white;
+	background-color: @sproutup-blue;
+	border: solid 1px @sproutup-blue;
 }
 
 .btn-following.disabled {
-  opacity: 0.8;
+	opacity: 0.8;
 }
 
 .product-title {
 	color: #fff;
 	font-family: "lato", Helvetica,Arial,sans-serif;
 	font-weight: 100;
-	font-size: 42pt;
-	margin-bottom: 5px;
+	font-size: 40pt;
+	margin-bottom: 10px;
 }
 
 .product-description {
 	color: #fff;
 	font-family: "lato", Helvetica,Arial,sans-serif;
 	font-weight: 300;
-	font-size: 15pt;
-	margin-bottom: 20px;
+	font-size: 12pt;
+	margin-bottom: 10px;
 }
 
 @media(max-width:767px) {
 	.product-title {
-		font-size: 30pt;
+		font-size: 20pt;
 	}
 
 	.product-description {
@@ -160,76 +162,76 @@
 }
 
 .product-social-buttons {
-  margin-bottom: 50px;
-  padding-top: 20px;
+	margin-bottom: 50px;
+	padding-top: 20px;
 }
 
 ul.product-social-buttons li a {
-  display: block;
-  width: 36px;
-  height: 36px;
-  border-radius: 100%;
-  font-size: 12pt;
-  line-height: 34px;
-  outline: 0;
-  color: #fff;
-  background-color: none;
-  -webkit-transition: all .3s;
-  -moz-transition: all .3s;
-  transition: all .3s;
-  border: solid 1px #fff;
-  text-align: center;
+	display: block;
+	width: 36px;
+	height: 36px;
+	border-radius: 100%;
+	font-size: 12pt;
+	line-height: 34px;
+	outline: 0;
+	color: #fff;
+	background-color: none;
+	-webkit-transition: all .3s;
+	-moz-transition: all .3s;
+	transition: all .3s;
+	border: solid 1px #fff;
+	text-align: center;
 }
 
 ul.product-social-buttons li a:hover {
-  background-color: none;
-  color: @sproutup-grey;
-  border: solid 1px @sproutup-grey;
+	background-color: none;
+	color: @sproutup-grey;
+	border: solid 1px @sproutup-grey;
 }
 
 .fb-share-button {
-  float: left;
-  padding-right: 8px;
+	float: left;
+	padding-right: 8px;
 }
 
 .tw-share-button {
-  float: left;
+	float: left;
 }
 
 .btn-facebook-share {
-  border: 1px solid @facebook-blue-hover;
-  background-color: @facebook-blue;
-  color: white;
-  font-size: 8pt;
-  font-weight: 700;
-  height: 24px;
-  width: 60px;
-  padding-top: 2px;
+	border: 1px solid @facebook-blue-hover;
+	background-color: @facebook-blue;
+	color: white;
+	font-size: 8pt;
+	font-weight: 700;
+	height: 24px;
+	width: 60px;
+	padding-top: 2px;
 }
 
 .btn-facebook-share:hover {
-  background-color: @facebook-blue-hover;
-  color: white;
+	background-color: @facebook-blue-hover;
+	color: white;
 }
 
 .btn-facebook-share i {
-  padding-right: 7px;
+	padding-right: 7px;
 }
 
 .btn-twitter-share {
-  border: 1px solid @twitter-blue-hover;
-  background-color: @twitter-blue;
-  color: white;
-  font-size: 8pt;
-  font-weight: 700;
-  height: 24px;
-  width: 60px;
-  padding-top: 2px;
+	border: 1px solid @twitter-blue-hover;
+	background-color: @twitter-blue;
+	color: white;
+	font-size: 8pt;
+	font-weight: 700;
+	height: 24px;
+	width: 60px;
+	padding-top: 2px;
 }
 
 .btn-twitter-share:hover {
-  background-color: @twitter-blue-hover;
-  color: white;
+	background-color: @twitter-blue-hover;
+	color: white;
 }
 
 .btn-twitter-share:focus {
@@ -238,5 +240,5 @@ ul.product-social-buttons li a:hover {
 }
 
 .btn-twitter-share i {
-  padding-right: 7px;
+	padding-right: 7px;
 }
