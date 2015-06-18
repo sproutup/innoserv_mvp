@@ -494,11 +494,13 @@ angular.module('sproutupApp').directive ('upFacebookPost', ['Facebook', 'Faceboo
                         facebookService.get(scope.product).then(
                             function(data){
                                 $log.debug("facebook > received post data");
-                                data.data.forEach(
-                                    function(post){
-                                        post.post_id = post.id.split("_")[1];
-                                    }
-                                );
+                                if (typeof data.data != 'undefined'){
+                                    data.data.forEach(
+                                        function(post){
+                                            post.post_id = post.id.split("_")[1];
+                                        }
+                                    );
+                                }
                                 scope.posts = data.data;
                                 facebook.parseXFBML();
                             },

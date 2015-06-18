@@ -334,7 +334,7 @@ sproutupApp.config(['$routeProvider', '$stateProvider', '$locationProvider', '$u
                     title: ''
                 }
             })
-            .state('product', {
+            .state('user.product', {
                 abstract: true,
                 url: '/product',
                 template: '<div ui-view></div>',
@@ -345,7 +345,7 @@ sproutupApp.config(['$routeProvider', '$stateProvider', '$locationProvider', '$u
                     title: ''
                 }
             })
-            .state('product.list' ,{
+            .state('user.product.list' ,{
                 url: '',
                 templateUrl: 'views/product-list',
                 onEnter: function(){
@@ -355,7 +355,7 @@ sproutupApp.config(['$routeProvider', '$stateProvider', '$locationProvider', '$u
                     title: ''
                 }
             })
-            .state('product.add' ,{
+            .state('user.product.add' ,{
                 url: '/add',
                 templateUrl: 'views/product-add',
                 onEnter: function(){
@@ -365,7 +365,7 @@ sproutupApp.config(['$routeProvider', '$stateProvider', '$locationProvider', '$u
                     title: 'Add product'
                 }
             })
-            .state('product.detail', {
+            .state('user.product.detail', {
                 url: '/:slug',
                 abstract: true,
                 templateUrl: 'views/product-details',
@@ -377,7 +377,7 @@ sproutupApp.config(['$routeProvider', '$stateProvider', '$locationProvider', '$u
                     title: ''
                 }
             })
-            .state('product.detail.about', {
+            .state('user.product.detail.about', {
                 url: '',
                 templateUrl: 'views/product-about',
                 onEnter: function(){
@@ -387,7 +387,7 @@ sproutupApp.config(['$routeProvider', '$stateProvider', '$locationProvider', '$u
                     title: 'Product - About'
                 }
             })
-            .state('product.detail.bar', {
+            .state('user.product.detail.bar', {
                 url: '/bar',
                 templateUrl: 'views/product-bar',
                 controller: 'ForumCtrl',
@@ -398,7 +398,7 @@ sproutupApp.config(['$routeProvider', '$stateProvider', '$locationProvider', '$u
                     title: 'Product - Geekout'
                 }
             })
-            .state('product.detail.bar.question', {
+            .state('user.product.detail.bar.question', {
                 url: '/question',
                 controller: function($scope){
                     $scope.changeCategory(1);
@@ -410,7 +410,7 @@ sproutupApp.config(['$routeProvider', '$stateProvider', '$locationProvider', '$u
                     title: 'Product - Geekout'
                 }
             })
-            .state('product.detail.bar.compliment', {
+            .state('user.product.detail.bar.compliment', {
                 url: '/compliment',
                 controller: function($scope){
                     $scope.changeCategory(2);
@@ -422,7 +422,7 @@ sproutupApp.config(['$routeProvider', '$stateProvider', '$locationProvider', '$u
                     title: 'Product - Geekout'
                 }
             })
-            .state('product.detail.gallery', {
+            .state('user.product.detail.gallery', {
                 url: '/gallery',
                 templateUrl: 'views/product-gallery',
                 onEnter: function(){
