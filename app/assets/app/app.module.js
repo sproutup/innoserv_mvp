@@ -123,21 +123,21 @@ sproutupApp.config(['$routeProvider', '$stateProvider', '$locationProvider', '$u
                     title: 'Signup - User'
                 }
             })
-            .state('about' ,{
+            .state('user.about' ,{
                 url: '/about',
                 templateUrl: 'views/about',
                 data: {
                     title: 'About Us - SproutUp'
                 }
             })
-            .state('terms' ,{
+            .state('user.terms' ,{
                 url: '/terms',
                 templateUrl: 'views/terms',
                 data: {
                     title: 'Terms of Service - SproutUp'
                 }
             })
-            .state('privacy' ,{
+            .state('user.privacy' ,{
                 url: '/privacy',
                 templateUrl: 'views/privacy',
                 data: {
@@ -172,7 +172,7 @@ sproutupApp.config(['$routeProvider', '$stateProvider', '$locationProvider', '$u
                     title: 'Creator - SproutUp'
                 }
             })
-            .state('settings' ,{
+            .state('user.settings' ,{
                 url: '/settings',
                 abstract: true,
                 templateUrl: 'views/settings',
@@ -180,7 +180,7 @@ sproutupApp.config(['$routeProvider', '$stateProvider', '$locationProvider', '$u
                     title: 'Settings'
                 }
             })
-            .state('settings.profile' ,{
+            .state('user.settings.profile' ,{
                 url: '/profile',
                 templateUrl: 'views/settings/profile',
                 controller: 'settingsProfileCtrl',
@@ -188,7 +188,7 @@ sproutupApp.config(['$routeProvider', '$stateProvider', '$locationProvider', '$u
                     title: 'Profile'
                 }
             })
-            .state('settings.social' ,{
+            .state('user.settings.social' ,{
                 url: '/social',
                 templateUrl: 'views/settings/social',
                 controller: 'settingsSocialCtrl',
@@ -196,7 +196,7 @@ sproutupApp.config(['$routeProvider', '$stateProvider', '$locationProvider', '$u
                     title: 'Social Profile'
                 }
             })
-            .state('settings.trials' ,{
+            .state('user.settings.trials' ,{
                 url: '/trials',
                 templateUrl: 'views/settings/trials',
                 data: {
