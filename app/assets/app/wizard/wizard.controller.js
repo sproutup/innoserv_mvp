@@ -36,33 +36,34 @@
 
         function wizard(){
             console.log("wizard: ", vm.user);
+            $state.go("user.wizard.email");
 
-            switch(vm.user.providerKey){
-                case "twitter":
-                    $log.debug("signup wizard -> twitter");
-                    if(vm.user.email === null || vm.user.email.length < 1){
-                        $log.debug("signup wizard -> ask for email");
-                        $state.go("user.wizard.email");
-                        return;
-                    }
-                    break;
-                case "facebook":
-                    if(vm.user.urlTwitter === null || vm.user.urlTwitter.length < 1){
-                        $log.debug("signup wizard -> ask for twitter link");
-                        $state.go("user.wizard.twitter");
-                        return;
-                    }
-                    break;
-                case "password":
-                    $log.debug("signup wizard -> password");
-                    if(vm.user.urlTwitter === null || vm.user.urlTwitter.length < 1){
-                        $log.debug("signup wizard -> ask for twitter link");
-                        $state.go("user.wizard.twitter");
-                        return;
-                    }
-                    break;
-            }
-            $state.go("user.search");
+//            switch(vm.user.providerKey){
+//                case "twitter":
+//                    $log.debug("signup wizard -> twitter");
+//                    if(vm.user.email === null || vm.user.email.length < 1){
+//                        $log.debug("signup wizard -> ask for email");
+//                        $state.go("user.wizard.email");
+//                        return;
+//                    }
+//                    break;
+//                case "facebook":
+//                    if(vm.user.urlTwitter === null || vm.user.urlTwitter.length < 1){
+//                        $log.debug("signup wizard -> ask for twitter link");
+//                        $state.go("user.wizard.twitter");
+//                        return;
+//                    }
+//                    break;
+//                case "password":
+//                    $log.debug("signup wizard -> password");
+//                    if(vm.user.urlTwitter === null || vm.user.urlTwitter.length < 1){
+//                        $log.debug("signup wizard -> ask for twitter link");
+//                        $state.go("user.wizard.twitter");
+//                        return;
+//                    }
+//                    break;
+//            }
+//            $state.go("user.search");
         }
     }
 })();

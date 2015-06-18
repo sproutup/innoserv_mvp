@@ -2,11 +2,11 @@
     <div class="signup-login-area">
         <!-- facebook login -->
         <a href="/authenticate/facebook">
-            <button analytics-on="click" analytics-event="Log in with Facebook" type="submit" ng-click="provider('facebook')" class="btn btn-lg btn-facebook"><i class="fa fa-facebook-square"></i>Log in with Facebook</button>
+            <button analytics-on="click" analytics-event="Log in with Facebook" type="submit" ng-click="vm.social('facebook')" class="btn btn-lg btn-facebook"><i class="fa fa-facebook-square"></i>Log in with Facebook</button>
         </a>
         <!-- twitter login -->
         <a href="/authenticate/twitter">
-            <button analytics-on="click" analytics-event="Log in with Twitter" type="submit" ng-click="provider('twitter')" class="btn btn-lg btn-twitter"><i class="fa fa-twitter-square"></i>Log in with Twitter</button>
+            <button analytics-on="click" analytics-event="Log in with Twitter" type="submit" ng-click="vm.social('twitter')" class="btn btn-lg btn-twitter"><i class="fa fa-twitter-square"></i>Log in with Twitter</button>
         </a>
         <!-- separator -->
         <div class="signup-or-separator">

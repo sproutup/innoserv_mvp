@@ -13,11 +13,22 @@
         vm.user = authService.m.user;
         vm.save = save;
 
-        $scope.save = function() {
+        activate();
+
+        function activate() {
+            if(vm.user.email === null || vm.user.email.length < 1){
+                $log.debug("email missing");
+            }
+            else{
+                $state.go("user.wizard.twitter");
+            }
+        }
+
+        function save() {
             $log.debug("signup wizard -> save email");
             authService.save().then(function(data){
-                $state.go("user.search");
+                $state.go("user.wizard.twitter");
             });
-        };
+        }
     }
 })();
