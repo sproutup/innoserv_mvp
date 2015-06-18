@@ -55,16 +55,16 @@ public class Products extends Controller {
     // views used by play
     //
 
-    public static Result details1(Long id) {
-        //Product product = new Product().findbyID(id);
-        Product product1 = new Product().getDetailwithMedia(id);
-        return ok(product_item.render(product1, mediaUploadForm));
-    }
-
-    public static Result detailsBySlug(String name) {
-        Product product = new Product().findbySlug(name);
-        return ok(product_item.render(product, mediaUploadForm));
-    }
+//    public static Result details1(Long id) {
+//        //Product product = new Product().findbyID(id);
+//        Product product1 = new Product().getDetailwithMedia(id);
+//        return ok(product_item.render(product1, mediaUploadForm));
+//    }
+//
+//    public static Result detailsBySlug(String name) {
+//        Product product = new Product().findbySlug(name);
+//        return ok(product_item.render(product, mediaUploadForm));
+//    }
 
     // For server-side defined routes that hand off rending to
     // angular.js

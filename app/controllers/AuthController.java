@@ -15,7 +15,6 @@ import play.mvc.Controller;
 import play.mvc.Result;
 import providers.MyLoginUsernamePasswordAuthUser;
 import providers.MyUsernamePasswordAuthProvider;
-import views.html.login;
 
 /**
  * Created by peter on 2/13/15.

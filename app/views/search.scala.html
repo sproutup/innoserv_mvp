@@ -1,10 +1,30 @@
-<div class="row product-list-container" up-product-list>
-    <div class="col-sm-12 product-list--search-area">
-        <input ng-model="query" class="form-control product-list--search-input" placeholder="Search products">
-        <span class="fa fa-search"></span>
+
+<div class="product-list-wrapper">
+
+    <div class="row sproutup-tabs">
+        <div class="col-lg-12">
+            <div class="sproutup-tabs--content">
+                <a class="btn btn-lg btn-sproutup-tab active" href="#">Available for Trial</a>
+                <a class="btn btn-lg btn-sproutup-tab" href="#">Coming Soon</a>
+            </div>
+        </div>
     </div>
 
-    <div ng-repeat="product in products | filter: {$:query} | orderBy:'random'">
-        <up-product-item product="product"></up-product-item>
+    <div class="product-list">
+        <div class="product-list-header">
+            <h1>We try our best to surprise you with the most innovative products. Request a trial and get hands-on experience.</h1>
+        </div>
+
+        <div class="row product-list-container" up-product-list>
+            <div class="col-sm-12 product-list--search-area">
+                <input ng-model="query" class="form-control product-list--search-input" placeholder="Search products">
+                <span class="fa fa-search"></span>
+            </div>
+
+            <div ng-repeat="product in products | filter: {$:query} | orderBy:'random'">
+                <up-product-item product="product"></up-product-item>
+            </div>
+        </div>
     </div>
 </div>
+

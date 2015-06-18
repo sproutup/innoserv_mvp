@@ -6,14 +6,8 @@ GET           /assets/javascript/routes.js                                   con
 
 GET           /feedback/:id                                                  controllers.FeedbackManagement.fetchPopupQSurvey(id: Long)
 
-GET           /login                                                         controllers.Application.login
-POST          /login                                                         controllers.Application.doLogin
-
 GET           /logout                                                        com.feth.play.module.pa.controllers.Authenticate.logout
 GET           /authenticate/:provider                                        com.feth.play.module.pa.controllers.Authenticate.authenticate(provider: String)
-
-GET           /signup                                                        controllers.Application.signup
-POST          /signup                                                        controllers.Application.doSignup
 
 GET           /accounts/unverified                                           controllers.Signup.unverified
 GET           /authenticate/:provider/denied                                 controllers.Signup.oAuthDenied(provider: String)
@@ -22,9 +16,6 @@ GET           /accounts/verify/:token                                        con
 GET           /accounts/exists                                               controllers.Signup.exists
 GET           /accounts/afterLogin                                           controllers.AuthController.afterLogin
 GET           /accounts/afterAuth                                            controllers.AuthController.afterAuth
-
-GET           /accounts/password/reset/:token                                controllers.Signup.resetPassword(token: String)
-POST          /accounts/password/reset                                       controllers.Signup.doResetPassword
 
 GET           /accounts/password/change                                      controllers.Account.changePassword
 POST          /accounts/password/change                                      controllers.Account.doChangePassword
@@ -53,9 +44,6 @@ GET           /views/dashboard/products/info                                 con
 GET           /views/dashboard/products/analytics                            controllers.Application.dashboard_products_analytics
 GET           /views/dashboard/products/users                                controllers.Application.dashboard_products_users
 GET           /views/dashboard/products/feedback                             controllers.Application.dashboard_products_feedback
-GET           /views/wizard                                                  controllers.Application.wizard
-GET           /views/wizard/twitter                                          controllers.Application.wizard_twitter
-GET           /views/wizard/email                                            controllers.Application.wizard_email
 GET           /views/profile                                                 controllers.Application.profile
 GET           /views/profile/photos                                          controllers.Application.profile_photos
 GET           /views/profile/videos                                          controllers.Application.profile_videos

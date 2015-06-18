@@ -14,7 +14,7 @@ function authService($http, $q, $cookieStore, $log, userService, $timeout){
 //        , currentUser = $cookieStore.get('user') || { username: '', role: userRoles.public };
 
     var model = {
-      user: {name: 'Peter'},
+      user: {name: ''},
       isLoggedIn: false
     };
 
@@ -25,6 +25,7 @@ function authService($http, $q, $cookieStore, $log, userService, $timeout){
         save: save,
         provider: provider,
         login: login,
+        signup: signup,
         logout: logout,
         ready: ready
     };
@@ -196,11 +197,12 @@ function authService($http, $q, $cookieStore, $log, userService, $timeout){
             data: user,
             headers: {'Content-Type': 'application/json'}
         }).success(function(data, status, headers, config){
-            // this callback will be called asynchronously
-            // when the response is available
-            angular.extend(model.user,data);
-            model.isLoggedIn = true;
-            deferred.resolve("success");
+            //angular.extend(model.user,data);
+            getAuthenticatedUser().then(function () {
+                $log.debug("signup service get user success");
+                    deferred.resolve("success");
+                }
+            );
         }).error(function(data, status, headers, config){
             // called asynchronously if an error occurs
             // or server returns response with an error status.

@@ -72,6 +72,7 @@
 
         <script src="@routes.Assets.at("app/components/facebook/facebook-directive.js")"></script>
         <script src="@routes.Assets.at("angular/config.js")"></script>
+        <script src="@routes.Assets.at("app/app.module.js")"></script>
         <script src="@routes.Assets.at("angular/app.js")"></script>
         <script src="@routes.Assets.at("angular/controllers.js")"></script>
         <script src="@routes.Assets.at("angular/directives.js")"></script>
@@ -83,6 +84,11 @@
         <script src="@routes.Assets.at("javascripts/angular-ui-router.min.js")"></script>
         <!--script data-main="/javascripts/main.js" src="/lib/requirejs/require.js"></script-->
 
+        <script src="@routes.Assets.at("app/user/login.controller.js")"></script>
+        <script src="@routes.Assets.at("app/user/signup.controller.js")"></script>
+        <script src="@routes.Assets.at("app/wizard/wizard.controller.js")"></script>
+        <script src="@routes.Assets.at("app/wizard/email.wizard.controller.js")"></script>
+        <script src="@routes.Assets.at("app/wizard/twitter.wizard.controller.js")"></script>
         <script src="@routes.Assets.at("app/services/auth.service.js")"></script>
         <script src="@routes.Assets.at("app/services/user.service.js")"></script>
         <script src="@routes.Assets.at("app/products/dashboard.controller.js")"></script>
@@ -109,32 +115,13 @@
     <body @bodyAttributes>
     <div>
 
-        <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#sproutup-collapse-navbar">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a analytics-on="click" analytics-event="Enter Landing Page" class="navbar-brand" ui-sref="home">
-                    <img class="logo" src="@routes.Assets.at("images/logo-beta-white.png")">
-                </a>
-            </div>
-
-            <navbar></navbar>
-
-        </nav>
-
-        <up-alert></up-alert>
-
       @content
 
     <!--div ng-controller="AuthCtrl as ctrl" class="well">
         <h2>Logged in user</h2>
         <dt>Name</dt>
         <dd>{{ctrl.m.user.name}}</dd>
+        <dd>{{ctrl.m.user.email}}</dd>
         <dt>isLoggedIn</dt>
         <dd>{{ctrl.m.isLoggedIn | json}}</dd>
     </div-->

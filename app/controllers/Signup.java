@@ -132,59 +132,59 @@ public class Signup extends Controller {
 		return ret;
 	}
 
-	public static Result resetPassword(final String token) {
-		com.feth.play.module.pa.controllers.Authenticate.noCache(response());
-		final TokenAction ta = tokenIsValid(token, Type.PASSWORD_RESET);
-		if (ta == null) {
-			return badRequest(no_token_or_invalid.render());
-		}
+//	public static Result resetPassword(final String token) {
+//		com.feth.play.module.pa.controllers.Authenticate.noCache(response());
+//		final TokenAction ta = tokenIsValid(token, Type.PASSWORD_RESET);
+//		if (ta == null) {
+//			return badRequest(no_token_or_invalid.render());
+//		}
+//
+//		return ok(password_reset.render(PASSWORD_RESET_FORM
+//				.fill(new PasswordReset(token))));
+//	}
 
-		return ok(password_reset.render(PASSWORD_RESET_FORM
-				.fill(new PasswordReset(token))));
-	}
-
-	public static Result doResetPassword() {
-		com.feth.play.module.pa.controllers.Authenticate.noCache(response());
-		final Form<PasswordReset> filledForm = PASSWORD_RESET_FORM
-				.bindFromRequest();
-		if (filledForm.hasErrors()) {
-			return badRequest(password_reset.render(filledForm));
-		} else {
-			final String token = filledForm.get().token;
-			final String newPassword = filledForm.get().password;
-
-			final TokenAction ta = tokenIsValid(token, Type.PASSWORD_RESET);
-			if (ta == null) {
-				return badRequest(no_token_or_invalid.render());
-			}
-			final User u = ta.targetUser;
-			try {
-				// Pass true for the second parameter if you want to
-				// automatically create a password and the exception never to
-				// happen
-				u.resetPassword(new MyUsernamePasswordAuthUser(newPassword),
-						false);
-			} catch (final RuntimeException re) {
-				flash(Application.FLASH_MESSAGE_KEY,
-						Messages.get("playauthenticate.reset_password.message.no_password_account"));
-			}
-			final boolean login = MyUsernamePasswordAuthProvider.getProvider()
-					.isLoginAfterPasswordReset();
-			if (login) {
-				// automatically log in
-				flash(Application.FLASH_MESSAGE_KEY,
-						Messages.get("playauthenticate.reset_password.message.success.auto_login"));
-
-				return PlayAuthenticate.loginAndRedirect(ctx(),
-						new MyLoginUsernamePasswordAuthUser(u.email));
-			} else {
-				// send the user to the login page
-				flash(Application.FLASH_MESSAGE_KEY,
-						Messages.get("playauthenticate.reset_password.message.success.manual_login"));
-			}
-			return redirect(routes.Application.login());
-		}
-	}
+//	public static Result doResetPassword() {
+//		com.feth.play.module.pa.controllers.Authenticate.noCache(response());
+//		final Form<PasswordReset> filledForm = PASSWORD_RESET_FORM
+//				.bindFromRequest();
+//		if (filledForm.hasErrors()) {
+//			return badRequest(password_reset.render(filledForm));
+//		} else {
+//			final String token = filledForm.get().token;
+//			final String newPassword = filledForm.get().password;
+//
+//			final TokenAction ta = tokenIsValid(token, Type.PASSWORD_RESET);
+//			if (ta == null) {
+//				return badRequest(no_token_or_invalid.render());
+//			}
+//			final User u = ta.targetUser;
+//			try {
+//				// Pass true for the second parameter if you want to
+//				// automatically create a password and the exception never to
+//				// happen
+//				u.resetPassword(new MyUsernamePasswordAuthUser(newPassword),
+//						false);
+//			} catch (final RuntimeException re) {
+//				flash(Application.FLASH_MESSAGE_KEY,
+//						Messages.get("playauthenticate.reset_password.message.no_password_account"));
+//			}
+//			final boolean login = MyUsernamePasswordAuthProvider.getProvider()
+//					.isLoginAfterPasswordReset();
+//			if (login) {
+//				// automatically log in
+//				flash(Application.FLASH_MESSAGE_KEY,
+//						Messages.get("playauthenticate.reset_password.message.success.auto_login"));
+//
+//				return PlayAuthenticate.loginAndRedirect(ctx(),
+//						new MyLoginUsernamePasswordAuthUser(u.email));
+//			} else {
+//				// send the user to the login page
+//				flash(Application.FLASH_MESSAGE_KEY,
+//						Messages.get("playauthenticate.reset_password.message.success.manual_login"));
+//			}
+//			return redirect(routes.Application.login());
+//		}
+//	}
 
 	public static Result oAuthDenied(final String getProviderKey) {
 		com.feth.play.module.pa.controllers.Authenticate.noCache(response());

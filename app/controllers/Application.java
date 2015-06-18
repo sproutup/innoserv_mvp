@@ -231,17 +231,6 @@ public class Application extends Controller {
     }
 
     @Restrict({@Group(AppConstants.CONSUMER)})
-    public static Result wizard() {
-        return ok(views.html.wizard.main.render());
-    }
-
-    @Restrict({@Group(AppConstants.CONSUMER)})
-    public static Result wizard_twitter() {return ok(views.html.wizard.twitter.render()); }
-
-    @Restrict({@Group(AppConstants.CONSUMER)})
-    public static Result wizard_email() {return ok(views.html.wizard.email.render()); }
-
-    @Restrict({@Group(AppConstants.CONSUMER)})
     public static Result profile() {
         return ok(profile.render());
     }
@@ -264,26 +253,22 @@ public class Application extends Controller {
     @Restrict({@Group(AppConstants.CONSUMER)})
     public static Result profile_account() {return ok(profile_account.render()); }
 
-    public static Result login() {
-		return ok(login.render(MyUsernamePasswordAuthProvider.LOGIN_FORM));
-	}
+//    public static Result login() {
+//		return ok(login.render(MyUsernamePasswordAuthProvider.LOGIN_FORM));
+//	}
 
-	public static Result doLogin() {
-		com.feth.play.module.pa.controllers.Authenticate.noCache(response());
-		final Form<MyLogin> filledForm = MyUsernamePasswordAuthProvider.LOGIN_FORM
-				.bindFromRequest();
-		if (filledForm.hasErrors()) {
-			// User did not fill everything properly
-			return badRequest(login.render(filledForm));
-		} else {
-			// Everything was filled
-			return UsernamePasswordAuthProvider.handleLogin(ctx());
-		}
-	}
-
-	public static Result signup() {
-		return ok(signup.render(MyUsernamePasswordAuthProvider.SIGNUP_FORM));
-	}
+//	public static Result doLogin() {
+//		com.feth.play.module.pa.controllers.Authenticate.noCache(response());
+//		final Form<MyLogin> filledForm = MyUsernamePasswordAuthProvider.LOGIN_FORM
+//				.bindFromRequest();
+//		if (filledForm.hasErrors()) {
+//			// User did not fill everything properly
+//			return badRequest(login.render(filledForm));
+//		} else {
+//			// Everything was filled
+//			return UsernamePasswordAuthProvider.handleLogin(ctx());
+//		}
+//	}
 
 	public static Result jsRoutes() {
 		return ok(
@@ -292,21 +277,21 @@ public class Application extends Controller {
 				.as("text/javascript");
 	}
 
-	public static Result doSignup() {
-		com.feth.play.module.pa.controllers.Authenticate.noCache(response());
-		final Form<MySignup> filledForm = MyUsernamePasswordAuthProvider.SIGNUP_FORM
-				.bindFromRequest();
-		MyUsernamePasswordAuthProvider.context = ctx();
-		if (filledForm.hasErrors()) {
-			// User did not fill everything properly
-			return badRequest(signup.render(filledForm));
-		} else {
-			// Everything was filled
-			// do something with your part of the form before handling the user
-			// signup
-			return UsernamePasswordAuthProvider.handleSignup(ctx());
-		}
-	}
+//	public static Result doSignup() {
+//		com.feth.play.module.pa.controllers.Authenticate.noCache(response());
+//		final Form<MySignup> filledForm = MyUsernamePasswordAuthProvider.SIGNUP_FORM
+//				.bindFromRequest();
+//		MyUsernamePasswordAuthProvider.context = ctx();
+//		if (filledForm.hasErrors()) {
+//			// User did not fill everything properly
+//			return badRequest(signup.render(filledForm));
+//		} else {
+//			// Everything was filled
+//			// do something with your part of the form before handling the user
+//			// signup
+//			return UsernamePasswordAuthProvider.handleSignup(ctx());
+//		}
+//	}
 
 	public static String formatTimestamp(final long t) {
 		return new SimpleDateFormat("yyyy-dd-MM HH:mm:ss").format(new Date(t));

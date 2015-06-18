@@ -256,7 +256,7 @@ authControllers.controller('AuthCtrl', ['$scope', '$modal', '$log', 'AuthService
         promise.then(
             function(payload){
                 $log.info('logout success: ' + new Date());
-                $state.go('home');
+                $state.go('user.home');
             },
             function(errorPayload){
                 $log.info('logout failed: ' + new Date());
@@ -494,75 +494,6 @@ productControllers.controller('userDetailCtrl', ['$scope', '$stateParams', '$sta
             $state.go("home");
         }
     );
-  }]);
-
-productControllers.controller('signupWizardCtrl', ['$scope', '$stateParams', '$state', '$log', 'AuthService',
-  function($scope, $stateParams, $state, $log, authService) {
-    $log.debug("signup wizard");
-
-    var vm = this;
-    vm = authService.m;
-
-    console.log("wizard: ", vm.user);
-
-    switch(vm.user.providerKey){
-        case "twitter":
-            $log.debug("signup wizard -> twitter");
-            if(vm.user.email == null || vm.user.email.length < 1){
-                $log.debug("signup wizard -> ask for email");
-                $state.go("wizard.email");
-                return;
-            }
-            break;
-        case "facebook":
-            if(vm.user.urlTwitter == null || vm.user.urlTwitter.length < 1){
-                $log.debug("signup wizard -> ask for twitter link");
-                $state.go("wizard.twitter");
-                return;
-            }
-            break;
-        case "password":
-            $log.debug("signup wizard -> password");
-            if(vm.user.urlTwitter == null || vm.user.urlTwitter.length < 1){
-                $log.debug("signup wizard -> ask for twitter link");
-                $state.go("wizard.twitter");
-                return;
-            }
-            break;
-    }
-    $state.go("home");
-  }]);
-
-productControllers.controller('signupWizardEmailCtrl', ['$scope', '$stateParams', '$state', '$log', 'AuthService','UserService',
-  function($scope, $stateParams, $state, $log, authService, userService) {
-    $log.debug("signup wizard email");
-    var vm = this;
-    vm = authService.m;
-
-    $scope.save = function() {
-        $log.debug("signup wizard -> save email");
-        user.email = $scope.user.email;
-        authService.save().then(function(data){
-            $state.go("home");
-        })
-    }
-  }]
-);
-
-productControllers.controller('signupWizardTwitterCtrl', ['$scope', '$stateParams', '$state', '$log', 'AuthService','UserService',
-  function($scope, $stateParams, $state, $log, authService, userService) {
-    $log.debug("signup wizard twitter");
-    var vm = this;
-    vm = authService.m;
-
-    $scope.save = function() {
-        $log.debug("signup wizard -> save twitter");
-        vm.user.urlTwitter = $scope.user.urlTwitter;
-        authService.save().then(function(data){
-            $state.go("home");
-        })
-    }
-
   }]);
 
 productControllers.controller('settingsProfileCtrl', ['$scope', '$stateParams', '$state', '$log', 'AuthService','UserService',
