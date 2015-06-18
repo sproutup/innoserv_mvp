@@ -19,6 +19,6 @@ addSbtPlugin("com.github.gseitz" % "sbt-release" % "0.8.5")
 addSbtPlugin("com.typesafe.sbt" % "sbt-less" % "1.0.0")
 
 // enable require.js 
-addSbtPlugin("com.typesafe.sbt" % "sbt-rjs" % "1.0.7")
+//addSbtPlugin("com.typesafe.sbt" % "sbt-rjs" % "1.0.7")
 
 addSbtPlugin("com.typesafe.sbt" % "sbt-jshint" % "1.0.1")

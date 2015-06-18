@@ -38,7 +38,7 @@ lazy val playAuthenticate = project.in(file("modules/play-authenticate")).enable
 
 lazy val root = project.in(file("."))
   .enablePlugins(PlayJava)
-  .enablePlugins(SbtWeb)
+  //.enablePlugins(SbtWeb)
   /* Uncomment the next lines for local development of the Play Authenticate core: */
   .dependsOn(playAuthenticate)
   .aggregate(playAuthenticate)
@@ -48,7 +48,7 @@ lazy val root = project.in(file("."))
 
 //JsEngineKeys.engineType := JsEngineKeys.EngineType.Node
 
-pipelineStages := Seq(rjs)
+//pipelineStages := Seq(rjs)
 
 includeFilter in (Assets, LessKeys.less) := "*.less"
 
