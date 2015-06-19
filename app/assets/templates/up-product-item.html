@@ -1,18 +1,21 @@
-<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 product-list-item">
-    <div class="product-cover-photo" up-background-image="{{product.banner.url.image}}" up-background-attr="?w=1600" up-fallback-image="/assets/images/default-product-banner.jpg">
-        <div class="product-category-list">
-            <button ng-repeat="tag in product.tags" class="btn btn-product-category" type="button">{{tag.name}}</button>
-        </div>
-        <a analytics-on="click" analytics-event="Enter Product: {{product.productName}}" ui-sref="user.product.detail.about({ slug: product.slug })">
+<div class="col-md-4 col-sm-6 col-xs-12 product-list-item">
+    <a analytics-on="click" analytics-event="Enter Product: {{product.productName}}" ui-sref="user.product.detail.about({ slug: product.slug })">
+        <div class="product-cover-photo" up-background-image="{{product.banner.url.image}}" up-background-attr="?w=1600" up-fallback-image="/assets/images/default-product-banner.jpg">
             <div class="product-cover-info">
-                <div class="product-cover-title">
-                    <div ng-show="product.isAvailableForTrial" class="featured-product-label">Try me!</div>
-                    {{product.productName}}
+                <div class="product-category-list">
+                    <button ng-repeat="tag in product.tags" class="btn btn-product-category" type="button">{{tag.name}}</button>
                 </div>
-                <div class="product-cover-description">
-                    {{product.productDescription}}
+                <div class="product-cover-title">{{product.productName}}</div>
+                <div class="product-cover-description">{{product.productDescription}}</div>
+                <div ng-show="product.isAvailableForTrial" class="featured-product-label">Try me!</div>
+                <div class="trial-user-list-title">TRIALS: 4 BOOKED, 1 AVAILABLE</div>
+                <div class="trial-user-list">
+                    <img class="trial-user-img" src="@routes.Assets.at("images/about/team/beth.jpg")">
+                    <img class="trial-user-img" src="@routes.Assets.at("images/about/team/nitin.jpg")">
+                    <img class="trial-user-img" src="@routes.Assets.at("images/about/team/peter.jpg")">
+                    <img class="trial-user-img" src="@routes.Assets.at("images/about/team/tao.jpg")">
                 </div>
             </div>
-        </a>
-    </div>
+        </div>
+    </a>
 </div>
