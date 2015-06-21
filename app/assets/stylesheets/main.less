@@ -191,43 +191,6 @@ body {
     color: @sproutup-blue;
 }
 
-@media (max-width:767px) {
-    .logo {
-        width: 120px;
-    }
-
-    .navbar {
-        padding: 0px 15px;
-        margin: 0px;
-    }
-
-    .navbar-brand {
-        padding: 15px 0px 0px;
-    }
-
-    .navbar-influencer .logo {
-        width: 32px;
-    }
-
-    .dropdown-menu:before {
-        position: absolute;
-        display: inline-block;
-        border: none;
-        content: '';
-    }
-
-    .dropdown-menu:after {
-        position: absolute;
-        display: inline-block;
-        border: none;
-        content: '';
-    }
-
-    .sproutup-footer-links {
-        max-width: 160px;
-    }
-}
-
 .profile-img {
     width: 42px;
     height: 42px;
@@ -452,7 +415,7 @@ a:focus {
 }
 
 // buttons
-.sproutup-btn-lg-main{
+.sproutup-btn-lg-main {
     height: 50px;
     border: none;
     font-weight: 700;
@@ -463,6 +426,7 @@ a:focus {
     padding-left: 50px;
     padding-right: 50px;
     padding-top: 15px;
+    margin: 3px;
     -webkit-transition: all .1s ease-in-out;
     -o-transition: all .1s ease-in-out;
     transition: all .1s ease-in-out;
@@ -475,12 +439,13 @@ a:focus {
 
 .sproutup-btn-md-main {
 	height: 45px;
-	font-weight: 400;
-	font-size: 11pt;
+	font-weight: 700;
+	font-size: 10pt;
     background-color: @sproutup-blue;
 	color: white;
 	border-radius: 2px;
-	padding-top: 11px;
+	padding-top: 12px;
+    margin: 3px;
 	-webkit-transition: all .2s ease-in-out;
 	-o-transition: all .2s ease-in-out;
 	transition: all .2s ease-in-out;
@@ -491,15 +456,81 @@ a:focus {
 	background-color: @sproutup-blue-hover;
 }
 
-.sproutup-btn-md-main.save {
-	margin-right: 5px;
+.sproutup-btn-md-upvote {
+    height: 45px;
+	font-weight: 700;
+	font-size: 10pt;
+    background-color: @sproutup-lightgrey;
+	color: @main-text;
+	border-radius: 2px;
+	padding-top: 12px;
+    margin: 3px;
+	-webkit-transition: all .2s ease-in-out;
+	-o-transition: all .2s ease-in-out;
+	transition: all .2s ease-in-out;
 }
 
-.sproutup-btn-md-main.cancel {
-	background-color: @sproutup-grey;
+.sproutup-btn-md-upvote i {
+    padding-right: 8px;
 }
 
-.sproutup-btn-md-main.cancel:hover {
+.sproutup-btn-md-upvote:hover {
+    color: @main-text;
+    background-color: white;
+}
+
+.sproutup-btn-md-cancel {
+    height: 45px;
+	font-weight: 400;
+	font-size: 11pt;
+    background-color: @sproutup-grey;
+	color: white;
+	border-radius: 2px;
+	padding-top: 11px;
+    margin: 3px;
+	-webkit-transition: all .2s ease-in-out;
+	-o-transition: all .2s ease-in-out;
+	transition: all .2s ease-in-out;
+}
+
+.sproutup-btn-md-cancel:hover {
 	color: white;
 	background-color: @sproutup-grey-hover;
+}
+
+@media (max-width:767px) {
+    .logo {
+        width: 120px;
+    }
+
+    .navbar {
+        padding: 0px 15px;
+        margin: 0px;
+    }
+
+    .navbar-brand {
+        padding: 15px 0px 0px;
+    }
+
+    .navbar-influencer .logo {
+        width: 32px;
+    }
+
+    .dropdown-menu:before {
+        position: absolute;
+        display: inline-block;
+        border: none;
+        content: '';
+    }
+
+    .dropdown-menu:after {
+        position: absolute;
+        display: inline-block;
+        border: none;
+        content: '';
+    }
+
+    .sproutup-footer-links {
+        max-width: 160px;
+    }
 }
