@@ -1,0 +1,45 @@
+@moreHead = {
+<link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/creator-dashboard.css")">
+}
+
+@main(Messages("Dashboard Mock | SproutUp"), moreHead) {
+
+<div class="row dashboard-page">
+
+    <!-- TOC -->
+    <div class="col-sm-3">
+        <div class="list-group">
+            <a href="#" class="list-group-item active">Current Trials</a>
+            <a href="#" class="list-group-item">Past Trials</a>
+        </div>
+    </div>
+
+    <!-- Content -->
+    <div class="col-sm-9">
+        <div class="product-edit--header">You are trying 2 products</div>
+        <div class="row product-trial-item">
+            <div class="col-sm-5 product-trial-item--photo">
+                <img class="img-responsive" src="https://s3.amazonaws.com/sproutup-mvp-cdn/assets/11112.jpg">
+            </div>
+            <div class="col-sm-7 product-trial-item--detail">
+                <h1>Soma Carafe</h1>
+                <p class="product-trial-item--status current"><i class="fa fa-check-circle"></i>Requested on June 12, 2015</p>
+                <div class="product-trial-item--actions">
+                    <a href="#" class="btn btn-lg sproutup-btn-md-main">Join Discussion</a>
+                    <a href="#" class="btn btn-lg sproutup-btn-md-main">Add Content</a>
+                </div>
+            </div>
+        </div>
+        <div class="row product-trial-item">
+            <div class="col-sm-5 product-trial-item--photo">
+                <img class="img-responsive" src="https://s3.amazonaws.com/sproutup-mvp-cdn/assets/11115.jpg">
+            </div>
+            <div class="col-sm-7 product-trial-item--detail">
+                <h1>Clyde</h1>
+                <p class="product-trial-item--status current"><i class="fa fa-check-circle"></i>Requested on June 12, 2015</p>
+            </div>
+        </div>
+    </div>
+
+</div>
+}
