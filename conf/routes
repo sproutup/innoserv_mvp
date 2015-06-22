@@ -34,10 +34,6 @@ GET           /views/news                                                    con
 GET           /views/search                                                  controllers.Application.search
 GET           /views/community                                               controllers.Application.community
 GET           /views/creator                                                 controllers.Application.creator
-GET           /views/settings                                                controllers.Application.settings
-GET           /views/settings/profile                                        controllers.Application.settings_profile
-GET           /views/settings/social                                         controllers.Application.settings_social
-GET           /views/settings/trials                                         controllers.Application.settings_trials
 GET           /views/dashboard                                               controllers.Application.dashboard
 GET           /views/dashboard/products                                      controllers.Application.dashboard_products
 GET           /views/dashboard/products/info                                 controllers.Application.dashboard_products_info
@@ -157,8 +153,8 @@ GET           /mockups/product/:slug/about                                   con
 GET           /mockups/product/:slug/bar                                     controllers.MockupController.detailsBarBySlug(slug: String)
 GET           /mockups/product/:slug/gallery                                 controllers.MockupController.detailsGalleryBySlug(slug: String)
 GET           /mockups/login                                                 controllers.MockupController.login()
-GET           /mockups/signup                                                 controllers.MockupController.signup()
-GET           /mockups/forgot_password                                        controllers.MockupController.forgotPassword()
+GET           /mockups/signup                                                controllers.MockupController.signup()
+GET           /mockups/forgot_password                                       controllers.MockupController.forgotPassword()
 GET           /mockups/reset_password                                        controllers.MockupController.resetPassword()
 GET           /mockups/user_profile                                          controllers.MockupController.userProfile()
 GET           /mockups/dashboard                                             controllers.MockupController.creatorDashboard()
@@ -168,6 +164,7 @@ GET           /mockups/user_settings                                         con
 GET           /mockups/new-product                                           controllers.MockupController.addNewProduct()
 GET           /mockups/wizard                                                controllers.MockupController.wizard()
 GET           /mockups/tryout                                                controllers.MockupController.tryout()
+GET           /mockups/product_trials                                        controllers.MockupController.productTrials()   
 
 # catch all. angular will handle all routes except /api/* /views/* /mockups/*
 GET           /                                                              controllers.Application.main(any = "none")

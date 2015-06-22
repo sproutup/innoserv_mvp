@@ -16,7 +16,7 @@
         <!-- email login -->
         <form name="signupForm" class="signupForm" novalidate>
             <div class="signup-login-form">
-                <div class="signup-login-form--error-message" ng-show="signup.error"><i class="fa fa-minus-circle"></i>{{signup.error}}</div>
+                <div class="signup-login-form--error-message" ng-show="vm.form.error"><i class="fa fa-minus-circle"></i>{{vm.form.error}}</div>
                 <!-- full name -->
                 <input ng-model="vm.form.name" required="" class="form-control form-validate signup-login-input" id="name" type="text" name="yourName" placeholder="Your full name">
                 <div ng-show="signupForm.$submitted || signupForm.yourName.$touched">

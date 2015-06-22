@@ -108,6 +108,12 @@ public class MockupController extends Controller {
     public static Result tryout() {
         if(!mockups_enabled){return notFound();};
 
-        return ok(tryout.render());
+        return ok(tryout_mock.render());
+    }
+
+    public static Result productTrials() {
+        if(!mockups_enabled){return notFound();};
+
+        return ok(product_trials_mock.render());
     }
 }
