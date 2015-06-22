@@ -496,62 +496,6 @@ productControllers.controller('userDetailCtrl', ['$scope', '$stateParams', '$sta
     );
   }]);
 
-productControllers.controller('settingsProfileCtrl', ['$scope', '$stateParams', '$state', '$log', 'AuthService','UserService',
-  function($scope, $stateParams, $state, $log, authService, userService) {
-    $log.debug("settings.profile controller");
-
-    var currentuser = authService.currentUser();
-
-    userService.get({nickname: currentuser.nickname}).$promise.then(
-        function(user) {
-            // success
-            $scope.user = user;
-            $scope.basicinfoform.$setPristine();
-            $scope.basicinfoform.$setUntouched();
-        },
-        function(error) {
-            // error handler
-            $log.debug("settings.social controller - error getting user");
-            $state.go("home");
-        }
-    );
-
-    $scope.save = function() {
-        $log.debug("settings.profile controller - save()");
-        $scope.user.$save();
-        $scope.basicinfoform.$setPristine();
-        $scope.basicinfoform.$setUntouched();
-    }
-  }]);
-
-productControllers.controller('settingsSocialCtrl', ['$scope', '$stateParams', '$state', '$log', 'AuthService','UserService',
-  function($scope, $stateParams, $state, $log, authService, userService) {
-    $log.debug("settings.social controller");
-
-    var currentuser = authService.currentUser();
-
-    userService.get({nickname: currentuser.nickname}).$promise.then(
-        function(user) {
-            // success
-            $scope.user = user;
-            $scope.basicinfoform.$setPristine();
-            $scope.basicinfoform.$setUntouched();
-        },
-        function(error) {
-            // error handler
-            $log.debug("settings.social controller - error getting user");
-            $state.go("home");
-        }
-    );
-
-    $scope.save = function() {
-        $log.debug("settings.social controller - save()");
-        $scope.user.$save();
-        $scope.basicinfoform.$setPristine();
-        $scope.basicinfoform.$setUntouched();
-    }
-  }]);
-
 productControllers.controller('ForumCtrl', ['$scope', 'ForumService', 'LikesService', '$log',
   function($scope, ForumService, LikesService, $log) {
 

@@ -6,23 +6,23 @@
         <!-- full name -->
         <div class="row profile-input-row">
             <div class="col-sm-12 profile-input-cell">
-                <input type="text" class="form-control form-validate form-input medium" placeholder="Full Name" ng-model="user.name" required>
+                <input type="text" class="form-control form-validate form-input medium" placeholder="Full Name" ng-model="vm.user.name" required>
             </div>
         </div>
         <!-- email and username -->
         <div class="row profile-input-row">
             <div class="col-sm-6 profile-input-cell">
-                <input type="email" disabled class="form-control form-validate form-input medium" placeholder="Email" ng-model="user.email">
+                <input type="email" disabled class="form-control form-validate form-input medium" placeholder="Email" ng-model="vm.user.email">
             </div>
             <div class="col-sm-6 profile-input-cell">
-                <input type="text" class="form-control form-validate form-input medium left-feedback" placeholder="Pick a nickname" ng-model="user.nickname" required>
-                <span class="fa fa-lg">@@</span>
+                <input type="text" class="form-control form-validate form-input medium left-feedback" placeholder="Pick a nickname" ng-model="vm.user.nickname" required>
+                <span class="fa fa-lg">@</span>
             </div>
         </div>
         <!-- short description -->
         <div class="row profile-input-row">
             <div class="col-sm-12 profile-input-cell">
-                <textarea class="form-control form-input-textarea no-resize" placeholder="Short description about yourself" rows="2" ng-model="user.description"></textarea>
+                <textarea class="form-control form-input-textarea no-resize" placeholder="Short description about yourself" rows="2" ng-model="vm.user.description"></textarea>
             </div>
         </div>
 
@@ -30,7 +30,7 @@
         <div class="profile-edit--header">Shipping Address</div>
         <div class="row profile-input-row">
             <div class="col-sm-12 profile-input-cell">
-                <input type="text" g-places-autocomplete="" class="form-control form-input medium" placeholder="Enter your address" ng-model="user.address">
+                <input type="text" g-places-autocomplete="" class="form-control form-input medium" placeholder="Enter your address" ng-model="vm.user.address">
             </div>
         </div>
 
@@ -38,13 +38,13 @@
         <div class="profile-edit--header">Mobile Number</div>
         <div class="row profile-input-row">
             <div class="col-sm-12 profile-input-cell">
-                <input type="text" class="form-control form-input medium" placeholder="Enter your mobile number. Please include the country code for non-US number." ng-model="user.phone">
+                <input type="text" class="form-control form-input medium" placeholder="Enter your mobile number. Please include the country code for non-US number." ng-model="vm.user.phone">
             </div>
         </div>
 
         <!-- Save & Cancel button -->
         <div class="add-product-actions">
-            <button ng-disabled="basicinfoform.$invalid || basicinfoform.$pristine" class="btn btn-lg add-product-btn save" type="submit" ng-click="save()">Save Changes</button>
+            <button ng-disabled="basicinfoform.$invalid || basicinfoform.$pristine" class="btn btn-lg add-product-btn save" type="submit" ng-click="vm.save()">Save Changes</button>
         </div>
     </form>
 </div>

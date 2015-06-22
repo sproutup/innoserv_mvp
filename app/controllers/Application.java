@@ -181,26 +181,6 @@ public class Application extends Controller {
 	}
 
     @Restrict({@Group(AppConstants.CONSUMER)})
-    public static Result settings() {
-        return ok(views.html.settings.main.render());
-    }
-
-    @Restrict({@Group(AppConstants.CONSUMER)})
-    public static Result settings_profile() {
-        return ok(views.html.settings.profile.render());
-    }
-
-    @Restrict({@Group(AppConstants.CONSUMER)})
-    public static Result settings_social() {
-        return ok(views.html.settings.social.render());
-    }
-
-    @Restrict({@Group(AppConstants.CONSUMER)})
-    public static Result settings_trials() {
-        return ok(views.html.settings.trials.render());
-    }
-
-    @Restrict({@Group(AppConstants.CONSUMER)})
     public static Result dashboard() {
         return ok(views.html.dashboard.main.render());
     }
