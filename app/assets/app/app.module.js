@@ -165,7 +165,7 @@ sproutupApp.config(['$routeProvider', '$stateProvider', '$locationProvider', '$u
                     title: 'Community - SproutUp'
                 }
             })
-            .state('creator' ,{
+            .state('user.creator' ,{
                 url: '/creator',
                 templateUrl: 'views/creator',
                 data: {

@@ -544,11 +544,6 @@ public class User extends TimeStampModel implements Subject {
 
         fName = getFirstName().replaceAll("[^\\w\\s\\_]", "");
 
-        if (email != null && email.length() > 0) {
-            usernames.add(email.substring(0, email.indexOf("@")).toLowerCase());
-            //usernames.add(email.substring(0, email.indexOf("@")).toLowerCase() + numberGen);
-        }
-
         if (fName != null && fName.length() > 0 && lName != null && lName.length() > 0) {
         	usernames.add((fName + lName).toLowerCase());
         	usernames.add((lName + fName).toLowerCase());
@@ -584,6 +579,11 @@ public class User extends TimeStampModel implements Subject {
 
         if (fName != null && fName.length() > 2 && (lName == null || lName.length() == 0)){
         	usernames.add((fName).toLowerCase());
+        }
+
+		if (email != null && email.length() > 0) {
+            usernames.add(email.substring(0, email.indexOf("@")).toLowerCase());
+            //usernames.add(email.substring(0, email.indexOf("@")).toLowerCase() + numberGen);
         }
 
         return usernames;
