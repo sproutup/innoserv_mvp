@@ -144,7 +144,7 @@ sproutupApp.config(['$routeProvider', '$stateProvider', '$locationProvider', '$u
                     title: 'Privacy Policy - SproutUp'
                 }
             })
-            .state('news' ,{
+            .state('user.news' ,{
                 url: '/news',
                 templateUrl: 'views/news',
                 data: {
@@ -158,7 +158,7 @@ sproutupApp.config(['$routeProvider', '$stateProvider', '$locationProvider', '$u
                     title: 'Search'
                 }
             })
-            .state('community' ,{
+            .state('user.community' ,{
                 url: '/community',
                 templateUrl: 'views/community',
                 data: {
