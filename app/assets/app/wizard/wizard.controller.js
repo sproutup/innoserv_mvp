@@ -18,7 +18,7 @@
         function activate() {
             if(!authService.ready()){
                 console.log("wizard: waiting for auth service");
-                var unbindWatch = $rootScope.$watch(authService.ready, function (value) {
+                var unbindWatch = $rootScope.$watch(authService.loggedIn, function (value) {
                     if ( value === true ) {
                       unbindWatch();
                       activate();
@@ -27,43 +27,14 @@
             }
             else{
                 console.log("wizard: auth service ready");
-                if(authService.m.isLoggedIn) {
-                    vm.user = authService.m.user;
-                    wizard();
-                }
+                vm.user = authService.m.user;
+                wizard();
             }
         }
 
         function wizard(){
             console.log("wizard: ", vm.user);
             $state.go("user.wizard.email");
-
-//            switch(vm.user.providerKey){
-//                case "twitter":
-//                    $log.debug("signup wizard -> twitter");
-//                    if(vm.user.email === null || vm.user.email.length < 1){
-//                        $log.debug("signup wizard -> ask for email");
-//                        $state.go("user.wizard.email");
-//                        return;
-//                    }
-//                    break;
-//                case "facebook":
-//                    if(vm.user.urlTwitter === null || vm.user.urlTwitter.length < 1){
-//                        $log.debug("signup wizard -> ask for twitter link");
-//                        $state.go("user.wizard.twitter");
-//                        return;
-//                    }
-//                    break;
-//                case "password":
-//                    $log.debug("signup wizard -> password");
-//                    if(vm.user.urlTwitter === null || vm.user.urlTwitter.length < 1){
-//                        $log.debug("signup wizard -> ask for twitter link");
-//                        $state.go("user.wizard.twitter");
-//                        return;
-//                    }
-//                    break;
-//            }
-//            $state.go("user.search");
         }
     }
 })();

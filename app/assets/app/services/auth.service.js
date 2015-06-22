@@ -27,7 +27,8 @@ function authService($http, $q, $cookieStore, $log, userService, $timeout){
         login: login,
         signup: signup,
         logout: logout,
-        ready: ready
+        ready: ready,
+        loggedIn: loggedIn
     };
 
     activate();
@@ -48,6 +49,10 @@ function authService($http, $q, $cookieStore, $log, userService, $timeout){
 //        deferred.resolve(model.user);
         return isReady;
 //        return deferred.promise;
+    }
+
+    function loggedIn(){
+        return model.isLoggedIn;
     }
 
     function changeUser(user) {
@@ -172,7 +177,8 @@ function authService($http, $q, $cookieStore, $log, userService, $timeout){
             // when the response is available
             $log.debug("login service returned success");
             getAuthenticatedUser().then(function () {
-                $log.debug("login service get user success");
+                    $log.debug("login service get user success");
+                    deferred.resolve("success");
                 }
             );
 

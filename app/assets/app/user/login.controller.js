@@ -44,6 +44,7 @@
 
             promise.then(
                 function(data){
+                    $log.info("login attempt success...");
                     wizard();
                 },
                 function(error){
