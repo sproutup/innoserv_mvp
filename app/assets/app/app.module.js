@@ -175,30 +175,32 @@ sproutupApp.config(['$routeProvider', '$stateProvider', '$locationProvider', '$u
             .state('user.settings' ,{
                 url: '/settings',
                 abstract: true,
-                templateUrl: 'views/settings',
+                templateUrl: 'assets/app/settings/menu.html',
                 data: {
                     title: 'Settings'
                 }
             })
             .state('user.settings.profile' ,{
                 url: '/profile',
-                templateUrl: 'views/settings/profile',
-                controller: 'settingsProfileCtrl',
+                templateUrl: 'assets/app/settings/profile.html',
+                controller: 'ProfileController',
+                controllerAs: 'vm',
                 data: {
                     title: 'Profile'
                 }
             })
             .state('user.settings.social' ,{
                 url: '/social',
-                templateUrl: 'views/settings/social',
-                controller: 'settingsSocialCtrl',
+                templateUrl: 'assets/app/settings/social.html',
+                controller: 'SocialController',
+                controllerAs: 'vm',
                 data: {
                     title: 'Social Profile'
                 }
             })
             .state('user.settings.trials' ,{
                 url: '/trials',
-                templateUrl: 'views/settings/trials',
+                templateUrl: 'assets/app/settings/trials.html',
                 data: {
                     title: 'Trials'
                 }
