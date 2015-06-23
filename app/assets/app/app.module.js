@@ -426,6 +426,31 @@ sproutupApp.config(['$routeProvider', '$stateProvider', '$locationProvider', '$u
                     title: 'Product - Gallery'
                 }
             })
+            .state('user.trial', {
+                url: '/trial/:slug',
+                template: '<div ui-view autoscroll="true"></div>',
+                abstract: true,
+                controller: 'TrialController',
+                controllerAs: 'vm'
+            })
+            .state('user.trial.request' ,{
+                url: '',
+                templateUrl: 'assets/app/trial/request.html',
+//                controller: 'TrialController',
+//                controllerAs: 'vm',
+                data: {
+                    title: 'Product Trial'
+                }
+            })
+            .state('user.trial.confirmation' ,{
+                url: '/confirmation',
+                templateUrl: 'assets/app/trial/confirmation.html',
+//                controller: 'TrialController',
+//                controllerAs: 'vm',
+                data: {
+                    title: 'Product Trial'
+                }
+            })
         ;
 
 
