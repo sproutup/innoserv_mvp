@@ -77,6 +77,7 @@ public class User extends TimeStampModel implements Subject {
     public String urlTwitter;
     public String urlPinterest;
     public String urlBlog;
+    public String urlYoutube;
 
     /*
 	 * ship address
@@ -384,6 +385,7 @@ public class User extends TimeStampModel implements Subject {
         node.put("urlTwitter", this.urlTwitter);
         node.put("urlPinterest", this.urlPinterest);
         node.put("urlBlog", this.urlBlog);
+        node.put("urlYoutube", this.urlYoutube);
         node.put("zipcode", this.zipcode);
         node.put("roles", Json.toJson(this.getRoles()));
         if (this.getRoles()!=null && this.getRoles().size()>0){
