@@ -255,25 +255,17 @@ sproutupApp.config(['$routeProvider', '$stateProvider', '$locationProvider', '$u
             })
             .state('user.wizard' ,{
                 url: '/wizard',
-                abstract: true,
+                abstract: false,
                 templateUrl: 'assets/app/wizard/wizard.html',
                 controller: 'SignupWizardController',
+                controllerAs: 'vm',
                 data: {
                     title: 'Wizard'
-                }
-            })
-            .state('user.wizard.start' ,{
-                url: '',
-                template: '<div>Starting wizard...</div>',
-                data: {
-                    title: 'Twitter account'
                 }
             })
             .state('user.wizard.twitter' ,{
                 url: '/twitter',
                 templateUrl: 'assets/app/wizard/twitter.html',
-                controller: 'TwitterSignupWizardController',
-                controllerAs: 'vm',
                 data: {
                     title: 'Twitter account'
                 }
@@ -281,8 +273,6 @@ sproutupApp.config(['$routeProvider', '$stateProvider', '$locationProvider', '$u
             .state('user.wizard.email' ,{
                 url: '/email',
                 templateUrl: 'assets/app/wizard/email.html',
-                controller: 'EmailSignupWizardController',
-                controllerAs: 'vm',
                 data: {
                     title: 'Email'
                 }

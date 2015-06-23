@@ -75,7 +75,7 @@
                 function(data){
                     $log.debug(data);
                     $window.location.href = data;
-                    wizard();
+                    //wizard();
                 },
                 function(error){
                     $log.info('Login failed: ' + new Date());
@@ -84,7 +84,7 @@
         }
 
         function wizard(){
-            $state.go("user.wizard.start");
+            $state.go("user.wizard");
         }
 
     }

@@ -11,6 +11,8 @@
         $log.debug("signup wizard");
 
         var vm = this;
+        vm.save = save;
+        vm.user = authService.m.user;
         vm.ready = authService.ready;
 
         activate();
@@ -26,15 +28,51 @@
                 });
             }
             else{
-                console.log("wizard: auth service ready");
+                console.log("wizard: auth service ready - ", authService.m.user.email );
                 vm.user = authService.m.user;
                 wizard();
             }
         }
 
         function wizard(){
-            console.log("wizard: ", vm.user);
-            $state.go("user.wizard.email");
+            console.log("wizard starting");
+            email();
+        }
+
+        function save() {
+            $log.debug("signup wizard -> save twitter");
+            authService.save().then(function(data){
+                // end of wizard
+                wizard();
+            });
+        }
+
+        function email(){
+            if(vm.user.email === null || vm.user.email.length < 1){
+                $log.debug("email missing");
+                $state.go("user.wizard.email");
+            }
+            else{
+                $log.debug("email ok");
+                twitter();
+            }
+        }
+
+        function twitter(){
+            if(vm.user.urlTwitter === null || vm.user.urlTwitter.length < 1){
+                $log.debug("twitter url missing");
+                $state.go("user.wizard.twitter");
+            }
+            else{
+                $log.debug("twitter ok");
+                // end of wizard
+                finish();
+            }
+        }
+
+        function finish(){
+            $log.debug("wizard done");
+            $state.go("user.search");
         }
     }
 })();

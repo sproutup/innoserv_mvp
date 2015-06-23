@@ -89,11 +89,11 @@ function authService($http, $q, $cookieStore, $log, userService, $timeout){
                 case 200:
                     //angular.extend(user, data);
                     //isLoggedIn = true;
+                    angular.extend(model.user, data);
+                    console.log("#3 status: ", status);
+                    //changeUser(data);
                     isReady = true;
                     model.isLoggedIn = true;
-                    angular.extend(model.user, data);
-                    console.log("status: ", status);
-                    //changeUser(data);
                     $log.debug("auth user service returned success: " + model.user.name);
                     deferred.resolve(model.user);
                     break;
@@ -115,7 +115,7 @@ function authService($http, $q, $cookieStore, $log, userService, $timeout){
             deferred.reject("auth user - failed to get user");
         });
 
-        $log.debug("auth user service returned promise");
+        $log.debug("#2 auth user service returned promise");
         return deferred.promise;
     }
 
@@ -175,14 +175,12 @@ function authService($http, $q, $cookieStore, $log, userService, $timeout){
         }).success(function(data, status, headers, config){
             // this callback will be called asynchronously
             // when the response is available
-            $log.debug("login service returned success");
+            $log.debug("#1 login service returned success");
             getAuthenticatedUser().then(function () {
-                    $log.debug("login service get user success");
+                    $log.debug("#4 login service get user success");
                     deferred.resolve("success");
                 }
             );
-
-            deferred.resolve("success");
         }).error(function(data, status, headers, config){
             // called asynchronously if an error occurs
             // or server returns response with an error status.

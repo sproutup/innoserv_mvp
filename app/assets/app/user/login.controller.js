@@ -40,9 +40,7 @@
             // reset error message
             vm.form.error = "";
 
-            var promise = authService.login(vm.form);
-
-            promise.then(
+            authService.login(vm.form).then(
                 function(data){
                     $log.info("login attempt success...");
                     wizard();
@@ -52,6 +50,7 @@
                     vm.form.error = true;
                 }
             );
+            $log.info("login promise received...");
         }
 
         function social(provider) {
@@ -70,7 +69,7 @@
                 function(data){
                     $log.debug(data);
                     $window.location.href = data;
-                    wizard();
+                    //wizard();
                 },
                 function(error){
                     $log.info('Login failed: ' + new Date());
@@ -79,7 +78,7 @@
         }
 
         function wizard(){
-            $state.go("user.wizard.start");
+            $state.go("user.wizard");
         }
     }
 })();
