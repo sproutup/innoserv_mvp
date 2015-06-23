@@ -104,6 +104,10 @@ public class UserController extends Controller {
             if (!urlBlog.isMissingNode()) {
                 user.urlBlog = urlBlog.asText();
             }
+            JsonNode urlYoutube = root.path("urlYoutube");
+            if (!urlYoutube.isMissingNode()) {
+                user.urlYoutube = urlYoutube.asText();
+            }
             user.save();
             return ok(user.toJson());
         }
