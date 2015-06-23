@@ -8,12 +8,15 @@
     TrialController.$inject = ['$q', '$rootScope', '$stateParams', '$state', '$log', 'AuthService', '$location', '$window'];
 
     function TrialController($q, $rootScope, $stateParams, $state, $log, authService, $location, $window) {
-        $log.debug("entered user login");
+        $log.debug("entered trial request");
         var vm = this;
 
-        vm.login = login;
-        vm.social = social;
+        vm.submit = submit;
+        vm.cancel = cancel;
+        vm.finish = finish;
         vm.form = {};
+        vm.trial = {};
+        vm.user = {};
         vm.ready = authService.ready;
 
         activate();
@@ -29,56 +32,43 @@
             }
             else{
                 if(authService.m.isLoggedIn) {
-                    wizard();
+                    reset();
                 }
             }
         }
 
-        function login(){
-            console.log("## login attempt", new Date());
+        function reset() {
+            vm.trial.address = authService.m.user.address;
+            vm.trial.phone = authService.m.user.phone;
+        }
+
+        function cancel(){
+            console.log("## cancel", new Date());
+            $state.go("user.search");
+        }
+
+        function submit(){
+            console.log("## submit", new Date());
 
             // reset error message
-            vm.form.error = "";
+//            vm.form.error = "";
 
-            var promise = authService.login(vm.form);
-
-            promise.then(
-                function(data){
-                    wizard();
-                },
-                function(error){
-                    $log.info('Login failed: ' + new Date());
-                    vm.form.error = true;
-                }
-            );
+//            var promise = authService.login(vm.form);
+//
+//            promise.then(
+//                function(data){
+//                    wizard();
+//                },
+//                function(error){
+//                    $log.info('Login failed: ' + new Date());
+//                    vm.form.error = true;
+//                }
+//            );
+            $state.go("user.trial.confirmation");
         }
 
-        function social(provider) {
-            $log.debug("provider: " + provider);
-
-            var currentPath = $location.path();
-            $log.debug("path: " + currentPath);
-
-            var dataObject = {
-                originalUrl : currentPath
-            };
-
-            var promise = authService.provider(provider, dataObject);
-
-            promise.then(
-                function(data){
-                    $log.debug(data);
-                    $window.location.href = data;
-                    wizard();
-                },
-                function(error){
-                    $log.info('Login failed: ' + new Date());
-                }
-            );
-        }
-
-        function wizard(){
-            $state.go("user.wizard.start");
+        function finish() {
+            $state.go("user.search");
         }
     }
 })();
