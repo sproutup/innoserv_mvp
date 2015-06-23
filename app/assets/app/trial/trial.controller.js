@@ -78,7 +78,7 @@
         }
 
         function wizard(){
-            $state.go("user.wizard.start");
+            $state.go("user.wizard");
         }
     }
 })();
