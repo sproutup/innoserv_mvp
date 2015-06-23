@@ -68,8 +68,8 @@ public class UserController extends Controller {
             if (check(root, "address")) user.streetAddress1 = root.path("address").asText();
             if (check(root, "phone")) user.phoneNumber = root.path("phone").asText();
 
-            if (check(root, "urlFacebook")) user.urlYoutube = root.path("urlFacebook").asText();
-            if (check(root, "urlTwitter")) user.urlYoutube = root.path("urlTwitter").asText();
+            if (check(root, "urlFacebook")) user.urlFacebook = root.path("urlFacebook").asText();
+            if (check(root, "urlTwitter")) user.urlTwitter = root.path("urlTwitter").asText();
             if (check(root, "urlPinterest")) user.urlPinterest = root.path("urlPinterest").asText();
             if (check(root, "urlBlog")) user.urlBlog = root.path("urlBlog").asText();
             if (check(root, "urlYoutube")) user.urlYoutube = root.path("urlYoutube").asText();
