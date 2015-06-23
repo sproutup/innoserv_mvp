@@ -1,6 +1,8 @@
 package constants;
 
-public enum UserRole {
+import be.objectify.deadbolt.core.models.Role;
+
+public enum UserRole implements Role{
 	
 	CREATOR,
 
@@ -9,7 +11,14 @@ public enum UserRole {
 	VISITOR,
 	
 	ADMINISTRATOR,
+	
+	INFLUENCER
 	;
-
+	
+	 @Override
+	    public String getName()
+	    {
+	        return name();
+	    }
 
 }

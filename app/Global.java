@@ -114,9 +114,12 @@ public class Global extends GlobalSettings {
 	private void initialData() {
 		if (UserRole.values().length > SecurityRole.find.findRowCount()) {
 			for (UserRole roleName : UserRole.values()) {
-				final SecurityRole role = new SecurityRole();
-				role.roleName = roleName.name();
-				role.save();
+				SecurityRole role = SecurityRole.findByRoleName(roleName.getName());
+				if (role==null){
+					role = new SecurityRole();
+					role.roleName = roleName.name();
+					role.save();
+				}
 			}
 		}
 
