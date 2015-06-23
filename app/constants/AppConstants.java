@@ -21,4 +21,5 @@ public interface AppConstants {
 	public static final String CONSUMER = "CONSUMER";
 	public static final String VISITOR = "VISITOR";
 	public static final String ADMINISTRATOR = "ADMINISTRATOR";
+	public static final String INFLUENCER = "INFLUENCER";
 }
