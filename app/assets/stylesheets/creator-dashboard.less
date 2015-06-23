@@ -16,7 +16,7 @@
 }
 
 .dashboard-banner {
-	height: 140px;
+	min-height: 150px;
 	margin: 0px 15px 20px;
 	background-position:center;
 	background-repeat:no-repeat;
@@ -32,13 +32,34 @@
 	left: 0;
 	bottom: 0;
 	content: "";
-	background-color: rgba(0, 0, 0, 0.4);
+	background-color: rgba(0, 0, 0, 0.5);
 }
 
 .dashboard-title {
-	margin: 30px 20px;
+	margin: 35px 20px;
 	z-index: 10;
-	position: absolute;
+}
+
+.user-profile-info {
+	margin: 0px 20px;
+}
+
+.user-profile-info--title {
+	margin: 35px 0px;
+	z-index: 10;
+}
+
+.user-profile-info--title h1 {
+	font-weight: 300;
+	font-size: 28pt;
+	color: @main-text-white;
+}
+
+.user-profile-info--title h1 span {
+	padding-left: 20px;
+	font-weight: 300;
+	font-size: 14pt;
+	color: @main-text-white;
 }
 
 .dashboard-title h1 {
@@ -138,4 +159,20 @@
 .add-product-btn.cancel:hover {
 	color: white;
 	background-color: @sproutup-grey-hover;
+}
+
+.user-profile-info--avartar {
+	z-index: 10;
+	margin: 25px auto;
+}
+
+@media (max-width: 767px) {
+	.user-profile-info {
+		text-align: center;
+	}
+
+	.user-profile-info--avartar {
+		z-index: 10;
+		margin: 20px auto;
+	}
 }
