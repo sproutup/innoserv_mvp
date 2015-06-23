@@ -110,7 +110,38 @@ a.list-group-item:hover {
 }
 
 .product-trial-item {
-    margin: 10px 0px;
+    margin: 10px 0px 30px;
+    padding: 0px 5px;
+    border-bottom: 2px solid @sproutup-lightgrey;
+}
+
+.product-trial-item-banner {
+	height: 80px;
+	margin: 0px 0px 15px;
+	background-position:center;
+	background-repeat:no-repeat;
+	background-size: cover;
+	color: #fff;
+	position: relative;
+}
+
+.product-trial-item-banner::after{
+	position: absolute;
+	top: 0;
+	right: 0;
+	left: 0;
+	bottom: 0;
+	content: "";
+	background-color: rgba(0, 0, 0, 0.4);
+}
+
+.product-trial-item-banner p {
+	margin: 20px;
+	z-index: 10;
+	position: absolute;
+    font-weight: 300;
+    font-size: 20pt;
+    color: @main-text-white;
 }
 
 .product-trial-item--photo {
@@ -119,7 +150,8 @@ a.list-group-item:hover {
 }
 
 .product-trial-item--detail {
-    padding: 10px 20px;
+    padding: 10px 0px;
+    margin: 0px;
 }
 
 .product-trial-item--detail h1 {
@@ -139,13 +171,33 @@ a.list-group-item:hover {
 }
 
 .product-trial-item--actions {
-    margin-top: 30px;
+    margin: 20px 0px;
 }
 
 .product-trial-item--status.current {
     color: @sproutup-green;
 }
 
+.product-trial-item--status.reminder {
+    color: @sproutup-orange;
+}
+
 .product-trial-item--status i {
     padding-right: 10px;
+}
+
+.product-trial-item--input {
+    margin: 20px 0px;
+}
+
+.product-trial-item--input p {
+    font-weight: 400;
+    color: @main-text-2;
+    font-size: 12pt;
+    margin: 10px 0px 15px;
+    line-height: 1.5;
+}
+
+.product-trial-item--input button {
+    margin-top: 15px;
 }
