@@ -175,6 +175,8 @@ sproutupApp.config(['$routeProvider', '$stateProvider', '$locationProvider', '$u
             .state('user.settings' ,{
                 url: '/settings',
                 abstract: true,
+                controller: 'SettingsController',
+                controllerAs: 'vm',
                 templateUrl: 'assets/app/settings/menu.html',
                 data: {
                     title: 'Settings'
