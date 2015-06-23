@@ -39,6 +39,11 @@ public class UserController extends Controller {
         return user == null ? notFound("User not found [" + id + "]") : update(user);
     }
 
+    private static boolean check(JsonNode root, String path){
+        JsonNode node = root.path(path);
+        return !node.isMissingNode() && !node.isNull();
+    }
+
     private static Result update(User user){
         User sessionuser = Application.getLocalUser(ctx().session());
         // User can only update own profile
@@ -50,64 +55,25 @@ public class UserController extends Controller {
             JsonNode root = request().body().asJson();
 
             Logger.debug("user controller > update");
-            JsonNode firstname = root.path("firstname");
-            if (!firstname.isMissingNode()) {
-                Logger.debug("user controller > firstname > " + firstname.asText());
-                user.firstName = firstname.asText();
-            }
-            JsonNode lastname = root.path("lastname");
-            if (!lastname.isMissingNode()) {
-                Logger.debug("user controller > lastname > " + lastname.asText());
-                user.lastName = lastname.asText();
-            }
-            JsonNode name = root.path("name");
-            if (!name.isMissingNode()) {
-                Logger.debug("user controller > name > " + name.asText());
-                user.name = name.asText();
-            }
-            JsonNode email = root.path("email");
-            if (!email.isMissingNode()) {
-                Logger.debug("user controller > email > " + email.asText());
-                user.email = email.asText();
-            }
-            if(root.has("nickname")){
-                user.nickname = root.path("nickname").asText();
-            }
-            JsonNode desc = root.path("description");
-            if (!desc.isMissingNode()) {
-                Logger.debug("user controller > description > " + desc.asText());
-                user.description = desc.asText();
-            }
-            JsonNode address = root.path("address");
-            if (!desc.isMissingNode()) {
-                Logger.debug("user controller > address > " + address.asText());
-                user.streetAddress1 = address.asText();
-            }
-            JsonNode phone = root.path("phone");
-            if (!phone.isMissingNode()) {
-                Logger.debug("user controller > phone > " + phone.asText());
-                user.phoneNumber = phone.asText();
-            }
-            JsonNode urlFacebook = root.path("urlFacebook");
-            if (!urlFacebook.isMissingNode()) {
-                user.urlFacebook = urlFacebook.asText();
-            }
-            JsonNode urlTwitter = root.path("urlTwitter");
-            if (!urlTwitter.isMissingNode()) {
-                user.urlTwitter = urlTwitter.asText();
-            }
-            JsonNode urlPinterest = root.path("urlPinterest");
-            if (!urlPinterest.isMissingNode()) {
-                user.urlPinterest = urlPinterest.asText();
-            }
-            JsonNode urlBlog = root.path("urlBlog");
-            if (!urlBlog.isMissingNode()) {
-                user.urlBlog = urlBlog.asText();
-            }
-            JsonNode urlYoutube = root.path("urlYoutube");
-            if (!urlYoutube.isMissingNode()) {
-                user.urlYoutube = urlYoutube.asText();
-            }
+
+            if (check(root, "firstname")) user.firstName = root.path("firstname").asText();
+            if (check(root, "lastname")) user.lastName = root.path("lastname").asText();
+            if (check(root, "name")) user.name = root.path("name").asText();
+
+            if (check(root, "email")) user.email = root.path("email").asText();
+
+            if (check(root, "nickname")) user.nickname = root.path("nickname").asText();
+            if (check(root, "description")) user.description = root.path("description").asText();
+
+            if (check(root, "address")) user.streetAddress1 = root.path("address").asText();
+            if (check(root, "phone")) user.phoneNumber = root.path("phone").asText();
+
+            if (check(root, "urlFacebook")) user.urlYoutube = root.path("urlFacebook").asText();
+            if (check(root, "urlTwitter")) user.urlYoutube = root.path("urlTwitter").asText();
+            if (check(root, "urlPinterest")) user.urlPinterest = root.path("urlPinterest").asText();
+            if (check(root, "urlBlog")) user.urlBlog = root.path("urlBlog").asText();
+            if (check(root, "urlYoutube")) user.urlYoutube = root.path("urlYoutube").asText();
+
             user.save();
             return ok(user.toJson());
         }
