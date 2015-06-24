@@ -25,6 +25,28 @@
                 <up-product-item product="product"></up-product-item>
             </div>
         </div>
+
+        <hr>
+
+        <div class="product-list-header">
+            <h1>Help us develop a wicked product showcase. Suggest cool product you know about.</h1>
+        </div>
+        <form name="suggestion" novalidate>
+            <div class="row suggest-product">
+                <!-- Product Name -->
+                <div class="col-sm-12 suggest-product-form">
+                    <input type="text" class="form-control form-validate form-input large" placeholder="Product Name" name="productName" ng-model="newSuggestion.productName" required="">
+                </div>
+
+                <!-- Product URL -->
+                <div class="col-sm-12 suggest-product-form">
+                    <input type="text" class="form-control form-validate form-input large" placeholder="Product URL" name="productURL" ng-model="newSuggestion.productUrl" required="">
+                </div>
+
+                <div class="col-sm-12 suggest-product-form">
+                    <a class="btn btn-lg btn-suggest-product" ng-click="addSuggestion()" ng-disabled="suggestion.$invalid">Suggest it</a>
+                </div>
+            </div>
+        </form>
     </div>
 </div>
-
