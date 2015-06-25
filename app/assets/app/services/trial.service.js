@@ -2,8 +2,8 @@ angular
     .module('sproutupApp')
     .factory('TrialService', trialService);
 
-trialService.$inject = ['$resource'];
+TrialService.$inject = ['$resource'];
 
-function trialService($resource){
-    return $resource('/api/trial/product/:id', {id:'@id'}, {update:{method:'PUT'}} ); // Note the full endpoint address
+function TrialService($resource){
+    return $resource('/api/trials/:id', {id:'@id'}, {update:{method:'PUT'}} );
 }

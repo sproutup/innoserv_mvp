@@ -15,6 +15,7 @@
         vm.cancel = cancel;
         vm.finish = finish;
         vm.form = {};
+        vm.request = {};
         vm.trial = {};
         vm.user = {};
         vm.ready = authService.ready;
@@ -48,7 +49,7 @@
         }
 
         function submit(){
-            console.log("## submit", new Date());
+            console.log("## submit", vm.request);
 
             // reset error message
 //            vm.form.error = "";
