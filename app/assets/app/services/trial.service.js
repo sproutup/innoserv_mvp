@@ -1,6 +1,6 @@
 angular
     .module('sproutupApp')
-    .factory('TrialService', trialService);
+    .factory('TrialService', TrialService);
 
 TrialService.$inject = ['$resource'];
 

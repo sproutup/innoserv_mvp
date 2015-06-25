@@ -17,12 +17,12 @@ import java.util.List;
 public class TrialController extends Controller {
 
     //
-    // web service for posts
+    // web service for trials
     //
 
     @BodyParser.Of(BodyParser.Json.class)
     @SubjectPresent
-    public static Result getTrials() {
+    public static Result getall() {
         User user = Application.getLocalUser(ctx().session());
 
         List<ProductTrial> trials = new ProductTrial()
@@ -35,98 +35,83 @@ public class TrialController extends Controller {
     }
 
     @BodyParser.Of(BodyParser.Json.class)
-    public static Result getTrial(Long id)
+    public static Result get(Long id)
     {
-        ProductTrial item = new ProductTrial().findById(id);
+        ProductTrial item = ProductTrial.find.byId(id);
         return item == null ? notFound("Trial not found [" + id + "]") : ok(item.toJson());
+    }
+
+    private static boolean check(JsonNode root, String path){
+        JsonNode node = root.path(path);
+        return !node.isMissingNode() && !node.isNull();
     }
 
     @BodyParser.Of(BodyParser.Json.class)
     @SubjectPresent
-    public static Result addPost() {
-        JsonNode json = request().body().asJson();
-        if (json == null) {
+    public static Result create() {
+        JsonNode root = request().body().asJson();
+        if (root == null) {
             return badRequest("Expecting Json data");
         } else {
-            long parent_id = json.findPath("parent").longValue();
-            String content = json.findPath("content").textValue();
-            String title = json.findPath("title").textValue();
-            int category = json.findPath("category").asInt();
-            long product_id = json.findPath("product_id").asLong();
-            if (content == null) {
-                return badRequest("Missing parameter [content]");
-            } else {
-                Post post = new Post();
-                post.title = title;
-                post.content = content;
-                post.category = category;
-                Post parent = Post.findById(parent_id);
-                if (parent != null) {
-                    post.parent = parent;
-                }
-                Product prod = Product.findbyID(product_id);
+            User user = Application.getLocalUser(ctx().session());
+
+            ProductTrial item = new ProductTrial();
+            item.email = user.email;
+            item.name = user.name;
+
+            if (check(root, "address")) item.address = root.path("address").asText();
+            if (check(root, "phone")) item.phone = root.path("phone").asText();
+            if (check(root, "reason")) item.reason = root.path("reason").asText();
+
+            item.user = user;
+
+            if (check(root, "product_slug")) {
+                String product_slug = root.path("product_slug").asText();
+                Product prod = Product.findBySlug(product_slug);
                 if (prod != null) {
-                    post.product = prod;
+                    item.product = prod;
                 }
-                User user = Application.getLocalUser(ctx().session());
-                if (user != null) {
-                    post.user = user;
-                }
-                post.save();
-
-                // Add tags if they are there
-                Iterator<JsonNode> myIterator = json.findPath("tags").elements();
-                while (myIterator.hasNext()) {
-                    JsonNode node = myIterator.next();
-                    post.addTag(node.findPath("text").textValue());
-                }
-
-                return created(post.toJson());
             }
+
+            item.save();
+
+            return created(item.toJson());
         }
     }
 
-//        Post newPost = Json.fromJson(request().body().asJson(), Post.class);
-//        try {
-//            newPost.parent. = 1;
-//            newPost.save();
-//            return created(newPost.toJson());
-//        }
-//        catch(PersistenceException e){
-//            return Results.badRequest(e.getMessage());
-//        }
-//    }
+    @SubjectPresent
+    public static Result update(Long id)
+    {
+        User user = Application.getLocalUser(ctx().session());
+        ProductTrial item = ProductTrial.find.byId(id);
+        // check that we found the trial and that user owns it
+        if(item != null && item.user.id == user.id) {
+            JsonNode root = request().body().asJson();
+            if (check(root, "email")) item.email = root.path("email").asText();
+            if (check(root, "name")) item.name = root.path("name").asText();
+            if (check(root, "address")) item.address = root.path("address").asText();
+            if (check(root, "phone")) item.phone = root.path("phone").asText();
+            if (check(root, "reason")) item.reason = root.path("reason").asText();
+            item.save();
+            return ok(item.toJson());
+        }
+        else{
+            return play.mvc.Results.notFound("Trial not found");
+        }
+    }
 
-//    public static Result updateProduct(Long id)
-//    {
-//        Product existing = new Product().findbyID(id);
-//        if(existing != null) {
-//            Product updated = Json.fromJson(request().body().asJson(), Product.class);
-//            if(updated.productName != null) { existing.productName = updated.productName; };
-//            if(updated.productEAN != null) { existing.productEAN = updated.productEAN; };
-//            if(updated.productDescription != null) { existing.productDescription = updated.productDescription; };
-//            if(updated.productLongDescription != null) { existing.productLongDescription = updated.productLongDescription; };
-//            if(updated.urlHome != null) { existing.urlHome = updated.urlHome; };
-//            if(updated.urlFacebook != null) { existing.urlFacebook = updated.urlFacebook; };
-//            if(updated.urlTwitter != null) { existing.urlTwitter = updated.urlTwitter; };
-//            existing.save();
-//            return ok(Json.toJson(existing));
-//        }
-//        else{
-//            return Results.notFound("Product not found");
-//        }
-//    }
-
-//    public static Result deleteProduct(Long id)
-//    {
-//        Product del = new Product().findbyID(id);
-//        if(del != null) {
-//            del.delete();
-//            return ok();
-//        }
-//        else{
-//            return Results.notFound("Product not found");
-//        }
-//    }
+    @SubjectPresent
+    public static Result delete(Long id)
+    {
+        User user = Application.getLocalUser(ctx().session());
+        ProductTrial item = ProductTrial.find.byId(id);
+        if(item != null && item.user.id == user.id) {
+            item.delete();
+            return ok();
+        }
+        else{
+            return play.mvc.Results.notFound("Trial not found");
+        }
+    }
 
 }

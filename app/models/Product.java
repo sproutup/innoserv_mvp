@@ -166,6 +166,10 @@ public class Product extends SuperModel implements PathBindable<Product>,
 		return find.where().eq("slug", value).findUnique();
 	}
 
+	public static Product findBySlug(String value) {
+		return find.where().eq("slug", value).findUnique();
+	}
+
 	public List<Product> findbyProductName(String productName) {
 		List<Product> results;
 		 return results = find.where().eq("productName", productName).findList();

@@ -5,10 +5,12 @@
         .module('sproutupApp')
         .controller('TrialController', TrialController);
 
-    TrialController.$inject = ['$q', '$rootScope', '$stateParams', '$state', '$log', 'AuthService', '$location', '$window'];
+    TrialController.$inject = ['$q', '$rootScope', '$stateParams', '$state', '$log', 'AuthService', '$location', '$window', '$TrialService'];
 
-    function TrialController($q, $rootScope, $stateParams, $state, $log, authService, $location, $window) {
+    function TrialController($q, $rootScope, $stateParams, $state, $log, authService, $location, $window, $TrialService) {
         $log.debug("entered trial request");
+        $log.debug("slug = " + $stateParams.slug);
+
         var vm = this;
 
         vm.submit = submit;
@@ -39,8 +41,9 @@
         }
 
         function reset() {
-            vm.trial.address = authService.m.user.address;
-            vm.trial.phone = authService.m.user.phone;
+            vm.request.address = authService.m.user.address;
+            vm.request.phone = authService.m.user.phone;
+            vm.request.product_slug = $stateParams.slug;
         }
 
         function cancel(){
@@ -51,6 +54,9 @@
         function submit(){
             console.log("## submit", vm.request);
 
+//            var newTrial = new TrialService();
+//            newTrial.name = "Mike Smith";
+//            newTrial.$save();
             // reset error message
 //            vm.form.error = "";
 
