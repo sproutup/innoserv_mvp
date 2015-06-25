@@ -5,9 +5,9 @@
         .module('sproutupApp')
         .controller('TrialController', TrialController);
 
-    TrialController.$inject = ['$q', '$rootScope', '$stateParams', '$state', '$log', 'AuthService', '$location', '$window', '$TrialService'];
+    TrialController.$inject = ['$q', '$rootScope', '$stateParams', '$state', '$log', 'AuthService', '$location', '$window', 'TrialService'];
 
-    function TrialController($q, $rootScope, $stateParams, $state, $log, authService, $location, $window, $TrialService) {
+    function TrialController($q, $rootScope, $stateParams, $state, $log, authService, $location, $window, TrialService) {
         $log.debug("entered trial request");
         $log.debug("slug = " + $stateParams.slug);
 
@@ -48,34 +48,21 @@
 
         function cancel(){
             console.log("## cancel", new Date());
-            $state.go("user.search");
+            $state.go("user.product.detail.about", { slug: $stateParams.slug });
         }
 
         function submit(){
             console.log("## submit", vm.request);
 
-//            var newTrial = new TrialService();
-//            newTrial.name = "Mike Smith";
-//            newTrial.$save();
-            // reset error message
-//            vm.form.error = "";
+            var newTrial = new TrialService();
+            angular.extend(newTrial, vm.request);
+            newTrial.$save();
 
-//            var promise = authService.login(vm.form);
-//
-//            promise.then(
-//                function(data){
-//                    wizard();
-//                },
-//                function(error){
-//                    $log.info('Login failed: ' + new Date());
-//                    vm.form.error = true;
-//                }
-//            );
             $state.go("user.trial.confirmation");
         }
 
         function finish() {
-            $state.go("user.search");
+            $state.go("user.product.detail.about", { slug: $stateParams.slug });
         }
     }
 })();
