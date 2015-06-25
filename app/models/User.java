@@ -132,6 +132,9 @@ public class User extends TimeStampModel implements Subject {
 	@OneToMany
 	public List<Post> posts;
 
+	@OneToMany
+	public List<ProductTrial> trials;
+
 	@ManyToOne
 	public Company company;
 
@@ -388,11 +391,14 @@ public class User extends TimeStampModel implements Subject {
         node.put("urlYoutube", this.urlYoutube);
         node.put("zipcode", this.zipcode);
         node.put("roles", Json.toJson(this.getRoles()));
-        if (this.getRoles()!=null && this.getRoles().size()>0){
-        	node.put("role", this.getRoles().get(0).getName().toLowerCase());
-        } else {
-        	node.put("role", "external");
-        }
+		if (this.getRoles()!=null && this.getRoles().size()>0){
+			node.put("role", this.getRoles().get(0).getName().toLowerCase());
+		} else {
+			node.put("role", "external");
+		}
+		if (this.trials!=null && this.trials.size()>0){
+			node.put("trials", ProductTrial.toJson(trials));
+		}
         node.put("permissions", Json.toJson(this.getPermissions()));
         node.put("lastLogin", new DateTime(this.lastLogin).toString());
 		node.put("providerKey", this.linkedAccounts.get(0).providerKey);
@@ -412,7 +418,17 @@ public class User extends TimeStampModel implements Subject {
         return node;
     }
 
-    public String getAvatar(){
+	public ObjectNode toJsonShort(){
+		ObjectNode node = Json.newObject();
+		node.put("id", this.id);
+		node.put("name", this.name);
+		node.put("nickname", this.nickname);
+		node.put("email", this.email);
+		node.put("avatarUrl", getAvatar());
+		return node;
+	}
+
+	public String getAvatar(){
 		if(avatar != null){
 			return avatar.getURL() + "?w=256";
 		}

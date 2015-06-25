@@ -70,8 +70,12 @@ PUT           /api/users/:nickname                                           con
 POST          /api/suggest/product                                           controllers.Application.addProductSuggestion
 POST          /api/creator/access                                            controllers.Application.addEarlyAccessRequest
 
-POST          /api/trial/product                                             controllers.Application.addProductTrial
-GET           /api/trial/product/:type/:id                                   controllers.Application.getProductTrial(id: Long, type: String)
+GET           /api/trials                                                    controllers.TrialController.getall
+GET           /api/trials/:id                                                controllers.TrialController.get(id: Long)
+POST          /api/trials                                                    controllers.TrialController.create
+PUT           /api/trials/:id                                                controllers.TrialController.update(id: Long)
+POST          /api/trials/:id                                                controllers.TrialController.update(id: Long)
+DELETE        /api/trials/:id                                                controllers.TrialController.delete(id: Long)
 
 GET           /api/products                                                  controllers.Products.getProducts
 GET           /api/products/:slug                                            controllers.Products.getProduct(slug: String)

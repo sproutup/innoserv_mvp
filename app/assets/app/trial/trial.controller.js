@@ -5,16 +5,19 @@
         .module('sproutupApp')
         .controller('TrialController', TrialController);
 
-    TrialController.$inject = ['$q', '$rootScope', '$stateParams', '$state', '$log', 'AuthService', '$location', '$window'];
+    TrialController.$inject = ['$q', '$rootScope', '$stateParams', '$state', '$log', 'AuthService', '$location', '$window', 'TrialService'];
 
-    function TrialController($q, $rootScope, $stateParams, $state, $log, authService, $location, $window) {
+    function TrialController($q, $rootScope, $stateParams, $state, $log, authService, $location, $window, TrialService) {
         $log.debug("entered trial request");
+        $log.debug("slug = " + $stateParams.slug);
+
         var vm = this;
 
         vm.submit = submit;
         vm.cancel = cancel;
         vm.finish = finish;
         vm.form = {};
+        vm.request = {};
         vm.trial = {};
         vm.user = {};
         vm.ready = authService.ready;
@@ -38,37 +41,28 @@
         }
 
         function reset() {
-            vm.trial.address = authService.m.user.address;
-            vm.trial.phone = authService.m.user.phone;
+            vm.request.address = authService.m.user.address;
+            vm.request.phone = authService.m.user.phone;
+            vm.request.product_slug = $stateParams.slug;
         }
 
         function cancel(){
             console.log("## cancel", new Date());
-            $state.go("user.search");
+            $state.go("user.product.detail.about", { slug: $stateParams.slug });
         }
 
         function submit(){
-            console.log("## submit", new Date());
+            console.log("## submit", vm.request);
 
-            // reset error message
-//            vm.form.error = "";
+            var newTrial = new TrialService();
+            angular.extend(newTrial, vm.request);
+            newTrial.$save();
 
-//            var promise = authService.login(vm.form);
-//
-//            promise.then(
-//                function(data){
-//                    wizard();
-//                },
-//                function(error){
-//                    $log.info('Login failed: ' + new Date());
-//                    vm.form.error = true;
-//                }
-//            );
             $state.go("user.trial.confirmation");
         }
 
         function finish() {
-            $state.go("user.search");
+            $state.go("user.product.detail.about", { slug: $stateParams.slug });
         }
     }
 })();

@@ -7,12 +7,9 @@
                 </div>
                 <div class="product-cover-title">{{product.productName}}</div>
                 <div class="product-cover-description">{{product.productDescription}}</div>
-                <div class="trial-user-list-title">TRIALS: 4 REQUESTED</div>
+                <div ng-hide="!product.trials" class="trial-user-list-title">{{product.trials.length}} TRIALS REQUESTED</div>
                 <div class="trial-user-list">
-                    <img class="trial-user-img" src="@routes.Assets.at("images/about/team/beth.jpg")">
-                    <img class="trial-user-img" src="@routes.Assets.at("images/about/team/nitin.jpg")">
-                    <img class="trial-user-img" src="@routes.Assets.at("images/about/team/peter.jpg")">
-                    <img class="trial-user-img" src="@routes.Assets.at("images/about/team/tao.jpg")">
+                    <img ng-repeat="trial in product.trials | limitTo:6" class="trial-user-img" src="{{trial.user.avatarUrl}}">
                 </div>
             </div>
         </div>
