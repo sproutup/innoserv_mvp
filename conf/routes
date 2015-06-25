@@ -34,6 +34,7 @@ GET           /views/news                                                    con
 GET           /views/search                                                  controllers.Application.search
 GET           /views/community                                               controllers.Application.community
 GET           /views/creator                                                 controllers.Application.creator
+GET           /views/perk                                                    controllers.Application.perk
 GET           /views/dashboard                                               controllers.Application.dashboard
 GET           /views/dashboard/products                                      controllers.Application.dashboard_products
 GET           /views/dashboard/products/info                                 controllers.Application.dashboard_products_info
@@ -164,7 +165,7 @@ GET           /mockups/user_settings                                         con
 GET           /mockups/new-product                                           controllers.MockupController.addNewProduct()
 GET           /mockups/wizard                                                controllers.MockupController.wizard()
 GET           /mockups/tryout                                                controllers.MockupController.tryout()
-GET           /mockups/product_trials                                        controllers.MockupController.productTrials()   
+GET           /mockups/product_trials                                        controllers.MockupController.productTrials()
 
 # catch all. angular will handle all routes except /api/* /views/* /mockups/*
 GET           /                                                              controllers.Application.main(any = "none")

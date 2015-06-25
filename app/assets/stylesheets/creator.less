@@ -9,14 +9,27 @@
   color: #fff;
 }
 
+.perk .intro-header {
+    width: 100%;
+    height: 480px;
+    text-align: center;
+    background: url(../images/perk/hero-perk.jpg) no-repeat center center;
+    background-size: cover;
+    color: #fff;
+}
+
 .intro-message {
   padding: 120px 15px 0px;
   max-width: 900px;
   margin: 0px auto;
 }
 
+.perk .intro-message {
+    padding: 160px 15px 0px;
+}
+
 .intro-message > h1 {
-  font-weight: 100;
+  font-weight: 300;
   margin: 0;
   font-size: 40pt;
 }
@@ -257,17 +270,10 @@
   margin: 0px auto;
 }
 
-.how-it-works--blurb.story,
-.how-it-works--blurb.analytics {
-  max-width: 1024px;
-}
-
-.how-it-works--blurb.future {
-  max-width: 1100px;
-}
-
-.how-it-works--blurb.collaborate {
-  max-width: 1250px;
+.how-it-works--blurb-b {
+    padding: 20px 10px;
+    margin: 0px auto;
+    background-color: #f5f5f5;
 }
 
 .how-it-works--title {
@@ -277,15 +283,15 @@
   padding: 10px;
 }
 
+.perk .how-it-works--title {
+    color: @sproutup-darkgreen;
+}
+
 .how-it-works--title span {
     font-size: 14pt;
     font-weight: 400;
     display: block;
     color: @sproutup-blue-muted;
-}
-
-.how-it-works--title.future {
-  color: @sproutup-blue-muted;
 }
 
 .how-it-works--title-seq {
@@ -302,8 +308,8 @@
   background-color: @sproutup-blue;
 }
 
-.how-it-works--title-seq.future {
-  background-color: @sproutup-blue-muted;
+.perk .how-it-works--title-seq {
+    background-color: @sproutup-darkgreen;
 }
 
 .how-it-works--title-separator {
@@ -312,14 +318,26 @@
   max-width: 800px;
 }
 
-.how-it-works--title-separator.future {
-  border-top: dashed 1px @sproutup-blue-muted;
+.perk .how-it-works--title-separator {
+    border-top: dashed 1px @sproutup-darkgreen;
+}
+
+.how-it-works--subtitle {
+    font-size: 13pt;
+    font-weight: 400;
+    color: @main-text-1;
+    padding: 0px;
+    margin: 0px;
 }
 
 .how-it-works--main {
     max-width: 800px;
   padding: 30px 10px 10px;
   margin: 0px auto;
+}
+
+.perk .how-it-works--main {
+    max-width: 1024px;
 }
 
 .how-it-works--content {
@@ -342,20 +360,39 @@
 }
 
 .how-it-works--content img {
-  width: auto;
-  max-height: 340px;
-  margin: 0px auto;
+  max-width: 230px;
+  margin: 0px auto 20px;
 }
 
-.how-it-works--content.future img {
-  width: auto;
-  max-height: 200px;
-  margin: 0px auto;
+.perk .how-it-works--content {
+    margin: 10px 0px;
+}
+
+.perk .how-it-works--content h1 {
+    font-size: 13.5pt;
+    font-weight: 400;
+    color: @main-text-1;
+    margin: 0px;
+    line-height: 1.5;
+    padding: 0px 10px;
+}
+
+.perk .how-it-works--content p {
+    font-size: 12pt;
+    font-weight: 400;
+    color: @main-text-1;
+    margin: 0px;
+    line-height: 1.5;
+    padding: 5px 10px;
 }
 
 .how-it-works--screenshot {
   margin: 0px;
   padding: 20px;
+}
+
+.perk-details {
+    margin: 0px;
 }
 
 @media(max-width:767px) {
@@ -387,6 +424,12 @@
     font-size: 11pt;
     font-weight: 400;
   }
+
+  .how-it-works--content img {
+    max-width: 360px;
+    margin: 0px auto 20px;
+  }
+
 }
 
 @media(min-width:767px) and (max-width:992px) {
@@ -415,7 +458,6 @@
 
   .how-it-works--content img {
     width: auto;
-    max-height: 420px;
-    margin: 0px auto;
+    margin: 0px auto 20px;
   }
 }
