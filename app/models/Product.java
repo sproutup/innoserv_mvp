@@ -77,9 +77,12 @@ public class Product extends SuperModel implements PathBindable<Product>,
 
 	@OneToOne(cascade=CascadeType.ALL, mappedBy="product")
 	public ProductAdditionalDetail productAdditionalDetail;
-	
+
 	@OneToMany(mappedBy="product")
 	public List<Post> postItems;
+
+	@OneToMany(mappedBy="product")
+	public List<ProductTrial> trials;
 
 	@OneToMany(mappedBy="product")
 	@OrderBy("dateTimeStamp desc")
@@ -140,7 +143,7 @@ public class Product extends SuperModel implements PathBindable<Product>,
 	/*
 		Clear product item from cache
 	 */
-	private void cacheRemove(){
+	public void cacheRemove(){
 		if(this.id != null) {
 			play.cache.Cache.remove("product:" + this.id);
 		}
@@ -352,6 +355,9 @@ public class Product extends SuperModel implements PathBindable<Product>,
         if(tags.size()>0){
             node.put("tags", Tag.toJson(tags));
         }
+		if (this.trials!=null && this.trials.size()>0){
+			node.put("trials", ProductTrial.toJson(trials));
+		}
 
 		if(this.productAdditionalDetail!=null) {
 			if(productAdditionalDetail.bannerPhoto!=null) {

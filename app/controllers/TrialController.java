@@ -65,15 +65,20 @@ public class TrialController extends Controller {
 
             item.user = user;
 
+            Product prod = null;
             if (check(root, "product_slug")) {
                 String product_slug = root.path("product_slug").asText();
-                Product prod = Product.findBySlug(product_slug);
+                prod = Product.findBySlug(product_slug);
                 if (prod != null) {
                     item.product = prod;
+                }
+                else{
+                    return notFound("Product for trial not found");
                 }
             }
 
             item.save();
+            prod.cacheRemove();
 
             return created(item.toJson());
         }

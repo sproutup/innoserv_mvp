@@ -418,7 +418,17 @@ public class User extends TimeStampModel implements Subject {
         return node;
     }
 
-    public String getAvatar(){
+	public ObjectNode toJsonShort(){
+		ObjectNode node = Json.newObject();
+		node.put("id", this.id);
+		node.put("name", this.name);
+		node.put("nickname", this.nickname);
+		node.put("email", this.email);
+		node.put("avatarUrl", getAvatar());
+		return node;
+	}
+
+	public String getAvatar(){
 		if(avatar != null){
 			return avatar.getURL() + "?w=256";
 		}
