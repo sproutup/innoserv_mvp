@@ -173,6 +173,13 @@ sproutupApp.config(['$routeProvider', '$stateProvider', '$locationProvider', '$u
                     title: 'Creator - SproutUp'
                 }
             })
+            .state('user.perk' ,{
+                url: '/perk',
+                templateUrl: 'views/perk',
+                data: {
+                    title: 'Earn Perks - SproutUp'
+                }
+            })
             .state('user.settings' ,{
                 url: '/settings',
                 abstract: true,

@@ -170,6 +170,10 @@ public class Application extends Controller {
 		return ok(creator.render());
 	}
 
+	public static Result perk() {
+		return ok(perk.render());
+	}
+
     public static Result community() {
         return ok(community.render());
     }
