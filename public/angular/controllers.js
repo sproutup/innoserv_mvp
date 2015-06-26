@@ -465,20 +465,59 @@ productControllers.controller('productListCtrl', ['$scope', 'ProductService',
     $scope.products = ProductService.query();
   }]);
 
-productControllers.controller('productDetailCtrl', ['$scope', '$stateParams', '$state', '$log', 'ProductService', 'AuthService',
-  function($scope, $stateParams, $state, $log, ProductService, authService) {
+productControllers.controller('productDetailCtrl', ['$scope', '$rootScope', '$stateParams', '$state', '$log', 'ProductService', 'AuthService',
+  function($scope, $rootScope, $stateParams, $state, $log, ProductService, authService) {
     $log.debug("entered product details ctrl. slug=" + $stateParams.slug);
 
-    ProductService.get({slug: $stateParams.slug}).$promise.then(
-        function(data) {
-            // success
-            $scope.product = data;
-        },
-        function(error) {
-            // error handler
-            $state.go("home");
+    var slug = $stateParams.slug;
+    $scope.init = false;
+
+    activate();
+
+    function activate() {
+        if(!authService.ready()){
+            var unbindWatch = $rootScope.$watch(authService.ready, function (value) {
+                if ( value === true ) {
+                  unbindWatch();
+                  activate();
+                }
+            });
         }
-    );
+        else{
+            if(authService.m.isLoggedIn) {
+                init();
+            }
+        }
+    }
+
+    function init(){
+        if(authService.ready() && authService.m.isLoggedIn){
+            $log.debug("## check for current trial");
+            var index = authService.m.user.trials.findIndex(function(element){
+                return element.product.slug == slug;
+            })
+            if(index!=-1){
+                $log.debug("## found current trial");
+                $scope.hasCurrentTrial = true;
+            }
+            else{
+                $log.debug("## didn't find current trial");
+                $scope.hasCurrentTrial = false;
+            }
+        };
+
+        ProductService.get({slug: $stateParams.slug}).$promise.then(
+            function(data) {
+                // success
+                $scope.product = data;
+                $scope.init = true;
+            },
+            function(error) {
+                // error handler
+                $state.go("home");
+            }
+        );
+    }
   }]);
 
 productControllers.controller('userDetailCtrl', ['$scope', '$stateParams', '$state', '$log', 'UserService',
