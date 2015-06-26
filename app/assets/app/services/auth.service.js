@@ -88,9 +88,11 @@ function authService($http, $q, $cookieStore, $log, userService, $timeout){
                     console.log("#3 status: ", status);
                     isReady = true;
                     model.isLoggedIn = true;
-                    model.trials = model.user.trials.filter(function (item) {
-                        return item.active === true;
-                    });
+                    if(model.user.trials !== undefined){
+                        model.trials = model.user.trials.filter(function (item) {
+                            return item.active === true;
+                        });
+                    }
 
                     $log.debug("auth user service returned success: " + model.user.name);
                     deferred.resolve(model.user);

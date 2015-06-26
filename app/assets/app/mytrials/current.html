@@ -8,16 +8,23 @@
         <div class="col-sm-12 product-trial-item--detail">
             <p class="product-trial-item--status current"><i class="fa fa-check-circle"></i>Requested {{item.createdAt | fromNow}}</p>
             <p class="product-trial-item--status"><i class="fa fa-check-circle"></i>You haven't uploaded any content yet. Come back when you're ready!</p>
+            <div class="product-trial-item--result" ng-repeat="content in item.content">
+                <a ng-click="vm.deleteContent(content.id, item)" href="#"><i class="fa fa-times-circle"></i></a>
+                <a ng-href="{{content.url}}" target="_blank">{{content.url}}</a>
+            </div>
+
             <div class="product-trial-item--actions">
-                <a href="#" class="btn btn-lg sproutup-btn-md-main disabled">Add my content</a>
+                <a ng-click="item.isContentFormOpen = !item.isContentFormOpen" href="#" class="btn btn-lg sproutup-btn-md-main">Add my content</a>
                 <a ui-sref="user.product.detail.bar({ slug: item.product.slug })" class="btn btn-lg sproutup-btn-md-main">Join discussion</a>
                 <!--a href="#" class="btn btn-lg sproutup-btn-md-main">Tweet</a-->
             </div>
-            <div ng-hide="true" class="product-trial-item--input">
+            <div ng-show="item.isContentFormOpen" class="product-trial-item--input">
                 <p>Once you write a blog or make a video, please share the link with us. We will help promote the content and build more brand awareness for this product. You will also earn influence, followers, and perks.</p>
-                <input type="url" class="form-control form-validate form-input medium" placeholder="Please enter the url of content you created, e.g. blog, video, etc.">
-                <button class="btn btn-lg sproutup-btn-md-main" type="submit">Add</button>
-                <button class="btn btn-lg sproutup-btn-md-cancel" type="submit">Cancel</button>
+                <form ng-submit="vm.addContent(item)">
+                    <input type="url" required="" ng-model="item.form.url" http-prefix="" class="form-control form-validate form-input medium" placeholder="Please enter the url of content you created, e.g. blog, video, etc.">
+                    <button type="submit" class="btn btn-lg sproutup-btn-md-main" type="submit">Add</button>
+                    <button ng-click="item.isContentFormOpen=false" class="btn btn-lg sproutup-btn-md-cancel" type="submit">Cancel</button>
+                </form>
             </div>
         </div>
     </div>

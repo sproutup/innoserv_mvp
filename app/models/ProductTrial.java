@@ -39,6 +39,9 @@ public class ProductTrial extends TimeStampModel {
     @ManyToOne
     public Product product;
 
+    @OneToMany
+    public List<Content> content;
+
     @ManyToOne
     public User user;
 
@@ -68,6 +71,9 @@ public class ProductTrial extends TimeStampModel {
         }
         if(this.product != null) {
             node.put("product", this.product.toJsonShort());
+        }
+        if(this.content != null) {
+            node.put("content", Content.toJson(this.content));
         }
         return node;
     }
