@@ -77,6 +77,13 @@ PUT           /api/trials/:id                                                con
 POST          /api/trials/:id                                                controllers.TrialController.update(id: Long)
 DELETE        /api/trials/:id                                                controllers.TrialController.delete(id: Long)
 
+GET           /api/content                                                   controllers.ContentController.getall
+GET           /api/content/:id                                               controllers.ContentController.get(id: Long)
+POST          /api/content                                                   controllers.ContentController.create
+PUT           /api/content/:id                                               controllers.ContentController.update(id: Long)
+POST          /api/content/:id                                               controllers.ContentController.update(id: Long)
+DELETE        /api/content/:id                                               controllers.ContentController.delete(id: Long)
+
 GET           /api/products                                                  controllers.Products.getProducts
 GET           /api/products/:slug                                            controllers.Products.getProduct(slug: String)
 POST          /api/products                                                  controllers.Products.createProduct
