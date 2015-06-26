@@ -56,9 +56,15 @@
 
             var newTrial = new TrialService();
             angular.extend(newTrial, vm.request);
-            newTrial.$save();
+            newTrial.$save(function(data){
+                authService.addTrial(data);
+                $state.go("user.trial.confirmation");
+            },
+            function(err){
+                //todo add error handling
+            });
 
-            $state.go("user.trial.confirmation");
+
         }
 
         function finish() {

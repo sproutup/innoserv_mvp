@@ -28,7 +28,9 @@ function authService($http, $q, $cookieStore, $log, userService, $timeout){
         signup: signup,
         logout: logout,
         ready: ready,
-        loggedIn: loggedIn
+        loggedIn: loggedIn,
+        addTrial: addTrial,
+        refreshTrials: refreshTrials
     };
 
     activate();
@@ -55,8 +57,17 @@ function authService($http, $q, $cookieStore, $log, userService, $timeout){
         return model.isLoggedIn;
     }
 
-    function currentUser() {
-        return currentUser;
+    function addTrial(data){
+        model.user.trials.push(data);
+        refreshTrials();
+    }
+
+    function refreshTrials() {
+        if(model.user.trials !== undefined){
+            model.trials = model.user.trials.filter(function (item) {
+                return item.active === true;
+            });
+        }
     }
 
     function authorize(accessLevel, role) {
