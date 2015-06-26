@@ -55,11 +55,6 @@ function authService($http, $q, $cookieStore, $log, userService, $timeout){
         return model.isLoggedIn;
     }
 
-    function changeUser(user) {
-        angular.extend(currentUser, user);
-        AuthService.user = user;
-    }
-
     function currentUser() {
         return currentUser;
     }
@@ -91,9 +86,12 @@ function authService($http, $q, $cookieStore, $log, userService, $timeout){
                     //isLoggedIn = true;
                     angular.extend(model.user, data);
                     console.log("#3 status: ", status);
-                    //changeUser(data);
                     isReady = true;
                     model.isLoggedIn = true;
+                    model.trials = model.user.trials.filter(function (item) {
+                        return item.active === true;
+                    });
+
                     $log.debug("auth user service returned success: " + model.user.name);
                     deferred.resolve(model.user);
                     break;

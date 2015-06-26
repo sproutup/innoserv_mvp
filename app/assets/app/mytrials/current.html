@@ -1,0 +1,48 @@
+<!-- Content -->
+<div class="col-sm-9">
+    <div class="product-edit--header">You are trying 3 products</div>
+
+    <div class="row product-trial-item" ng-repeat="item in vm.current">
+        <div class="col-sm-12 product-trial-item-banner" up-background-image="{{vm.item.banner.url.image}}" up-background-attr="?w=600&h=100" up-fallback-image="/assets/images/default-product-banner.jpg">
+            <p>{{item.product.name}}</p>
+        </div>
+        <div class="col-sm-12 product-trial-item--detail">
+            <p class="product-trial-item--status current"><i class="fa fa-check-circle"></i>Requested {{item.createdAt | fromNow}}</p>
+            <p class="product-trial-item--status"><i class="fa fa-check-circle"></i>You haven't uploaded any content yet. Come back when you're ready!</p>
+            <div class="product-trial-item--actions">
+                <a href="#" class="btn btn-lg sproutup-btn-md-main disabled">Add my content</a>
+                <a ui-sref="user.product.detail.bar({ slug: item.product.slug })" class="btn btn-lg sproutup-btn-md-main">Join discussion</a>
+                <!--a href="#" class="btn btn-lg sproutup-btn-md-main">Tweet</a-->
+            </div>
+            <div ng-hide="true" class="product-trial-item--input">
+                <p>Once you write a blog or make a video, please share the link with us. We will help promote the content and build more brand awareness for this product. You will also earn influence, followers, and perks.</p>
+                <input type="url" class="form-control form-validate form-input medium" placeholder="Please enter the url of content you created, e.g. blog, video, etc.">
+                <button class="btn btn-lg sproutup-btn-md-main" type="submit">Add</button>
+                <button class="btn btn-lg sproutup-btn-md-cancel" type="submit">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!--div class="row product-trial-item">
+        <div class="col-sm-12 product-trial-item-banner" style="background-image: url('http://d30xksqof6w2my.cloudfront.net/2dd1e278-7636-43c4-97ae-262da1d070f8_0_admin.jpg?w=600&h=100')">
+            <p>Belleds</p>
+        </div>
+        <div class="col-sm-12 product-trial-item--detail">
+            <p class="product-trial-item--status current"><i class="fa fa-check-circle"></i>Requested on June 12, 2015</p>
+            <p class="product-trial-item--status current"><i class="fa fa-check-circle"></i>You have uploaded 2 content. Awesome job!!</p>
+            <div class="product-trial-item--result">
+                <a href="#"><i class="fa fa-times-circle"></i></a>
+                <a href="#" target="_blank">http://www.youtube.com</a>
+            </div>
+            <div class="product-trial-item--result">
+                <a href="#"><i class="fa fa-times-circle"></i></a>
+                <a href="#" target="_blank">http://www.vimeo.com</a>
+            </div>
+            <div class="product-trial-item--actions">
+                <a href="#" class="btn btn-lg sproutup-btn-md-main">Add my content</a>
+                <a href="#" class="btn btn-lg sproutup-btn-md-main">Join discussion</a>
+                <a href="#" class="btn btn-lg sproutup-btn-md-main">Tweet</a>
+            </div>
+        </div>
+    </div-->
+</div>

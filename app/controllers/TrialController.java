@@ -29,7 +29,7 @@ public class TrialController extends Controller {
                 .find
                 .where()
                 .eq("user_id", user.id)
-                .orderBy("id desc")
+                .orderBy("id asc")
                 .findList();
         return ok(ProductTrial.toJson(trials));
     }

@@ -60,10 +60,14 @@ public class ProductTrial extends TimeStampModel {
         node.put("id", this.id);
         node.put("name", this.name);
         node.put("email", this.email);
+        node.put("active", this.active);
         node.put("createdAt", new DateTime(this.createdAt).toString());
         node.put("updatedAt", new DateTime(this.updatedAt).toString());
         if(this.user != null) {
             node.put("user", this.user.toJsonShort());
+        }
+        if(this.product != null) {
+            node.put("product", this.product.toJsonShort());
         }
         return node;
     }

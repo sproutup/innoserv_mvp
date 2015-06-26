@@ -1,0 +1,69 @@
+(function () {
+    'use strict';
+
+    angular
+        .module('sproutupApp')
+        .controller('MyTrialController', MyTrialController);
+
+    MyTrialController.$inject = ['$q', '$rootScope', '$stateParams', '$state', '$log', 'AuthService', '$location', '$window', 'TrialService'];
+
+    function MyTrialController($q, $rootScope, $stateParams, $state, $log, authService, $location, $window, TrialService) {
+        $log.debug("entered my trials");
+
+        var vm = this;
+
+        vm.submit = submit;
+        vm.cancel = cancel;
+        vm.finish = finish;
+        vm.form = {};
+        vm.trial = {};
+        vm.user = authService.m.user;
+        vm.ready = authService.ready;
+
+        activate();
+
+        function activate() {
+            if(!authService.ready()){
+                var unbindWatch = $rootScope.$watch(authService.ready, function (value) {
+                    if ( value === true ) {
+                      unbindWatch();
+                      activate();
+                    }
+                });
+            }
+            else{
+                if(authService.m.isLoggedIn) {
+                    init();
+                }
+            }
+        }
+
+        function init() {
+            vm.current = vm.user.trials.filter(function (item) {
+                return item.active === true;
+            });
+            vm.past = vm.user.trials.filter(function (item) {
+                return item.active === false;
+            });
+        }
+
+        function cancel(){
+            console.log("## cancel", new Date());
+            $state.go("user.product.detail.about", { slug: $stateParams.slug });
+        }
+
+        function submit(){
+            console.log("## submit", vm.request);
+
+            var newTrial = new TrialService();
+            angular.extend(newTrial, vm.request);
+            newTrial.$save();
+
+            $state.go("user.trial.confirmation");
+        }
+
+        function finish() {
+            $state.go("user.product.detail.about", { slug: $stateParams.slug });
+        }
+    }
+})();
