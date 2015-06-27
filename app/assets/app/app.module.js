@@ -17,7 +17,8 @@ var sproutupApp = angular.module('sproutupApp', [
     'angulartics',
     'angulartics.google.analytics',
     'angulartics.mixpanel',
-    'angulartics.scroll'
+    'angulartics.scroll',
+    'ui.bootstrap'
 ]);
 
 sproutupApp.config(function ($provide) {

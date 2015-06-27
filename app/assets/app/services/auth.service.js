@@ -28,7 +28,10 @@ function authService($http, $q, $cookieStore, $log, userService, $timeout){
         signup: signup,
         logout: logout,
         ready: ready,
-        loggedIn: loggedIn
+        loggedIn: loggedIn,
+        isInfluencer: isInfluencer,
+        isConsumer: isConsumer,
+        isCreator: isCreator
     };
 
     activate();
@@ -53,6 +56,26 @@ function authService($http, $q, $cookieStore, $log, userService, $timeout){
 
     function loggedIn(){
         return model.isLoggedIn;
+    }
+    
+    function isRole(roleName) {
+        if (model.user.roles !== undefined) {
+            for (var i = 0; i < model.user.roles.length; i++) {
+                if (model.user.roles[i].roleName === roleName) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    function isInfluencer() {
+    	return isRole("INFLUENCER")
+    }
+    function isConsumer() {
+    	return isRole("CONSUMER")
+    }
+    function isCreator() {
+    	return isRole("CREATOR")
     }
 
     function changeUser(user) {

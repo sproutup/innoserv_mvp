@@ -465,21 +465,55 @@ productControllers.controller('productListCtrl', ['$scope', 'ProductService',
     $scope.products = ProductService.query();
   }]);
 
+productControllers.controller('ModalCtrl', function ($scope, $modal) {
+	$scope.open = function (size) {
+		var modalInstance = $modal.open({
+			animation: true,
+			templateUrl: 'myModalContent.html',
+			controller: 'ModalInstanceCtrl',
+			size: size
+		});
+	};
+});
+
+productControllers.controller('ModalInstanceCtrl', function ($scope, $modalInstance, $stateParams, ProductService) {
+	//$scope.product = $scope.$parent.product
+	ProductService.get({slug: $stateParams.slug}).$promise.then(
+			function(data) {
+				// success
+				$scope.product = data;
+			},
+			function(error) {
+				// error handler
+				$state.go("home");
+			}
+	);
+	$scope.ok = function () {
+		$modalInstance.close();
+	};
+
+	$scope.cancel = function () {
+		$modalInstance.dismiss('cancel');
+	};
+});
+
 productControllers.controller('productDetailCtrl', ['$scope', '$stateParams', '$state', '$log', 'ProductService', 'AuthService',
   function($scope, $stateParams, $state, $log, ProductService, authService) {
     $log.debug("entered product details ctrl. slug=" + $stateParams.slug);
 
-    ProductService.get({slug: $stateParams.slug}).$promise.then(
-        function(data) {
-            // success
-            $scope.product = data;
-        },
-        function(error) {
-            // error handler
-            $state.go("home");
-        }
-    );
-  }]);
+	ProductService.get({slug: $stateParams.slug}).$promise.then(
+			function(data) {
+				// success
+				$scope.product = data;
+			},
+			function(error) {
+				// error handler
+				$state.go("home");
+			}
+	);
+    
+    $scope.isInfluencer = authService.isInfluencer;
+}]);
 
 productControllers.controller('userDetailCtrl', ['$scope', '$stateParams', '$state', '$log', 'UserService',
   function($scope, $stateParams, $state, $log, userService) {
