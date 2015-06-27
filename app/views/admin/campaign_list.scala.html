@@ -1,0 +1,59 @@
+@(campList: java.util.List[Campaign])
+@main("Campaign list") {
+
+
+  <h2>Product promotion Campaigns&nbsp;&nbsp;
+	<a href="/adminstuff/campaign/new" class="btn" target="_self">
+	<i class="icon-plus"></i> &nbsp;+ (New)</a>
+  </h2>
+
+
+   <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Campaign Id</th>
+        <th>Name</th>
+        <th>Short Desc</th>
+        <th>Product Id</th>
+        <th>Product Name</th>
+        <th>Begin Date</th>
+        <th>End Date</th>
+        <th># viewed</th>
+        <th># participated</th>
+        <th>Created Date</th>
+        <th>Updated Date</th>
+        <th>is Active</th>
+        
+      </tr>
+    </thead>
+    <tbody>
+    @for(camp <- campList) {
+
+      <tr>
+
+        <td><a href="@routes.CampaignController.details(camp.id)" target="_self">@camp.id</a></td>
+        <td><a href="@routes.CampaignController.details(camp.id)" target="_self">@camp.campaignName</a></td>
+        <td>@camp.campaignShortDescription</td>
+        @if(camp.product ==null){
+        <td>Product Not assigned</td>
+        <td>N?A</td>
+       } else { 
+        <td>@camp.product.id</td>
+        <td>@camp.product.productName</td>
+       } 
+        <td>@camp.beginDate</td>
+        <td>@camp.endDate</td>
+        <td>@camp.totalNumViewed</td>
+        <td>@camp.totalNumParticipated</td>
+        <td>@camp.createdAt</td>
+        <td>@camp.updatedAt</td>
+        <td>@camp.active</td>
+      
+      </tr>
+      }
+  
+    </tbody>
+   </table>
+
+ 
+}
