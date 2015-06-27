@@ -15,7 +15,8 @@ function authService($http, $q, $cookieStore, $log, userService, $timeout){
 
     var model = {
       user: {name: ''},
-      isLoggedIn: false
+      isLoggedIn: false,
+      trials: {}
     };
 
     var service = {
@@ -63,6 +64,7 @@ function authService($http, $q, $cookieStore, $log, userService, $timeout){
     }
 
     function refreshTrials() {
+        model.trial = {};
         if(model.user.trials !== undefined){
             model.trials = model.user.trials.filter(function (item) {
                 return item.active === true;
@@ -99,12 +101,7 @@ function authService($http, $q, $cookieStore, $log, userService, $timeout){
                     console.log("#3 status: ", status);
                     isReady = true;
                     model.isLoggedIn = true;
-                    if(model.user.trials !== undefined){
-                        model.trials = model.user.trials.filter(function (item) {
-                            return item.active === true;
-                        });
-                    }
-
+                    refreshTrials();
                     $log.debug("auth user service returned success: " + model.user.name);
                     deferred.resolve(model.user);
                     break;
@@ -240,6 +237,7 @@ function authService($http, $q, $cookieStore, $log, userService, $timeout){
             // when the response is available
             model.isLoggedIn = false;
             model.user = {};
+            model.trials = {};
             deferred.resolve("success");
         }).error(function(data, status, headers, config){
             // called asynchronously if an error occurs

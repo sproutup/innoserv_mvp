@@ -41,12 +41,17 @@
         }
 
         function init() {
-            vm.current = vm.user.trials.filter(function (item) {
-                return item.active === true;
-            });
-            vm.past = vm.user.trials.filter(function (item) {
-                return item.active === false;
-            });
+            if(vm.user.trials === undefined){
+                vm.current = {};
+            }
+            else{
+                vm.current = vm.user.trials.filter(function (item) {
+                    return item.active === true;
+                });
+                vm.past = vm.user.trials.filter(function (item) {
+                    return item.active === false;
+                });
+            }
         }
 
         function cancel(){

@@ -493,16 +493,19 @@ productControllers.controller('productDetailCtrl', ['$scope', '$rootScope', '$st
     function init(){
         if(authService.ready() && authService.m.isLoggedIn){
             $log.debug("## check for current trial");
-            var index = authService.m.user.trials.findIndex(function(element){
-                return element.product.slug == slug;
-            })
-            if(index!=-1){
-                $log.debug("## found current trial");
-                $scope.hasCurrentTrial = true;
-            }
-            else{
-                $log.debug("## didn't find current trial");
-                $scope.hasCurrentTrial = false;
+            $scope.hasCurrentTrial = false;
+            if(authService.m.user.trials !== undefined){
+                var index = authService.m.user.trials.findIndex(function(element){
+                    return element.product.slug == slug;
+                })
+                if(index!=-1){
+                    $log.debug("## found current trial");
+                    $scope.hasCurrentTrial = true;
+                }
+                else{
+                    $log.debug("## didn't find current trial");
+                    $scope.hasCurrentTrial = false;
+                }
             }
         };
 

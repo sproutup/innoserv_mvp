@@ -41,7 +41,7 @@
         <div class="collapse navbar-collapse" id="sproutup-collapse-navbar">
             <ul class="nav navbar-nav navbar-item navbar-left">
                 <li><a ui-sref="user.search">BROWSE PRODUCTS</a></li>
-                <li><a ui-sref="user.mytrials.current">MY TRIALS<span class="navbar-badge">{{ auth.m.trials.length }}</span></a></li>
+                <li><a ui-sref="user.mytrials.current">MY TRIALS<span class="navbar-badge" ng-show="auth.m.trials.length>0">{{ auth.m.trials.length }}</span></a></li>
                 <li><a ui-sref="user.perk">EARN PERKS</a></li>
                 <!-- <li><a href="#">ACTIVITY <sup>&beta;</sup></a></li> -->
             </ul>
