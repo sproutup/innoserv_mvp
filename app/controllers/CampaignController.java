@@ -152,12 +152,33 @@ public class CampaignController extends Controller {
         return ok(campaign_management.render(campaignForm.fill(Campaign.find.byId(id)), products));
       }
     
+    public static Result copy() {
+    	if(!admin_enabled){return notFound();};
+        Form<Campaign> campF = campaignForm.bindFromRequest();
+        Campaign campaign = campF.get();
+        //set campaign id to null;
+        campaign.id=null;
+    	campaign.save();
+    	return redirect(routes.CampaignController.list());
+    }
+    
+    
     public static Result save() {
         if(!admin_enabled){return notFound();};
 
         Form<Campaign> campF = campaignForm.bindFromRequest();
-        
         Campaign campaign = campF.get();
+
+        String[] postAction = request().body().asFormUrlEncoded().get("action");
+        if (postAction == null || postAction.length == 0) {
+          return badRequest("You must provide a valid action");
+        } else {
+          String action = postAction[0];
+          System.out.println("Action is: " + action);
+          if ("Copy".equals(action)) {
+        	  campaign.id=null;
+           }
+        }  
         if (campaign.id == null) {
           campaign.save();
         } else {

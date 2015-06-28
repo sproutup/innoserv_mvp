@@ -1,5 +1,8 @@
 package models;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -88,6 +91,62 @@ public class Campaign extends TimeStampModel implements PathBindable<Campaign>{
 	                .getPage(page);
 	}
 	
+	
+	public String getBeginDate() {
+		DateFormat formatter = new SimpleDateFormat("MM/dd/yyyy, hh:mm a");
+		//DateFormat formatter = new SimpleDateFormat("yyyy-mm-dd");
+		if (beginDate!=null)
+			return formatter.format(this.beginDate);
+		else 
+			return null;
+	}
+	
+	public String getEndDate() {
+		DateFormat formatter = new SimpleDateFormat("MM/dd/yyyy, hh:mm a");
+		//DateFormat formatter = new SimpleDateFormat("yyyy-mm-dd");
+		if (endDate!=null)
+			return formatter.format(this.endDate);
+		else 
+			return null;
+	}
+	public void setBeginDate(String beginDate) {
+		DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm");
+		DateFormat formatter2 = new SimpleDateFormat("MM/dd/yyyy, hh:mm a");
+	    try {
+	    	if (beginDate!=null && beginDate.length()>0) {
+		    	this.beginDate = formatter.parse(beginDate);
+	    	}	
+		} catch (ParseException e) {
+			try {
+				if (beginDate!=null && beginDate.length()>0) {
+		    		this.beginDate = formatter2.parse(beginDate);
+		    	}
+			} catch (ParseException e2) {
+			// TODO Auto-generated catch block
+				e2.printStackTrace();
+			}
+		}
+	}
+	public void setEndDate(String endDate) {
+		DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm");
+		DateFormat formatter2 = new SimpleDateFormat("MM/dd/yyyy, hh:mm a");
+	    try {
+	    	if (endDate!=null && endDate.length()>0) {
+	    		this.endDate = formatter.parse(endDate);
+	    	}	
+		} catch (ParseException e) {
+			try {
+				if (endDate!=null && endDate.length()>0) {
+		    		this.endDate = formatter2.parse(endDate);
+		    	}
+			} catch (ParseException e2) {
+			// TODO Auto-generated catch block
+				e2.printStackTrace();
+			}
+		}	
+	}
+
+
 	public static List<Campaign> findAll() {
 	    return
 	    		find.where()

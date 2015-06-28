@@ -151,8 +151,9 @@ GET           /adminstuff/trial/list                                       	 con
 GET           /adminstuff/suggest/list                                       controllers.ReportAdminController.suggestedProductList(page: Integer ?= 0)
 GET           /adminstuff/campaign/list                                      controllers.CampaignController.list()
 GET           /adminstuff/campaign/new                                       controllers.CampaignController.newCampaign()
-GET           /adminstuff/campaign/:id                                       controllers.CampaignController.details(id: Long)
 POST          /adminstuff/campaign/save                                  	 controllers.CampaignController.save()
+POST          /adminstuff/campaign/copy                                  	 controllers.CampaignController.copy()
+GET           /adminstuff/campaign/:id                                       controllers.CampaignController.details(id: Long)
 
 # Mockups
 GET           /mockups/product/:slug/about                                   controllers.MockupController.detailsAboutBySlug(slug: String)
