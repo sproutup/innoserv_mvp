@@ -62,9 +62,9 @@ public class UserReferral extends TimeStampModel {
 		
 		//lookup for the referralId in the db if it exists
 	    Map<String, Object> params = new HashMap<String, Object>();
-        params.put("referrer_user_id", referrerUserId);
+        params.put("user_id", referrerUserId);
         params.put("campaign_id", campaignId);
-        params.put("activeFlag", "1");
+        params.put("active", "1");
         
         UserReferral ref = find.where().allEq(params).findUnique();
 		
