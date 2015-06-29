@@ -156,7 +156,7 @@ sproutupApp.config(['$routeProvider', '$stateProvider', '$locationProvider', '$u
                 url: '/search',
                 templateUrl: 'views/search',
                 data: {
-                    title: 'Search'
+                    title: 'All Products - SproutUp'
                 }
             })
             .state('user.community' ,{
