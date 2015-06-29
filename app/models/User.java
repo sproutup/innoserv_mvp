@@ -19,6 +19,7 @@ import com.feth.play.module.pa.user.EmailIdentity;
 import com.feth.play.module.pa.user.NameIdentity;
 import com.feth.play.module.pa.user.FirstLastNameIdentity;
 
+import constants.AppConstants;
 import constants.UserRole;
 import controllers.Application;
 import models.TokenAction.Type;
@@ -115,7 +116,7 @@ public class User extends TimeStampModel implements Subject {
 	public File avatar;
 
 
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.EAGER)
 	public List<SecurityRole> roles;
 
 	@OneToMany(cascade = CascadeType.ALL)
@@ -141,6 +142,11 @@ public class User extends TimeStampModel implements Subject {
     @Transient
     public boolean randomNumberflag= false;
 
+    @Transient
+    private boolean isInfluencer;
+
+    @Transient
+    private boolean isCreator;
 
 	public static final Finder<Long, User> find = new Finder<Long, User>(
 			Long.class, User.class);
@@ -600,6 +606,41 @@ public class User extends TimeStampModel implements Subject {
         }
         return arrayNode;
     }
+    
+    private boolean hasRole(String roleName){
+		if (this.roles!=null && this.roles.size()>0){
+    		int i = 0;
+			while (i < this.roles.size()) {
+				SecurityRole sr = this.roles.get(i); 
+				if (sr.roleName.equals(roleName)) {
+					return true;
+				}	
+				i++;
+			}
+		}
+		return false;
+    }
+    
+	public boolean isInfluencer() {
+		this.isInfluencer = hasRole(AppConstants.INFLUENCER);
+		return this.isInfluencer;
+	}
 
+	public boolean isCreator() {
+		return hasRole(AppConstants.CREATOR);
+	}
+	
+	public boolean isConsumer() {
+		return hasRole(AppConstants.CONSUMER);
+	}
+	
+	public void setInfluencer(boolean isInfluencer) {
+		this.isInfluencer = isInfluencer;
+	}
 
+	public void setCreator(boolean isCreator) {
+		this.isCreator = isCreator;
+	}
+
+	
 }

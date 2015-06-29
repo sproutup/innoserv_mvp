@@ -147,12 +147,12 @@ POST          /adminstuff/dosocialmediapost                                  con
 
 GET           /adminstuff/user                                            	 controllers.ReportAdminController.index()
 GET           /adminstuff/user/list                                       	 controllers.ReportAdminController.userList(page: Integer ?= 0)
+POST          /adminstuff/user/updateRole                  					 controllers.ReportAdminController.updateUserRole()
 GET           /adminstuff/trial/list                                       	 controllers.ReportAdminController.trialList(page: Integer ?= 0)
 GET           /adminstuff/suggest/list                                       controllers.ReportAdminController.suggestedProductList(page: Integer ?= 0)
 GET           /adminstuff/campaign/list                                      controllers.CampaignController.list()
 GET           /adminstuff/campaign/new                                       controllers.CampaignController.newCampaign()
 POST          /adminstuff/campaign/save                                  	 controllers.CampaignController.save()
-POST          /adminstuff/campaign/copy                                  	 controllers.CampaignController.copy()
 GET           /adminstuff/campaign/:id                                       controllers.CampaignController.details(id: Long)
 
 # Mockups
