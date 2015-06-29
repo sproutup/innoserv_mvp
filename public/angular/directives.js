@@ -834,9 +834,9 @@ angular.module('sproutupApp').directive('upLike', ['LikesService', 'AuthService'
                 element.on('click', function () {
                     console.log("#########################");
                     console.log("up-like > clicked id/type: " + scope.id + "/" + scope.type);
-                    console.log("up-like > is-logged-in: " + authService.isLoggedIn());
+                    console.log("up-like > is-logged-in: " + authService.loggedIn());
 
-                    if(!authService.isLoggedIn()){
+                    if(!authService.loggedIn()){
                         scope.$emit('LoginEvent', {
                             someProp: 'Sending you an Object!' // send whatever you want
                         });
@@ -847,10 +847,10 @@ angular.module('sproutupApp').directive('upLike', ['LikesService', 'AuthService'
                         scope.likes = [];
                     }
 
-                    console.log("user.id: " + authService.currentUser().id);
+                    console.log("user.id: " + authService.m.user.id);
 
                     if(didIlikeItAlready()==false){
-                        likesService.addLike(scope.id, scope.type, authService.currentUser().id).then(
+                        likesService.addLike(scope.id, scope.type, authService.m.user.id).then(
                             function(data) {
                                 console.log("liked it: " + scope.id);
                                 scope.likes.push(data);
