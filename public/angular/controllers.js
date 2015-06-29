@@ -484,9 +484,7 @@ productControllers.controller('productDetailCtrl', ['$scope', '$rootScope', '$st
             });
         }
         else{
-            if(authService.m.isLoggedIn) {
-                init();
-            }
+            init();
         }
     }
 
