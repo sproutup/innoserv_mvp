@@ -153,7 +153,7 @@ sproutupApp.config(['$routeProvider', '$stateProvider', '$locationProvider', '$u
                 }
             })
             .state('user.search' ,{
-                url: '/search',
+                url: '/products',
                 templateUrl: 'views/search',
                 data: {
                     title: 'All Products - SproutUp'

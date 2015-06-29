@@ -82,7 +82,7 @@ public class Product extends SuperModel implements PathBindable<Product>,
 	public List<Post> postItems;
 
 	@OneToMany(mappedBy="product")
-	public List<ProductTrial> trials;
+	public List<Trial> trials;
 
 	@OneToMany(mappedBy="product")
 	@OrderBy("dateTimeStamp desc")
@@ -376,7 +376,7 @@ public class Product extends SuperModel implements PathBindable<Product>,
             node.put("tags", Tag.toJson(tags));
         }
 		if (this.trials!=null && this.trials.size()>0){
-			node.put("trials", ProductTrial.toJson(trials));
+			node.put("trials", Trial.toJson(trials));
 		}
 
 		if(this.productAdditionalDetail!=null) {

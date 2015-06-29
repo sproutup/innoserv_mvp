@@ -11,59 +11,75 @@ import javax.persistence.*;
 import java.util.List;
 
 /**
- * Created by peter on 6/26/15.
+ * Created by peter on 3/23/15.
  */
 @Entity
-public class Content extends SuperModel {
+public class Trial extends TimeStampModel {
 
-    public static Finder<Long, Content> find = new Finder<Long, Content>(
-            Long.class, Content.class);
+    public static Finder<Long, Trial> find = new Finder<Long, Trial>(
+            Long.class, Trial.class);
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     public Long id;
 
-    public String url;
+    public String email;
 
-    @ManyToOne
-    public ProductTrial productTrial;
+    public String name;
 
-    @ManyToOne
-    public Trial trial;
+    public String phone;
+
+    public String address;
+
+    public String reason;
+
+    public boolean active = true;
 
     @ManyToOne
     public Product product;
 
+    @OneToMany
+    public List<Content> content;
+
     @ManyToOne
     public User user;
 
-    public static Page<Content> find(int page) {
-        return
+    public static Trial findById(Long id) {
+        return find.byId(id);
+    }
+
+    public static Page<Trial> find(int page) {
+	    return
             find.where()
                 .orderBy("id desc")
                 .findPagingList(100)
                 .setFetchAhead(false)
                 .getPage(page);
-    }
+	}
 
     public ObjectNode toJson(){
         ObjectNode node = Json.newObject();
         node.put("id", this.id);
-        node.put("url", this.url);
+        node.put("name", this.name);
+        node.put("email", this.email);
+        node.put("active", this.active);
         node.put("createdAt", new DateTime(this.createdAt).toString());
         node.put("updatedAt", new DateTime(this.updatedAt).toString());
-//        if(this.user != null) {
-//            node.put("user", this.user.toJsonShort());
-//        }
-//        if(this.product != null) {
-//            node.put("product", this.product.toJsonShort());
-//        }
+        if(this.user != null) {
+            node.put("user", this.user.toJsonShort());
+        }
+        if(this.product != null) {
+            node.put("product", this.product.toJsonShort());
+        }
+        if(this.content != null) {
+            node.put("content", Content.toJson(this.content));
+        }
         return node;
     }
 
-    public static ArrayNode toJson(List<Content> items){
+    public static ArrayNode toJson(List<Trial> items){
         ArrayNode arrayNode = new ArrayNode(JsonNodeFactory.instance);
-        for (Content item : items){
+        for (Trial item : items){
             arrayNode.add(item.toJson());
         }
         return arrayNode;

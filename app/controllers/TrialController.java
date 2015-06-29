@@ -4,7 +4,7 @@ import be.objectify.deadbolt.java.actions.SubjectPresent;
 import com.fasterxml.jackson.databind.JsonNode;
 import models.Post;
 import models.Product;
-import models.ProductTrial;
+import models.Trial;
 import models.User;
 import play.Logger;
 import play.mvc.BodyParser;
@@ -25,19 +25,19 @@ public class TrialController extends Controller {
     public static Result getall() {
         User user = Application.getLocalUser(ctx().session());
 
-        List<ProductTrial> trials = new ProductTrial()
+        List<Trial> trials = new Trial()
                 .find
                 .where()
                 .eq("user_id", user.id)
                 .orderBy("id asc")
                 .findList();
-        return ok(ProductTrial.toJson(trials));
+        return ok(Trial.toJson(trials));
     }
 
     @BodyParser.Of(BodyParser.Json.class)
     public static Result get(Long id)
     {
-        ProductTrial item = ProductTrial.find.byId(id);
+        Trial item = Trial.find.byId(id);
         return item == null ? notFound("Trial not found [" + id + "]") : ok(item.toJson());
     }
 
@@ -55,7 +55,7 @@ public class TrialController extends Controller {
         } else {
             User user = Application.getLocalUser(ctx().session());
 
-            ProductTrial item = new ProductTrial();
+            Trial item = new Trial();
             item.email = user.email;
             item.name = user.name;
 
@@ -88,7 +88,7 @@ public class TrialController extends Controller {
     public static Result update(Long id)
     {
         User user = Application.getLocalUser(ctx().session());
-        ProductTrial item = ProductTrial.find.byId(id);
+        Trial item = Trial.find.byId(id);
         // check that we found the trial and that user owns it
         if(item != null && item.user.id == user.id) {
             JsonNode root = request().body().asJson();
@@ -109,7 +109,7 @@ public class TrialController extends Controller {
     public static Result delete(Long id)
     {
         User user = Application.getLocalUser(ctx().session());
-        ProductTrial item = ProductTrial.find.byId(id);
+        Trial item = Trial.find.byId(id);
         if(item != null && item.user.id == user.id) {
             item.delete();
             return ok();

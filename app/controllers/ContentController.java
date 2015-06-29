@@ -4,7 +4,7 @@ import be.objectify.deadbolt.java.actions.SubjectPresent;
 import com.fasterxml.jackson.databind.JsonNode;
 import models.Content;
 import models.Product;
-import models.ProductTrial;
+import models.Trial;
 import models.User;
 import play.mvc.BodyParser;
 import play.mvc.Controller;
@@ -59,12 +59,12 @@ public class ContentController extends Controller {
 
             item.user = user;
 
-            ProductTrial trial = null;
+            Trial trial = null;
             if (check(root, "product_trial_id")) {
                 Long trial_id = root.path("product_trial_id").asLong();
-                trial = ProductTrial.find.byId(trial_id);
+                trial = Trial.find.byId(trial_id);
                 if (trial != null) {
-                    item.productTrial = trial;
+                    item.trial = trial;
                     item.product = trial.product;
                 }
                 else{

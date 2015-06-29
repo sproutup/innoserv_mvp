@@ -133,7 +133,7 @@ public class User extends TimeStampModel implements Subject {
 	public List<Post> posts;
 
 	@OneToMany
-	public List<ProductTrial> trials;
+	public List<Trial> trials;
 
 	@ManyToOne
 	public Company company;
@@ -397,7 +397,7 @@ public class User extends TimeStampModel implements Subject {
 			node.put("role", "external");
 		}
 		if (this.trials!=null && this.trials.size()>0){
-			node.put("trials", ProductTrial.toJson(trials));
+			node.put("trials", Trial.toJson(trials));
 		}
         node.put("permissions", Json.toJson(this.getPermissions()));
         node.put("lastLogin", new DateTime(this.lastLogin).toString());
