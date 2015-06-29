@@ -29,10 +29,15 @@
             }
             else{
                 console.log("wizard: auth service ready - ", authService.m.user.email );
-                vm.user = authService.m.user;
+                init();
                 wizard();
             }
         }
+
+        function init() {
+            vm.user = angular.copy(authService.m.user);
+        }
+
 
         function wizard(){
             console.log("wizard starting");
@@ -41,7 +46,7 @@
 
         function save() {
             $log.debug("signup wizard -> save twitter");
-            authService.save().then(function(data){
+            authService.save(vm.user).then(function(data){
                 // end of wizard
                 wizard();
             });

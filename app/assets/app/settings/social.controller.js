@@ -28,23 +28,18 @@
                 console.log("social: auth service ready");
                 reset();
             }
-
-            //vm.basicinfoform.$setPristine();
-            //vm.basicinfoform.$setUntouched();
         }
 
         function reset() {
             vm.user = angular.copy(authService.m.user);
         }
 
-        function update() {
-            authService.m.user = angular.extend(vm.user);
-        }
-
         function save() {
             $log.debug("settings.social controller - save()");
-            update();
-            authService.save().then(function(data){
+            authService.save(vm.user).then(function(data){
+                vm.basicinfoform.$setPristine();
+                vm.basicinfoform.$setUntouched();
+
                 $rootScope.$broadcast('alert:success', {
                     message: 'Saved'
                 });

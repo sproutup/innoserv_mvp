@@ -131,7 +131,7 @@ function authService($http, $q, $cookieStore, $log, userService, $timeout){
         return deferred.promise;
     }
 
-    function save(){
+    function save(updateduser){
         var deferred = $q.defer();
         $log.debug("auth - save()");
 
@@ -139,9 +139,10 @@ function authService($http, $q, $cookieStore, $log, userService, $timeout){
             method: 'POST',
             url: '/api/users/' + model.user.nickname,
             headers: {'Content-Type': 'application/json'},
-            data: model.user
+            data: updateduser
         }).success(function(data, status, headers, config){
             $log.debug("productSuggestionService > add success");
+            angular.extend(model.user, data);
             deferred.resolve(data);
         }).error(function(data, status, headers, config){
             $log.debug("productSuggestionService > failed to update");
