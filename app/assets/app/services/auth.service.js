@@ -59,6 +59,10 @@ function authService($http, $q, $cookieStore, $log, userService, $timeout){
     }
 
     function addTrial(data){
+        if(model.user.trials === undefined){
+            console.log("first trials, add empty object");
+            model.user.trials = [];
+        }
         model.user.trials.push(data);
         refreshTrials();
     }

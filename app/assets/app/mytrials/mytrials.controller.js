@@ -73,6 +73,8 @@
                 trial.isContentFormOpen = false;
                 trial.content.push(content);
                 console.log("## content: ", trial.content);
+                // reset input form
+                trial.form.url = "";
             });
 
 

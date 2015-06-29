@@ -1,6 +1,6 @@
 <!-- Content -->
 <div class="col-sm-9">
-    <form name="basicinfoform" class="" novalidate>
+    <form name="vm.basicinfoform" class="" novalidate>
         <!-- Basic Information -->
         <div class="profile-edit--header">Basic Information</div>
         <!-- full name -->
@@ -43,7 +43,7 @@
 
         <!-- Save & Cancel button -->
         <div class="add-product-actions">
-            <button ng-disabled="basicinfoform.$invalid || basicinfoform.$pristine" class="btn btn-lg add-product-btn save" type="submit" ng-click="vm.save()">Save Changes</button>
+            <button ng-disabled="vm.basicinfoform.$invalid || vm.basicinfoform.$pristine" class="btn btn-lg add-product-btn save" type="submit" ng-click="vm.save()">Save Changes</button>
         </div>
     </form>
 </div>

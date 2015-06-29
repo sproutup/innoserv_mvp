@@ -41,7 +41,6 @@
             authService.m.user = angular.extend(vm.user);
         }
 
-
         function save() {
             $log.debug("settings.profile controller - save()");
             update();
