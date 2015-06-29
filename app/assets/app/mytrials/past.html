@@ -1,5 +1,10 @@
 <!-- Content -->
 <div class="col-sm-9">
+
+    <div class="product-trial-header" ng-show="!vm.past.length > 0">
+        <p>No past product trials. If you haven't made your first request, browse our <a ui-sref="user.search">awesome collection of products</a> and get started.</p>
+    </div>
+
     <div class="row product-trial-item" ng-repeat="item in vm.past">
         <div class="col-sm-12 product-trial-item-banner" up-background-image="{{vm.item.banner.url.image}}" up-background-attr="?w=600&h=100" up-fallback-image="/assets/images/default-product-banner.jpg">
             <p>{{item.product.name}}</p>
