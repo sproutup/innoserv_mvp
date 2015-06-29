@@ -26,25 +26,22 @@
             }
             else{
                 console.log("profile: auth service ready");
-                reset();
+                init();
             }
 
             //vm.basicinfoform.$setPristine();
             //vm.basicinfoform.$setUntouched();
         }
 
-        function reset() {
+        function init() {
             vm.user = angular.copy(authService.m.user);
-        }
-
-        function update() {
-            authService.m.user = angular.extend(vm.user);
         }
 
         function save() {
             $log.debug("settings.profile controller - save()");
-            update();
-            authService.save().then(function(data){
+            authService.save(vm.user).then(function(data){
+                vm.basicinfoform.$setPristine();
+                vm.basicinfoform.$setUntouched();
                 $log.debug("save done");
                 $rootScope.$broadcast('alert:success', {
                     message: 'Saved'
