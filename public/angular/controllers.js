@@ -471,6 +471,7 @@ productControllers.controller('productDetailCtrl', ['$scope', '$rootScope', '$st
 
     var slug = $stateParams.slug;
     $scope.init = false;
+    $scope.isLoggedIn = false;
 
     activate();
 
@@ -489,6 +490,7 @@ productControllers.controller('productDetailCtrl', ['$scope', '$rootScope', '$st
     }
 
     function init(){
+        $scope.isLoggedIn = authService.m.isLoggedIn;
         if(authService.ready() && authService.m.isLoggedIn){
             $log.debug("## check for current trial");
             $scope.hasCurrentTrial = false;

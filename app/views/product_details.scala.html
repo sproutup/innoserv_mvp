@@ -20,8 +20,9 @@
             </div> -->
             <div class="product-menu--action">
                 <!-- <a class="btn btn-lg sproutup-btn-md-upvote" href="#"><i class="fa fa-thumbs-up"></i>40</a> -->
-                <a ng-show="init && !hasCurrentTrial" class="btn btn-lg sproutup-btn-md-main" ui-sref="user.trial.request({ slug: product.slug })"  >Request Product Trial</a>
-                <a ng-show="init && hasCurrentTrial" class="btn btn-lg sproutup-btn-md-main" ui-sref="user.mytrials.current"  >View Trial Status</a>
+                <a ng-show="init && !isLoggedIn" class="btn btn-lg sproutup-btn-md-main" ui-sref="user.signup">Request Product Trial</a>
+                <a ng-show="init && isLoggedIn && !hasCurrentTrial" class="btn btn-lg sproutup-btn-md-main" ui-sref="user.trial.request({ slug: product.slug })"  >Request Product Trial</a>
+                <a ng-show="init && isLoggedIn && hasCurrentTrial" class="btn btn-lg sproutup-btn-md-main" ui-sref="user.mytrials.current"  >View Trial Status</a>
             </div>
         </div>
     </div>
