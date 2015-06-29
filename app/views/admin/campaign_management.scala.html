@@ -3,7 +3,8 @@
 @import helper._
 @implicitFieldConstructor = @{ FieldConstructor(twitterBootstrapBasic.f) }
 
-@main(Messages("Create/Edit a Campaign")) {
+@main(Messages("Create/Edit/Copy a Campaign")) {
+	
 
   <div class="row">
     <div class="container">
@@ -30,7 +31,7 @@
           '_label -> "Campaign Name"
           )
           <b>Active Flag:</b>
-		  <input type="checkbox" name="@campaignForm("active").name" value="true" @if(campaignForm("active").value=="true"){ checked }>@campaignForm("active").value
+		  <input type="checkbox" name="@campaignForm("active").name" value="true" @if(campaignForm("active").value=="true"){ checked }>&nbsp;@campaignForm("active").value
 		  <br>
 		  @inputText(
           campaignForm("campaignShortDescription"),
@@ -43,17 +44,32 @@
           'rows -> 2, 'cols -> 50
           )
           
+          @if(campaignForm("beginDate").value==null || campaignForm("beginDate").value.isEmpty ) {
           @inputText(
           campaignForm("beginDate"),
           '_label -> "Campaign Begin Date/Time",
           'type -> "datetime-local"
-          )	
-          
+          )
+          } else {
+          @inputText(
+          campaignForm("beginDate"),
+          '_label -> "Campaign Begin Date/Time"
+          )
+		  }
+
+          @if(campaignForm("endDate").value==null || campaignForm("endDate").value.isEmpty ) {
           @inputText(
           campaignForm("endDate"),
           '_label -> "Campaign End Date/Time",
-          'type -> "datetime-local"
+          'type -> "datetime-local" 
           )
+          } else {
+          @inputText(
+          campaignForm("endDate"),
+          '_label -> "Campaign End Date/Time"
+          )
+          }
+
            
           @textarea(field = campaignForm("campaignShareMessage"), 
           '_label -> "Share Message", 
@@ -96,10 +112,11 @@
           )
     
           <div>
-            <input class="btn btn-primary" type="submit">
+            <input class="btn btn-primary" type="submit" name="action" value="Save">
            <a href="/adminstuff/campaign/list" target="_self">
             <input class="btn btn-primary" type="button" name="list" value="Cancel" >
             </a>
+            <input class="btn btn-primary" type="submit" name="action" value="Copy">
           </div>
         }
       </div>

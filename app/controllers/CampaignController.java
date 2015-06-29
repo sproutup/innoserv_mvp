@@ -152,16 +152,6 @@ public class CampaignController extends Controller {
         return ok(campaign_management.render(campaignForm.fill(Campaign.find.byId(id)), products));
       }
     
-    public static Result copy() {
-    	if(!admin_enabled){return notFound();};
-        Form<Campaign> campF = campaignForm.bindFromRequest();
-        Campaign campaign = campF.get();
-        //set campaign id to null;
-        campaign.id=null;
-    	campaign.save();
-    	return redirect(routes.CampaignController.list());
-    }
-    
     
     public static Result save() {
         if(!admin_enabled){return notFound();};
