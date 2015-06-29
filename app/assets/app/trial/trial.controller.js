@@ -5,9 +5,9 @@
         .module('sproutupApp')
         .controller('TrialController', TrialController);
 
-    TrialController.$inject = ['$q', '$rootScope', '$stateParams', '$state', '$log', 'AuthService', '$location', '$window', 'TrialService'];
+    TrialController.$inject = ['$q', '$rootScope', '$stateParams', '$state', '$log', 'AuthService', '$location', '$window', 'TrialService', 'ProductService'];
 
-    function TrialController($q, $rootScope, $stateParams, $state, $log, authService, $location, $window, TrialService) {
+    function TrialController($q, $rootScope, $stateParams, $state, $log, authService, $location, $window, TrialService, ProductService) {
         $log.debug("entered trial request");
         $log.debug("slug = " + $stateParams.slug);
 
@@ -20,6 +20,7 @@
         vm.request = {};
         vm.trial = {};
         vm.user = {};
+        vm.product = {};
         vm.ready = authService.ready;
 
         activate();
@@ -35,15 +36,24 @@
             }
             else{
                 if(authService.m.isLoggedIn) {
-                    reset();
+                    init();
                 }
             }
         }
 
-        function reset() {
+        function init() {
             vm.request.address = authService.m.user.address;
             vm.request.phone = authService.m.user.phone;
             vm.request.product_slug = $stateParams.slug;
+            ProductService.get({slug: $stateParams.slug}).$promise.then(
+                function(data) {
+                    // success
+                    vm.product = data;
+                },
+                function(error) {
+                    // error handler
+                }
+            );
         }
 
         function cancel(){
