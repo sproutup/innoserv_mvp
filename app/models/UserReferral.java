@@ -74,7 +74,7 @@ public class UserReferral extends TimeStampModel {
 			refId = String.valueOf((int)(Math.random()*9000)+1000);
 			//save an entry in the db
 			ref = new UserReferral();
-			ref.campaign.id = campaignId;
+			ref.campaign = Campaign.find.byId(campaignId);
 			ref.referralId = refId;
 			ref.user = User.find.byId(referrerUserId);
 			ref.save();
