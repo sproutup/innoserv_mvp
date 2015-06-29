@@ -538,8 +538,8 @@ productControllers.controller('userDetailCtrl', ['$scope', '$stateParams', '$sta
     );
   }]);
 
-productControllers.controller('ForumCtrl', ['$scope', 'ForumService', 'LikesService', '$log',
-  function($scope, ForumService, LikesService, $log) {
+productControllers.controller('ForumCtrl', ['$scope', 'ForumService', 'LikesService', '$log', 'AuthService',
+  function($scope, ForumService, LikesService, $log, authService) {
 
     $scope.posts = [];
     $scope.forum = {
@@ -547,6 +547,7 @@ productControllers.controller('ForumCtrl', ['$scope', 'ForumService', 'LikesServ
         selectedCategory : 0,   // default to 0 = suggestions
         category : ["suggestions","questions", "compliments"]
     };
+    $scope.user = authService.m.user;
 
       $log.debug("forum ctrl loaded");
 

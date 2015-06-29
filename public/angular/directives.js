@@ -808,15 +808,15 @@ angular.module('sproutupApp').directive('upLike', ['LikesService', 'AuthService'
                 });
 
                 scope.$watch(function () {
-                        return authService.isLoggedIn();
+                        return authService.loggedIn();
                     },
                     function(newVal, oldVal) {
                         didIlikeItAlready();
                     }, true);
 
                 function didIlikeItAlready() {
-                    if(authService.isLoggedIn()) {
-                        var userid = authService.currentUser().id;
+                    if(authService.loggedIn()) {
+                        var userid = authService.m.user.id;
                         if (scope.likes == undefined) {
                             return false;
                         }
@@ -1401,7 +1401,7 @@ angular.module('sproutupApp').directive('subjectPresent', ['$parse', 'AuthServic
             var onLogin = $parse(attrs.login);
 
             element.on('click', function () {
-                if(authService.isLoggedIn){
+                if(authService.m.isLoggedIn){
                     console.log(attrs.subjectPresent);
 
                     // The event originated outside of angular,
@@ -1412,9 +1412,10 @@ angular.module('sproutupApp').directive('subjectPresent', ['$parse', 'AuthServic
                 }
                 else{
                     console.log(attrs.login);
-                    scope.$apply(function () {
-                        onLogin(scope);
-                    });
+                    $state.go("user.login");
+//                    scope.$apply(function () {
+//                        onLogin(scope);
+//                    });
                 }
             });
         }
