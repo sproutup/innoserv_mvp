@@ -81,15 +81,22 @@
             //$state.go("user.trial.confirmation");
         }
 
+        function findIndex(key, array){
+            for (var i=0; i < array.length; i++) {
+                if (array[i].id === key) {
+                    return i;
+                }
+            }
+            return -1;
+        }
+
         function deleteContent(id, trial){
             console.log("## deleteContent", id);
             var item = new ContentService();
             item.$delete({id: id},
                 function(data){
                     console.log("delete success");
-                    var index = trial.content.findIndex(function(element, index, array) {
-                        return element.id == id;
-                    });
+                    var index = findIndex(id, trial.content);
                     // remove item from list
                     trial.content.splice(index, 1);
                     $rootScope.$broadcast('alert:success', {
