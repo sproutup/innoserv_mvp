@@ -1,0 +1,89 @@
+@(currentPage: com.avaje.ebean.Page[ProductTrial])
+@main("Product Trial list") {
+
+  <h2>All Requests for Product Trials
+  </h2>
+
+    <script>
+     function del(urlToDelete) {
+        $.ajax({
+          url: urlToDelete,
+          type: 'DELETE',
+          success: function(results) {
+            // Refresh the page
+            location.reload();
+          }
+        });
+      }
+   </script>
+
+   <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Request Id</th>
+        <th>User Id</th>
+        <th>Name</th>
+        <th>Email/TwitterId</th>
+        <th>Product Id</th>
+        <th>Product Name</th>
+        <th>Date added</th>
+        <th>Date updated</th>
+        <th>is Active</th>
+        
+      </tr>
+    </thead>
+    <tbody>
+    @for(trial <- currentPage.getList()) {
+
+      <tr>
+
+        <td>@trial.id</td>
+        @if(trial.user ==null){
+        <td>Null</td>
+        <td>@trial.name</td>
+        <td>@trial.email</td>
+        } else {
+        <td>@trial.user.id</td>
+        <td>@trial.user.name</td>
+        <td>@trial.user.email &nbsp;/ @trial.user.urlTwitter</td>
+        }
+        <td>@trial.product.id</td>
+        <td>@trial.product.productName</td>
+        <td>@trial.createdAt</td>
+        <td>@trial.updatedAt</td>
+        <td>@trial.active</td>
+      
+      </tr>
+      }
+  
+    </tbody>
+   </table>
+
+   <div id="pagination" class="pagination">
+            <ul>
+                @if(currentPage.hasPrev) {
+                    <li class="prev">
+                        <a href="@routes.ReportAdminController.trialList(currentPage.getPageIndex - 1)" target="_self">&larr; </a>
+                    </li>
+                } else {
+                    <li class="prev disabled">
+                        <a>&larr;</a>
+                    </li>
+                }
+                <li class="current">
+                    @currentPage.getDisplayXtoYofZ(" - "," / ")
+                </li>
+                @if(currentPage.hasNext) {
+                    <li class="next">
+                        <a href="@routes.ReportAdminController.trialList(currentPage.getPageIndex + 1)" target="_self"> &rarr;</a>
+                    </li>
+                } else {
+                    <li class="next disabled">
+                        <a>&rarr;</a>
+                    </li>
+                }
+            </ul>
+        </div>
+
+
+}

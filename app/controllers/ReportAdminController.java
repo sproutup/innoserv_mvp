@@ -35,7 +35,7 @@ public class ReportAdminController extends Controller {
   public static Result home() {
 	    return ok(admin.render());
   }
-  
+
   public static Result userList(Integer page) {
     if(!admin_enabled){return notFound();};
 
@@ -50,15 +50,23 @@ public class ReportAdminController extends Controller {
 	    Logger.debug("mode: " + play.api.Play.current().mode());
 	    Page<ProductTrial> trials = ProductTrial.find(page);//findAll();
 	    return ok(trial_list.render(trials));
-  }  
-  
+  }
+
+  public static Result influencerTrialList(Integer page) {
+        if(!admin_enabled){return notFound();};
+
+        Logger.debug("mode: " + play.api.Play.current().mode());
+        Page<ProductTrial> trials = ProductTrial.find(page);//findAll();
+        return ok(influencer_trial_list.render(trials));
+  }
+
   public static Result suggestedProductList(Integer page) {
 	    if(!admin_enabled){return notFound();};
 
 	    Logger.debug("mode: " + play.api.Play.current().mode());
 	    Page<ProductSuggestion> suggestions = ProductSuggestion.find(page);//findAll();
 	    return ok(suggested_product_list.render(suggestions));
-}  
+}
 
 //  public static Result details(User user) {
 //    if(!admin_enabled){return notFound();};
@@ -67,6 +75,5 @@ public class ReportAdminController extends Controller {
 //    return ok(detail_about.render(filledForm));
 //  }
 
-  
-}
 
+}

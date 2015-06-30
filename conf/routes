@@ -158,6 +158,7 @@ POST          /adminstuff/dosocialmediapost                                  con
 GET           /adminstuff/user                                            	 controllers.ReportAdminController.index()
 GET           /adminstuff/user/list                                       	 controllers.ReportAdminController.userList(page: Integer ?= 0)
 GET           /adminstuff/trial/list                                       	 controllers.ReportAdminController.trialList(page: Integer ?= 0)
+GET           /adminstuff/influencer_trial/list                              controllers.ReportAdminController.influencerTrialList(page: Integer ?= 0)
 GET           /adminstuff/suggest/list                                       controllers.ReportAdminController.suggestedProductList(page: Integer ?= 0)
 
 # Mockups
