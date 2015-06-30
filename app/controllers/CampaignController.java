@@ -47,33 +47,28 @@ public class CampaignController extends Controller {
 	@SubjectPresent
     @BodyParser.Of(BodyParser.Json.class)
     public static Result getCampaignInfo(Long productId) {
-        JsonNode json = request().body().asJson();
-        if (json == null) {
-            return badRequest("Expecting Json data");
+        User user = Application.getLocalUser(ctx().session());
+        if (user == null) {
+            return badRequest("User not found");
         } else {
-            User user = Application.getLocalUser(ctx().session());
-            if (user == null) {
-                return badRequest("User not found");
-            } else {
-            	//get campaign information
-            	Map<String, Object> params = new HashMap<String, Object>();
-                params.put("product_id", productId);
-                params.put("active", "1");
-            	Campaign campaign = Campaign.find.where().allEq(params).findUnique();
-            	if (campaign==null)
-            		return badRequest("Campaign not active or does not exist");
-            	
-            	ObjectNode rs = campaign.toJson();
-        		String referralId = UserReferral.getReferralId(user.id, campaign.id);
-	        	
-        		//TODO: replace it with URL shortener service
-        		String genURL = "http://sproutup.co/product/" + campaign.product.slug + "?refId="+ referralId; 
-	        	rs.put("url", genURL);
-        		rs.put("referralId", referralId);
-	        	rs.put("referrerUserId", user.id);
-	        	
-                return created(rs);
-            }
+        	//get campaign information
+        	Map<String, Object> params = new HashMap<String, Object>();
+            params.put("product_id", productId);
+            params.put("active", "1");
+        	Campaign campaign = Campaign.find.where().allEq(params).findUnique();
+        	if (campaign==null)
+        		return badRequest("Campaign not active or does not exist");
+        	
+        	ObjectNode rs = campaign.toJson();
+    		String referralId = UserReferral.getReferralId(user.id, campaign.id);
+        	
+    		//TODO: replace it with URL shortener service
+    		String genURL = "http://sproutup.co/product/" + campaign.product.slug + "?refId="+ referralId; 
+        	rs.put("url", genURL);
+    		rs.put("referralId", referralId);
+        	rs.put("referrerUserId", user.id);
+        	
+            return created(rs);
         }
     }
     

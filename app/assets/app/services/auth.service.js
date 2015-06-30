@@ -69,13 +69,13 @@ function authService($http, $q, $cookieStore, $log, userService, $timeout){
         return false;
     }
     function isInfluencer() {
-    	return isRole("INFLUENCER")
+        return isRole("INFLUENCER");
     }
     function isConsumer() {
-    	return isRole("CONSUMER")
+        return isRole("CONSUMER");
     }
     function isCreator() {
-    	return isRole("CREATOR")
+        return isRole("CREATOR");
     }
 
     function changeUser(user) {

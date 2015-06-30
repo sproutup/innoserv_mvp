@@ -156,9 +156,10 @@ public class Campaign extends TimeStampModel implements PathBindable<Campaign>{
 	public ObjectNode toJson(){
 		ObjectNode node = Json.newObject();
 		node.put("campaignName", this.campaignName);
+		node.put("campaignId", this.id);
 		node.put("campaignShortDescription", this.campaignShortDescription);
 		node.put("campaignLongDescription", this.campaignLongDescription);
-		node.put("campaignLongDescription", this.campaignLongDescription);
+		node.put("campaignShareMessage", this.campaignShareMessage);
 		node.put("beginDate", this.beginDate.toString());
 		if (this.endDate!=null)
 			node.put("endDate", this.endDate.toString());

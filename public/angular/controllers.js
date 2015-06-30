@@ -466,53 +466,122 @@ productControllers.controller('productListCtrl', ['$scope', 'ProductService',
   }]);
 
 productControllers.controller('ModalCtrl', function ($scope, $modal) {
-	$scope.open = function (size) {
+	$scope.open = function () {
 		var modalInstance = $modal.open({
 			animation: true,
 			templateUrl: 'myModalContent.html',
-			controller: 'ModalInstanceCtrl',
-			size: size
+			controller: 'ModalInstanceCtrl'
 		});
 	};
 });
 
-productControllers.controller('ModalInstanceCtrl', function ($scope, $modalInstance, $stateParams, ProductService) {
-	//$scope.product = $scope.$parent.product
+productControllers.controller('ModalInstanceCtrl', ['$scope', '$stateParams', '$modalInstance', '$http', '$location', 'ProductService', '$log',
+   function ($scope, $stateParams, $modalInstance, $http, $location, ProductService, $log) {
+	var processShareData;
 	ProductService.get({slug: $stateParams.slug}).$promise.then(
 			function(data) {
 				// success
 				$scope.product = data;
+				
+				$http({
+			        method: 'GET',
+			        url: '/api/campaign/getInfo/' + $scope.product.id,
+			        headers: {'Content-Type': 'application/json'}
+				}).success(function(data, status, headers, config){
+			        // this callback will be called asynchronously
+			        // when the response is available
+					$scope.campaignName = data.campaignName;
+					$scope.rewardMessage = data.campaignLongDescription;
+					$scope.uniqueLink = data.url;
+					processShareData = {
+						"referrerUserId":data.referrerUserId,
+						"referralId":data.referralId,
+						"campaignId":data.campaignId,
+						"requestedDisc":false,
+						"sharedOnSocialMedia":false
+					}
+					
+					$scope.fbShare = function () {
+						var obj = {
+							method: 'feed',
+							link: data.url,
+							picture: 'http://fbrell.com/f8.jpg',
+							name: 'Chipolo on SproutUp',
+							caption: $scope.product.productDescription,
+							description: data.campaignShareMessage
+						};
+						function callback(response) {
+							if (typeof response !== "undefined") {
+								$log.debug("Shared on Facebook");
+								processShareData.sharedOnSocialMedia = true;
+							}
+						}
+						FB.ui(obj, callback);
+					}
+					
+					$scope.twtLink = 'https://twitter.com/intent/tweet' + 
+						'?text=' + encodeURIComponent(data.campaignShareMessage) + 
+						'&via=' + 'sproutupco' + 
+						'&url=' + encodeURIComponent($scope.uniqueLink);
+			    })
 			},
 			function(error) {
 				// error handler
 				$state.go("home");
 			}
 	);
-	$scope.ok = function () {
+	
+	$scope.handleCheckbox = function () {
+		processShareData.requestedDisc = !processShareData.requestedDisc;
+		$log.debug("Discount wanted: " + processShareData.requestedDisc);
+	}
+	
+	twttr.events.bind('tweet', function(event) {
+		$log.debug("Shared on Twitter");
+		processShareData.sharedOnSocialMedia = true;
+	});
+	
+	$scope.close = function () {
+		$http({
+	        method: 'POST',
+	        url: '/api/campaign/processShare',
+	        data: processShareData,
+	        headers: {'Content-Type': 'application/json'}
+		}).success(function(data, status, headers, config){
+			$log.debug("Successfully processed share data: " + JSON.stringify(processShareData, null, 4));
+		});
 		$modalInstance.close();
 	};
+}]);
 
-	$scope.cancel = function () {
-		$modalInstance.dismiss('cancel');
-	};
-});
-
-productControllers.controller('productDetailCtrl', ['$scope', '$stateParams', '$state', '$log', 'ProductService', 'AuthService',
-  function($scope, $stateParams, $state, $log, ProductService, authService) {
+productControllers.controller('productDetailCtrl', ['$scope', '$stateParams', '$state', '$log', '$http', 'ProductService', 'AuthService',
+  function($scope, $stateParams, $state, $log, $http, ProductService, authService) {
     $log.debug("entered product details ctrl. slug=" + $stateParams.slug);
+    $scope.isInfluencer = authService.isInfluencer;
+    
 
 	ProductService.get({slug: $stateParams.slug}).$promise.then(
 			function(data) {
 				// success
 				$scope.product = data;
+
+				$http({
+			        method: 'GET',
+			        url: '/api/campaign/' + data.id,
+			        headers: {'Content-Type': 'application/json'}
+				}).success(function(data, status, headers, config) {
+			        // this callback will be called asynchronously
+			        // when the response is available
+					$scope.activeSprout = true;
+			    }).error(function(data, status, headers, config) {
+			    	$scope.activeSprout = false;
+			    });
 			},
 			function(error) {
 				// error handler
 				$state.go("home");
 			}
 	);
-    
-    $scope.isInfluencer = authService.isInfluencer;
 }]);
 
 productControllers.controller('userDetailCtrl', ['$scope', '$stateParams', '$state', '$log', 'UserService',

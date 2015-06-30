@@ -20,29 +20,33 @@
             </div> -->
             <div class="product-menu--action">
                 <a class="btn btn-lg sproutup-btn-md-upvote" href="#"><i class="fa fa-thumbs-up"></i>40</a>
-                <a class="btn btn-lg sproutup-btn-md-main" ui-sref="user.trial.request({ slug: product.slug })" ng-show="isInfluencer()">Request Product Trial</a>
+                <a class="btn btn-lg sproutup-btn-md-main" ui-sref="user.trial.request({ slug: product.slug })">Request Product Trial</a>
                 
-                <div ng-controller="ModalCtrl">
+                <div ng-controller="ModalCtrl" style="display: inline">
                     <script type="text/ng-template" id="myModalContent.html">
                         <div class="modal-header">
-                            <button class="close" ng-click="cancel()">&times</button>
+                            <button class="close" ng-click="close()">&times</button>
                             <h3 class="modal-title">Sprout {{product.productName}} Up!</h3>
                         </div>
                         <div class="modal-body">
-                            <p>Share with your friends and earn a 15% discount after completion of this campaign.<br>For every 10 of your friends that Sprout {{product.productName}} Up, earn a $5 cash reward!</p>
-            	            <p>This is your unique link: <a>http://www.google.com</a></p>
+                            <p>{{rewardMessage}}</p>
+            	            <p>Here is your unique referral link: <a>{{uniqueLink}}</a></p>
             	            <div class="row product-share-buttons">
                                 <div class="fb-share-button">
-                                <a analytics-on="click" analytics-event="Share Product on Facebook: {{product.productName}}" up-facebook-like-share ng-click="share()" xxhref="https://www.facebook.com/sharer.php?p[url]=http://www.producthunt.com/posts/paragraphs" target="_blank" class="btn btn-xs btn-facebook-share"><i class="fa fa-facebook"></i>Share</a>
+                                    <a analytics-on="click" analytics-event="Share Product on Facebook: {{product.productName}}" ng-click="fbShare()" class="btn btn-xs btn-facebook-share"><i class="fa fa-facebook"></i>Share</a>
                                 </div>
                                 <div class="tw-share-button">
-                                <a analytics-on="click" analytics-event="Share Product on Twitter: {{product.productName}}" up-twitter-tweet-button text="Check out {{product.productName}}" xxhref="https://twitter.com/intent/tweet?text=blabla$url&via=sproutupco" class="btn btn-xs btn-twitter-share"><i class="fa fa-twitter"></i>Tweet</a>
-                                </div>
+                            		<a analytics-on="click" analytics-event="Share Product on Twitter: {{product.productName}}" href="{{twtLink}}" class="btn btn-xs btn-twitter-share"><i class="fa fa-twitter"></i>Tweet</a>
+							</div>
                             </div>
-                            <p><input type="checkbox" id="wantDiscount"/> I want the 15% discount coupon to buy {{product.productName}}</p>
+                            <p><input type="checkbox" ng-click="handleCheckbox()" id="wantDiscount"/> I want the 15% discount coupon to buy {{product.productName}}</p>
                         </div>
+						<div class="modal-footer">
+							<button class="btn btn-warning" ng-click="close()">Cancel</button>
+							<button class="btn btn-primary" ng-click="close()">OK</button>
+						</div>
                     </script>
-                    <button class="btn btn-lg sproutup-btn-md-main" ng-click="open()">Sprout {{product.productName}} Up!</button>
+                    <button ng-show="activeSprout" class="btn btn-lg sproutup-btn-md-main" ng-click="open()">Sprout {{product.productName}} Up!</button>
                 </div>
                 
             </div>
