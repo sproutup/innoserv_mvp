@@ -116,4 +116,10 @@ public class MockupController extends Controller {
 
         return ok(product_trials_mock.render());
     }
+
+    public static Result manageContent() {
+        if(!mockups_enabled){return notFound();};
+
+        return ok(manage_content_mock.render());
+    }
 }

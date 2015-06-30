@@ -177,6 +177,7 @@ GET           /mockups/new-product                                           con
 GET           /mockups/wizard                                                controllers.MockupController.wizard()
 GET           /mockups/tryout                                                controllers.MockupController.tryout()
 GET           /mockups/product_trials                                        controllers.MockupController.productTrials()
+GET           /mockups/manage_content                                        controllers.MockupController.manageContent()
 
 # catch all. angular will handle all routes except /api/* /views/* /mockups/*
 GET           /                                                              controllers.Application.main(any = "none")
