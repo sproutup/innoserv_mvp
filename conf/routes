@@ -141,6 +141,7 @@ GET           /media/image/:image                                            con
 GET           /adminstuff                                            		 controllers.ReportAdminController.home()
 GET           /adminstuff/product                                            controllers.ProductAdministrationController.index()
 GET           /adminstuff/product/list                                       controllers.ProductAdministrationController.list(page: Integer ?= 0)
+GET           /adminstuff/product/listTrials                                 controllers.ProductAdministrationController.listTrials(page: Integer ?= 0)
 POST          /adminstuff/product/list                                       controllers.ProductAdministrationController.save()
 GET           /adminstuff/product/new                                        controllers.ProductAdministrationController.newProduct()
 GET           /adminstuff/product/:slug                                      controllers.ProductAdministrationController.details(slug: models.Product)
