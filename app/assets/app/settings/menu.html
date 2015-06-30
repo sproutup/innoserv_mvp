@@ -3,7 +3,8 @@
     <div class="dashboard-banner" up-background-image="/assets/images/general-profile-cover.png" up-background-attr="?w=1600">
         <div class="row user-profile-info">
             <div class="col-sm-2 user-profile-info--avartar">
-                <img class="profile-avatar--img-circle img-responsive" src="{{vm.user.avatarUrl}}">
+                <up-avatar-upload user="vm.user"></up-avatar-upload>
+                <!--img class="profile-avatar--img-circle img-responsive" src="{{vm.user.avatarUrl}}"-->
             </div>
             <div class="col-sm-10 user-profile-info--title">
                 <h1>{{vm.user.name}}<span>@{{vm.user.nickname}}</span></h1>

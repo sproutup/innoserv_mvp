@@ -952,7 +952,7 @@ angular.module('sproutupApp').directive('upAvatarUpload', ['FileService', 'AuthS
                                             fileService.addAvatar(result.file, result.uuid).then(
                                                 function (result) {
                                                     result.file.progress = 100;
-                                                    authService.user().then(
+                                                    authService.getUser().then(
                                                         function(result){
                                                             scope.files[0].dataUrl = null;
                                                             scope.files = null;
