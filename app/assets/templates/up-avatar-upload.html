@@ -1,16 +1,11 @@
 <div>
-    <div ng-show="myself == false" style="background-image: url('{{user.avatarUrl}}');" class="upload-new-avatar">
-    </div>
     <div ng-show="files[0].dataUrl == null && myself" ng-file-select disabled="disabled" style="background-image: url('{{user.avatarUrl}}');"
          ng-file-change="upload(files, 'profile img', user.id, 'models.user')" ng-model="files" class="upload-new-avatar">
         <a class="btn btn-lg btn-media-upload">
             <i class="fa fa-plus-circle"></i>
         </a>
     </div>
-    <div ng-show="files[0].dataUrl != null" class="upload-new-avatar" style="background-image: url('{{files[0].dataUrl}}');">
-        <a ng-click="reset()" ng-show="files[0].dataUrl != null" ng-hide="files[0].progress >= 0" class="btn btn-lg btn-media-remove" href="#">
-            <i class="fa fa-times"></i>
-        </a>
+    <div ng-show="files[0].dataUrl != null" class="upload-new-avatar" style="background-image: url('{{files[0].dataUrl}}?w=256&h=256');">
         <div class="progress" ng-show="files[0].progress >= 0">
             <div class="progress-bar" ng-style="{ 'width': files[0].progress + '%' }" role="progressbar" style="width: 0%;"></div>
         </div>

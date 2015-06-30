@@ -430,7 +430,7 @@ public class User extends TimeStampModel implements Subject {
 
 	public String getAvatar(){
 		if(avatar != null){
-			return avatar.getURL() + "?w=256";
+			return avatar.getURL() + "?w=256&h=256";
 		}
 		else
 		if(getProviders().contains("facebook")){
