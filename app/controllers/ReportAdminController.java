@@ -16,6 +16,7 @@ import java.util.List;
 
 import models.ProductSuggestion;
 import models.ProductTrial;
+import models.Trial;
 import models.User;
 
 import com.avaje.ebean.*;
@@ -56,7 +57,7 @@ public class ReportAdminController extends Controller {
         if(!admin_enabled){return notFound();};
 
         Logger.debug("mode: " + play.api.Play.current().mode());
-        Page<ProductTrial> trials = ProductTrial.find(page);//findAll();
+        Page<Trial> trials = Trial.find(page);//findAll();
         return ok(influencer_trial_list.render(trials));
   }
 
