@@ -495,10 +495,11 @@ productControllers.controller('productDetailCtrl', ['$scope', '$rootScope', '$st
             $log.debug("## check for current trial");
             $scope.hasCurrentTrial = false;
             if(authService.m.user.trials !== undefined){
-                var index = authService.m.user.trials.findIndex(function(element){
+                var item = authService.m.user.trials.filter(function(element){
                     return element.product.slug == slug;
                 })
-                if(index!=-1){
+                console.log("filter result: ", item);
+                if(item.length > 0){
                     $log.debug("## found current trial");
                     $scope.hasCurrentTrial = true;
                 }
