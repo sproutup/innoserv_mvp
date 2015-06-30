@@ -6,22 +6,22 @@
         <!-- full name -->
         <div class="row profile-input-row">
             <div class="col-sm-12 profile-input-cell">
-                <input type="text" class="form-control form-validate form-input medium" placeholder="Full Name" ng-model="vm.user.name" required>
+                <input popover="Your full name" popover-trigger="mouseenter" type="text" class="form-control form-validate form-input medium" placeholder="Full Name" ng-model="vm.user.name" required>
             </div>
         </div>
         <!-- email and username -->
         <div class="row profile-input-row">
             <div class="col-sm-6 profile-input-cell">
-                <input type="email" disabled class="form-control form-validate form-input medium" placeholder="Email" ng-model="vm.user.email">
+                <input popover="Your email" popover-trigger="mouseenter" type="email" disabled class="form-control form-validate form-input medium" placeholder="Email" ng-model="vm.user.email">
             </div>
             <div class="col-sm-6 profile-input-cell">
-                <input type="text" class="form-control form-validate form-input medium" placeholder="Pick a SproutUp username" ng-model="vm.user.nickname" required>
+                <input popover="Your SproutUp @username" popover-trigger="mouseenter" type="text" class="form-control form-validate form-input medium" placeholder="Pick a SproutUp username" ng-model="vm.user.nickname" required>
             </div>
         </div>
         <!-- short description -->
         <div class="row profile-input-row">
             <div class="col-sm-12 profile-input-cell">
-                <textarea class="form-control form-input-textarea no-resize" placeholder="Short description about yourself" rows="2" ng-model="vm.user.description"></textarea>
+                <textarea popover="Short description about yourself" popover-trigger="mouseenter" class="form-control form-input-textarea no-resize" placeholder="Short description about yourself" rows="2" ng-model="vm.user.description"></textarea>
             </div>
         </div>
 

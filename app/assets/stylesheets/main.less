@@ -20,7 +20,7 @@ body {
     margin-bottom: 0px;
     margin-top: 0px;
     padding: 0px 40px;
-    background-color: rgba(0, 0, 0, 0.6);
+    background-color: rgba(0, 0, 0, 0.7);
     border: none;
     border-radius: 0px;
 }
@@ -466,6 +466,7 @@ a:focus {
 	border-radius: 2px;
 	padding-top: 11px;
     margin-right: 5px;
+    margin-bottom: 5px;
 	-webkit-transition: all .2s ease-in-out;
 	-o-transition: all .2s ease-in-out;
 	transition: all .2s ease-in-out;
@@ -487,7 +488,8 @@ a:focus {
     padding-left: 10px;
     padding-right: 10px;
     margin-right: 5px;
-	-webkit-transition: all .2s ease-in-out;
+    margin-bottom: 5px;
+    -webkit-transition: all .2s ease-in-out;
 	-o-transition: all .2s ease-in-out;
 	transition: all .2s ease-in-out;
 }
@@ -510,6 +512,7 @@ a:focus {
 	border-radius: 2px;
 	padding-top: 11px;
     margin-right: 5px;
+    margin-bottom: 5px;
 	-webkit-transition: all .2s ease-in-out;
 	-o-transition: all .2s ease-in-out;
 	transition: all .2s ease-in-out;
@@ -518,6 +521,30 @@ a:focus {
 .sproutup-btn-md-cancel:hover {
 	color: white;
 	background-color: @sproutup-grey-hover;
+}
+
+.sproutup-btn-md-outline {
+    height: 45px;
+	font-weight: 400;
+	font-size: 11pt;
+    background-color: none;
+	border-radius: 2px;
+	padding-top: 11px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+	-webkit-transition: all .2s ease-in-out;
+	-o-transition: all .2s ease-in-out;
+	transition: all .2s ease-in-out;
+}
+
+.sproutup-btn-md-outline.red {
+    border-color: @sproutup-red;
+    color: @sproutup-red;
+}
+
+.sproutup-btn-md-outline.red:hover {
+    background-color: @sproutup-red;
+    color: white;
 }
 
 @media (max-width:767px) {
@@ -531,7 +558,7 @@ a:focus {
     }
 
     .navbar-brand {
-        padding: 15px 0px 0px;
+        padding: 17px 0px 0px;
     }
 
     .navbar-influencer .logo {
@@ -555,4 +582,8 @@ a:focus {
     .sproutup-footer-links {
         max-width: 160px;
     }
+}
+
+.popover-content {
+    color: @main-text-1;
 }
