@@ -7,7 +7,7 @@
                     <div class="signup-wizard-row">
                         <input type="text" ng-model="vm.request.address" ng-autocomplete="" class="form-control form-input medium" placeholder="Your shipping address" required>
                         <input type="text" ng-model="vm.request.phone" class="form-control form-input medium" placeholder="Your phone number" required>
-                        <textarea type="text" ng-model="vm.request.reason" class="form-control form-input-textarea no-resize" placeholder="Briefly describe why you're interested in trying Soma Carafe" rows="1" required></textarea>
+                        <textarea type="text" ng-model="vm.request.reason" class="form-control form-input-textarea no-resize" placeholder="Briefly describe why you're interested in trying {{vm.product.productName}}" rows="1" required></textarea>
                     </div>
 
                     <p>Once you sign up, the product will be shipped to the address you provided. You may be contacted by phone for shipping and trial related questions.</p>
