@@ -11,7 +11,7 @@
         </div>
         <div class="col-sm-12 product-trial-item--detail">
             <p class="product-trial-item--status current"><i class="fa fa-check-circle"></i>Requested {{item.createdAt | fromNow}}</p>
-            <p ng-show="item.content.length===0" class="product-trial-item--status"><i class="fa fa-check-circle"></i>You haven't uploaded any content yet. Come back when you're ready!</p>
+            <p ng-show="item.content.length===0" class="product-trial-item--status"><i class="fa fa-check-circle"></i>You haven't uploaded any content yet. Click "Add my content" below to start!</p>
             <p ng-show="item.content.length==1" class="product-trial-item--status current"><i class="fa fa-check-circle"></i>You have added 1 item. Awesome job!!</p>
             <p ng-show="item.content.length>1" class="product-trial-item--status current"><i class="fa fa-check-circle"></i>You have added {{item.content.length}} items. Awesome job!!</p>
             <div class="product-trial-item--result" ng-repeat="content in item.content">
