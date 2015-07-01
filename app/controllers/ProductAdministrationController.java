@@ -40,6 +40,19 @@ public class ProductAdministrationController extends Controller {
     return ok(list.render(products));
   }
 
+  public static Result listTrials(Integer page) {
+	    if(!admin_enabled){return notFound();};
+
+	    Logger.debug("mode: " + play.api.Play.current().mode());
+	    Page<Product> products = Product.find.where().eq("trial_sign_up_flag", "1")
+                .orderBy("active_flag desc, id desc")
+                .findPagingList(100)
+                .setFetchAhead(false)
+                .getPage(page);
+	    		
+	    return ok(trial_list.render(products));
+}
+  
   //@SecureSocial.SecuredAction
   public static Result newProduct() {
     if(!admin_enabled){return notFound();};
@@ -55,10 +68,12 @@ public class ProductAdministrationController extends Controller {
 
 	List<Tag> tags = product.getAllTags();
 	String tagName = "";
-	for (int i = 0; i < tags.size(); i++) {
-		tagName += tags.get(i).name;
-		if (i<(tags.size()-1))
-			tagName = tagName + ", ";
+	if (tags!=null){
+		for (int i = 0; i < tags.size(); i++) {
+			tagName += tags.get(i).name;
+			if (i<(tags.size()-1))
+				tagName = tagName + ", ";
+		}
 	}
 	product.tags = tagName;
 	
@@ -115,7 +130,7 @@ public class ProductAdministrationController extends Controller {
     flash("success",
         String.format("Successfully added product %s", product));
 
-    return redirect(routes.ProductAdministrationController.list(1));
+    return redirect(routes.ProductAdministrationController.list(0));
   }
 
   public static Result delete(Long id) {
@@ -126,7 +141,7 @@ public class ProductAdministrationController extends Controller {
         return notFound(String.format("Product %s does not exists.", id));
     }
     product.delete();
-    return redirect(routes.ProductAdministrationController.list(1));
+    return redirect(routes.ProductAdministrationController.list(0));
   }
 }
 

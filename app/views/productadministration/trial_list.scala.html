@@ -1,24 +1,11 @@
 @(currentPage: com.avaje.ebean.Page[Product])
-@main("Products catalog") {
+@main("Products that are/were available for Trials") {
 
-  <h2>All products
-  <a href="/adminstuff/product/new" class="btn" target="_self">
-    <i class="icon-plus"></i> &nbsp;+ (New)</a>
-  
+  <h2>All products for Trials
+ 
   </h2>
 
-    <script>
-     function del(urlToDelete) {
-        $.ajax({
-          url: urlToDelete,
-          type: 'DELETE',
-          success: function(results) {
-            // Refresh the page
-            location.reload();
-          }
-        });
-      }
-   </script>
+
 
    <table class="table table-striped">
     <thead>
@@ -29,7 +16,7 @@
         <th>Description</th>
         <th>Date added</th>
         <th>Date updated</th>
-        <th>is Trial</th>
+        <th>Featured</th>
         <th>is Active</th>
         <th></th>
       </tr>
@@ -49,7 +36,7 @@
         <td><a href="@routes.ProductAdministrationController.details(product)" target="_self">@product.productDescription</a></td>
         <td>@product.createdAt</td>
         <td>@product.updatedAt</td>
-        <td><a href="@routes.ProductAdministrationController.details(product)" target="_self">@product.trialSignUpFlag</a></td>
+        <td><a href="@routes.ProductAdministrationController.details(product)" target="_self">@product.isFeatured</a></td>
         <td><a href="@routes.ProductAdministrationController.details(product)" target="_self">@product.activeFlag</a></td>
         
         <td>
@@ -90,6 +77,5 @@
 
   
     
-  <a href="/adminstuff/product/new" class="btn" target="_self">
-    <i class="icon-plus"></i> New product</a>
+  
 }
