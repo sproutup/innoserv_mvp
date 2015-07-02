@@ -87,27 +87,31 @@ public class CampaignController extends Controller {
             String referralId = json.findPath("referralId").textValue();
             String referrerId = json.findPath("referrerId").textValue();
             
+            System.out.println("referrerId: " + referrerId);
+            
             long campaignId = json.findPath("campaignId").longValue();
             User user = Application.getLocalUser(ctx().session());
             
             boolean requestedDisc = json.findPath("requestedDisc").asBoolean();
             boolean sharedOnSocialMedia = json.findPath("sharedOnSocialMedia").asBoolean();
             UserReferral uref;
-            if (referralId != null) {
-            	uref = UserReferral.find.where().eq("referral_id", referralId).findUnique();
-            	if(uref!=null && uref.user.id.equals(user.id)){//user coming 2nd time
-            		//user is same as referrer
-            		uref.requestedDisc = requestedDisc;
-            		uref.sharedOnSocialMedia = sharedOnSocialMedia;
-            		uref.update();
-            		return created(uref.toJson());
-            	}
-            } 
+//            if (referralId != null) {
+//            	uref = UserReferral.find.where().eq("referral_id", referralId).findUnique();
+//            	if(uref!=null && uref.user.id.equals(user.id)){//user coming 2nd time
+//            		//user is same as referrer
+//            		uref.requestedDisc = requestedDisc;
+//            		uref.sharedOnSocialMedia = sharedOnSocialMedia;
+//            		uref.update();
+//            		return created(uref.toJson());
+//            	}
+//            } 
             //user is coming for the first time
             uref = new UserReferral();
-            uref.user.id = userId;
+            uref.user = user;
+            //uref.user.id = userId;
             uref.referralId = referralId;
-            uref.campaign.id = campaignId;
+            uref.campaign = Campaign.find.byId(campaignId);
+//            uref.campaign.id = campaignId;
             uref.referrerId = referrerId;
             uref.requestedDisc = requestedDisc;
             uref.sharedOnSocialMedia = sharedOnSocialMedia;

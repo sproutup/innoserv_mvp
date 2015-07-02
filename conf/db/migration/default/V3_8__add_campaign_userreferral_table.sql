@@ -32,7 +32,7 @@ create table user_referral (
   active                    tinyint(1) default 1,
   campaign_id               bigint,
   user_id                   bigint,
-  referral_id          		varchar(255),
+  referrer_id          		varchar(255),
   constraint pk_user_referral primary key (id))
 ;
 
