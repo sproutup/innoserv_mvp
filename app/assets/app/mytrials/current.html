@@ -10,7 +10,16 @@
             <p>{{item.product.name}}</p>
         </div>
         <div class="col-sm-12 product-trial-item--detail">
-            <p class="product-trial-item--status current"><i class="fa fa-check-circle"></i>Requested {{item.createdAt | fromNow}}</p>
+            <div ng-switch="item.status">
+                <p ng-switch-when="0" class="product-trial-item--status current"><i class="fa fa-check-circle"></i>Requested {{item.createdAt | fromNow}}</p>
+                <p ng-switch-when="1" class="product-trial-item--status current"><i class="fa fa-check-circle"></i>Approved {{item.updatedAt | fromNow}}</p>
+                <p ng-switch-when="2" class="product-trial-item--status current"><i class="fa fa-check-circle"></i>Sent {{item.updatedAt | fromNow}}</p>
+                <p ng-switch-when="3" class="product-trial-item--status current"><i class="fa fa-check-circle"></i>Received {{item.updatedAt | fromNow}}</p>
+                <p ng-switch-when="4" class="product-trial-item--status current"><i class="fa fa-check-circle"></i>Returned {{item.updatedAt | fromNow}}</p>
+                <p ng-switch-when="-1" class="product-trial-item--status current"><i class="fa fa-check-circle"></i>Rejected {{item.updatedAt | fromNow}}</p>
+                <p ng-switch-when="-2" class="product-trial-item--status current"><i class="fa fa-check-circle"></i>Cancelled {{item.updatedAt | fromNow}}</p>
+            </div>
+
             <p ng-show="item.content.length===0" class="product-trial-item--status"><i class="fa fa-check-circle"></i>You haven't uploaded any content yet. Click "Add my content" below to start!</p>
             <p ng-show="item.content.length==1" class="product-trial-item--status current"><i class="fa fa-check-circle"></i>You have added 1 item. Awesome job!!</p>
             <p ng-show="item.content.length>1" class="product-trial-item--status current"><i class="fa fa-check-circle"></i>You have added {{item.content.length}} items. Awesome job!!</p>
