@@ -38,10 +38,11 @@ public class Trial extends TimeStampModel {
     /*
     0 : requested
     1 : approved
-    -1 : rejected
     2 : sent
     3 : received
     4 : returned
+    -1 : rejected
+    -2 : cancelled
     */
     public Integer status = 0;
 
