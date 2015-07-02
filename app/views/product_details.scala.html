@@ -25,7 +25,7 @@
                 <a ng-show="init && isLoggedIn && hasCurrentTrial" class="btn btn-lg sproutup-btn-md-main" ui-sref="user.mytrials.current">View my trial Status</a>
             </div>
             <div class="product-menu--help">
-                <a ui-sref="user.howitworks"><i class="fa fa-question-circle"></i>Learn how Trial works</a>
+                <a ng-show="init && product.isAvailableForTrial" ui-sref="user.howitworks"><i class="fa fa-question-circle"></i>Learn how Trial works</a>
             </div>
         </div>
     </div>
