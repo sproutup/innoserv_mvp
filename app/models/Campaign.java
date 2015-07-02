@@ -189,6 +189,10 @@ public class Campaign extends TimeStampModel implements PathBindable<Campaign>{
 		node.put("productId", this.product.id);
 		node.put("productName", this.product.productName);
 		node.put("productSlug", this.product.slug);
+		
+		if (this.product.productAdditionalDetail!=null && this.product.productAdditionalDetail.bannerPhoto!=null){
+		  node.put("productPictureURL", this.product.productAdditionalDetail.bannerPhoto.getURL());
+		}
 		return node;
 	}
 

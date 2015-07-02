@@ -40,11 +40,10 @@ public class UserReferral extends TimeStampModel {
     public Campaign campaign;
 
     @ManyToOne
-    @Column(name="referrer_user_id")
     public User user;
     
-    //users who sign up based on the referral Id
-    public long signedupUserId;
+    //refId of the user who referred this user
+    public String referrerId;
     
 	public static Page<UserReferral> find(int page) {
 	    return
@@ -55,14 +54,20 @@ public class UserReferral extends TimeStampModel {
 	                .getPage(page);
 	}
 	
-	
-	public static String getReferralId(Long referrerUserId, Long campaignId){
+	/**
+	 * Generate referralId associated with the current user if asking for the first time, 
+	 * otherwise return from db
+	 * @param userId
+	 * @param campaignId
+	 * @return
+	 */
+	public static String getReferralId(Long userId, Long campaignId){
 		
 		String refId;
 		
 		//lookup for the referralId in the db if it exists
 	    Map<String, Object> params = new HashMap<String, Object>();
-        params.put("user_id", referrerUserId);
+        params.put("user_id", userId);
         params.put("campaign_id", campaignId);
         params.put("active", "1");
         
@@ -76,7 +81,7 @@ public class UserReferral extends TimeStampModel {
 			ref = new UserReferral();
 			ref.campaign = Campaign.find.byId(campaignId);
 			ref.referralId = refId;
-			ref.user = User.find.byId(referrerUserId);
+			ref.user = User.find.byId(userId);
 			ref.save();
 			
 		} else {
@@ -93,6 +98,7 @@ public class UserReferral extends TimeStampModel {
 		node.put("referralId", this.referralId);
 		node.put("referrerUserId", this.user.id);
 		node.put("campaignId", this.campaign.id);
+		node.put("referrerId", this.referrerId);
 		node.put("createdAt", new DateTime(this.createdAt).toString());
 		return node;
 	}
