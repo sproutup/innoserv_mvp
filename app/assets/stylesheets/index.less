@@ -94,14 +94,26 @@
 
 .marketing-cta {
     text-align: center;
-    margin: 20px auto 60px;
+    margin: 20px auto 40px;
+}
+
+.marketing-cta.creator {
+    border-top: 1px dashed @sproutup-grey;
+    max-width: 640px;
+    padding-top: 40px;
 }
 
 .marketing-cta.creator a {
-    color: @main-text-white;
-    font-weight: 300;
-    font-size: 14pt;
+    color: @sproutup-grey;
+    font-weight: 400;
+    font-size: 13pt;
     margin: 0px auto 80px;
+    text-decoration: none !important;
+}
+
+.marketing-cta.creator a:hover {
+    color: @sproutup-blue-bright;
+    text-decoration: none !important;
 }
 
 .up-slideable {
