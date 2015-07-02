@@ -150,7 +150,7 @@ sproutupApp.config(['$routeProvider', '$stateProvider', '$locationProvider', '$u
                 url: '/how-it-works',
                 templateUrl: 'views/how-it-works',
                 data: {
-                    title: 'How it Works - SproutUp'
+                    title: 'How Product Trial Works - SproutUp'
                 }
             })
             .state('user.faq' ,{
