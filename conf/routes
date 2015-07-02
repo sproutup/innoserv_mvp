@@ -30,11 +30,11 @@ GET           /views/home                                                    con
 GET           /views/about                                                   controllers.Application.about
 GET           /views/terms                                                   controllers.Application.terms
 GET           /views/privacy                                                 controllers.Application.privacy
-GET           /views/news                                                    controllers.Application.news
 GET           /views/search                                                  controllers.Application.search
-GET           /views/community                                               controllers.Application.community
 GET           /views/creator                                                 controllers.Application.creator
 GET           /views/perk                                                    controllers.Application.perk
+GET           /views/how-it-works                                            controllers.Application.how_it_works
+GET           /views/FAQs                                                    controllers.Application.faq
 GET           /views/dashboard                                               controllers.Application.dashboard
 GET           /views/dashboard/products                                      controllers.Application.dashboard_products
 GET           /views/dashboard/products/info                                 controllers.Application.dashboard_products_info

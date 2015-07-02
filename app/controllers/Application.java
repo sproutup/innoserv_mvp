@@ -158,9 +158,9 @@ public class Application extends Controller {
         return ok(privacy.render());
     }
 
-    public static Result news() {
-        return ok(news.render());
-    }
+    // public static Result news() {
+    //     return ok(news.render());
+    // }
 
     public static Result search() {
         return ok(search.render());
@@ -174,9 +174,17 @@ public class Application extends Controller {
 		return ok(perk.render());
 	}
 
-    public static Result community() {
-        return ok(community.render());
-    }
+	public static Result how_it_works() {
+		return ok(how_it_works.render());
+	}
+
+	public static Result faq() {
+		return ok(faq.render());
+	}
+
+    // public static Result community() {
+    //     return ok(community.render());
+    // }
 
 	public static User getLocalUser(final Session session) {
 		final AuthUser currentAuthUser = PlayAuthenticate.getUser(session);
