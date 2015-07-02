@@ -154,8 +154,8 @@ sproutupApp.config(['$routeProvider', '$stateProvider', '$locationProvider', '$u
                 }
             })
             .state('user.faq' ,{
-                url: '/faq',
-                templateUrl: 'views/faq',
+                url: '/FAQs',
+                templateUrl: 'views/FAQs',
                 data: {
                     title: 'FAQ for Influencers and Enthusiasts - SproutUp'
                 }

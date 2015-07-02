@@ -178,6 +178,10 @@ public class Application extends Controller {
 		return ok(how_it_works.render());
 	}
 
+	public static Result faq() {
+		return ok(faq.render());
+	}
+
     // public static Result community() {
     //     return ok(community.render());
     // }

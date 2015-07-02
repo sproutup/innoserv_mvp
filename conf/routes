@@ -34,6 +34,7 @@ GET           /views/search                                                  con
 GET           /views/creator                                                 controllers.Application.creator
 GET           /views/perk                                                    controllers.Application.perk
 GET           /views/how-it-works                                            controllers.Application.how_it_works
+GET           /views/FAQs                                                    controllers.Application.faq
 GET           /views/dashboard                                               controllers.Application.dashboard
 GET           /views/dashboard/products                                      controllers.Application.dashboard_products
 GET           /views/dashboard/products/info                                 controllers.Application.dashboard_products_info
