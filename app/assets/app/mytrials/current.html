@@ -2,7 +2,7 @@
 <div class="col-sm-9">
 
     <div class="product-trial-header" ng-show="!vm.current.length > 0">
-        <p>You don't have any active product trial yet. Browse our <a ui-sref="user.search">awesome collection of products</a> and make your first request.</p>
+        <p>You don't have any active product trial requests. Browse our <a ui-sref="user.search">awesome collection of products</a> and make a request.</p>
     </div>
 
     <div class="row product-trial-item" ng-repeat="item in vm.current | orderBy:'-id'">
