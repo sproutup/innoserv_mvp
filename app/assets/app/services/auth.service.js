@@ -63,6 +63,16 @@ function authService($http, $q, $cookieStore, $log, userService, $timeout){
             console.log("first trials, add empty object");
             model.user.trials = [];
         }
+
+        console.log("### data", data);
+        updateuser = {
+            nickname: model.user.nickname,
+            address: data.address,
+            phone: data.phone
+        };
+        console.log("### update", updateuser);
+        save(updateuser);
+
         model.user.trials.push(data);
         refreshTrials();
     }

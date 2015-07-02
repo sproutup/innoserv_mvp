@@ -73,6 +73,8 @@ public class Trial extends TimeStampModel {
         node.put("id", this.id);
         node.put("name", this.name);
         node.put("email", this.email);
+        node.put("address", this.address);
+        node.put("phone", this.phone);
         node.put("active", this.active);
         node.put("status", this.status);
         node.put("createdAt", new DateTime(this.createdAt).toString());
