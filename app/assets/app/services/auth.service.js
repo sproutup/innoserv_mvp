@@ -64,13 +64,12 @@ function authService($http, $q, $cookieStore, $log, userService, $timeout){
             model.user.trials = [];
         }
 
-        console.log("### data", data);
+        // update users address and phone
         updateuser = {
             nickname: model.user.nickname,
             address: data.address,
             phone: data.phone
         };
-        console.log("### update", updateuser);
         save(updateuser);
 
         model.user.trials.push(data);
