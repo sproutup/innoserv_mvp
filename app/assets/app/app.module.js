@@ -146,13 +146,27 @@ sproutupApp.config(['$routeProvider', '$stateProvider', '$locationProvider', '$u
                     title: 'Privacy Policy - SproutUp'
                 }
             })
-            .state('user.news' ,{
-                url: '/news',
-                templateUrl: 'views/news',
+            .state('user.howitworks' ,{
+                url: '/how-it-works',
+                templateUrl: 'views/how-it-works',
                 data: {
-                    title: 'News and Press Releases - SproutUp'
+                    title: 'How it Works - SproutUp'
                 }
             })
+            .state('user.faq' ,{
+                url: '/faq',
+                templateUrl: 'views/faq',
+                data: {
+                    title: 'FAQ for Influencers and Enthusiasts - SproutUp'
+                }
+            })
+            // .state('user.news' ,{
+            //     url: '/news',
+            //     templateUrl: 'views/news',
+            //     data: {
+            //         title: 'News and Press Releases - SproutUp'
+            //     }
+            // })
             .state('user.search' ,{
                 url: '/products',
                 templateUrl: 'views/search',
@@ -160,13 +174,13 @@ sproutupApp.config(['$routeProvider', '$stateProvider', '$locationProvider', '$u
                     title: 'All Products - SproutUp'
                 }
             })
-            .state('user.community' ,{
-                url: '/community',
-                templateUrl: 'views/community',
-                data: {
-                    title: 'Community - SproutUp'
-                }
-            })
+            // .state('user.community' ,{
+            //     url: '/community',
+            //     templateUrl: 'views/community',
+            //     data: {
+            //         title: 'Community - SproutUp'
+            //     }
+            // })
             .state('user.creator' ,{
                 url: '/creator',
                 templateUrl: 'views/creator',
