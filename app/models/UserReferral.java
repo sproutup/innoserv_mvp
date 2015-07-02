@@ -1,6 +1,7 @@
 package models;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.persistence.*;
@@ -71,8 +72,12 @@ public class UserReferral extends TimeStampModel {
         params.put("campaign_id", campaignId);
         params.put("active", "1");
         
-        UserReferral ref = find.where().allEq(params).findUnique();
-		
+        List<UserReferral> refList = find.where().allEq(params).findList();
+		UserReferral ref = null;
+        if(refList!=null && refList.size()>0){
+			ref = refList.get(0);
+		}
+        
 		if (ref == null || ref.referralId == null || ref.referralId.equals("")
 				|| ref.referralId.equals("-1")) {
 			//generate one if it doesn't exist
