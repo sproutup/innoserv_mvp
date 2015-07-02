@@ -125,6 +125,7 @@ GET           /media/image/x/:h/:image                                       con
 GET           /media/image/:w/:h/:image                                      controllers.Application.image(image: String, w: Int, h: Int)
 GET           /media/image/:image                                            controllers.Application.image(image: String, w: Int ?=-1,        h:        Int ?=-1)
 
+GET			  /api/campaign/getActive/:productId							 controllers.CampaignController.getActiveCampaign(productId: Long)
 GET			  /api/campaign/getInfo/:productId								 controllers.CampaignController.getCampaignInfo(productId: Long)
 POST		  /api/campaign/processShare									 controllers.CampaignController.processShare()	
 

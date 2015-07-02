@@ -29,6 +29,7 @@ function authService($http, $q, $cookieStore, $log, userService, $timeout){
         logout: logout,
         ready: ready,
         loggedIn: loggedIn,
+        // Flag checks added by @apurv
         isInfluencer: isInfluencer,
         isConsumer: isConsumer,
         isCreator: isCreator
@@ -58,6 +59,7 @@ function authService($http, $q, $cookieStore, $log, userService, $timeout){
         return model.isLoggedIn;
     }
     
+    // Flag checks for roles added by @apurv
     function isRole(roleName) {
         if (model.user.roles !== undefined) {
             for (var i = 0; i < model.user.roles.length; i++) {

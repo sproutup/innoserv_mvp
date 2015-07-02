@@ -12,6 +12,7 @@ import models.Campaign;
 import models.Product;
 import models.User;
 import models.UserReferral;
+import play.libs.Json;
 import play.Logger;
 import play.Play;
 import play.data.Form;
@@ -33,14 +34,28 @@ import views.html.admin.*;
  */
 public class CampaignController extends Controller {
     
-	  private static final Form<Campaign> campaignForm = Form.form(Campaign.class);
-	  private static final Boolean admin_enabled = Boolean.parseBoolean(Play.application().configuration().getString("admin.enabled"));
+	private static final Form<Campaign> campaignForm = Form.form(Campaign.class);
+	private static final Boolean admin_enabled = Boolean.parseBoolean(Play.application().configuration().getString("admin.enabled"));
 
-	
-	//
-    // web service for sharing campaign
-    //
-	
+//	
+//	web service for sharing campaign
+//	
+
+    @BodyParser.Of(BodyParser.Json.class)
+    public static Result getActiveCampaign(Long productId) {//get campaign information
+    	Map<String, Object> params = new HashMap<String, Object>();
+        params.put("product_id", productId);
+        params.put("active", "1");
+    	Campaign campaign = Campaign.find.where().allEq(params).findUnique();
+		ObjectNode rs = Json.newObject();
+    	if (campaign==null) 
+        	rs.put("active", false);
+    	else
+        	rs.put("active", true);
+    	
+    	return created(rs);
+    }
+    
 	/*
 	 * Gets called when user clicks on the SproutUp or Share button
 	 */
