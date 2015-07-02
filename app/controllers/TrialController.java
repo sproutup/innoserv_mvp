@@ -58,6 +58,7 @@ public class TrialController extends Controller {
             Trial item = new Trial();
             item.email = user.email;
             item.name = user.name;
+            item.status = 0; // requested
 
             if (check(root, "address")) item.address = root.path("address").asText();
             if (check(root, "phone")) item.phone = root.path("phone").asText();

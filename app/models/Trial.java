@@ -35,6 +35,16 @@ public class Trial extends TimeStampModel {
 
     public boolean active = true;
 
+    /*
+    0 : requested
+    1 : approved
+    -1 : rejected
+    2 : sent
+    3 : received
+    4 : returned
+    */
+    public Integer status = 0;
+
     @ManyToOne
     public Product product;
 
@@ -63,6 +73,7 @@ public class Trial extends TimeStampModel {
         node.put("name", this.name);
         node.put("email", this.email);
         node.put("active", this.active);
+        node.put("status", this.status);
         node.put("createdAt", new DateTime(this.createdAt).toString());
         node.put("updatedAt", new DateTime(this.updatedAt).toString());
         if(this.user != null) {
