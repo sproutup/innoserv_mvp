@@ -3,14 +3,14 @@
         <div class="col-lg-12 product-info">
             <form name="basicform" class="" novalidate>
                 <div class="signup-wizard">
-                    <h1>Thanks for requesting Product Trial. A few more things to ask...</h1>
+                    <h1>Thanks for your request. A few more things to ask to confirm your request...</h1>
                     <div class="signup-wizard-row">
                         <input type="text" ng-model="vm.request.address" ng-autocomplete="" class="form-control form-input medium" placeholder="Your shipping address" required>
                         <input type="text" ng-model="vm.request.phone" class="form-control form-input medium" placeholder="Your phone number" required>
                         <textarea type="text" ng-model="vm.request.reason" class="form-control form-input-textarea no-resize" placeholder="Briefly describe why you're interested in trying {{vm.product.productName}}" rows="1" required></textarea>
                     </div>
 
-                    <p>Once you sign up, the product will be shipped to the address you provided. You may be contacted by phone for shipping and trial related questions.</p>
+                    <p>After you qualify, product will be shipped to the address you provided. You may be contacted by phone or email for shipping and trial related questions.</p>
 
                     <div class="signup-wizard-actions">
                         <button ng-disabled="basicform.$invalid" class="btn btn-lg sproutup-btn-md-main" ng-click="vm.submit()">Continue</button>
