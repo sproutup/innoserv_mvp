@@ -956,6 +956,7 @@ angular.module('sproutupApp').directive('upAvatarUpload', ['FileService', 'AuthS
                                                         function(result){
                                                             scope.files[0].dataUrl = null;
                                                             scope.files = null;
+                                                            scope.user.avatarUrl = result.avatarUrl;
                                                         }
                                                     )
                                                 }
