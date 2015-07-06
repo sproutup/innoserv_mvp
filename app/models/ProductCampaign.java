@@ -16,11 +16,11 @@ import java.util.List;
  * Post class
  */
 @Entity
-public class Campaign extends SuperModel implements Taggable {
+public class ProductCampaign extends SuperModel implements Taggable {
     private static final long serialVersionUID = 1L;
 
-    public static Finder<Long, Campaign> find = new Finder<Long, Campaign>(
-            Long.class, Campaign.class);
+    public static Finder<Long, ProductCampaign> find = new Finder<Long, ProductCampaign>(
+            Long.class, ProductCampaign.class);
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
@@ -46,7 +46,7 @@ public class Campaign extends SuperModel implements Taggable {
 	@ManyToOne
 	public Product product;
 
-    public static Campaign findById(Long id) {
+    public static ProductCampaign findById(Long id) {
         return find.byId(id);
     }
 
@@ -65,15 +65,15 @@ public class Campaign extends SuperModel implements Taggable {
         return node;
     }
 
-    public static ArrayNode toJson(List<Campaign> posts){
+    public static ArrayNode toJson(List<ProductCampaign> posts){
         ArrayNode arrayNode = new ArrayNode(JsonNodeFactory.instance);
-        for (Campaign post : posts){
+        for (ProductCampaign post : posts){
             arrayNode.add(post.toJson());
         }
         return arrayNode;
     }
 
-    public List<Campaign> getAll() {
+    public List<ProductCampaign> getAll() {
         return find.where().order("id desc").findList();
     }
 
@@ -81,8 +81,8 @@ public class Campaign extends SuperModel implements Taggable {
 	* @required categoryName
 	* @required productID	 
 	*/
-	public List<Campaign> getActivePostsbyCategory(String categoryName, Long productID){
-			return (List<Campaign>) find.where()
+	public List<ProductCampaign> getActivePostsbyCategory(String categoryName, Long productID){
+			return (List<ProductCampaign>) find.where()
 				.eq("category", categoryName)
 				.eq("product_id", productID)
 				.eq("active_flag", "1")
@@ -113,9 +113,9 @@ public class Campaign extends SuperModel implements Taggable {
 		return Tag.getAllTags(id, this.getClass().getName());
 	}
 
-	public List<Campaign> findAllByTag(String name) {
+	public List<ProductCampaign> findAllByTag(String name) {
 
-		List<Campaign> posts = Campaign.find
+		List<ProductCampaign> posts = ProductCampaign.find
 				.query()
 				.setRawSql(Tag.findAllByTagRawSql(name, this.getClass().getName()))
 				.where()
