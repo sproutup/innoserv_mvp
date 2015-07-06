@@ -978,6 +978,38 @@ productServices.factory('ForumService', ['$http','$log', function($http,$log){
     return ForumService;
   }]);
 
+productServices.factory('CampaignService', ['$http','$log', function($http,$log){
+
+	  var urlBase = '/api/campaign';
+	  var CampaignService = {};
+
+	  CampaignService.getCampaign = function(product_id){
+	    return $http({
+	        method: 'GET',
+	        url: urlBase,
+	        params: {prod: product_id}
+	      })
+	    }
+
+	  CampaignService.getPost = function(id){
+	    return $http({
+	        method: 'GET',
+	        url: urlBase + '/' + id,
+	        params: {prod:'belleds'}//check why hardcoded?
+	      })
+	      .success(function (data, status, headers, config) {
+	        //$scope.campaign = data.campaign;
+	      })
+	      .error(function (data, status, headers, config) {
+	        // something went wrong :
+	        log.debug("forum service http.get error");
+	      });
+	    }
+	  
+	    return CampaignService;
+	  }]);
+
+
 
 //module.factory('MyService', function() {
 //

@@ -1,0 +1,132 @@
+@(campaignForm: Form[Campaign])(products: List[models.Product])
+
+@import helper._
+@implicitFieldConstructor = @{ FieldConstructor(twitterBootstrapBasic.f) }
+
+@main(Messages("Create/Edit/Copy a Campaign")) {
+	
+
+  <div class="row">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <h1 class="form-header">Create/Edit a Campaign</h1>
+        </div>
+
+        <div class="row signup-form-block">
+          <div class="col-md-8 col-md-offset-2">
+
+        @helper.form(action = routes.CampaignController.save()) {
+		<input type="hidden" value="@campaignForm("id").valueOr("")" name="id"/>
+          @select(
+          campaignForm("product.id"),
+          products.map {p =>
+            (p.id.toString) -> p.productName
+          },
+          '_label -> "Product Name",'_default -> "-- Select --"
+          )
+
+          @inputText(
+          campaignForm("campaignName"),
+          '_label -> "Campaign Name"
+          )
+          <b>Active Flag:</b>
+		  <input type="checkbox" name="@campaignForm("active").name" value="true" @if(campaignForm("active").value=="true"){ checked }>&nbsp;@campaignForm("active").value
+		  <br>
+		  @inputText(
+          campaignForm("campaignShortDescription"),
+          '_label -> "Campaign Short Description"
+          )
+			
+			          
+          @textarea(field = campaignForm("campaignLongDescription"), 
+          '_label -> "Campaign Long Description", 
+          'rows -> 2, 'cols -> 50
+          )
+          
+          @if(campaignForm("beginDate").value==null || campaignForm("beginDate").value.isEmpty ) {
+          @inputText(
+          campaignForm("beginDate"),
+          '_label -> "Campaign Begin Date/Time",
+          'type -> "datetime-local"
+          )
+          } else {
+          @inputText(
+          campaignForm("beginDate"),
+          '_label -> "Campaign Begin Date/Time"
+          )
+		  }
+
+          @if(campaignForm("endDate").value==null || campaignForm("endDate").value.isEmpty ) {
+          @inputText(
+          campaignForm("endDate"),
+          '_label -> "Campaign End Date/Time",
+          'type -> "datetime-local" 
+          )
+          } else {
+          @inputText(
+          campaignForm("endDate"),
+          '_label -> "Campaign End Date/Time"
+          )
+          }
+
+           
+          @textarea(field = campaignForm("campaignShareMessage"), 
+          '_label -> "Share Message", 
+          'rows -> 2, 'cols -> 50
+          )
+			
+		  @textarea(field = campaignForm("campaignPerks1"), 
+          '_label -> "Perks 1", 
+          'rows -> 2, 'cols -> 50
+          )	
+          
+          @textarea(field = campaignForm("campaignPerks2"), 
+          '_label -> "Perks 2", 
+          'rows -> 2, 'cols -> 50
+          )
+          
+		  @textarea(field = campaignForm("campaignPerks3"), 
+          '_label -> "Perks 3", 
+          'rows -> 2, 'cols -> 50
+          )
+          
+		  @textarea(field = campaignForm("campaignPerks4"), 
+          '_label -> "Perks 4", 
+          'rows -> 2, 'cols -> 50
+          )
+					
+		  @inputText(
+          campaignForm("totalNumViewed"),
+          '_label -> "Total # Views (till date)"
+          )	
+          
+			@inputText(
+          campaignForm("totalNumParticipated"),
+          '_label -> "Total # Participated (till date)"
+          )	
+			
+		  @inputText(
+          	campaignForm("campaignOutcome"),
+          '_label -> "Campaign Outcome"
+          )
+    
+          <div>
+            <input class="btn btn-primary" type="submit" name="action" value="Save">
+           <a href="/adminstuff/campaign/list" target="_self">
+            <input class="btn btn-primary" type="button" name="list" value="Cancel" >
+            </a>
+            <input class="btn btn-primary" type="submit" name="action" value="Copy">
+          </div>
+        }
+      </div>
+    </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <hr>
+
+}

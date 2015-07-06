@@ -1,5 +1,8 @@
-@(currentPage: com.avaje.ebean.Page[User])
+@(userForm: Form[User])(currentPage: com.avaje.ebean.Page[User])
+@import helper._
+
 @main("User list") {
+
 
   <h2>All users
   </h2>
@@ -15,13 +18,27 @@
           }
         });
       }
+     
+     function updateInfluencer(val){
+    	 document.forms[0].elements['userId'].value = val;
+    	 document.forms[0].elements['roleType'].value = 'INFLUENCER';
+    	 document.forms[0].submit();
+     }
+     
+     function updateCreator(val){
+     	 document.forms[0].elements['userId'].value = val;
+     	 document.forms[0].elements['roleType'].value = 'CREATOR';
+     	 document.forms[0].submit();
+      }
+     
    </script>
-
    <table class="table table-striped">
     <thead>
       <tr>
         <th>User Id</th>
         <th>Name</th>
+        <th>isInfluencer</th>
+        <th>isCreator</th>
         <th>Email</th>
         <th>Twitter</th>
         <th>NickName</th>
@@ -29,32 +46,42 @@
         <th>Date updated</th>
         <th>is Active</th>
         <th>lastLogin</th>
-        <th>AvatarId</th>
         
       </tr>
     </thead>
     <tbody>
-    @for(user <- currentPage.getList()) {
+     @helper.form(action = routes.ReportAdminController.updateUserRole()) {
+	
+	<input type="hidden" name="userId"/>
+	<input type="hidden" name="roleType"/>
+	<input type="hidden" name="roleValue"/>
+	
+    @for(userForm <- currentPage.getList()) {
+	  <tr>
 
-      <tr>
+     	<td>@userForm.id</td>
+        <td>@userForm.name</td>
+        <td>@userForm.isInfluencer
+        <input type="checkbox" name="isInfluencer[@userForm.id]" value="@userForm.isInfluencer" onChange="updateInfluencer('@userForm.id')" @if(userForm.isInfluencer){ checked }>&nbsp;
+        </td>
+        <td>@userForm.isCreator
+        <input type="checkbox" name="isCreator[@userForm.id]" value="@userForm.isCreator" onChange="updateCreator('@userForm.id')" @if(userForm.isCreator){ checked }>&nbsp;
+        </td>
+        <td>@userForm.email</td>
+        <td>@userForm.urlTwitter</td>
+        <td>@userForm.nickname</td>
+        <td>@userForm.createdAt</td>
+        <td>@userForm.updatedAt</td>
+        <td>@userForm.active</td>
+        <td>@userForm.lastLogin</td>
 
-        <td>@user.id</td>
-        <td>@user.name</td>
-        <td>@user.email</td>
-        <td>@user.urlTwitter</td>
-        <td>@user.nickname</td>
-        <td>@user.createdAt</td>
-        <td>@user.updatedAt</td>
-        <td>@user.active</td>
-        <td>@user.lastLogin</td>
-        <td></td>
       
       </tr>
       }
   
     </tbody>
    </table>
-
+}
    <div id="pagination" class="pagination">
             <ul>
                 @if(currentPage.hasPrev) {

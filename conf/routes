@@ -137,6 +137,10 @@ GET           /media/image/x/:h/:image                                       con
 GET           /media/image/:w/:h/:image                                      controllers.Application.image(image: String, w: Int, h: Int)
 GET           /media/image/:image                                            controllers.Application.image(image: String, w: Int ?=-1,        h:        Int ?=-1)
 
+GET			  /api/campaign/getActive/:productId							 controllers.CampaignController.getActiveCampaign(productId: Long)
+GET			  /api/campaign/getInfo/:productId								 controllers.CampaignController.getCampaignInfo(productId: Long)
+POST		  /api/campaign/processShare									 controllers.CampaignController.processShare()	
+
 # Internal Administration Only - Not visible to public
 GET           /adminstuff                                            		 controllers.ReportAdminController.home()
 GET           /adminstuff/product                                            controllers.ProductAdministrationController.index()
@@ -158,9 +162,14 @@ POST          /adminstuff/dosocialmediapost                                  con
 
 GET           /adminstuff/user                                            	 controllers.ReportAdminController.index()
 GET           /adminstuff/user/list                                       	 controllers.ReportAdminController.userList(page: Integer ?= 0)
+POST          /adminstuff/user/updateRole                  					 controllers.ReportAdminController.updateUserRole()
 GET           /adminstuff/trial/list                                       	 controllers.ReportAdminController.trialList(page: Integer ?= 0)
 GET           /adminstuff/influencer_trial/list                              controllers.ReportAdminController.influencerTrialList(page: Integer ?= 0)
 GET           /adminstuff/suggest/list                                       controllers.ReportAdminController.suggestedProductList(page: Integer ?= 0)
+GET           /adminstuff/campaign/list                                      controllers.CampaignController.list()
+GET           /adminstuff/campaign/new                                       controllers.CampaignController.newCampaign()
+POST          /adminstuff/campaign/save                                  	 controllers.CampaignController.save()
+GET           /adminstuff/campaign/:id                                       controllers.CampaignController.details(id: Long)
 
 # Mockups
 GET           /mockups/product/:slug/about                                   controllers.MockupController.detailsAboutBySlug(slug: String)

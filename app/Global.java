@@ -37,12 +37,15 @@ import javax.persistence.OptimisticLockException;
 
 
 public class Global extends GlobalSettings {
+	
+	private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm:SS");
+	private static final SimpleDateFormat DATE_FORMAT_SIMPLE = new SimpleDateFormat("yyyy-MM-dd");    
 
 	public void onStart(Application app) {
 
         FiniteDuration delay = FiniteDuration.create(0, TimeUnit.SECONDS);
         FiniteDuration frequency = FiniteDuration.create(90, TimeUnit.SECONDS);
-
+               
         Akka.system().scheduler().schedule(delay, frequency, new AWSSimpleQueueManager(""), Akka.system().dispatcher());
 
 
@@ -156,17 +159,30 @@ public class Global extends GlobalSettings {
         Formatters.register(Date.class,
                      new SimpleFormatter<Date>() {
 
-         private final static String PATTERN = "dd-MM-yyyy";
+         private final static String PATTERN = "MM/dd/yyyy HH:mm";
 
          public Date parse(String text, Locale locale)
             throws java.text.ParseException {
            if(text == null || text.trim().isEmpty()) {
              return null;
            }
-           SimpleDateFormat sdf =
-             new SimpleDateFormat(PATTERN, locale);
-           sdf.setLenient(false);
-           return sdf.parse(text);
+           
+           try{
+               return DATE_FORMAT.parse(text);         
+           }catch (ParseException ex){
+               
+        	   try {
+        		   return DATE_FORMAT_SIMPLE.parse(text);         
+        	   }catch (ParseException ex2){
+        		   SimpleDateFormat sdf =
+        	             new SimpleDateFormat(PATTERN, locale);
+        	           sdf.setLenient(false);
+        	           return sdf.parse(text);
+        	   }
+        	   
+           }   
+           
+//           
          }
 
          public String print(Date value, Locale locale){

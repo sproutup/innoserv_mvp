@@ -465,15 +465,105 @@ productControllers.controller('productListCtrl', ['$scope', 'ProductService',
     $scope.products = ProductService.query();
   }]);
 
-productControllers.controller('productDetailCtrl', ['$scope', '$rootScope', '$stateParams', '$state', '$log', 'ProductService', 'AuthService',
-  function($scope, $rootScope, $stateParams, $state, $log, ProductService, authService) {
-    $log.debug("entered product details ctrl. slug=" + $stateParams.slug);
 
+// Controller for modal share (Sprout Up) instance created by @apurv
+productControllers.controller('modalShareCtrl', ['$scope', '$window', '$stateParams', '$modalInstance', '$http', 'ProductService', '$log',
+   function ($scope, $window, $stateParams, $modalInstance, $http, ProductService, $log) {
+	var processShareData;
+	ProductService.get({slug: $stateParams.slug}).$promise.then(
+			function(data) {
+				// success
+				$scope.product = data;
+				
+				$http({
+			        method: 'GET',
+			        url: '/api/campaign/getInfo/' + $scope.product.id,
+			        headers: {'Content-Type': 'application/json'}
+				}).success(function(data, status, headers, config){
+			        // this callback will be called asynchronously
+			        // when the response is available
+					$scope.campaignName = data.campaignName;
+					$scope.rewardMessage = data.campaignLongDescription;
+					$scope.uniqueLink = data.url;
+					processShareData = {
+						"userId":data.userId,
+						"referralId":data.referralId,
+						"referrerId":$window.sessionStorage.refId,
+						"campaignId":data.campaignId,
+						"requestedDisc":false,
+						"sharedOnSocialMedia":false
+					}
+					
+					$scope.fbShare = function () {
+						var obj = {
+							method: 'feed',
+							link: data.url,
+							picture: data.productPictureURL,
+							name: 'Chipolo on SproutUp',
+							caption: $scope.product.productDescription,
+							description: data.campaignShareMessage
+						};
+						function callback(response) {
+							if (typeof response !== "undefined" && response !== null) {
+								processShareData.sharedOnSocialMedia = true;
+							}
+						}
+						FB.ui(obj, callback);
+					}
+					
+					$scope.twtLink = 'https://twitter.com/intent/tweet' + 
+						'?text=' + encodeURIComponent(data.campaignShareMessage) + 
+						'&via=' + 'sproutupco' + 
+						'&url=' + encodeURIComponent($scope.uniqueLink);
+			    })
+			},
+			function(error) {
+				// error handler
+				$state.go("home");
+			}
+	);
+	
+	$scope.handleCheckbox = function () {
+		processShareData.requestedDisc = !processShareData.requestedDisc;
+	}
+	
+	twttr.events.bind('tweet', function(event) {
+		processShareData.sharedOnSocialMedia = true;
+	});
+	
+	$scope.close = function () {
+		$log.debug(JSON.stringify(processShareData, null, 4))
+		$http({
+	        method: 'POST',
+	        url: '/api/campaign/processShare',
+	        data: processShareData,
+	        headers: {'Content-Type': 'application/json'}
+		});
+		$modalInstance.close();
+	};
+}]);
+
+
+productControllers.controller('productDetailCtrl', ['$scope', '$rootScope', '$stateParams', '$state', '$log', 'ProductService', 'AuthService', '$window', '$http', '$modal',
+  function($scope, $rootScope, $stateParams, $state, $log, ProductService, authService, $window, $http, $modal) {
+    $log.debug("entered product details ctrl. slug=" + $stateParams.slug);
+	
     var slug = $stateParams.slug;
     $scope.init = false;
     $scope.isLoggedIn = false;
+    $scope.activeSprout = false;
 
     activate();
+
+    //Open function for modal share added by @apurv
+    $scope.open = function () {
+		var modalInstance = $modal.open({
+			animation: true,
+			templateUrl: 'myModalContent.html',
+			controller: 'modalShareCtrl'
+		});
+	};
+
 
     function activate() {
         if(!authService.ready()){
@@ -522,6 +612,43 @@ productControllers.controller('productDetailCtrl', ['$scope', '$rootScope', '$st
             }
         );
     }
+
+    // Function for getting parameters from url added by @apurv
+	function getParameterByName(name) {
+	    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+	    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+	        results = regex.exec(location.search);
+	    return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+	}
+	// Check for/storage of refId added by @apurv
+	if (typeof $window.sessionStorage.refId === 'undefined') {
+		var referrerId = getParameterByName("refId");
+		if (referrerId !== "") {
+			$window.sessionStorage.refId = referrerId;
+		}
+	}
+
+    ProductService.get({slug: $stateParams.slug}).$promise.then(
+        function(data) {
+            // success
+            $scope.product = data;
+            // Active campaign check added by @apurv
+			$http({
+		        method: 'GET',
+		        url: '/api/campaign/getActive/' + $scope.product.id,
+		        headers: {'Content-Type': 'application/json'}
+			}).success(function(data, status, headers, config) {
+		        // this callback will be called asynchronously
+		        // when the response is available
+				$scope.activeSprout = data.active;
+				$scope.init = true;
+		    })
+        },
+        function(error) {
+            // error handler
+            $state.go("home");
+        }
+    );
   }]);
 
 productControllers.controller('userDetailCtrl', ['$scope', '$stateParams', '$state', '$log', 'UserService',
