@@ -3,9 +3,9 @@ angular
     .module('sproutupApp')
     .factory('AuthService', authService);
 
-authService.$inject = ['$http', '$q', '$cookieStore', '$log', 'UserService', '$timeout'];
+authService.$inject = ['$http', '$q', '$cookieStore', '$log', 'UserService', '$timeout', '$state'];
 
-function authService($http, $q, $cookieStore, $log, userService, $timeout){
+function authService($http, $q, $cookieStore, $log, userService, $timeout, $state){
     var user = {};
     var isReady = false;
     var urlBase = '/api/auth';
@@ -16,7 +16,8 @@ function authService($http, $q, $cookieStore, $log, userService, $timeout){
     var model = {
       user: {name: ''},
       isLoggedIn: false,
-      trials: {}
+      trials: {},
+      redirectState: null
     };
 
     var service = {
@@ -31,6 +32,8 @@ function authService($http, $q, $cookieStore, $log, userService, $timeout){
         ready: ready,
         loggedIn: loggedIn,
         addTrial: addTrial,
+        redirect: redirect,
+        loginAndRedirect: loginAndRedirect,
         refreshTrials: refreshTrials
     };
 
@@ -56,6 +59,25 @@ function authService($http, $q, $cookieStore, $log, userService, $timeout){
 
     function loggedIn(){
         return model.isLoggedIn;
+    }
+
+    /*
+     *  If no redirect state exists then redirect to state in param
+     */
+    function redirect(state){
+        if(model.redirectState === null){
+            $state.go(state);
+        }
+        else{
+            var tmp = model.redirectState;
+            model.redirectState = null;
+            $state.go(tmp);
+        }
+    }
+
+    function loginAndRedirect(state){
+        model.redirectState = state;
+        $state.go("user.login");
     }
 
     function addTrial(data){

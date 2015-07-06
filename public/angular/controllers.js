@@ -564,6 +564,10 @@ productControllers.controller('productDetailCtrl', ['$scope', '$rootScope', '$st
 		});
 	};
 
+	$scope.login = function(product){
+	    $log.debug("## login redirect: " + product);
+        authService.loginAndRedirect( "user.trial.request({slug:" + product +"})" );
+	}
 
     function activate() {
         if(!authService.ready()){

@@ -77,7 +77,7 @@
 
         function finish(){
             $log.debug("wizard done");
-            $state.go("user.search");
+            authService.redirect("user.search");
         }
     }
 })();
