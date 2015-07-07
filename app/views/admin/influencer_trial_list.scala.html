@@ -32,8 +32,9 @@
     <thead>
       <tr>
         <th>Request Id</th>
-        <!--<th>User Id</th>  -->
+        <th>User Id</th>  
         <th>Name</th>
+        <th>isInfluencer</th>
         <th>Email/TwitterId/Phone</th>
         <th>Shipping Address</th>
         <th>Reason</th>
@@ -59,14 +60,16 @@
 
         <td>@trial.id</td>
         @if(trial.user ==null){
-    <!--    <td>Null</td>-->
+        <td>Null</td>
         <td>@trial.name</td>
+        <td>Unknown</td>
         <td>@trial.email 
         <br>/@trial.phone
         </td>
         } else {
-     <!--    <td>@trial.user.id</td>-->
+        <td>@trial.user.id</td>
         <td> @trial.user.name</td>
+        <td> @trial.user.isInfluencer</td>
         <td> @trial.user.email 
         <br>/ @trial.user.urlTwitter 
         <br>/ @trial.phone
