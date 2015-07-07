@@ -738,6 +738,10 @@ productControllers.controller('ForumCtrl', ['$scope', 'ForumService', 'LikesServ
         $scope.forum.showNewComment[id] = !$scope.forum.showNewComment[id];
     }
 
+    $scope.loginAndRedirect = function(state, params){
+        authService.loginAndRedirect(state, params);
+    }
+
     // change category
     $scope.changeCategory = function(category_id) {
         $scope.forum.selectedCategory = category_id;

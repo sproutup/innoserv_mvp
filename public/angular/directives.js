@@ -1393,8 +1393,8 @@ angular.module('sproutupApp').directive('commentlink', function () {
     };
 });
 
-angular.module('sproutupApp').directive('subjectPresent', ['$parse', 'AuthService',
-    function ($parse, authService) {
+angular.module('sproutupApp').directive('subjectPresent', ['$parse', 'AuthService', '$state',
+    function ($parse, authService, $state) {
     return {
         restrict: 'A',
         link: function (scope, element, attrs) {
@@ -1413,10 +1413,9 @@ angular.module('sproutupApp').directive('subjectPresent', ['$parse', 'AuthServic
                 }
                 else{
                     console.log(attrs.login);
-                    $state.go("user.login");
-//                    scope.$apply(function () {
-//                        onLogin(scope);
-//                    });
+                    scope.$apply(function () {
+                        onLogin(scope);
+                    });
                 }
             });
         }
