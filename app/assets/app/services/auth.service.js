@@ -61,22 +61,37 @@ function authService($http, $q, $cookieStore, $log, userService, $timeout, $stat
         return model.isLoggedIn;
     }
 
+    function parseStateRef(ref) {
+        parsed = ref.replace(/\n/g, " ").match(/^([^(]+?)\s*(\((.*)\))?$/);
+        if (!parsed || parsed.length !== 4) throw new Error("Invalid state ref '" + ref + "'");
+        return { state: parsed[1], paramExpr: parsed[3] || null };
+    }
+
     /*
      *  If no redirect state exists then redirect to state in param
      */
     function redirect(state){
-        if(model.redirectState === null){
+        model.redirectState = $cookieStore.get("redirectState");
+        model.redirectParams = $cookieStore.get("redirectParams");
+        if(model.redirectState === undefined){
             $state.go(state);
         }
         else{
-            var tmp = model.redirectState;
+            console.log("redirect state from cookie:", model.redirectState);
+            var state_tmp = model.redirectState;
+            var params_tmp = model.redirectParams;
             model.redirectState = null;
-            $state.go(tmp);
+            model.redirectParams = null;
+            $cookieStore.remove("redirectState");
+            $cookieStore.remove("redirectParams");
+            $state.go(state_tmp, params_tmp);
         }
     }
 
-    function loginAndRedirect(state){
+    function loginAndRedirect(state, params){
         model.redirectState = state;
+        $cookieStore.put("redirectState", state);
+        $cookieStore.put("redirectParams", params);
         $state.go("user.login");
     }
 
