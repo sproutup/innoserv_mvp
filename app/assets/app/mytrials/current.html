@@ -29,7 +29,8 @@
                 <p ng-switch-when="-1" class="product-trial-item--status reject"><i class="fa fa-times-circle"></i>Not approved {{item.updatedAt | fromNow}}</p>
                 <p ng-switch-when="-1" class="product-trial-item--status-desc">At this point, product trial is only available for eligible social influencers.</p>
 
-                <p ng-switch-when="-2" class="product-trial-item--status current"><i class="fa fa-check-circle"></i>Cancelled {{item.updatedAt | fromNow}}</p>
+                <p ng-switch-when="-2" class="product-trial-item--status reject"><i class="fa fa-check-circle"></i>Cancelled {{item.updatedAt | fromNow}}</p>
+                <p ng-switch-when="-2" class="product-trial-item--status-desc">We're so sorry, but we have to cancel your request because the product is not available at this moment.</p>
             </div>
 
             <p ng-show="item.content.length===0" class="product-trial-item--status"><i class="fa fa-check-circle"></i>You haven't uploaded any content yet. Click "Add my content" below to start!</p>
