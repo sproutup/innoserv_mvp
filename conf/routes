@@ -165,6 +165,7 @@ GET           /adminstuff/user/list                                       	 cont
 POST          /adminstuff/user/updateRole                  					 controllers.ReportAdminController.updateUserRole()
 GET           /adminstuff/trial/list                                       	 controllers.ReportAdminController.trialList(page: Integer ?= 0)
 GET           /adminstuff/influencer_trial/list                              controllers.ReportAdminController.influencerTrialList(page: Integer ?= 0)
+POST          /adminstuff/influencer_trial/updateStatus                      controllers.ReportAdminController.updateTrialStatus()
 GET           /adminstuff/suggest/list                                       controllers.ReportAdminController.suggestedProductList(page: Integer ?= 0)
 GET           /adminstuff/campaign/list                                      controllers.CampaignController.list()
 GET           /adminstuff/campaign/new                                       controllers.CampaignController.newCampaign()

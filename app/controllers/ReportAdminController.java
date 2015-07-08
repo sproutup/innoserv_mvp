@@ -1,7 +1,5 @@
 package controllers;
 
-import com.google.common.io.Files;
-
 import play.Logger;
 import play.Play;
 import play.data.Form;
@@ -9,9 +7,8 @@ import play.mvc.Result;
 import play.mvc.Controller;
 import play.mvc.With;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -31,6 +28,8 @@ import views.html.admin.*;
 public class ReportAdminController extends Controller {
 
   private static final Form<User> userForm = Form.form(User.class);
+  private static final Form<Trial> trialForm = Form.form(Trial.class);
+
   private static final Boolean admin_enabled = Boolean.parseBoolean(Play.application().configuration().getString("admin.enabled"));
 
   public static Result index() {
@@ -61,9 +60,36 @@ public class ReportAdminController extends Controller {
     if(!admin_enabled){return notFound();};
 
     Logger.debug("mode: " + play.api.Play.current().mode());
+    
     Page<Trial> trials = Trial.find(page);//findAll();
-    return ok(influencer_trial_list.render(trials));
+    //return ok(influencer_trial_list.render(trials));
+    return ok(influencer_trial_list.render(trialForm, trials));
   }
+  
+  /**
+   * Update Trial status for a specific trial request
+   * @return
+   */
+  public static Result updateTrialStatus(){
+	    if(!admin_enabled){return notFound();};
+
+	    // get hidden objects from submitted form
+	    Map<String, String[]> map = request().body().asFormUrlEncoded();
+	    String requestId = map.get("requestId")[0];
+	    String status = map.get("statusVal")[0];
+
+	    Trial trial = Trial.find.byId(Long.valueOf(requestId));
+	    if (trial!=null && status!=null && !status.equals("")){
+	         trial.status = Integer.valueOf(status);
+	 	    //update user
+	 	    trial.update();
+	    }
+
+	    return redirect(routes.ReportAdminController.influencerTrialList(0));
+
+
+	  }
+
   
   public static Result suggestedProductList(Integer page) {
 	    if(!admin_enabled){return notFound();};

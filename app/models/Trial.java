@@ -46,7 +46,7 @@ public class Trial extends TimeStampModel {
     */
     public Integer status = 0;
 
-    @ManyToOne
+	@ManyToOne
     public Product product;
 
     @OneToMany
@@ -66,6 +66,10 @@ public class Trial extends TimeStampModel {
                 .findPagingList(100)
                 .setFetchAhead(false)
                 .getPage(page);
+	}
+    
+    public String getStatus() {
+		return status.toString();
 	}
 
     public ObjectNode toJson(){

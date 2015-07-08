@@ -1,4 +1,6 @@
-@(currentPage: com.avaje.ebean.Page[Trial])
+@(trialForm: Form[Trial])(currentPage: com.avaje.ebean.Page[Trial])
+@import helper._
+
 @main("Product Trial list (By Influencers)") {
 
   <h2>All Requests for Product Trials
@@ -15,24 +17,43 @@
           }
         });
       }
+     
+     function updateTrialStatus(id){
+    	 //alert(id);
+    	 var v = document.forms[0].elements['status['+ id+ ']'].value;
+    	 //alert(v);
+    	 document.forms[0].elements['requestId'].value = id;
+    	 document.forms[0].elements['statusVal'].value = v;
+    	 document.forms[0].submit();
+     }
    </script>
 
    <table class="table table-striped">
     <thead>
       <tr>
         <th>Request Id</th>
-        <th>User Id</th>
+        <th>User Id</th>  
         <th>Name</th>
-        <th>Email/TwitterId</th>
-        <th>Product Id</th>
+        <th>isInfluencer</th>
+        <th>Email/TwitterId/Phone</th>
+        <th>Shipping Address</th>
+        <th>Reason</th>
+        <!--<th>Product Id</th>-->
         <th>Product Name</th>
-        <th>Date added</th>
-        <th>Date updated</th>
-        <th>is Active</th>
+        <th>Date of Request</th>
+        <th>Date status updated</th>
+        <!--<th>is Active</th>-->
+        <th>status</th>
+        
         
       </tr>
     </thead>
     <tbody>
+    @helper.form(action = routes.ReportAdminController.updateTrialStatus()) {
+    
+    <input type="hidden" name="requestId"/>
+	<input type="hidden" name="statusVal"/>
+    
     @for(trial <- currentPage.getList()) {
 
       <tr>
@@ -41,21 +62,42 @@
         @if(trial.user ==null){
         <td>Null</td>
         <td>@trial.name</td>
-        <td>@trial.email</td>
+        <td>Unknown</td>
+        <td>@trial.email 
+        <br>/@trial.phone
+        </td>
         } else {
         <td>@trial.user.id</td>
-        <td>@trial.user.name</td>
-        <td>@trial.user.email &nbsp;/ @trial.user.urlTwitter</td>
+        <td> @trial.user.name</td>
+        <td> @trial.user.isInfluencer</td>
+        <td> @trial.user.email 
+        <br>/ @trial.user.urlTwitter 
+        <br>/ @trial.phone
+        
+        </td>
         }
-        <td>@trial.product.id</td>
+        <td>@trial.address</td>
+        <td>@trial.reason</td>
+        <!-- <td>@trial.product.id</td> -->
         <td>@trial.product.productName</td>
         <td>@trial.createdAt</td>
         <td>@trial.updatedAt</td>
-        <td>@trial.active</td>
+        <!--  <td>@trial.active</td>-->
+        <td>
+          <select id="status[@trial.id]" onChange="updateTrialStatus(@trial.id)">
+			  <option value="0" @if(trial.status.toString=="0"){ selected="selected" }>Requested</option>
+			  <option value="1" @if(trial.status.toString=="1"){ selected="selected" }>Approved</option>
+			  <option value="2" @if(trial.status.toString=="2"){ selected="selected" }>Sent</option>
+			  <option value="3" @if(trial.status.toString=="3"){ selected="selected" }>Received</option>
+			  <option value="4" @if(trial.status.toString=="4"){ selected="selected" }>Returned</option>
+			  <option value="-1" @if(trial.status.toString=="-1"){ selected="selected" }>Rejected</option>
+			  <option value="-2" @if(trial.status.toString=="-2"){ selected="selected" }>Cancelled</option>
+		</select>
+		</td>
       
       </tr>
       }
-  
+  }
     </tbody>
    </table>
 
