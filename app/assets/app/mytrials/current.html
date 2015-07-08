@@ -5,31 +5,31 @@
         <p>You don't have any active product trial requests. Browse our <a ui-sref="user.search">awesome collection of products</a> and make a request.</p>
     </div>
 
-    <div class="row product-trial-item" ng-repeat="item in vm.current | orderBy:'-id'">
+    <div class="row product-trial-item" ng-repeat="item in vm.current | orderBy:'-updatedAt'">
         <div class="col-sm-12 product-trial-item-banner" up-background-image="{{vm.item.banner.url.image}}" up-background-attr="?w=600&h=100" up-fallback-image="/assets/images/default-product-banner.jpg">
             <p>{{item.product.name}}</p>
         </div>
         <div class="col-sm-12 product-trial-item--detail">
             <div ng-switch="item.status">
-                <p ng-switch-when="0" class="product-trial-item--status current"><i class="fa fa-check-circle"></i>Requested {{item.createdAt | fromNow}}</p>
+                <p ng-switch-when="0" class="product-trial-item--status current"><i class="fa fa-check-circle"></i>Requested on {{item.createdAt | date:'MMM dd, yyyy'}}</p>
                 <p ng-switch-when="0" class="product-trial-item--status-desc">Thanks for requesting a product trial. We'll process it very soon. Stay tuned :)</p>
 
-                <p ng-switch-when="1" class="product-trial-item--status current"><i class="fa fa-check-circle"></i>Approved {{item.updatedAt | fromNow}}</p>
+                <p ng-switch-when="1" class="product-trial-item--status current"><i class="fa fa-check-circle"></i>Approved on {{item.updatedAt | date:'MMM dd, yyyy'}}</p>
                 <p ng-switch-when="1" class="product-trial-item--status-desc">Congrats, you're well eligible for product trial. We're working hard to ready an awesome product trial experience for you. May take a while and thansk for your patience.</p>
 
-                <p ng-switch-when="2" class="product-trial-item--status current"><i class="fa fa-check-circle"></i>Sent {{item.updatedAt | fromNow}}</p>
+                <p ng-switch-when="2" class="product-trial-item--status current"><i class="fa fa-check-circle"></i>Sent on {{item.updatedAt | date:'MMM dd, yyyy'}}</p>
                 <p ng-switch-when="2" class="product-trial-item--status-desc">Woo hoo, we just shipped the product to you. It will arrive in a few days.</p>
 
-                <p ng-switch-when="3" class="product-trial-item--status current"><i class="fa fa-check-circle"></i>Delivered {{item.updatedAt | fromNow}}</p>
+                <p ng-switch-when="3" class="product-trial-item--status current"><i class="fa fa-check-circle"></i>Delivered on {{item.updatedAt | date:'MMM dd, yyyy'}}</p>
                 <p ng-switch-when="3" class="product-trial-item--status-desc">The product you requested is delivered. Enjoy!</p>
 
-                <p ng-switch-when="4" class="product-trial-item--status current"><i class="fa fa-check-circle"></i>Returned {{item.updatedAt | fromNow}}</p>
+                <p ng-switch-when="4" class="product-trial-item--status current"><i class="fa fa-check-circle"></i>Returned on {{item.updatedAt | date:'MMM dd, yyyy'}}</p>
                 <p ng-switch-when="4" class="product-trial-item--status-desc">Thanks for returning the product. We hope you had a great experience!</p>
 
-                <p ng-switch-when="-1" class="product-trial-item--status reject"><i class="fa fa-times-circle"></i>Not approved {{item.updatedAt | fromNow}}</p>
+                <p ng-switch-when="-1" class="product-trial-item--status reject"><i class="fa fa-times-circle"></i>Not approved on {{item.updatedAt | date:'MMM dd, yyyy'}}</p>
                 <p ng-switch-when="-1" class="product-trial-item--status-desc">At this point, product trial is only available for eligible social influencers.</p>
 
-                <p ng-switch-when="-2" class="product-trial-item--status reject"><i class="fa fa-check-circle"></i>Cancelled {{item.updatedAt | fromNow}}</p>
+                <p ng-switch-when="-2" class="product-trial-item--status reject"><i class="fa fa-check-circle"></i>Cancelled on {{item.updatedAt | date:'MMM dd, yyyy'}}</p>
                 <p ng-switch-when="-2" class="product-trial-item--status-desc">We're so sorry, but we have to cancel your request because the product is not available at this moment.</p>
             </div>
 
