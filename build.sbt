@@ -31,6 +31,9 @@ libraryDependencies += "org.scribe" % "scribe" % "1.3.6"
 
 libraryDependencies += "org.xerial.snappy" % "snappy-java" % "1.1.1.7"
 
+libraryDependencies += "com.sendgrid" % "sendgrid-java" % "2.2.1"
+
+
 resolvers += "org.sedis" at "http://pk11-scratch.googlecode.com/svn/trunk"
 
 //  Uncomment the next line for local development of the Play Authenticate core:
