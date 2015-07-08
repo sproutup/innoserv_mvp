@@ -499,7 +499,7 @@ productControllers.controller('modalShareCtrl', ['$scope', '$window', '$statePar
 							method: 'feed',
 							link: data.url,
 							picture: data.productPictureURL,
-							name: 'Chipolo on SproutUp',
+							name: 'Sprout ' + $scope.product.productName + ' Up!',
 							caption: $scope.product.productDescription,
 							description: data.campaignShareMessage
 						};
