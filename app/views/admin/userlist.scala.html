@@ -39,12 +39,14 @@
         <th>Name</th>
         <th>isInfluencer</th>
         <th>isCreator</th>
-        <th>Email</th>
-        <th>Twitter</th>
+        <th>Email/Twitter</th>
         <th>NickName</th>
+        <th>Contact</th>
+        <th>Blog</th>
+        <th>YourTube Channel</th>
+        <th>Facebook</th>
         <th>Date added</th>
         <th>Date updated</th>
-        <th>is Active</th>
         <th>lastLogin</th>
         
       </tr>
@@ -67,12 +69,23 @@
         <td>@userForm.isCreator
         <input type="checkbox" name="isCreator[@userForm.id]" value="@userForm.isCreator" onChange="updateCreator('@userForm.id')" @if(userForm.isCreator){ checked }>&nbsp;
         </td>
-        <td>@userForm.email</td>
-        <td>@userForm.urlTwitter</td>
+        <td>@userForm.email
+        <br>/@userForm.urlTwitter</td>
         <td>@userForm.nickname</td>
+        <td>@userForm.streetAddress1
+         @if(userForm.streetAddress2 !=null){
+         <br>@userForm.streetAddress2
+         }
+         <br>@userForm.city, @userForm.state @userForm.zipcode
+         @if(userForm.phoneNumber !=null){
+         <br>@userForm.phoneNumber
+         }
+        </td>
+        <td>@userForm.urlBlog</td>
+        <td>@userForm.urlYoutube</td>
+        <td>@userForm.urlFacebook</td>
         <td>@userForm.createdAt</td>
         <td>@userForm.updatedAt</td>
-        <td>@userForm.active</td>
         <td>@userForm.lastLogin</td>
 
       

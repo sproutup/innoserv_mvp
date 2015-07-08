@@ -5,6 +5,9 @@ import com.feth.play.module.mail.Mailer.Mail.Body;
 import com.feth.play.module.pa.PlayAuthenticate;
 import com.feth.play.module.pa.providers.password.UsernamePasswordAuthProvider;
 import com.feth.play.module.pa.providers.password.UsernamePasswordAuthUser;
+import com.sendgrid.SendGrid;
+import com.sendgrid.SendGridException;
+import com.sendgrid.smtpapi.SMTPAPI;
 import com.typesafe.config.ConfigFactory;
 
 import controllers.routes;
@@ -12,6 +15,7 @@ import models.LinkedAccount;
 import models.TokenAction;
 import models.TokenAction.Type;
 import models.User;
+import org.json.JSONException;
 import play.Application;
 import play.Logger;
 import play.data.Form;
@@ -22,6 +26,7 @@ import play.i18n.Lang;
 import play.i18n.Messages;
 import play.mvc.Call;
 import play.mvc.Http.Context;
+import plugins.SendGridPlugin;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -419,43 +424,29 @@ public class MyUsernamePasswordAuthProvider
 	private String getEmailName(final User user) {
 		return getEmailName(user.email, user.name);
 	}
-	
-	protected String getWelcomeMessageMailingSubject(final User user) {
-		return Messages.get("playauthenticate.welcome.message.title");
-	}
-	
-	protected Body getWelcomeMessageMailingBody(
-			final User user, String langCode) {
-
-        String html = getEmailTemplate(
-                "views.html.account.email.welcome_email", langCode, null,
-				null, user.name, user.email);
-		String text = getEmailTemplate(
-				"views.txt.account.email.welcome_email", langCode, null, null,
-				user.name, user.email);
-		
-		return new Body(text, html);
-	}
 
 	public void sendWelcomeMessageMailing(final User user, final Context ctx) {
+		String langCode = "en";
+
+		SendGrid.Email email = new SendGrid.Email();
+
+		email.addSmtpApiTo(user.email);
+		email.addToName(user.name);
+		email.setFrom("team@sproutup.co");
+		email.setSubject(" ");
+		email.setHtml(" ");
+		email.setTemplateId("95d3506a-a715-40cb-a385-d685375d92b7");
+
+		SMTPAPI header = email.getSMTPAPI();
+
 		try {
-			String langCode = "en";
-			
-			
-	        if(ctx!=null){
-				Lang lang = Lang.preferred(ctx.request().acceptLanguages());
-		        langCode = lang.code();
-	        }
-			//Logger.debug("send welcome message called");
-			String subject = getWelcomeMessageMailingSubject(user);
-			Body body = getWelcomeMessageMailingBody(user, langCode);
-			if (mailer==null) {
-				mailer = Mailer.getCustomMailer(getConfiguration().getConfig(
-					SETTING_KEY_MAIL));
-			}
-			sendMail(subject, body, getEmailName(user));
-		} catch (Exception e) {
-			Logger.error(e.toString());
+			header.addSubstitution("-name-", user.name);
+			SendGrid.Response response = SendGridPlugin.send(email);
+			System.out.println(response.getMessage());
+
+		} catch (SendGridException e) {
+			e.printStackTrace();
+		} catch (JSONException e) {
 			e.printStackTrace();
 		}
 	}
