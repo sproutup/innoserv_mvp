@@ -2,12 +2,19 @@
 <div class="row dashboard-page">
     <div class="dashboard-banner" up-background-image="/assets/images/default-profile-banner.jpg" up-background-attr="?w=1600">
         <div class="row user-profile-info">
-            <div class="col-sm-3 user-profile-info--avartar">
+            <div class="col-sm-4 user-profile-info--avartar">
                 <up-avatar-upload user="vm.user"></up-avatar-upload>
                 <!--img class="profile-avatar--img-circle img-responsive" src="{{vm.user.avatarUrl}}"-->
             </div>
-            <div class="col-sm-9 user-profile-info--title">
+            <div class="col-sm-8 user-profile-info--title">
                 <h1>{{vm.user.name}}<span>@{{vm.user.nickname}}</span></h1>
+                <ul class="list-inline profile-user-social-buttons">
+                    <li ng-show="vm.user.urlTwitter"><a href="{{vm.user.urlTwitter}}" target="_blank"><i class="fa fa-twitter"></i></a></li>
+                    <li ng-show="vm.user.urlFacebook"><a href="{{vm.user.urlFacebook}}" target="_blank"><i class="fa fa-facebook"></i></a></li>
+                    <li ng-show="vm.user.urlPinterest"><a href="{{vm.user.urlPinterest}}" target="_blank"><i class="fa fa-pinterest"></i></a></li>
+                    <li ng-show="vm.user.urlBlog"><a href="{{vm.user.urlBlog}}" target="_blank"><i class="fa fa-rss"></i></a></li>
+                    <li ng-show="vm.user.urlYoutube"><a href="{{vm.user.urlYoutube}}" target="_blank"><i class="fa fa-youtube"></i></a></li>
+                </ul>
             </div>
         </div>
     </div>
