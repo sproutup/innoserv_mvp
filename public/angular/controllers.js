@@ -485,6 +485,8 @@ productControllers.controller('modalShareCtrl', ['$scope', '$window', '$statePar
 					$scope.campaignName = data.campaignName;
 					$scope.rewardMessage = data.campaignLongDescription;
 					$scope.uniqueLink = data.url;
+					$scope.hasCheckbox = data.offerDiscount;
+					$scope.checkboxText = data.discountText;
 					processShareData = {
 						"userId":data.userId,
 						"referralId":data.referralId,
