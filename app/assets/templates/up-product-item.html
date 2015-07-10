@@ -9,7 +9,7 @@
                 <div class="product-cover-description">{{product.productDescription}}</div>
                 <div class="trial-user-list">
                     <div ng-hide="!product.trials" class="trial-user-list-title">{{product.trials.length}} TRIALS REQUESTED</div>
-                    <img popover="{{trial.user.name}}" popover-trigger="mouseenter" ng-repeat="trial in product.trials | limitTo:6" class="trial-user-img" src="{{trial.user.avatarUrl}}">
+                    <img popover="{{trial.user.name}}" popover-trigger="mouseenter" ng-repeat="trial in product.trials | limitTo:12" class="trial-user-img" src="{{trial.user.avatarUrl}}">
                 </div>
             </div>
         </div>
