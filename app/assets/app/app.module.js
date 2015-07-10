@@ -223,6 +223,15 @@ sproutupApp.config(['$routeProvider', '$stateProvider', '$locationProvider', '$u
                     title: 'Social Profile'
                 }
             })
+            .state('user.settings.analytics' ,{
+                url: '/analytics',
+                templateUrl: 'assets/app/settings/analytics.html',
+                controller: 'SettingsController',
+                controllerAs: 'vm',
+                data: {
+                    title: 'Analytics Settings'
+                }
+            })
             .state('user.settings.trials' ,{
                 url: '/trials',
                 templateUrl: 'assets/app/settings/trials.html',
