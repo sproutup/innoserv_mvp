@@ -12,6 +12,7 @@ import play.mvc.Controller;
 import play.mvc.Result;
 
 import java.io.IOException;
+import java.util.*;
 
 /**
  * Created by peter on 3/19/15.
@@ -46,8 +47,8 @@ public class UserController extends Controller {
 
     private static Result update(User user){
         User sessionuser = Application.getLocalUser(ctx().session());
-        // User can only update own profile
-        if(sessionuser.id != user.id){
+
+        if(sessionuser != null && user != null && sessionuser.id != null && user.id != null && sessionuser.id.longValue() != user.id.longValue()){
             return forbidden();
         }
 
@@ -75,6 +76,7 @@ public class UserController extends Controller {
             if (check(root, "urlYoutube")) user.urlYoutube = root.path("urlYoutube").asText();
 
             user.save();
+
             return ok(user.toJson());
         }
         else{

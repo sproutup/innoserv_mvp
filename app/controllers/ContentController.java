@@ -84,7 +84,7 @@ public class ContentController extends Controller {
         User user = Application.getLocalUser(ctx().session());
         Content item = Content.find.byId(id);
         // check that we found the trial and that user owns it
-        if(item != null && item.user.id == user.id) {
+        if(item != null && item.user.id != null && item.user.id.longValue() == user.id.longValue()) {
             JsonNode root = request().body().asJson();
             if (check(root, "url")) item.url = root.path("url").asText();
             item.save();
@@ -100,7 +100,7 @@ public class ContentController extends Controller {
     {
         User user = Application.getLocalUser(ctx().session());
         Content item = Content.find.byId(id);
-        if(item != null && item.user.id == user.id) {
+        if(item != null && item.user.id != null && item.user.id.longValue() == user.id.longValue()) {
             item.delete();
             return ok();
         }

@@ -91,7 +91,7 @@ public class TrialController extends Controller {
         User user = Application.getLocalUser(ctx().session());
         Trial item = Trial.find.byId(id);
         // check that we found the trial and that user owns it
-        if(item != null && item.user.id == user.id) {
+        if(item != null && item.user.id != null && item.user.id.longValue() == user.id.longValue()) {
             JsonNode root = request().body().asJson();
             if (check(root, "email")) item.email = root.path("email").asText();
             if (check(root, "name")) item.name = root.path("name").asText();
@@ -111,7 +111,7 @@ public class TrialController extends Controller {
     {
         User user = Application.getLocalUser(ctx().session());
         Trial item = Trial.find.byId(id);
-        if(item != null && item.user.id == user.id) {
+        if(item != null && item.user.id != null && item.user.id.longValue() == user.id.longValue()) {
             item.delete();
             return ok();
         }
