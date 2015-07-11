@@ -7,7 +7,7 @@
 	<i class="icon-plus"></i> &nbsp;+ (New)</a>
   </h2>
 
-
+<div class="table-responsive">
    <table class="table table-striped">
     <thead>
       <tr>
@@ -23,7 +23,7 @@
         <th>Created Date</th>
         <th>Updated Date</th>
         <th>is Active</th>
-        
+
       </tr>
     </thead>
     <tbody>
@@ -37,10 +37,10 @@
         @if(camp.product ==null){
         <td>Product Not assigned</td>
         <td>N?A</td>
-       } else { 
+       } else {
         <td>@camp.product.id</td>
         <td>@camp.product.productName</td>
-       } 
+       }
         <td>@camp.beginDate</td>
         <td>@camp.endDate</td>
         <td>@camp.totalNumViewed</td>
@@ -48,12 +48,12 @@
         <td>@camp.createdAt</td>
         <td>@camp.updatedAt</td>
         <td>@camp.active</td>
-      
+
       </tr>
       }
-  
+
     </tbody>
    </table>
+</div>
 
- 
 }

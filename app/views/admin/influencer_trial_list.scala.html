@@ -17,7 +17,7 @@
           }
         });
       }
-     
+
      function updateTrialStatus(id){
     	 //alert(id);
     	 var v = document.forms[0].elements['status['+ id+ ']'].value;
@@ -28,11 +28,12 @@
      }
    </script>
 
+<div class="table-responsive">
    <table class="table table-striped">
     <thead>
       <tr>
         <th>Request Id</th>
-        <th>User Id</th>  
+        <th>User Id</th>
         <th>Name</th>
         <th>isInfluencer</th>
         <th>Email/TwitterId/Phone</th>
@@ -44,16 +45,16 @@
         <th>Date status updated</th>
         <!--<th>is Active</th>-->
         <th>status</th>
-        
-        
+
+
       </tr>
     </thead>
     <tbody>
     @helper.form(action = routes.ReportAdminController.updateTrialStatus()) {
-    
+
     <input type="hidden" name="requestId"/>
 	<input type="hidden" name="statusVal"/>
-    
+
     @for(trial <- currentPage.getList()) {
 
       <tr>
@@ -63,17 +64,17 @@
         <td>Null</td>
         <td>@trial.name</td>
         <td>Unknown</td>
-        <td>@trial.email 
+        <td>@trial.email
         <br>/@trial.phone
         </td>
         } else {
         <td>@trial.user.id</td>
         <td> @trial.user.name</td>
         <td> @trial.user.isInfluencer</td>
-        <td> @trial.user.email 
-        <br>/ @trial.user.urlTwitter 
+        <td> @trial.user.email
+        <br>/ @trial.user.urlTwitter
         <br>/ @trial.phone
-        
+
         </td>
         }
         <td>@trial.address</td>
@@ -94,12 +95,14 @@
 			  <option value="-2" @if(trial.status.toString=="-2"){ selected="selected" }>Cancelled</option>
 		</select>
 		</td>
-      
+
       </tr>
       }
   }
     </tbody>
    </table>
+
+   </div>
 
    <div id="pagination" class="pagination">
             <ul>
