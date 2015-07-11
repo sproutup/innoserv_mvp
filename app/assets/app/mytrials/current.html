@@ -6,7 +6,7 @@
     </div>
 
     <div class="row product-trial-item" ng-repeat="item in vm.current | orderBy:'-updatedAt'">
-        <div class="col-sm-12 product-trial-item-banner" up-background-image="{{item.banner.url.image}}" up-background-attr="?w=600&h=100" up-fallback-image="/assets/images/default-product-banner.jpg">
+        <div class="col-sm-12 product-trial-item-banner" up-background-image="{{item.product.banner.url.image}}" up-background-attr="?w=600&h=100" up-fallback-image="/assets/images/default-product-banner.jpg">
             <p>{{item.product.name}}</p>
         </div>
         <div class="col-sm-12 product-trial-item--detail">
