@@ -75,7 +75,15 @@
           '_label -> "Share Message", 
           'rows -> 2, 'cols -> 50
           )
-			
+		
+		 <b>Offer Discount:</b>
+		  <input type="checkbox" name="@campaignForm("offerDiscount").name" value="true" @if(campaignForm("offerDiscount").value=="true"){ checked }>&nbsp;@campaignForm("offerDiscount").value
+		  &nbsp;&nbsp;
+		  @inputText(
+          campaignForm("discountDescription"),
+          '_label -> "Discount Offer Description"
+          )
+		
 		  @textarea(field = campaignForm("campaignPerks1"), 
           '_label -> "Perks 1", 
           'rows -> 2, 'cols -> 50

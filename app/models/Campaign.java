@@ -76,6 +76,11 @@ public class Campaign extends TimeStampModel implements PathBindable<Campaign>{
     
     public boolean active;
 
+    public boolean offerDiscount;
+
+    @Column(columnDefinition = "TEXT")
+    public String discountDescription;
+    
     @Column(columnDefinition = "TEXT")
 	public String campaignOutcome;
 
@@ -189,6 +194,8 @@ public class Campaign extends TimeStampModel implements PathBindable<Campaign>{
 		node.put("productId", this.product.id);
 		node.put("productName", this.product.productName);
 		node.put("productSlug", this.product.slug);
+		node.put("offerDiscount", this.offerDiscount);
+		node.put("discountText", this.discountDescription);
 		
 		if (this.product.productAdditionalDetail!=null && this.product.productAdditionalDetail.bannerPhoto!=null){
 		  node.put("productPictureURL", this.product.productAdditionalDetail.bannerPhoto.getURL());

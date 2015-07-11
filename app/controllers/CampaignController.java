@@ -46,7 +46,8 @@ public class CampaignController extends Controller {
     	Map<String, Object> params = new HashMap<String, Object>();
         params.put("product_id", productId);
         params.put("active", "1");
-    	Campaign campaign = Campaign.find.where().allEq(params).findUnique();
+        //TODO nj: need to handle when there are more than one active campaign? get the latest "order by id desc"? check if findUnique would fail..
+        Campaign campaign = Campaign.find.where().allEq(params).findUnique();
 		ObjectNode rs = Json.newObject();
     	if (campaign==null) 
         	rs.put("active", false);
@@ -70,6 +71,8 @@ public class CampaignController extends Controller {
         	Map<String, Object> params = new HashMap<String, Object>();
             params.put("product_id", productId);
             params.put("active", "1");
+            
+            //TODO nj: need to handle when there are more than one active campaign? get the latest "order by id desc"? check if findUnique would fail..
         	Campaign campaign = Campaign.find.where().allEq(params).findUnique();
         	if (campaign==null)
         		return badRequest("Campaign not active or does not exist");
@@ -181,6 +184,7 @@ public class CampaignController extends Controller {
           System.out.println("Action is: " + action);
           if ("Copy".equals(action)) {
         	  campaign.id=null;
+        	  campaign.product.id=null;
            }
         }  
         if (campaign.id == null) {
