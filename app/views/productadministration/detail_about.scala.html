@@ -11,17 +11,17 @@
       <input type="hidden" value="@productForm("id").valueOr("")" name="id"/>
       <input type="hidden" value="@productForm("productAdditionalDetail.id").valueOr("")" name="productAdditionalDetail.id"/>
       <input type="hidden" value="@productForm("company.id").valueOr("")" name="company.id"/>
-      
+
     <div class="row about-product-row">
         <div class="col-sm-12 about-product-tile">
             <div class="about-product--story">
             <p class="about-product--header">Profile</p>
         <a href="/adminstuff/company/uploadmedia/@productForm("company.id").valueOr("0")_@productForm("company.companyName").value/banner_photo" class="btn" target="_self">
-    	<i class="icon-plus"></i> Upload Banner Picture</a>     
+    	<i class="icon-plus"></i> Upload Banner Picture</a>
      	<p>File Id:&nbsp;@productForm("productAdditionalDetail.bannerPhoto.uuid").value
                 </p>
             	<p>Company Name* (required):&nbsp;
-            	<input type="text" size="50" name="@productForm("company.companyName").name" value="@productForm("company.companyName").value"> 
+            	<input type="text" size="50" name="@productForm("company.companyName").name" value="@productForm("company.companyName").value">
                 </p>
                 <p>Product Name:&nbsp;<input type="text" size="50" name="@productForm("productName").name" value="@productForm("productName").value">
                 </p>
@@ -32,25 +32,25 @@
                       <li>Home page URL:&nbsp;<input type="text" size="100" name="@productForm("urlHome").name" value="@productForm("urlHome").value"/></li>
                    <br>
                      <li>Facebook page URL:&nbsp;<input type="text" size="100" name="@productForm("urlFacebook").name" value="@productForm("urlFacebook").value"/></li>
-                     <li>Twitter page URL:&nbsp;<input type="text" size="100" name="@productForm("urlTwitter").name" value="@productForm("urlTwitter").value"/></li> 
-                     <li>Crowdfunding Campaign page URL:&nbsp;<input type="text" size="100" name="@productForm("urlCrowdFundingCampaign").name" value="@productForm("urlCrowdFundingCampaign").value"/></li>       
-                     <li>Contact Email:&nbsp;<input type="text" size="100" name="@productForm("contactEmailAddress").name" value="@productForm("contactEmailAddress").value"/></li>                        
+                     <li>Twitter page URL:&nbsp;<input type="text" size="100" name="@productForm("urlTwitter").name" value="@productForm("urlTwitter").value"/></li>
+                     <li>Crowdfunding Campaign page URL:&nbsp;<input type="text" size="100" name="@productForm("urlCrowdFundingCampaign").name" value="@productForm("urlCrowdFundingCampaign").value"/></li>
+                     <li>Contact Email:&nbsp;<input type="text" size="100" name="@productForm("contactEmailAddress").name" value="@productForm("contactEmailAddress").value"/></li>
 		             <br>
 		              <li>Active Flag:
 		             <input type="checkbox" name="@productForm("activeFlag").name" value="true" @if(productForm("activeFlag").value=="true"){ checked }>@productForm("activeFlag").value</li>
-		            
+
 		             <li>Offer Trial Signup:
 		             <input type="checkbox" name="@productForm("trialSignUpFlag").name" value="1" @if(productForm("trialSignUpFlag").value=="true"){ checked }>@productForm("trialSignUpFlag").value</li>
 		             <li>Offer Buy:<input type="checkbox" name="@productForm("buyFlag").name" value="1" @if(productForm("buyFlag").value=="true"){ checked }>@productForm("buyFlag").value</li>
 		             <li>Featured Product:<input type="checkbox" name="@productForm("isFeatured").name" value="1" @if(productForm("isFeatured").value=="true"){ checked }>@productForm("isFeatured").value</li>
                		<br><br>
              		<li>Tags (comma separated):&nbsp;<input type="text" size="50" name="@productForm("tags").name" value="@productForm("tags").value">
-                	</li>   
+                	</li>
              	 </ul>
               </div>
         </div>
-   </div>      
-     
+   </div>
+
 <div class="product-about-page">
 <!-- left rail -->
 <div class="col-sm-9 about-left-rail">
@@ -65,19 +65,19 @@
     			File Id:&nbsp;@productForm("productAdditionalDetail.descriptionVideo1.uuid").value
     			<br>
     			<a href="/adminstuff/company/uploadmedia/@productForm("company.id").valueOr("0")_@productForm("company.companyName").value/description_video2" class="btn" target="_self">
-    			<i class="icon-plus"></i> Description Video 2</a>&nbsp;  
+    			<i class="icon-plus"></i> Description Video 2</a>&nbsp;
     			File Id:&nbsp;@productForm("productAdditionalDetail.descriptionVideo2.uuid").value
     			<br>
     			<a href="/adminstuff/company/uploadmedia/@productForm("company.id").valueOr("0")_@productForm("company.companyName").value/description_video3" class="btn" target="_self">
     			<i class="icon-plus"></i> Description Video 3</a>&nbsp;
     			File Id:&nbsp;@productForm("productAdditionalDetail.descriptionVideo3.uuid").value
-    			<br> 
+    			<br>
     			<a href="/adminstuff/company/uploadmedia/@productForm("company.id").valueOr("0")_@productForm("company.companyName").value/description_photo1" class="btn" target="_self">
     			<i class="icon-plus"></i> Description Photo 1</a>&nbsp;
     			File Id:&nbsp;@productForm("productAdditionalDetail.descriptionPhoto1.uuid").value
     			<br>
     			<a href="/adminstuff/company/uploadmedia/@productForm("company.id").valueOr("0")_@productForm("company.companyName").value/description_photo2" class="btn" target="_self">
-    			<i class="icon-plus"></i> Description Photo 2</a>&nbsp;  
+    			<i class="icon-plus"></i> Description Photo 2</a>&nbsp;
     			File Id:&nbsp;@productForm("productAdditionalDetail.descriptionPhoto2.uuid").value
     			<br>
     			<a href="/adminstuff/company/uploadmedia/@productForm("company.id").valueOr("0")_@productForm("company.companyName").value/description_photo3" class="btn" target="_self">
@@ -116,7 +116,7 @@
             <div class="about-product--story">
                 <p class="about-product--header">Story</p>
                 <p class="about-product--content">
-                <br>    			
+                <br>
                 <a href="/adminstuff/company/uploadmedia/@productForm("company.id").valueOr("0")_@productForm("company.companyName").value/story_photo1" class="btn" target="_self">
     			<i class="icon-plus"></i> Upload Story Photo 1</a>&nbsp;
     			File Id:&nbsp;@productForm("productAdditionalDetail.storyPhoto1.uuid").value
@@ -132,7 +132,7 @@
                 Paragraph 3:&nbsp; <textarea cols="100" rows="3" name="@productForm("productAdditionalDetail.productStoryPara3").name">@productForm("productAdditionalDetail.productStoryPara3").value</textarea>
                 <br>
                 Paragraph 4:&nbsp; <textarea cols="100" rows="3" name="@productForm("productAdditionalDetail.productStoryPara4").name">@productForm("productAdditionalDetail.productStoryPara4").value</textarea>
-                
+
                 </p>
             </div>
         </div>
@@ -156,7 +156,7 @@
                 		<br>
                 		Title:&nbsp; <input type="text" size="30" name="@productForm("productAdditionalDetail.member1Title").name" value="@productForm("productAdditionalDetail.member1Title").value"/>
                 		<br>
-                		Description:&nbsp;<textarea cols="30" rows="2" name="@productForm("productAdditionalDetail.member1Description").name">@productForm("productAdditionalDetail.member1Description").value</textarea>    
+                		Description:&nbsp;<textarea cols="30" rows="2" name="@productForm("productAdditionalDetail.member1Description").name">@productForm("productAdditionalDetail.member1Description").value</textarea>
                     </div>
                     <div class="col-sm-4 about-product--team-member">
                         <b>Team Member 2</b>
@@ -165,7 +165,7 @@
     					<i class="icon-plus"></i> Upload Member 2 Photo</a>
                     	<br>
     					File Id:&nbsp;@productForm("productAdditionalDetail.member2Photo.uuid").value
-                    	
+
                     	<br>
                     	Name:&nbsp; <input type="text" size="30" name="@productForm("productAdditionalDetail.member2Name").name" value="@productForm("productAdditionalDetail.member2Name").value"/>
                 		<br>
@@ -180,7 +180,7 @@
     					<i class="icon-plus"></i> Upload Member 3 Photo</a>
     					<br>
     					File Id:&nbsp;@productForm("productAdditionalDetail.member3Photo.uuid").value
-                    	
+
                     	<br>
                     	Name:&nbsp; <input type="text" size="30" name="@productForm("productAdditionalDetail.member3Name").name" value="@productForm("productAdditionalDetail.member3Name").value"/>
                 		<br>
@@ -190,13 +190,13 @@
                     </div>
                      <div class="col-sm-4 about-product--team-member">
                         <b>Team Member 4</b>
-                        
+
                         <br>
                          <a href="/adminstuff/company/uploadmedia/@productForm("company.id").valueOr("0")_@productForm("company.companyName").value/member4photo" class="btn" target="_self">
     					<i class="icon-plus"></i> Upload Member 4 Photo</a>
 						<br>
     					File Id:&nbsp;@productForm("productAdditionalDetail.member4Photo.uuid").value
-                    	
+
                     	<br>
                     	Name:&nbsp; <input type="text" size="30" name="@productForm("productAdditionalDetail.member4Name").name" value="@productForm("productAdditionalDetail.member4Name").value"/>
                 		<br>
@@ -211,7 +211,7 @@
     					<i class="icon-plus"></i> Upload Member 5 Photo</a>
     					<br>
     					File Id:&nbsp;@productForm("productAdditionalDetail.member5Photo.uuid").value
-                    	
+
                     	<br>
                     	Name:&nbsp; <input type="text" size="30" name="@productForm("productAdditionalDetail.member5Name").name" value="@productForm("productAdditionalDetail.member5Name").value"/>
                 		<br>
@@ -226,7 +226,7 @@
     					<i class="icon-plus"></i> Upload Member 6 Photo</a>
     					<br>
     					File Id:&nbsp;@productForm("productAdditionalDetail.member6Photo.uuid").value
-                    	
+
                     	<br>
                     	Name:&nbsp; <input type="text" size="30" name="@productForm("productAdditionalDetail.member6Name").name" value="@productForm("productAdditionalDetail.member6Name").value"/>
                 		<br>
@@ -244,7 +244,7 @@
     <input type="submit" class="btn btn-primary" value="Save">
      <a class="btn" href="@routes.ProductAdministrationController.index()" target="_self">Cancel</a>
     <!-- a href="/adminstuff/company/uploadmedia/@productForm("company.id").valueOr("0")_@productForm("company.companyName").value" class="btn" target="_self">
-    <i class="icon-plus"></i> Upload Media</a> 
+    <i class="icon-plus"></i> Upload Media</a>
       -->
   }
 }
