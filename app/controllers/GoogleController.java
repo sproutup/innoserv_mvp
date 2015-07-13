@@ -1,10 +1,15 @@
 package controllers;
 
+import be.objectify.deadbolt.java.actions.SubjectNotPresent;
+import be.objectify.deadbolt.java.actions.SubjectPresent;
+import com.amazonaws.util.json.Jackson;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectReader;
 import com.fasterxml.jackson.databind.ObjectWriter;
+import models.AnalyticsAccount;
 import models.Product;
+import models.User;
 import org.scribe.builder.ServiceBuilder;
 import org.scribe.builder.api.GoogleApi;
 import org.scribe.builder.api.TwitterApi;
@@ -13,6 +18,7 @@ import org.scribe.oauth.OAuthService;
 import play.Logger;
 import play.Play;
 import play.cache.Cache;
+import play.mvc.BodyParser;
 import play.mvc.Controller;
 import play.mvc.Result;
 import com.google.api.client.auth.oauth2.*;
@@ -20,6 +26,7 @@ import com.google.api.client.util.*;
 import com.google.api.client.googleapis.auth.oauth2.GoogleTokenResponse;
 import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeTokenRequest;
 import com.google.api.client.http.javanet.NetHttpTransport;
+import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.client.json.JsonFactory;
 
 import java.io.ByteArrayInputStream;
@@ -39,14 +46,34 @@ public class GoogleController extends Controller {
 //    Client secret
 //    nQ4NK9cKoPl8fWXDF9V-PsTU
 
-    public static void requestAccessToken() throws IOException {
+    @BodyParser.Of(BodyParser.Json.class)
+    @SubjectPresent
+    public static Result ExchangeAuthorizationCodeForToken(String code) throws IOException {
         try {
+            User user;
+            user = Application.getLocalUser(ctx().session());
+
             GoogleTokenResponse response =
-                    new GoogleAuthorizationCodeTokenRequest(new NetHttpTransport(), new JsonFactory(),
-                            "812741506391.apps.googleusercontent.com", "{client_secret}",
-                            "4/P7q7W91a-oMsCeLvIaQm6bTrgtp7", "https://oauth2-login-demo.appspot.com/code")
+                    new GoogleAuthorizationCodeTokenRequest(
+                            new NetHttpTransport(),
+                            new JacksonFactory(),
+                            Play.application().configuration().getString(GOOGLE_API_CLIENT_ID),
+                            Play.application().configuration().getString(GOOGLE_API_CLIENT_SECRET),
+                            code,
+                            "http://dev.sproutup.co:9000/settings/analytics")
                             .execute();
             System.out.println("Access token: " + response.getAccessToken());
+            System.out.println("Refresh token: " + response.getRefreshToken());
+
+            AnalyticsAccount acc = new AnalyticsAccount();
+            acc.accessToken = response.getAccessToken();
+            acc.refreshToken = response.getRefreshToken();
+            acc.provider = "google";
+            acc.googleAnalyticsAPI = true;
+            acc.youtubeAnalyticsAPI = false;
+            acc.user = user;
+            acc.save();
+
         } catch (TokenResponseException e) {
             if (e.getDetails() != null) {
                 System.err.println("Error: " + e.getDetails().getError());
@@ -60,16 +87,16 @@ public class GoogleController extends Controller {
                 System.err.println(e.getMessage());
             }
         }
+        return ok();
     }
 
-    public static Result ExchangeAuthorizationCodeForToken(String code) {
+    public static Result ExchangeAuthorizationCodeForTokenxx(String code) {
         OAuthService service = new ServiceBuilder()
                 .provider(GoogleApi.class)
                 .apiKey(Play.application().configuration().getString(GOOGLE_API_CLIENT_ID))
                 .apiSecret(Play.application().configuration().getString(GOOGLE_API_CLIENT_SECRET))
                 .scope(SCOPE)
                 .build();
-
 
 
         // Obtain the Request Token
@@ -87,7 +114,6 @@ public class GoogleController extends Controller {
         System.out.println("Got the Access Token!");
         System.out.println("(if your curious it looks like this: " + accessToken + " )");
         System.out.println();
-
 
         return ok();
     }

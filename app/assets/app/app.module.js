@@ -224,9 +224,9 @@ sproutupApp.config(['$routeProvider', '$stateProvider', '$locationProvider', '$u
                 }
             })
             .state('user.settings.analytics' ,{
-                url: '/analytics',
+                url: '/analytics?code&scope',
                 templateUrl: 'assets/app/settings/analytics.html',
-                controller: 'SettingsController',
+                controller: 'AnalyticsController',
                 controllerAs: 'vm',
                 data: {
                     title: 'Analytics Settings'

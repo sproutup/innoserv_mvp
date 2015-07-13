@@ -1,26 +1,18 @@
 <div class="col-sm-9">
     <form name="vm.basicinfoform" class="" novalidate>
-        <div class="profile-edit--header">Google Analytics</div>
+        <div class="profile-edit--header">Google API</div>
         <!-- google analytics -->
         <div class="row profile-input-row">
-            <div class="col-sm-9 profile-input-cell">
-                <input type="text" class="form-control form-validate form-input medium left-feedback" placeholder="Enter your Twitter username and we'll do the rest" ng-model="vm.user.gaid">
-                <span class="fa fa-lg fa-twitter-square"></span>
+            <div class="col-sm-12 profile-input-cell">
+                <!--input type="checkbox" name="analytics" ng-model="vm.googleAnalyticsAPI" value="Google Analytics">Google Analytics<br>
+                <input type="checkbox" name="youtube" ng-model="vm.youtubeAnalyticsAPI" value="Youtube Analytics" checked>Youtube Analytics<br-->
+                <!--input type="text" class="form-control form-validate form-input medium left-feedback" placeholder="Enter your Twitter username and we'll do the rest" ng-model="vm.user.gaid"-->
+                <!--span class="fa fa-lg fa-twitter-square"></span-->
             </div>
-            <div class="col-sm-3 profile-input-cell">
-                <a ng-disabled="vm.basicinfoform.$invalid || vm.basicinfoform.$pristine" class="btn btn-lg add-product-btn save" ng-href="{{vm.requestAnalyticsTokenUrl}}">Authorize</a>
-            </div>
-        </div>
+            <div class="col-sm-12 profile-input-cell">
+                <!--a ng-disabled="vm.basicinfoform.$invalid || vm.basicinfoform.$pristine" class="btn btn-lg add-product-btn save" ng-href="{{vm.requestAnalyticsTokenUrl}}">Authorize</a-->
+                <a ng-disabled="vm.googleAnalyticsAPI" class="btn btn-lg add-product-btn save" ng-href="{{vm.requestAnalyticsTokenUrl}}">Authorize</a>
 
-        <div class="profile-edit--header">Youtube Analytics</div>
-        <!-- google youtube analytics -->
-        <div class="row profile-input-row">
-            <div class="col-sm-9 profile-input-cell">
-                <input type="text" class="form-control form-validate form-input medium left-feedback" placeholder="Enter your Twitter username and we'll do the rest" ng-model="vm.user.youtube">
-                <span class="fa fa-lg fa-twitter-square"></span>
-            </div>
-            <div class="col-sm-3 profile-input-cell">
-                <button ng-disabled="vm.basicinfoform.$invalid || vm.basicinfoform.$pristine" class="btn btn-lg add-product-btn save" type="submit" ng-click="vm.requestGoogleApiToken()">Authorize</button>
             </div>
         </div>
     </form>
