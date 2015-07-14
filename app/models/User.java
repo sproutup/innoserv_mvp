@@ -122,6 +122,9 @@ public class User extends TimeStampModel implements Subject {
 	@OneToMany(cascade = CascadeType.ALL)
 	public List<LinkedAccount> linkedAccounts;
 
+	@OneToMany(cascade = CascadeType.ALL)
+	public List<AnalyticsAccount> analyticsAccounts;
+
 	@ManyToMany
 	public List<UserPermission> permissions;
 
@@ -404,6 +407,9 @@ public class User extends TimeStampModel implements Subject {
 		}
 		if (this.trials!=null && this.trials.size()>0){
 			node.put("trials", Trial.toJson(trials));
+		}
+		if (this.analyticsAccounts!=null && this.analyticsAccounts.size()>0){
+			node.put("analytics", AnalyticsAccount.toJson(this.analyticsAccounts));
 		}
         node.put("permissions", Json.toJson(this.getPermissions()));
         node.put("lastLogin", new DateTime(this.lastLogin).toString());
