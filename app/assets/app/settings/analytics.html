@@ -2,7 +2,7 @@
     <form name="vm.basicinfoform" class="" novalidate>
         <div class="profile-edit--header">Google Analytics Settings</div>
         <div class="profile-edit--description">
-            <p>In order to provide you statistics and insights about your content, please authorize us to read data from your <a href="http://www.google.com/analytics/" target="_blank">Google Analytics</a> profile. After authorization, please choose which Google Analytics account you are using for your website or YouTube channel.</p>
+            <p>In order to provide you statistics and insights about your content, please authorize us to read data from your <a href="http://www.google.com/analytics/" target="_blank">Google Analytics</a> profile.</p>
             <p>Don't have a Google Analytics account? Start <a href="http://www.google.com/analytics/" target="_blank">here</a>.</p>
         </div>
 
@@ -11,7 +11,7 @@
         <div class="row profile-input-row">
             <div class="col-sm-12 profile-input-cell">
                 <a ng-disabled="vm.googleAnalyticsAPI" class="btn btn-lg sproutup-btn-md-main" ng-href="{{vm.requestAnalyticsTokenUrl}}">Authorize with your Googlel account</a>
-                <a ng-disabled="!vm.googleAnalyticsAPI" class="btn btn-lg sproutup-btn-md-main" ng-click="vm.revokeAuthorization()">Revoke authorization</a>
+                <a ng-disabled="!vm.googleAnalyticsAPI" class="btn btn-lg sproutup-btn-md-main red" ng-click="vm.revokeAuthorization()">Revoke authorization</a>
             </div>
         </div>
     </form>
