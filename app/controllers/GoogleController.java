@@ -8,7 +8,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectReader;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import models.AnalyticsAccount;
-import models.Product;
 import models.User;
 import org.scribe.builder.ServiceBuilder;
 import org.scribe.builder.api.GoogleApi;
@@ -17,20 +16,20 @@ import org.scribe.model.*;
 import org.scribe.oauth.OAuthService;
 import play.Logger;
 import play.Play;
-import play.cache.Cache;
+import play.libs.F;
+import play.libs.ws.WS;
+import play.libs.ws.WSResponse;
 import play.mvc.BodyParser;
 import play.mvc.Controller;
 import play.mvc.Result;
 import com.google.api.client.auth.oauth2.*;
-import com.google.api.client.util.*;
 import com.google.api.client.googleapis.auth.oauth2.GoogleTokenResponse;
 import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeTokenRequest;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
-import com.google.api.client.json.JsonFactory;
 
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.util.Calendar;
 
 /**
  * Created by peter on 3/27/15.
@@ -48,7 +47,7 @@ public class GoogleController extends Controller {
 
     @BodyParser.Of(BodyParser.Json.class)
     @SubjectPresent
-    public static Result ExchangeAuthorizationCodeForToken(String code) throws IOException {
+    public static Result ExchangeAuthorizationCodeForToken(String code, String scope) throws IOException {
         try {
             User user;
             user = Application.getLocalUser(ctx().session());
@@ -68,6 +67,13 @@ public class GoogleController extends Controller {
             AnalyticsAccount acc = new AnalyticsAccount();
             acc.accessToken = response.getAccessToken();
             acc.refreshToken = response.getRefreshToken();
+            acc.scope = scope;
+
+            // calculate the expire date
+            Calendar calendar = Calendar.getInstance(); // gets a calendar using the default time zone and locale.
+            calendar.add(Calendar.SECOND, response.getExpiresInSeconds().intValue());
+            acc.expiresAt = calendar.getTime();
+
             acc.provider = "google";
             acc.googleAnalyticsAPI = true;
             acc.youtubeAnalyticsAPI = false;
@@ -89,6 +95,40 @@ public class GoogleController extends Controller {
         }
         return ok();
     }
+
+
+
+    @BodyParser.Of(BodyParser.Json.class)
+    @SubjectPresent
+    public static F.Promise<Result> oauth2revoke() {
+        final User user;
+        user = Application.getLocalUser(ctx().session());
+
+        final F.Promise<Result> resultPromise = WS.url("https://accounts.google.com/o/oauth2/revoke")
+                .setQueryParameter("token", user.analyticsAccounts.get(0).accessToken)
+                .get().map(
+                    new F.Function<WSResponse, Result>() {
+                        public Result apply(WSResponse response) {
+                            for(AnalyticsAccount analytics:  user.analyticsAccounts){
+                                System.out.println("delete token: " + analytics.accessToken);
+                                analytics.delete();
+                            }
+
+                            return ok("Deleted");
+                        }
+                    }
+        );
+        return resultPromise;
+    }
+
+//    protected JsonNode oauth2revoke(final String token) {
+//        WSRequestHolder holder = WS.url("https://accounts.google.com/o/oauth2/revoke");
+//
+//        final F.Promise<WSResponse> promise = holder.setQueryParameter("token", token).get();
+//        final WSResponse response = promise.get(getTimeout());
+//        return response.asJson();
+//    }
+
 
     public static Result ExchangeAuthorizationCodeForTokenxx(String code) {
         OAuthService service = new ServiceBuilder()

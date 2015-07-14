@@ -7,10 +7,11 @@ import org.joda.time.DateTime;
 import play.libs.Json;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.List;
 
 @Entity
-public class AnalyticsAccount extends SuperModel {
+public class AnalyticsAccount extends TimeStampModel {
 
 	/**
 	 * 
@@ -27,6 +28,11 @@ public class AnalyticsAccount extends SuperModel {
 	public String provider;
 	public String accessToken;
 	public String refreshToken;
+	public String scope;
+
+	@Column(name = "expires_at")
+	public Date expiresAt;
+
 	public boolean googleAnalyticsAPI;
 	public boolean youtubeAnalyticsAPI;
 

@@ -12,7 +12,7 @@
             <div class="col-sm-12 profile-input-cell">
                 <!--a ng-disabled="vm.basicinfoform.$invalid || vm.basicinfoform.$pristine" class="btn btn-lg add-product-btn save" ng-href="{{vm.requestAnalyticsTokenUrl}}">Authorize</a-->
                 <a ng-disabled="vm.googleAnalyticsAPI" class="btn btn-lg add-product-btn save" ng-href="{{vm.requestAnalyticsTokenUrl}}">Authorize</a>
-
+                <a ng-disabled="!vm.googleAnalyticsAPI" class="btn btn-lg add-product-btn save" ng-click="vm.revokeAuthorization()">Revoke Authorization</a>
             </div>
         </div>
     </form>

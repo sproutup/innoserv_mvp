@@ -9,11 +9,13 @@ function GoogleApiService($http, $q, $log, userService, $timeout){
     var user = {};
     var isReady = false;
     var urlBase = '/api/google/api/code';
+    var urlRevoke = '/api/google/api/revoke';
     var urloauth2 = 'https://accounts.google.com/o/oauth2/auth';
 
     var service = {
         requestToken: requestToken,
-        exchangeAuthorizationCodeForToken: exchangeAuthorizationCodeForToken
+        exchangeAuthorizationCodeForToken: exchangeAuthorizationCodeForToken,
+        revokeAuthorization: revokeAuthorization
     };
 
     activate();
@@ -53,31 +55,17 @@ function GoogleApiService($http, $q, $log, userService, $timeout){
     }
 
 
-    function exchangeAuthorizationCodeForToken(code){
+    function exchangeAuthorizationCodeForToken(code, scope){
         var deferred = $q.defer();
-
-//        https://accounts.google.com/o/oauth2/auth?
-//        redirect_uri=https%3A%2F%2Fdevelopers.google.com%2Foauthplayground&
-//        response_type=code&
-//        client_id=407408718192.apps.googleusercontent.com&
-//        scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fanalytics&
-//        approval_prompt=force&
-//        access_type=offline
 
         // for details https://developers.google.com/identity/protocols/OAuth2WebServer
         $http({
             method: 'POST',
             url: urlBase,
             headers: {'Content-Type': 'application/json'},
-//            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-//            transformRequest: function(obj) {
-//                var str = [];
-//                for(var p in obj)
-//                str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
-//                return str.join("&");
-//            },
             params: {
-                code: code
+                code: code,
+                scope: scope
             }
         }).success(function(data, status, headers, config){
             switch(status){
@@ -88,6 +76,37 @@ function GoogleApiService($http, $q, $log, userService, $timeout){
                 case 302: // no content
                     $log.debug("google api service - found");
                     deferred.resolve("found");
+                    break;
+                default:
+                    $log.debug("unhandled return value");
+                    deferred.reject("unhandled return value");
+                    break;
+            }
+        }).error(function(data, status, headers, config){
+            // called asynchronously if an error occurs
+            // or server returns response with an error status.
+            $log.debug("google api service returned error");
+            deferred.reject("failed");
+        });
+
+        $log.debug("google api service returned promise");
+        return deferred.promise;
+    }
+
+    function revokeAuthorization(){
+        var deferred = $q.defer();
+
+        $http({
+            method: 'POST',
+            url: urlRevoke,
+            headers: {'Content-Type': 'application/json'},
+            params: {
+            }
+        }).success(function(data, status, headers, config){
+            switch(status){
+                case 200:
+                    console.log("auth revoked: ", status);
+                    deferred.resolve(data);
                     break;
                 default:
                     $log.debug("unhandled return value");

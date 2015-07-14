@@ -15,6 +15,7 @@
         vm.youtubeAnalyticsAPI = false;
         vm.requestGoogleApiToken = requestGoogleApiToken;
         vm.requestAnalyticsTokenUrl = '';
+        vm.revokeAuthorization = revokeAuthorization;
 
         activate();
 
@@ -45,18 +46,33 @@
             //console.log("found code: ", $location.search('code'));
             if($stateParams.code!==undefined){
                 console.log("found code: ", $stateParams.code);
-                googleApiService.exchangeAuthorizationCodeForToken($stateParams.code);
+                googleApiService.exchangeAuthorizationCodeForToken($stateParams.code, $stateParams.scope);
                 authService.m.user.analytics = [{googleAnalyticsAPI: true, youtubeAnalyticsAPI: true}];
                 vm.googleAnalyticsAPI = authService.m.user.analytics[0].googleAnalyticsAPI;
                 vm.youtubeAnalyticsAPI = authService.m.user.analytics[0].youtubeAnalyticsAPI;
                 $rootScope.$broadcast('alert:success', {
-                    message: 'Authorization success'
+                    message: 'Authorization granted'
                 });
             }
         }
 
         function requestGoogleApiToken() {
             vm.requestAnalyticsTokenUrl = googleApiService.requestToken();
+        }
+
+        function revokeAuthorization(){
+            googleApiService.revokeAuthorization().then(function(data) {
+                authService.m.user.analytics = [{googleAnalyticsAPI: false, youtubeAnalyticsAPI: false}];
+                vm.googleAnalyticsAPI = authService.m.user.analytics[0].googleAnalyticsAPI;
+                vm.youtubeAnalyticsAPI = authService.m.user.analytics[0].youtubeAnalyticsAPI;
+                $rootScope.$broadcast('alert:success', {
+                    message: 'Authorization revoked'
+                });
+            }, function(error) {
+                $rootScope.$broadcast('alert:error', {
+                    message: 'Authorization revoke failed'
+                });
+            });
         }
     }
 })();
