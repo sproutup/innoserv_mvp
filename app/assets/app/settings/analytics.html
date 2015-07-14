@@ -11,7 +11,7 @@
         <div class="row profile-input-row">
             <div class="col-sm-12 profile-input-cell">
                 <a ng-disabled="vm.googleAnalyticsAPI" class="btn btn-lg sproutup-btn-md-main" ng-href="{{vm.requestAnalyticsTokenUrl}}">Authorize with your Googlel account</a>
-                <a ng-disabled="!vm.googleAnalyticsAPI" class="btn btn-lg sproutup-btn-md-main red" ng-click="vm.revokeAuthorization()">Revoke authorization</a>
+                <a ng-disabled="!vm.googleAnalyticsAPI" class="btn btn-lg sproutup-btn-md-main red" ng-confirm-click="Are you sure about revoking authorization?" confirmed-click="vm.revokeAuthorization()">Revoke authorization</a>
             </div>
         </div>
     </form>
