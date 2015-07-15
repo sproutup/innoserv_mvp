@@ -257,43 +257,43 @@
 
 .triangle-border {
   position:relative;
-  padding: 20px 0px 10px;
-  background-color: rgba(255, 255, 255, 0.2);
+  padding: 5px 0px 10px;
+  background-color: rgba(255, 255, 255, 0.25);
   /* css3 */
-  -webkit-border-radius:0px;
-  -moz-border-radius:0px;
-  border-radius:0px;
+  -webkit-border-radius:4px;
+  -moz-border-radius:4px;
+  border-radius:4px;
 }
 
-.triangle-border:before {
-  content:"";
-  position:absolute;
-  bottom:-16px; /* value = - border-top-width - border-bottom-width */
-  left:40px; /* controls horizontal position */
-  border-width:16px 16px 0;
-  border-style:solid;
-  border-color:rgba(255, 255, 255, 0.2) transparent;
-  /* reduce the damage in FF3.0 */
-  display:block;
-  width:0;
-}
-
-/* creates the smaller triangle */
-.triangle-border:after {
-  content:"";
-  position:absolute;
-  bottom:-13px; /* value = - border-top-width - border-bottom-width */
-  left:43px; /* value = (:before left) + (:before border-left) - (:after border-left) */
-  border-width:13px 13px 0;
-  border-style:solid;
-  border-color:transparent transparent;
-  /* reduce the damage in FF3.0 */
-  display:block;
-  width:0;
-}
+// .triangle-border:before {
+//   content:"";
+//   position:absolute;
+//   bottom:-16px; /* value = - border-top-width - border-bottom-width */
+//   left:40px; /* controls horizontal position */
+//   border-width:16px 16px 0;
+//   border-style:solid;
+//   border-color:rgba(255, 255, 255, 0.2) transparent;
+//   /* reduce the damage in FF3.0 */
+//   display:block;
+//   width:0;
+// }
+//
+// /* creates the smaller triangle */
+// .triangle-border:after {
+//   content:"";
+//   position:absolute;
+//   bottom:-13px; /* value = - border-top-width - border-bottom-width */
+//   left:43px; /* value = (:before left) + (:before border-left) - (:after border-left) */
+//   border-width:13px 13px 0;
+//   border-style:solid;
+//   border-color:transparent transparent;
+//   /* reduce the damage in FF3.0 */
+//   display:block;
+//   width:0;
+// }
 
 .about-product--quote {
-    margin: 15px 0px;
+    margin: 25px 0px;
 }
 
 .about-product--quote-block {
@@ -304,10 +304,16 @@
 }
 
 .about-product--quote-logo {
-  width: 40px;
-  height: 40px;
-  margin: 0px;
-  float: left;
+  width: 56px;
+  height: 56px;
+  margin-top: -36px;
+  margin-bottom: -10px;
+  margin-left: -25px;
+  margin-right: 0px;
+  border: solid 2px @sproutup-grey;
+  -webkit-border-radius: 500px;
+  -moz-border-radius: 500px;
+  border-radius: 500px;
 }
 
 .about-product--quote-content {
@@ -319,7 +325,7 @@
 }
 
 .about-product--quote-user {
-  padding-left: 25px;
+  padding-left: 40px;
   padding-right: 10px;
   margin: 0px;
   font-weight: 400;
@@ -379,7 +385,7 @@
     }
 
     .about-product--quote {
-        margin: 30px 15px 110px;
+        margin: 30px 15px 100px;
         text-align: left;
     }
 }
