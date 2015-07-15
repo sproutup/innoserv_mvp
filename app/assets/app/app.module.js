@@ -174,6 +174,26 @@ sproutupApp.config(['$routeProvider', '$stateProvider', '$locationProvider', '$u
                     title: 'All Products - SproutUp'
                 }
             })
+            .state('user.oauth' ,{
+                url: '/oauth2callback?code&scope',
+                template: '<div>oauth2callback</div>',
+                controller: 'Oauth2Controller',
+                controllerAs: 'vm',
+                data: {
+                    title: 'Delete Me'
+                }
+            })
+            .state('user.oauth2callback' ,{
+                //url: '/oauth2callback?code&scope',
+                url: '/oauth',
+                template: '<div>oauth2callback</div>',
+                //templateUrl: 'assets/app/home/index.html',
+                controller: 'Oauth2Controller',
+                controllerAs: 'vm',
+                data: {
+                    title: 'oauth2callback'
+                }
+            })
             // .state('user.community' ,{
             //     url: '/community',
             //     templateUrl: 'views/community',
@@ -224,7 +244,7 @@ sproutupApp.config(['$routeProvider', '$stateProvider', '$locationProvider', '$u
                 }
             })
             .state('user.settings.analytics' ,{
-                url: '/analytics?code&scope',
+                url: '/analytics',
                 templateUrl: 'assets/app/settings/analytics.html',
                 controller: 'AnalyticsController',
                 controllerAs: 'vm',
