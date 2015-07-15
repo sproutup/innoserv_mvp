@@ -257,9 +257,8 @@
 
 .triangle-border {
   position:relative;
-  margin:0 0 20px;
-  border:2px solid @sproutup-green;
-  background-color: @sproutup-green;
+  padding: 20px 0px 10px;
+  background-color: rgba(255, 255, 255, 0.2);
   /* css3 */
   -webkit-border-radius:0px;
   -moz-border-radius:0px;
@@ -273,7 +272,7 @@
   left:40px; /* controls horizontal position */
   border-width:16px 16px 0;
   border-style:solid;
-  border-color:@sproutup-green transparent;
+  border-color:rgba(255, 255, 255, 0.2) transparent;
   /* reduce the damage in FF3.0 */
   display:block;
   width:0;
@@ -287,14 +286,18 @@
   left:43px; /* value = (:before left) + (:before border-left) - (:after border-left) */
   border-width:13px 13px 0;
   border-style:solid;
-  border-color:@sproutup-green transparent;
+  border-color:transparent transparent;
   /* reduce the damage in FF3.0 */
   display:block;
   width:0;
 }
 
+.about-product--quote {
+    margin: 15px 0px;
+}
+
 .about-product--quote-block {
-  border-left: solid 5px @main-text-white;
+  border-left: solid 4px @sproutup-grey;
   margin-left: 20px;
   margin-top: 20px;
   padding: 0px 15px;
@@ -303,29 +306,30 @@
 .about-product--quote-logo {
   width: 40px;
   height: 40px;
-  margin-top: 15px;
-  margin-left: 15px;
+  margin: 0px;
+  float: left;
 }
 
 .about-product--quote-content {
   font-weight: 400;
   color: @main-text-white;
-  font-size: 12pt;
+  font-size: 11.5pt;
   padding: 0px;
+  line-height: 1.6;
 }
 
 .about-product--quote-user {
-  padding-left: 30px;
-  margin-bottom: 20px;
-  font-weight: 700;
-  font-size: 11pt;
+  padding-left: 25px;
+  padding-right: 10px;
+  margin: 0px;
+  font-weight: 400;
+  font-size: 10pt;
   color: @main-text-white;
 }
 
 .about-product--quote-user span {
-  padding-left: 15px;
-  font-weight: 400;
-  font-size: 11pt;
+  font-weight: 700;
+  color: white;
 }
 
 .about-product--trendy {
@@ -372,5 +376,10 @@
     .about-product-photo {
         margin: 0px;
         padding: 2px;
+    }
+
+    .about-product--quote {
+        margin: 30px 15px 110px;
+        text-align: left;
     }
 }
