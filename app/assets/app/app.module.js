@@ -512,11 +512,17 @@ sproutupApp.config(['$routeProvider', '$stateProvider', '$locationProvider', '$u
             })
             .state('user.mytrials.current', {
                 url: '',
-                templateUrl: 'assets/app/mytrials/current.html'
+                templateUrl: 'assets/app/mytrials/current.html',
+                data: {
+                    title: 'My Current Product Trials'
+                }
             })
             .state('user.mytrials.past', {
                 url: '/past',
-                templateUrl: 'assets/app/mytrials/past.html'
+                templateUrl: 'assets/app/mytrials/past.html',
+                data: {
+                    title: 'My Past Product Trials'
+                }
             })
         ;
 
