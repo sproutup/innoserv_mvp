@@ -11,7 +11,7 @@
         <!-- google analytics -->
         <div class="row profile-input-row">
             <div class="col-sm-12 profile-input-cell">
-                <a analytics-on="click" analytics-event="Authorize GA access" ng-disabled="vm.googleAnalyticsAPI" class="btn btn-lg sproutup-btn-md-main" ng-href="{{vm.requestAnalyticsTokenUrl}}">Authorize with your Google account</a>
+                <a analytics-on="click" analytics-event="Authorize GA access" ng-disabled="vm.googleAnalyticsAPI" class="btn btn-lg sproutup-btn-md-main" ng-href="{{vm.requestAnalyticsTokenUrl}}">Authorize with your Google Analytics account</a>
                 <a analytics-on="click" analytics-event="Revoke GA access" ng-show="vm.googleAnalyticsAPI" class="btn btn-lg sproutup-btn-md-main red" ng-confirm-click="Are you sure about revoking authorization?" confirmed-click="vm.revokeAuthorization()">Revoke authorization</a>
             </div>
         </div>
