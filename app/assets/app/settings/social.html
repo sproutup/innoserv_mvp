@@ -4,40 +4,40 @@
             <!-- twitter -->
             <div class="row profile-input-row">
                 <div class="col-sm-12 profile-input-cell">
-                    <input type="url" class="form-control form-validate form-input medium left-feedback" placeholder="Enter your Twitter username and we'll do the rest" ng-model="vm.user.urlTwitter" http-prefix="twitter.com/">
+                    <input analytics-on="click" analytics-event="Enter Twitter URL" type="url" class="form-control form-validate form-input medium left-feedback" placeholder="Enter your Twitter username and we'll do the rest" ng-model="vm.user.urlTwitter" http-prefix="twitter.com/">
                     <span class="fa fa-lg fa-twitter-square"></span>
                 </div>
             </div>
             <!-- facebook -->
             <div class="row profile-input-row">
                 <div class="col-sm-12 profile-input-cell">
-                    <input type="url" class="form-control form-validate form-input medium left-feedback" placeholder="Enter your Facebook username and we'll do the rest" ng-model="vm.user.urlFacebook" http-prefix="www.facebook.com/">
+                    <input analytics-on="click" analytics-event="Enter Facebook URL" type="url" class="form-control form-validate form-input medium left-feedback" placeholder="Enter your Facebook username and we'll do the rest" ng-model="vm.user.urlFacebook" http-prefix="www.facebook.com/">
                     <span class="fa fa-lg fa-facebook-square"></span>
                 </div>
             </div>
             <!-- pinterest -->
             <div class="row profile-input-row">
                 <div class="col-sm-12 profile-input-cell">
-                    <input type="url" class="form-control form-validate form-input medium left-feedback" placeholder="Enter your Pinterest username and we'll do the rest" ng-model="vm.user.urlPinterest" http-prefix="www.pinterest.com/">
+                    <input analytics-on="click" analytics-event="Enter Pinterest URL" type="url" class="form-control form-validate form-input medium left-feedback" placeholder="Enter your Pinterest username and we'll do the rest" ng-model="vm.user.urlPinterest" http-prefix="www.pinterest.com/">
                     <span class="fa fa-lg fa-pinterest-square"></span>
                 </div>
             </div>
             <!-- blog -->
             <div class="row profile-input-row">
                 <div class="col-sm-12 profile-input-cell">
-                    <input type="url" class="form-control form-validate form-input medium left-feedback" placeholder="Enter your Blog's URL, e.g. your http://www.myblog.com" ng-model="vm.user.urlBlog" http-prefix="">
+                    <input analytics-on="click" analytics-event="Enter Blog URL" type="url" class="form-control form-validate form-input medium left-feedback" placeholder="Enter your Blog's URL, e.g. your http://www.myblog.com" ng-model="vm.user.urlBlog" http-prefix="">
                     <span class="fa fa-lg fa-rss-square"></span>
                 </div>
             </div>
             <!-- youtube -->
             <div class="row profile-input-row">
                 <div class="col-sm-12 profile-input-cell">
-                    <input type="url" class="form-control form-validate form-input medium left-feedback" placeholder="Enter your YouTube channel name and we'll do the rest" ng-model="vm.user.urlYoutube" http-prefix="www.youtube.com/">
+                    <input analytics-on="click" analytics-event="Enter YouTube URL" type="url" class="form-control form-validate form-input medium left-feedback" placeholder="Enter your YouTube channel name and we'll do the rest" ng-model="vm.user.urlYoutube" http-prefix="www.youtube.com/">
                     <span class="fa fa-lg fa-youtube-square"></span>
                 </div>
             </div>
             <div class="add-product-actions">
-                <button ng-disabled="vm.basicinfoform.$invalid || vm.basicinfoform.$pristine" class="btn btn-lg add-product-btn save" type="submit" ng-click="vm.save()">Save Changes</button>
+                <button analytics-on="click" analytics-event="Save Social Media Profiles" ng-disabled="vm.basicinfoform.$invalid || vm.basicinfoform.$pristine" class="btn btn-lg add-product-btn save" type="submit" ng-click="vm.save()">Save Changes</button>
             </div>
     </form>
 </div>

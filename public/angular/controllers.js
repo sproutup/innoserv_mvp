@@ -474,7 +474,7 @@ productControllers.controller('modalShareCtrl', ['$scope', '$window', '$statePar
 			function(data) {
 				// success
 				$scope.product = data;
-				
+
 				$http({
 			        method: 'GET',
 			        url: '/api/campaign/getInfo/' + $scope.product.id,
@@ -495,7 +495,7 @@ productControllers.controller('modalShareCtrl', ['$scope', '$window', '$statePar
 						"requestedDisc":false,
 						"sharedOnSocialMedia":false
 					}
-					
+
 					$scope.fbShare = function () {
 						var obj = {
 							method: 'feed',
@@ -512,10 +512,10 @@ productControllers.controller('modalShareCtrl', ['$scope', '$window', '$statePar
 						}
 						FB.ui(obj, callback);
 					}
-					
-					$scope.twtLink = 'https://twitter.com/intent/tweet' + 
-						'?text=' + encodeURIComponent(data.campaignShareMessage) + 
-						'&via=' + 'sproutupco' + 
+
+					$scope.twtLink = 'https://twitter.com/intent/tweet' +
+						'?text=' + encodeURIComponent(data.campaignShareMessage) +
+						'&via=' + 'sproutupco' +
 						'&url=' + encodeURIComponent($scope.uniqueLink);
 			    })
 			},
@@ -524,15 +524,15 @@ productControllers.controller('modalShareCtrl', ['$scope', '$window', '$statePar
 				$state.go("home");
 			}
 	);
-	
+
 	$scope.handleCheckbox = function () {
 		processShareData.requestedDisc = !processShareData.requestedDisc;
 	}
-	
+
 	twttr.events.bind('tweet', function(event) {
 		processShareData.sharedOnSocialMedia = true;
 	});
-	
+
 	$scope.close = function () {
 		$log.debug(JSON.stringify(processShareData, null, 4))
 		$http({
@@ -546,10 +546,10 @@ productControllers.controller('modalShareCtrl', ['$scope', '$window', '$statePar
 }]);
 
 
-productControllers.controller('productDetailCtrl', ['$scope', '$rootScope', '$stateParams', '$state', '$log', 'ProductService', 'AuthService', '$window', '$http', '$modal',
-  function($scope, $rootScope, $stateParams, $state, $log, ProductService, authService, $window, $http, $modal) {
+productControllers.controller('productDetailCtrl', ['$scope', '$rootScope', '$stateParams', '$state', '$log', 'ProductService', 'AuthService', '$window', '$http', '$modal', '$analytics',
+  function($scope, $rootScope, $stateParams, $state, $log, ProductService, authService, $window, $http, $modal, $analytics) {
     $log.debug("entered product details ctrl. slug=" + $stateParams.slug);
-	
+
     var slug = $stateParams.slug;
     $scope.init = false;
     $scope.isLoggedIn = false;
@@ -617,6 +617,10 @@ productControllers.controller('productDetailCtrl', ['$scope', '$rootScope', '$st
                 $state.go("home");
             }
         );
+
+        if($stateParams.refId!==undefined){
+            $analytics.eventTrack('Referral Page Views', { refId: $stateParams.refId });
+        }
     }
 
     // Function for getting parameters from url added by @apurv

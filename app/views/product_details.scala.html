@@ -2,7 +2,7 @@
 
 <div class="product-hero-banner" up-background-image="{{product.banner.url.image}}" up-background-attr="?w=1600" up-fallback-image="/assets/images/default-product-banner.jpg">
     <div class="product-info-wrapper">
-        <div class="col-lg-12 product-info">
+        <div class="col-md-7 col-sm-6 product-info">
             <div class="product-title">{{product.productName}}</div>
             <div class="product-description">{{product.productDescription}}</div>
             <ul class="list-inline product-social-buttons">
@@ -20,9 +20,9 @@
             </div> -->
             <div class="product-menu--action">
                 <!-- <a class="btn btn-lg sproutup-btn-md-upvote" href="#"><i class="fa fa-thumbs-up"></i>40</a> -->
-                <a ng-show="init && product.isAvailableForTrial && !isLoggedIn && !activeSprout" class="btn btn-lg sproutup-btn-md-main" ng-click="login('user.product.detail.about', {slug: product.slug} )" ui-sref="user.login">Request Product Trial</a>
-                <a ng-show="init && product.isAvailableForTrial && isLoggedIn && !hasCurrentTrial && !activeSprout" class="btn btn-lg sproutup-btn-md-main" ui-sref="user.trial.request({ slug: product.slug })">Request Product Trial</a>
-                <a ng-show="init && isLoggedIn && hasCurrentTrial" class="btn btn-lg sproutup-btn-md-main" ui-sref="user.mytrials.current">View my trial Status</a>
+                <a analytics-on="click" analytics-event="Request trial: {{product.productName}}" ng-show="init && product.isAvailableForTrial && !isLoggedIn && !activeSprout" class="btn btn-lg sproutup-btn-md-main" ng-click="login('user.product.detail.about', {slug: product.slug} )" ui-sref="user.login">Request Product Trial</a>
+                <a analytics-on="click" analytics-event="Request trial: {{product.productName}}" ng-show="init && product.isAvailableForTrial && isLoggedIn && !hasCurrentTrial && !activeSprout" class="btn btn-lg sproutup-btn-md-main" ui-sref="user.trial.request({ slug: product.slug })">Request Product Trial</a>
+                <a analytics-on="click" analytics-event="View trial status: {{product.productName}}" ng-show="init && isLoggedIn && hasCurrentTrial" class="btn btn-lg sproutup-btn-md-main" ui-sref="user.mytrials.current">View my trial Status</a>
                     <!-- <a ng-show="init && activeSprout && !isLoggedIn" class="btn btn-lg sproutup-btn-md-main" ui-sref="user.signup" href="/signup">Sprout {{product.productName}} Up!</a>
                     <a ng-show="init && activeSprout && isLoggedIn" class="btn btn-lg sproutup-btn-md-main" ng-click="open()">Sprout {{product.productName}} Up!</a> -->
             </div>
@@ -56,6 +56,16 @@
                     </script>
                 </div>
 
+            </div>
+        </div>
+        <div class="col-md-5 col-sm-6 about-product--quote">
+            <div class="triangle-border">
+                <img class="about-product--quote-logo" src="@routes.Assets.at("images/user/josh.jpg")">
+
+                <p class="about-product--quote-user">Why <span>Josh Abdul</span> requested {{product.productName}} tryout?</p>
+                <blockquote class="about-product--quote-block">
+                    <p class="about-product--quote-content">I love the idea of streaming music with the smart LED. It would be awesome if I could configure the "genres" (effects) so that the bulb can change color in various ways. Much like how you choose audio output effect in an home theater receiver.</p>
+                </blockquote>
             </div>
         </div>
     </div>

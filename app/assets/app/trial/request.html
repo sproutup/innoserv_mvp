@@ -13,7 +13,7 @@
                     <p>After you qualify, product will be shipped to the address you provided. You may be contacted by phone or email for shipping and trial related questions.</p>
 
                     <div class="signup-wizard-actions">
-                        <button ng-disabled="basicform.$invalid" class="btn btn-lg sproutup-btn-md-main" ng-click="vm.submit()">Continue</button>
+                        <button analytics-on="click" analytics-event="Confirm trial: {{vm.product.productName}}" ng-disabled="basicform.$invalid" class="btn btn-lg sproutup-btn-md-main" ng-click="vm.submit()">Continue</button>
                         <button class="btn btn-lg sproutup-btn-md-cancel" ng-click="vm.cancel()">Cancel</button>
                     </div>
                 </div>

@@ -412,7 +412,7 @@ sproutupApp.config(['$routeProvider', '$stateProvider', '$locationProvider', '$u
                 }
             })
             .state('user.product.detail', {
-                url: '/:slug',
+                url: '/:slug?refId',
                 abstract: true,
                 templateUrl: 'views/product-details',
                 controller: 'productDetailCtrl',
