@@ -1,3 +1,6 @@
+drop table if exists numbers_small;
+drop table if exists numbers;
+
 create table numbers_small (
   number int
 );
@@ -13,7 +16,6 @@ insert into numbers
 select thousands.number * 1000 + hundreds.number * 100 + tens.number * 10 + ones.number
 from numbers_small thousands, numbers_small hundreds, numbers_small tens, numbers_small ones
 limit 1000000;
-
 
 create table date_dim (
   id                bigint auto_increment not null,
@@ -52,7 +54,7 @@ week_of_year    = date_format( date, "%v" ),
 month           = monthname(date),
 month_of_year   = date_format( date, "%m"),
 quarter_of_year = quarter(date),
-year            = date_format( date, "%y" );
+year            = year(date);
 
 create table page_path_dim (
   id                bigint auto_increment not null,
@@ -62,15 +64,29 @@ create table page_path_dim (
 
 create table metrics_dim (
   id                bigint auto_increment not null,
-  type              varchar(256), // unique_page_views, time_on_page
+  type              varchar(256), -- unique_page_views, time_on_page,
   constraint pk_metrics_dim primary key (id)
 );
 
+insert into metrics_dim
+values (1, 'unique_page_views'),
+       (2, 'time_on_page'),
+       (3, 'sessions'),
+       (4, 'followers');
+
 create table provider_dim (
   id                bigint auto_increment not null,
-  name              varchar(256), // gl-analytics, yt-analytics, twitter, facebook, instagram, pinterest
+  name              varchar(256), -- gl-analytics, yt-analytics, twitter, facebook, instagram, pinterest
   constraint pk_provider_dim primary key (id)
 );
+
+insert into provider_dim
+values (1, 'unique_page_views'),
+       (2, 'yt-analytics'),
+       (3, 'twitter'),
+       (4, 'facebook'),
+       (5, 'instagram'),
+       (6, 'pinterest');
 
 create table event_fact (
   id                bigint auto_increment not null,
@@ -78,7 +94,7 @@ create table event_fact (
   user_id           bigint,
   product_id        bigint,
   page_path_dim_id  bigint,
-  metric_dim_id     bigint,
+  metrics_dim_id    bigint,
   provider_dim_id   bigint,
   counter           bigint,
   constraint pk_event_fact primary key (id)
@@ -96,8 +112,8 @@ create index ix_event_fact_product_5 on event_fact (product_id);
 alter table event_fact add constraint fk_event_fact_page_path_dim_4 foreign key (page_path_dim_id) references page_path_dim (id) on delete restrict on update restrict;
 create index ix_event_fact_page_path_dim_4 on event_fact (page_path_dim_id);
 
-alter table event_fact add constraint fk_event_fact_metric_dim_5 foreign key (metric_dim_id) references metric_dim (id) on delete restrict on update restrict;
-create index ix_event_fact_metric_dim_5 on event_fact (metric_dim_id);
+alter table event_fact add constraint fk_event_fact_metrics_dim_5 foreign key (metrics_dim_id) references metrics_dim (id) on delete restrict on update restrict;
+create index ix_event_fact_metrics_dim_5 on event_fact (metrics_dim_id);
 
 alter table event_fact add constraint fk_event_fact_provider_dim_6 foreign key (provider_dim_id) references provider_dim (id) on delete restrict on update restrict;
 create index ix_event_fact_provider_dim_6 on event_fact (provider_dim_id);
