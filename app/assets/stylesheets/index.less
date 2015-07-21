@@ -282,7 +282,7 @@
 .influencer-profiles {
     margin: 50px auto 40px;
     padding: 0px 15px;
-    max-width: 1024px;
+    max-width: 960px;
 }
 
 .influencer-profiles h1 {
@@ -305,21 +305,20 @@
 
 .influencer-profile-list {
     margin: 0px;
-    padding: 10px;
+    padding: 10px 10px 0px;
 }
 
 .influencer-profile-blurb {
-    margin: 30px 10px;
-    padding: 5px 0px 10px;
+    margin: 20px 0px 10px;
+    padding: 0px 0px 10px;
     background-color: rgba(0, 0, 0, 0.07);
-    /* css3 */
     -webkit-border-radius:8px;
     -moz-border-radius:8px;
     border-radius:8px;
 }
 
 .influencer-profile-summary {
-    margin: 0px 0px 10px;
+    margin: 0px 10px 10px;
     border-bottom: 1px dashed @form-border;
 }
 
@@ -347,12 +346,12 @@
 
 .influencer-profile-detail h1 {
     text-align: left;
-    font-size: 13pt;
+    font-size: 12pt;
     font-weight: 700;
     color: @main-text;
     margin: 10px 0px 5px;
     padding: 0px;
-    line-height: 1.7;
+    line-height: 1.6;
 }
 
 .influencer-profile-detail h1 a {
@@ -361,14 +360,18 @@
     font-weight: 400;
 }
 
+.influencer-profile-detail h1 a:hover {
+    color: @sproutup-blue-hover;
+}
+
 .influencer-profile-detail h2 {
     text-align: left;
-    font-size: 12pt;
+    font-size: 11pt;
     font-weight: 400;
     color: @main-text;
     margin: 0px 0px 5px;
     padding: 0px;
-    line-height: 1.7;
+    line-height: 1.6;
 }
 
 .influencer-profile-detail h2 i {
@@ -384,17 +387,21 @@
 }
 
 .influencer-profile-detail p {
-    font-size: 12pt;
+    font-size: 11pt;
     font-weight: 400;
     color: @main-text;
     margin: 5px 0px;
     padding: 0px;
-    line-height: 1.6;
+    line-height: 1.5;
 }
 
 .influencer-profile-detail p a {
     color: @sproutup-blue;
     text-decoration: none !important;
+}
+
+.influencer-profile-detail p a:hover {
+    color: @sproutup-blue-hover;
 }
 
 .influencer-profile-detail p a i {
