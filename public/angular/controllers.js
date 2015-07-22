@@ -546,14 +546,15 @@ productControllers.controller('modalShareCtrl', ['$scope', '$window', '$statePar
 }]);
 
 
-productControllers.controller('productDetailCtrl', ['$scope', '$rootScope', '$stateParams', '$state', '$log', 'ProductService', 'AuthService', '$window', '$http', '$modal', '$analytics',
-  function($scope, $rootScope, $stateParams, $state, $log, ProductService, authService, $window, $http, $modal, $analytics) {
+productControllers.controller('productDetailCtrl', ['$scope', '$rootScope', '$stateParams', '$state', '$log', 'ProductService', 'AuthService', '$window', '$http', '$modal', '$analytics', '$filter',
+  function($scope, $rootScope, $stateParams, $state, $log, ProductService, authService, $window, $http, $modal, $analytics, $filter) {
     $log.debug("entered product details ctrl. slug=" + $stateParams.slug);
 
     var slug = $stateParams.slug;
     $scope.init = false;
     $scope.isLoggedIn = false;
     $scope.activeSprout = false;
+    $scope.hasTrial = false;
 
     activate();
 
@@ -610,6 +611,14 @@ productControllers.controller('productDetailCtrl', ['$scope', '$rootScope', '$st
             function(data) {
                 // success
                 $scope.product = data;
+                var productTrials = $filter('filter')(data.trials, {status:1});
+                if (typeof productTrials !== 'undefined' && productTrials.length !== 0) {
+                    $scope.hasTrial = true;
+                    productTrials = shuffleArray(productTrials);
+                    $scope.trialName = productTrials[0].user.name;
+                    $scope.trialReason = productTrials[0].reason;
+                    $scope.avatarUrl = productTrials[0].user.avatarUrl;
+                }
                 $scope.init = true;
             },
             function(error) {
@@ -621,6 +630,17 @@ productControllers.controller('productDetailCtrl', ['$scope', '$rootScope', '$st
         if($stateParams.refId!==undefined){
             $analytics.eventTrack('Referral Page Views', { refId: $stateParams.refId });
         }
+    }
+
+    function shuffleArray(array) {
+      var m = array.length, t, i;
+      while (m) {
+        i = Math.floor(Math.random() * m--);
+        t = array[m];
+        array[m] = array[i];
+        array[i] = t;
+      }
+      return array;
     }
 
     // Function for getting parameters from url added by @apurv
