@@ -10,7 +10,11 @@ import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
+import com.avaje.ebean.annotation.ConcurrencyMode;
+import com.avaje.ebean.annotation.EntityConcurrencyMode;
+
 @Entity
+@EntityConcurrencyMode(ConcurrencyMode.NONE)
 public class AnalyticsAccount extends TimeStampModel {
 
 	/**
@@ -35,6 +39,9 @@ public class AnalyticsAccount extends TimeStampModel {
 
 	public boolean googleAnalyticsAPI;
 	public boolean youtubeAnalyticsAPI;
+    public byte isValid;
+    public String username;
+    public String errorMessage;
 
 	public static final Finder<Long, AnalyticsAccount> find = new Finder<Long, AnalyticsAccount>(
 			Long.class, AnalyticsAccount.class);

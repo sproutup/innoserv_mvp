@@ -66,12 +66,18 @@ public class GoogleController extends Controller {
                             .execute();
             System.out.println("Access token: " + response.getAccessToken());
             System.out.println("Refresh token: " + response.getRefreshToken());
-
-            AnalyticsAccount acc = new AnalyticsAccount();
+            
+            AnalyticsAccount acc;
+    		if (user.analyticsAccounts!=null && user.analyticsAccounts.size()>0){               
+                acc = user.analyticsAccounts.get(0);
+	    	}
+            else{
+                acc = new AnalyticsAccount();
+            }
             acc.accessToken = response.getAccessToken();
             acc.refreshToken = response.getRefreshToken();
             acc.scope = scope;
-
+ 
             // calculate the expire date
             Calendar calendar = Calendar.getInstance(); // gets a calendar using the default time zone and locale.
             calendar.add(Calendar.SECOND, response.getExpiresInSeconds().intValue());
@@ -128,7 +134,10 @@ public class GoogleController extends Controller {
                         public Result apply(WSResponse response) {
                             for(AnalyticsAccount analytics:  user.analyticsAccounts){
                                 System.out.println("delete token: " + analytics.accessToken);
-                                analytics.delete();
+                                analytics.accessToken = "";
+                                analytics.refreshToken = "";
+                                analytics.isValid = -1;
+                                analytics.save();
                             }
 
                             return ok("Deleted");
