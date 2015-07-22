@@ -23,6 +23,7 @@ import scala.concurrent.duration.FiniteDuration;
 import utils.AWSSimpleQueueManager;
 import utils.AnnotationDateFormatter;
 import play.mvc.*;
+import utils.SendgridManager;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -48,6 +49,9 @@ public class Global extends GlobalSettings {
                
         Akka.system().scheduler().schedule(delay, frequency, new AWSSimpleQueueManager(""), Akka.system().dispatcher());
 
+		FiniteDuration sendgridVerifyFreq = FiniteDuration.create(1, TimeUnit.DAYS);
+
+		Akka.system().scheduler().schedule(delay, sendgridVerifyFreq, new SendgridManager(), Akka.system().dispatcher());
 
 		PlayAuthenticate.setResolver(new Resolver() {
 
