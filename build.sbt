@@ -37,9 +37,13 @@ libraryDependencies += "com.google.http-client" % "google-http-client" % "1.20.0
 
 libraryDependencies += "com.google.http-client" % "google-http-client-jackson2" % "1.20.0"
 
-libraryDependencies += "com.google.api-client" % "google-api-client" % "1.18.0-rc"
-
 libraryDependencies += "com.google.oauth-client" % "google-oauth-client" % "1.20.0"
+
+libraryDependencies += "com.google.api-client" % "google-api-client" % "1.20.0"
+
+libraryDependencies += "com.google.apis" % "google-api-services-urlshortener" % "v1-rev41-1.20.0"
+
+libraryDependencies += "com.google.api-client" % "google-api-client-appengine" % "1.20.0"
 
 resolvers += "org.sedis" at "http://pk11-scratch.googlecode.com/svn/trunk"
 

@@ -26,6 +26,7 @@ public class UserReferral extends TimeStampModel {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     public Long id;
 
+	//refId of the current user
     public String referralId;
 
     public int numVisits;
@@ -40,7 +41,13 @@ public class UserReferral extends TimeStampModel {
     @Column(nullable=true)
     public Campaign campaign;
 
-    @ManyToOne
+	//trial this referral is related to
+	@ManyToOne
+	@Column(nullable=true)
+	public Trial trial;
+
+
+	@ManyToOne
     public User user;
     
     //refId of the user who referred this user
@@ -62,14 +69,18 @@ public class UserReferral extends TimeStampModel {
 	 * @param campaignId
 	 * @return
 	 */
-	public static String getReferralId(Long userId, Long campaignId){
+	public static String getReferralId(Long userId, Long campaignId, Long trialId){
 		
 		String refId;
 		
 		//lookup for the referralId in the db if it exists
 	    Map<String, Object> params = new HashMap<String, Object>();
         params.put("user_id", userId);
-        params.put("campaign_id", campaignId);
+		if (campaignId !=null)
+	        params.put("campaign_id", campaignId);
+		if (trialId !=null)
+			params.put("trial_id", trialId);
+
         params.put("active", "1");
         
         List<UserReferral> refList = find.where().allEq(params).findList();
@@ -84,7 +95,10 @@ public class UserReferral extends TimeStampModel {
 			refId = String.valueOf((int)(Math.random()*9000)+1000);
 			//save an entry in the db
 			ref = new UserReferral();
-			ref.campaign = Campaign.find.byId(campaignId);
+			if (campaignId !=null)
+				ref.campaign = Campaign.find.byId(campaignId);
+			if (trialId !=null)
+				ref.trial = Trial.find.byId(trialId);
 			ref.referralId = refId;
 			ref.user = User.find.byId(userId);
 			ref.save();
@@ -103,6 +117,7 @@ public class UserReferral extends TimeStampModel {
 		node.put("referralId", this.referralId);
 		node.put("referrerUserId", this.user.id);
 		node.put("campaignId", this.campaign.id);
+		node.put("trialId", this.trial.id);
 		node.put("referrerId", this.referrerId);
 		node.put("createdAt", new DateTime(this.createdAt).toString());
 		return node;

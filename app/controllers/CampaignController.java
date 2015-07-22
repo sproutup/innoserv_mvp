@@ -27,6 +27,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import service.GoogleURLShortener;
 import views.html.admin.*;
 
 /**
@@ -78,11 +79,12 @@ public class CampaignController extends Controller {
         		return badRequest("Campaign not active or does not exist");
         	
         	ObjectNode rs = campaign.toJson();
-    		String referralId = UserReferral.getReferralId(user.id, campaign.id);
+    		String referralId = UserReferral.getReferralId(user.id, campaign.id, null);
         	
     		//TODO: replace it with URL shortener service
-    		String genURL = "http://sproutup.co/product/" + campaign.product.slug + "?refId="+ referralId; 
-        	rs.put("url", genURL);
+    		String genURL = "http://sproutup.co/product/" + campaign.product.slug + "?refId="+ referralId;
+            String shortURL= GoogleURLShortener.shortenURL(genURL);
+        	rs.put("url", shortURL);
     		rs.put("referralId", referralId);
         	rs.put("userId", user.id);
         	

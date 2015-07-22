@@ -2,17 +2,19 @@ package controllers;
 
 import be.objectify.deadbolt.java.actions.SubjectPresent;
 import com.fasterxml.jackson.databind.JsonNode;
-import models.Post;
-import models.Product;
-import models.Trial;
-import models.User;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+import models.*;
 import play.Logger;
+import play.libs.Json;
 import play.mvc.BodyParser;
 import play.mvc.Controller;
 import play.mvc.Result;
+import service.GoogleURLShortener;
 
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 public class TrialController extends Controller {
 
@@ -119,5 +121,31 @@ public class TrialController extends Controller {
             return play.mvc.Results.notFound("Trial not found");
         }
     }
+
+    /*
+	 * Gets called when user clicks on the generate referral URL on trial page
+	 */
+    @SubjectPresent
+    @BodyParser.Of(BodyParser.Json.class)
+    public static Result getReferralLink(Long trialId) {
+        User user = Application.getLocalUser(ctx().session());
+        if (user == null) {
+            return badRequest("User not found");
+        } else {
+            Trial item = Trial.find.byId(trialId);
+            String referralId = UserReferral.getReferralId(user.id, null, trialId);
+            String genURL = "http://sproutup.co/product/" + item.product.slug + "?refId="+ referralId;
+            String shortURL= GoogleURLShortener.shortenURL(genURL);
+
+            ObjectNode rs = Json.newObject();
+            rs.put("url", shortURL);
+            rs.put("referralId", referralId);
+            rs.put("userId", user.id);
+            rs.put("trialId", trialId);
+
+            return created(rs);
+        }
+    }
+
 
 }
