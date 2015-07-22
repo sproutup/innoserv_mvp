@@ -51,6 +51,9 @@ create-develop:
 installmon:
 	npm install -g browser-sync
 
+dump:
+	mysqldump -uroot -proot -h192.168.59.103 --no-create-info --ignore-table=sproutup_db.schema_version --ignore-table=sproutup_db.security_role --ignore-table=sproutup_db.numbers --ignore-table=sproutup_db.numbers_small --ignore-table=sproutup_db.date_dim --ignore-table=sproutup_db.metrics_dim --ignore-table=sproutup_db.provider_dim  sproutup_db > mydb.sql
+
 mon:
 	browser-sync start --proxy "0.0.0.0:9000" --files "**/*.js, **/*.java, **/*.html, **/*.less"
 
