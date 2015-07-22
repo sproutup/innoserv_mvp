@@ -1,0 +1,1 @@
+alter table trial add ref_url varchar(255);

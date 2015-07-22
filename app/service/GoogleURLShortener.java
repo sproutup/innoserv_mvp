@@ -42,10 +42,6 @@ public class GoogleURLShortener {
                 HttpTransport httpTransport = GoogleNetHttpTransport.newTrustedTransport();
                 JsonFactory jsonFactory = JacksonFactory.getDefaultInstance();
 
-                System.out.println(SERVICE_ACCOUNT_EMAIL);
-                System.out.println(SERVICE_ACCOUNT_PKCS12_FILE_PATH);
-
-
                 GoogleCredential credential = new GoogleCredential.Builder()
                         .setTransport(httpTransport)
                         .setJsonFactory(jsonFactory)

@@ -33,6 +33,8 @@ public class Trial extends TimeStampModel {
 
     public String reason;
 
+    public String refURL;
+
     public boolean active = true;
 
     /*
@@ -92,6 +94,7 @@ public class Trial extends TimeStampModel {
         if(this.content != null) {
             node.put("content", Content.toJson(this.content));
         }
+        node.put("refURL", refURL);
         return node;
     }
 

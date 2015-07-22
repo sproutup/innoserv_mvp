@@ -144,9 +144,11 @@ public class CampaignController extends Controller {
 
             uref.numVisits++;
             uref.user = user;
-            uref.referralId = referralId;
+            if (referralId!=null && referralId.length()>0)
+                uref.referralId = referralId;
             uref.campaign = Campaign.find.byId(campaignId);
-            uref.referrerId = referrerId;
+            if (referrerId!=null && referrerId.length()>0)
+                uref.referrerId = referrerId;
             if (requestedDisc)//only set if marked true as we don't want to override with false if it was previously marked true in db
                 uref.requestedDisc = requestedDisc;
             if (sharedOnSocialMedia)//only set if marked true
