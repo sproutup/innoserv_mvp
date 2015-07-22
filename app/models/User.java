@@ -22,6 +22,7 @@ import com.feth.play.module.pa.user.FirstLastNameIdentity;
 import constants.AppConstants;
 import constants.UserRole;
 import controllers.Application;
+import controllers.SendgridController;
 import models.TokenAction.Type;
 
 import org.joda.time.DateTime;
@@ -664,5 +665,11 @@ public class User extends TimeStampModel implements Subject {
 		this.isCreator = isCreator;
 	}
 
-	
+	@Override
+	public void save() {
+		if (email != null && active == true) {
+			SendgridController.pushToQueue("addEmail", "defaultList", email, name);
+		}
+		super.save();
+	}
 }
