@@ -20,26 +20,31 @@ import play.Application;
 import play.Logger;
 
 
-
+/**
+ * authored by nitin jain 7/22/15
+ */
 public class GoogleURLShortener {
 
     private static final long serialVersionUID = 1L;
 
-    public static final String URLShortner_API_KEY = "google.urlshortener.api.key";
-    public static final String GOOGL_URL = "https://www.googleapis.com/urlshortener/v1/url";
     /** Email of the Service Account */
-    private static final String SERVICE_ACCOUNT_EMAIL = "684235799763-e7qss4i921nsaa0jge4q6vpuppu45408@developer.gserviceaccount.com";
+    private static final String SERVICE_ACCOUNT_EMAIL = Play.application().configuration().getString("google.urlshortener.api.account.email");
 
     /** Path to the Service Account's Private Key file */
-    private static final String SERVICE_ACCOUNT_PKCS12_FILE_PATH = "././conf/google/sproutupco-ce148cd99726.p12";
+    private static final String SERVICE_ACCOUNT_PKCS12_FILE_PATH = Play.application().configuration().getString("google.urlshortener.api.account.pkcs12.filepath");
 
-    private static String url_api_key;
     public static Urlshortener urlshortener;
 
     protected static Urlshortener getUrlshortener() throws Exception{
             if (urlshortener == null){
+                Logger.debug("Instantiating Google shortener");
+
                 HttpTransport httpTransport = GoogleNetHttpTransport.newTrustedTransport();
                 JsonFactory jsonFactory = JacksonFactory.getDefaultInstance();
+
+                System.out.println(SERVICE_ACCOUNT_EMAIL);
+                System.out.println(SERVICE_ACCOUNT_PKCS12_FILE_PATH);
+
 
                 GoogleCredential credential = new GoogleCredential.Builder()
                         .setTransport(httpTransport)
@@ -66,10 +71,13 @@ public class GoogleURLShortener {
         try {
             Url shortURL = getUrlshortener().url().insert(toInsert).execute();
             shortUrlAsString = shortURL.getId();
+            Logger.debug(longUrl + " [URL] shortened to:" + shortUrlAsString);
+
         } catch (Exception e) {
+            Logger.debug("encountered problem shortening URL using Google API");
             e.printStackTrace();
         }
-        System.out.println(shortUrlAsString);
+
         return shortUrlAsString;
     }
 

@@ -100,6 +100,9 @@ public class CampaignController extends Controller {
     @SubjectPresent
     public static Result processShare() {
         JsonNode json = request().body().asJson();
+        User user = Application.getLocalUser(ctx().session());
+        if (user == null)
+            return badRequest("User not found");
         if (json == null) {
             return badRequest("Expecting Json data");
         } else {
@@ -107,11 +110,10 @@ public class CampaignController extends Controller {
             String referralId = json.findPath("referralId").textValue();
             String referrerId = json.findPath("referrerId").textValue();
             
-            System.out.println("referrerId: " + referrerId);
+            //System.out.println("referrerId: " + referrerId);
             
             long campaignId = json.findPath("campaignId").longValue();
-            User user = Application.getLocalUser(ctx().session());
-            
+
             boolean requestedDisc = json.findPath("requestedDisc").asBoolean();
             boolean sharedOnSocialMedia = json.findPath("sharedOnSocialMedia").asBoolean();
             UserReferral uref;
@@ -125,16 +127,30 @@ public class CampaignController extends Controller {
 //            		return created(uref.toJson());
 //            	}
 //            } 
-            //user is coming for the first time
-            uref = new UserReferral();
+            //update if the record exist otherwise create new
+            Map<String, Object> params = new HashMap<String, Object>();
+            params.put("campaign_id", campaignId);
+            params.put("user_id", userId);
+
+            if (referrerId!=null && referrerId.length()>0)
+                params.put("referrer_id", referrerId);
+
+            uref = UserReferral.find.where().allEq(params).findUnique();
+
+            if (uref==null){
+                //user is coming for the first time
+                uref = new UserReferral();
+            }
+
+            uref.numVisits++;
             uref.user = user;
-            //uref.user.id = userId;
             uref.referralId = referralId;
             uref.campaign = Campaign.find.byId(campaignId);
-//            uref.campaign.id = campaignId;
             uref.referrerId = referrerId;
-            uref.requestedDisc = requestedDisc;
-            uref.sharedOnSocialMedia = sharedOnSocialMedia;
+            if (requestedDisc)//only set if marked true as we don't want to override with false if it was previously marked true in db
+                uref.requestedDisc = requestedDisc;
+            if (sharedOnSocialMedia)//only set if marked true
+                uref.sharedOnSocialMedia = sharedOnSocialMedia;
             uref.save();
             	
             return created(uref.toJson());

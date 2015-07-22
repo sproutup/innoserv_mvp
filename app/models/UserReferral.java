@@ -89,10 +89,10 @@ public class UserReferral extends TimeStampModel {
 			ref = refList.get(0);
 		}
         
-		if (ref == null || ref.referralId == null || ref.referralId.equals("")
+		if (ref == null || ref.referralId == null || ref.referralId.isEmpty()
 				|| ref.referralId.equals("-1")) {
 			//generate one if it doesn't exist
-			refId = String.valueOf((int)(Math.random()*9000)+1000);
+			refId = String.valueOf((int)(Math.random()*999000)+1000);
 			//save an entry in the db
 			ref = new UserReferral();
 			if (campaignId !=null)
@@ -115,9 +115,12 @@ public class UserReferral extends TimeStampModel {
 	public ObjectNode toJson(){
 		ObjectNode node = Json.newObject();
 		node.put("referralId", this.referralId);
-		node.put("referrerUserId", this.user.id);
-		node.put("campaignId", this.campaign.id);
-		node.put("trialId", this.trial.id);
+		if (this.user!=null)
+			node.put("referrerUserId", this.user.id);
+		if (this.campaign!=null)
+			node.put("campaignId", this.campaign.id);
+		if (this.trial!=null)
+			node.put("trialId", this.trial.id);
 		node.put("referrerId", this.referrerId);
 		node.put("createdAt", new DateTime(this.createdAt).toString());
 		return node;

@@ -83,6 +83,7 @@ POST          /api/content                                                   con
 PUT           /api/content/:id                                               controllers.ContentController.update(id: Long)
 POST          /api/content/:id                                               controllers.ContentController.update(id: Long)
 DELETE        /api/content/:id                                               controllers.ContentController.delete(id: Long)
+GET			  /api/content/refURL/:trialId								     controllers.ContentController.getReferralURL(trialId: Long)
 
 GET           /api/products                                                  controllers.Products.getProducts
 GET           /api/products/:slug                                            controllers.Products.getProduct(slug: String)
