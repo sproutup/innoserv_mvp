@@ -1,18 +1,49 @@
 <div class="col-sm-9">
     <form name="vm.basicinfoform" class="" novalidate>
-        <div ng-show="!vm.googleAnalyticsAPI" class="profile-edit--header">Google Analytics Settings</div>
-        <div ng-show="vm.googleAnalyticsAPI" class="profile-edit--header success"><i class="fa fa-check-circle"></i>You have authorized us to read data from your Google Analytics profile. Thank you.</div>
+        <div class="profile-edit--header">Analytics Settings</div>
 
         <div class="profile-edit--description">
-            <p>Why are we asking for this? Great question! In order to provide statistics and insights about the content you publish (like blogs or YouTube videos), we need your authorization to read data from your <a href="http://www.google.com/analytics/" target="_blank">Google Analytics</a> profile.</p>
-            <p>It provides two sets of data: one, Google Analytics reports on your websites (like your blog) and two, YouTube Analytics reports for your YouTube channels.</p>
+            <p>We need your authorizations to read data and provide meaningful statistics and insights about the content you publish (like blogs or YouTube videos). There are two authorizations we ask for below.</p>
+        </div>
+
+        <hr>
+        <!-- google analytics -->
+        <div class="profile-edit--description">
+            <p>If you have Google Analytics for your websites, please authorize us to read data from your Google Analytics account.</p>
             <p>Not using Google Analytics on your site? Well, you really should :) Get started <a href="http://www.google.com/analytics/" target="_blank">here</a>.</p>
         </div>
-        <!-- google analytics -->
         <div class="row profile-input-row">
             <div class="col-sm-12 profile-input-cell">
-                <a analytics-on="click" analytics-event="Authorize GA access" ng-disabled="vm.googleAnalyticsAPI" class="btn btn-lg sproutup-btn-md-main" ng-href="{{vm.requestAnalyticsTokenUrl}}">Authorize with your Google Analytics account</a>
-                <a analytics-on="click" analytics-event="Revoke GA access" ng-show="vm.googleAnalyticsAPI" class="btn btn-lg sproutup-btn-md-main red" ng-confirm-click="Are you sure about revoking authorization?" confirmed-click="vm.revokeAuthorization()">Revoke authorization</a>
+                <a analytics-on="click" analytics-event="Authorize GA access" ng-disabled="vm.googleAnalyticsAPI" class="btn btn-lg sproutup-btn-md-main" ng-href="{{vm.requestAnalyticsTokenUrl}}">Google Analytics Authorization</a>
+            </div>
+        </div>
+        <div class="profile-edit--description success">
+            <p>Thanks for your authorization. Below is a list of sites that associate with your Google Analytics account.</p>
+            <p><i class="fa fa-check-circle"></i>SproutUp Official Website</p>
+            <p><i class="fa fa-check-circle"></i>SproutUp Blog</p>
+        </div>
+        <div class="profile-edit--description warning">
+            <p>Emm... There seems not sites associated with your Google Analytics account. Please double check if you chose the right account.</p>
+        </div>
+
+        <hr>
+        <!-- youtube analytics -->
+        <div class="profile-edit--description">
+            <p>If you also have YouTube channels, please authorize us to view your YouTube account and your YouTube Analytics reports.</p>
+        </div>
+        <div class="row profile-input-row">
+            <div class="col-sm-12 profile-input-cell">
+                <a analytics-on="click" analytics-event="Authorize GA access" ng-disabled="vm.googleAnalyticsAPI" class="btn btn-lg sproutup-btn-md-main" ng-href="{{vm.requestAnalyticsTokenUrl}}">YouTube and YouTube Analytics Authorization</a>
+            </div>
+        </div>
+
+        <hr>
+        <div class="profile-edit--description">
+            <p>You may revoke both authorizations anytime, but then we will not be able to create reports on your content :( </p>
+        </div>
+        <div class="row profile-input-row">
+            <div class="col-sm-12 profile-input-cell">
+                <a analytics-on="click" analytics-event="Revoke GA access" ng-disabled="!vm.googleAnalyticsAPI" class="btn btn-lg sproutup-btn-md-main red" ng-confirm-click="Are you sure about revoking authorization?" confirmed-click="vm.revokeAuthorization()">Revoke authorization</a>
             </div>
         </div>
     </form>

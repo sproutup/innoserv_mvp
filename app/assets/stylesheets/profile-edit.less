@@ -34,11 +34,23 @@
 }
 
 .profile-edit--description {
-  padding: 0px 3px 15px;
+  padding: 0px 3px 0px;
   font-weight: 400;
-  font-size: 12pt;
-  color: @main-text-2;
+  font-size: 12.5pt;
+  color: @main-text-1;
   line-height: 1.6;
+}
+
+.profile-edit--description.success {
+    color: @sproutup-green-hover;
+}
+
+.profile-edit--description.warning {
+    color: @sproutup-orange-hover;
+}
+
+.profile-edit--description p i {
+  padding-right: 15px;
 }
 
 .profile-edit--description a {
