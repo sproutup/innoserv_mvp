@@ -42,16 +42,16 @@
             </div>
 
             <div class="product-trial-item--actions">
-                <a ng-click="item.isContentFormOpen = !item.isContentFormOpen" href="#" class="btn btn-lg sproutup-btn-md-main">Add my content</a>
-                <a ui-sref="user.product.detail.bar({ slug: item.product.slug })" class="btn btn-lg sproutup-btn-md-main">Join discussion</a>
+                <a analytics-on="click" analytics-event="Click Add Content button: {{item.product.name}}" ng-click="item.isContentFormOpen = !item.isContentFormOpen" href="#" class="btn btn-lg sproutup-btn-md-main">Add my content</a>
+                <a analytics-on="click" analytics-event="Visit forum: {{item.product.name}}" ui-sref="user.product.detail.bar({ slug: item.product.slug })" class="btn btn-lg sproutup-btn-md-main">Join discussion</a>
                 <!--a href="#" class="btn btn-lg sproutup-btn-md-main">Tweet</a-->
             </div>
             <div ng-show="item.isContentFormOpen" class="product-trial-item--input">
                 <p>Once you write a blog or make a video, please share the link with us. We will help promote the content and build more brand awareness for this product. You will also earn influence, followers, and perks.</p>
                 <form name="addContentForm" ng-submit="vm.addContent(item)">
                     <input type="url" required="" ng-model="item.form.url" http-prefix="" class="form-control form-validate form-input medium" placeholder="Please enter the url of content you created, e.g. blog, video, etc.">
-                    <button ng-disabled="addContentForm.$invalid" class="btn btn-lg sproutup-btn-md-main" type="submit">Add</button>
-                    <a ng-click="item.isContentFormOpen=false" class="btn btn-lg sproutup-btn-md-cancel">Cancel</a>
+                    <button analytics-on="click" analytics-event="Add content for {{item.product.name}}" ng-disabled="addContentForm.$invalid" class="btn btn-lg sproutup-btn-md-main" type="submit">Add</button>
+                    <a analytics-on="click" analytics-event="Cancel adding content for {{item.product.name}}" ng-click="item.isContentFormOpen=false" class="btn btn-lg sproutup-btn-md-cancel">Cancel</a>
                 </form>
             </div>
         </div>

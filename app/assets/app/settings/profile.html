@@ -29,7 +29,7 @@
         <div class="profile-edit--header">Shipping Address</div>
         <div class="row profile-input-row">
             <div class="col-sm-12 profile-input-cell">
-                <input type="text" ng-autocomplete="" class="form-control form-input medium" placeholder="Enter your address" ng-model="vm.user.address">
+                <input analytics-on="click" analytics-event="Enter shipping address" type="text" ng-autocomplete="" class="form-control form-input medium" placeholder="Enter your address" ng-model="vm.user.address">
             </div>
         </div>
 
@@ -37,13 +37,13 @@
         <div class="profile-edit--header">Mobile Number</div>
         <div class="row profile-input-row">
             <div class="col-sm-12 profile-input-cell">
-                <input type="text" class="form-control form-input medium" placeholder="Enter your mobile number. Please include the country code for non-US number." ng-model="vm.user.phone">
+                <input analytics-on="click" analytics-event="Enter phone number" type="text" class="form-control form-input medium" placeholder="Enter your mobile number. Please include the country code for non-US number." ng-model="vm.user.phone">
             </div>
         </div>
 
         <!-- Save & Cancel button -->
         <div class="add-product-actions">
-            <button ng-disabled="vm.basicinfoform.$invalid || vm.basicinfoform.$pristine" class="btn btn-lg add-product-btn save" type="submit" ng-click="vm.save()">Save Changes</button>
+            <button analytics-on="click" analytics-event="Save user profile" ng-disabled="vm.basicinfoform.$invalid || vm.basicinfoform.$pristine" class="btn btn-lg add-product-btn save" type="submit" ng-click="vm.save()">Save Changes</button>
         </div>
     </form>
 </div>

@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectReader;
 import com.fasterxml.jackson.databind.ObjectWriter;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import models.AnalyticsAccount;
 import models.User;
 import org.scribe.builder.ServiceBuilder;
@@ -17,6 +18,7 @@ import org.scribe.oauth.OAuthService;
 import play.Logger;
 import play.Play;
 import play.libs.F;
+import play.libs.Json;
 import play.libs.ws.WS;
 import play.libs.ws.WSResponse;
 import play.mvc.BodyParser;
@@ -37,6 +39,7 @@ import java.util.Calendar;
 public class GoogleController extends Controller {
     public static final String GOOGLE_API_CLIENT_ID = "google.api.client.id";
     public static final String GOOGLE_API_CLIENT_SECRET = "google.api.client.secret";
+    public static final String GOOGLE_API_CLIENT_CALLBACK = "google.api.client.callback";
     private static final String SCOPE = "https://docs.google.com/feeds/";
     private static ObjectMapper mapper = new ObjectMapper(); // can reuse, share globally
 
@@ -59,7 +62,7 @@ public class GoogleController extends Controller {
                             Play.application().configuration().getString(GOOGLE_API_CLIENT_ID),
                             Play.application().configuration().getString(GOOGLE_API_CLIENT_SECRET),
                             code,
-                            "http://dev.sproutup.co:9000/settings/analytics")
+                            Play.application().configuration().getString(GOOGLE_API_CLIENT_CALLBACK))
                             .execute();
             System.out.println("Access token: " + response.getAccessToken());
             System.out.println("Refresh token: " + response.getRefreshToken());
@@ -97,6 +100,20 @@ public class GoogleController extends Controller {
     }
 
 
+    @BodyParser.Of(BodyParser.Json.class)
+    @SubjectPresent
+    public static Result AuthorizeParams(){
+
+        ObjectNode node = Json.newObject();
+        node.put("redirect_uri", Play.application().configuration().getString(GOOGLE_API_CLIENT_CALLBACK));
+        node.put("response_type", "code");
+        node.put("client_id", Play.application().configuration().getString(GOOGLE_API_CLIENT_ID));
+        node.put("scope", "https://www.googleapis.com/auth/analytics.readonly https://www.googleapis.com/auth/yt-analytics.readonly https://www.googleapis.com/auth/youtube.readonly");
+        node.put("include_granted_scopes", "true");
+        node.put("access_type", "offline");
+
+        return ok(node);
+    }
 
     @BodyParser.Of(BodyParser.Json.class)
     @SubjectPresent
