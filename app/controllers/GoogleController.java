@@ -108,7 +108,7 @@ public class GoogleController extends Controller {
         node.put("redirect_uri", Play.application().configuration().getString(GOOGLE_API_CLIENT_CALLBACK));
         node.put("response_type", "code");
         node.put("client_id", Play.application().configuration().getString(GOOGLE_API_CLIENT_ID));
-        node.put("scope", "https://www.googleapis.com/auth/analytics.readonly https://www.googleapis.com/auth/yt-analytics.readonly");
+        node.put("scope", "https://www.googleapis.com/auth/analytics.readonly https://www.googleapis.com/auth/yt-analytics.readonly https://www.googleapis.com/auth/youtube.readonly");
         node.put("include_granted_scopes", "true");
         node.put("access_type", "offline");
 
