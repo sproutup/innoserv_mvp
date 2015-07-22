@@ -17,6 +17,14 @@
                 <a analytics-on="click" analytics-event="Authorize GA access" ng-disabled="vm.googleAnalyticsAPI" class="btn btn-lg sproutup-btn-md-main" ng-href="{{vm.requestAnalyticsTokenUrl}}">Google Analytics Authorization</a>
             </div>
         </div>
+        <div class="profile-edit--description success">
+            <p>Thanks for your authorization. Below is a list of sites that associate with your Google Analytics account.</p>
+            <p><i class="fa fa-check-circle"></i>SproutUp Official Website</p>
+            <p><i class="fa fa-check-circle"></i>SproutUp Blog</p>
+        </div>
+        <div class="profile-edit--description warning">
+            <p>Emm... There seems not sites associated with your Google Analytics account. Please double check if you chose the right account.</p>
+        </div>
 
         <hr>
         <!-- youtube analytics -->
