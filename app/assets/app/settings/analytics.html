@@ -12,15 +12,14 @@
             <p>If you have Google Analytics for your websites, please authorize us to read data from your Google Analytics account.</p>
             <p>Not using Google Analytics on your site? Well, you really should :) Get started <a href="http://www.google.com/analytics/" target="_blank">here</a>.</p>
         </div>
-        <div class="row profile-input-row">
+        <div class="row profile-input-row" ng-hide="vm.googleAnalyticsAPI">
             <div class="col-sm-12 profile-input-cell">
-                <a analytics-on="click" analytics-event="Authorize GA access" ng-disabled="vm.googleAnalyticsAPI" class="btn btn-lg sproutup-btn-md-main" ng-href="{{vm.requestAnalyticsTokenUrl}}">Google Analytics Authorization</a>
+                <a analytics-on="click" analytics-event="Authorize GA access" class="btn btn-lg sproutup-btn-md-main" ng-href="{{vm.requestAnalyticsTokenUrl}}">Google Analytics Authorization</a>
             </div>
         </div>
-        <div class="profile-edit--description success">
+        <div class="profile-edit--description success" ng-show="vm.googleAnalyticsAPI">
             <p>Thanks for your authorization. Below is a list of sites that associate with your Google Analytics account.</p>
-            <p><i class="fa fa-check-circle"></i>SproutUp Official Website</p>
-            <p><i class="fa fa-check-circle"></i>SproutUp Blog</p>
+            <p><i class="fa fa-check-circle"></i>...processing...</p>
         </div>
         <div class="profile-edit--description warning">
             <p>Emm... There seems not sites associated with your Google Analytics account. Please double check if you chose the right account.</p>
@@ -31,19 +30,25 @@
         <div class="profile-edit--description">
             <p>If you also have YouTube channels, please authorize us to view your YouTube account and your YouTube Analytics reports.</p>
         </div>
-        <div class="row profile-input-row">
+        <div class="row profile-input-row" ng-hide="vm.youtubeAnalyticsAPI">
             <div class="col-sm-12 profile-input-cell">
-                <a analytics-on="click" analytics-event="Authorize GA access" ng-disabled="vm.googleAnalyticsAPI" class="btn btn-lg sproutup-btn-md-main" ng-href="{{vm.requestAnalyticsTokenUrl}}">YouTube and YouTube Analytics Authorization</a>
+                <a analytics-on="click" analytics-event="Authorize GA access" ng-disabled="vm.youtubeAnalyticsAPI" class="btn btn-lg sproutup-btn-md-main" ng-href="{{vm.requestYoutubeTokenUrl}}">YouTube and YouTube Analytics Authorization</a>
             </div>
         </div>
-
-        <hr>
-        <div class="profile-edit--description">
-            <p>You may revoke both authorizations anytime, but then we will not be able to create reports on your content :( </p>
+        <div class="profile-edit--description success" ng-show="vm.youtubeAnalyticsAPI">
+            <p>Thanks for your authorization. Below is the channel associated with your Youtube account.</p>
+            <p><i class="fa fa-check-circle"></i>...processing...</p>
         </div>
-        <div class="row profile-input-row">
-            <div class="col-sm-12 profile-input-cell">
-                <a analytics-on="click" analytics-event="Revoke GA access" ng-disabled="!vm.googleAnalyticsAPI" class="btn btn-lg sproutup-btn-md-main red" ng-confirm-click="Are you sure about revoking authorization?" confirmed-click="vm.revokeAuthorization()">Revoke authorization</a>
+
+        <div ng-show="vm.youtubeAnalyticsAPI || vm.googleAnalyticsAPI">
+            <hr>
+            <div class="profile-edit--description">
+                <p>You may revoke both authorizations anytime, but then we will not be able to create reports on your content :( </p>
+            </div>
+            <div class="row profile-input-row">
+                <div class="col-sm-12 profile-input-cell">
+                    <a analytics-on="click" analytics-event="Revoke GA and YT access" class="btn btn-lg sproutup-btn-md-main red" ng-confirm-click="Are you sure about revoking authorization?" confirmed-click="vm.revokeAuthorization()">Revoke authorization</a>
+                </div>
             </div>
         </div>
     </form>

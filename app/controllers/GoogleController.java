@@ -51,24 +51,27 @@ public class GoogleController extends Controller {
     @BodyParser.Of(BodyParser.Json.class)
     @SubjectPresent
     public static Result ExchangeAuthorizationCodeForToken(String code, String scope) throws IOException {
+        AnalyticsAccount acc = null;
+        User user=null;
+
         try {
-            User user;
             user = Application.getLocalUser(ctx().session());
 
             GoogleTokenResponse response =
-                    new GoogleAuthorizationCodeTokenRequest(
-                            new NetHttpTransport(),
-                            new JacksonFactory(),
-                            Play.application().configuration().getString(GOOGLE_API_CLIENT_ID),
-                            Play.application().configuration().getString(GOOGLE_API_CLIENT_SECRET),
-                            code,
-                            Play.application().configuration().getString(GOOGLE_API_CLIENT_CALLBACK))
-                            .execute();
+            new GoogleAuthorizationCodeTokenRequest(
+                new NetHttpTransport(),
+                new JacksonFactory(),
+                Play.application().configuration().getString(GOOGLE_API_CLIENT_ID),
+                Play.application().configuration().getString(GOOGLE_API_CLIENT_SECRET),
+                code,
+                Play.application().configuration().getString(GOOGLE_API_CLIENT_CALLBACK)
+            ).execute();
+
             System.out.println("Access token: " + response.getAccessToken());
             System.out.println("Refresh token: " + response.getRefreshToken());
-            
-            AnalyticsAccount acc;
-    		if (user.analyticsAccounts!=null && user.analyticsAccounts.size()>0){               
+
+    		if (user.analyticsAccounts!=null && user.analyticsAccounts.size()>0){
+                //todo: make sure that provider = google
                 acc = user.analyticsAccounts.get(0);
 	    	}
             else{
@@ -77,6 +80,12 @@ public class GoogleController extends Controller {
             acc.accessToken = response.getAccessToken();
             acc.refreshToken = response.getRefreshToken();
             acc.scope = scope;
+//            if(acc.scope == null || acc.scope.length() == 0) {
+//                acc.scope = scope;
+//            }
+//            else{
+//                acc.scope = acc.scope + " " + scope;
+//            }
  
             // calculate the expire date
             Calendar calendar = Calendar.getInstance(); // gets a calendar using the default time zone and locale.
@@ -84,8 +93,8 @@ public class GoogleController extends Controller {
             acc.expiresAt = calendar.getTime();
 
             acc.provider = "google";
-            acc.googleAnalyticsAPI = true;
-            acc.youtubeAnalyticsAPI = false;
+            acc.googleAnalyticsAPI = acc.scope.contains("auth/analytics.readonly");
+            acc.youtubeAnalyticsAPI = acc.scope.contains("auth/yt-analytics.readonly");
             acc.user = user;
             acc.save();
 
@@ -102,23 +111,43 @@ public class GoogleController extends Controller {
                 System.err.println(e.getMessage());
             }
         }
-        return ok();
+        return ok(AnalyticsAccount.toJson(user.analyticsAccounts));
     }
-
 
     @BodyParser.Of(BodyParser.Json.class)
     @SubjectPresent
     public static Result AuthorizeParams(){
+        // add params for google analytics and youtube analytics
+        ObjectNode node = Json.newObject();
+        node.put("ga", AuthorizeAnalyticsParams());
+        node.put("yt", AuthorizeYoutubeParams());
+        return ok(node);
+    }
+
+    public static ObjectNode AuthorizeAnalyticsParams(){
 
         ObjectNode node = Json.newObject();
         node.put("redirect_uri", Play.application().configuration().getString(GOOGLE_API_CLIENT_CALLBACK));
         node.put("response_type", "code");
         node.put("client_id", Play.application().configuration().getString(GOOGLE_API_CLIENT_ID));
-        node.put("scope", "https://www.googleapis.com/auth/analytics.readonly https://www.googleapis.com/auth/yt-analytics.readonly https://www.googleapis.com/auth/youtube.readonly");
+        node.put("scope", "https://www.googleapis.com/auth/analytics.readonly");
         node.put("include_granted_scopes", "true");
         node.put("access_type", "offline");
 
-        return ok(node);
+        return node;
+    }
+
+    public static ObjectNode AuthorizeYoutubeParams(){
+
+        ObjectNode node = Json.newObject();
+        node.put("redirect_uri", Play.application().configuration().getString(GOOGLE_API_CLIENT_CALLBACK));
+        node.put("response_type", "code");
+        node.put("client_id", Play.application().configuration().getString(GOOGLE_API_CLIENT_ID));
+        node.put("scope", "https://www.googleapis.com/auth/yt-analytics.readonly https://www.googleapis.com/auth/youtube.readonly");
+        node.put("include_granted_scopes", "true");
+        node.put("access_type", "offline");
+
+        return node;
     }
 
     @BodyParser.Of(BodyParser.Json.class)
@@ -128,21 +157,25 @@ public class GoogleController extends Controller {
         user = Application.getLocalUser(ctx().session());
 
         final F.Promise<Result> resultPromise = WS.url("https://accounts.google.com/o/oauth2/revoke")
-                .setQueryParameter("token", user.analyticsAccounts.get(0).accessToken)
-                .get().map(
-                    new F.Function<WSResponse, Result>() {
-                        public Result apply(WSResponse response) {
-                            for(AnalyticsAccount analytics:  user.analyticsAccounts){
-                                System.out.println("delete token: " + analytics.accessToken);
-                                analytics.accessToken = "";
-                                analytics.refreshToken = "";
-                                analytics.isValid = -1;
-                                analytics.save();
-                            }
-
-                            return ok("Deleted");
-                        }
+            .setQueryParameter("token", user.analyticsAccounts.get(0).accessToken)
+            .get().map(
+                new F.Function<WSResponse, Result>() {
+                    public Result apply(WSResponse response) {
+                    for(AnalyticsAccount analytics:  user.analyticsAccounts){
+                        System.out.println("delete token: " + analytics.accessToken);
+                        analytics.accessToken = "";
+                        analytics.refreshToken = "";
+                        analytics.isValid = -1;
+                        analytics.errorMessage = "";
+                        analytics.scope = "";
+                        analytics.googleAnalyticsAPI = false;
+                        analytics.youtubeAnalyticsAPI = false;
+                        analytics.save();
                     }
+
+                    return ok(AnalyticsAccount.toJson(user.analyticsAccounts));
+                    }
+                }
         );
         return resultPromise;
     }

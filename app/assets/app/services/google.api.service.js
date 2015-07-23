@@ -33,26 +33,12 @@ function GoogleApiService($http, $q, $log, userService, $timeout){
         return str.join("&");
     }
 
-// https://accounts.google.com/o/oauth2/auth?
-//redirect_uri=https://developers.google.com/oauthplayground&
-//response_type=code&
-//client_id=407408718192.apps.googleusercontent.com&
-//scope=https://www.googleapis.com/auth/analytics.readonly+https://www.googleapis.com/auth/yt-analytics.readonly&
-//approval_prompt=force&access_type=offline
+    function requestAnalyticsToken(data){
+        return urloauth2 + '?' + buildQueryString(data.ga);
+    }
 
-    function requestToken(data){
-
-//        var data = {
-//            redirect_uri: 'http://dev.sproutup.co:9000/settings/analytics',
-//            response_type: 'code',
-//            client_id: '200067319298-cpblm10r8s9o29kjgtahjek2eib7eigk.apps.googleusercontent.com',
-//            scope: 'https://www.googleapis.com/auth/analytics.readonly https://www.googleapis.com/auth/yt-analytics.readonly',
-//            access_type: 'offline',
-//            //login_hint: '',
-//            include_granted_scopes: 'true'
-//        };
-
-        return urloauth2 + '?' + buildQueryString(data);
+    function requestYoutubeToken(data){
+        return urloauth2 + '?' + buildQueryString(data.yt);
     }
 
     function getAuthorizationParams(){
@@ -66,7 +52,8 @@ function GoogleApiService($http, $q, $log, userService, $timeout){
         }).success(function(data, status, headers, config){
             switch(status){
                 case 200:
-                    data.url = requestToken(data);
+                    data.ga_url = requestAnalyticsToken(data);
+                    data.yt_url = requestYoutubeToken(data);
                     deferred.resolve(data);
                     break;
                 case 302: // no content
@@ -79,8 +66,6 @@ function GoogleApiService($http, $q, $log, userService, $timeout){
                     break;
             }
         }).error(function(data, status, headers, config){
-            // called asynchronously if an error occurs
-            // or server returns response with an error status.
             $log.debug("google api service returned error");
             deferred.reject("failed");
         });
@@ -105,7 +90,7 @@ function GoogleApiService($http, $q, $log, userService, $timeout){
         }).success(function(data, status, headers, config){
             switch(status){
                 case 200:
-                    console.log("#3 status: ", status);
+                    console.log("received status: ", status);
                     deferred.resolve(data);
                     break;
                 case 302: // no content

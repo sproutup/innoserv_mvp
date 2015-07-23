@@ -15,6 +15,7 @@
         vm.youtubeAnalyticsAPI = false;
         vm.requestGoogleApiToken = requestGoogleApiToken;
         vm.requestAnalyticsTokenUrl = '';
+        vm.requestYoutubeTokenUrl = '';
         vm.revokeAuthorization = revokeAuthorization;
 
         activate();
@@ -42,25 +43,12 @@
                 vm.googleAnalyticsAPI = authService.m.user.analytics[0].googleAnalyticsAPI;
                 vm.youtubeAnalyticsAPI = authService.m.user.analytics[0].youtubeAnalyticsAPI;
             }
-
-//            //console.log("found code: ", $location.search('code'));
-//            if($stateParams.code!==undefined){
-//                console.log("found code: ", $stateParams.code);
-//                googleApiService.exchangeAuthorizationCodeForToken($stateParams.code, $stateParams.scope);
-//                authService.m.user.analytics = [{googleAnalyticsAPI: true, youtubeAnalyticsAPI: true}];
-//                vm.googleAnalyticsAPI = authService.m.user.analytics[0].googleAnalyticsAPI;
-//                vm.youtubeAnalyticsAPI = authService.m.user.analytics[0].youtubeAnalyticsAPI;
-//                $rootScope.$broadcast('alert:success', {
-//                    message: 'Authorization granted'
-//                });
-//            }
         }
 
         function requestGoogleApiToken() {
-            //vm.requestAnalyticsTokenUrl = googleApiService.requestToken();
-
             googleApiService.getAuthorizationParams().then(function(data) {
-                vm.requestAnalyticsTokenUrl = data.url;
+                vm.requestAnalyticsTokenUrl = data.ga_url;
+                vm.requestYoutubeTokenUrl = data.yt_url;
                 console.log("url: ", data.url);
             }, function(error) {
             });
@@ -68,7 +56,7 @@
 
         function revokeAuthorization(){
             googleApiService.revokeAuthorization().then(function(data) {
-                authService.m.user.analytics = [{googleAnalyticsAPI: false, youtubeAnalyticsAPI: false}];
+                authService.m.user.analytics = data;
                 vm.googleAnalyticsAPI = authService.m.user.analytics[0].googleAnalyticsAPI;
                 vm.youtubeAnalyticsAPI = authService.m.user.analytics[0].youtubeAnalyticsAPI;
                 $rootScope.$broadcast('alert:success', {

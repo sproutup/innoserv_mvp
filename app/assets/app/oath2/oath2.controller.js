@@ -38,7 +38,8 @@
             if($stateParams.code!==undefined){
                 console.log("found code: ", $stateParams.code);
                 googleApiService.exchangeAuthorizationCodeForToken($stateParams.code, $stateParams.scope).then(function(data) {
-                    authService.m.user.analytics = [{googleAnalyticsAPI: true, youtubeAnalyticsAPI: true}];
+                    // update the users analytics data
+                    authService.m.user.analytics = data;
                     $rootScope.$broadcast('alert:success', {
                         message: 'Authorization granted'
                     });
