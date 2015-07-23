@@ -110,7 +110,7 @@
             <ul>
                 @if(currentPage.hasPrev) {
                     <li class="prev">
-                        <a href="@routes.ReportAdminController.trialList(currentPage.getPageIndex - 1)" target="_self">&larr; </a>
+                        <a href="@routes.ReportAdminController.influencerTrialList(currentPage.getPageIndex - 1)" target="_self">&larr; </a>
                     </li>
                 } else {
                     <li class="prev disabled">
@@ -122,7 +122,7 @@
                 </li>
                 @if(currentPage.hasNext) {
                     <li class="next">
-                        <a href="@routes.ReportAdminController.trialList(currentPage.getPageIndex + 1)" target="_self"> &rarr;</a>
+                        <a href="@routes.ReportAdminController.influencerTrialList(currentPage.getPageIndex + 1)" target="_self"> &rarr;</a>
                     </li>
                 } else {
                     <li class="next disabled">
