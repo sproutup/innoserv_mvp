@@ -2,51 +2,57 @@
 <link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/creator-dashboard.css")">
 }
 
-@main(Messages("Dashboard Mock | SproutUp"), moreHead) {
+@main(Messages("My Content Mock | SproutUp"), moreHead) {
 
-<div class="row dashboard-page">
-
-    <!-- TOC -->
-    <div class="col-sm-3">
-        <div class="list-group">
-            <a href="#" class="list-group-item active">Current Trials<span class="badge">1</span></a>
-            <a href="#" class="list-group-item">Past Trials<span class="badge">3</span></a>
-        </div>
-    </div>
+<div class="row my-content-page">
 
     <!-- Content -->
-    <div class="col-sm-9">
+    <div class="col-sm-12">
 
-        <div class="product-trial-header small">
-            <a href="/mockups/product_trials" target=“_self”><i class="fa fa-angle-left"></i>Back to Current Trials</a>
+        <div class="product-trial-item--actions">
+            <a href="#" class="btn btn-lg sproutup-btn-md-main">Add my content</a>
         </div>
 
-        <div class="row product-trial-item">
-            <div class="col-sm-12 product-trial-item-banner" style="background-image: url('@("http://d30xksqof6w2my.cloudfront.net/2dd1e278-7636-43c4-97ae-262da1d070f8_0_admin.jpg?w=600&h=100")')">
-                <p>Crescendo<span>Manage my content</span></p>
-            </div>
-            <div class="product-trial-item--input">
-                <p>After you write a blog or make a video, please share the link with us. We will help promote the content and build more brand awareness for this product. Meanwhile, you will also earn influence, followers and perks.</p>
-                <!-- <input type="url" class="form-control form-validate form-input medium" placeholder="Please enter the url of content you created, e.g. blog, video, etc.">
+        <div class="product-trial-item--input">
+            <p>Once you write a blog or make a video, please share the link with us. We will help promote the content and build more brand awareness for this product. You will also earn reward points, influence and followers.</p>
+            <form>
+                <input type="url" class="form-control form-validate form-input medium" placeholder="Please enter the url of content you created, e.g. blog, video, etc.">
                 <button class="btn btn-lg sproutup-btn-md-main" type="submit">Add</button>
-                <button class="btn btn-lg sproutup-btn-md-cancel" type="submit">Cancel</button> -->
+                <a class="btn btn-lg sproutup-btn-md-cancel">Cancel</a>
+            </form>
+        </div>
+
+        <div class="row my-content-item">
+            <!-- content thumbnail -->
+            <div class="col-sm-8 my-content-item-summary">
+                <p class="product-trial-item--status">Content</p>
+                <img class="my-content-image img-responsive" src="http://rack.1.mshcdn.com/media/ZgkyMDE1LzA3LzIyLzUyL1NwYWNlSmFtMi5hMDQxYS5qcGcKcAl0aHVtYgk5NTB4NTM0IwplCWpwZw/626b0601/1bf/SpaceJam2.jpg">
+                <p class="my-content-headline">'Space Jam 2' tho!? LeBron James inks deal with Warner Bros</p>
+                <p class="my-content-excerpt">After LeBron James announces a partnership with Warner Bros., thirst for 'Space Jam 2' overruns the Internet.</p>
             </div>
-            <div class="col-sm-6 product-trial-content-wrapper">
-                <a href="http://www.google.com" target="_blank">
-                    <div class="product-trial-content-item">
-                        <h1>This is the title of the blog</h1>
-                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book...</p>
-                    </div>
-                </a>
+
+            <!-- data -->
+            <div class="col-sm-4 my-content-item-stat">
+                <p class="product-trial-item--status">Unique Page Views</p>
+                <p class="my-content-headline">999.9k</p>
             </div>
-            <div class="col-sm-6 product-trial-content-wrapper">
-                <div class="product-trial-content-new-item">
-                    <a href="#" class="btn btn-lg btn-content-upload"><i class="fa fa-plus-circle"></i></a>
-                </div>
+        </div>
+
+        <div class="row my-content-item">
+            <!-- content thumbnail -->
+            <div class="col-sm-8 my-content-item-summary">
+                <p class="product-trial-item--status">Content</p>
+                <img class="my-content-image img-responsive" src="http://rack.1.mshcdn.com/media/ZgkyMDE1LzA3LzIyLzUyL1NwYWNlSmFtMi5hMDQxYS5qcGcKcAl0aHVtYgk5NTB4NTM0IwplCWpwZw/626b0601/1bf/SpaceJam2.jpg">
+                <p class="my-content-headline">'Space Jam 2' tho!? LeBron James inks deal with Warner Bros</p>
+                <p class="my-content-excerpt">After LeBron James announces a partnership with Warner Bros., thirst for 'Space Jam 2' overruns the Internet.</p>
+            </div>
+
+            <!-- data -->
+            <div class="col-sm-4">
+                <p class="product-trial-item--status">Unique Page Views</p>
+                <p class="my-content-headline">999.9k</p>
             </div>
         </div>
 
     </div>
-
-</div>
 }
