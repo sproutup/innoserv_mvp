@@ -546,8 +546,8 @@ productControllers.controller('modalShareCtrl', ['$scope', '$window', '$statePar
 }]);
 
 
-productControllers.controller('productDetailCtrl', ['$scope', '$rootScope', '$stateParams', '$state', '$log', 'ProductService', 'AuthService', '$window', '$http', '$modal', '$analytics', '$filter',
-  function($scope, $rootScope, $stateParams, $state, $log, ProductService, authService, $window, $http, $modal, $analytics, $filter) {
+productControllers.controller('productDetailCtrl', ['$scope', '$rootScope', '$stateParams', '$state', '$log', 'ProductService', 'AuthService', '$window', '$http', '$modal', '$analytics',
+  function($scope, $rootScope, $stateParams, $state, $log, ProductService, authService, $window, $http, $modal, $analytics) {
     $log.debug("entered product details ctrl. slug=" + $stateParams.slug);
 
     var slug = $stateParams.slug;
@@ -611,7 +611,9 @@ productControllers.controller('productDetailCtrl', ['$scope', '$rootScope', '$st
             function(data) {
                 // success
                 $scope.product = data;
-                var productTrials = $filter('filter')(data.trials, {status:1});
+                var productTrials = data.trials.filter(function(trial) {
+                    return trial.status > 0;
+                });
                 if (typeof productTrials !== 'undefined' && productTrials.length !== 0) {
                     $scope.hasTrial = true;
                     productTrials = shuffleArray(productTrials);
