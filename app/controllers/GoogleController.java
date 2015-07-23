@@ -80,13 +80,7 @@ public class GoogleController extends Controller {
             acc.accessToken = response.getAccessToken();
             acc.refreshToken = response.getRefreshToken();
             acc.scope = scope;
-//            if(acc.scope == null || acc.scope.length() == 0) {
-//                acc.scope = scope;
-//            }
-//            else{
-//                acc.scope = acc.scope + " " + scope;
-//            }
- 
+
             // calculate the expire date
             Calendar calendar = Calendar.getInstance(); // gets a calendar using the default time zone and locale.
             calendar.add(Calendar.SECOND, response.getExpiresInSeconds().intValue());
@@ -94,7 +88,7 @@ public class GoogleController extends Controller {
 
             acc.provider = "google";
             acc.googleAnalyticsAPI = acc.scope.contains("auth/analytics.readonly");
-            acc.youtubeAnalyticsAPI = acc.scope.contains("auth/yt-analytics.readonly");
+            acc.youtubeAnalyticsAPI = acc.scope.contains("auth/yt-analytics.readonly") && acc.scope.contains("auth/youtube.readonly");
             acc.user = user;
             acc.save();
 

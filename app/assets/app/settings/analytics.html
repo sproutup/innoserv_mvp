@@ -18,10 +18,11 @@
             </div>
         </div>
         <div class="profile-edit--description success" ng-show="vm.googleAnalyticsAPI">
-            <p>Thanks for your authorization. Below is a list of sites that associate with your Google Analytics account.</p>
-            <p><i class="fa fa-coffee"></i>Relax and have a cup of coffee. We are getting data from Google Analytics...</p>
+            <p>Thanks for your authorization to view Google Analytics data.</p>
+            <!--p>Below is a list of sites that associate with your Google Analytics account.</p>
+            <p><i class="fa fa-coffee"></i>Relax and have a cup of coffee. We are getting data from Google Analytics...</p-->
         </div>
-        <div class="profile-edit--description warning">
+        <div ng-hide="true" class="profile-edit--description warning">
             <p><i class="fa fa-bug"></i>Emm... There seems not sites associated with your Google Analytics account. Please double check if you chose the right account.</p>
         </div>
 
@@ -36,8 +37,9 @@
             </div>
         </div>
         <div class="profile-edit--description success" ng-show="vm.youtubeAnalyticsAPI">
-            <p>Thanks for your authorization. Below is the channel associated with your Youtube account.</p>
-            <p><i class="fa fa-coffee"></i>Relax and have a cup of coffee. We are getting data from YouTube...</p>
+            <p>Thanks for your authorization to view your YouTube account and your YouTube Analytics reports</p>
+            <!--p>Below is the channel associated with your Youtube account.</p>
+            <p><i class="fa fa-coffee"></i>Relax and have a cup of coffee. We are getting data from YouTube...</p-->
         </div>
 
         <div ng-show="vm.youtubeAnalyticsAPI || vm.googleAnalyticsAPI">
