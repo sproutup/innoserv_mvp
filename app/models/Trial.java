@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.joda.time.DateTime;
 import play.libs.Json;
+import service.GoogleURLShortener;
 
 import javax.persistence.*;
 import java.util.List;
@@ -73,6 +74,12 @@ public class Trial extends TimeStampModel {
     public String getStatus() {
 		return status.toString();
 	}
+
+    public void generateRefUrl() {
+        String referralId = UserReferral.getReferralId(user.id, null, id);
+        String genURL = "http://sproutup.co/product/" + product.slug + "?refId="+ referralId;
+        refURL = GoogleURLShortener.shortenURL(genURL);
+    }
 
     public ObjectNode toJson(){
         ObjectNode node = Json.newObject();
