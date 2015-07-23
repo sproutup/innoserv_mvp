@@ -40,6 +40,7 @@
                 <a ng-click="vm.deleteContent(content.id, item)" href="#"><i class="fa fa-times-circle"></i></a>
                 <a ng-href="{{content.url}}" target="_blank">{{content.url}}</a>
             </div>
+            <p ng-show="item.refURL!=null">Your unique referral link that you can embed in any content is: <a href="{{item.refURL}}">{{item.refURL}}</a></p>
 
             <div class="product-trial-item--actions">
                 <a analytics-on="click" analytics-event="Click Add Content button: {{item.product.name}}" ng-click="item.isContentFormOpen = !item.isContentFormOpen" href="#" class="btn btn-lg sproutup-btn-md-main">Add my content</a>

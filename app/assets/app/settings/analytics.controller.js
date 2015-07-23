@@ -5,9 +5,9 @@
         .module('sproutupApp')
         .controller('AnalyticsController', AnalyticsController);
 
-    AnalyticsController.$inject = ['$rootScope', '$state', '$log', 'AuthService','GoogleApiService'];
+    AnalyticsController.$inject = ['$rootScope', '$state', '$log', 'AuthService','GoogleApiService', 'AnalyticsService'];
 
-    function AnalyticsController($rootScope, $state, $log, authService, googleApiService) {
+    function AnalyticsController($rootScope, $state, $log, authService, googleApiService, analyticsService) {
         var vm = this;
 
         vm.user = {};
@@ -38,18 +38,23 @@
             vm.user = angular.copy(authService.m.user);
             requestGoogleApiToken();
 
-            // right now we can have only one, but its prepared for more than one account
-            if(authService.m.user.analytics!==undefined){
-                vm.googleAnalyticsAPI = authService.m.user.analytics[0].googleAnalyticsAPI;
-                vm.youtubeAnalyticsAPI = authService.m.user.analytics[0].youtubeAnalyticsAPI;
-            }
+            analyticsService.getAll().then(function(data){
+                authService.m.user.analytics = data;
+                vm.googleAnalyticsAPI = data[0].googleAnalyticsAPI;
+                vm.youtubeAnalyticsAPI = data[0].youtubeAnalyticsAPI;
+            });
+
+//            // right now we can have only one, but its prepared for more than one account
+//            if(authService.m.user.analytics!==undefined){
+//                vm.googleAnalyticsAPI = authService.m.user.analytics[0].googleAnalyticsAPI;
+//                vm.youtubeAnalyticsAPI = authService.m.user.analytics[0].youtubeAnalyticsAPI;
+//            }
         }
 
         function requestGoogleApiToken() {
             googleApiService.getAuthorizationParams().then(function(data) {
                 vm.requestAnalyticsTokenUrl = data.ga_url;
                 vm.requestYoutubeTokenUrl = data.yt_url;
-                console.log("url: ", data.url);
             }, function(error) {
             });
         }
