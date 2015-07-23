@@ -8,7 +8,7 @@
 
         <hr>
         <!-- google analytics -->
-        <div class="profile-edit--description">
+        <div ng-hide="vm.googleAnalyticsAPI" class="profile-edit--description">
             <p>If you have Google Analytics for your websites, please authorize us to read data from your Google Analytics account.</p>
             <p>Not using Google Analytics on your site? Well, you really should :) Get started <a href="http://www.google.com/analytics/" target="_blank">here</a>.</p>
         </div>
@@ -19,15 +19,15 @@
         </div>
         <div class="profile-edit--description success" ng-show="vm.googleAnalyticsAPI">
             <p>Thanks for your authorization. Below is a list of sites that associate with your Google Analytics account.</p>
-            <p><i class="fa fa-check-circle"></i>...processing...</p>
+            <p><i class="fa fa-coffee"></i>Relax and have a cup of coffee. We are getting data from Google Analytics...</p>
         </div>
         <div class="profile-edit--description warning">
-            <p>Emm... There seems not sites associated with your Google Analytics account. Please double check if you chose the right account.</p>
+            <p><i class="fa fa-bug"></i>Emm... There seems not sites associated with your Google Analytics account. Please double check if you chose the right account.</p>
         </div>
 
         <hr>
         <!-- youtube analytics -->
-        <div class="profile-edit--description">
+        <div ng-hide="vm.youtubeAnalyticsAPI" class="profile-edit--description">
             <p>If you also have YouTube channels, please authorize us to view your YouTube account and your YouTube Analytics reports.</p>
         </div>
         <div class="row profile-input-row" ng-hide="vm.youtubeAnalyticsAPI">
@@ -37,7 +37,7 @@
         </div>
         <div class="profile-edit--description success" ng-show="vm.youtubeAnalyticsAPI">
             <p>Thanks for your authorization. Below is the channel associated with your Youtube account.</p>
-            <p><i class="fa fa-check-circle"></i>...processing...</p>
+            <p><i class="fa fa-coffee"></i>Relax and have a cup of coffee. We are getting data from YouTube...</p>
         </div>
 
         <div ng-show="vm.youtubeAnalyticsAPI || vm.googleAnalyticsAPI">
