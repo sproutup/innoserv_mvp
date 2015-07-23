@@ -76,7 +76,6 @@ POST          /api/trials                                                    con
 PUT           /api/trials/:id                                                controllers.TrialController.update(id: Long)
 POST          /api/trials/:id                                                controllers.TrialController.update(id: Long)
 DELETE        /api/trials/:id                                                controllers.TrialController.delete(id: Long)
-GET			  /api/trials/refURL/:id								         controllers.TrialController.generateReferralURL(id: Long)
 
 GET           /api/content                                                   controllers.ContentController.getall
 GET           /api/content/:id                                               controllers.ContentController.get(id: Long)

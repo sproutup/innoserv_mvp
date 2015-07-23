@@ -41,8 +41,6 @@ public class SendgridController {
         }
         if (message != null) {
             awsQueue.sendMessageToQueue(queueUrl, message.toString());
-            System.out.println(queueUrl);
-            System.out.println(param1);
         }
     }
 }

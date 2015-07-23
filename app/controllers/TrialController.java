@@ -2,14 +2,11 @@ package controllers;
 
 import be.objectify.deadbolt.java.actions.SubjectPresent;
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import models.*;
 import play.Logger;
-import play.libs.Json;
 import play.mvc.BodyParser;
 import play.mvc.Controller;
 import play.mvc.Result;
-import service.GoogleURLShortener;
 
 import java.util.List;
 import java.util.Map;
@@ -78,17 +75,10 @@ public class TrialController extends Controller {
                 }
             }
 
+            item.generateRefUrl();
+
             item.save();
             prod.cacheRemove();
-
-
-            /*
-            * Create a referral link for the user
-             */
-            String referralId = UserReferral.getReferralId(user.id, null, item.id);
-            String genURL = "http://sproutup.co/product/" + item.product.slug + "?refId="+ referralId;
-            item.refURL= GoogleURLShortener.shortenURL(genURL);
-            item.update();
 
             return created(item.toJson());
         }
@@ -126,26 +116,6 @@ public class TrialController extends Controller {
         }
         else{
             return play.mvc.Results.notFound("Trial not found");
-        }
-    }
-
-    /*
-    * Gets called when user clicks on the generate referral URL
-    */
-    @SubjectPresent
-    @BodyParser.Of(BodyParser.Json.class)
-    public static Result generateReferralURL(Long id) {
-        User user = Application.getLocalUser(ctx().session());
-        if (user == null) {
-            return badRequest("User not found");
-        } else {
-            Trial item = Trial.find.byId(id);
-            String referralId = UserReferral.getReferralId(user.id, null, id);
-            String genURL = "http://sproutup.co/product/" + item.product.slug + "?refId="+ referralId;
-            String shortURL= GoogleURLShortener.shortenURL(genURL);
-            item.refURL = shortURL;
-            item.update();
-            return created(item.toJson());
         }
     }
 

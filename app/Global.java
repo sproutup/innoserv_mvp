@@ -23,6 +23,7 @@ import scala.concurrent.duration.FiniteDuration;
 import utils.AWSSimpleQueueManager;
 import utils.AnnotationDateFormatter;
 import play.mvc.*;
+import utils.EnsureRefUrl;
 import utils.SendgridManager;
 
 import java.text.ParseException;
@@ -52,6 +53,8 @@ public class Global extends GlobalSettings {
 		FiniteDuration sendgridVerifyFreq = FiniteDuration.create(1, TimeUnit.DAYS);
 
 		Akka.system().scheduler().schedule(delay, sendgridVerifyFreq, new SendgridManager(), Akka.system().dispatcher());
+
+		EnsureRefUrl.genMissingUrls();
 
 		PlayAuthenticate.setResolver(new Resolver() {
 
