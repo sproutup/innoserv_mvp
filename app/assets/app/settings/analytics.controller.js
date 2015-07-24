@@ -5,12 +5,15 @@
         .module('sproutupApp')
         .controller('AnalyticsController', AnalyticsController);
 
-    AnalyticsController.$inject = ['$rootScope', '$state', '$log', 'AuthService','GoogleApiService', 'AnalyticsService'];
+    AnalyticsController.$inject = ['$rootScope', '$state', '$log', 'AuthService','GoogleApiService', 'AnalyticsService', '$filter'];
 
-    function AnalyticsController($rootScope, $state, $log, authService, googleApiService, analyticsService) {
+    function AnalyticsController($rootScope, $state, $log, authService, googleApiService, analyticsService, $filter) {
         var vm = this;
 
         vm.user = {};
+        vm.analytics = {};
+        vm.ga = {};
+        vm.yt = {};
         vm.googleAnalyticsAPI = false;
         vm.youtubeAnalyticsAPI = false;
         vm.requestGoogleApiToken = requestGoogleApiToken;
@@ -39,6 +42,9 @@
             requestGoogleApiToken();
 
             analyticsService.getAll().then(function(data){
+                vm.analytics = data;
+                vm.ga = $filter("filter")(data[0], {kind:"google"});
+                vm.yt = $filter("filter")(data[0], {kind:"youtube"});
                 authService.m.user.analytics = data;
                 vm.googleAnalyticsAPI = data[0].googleAnalyticsAPI;
                 vm.youtubeAnalyticsAPI = data[0].youtubeAnalyticsAPI;
