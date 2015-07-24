@@ -131,7 +131,7 @@
           m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
           })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-          ga('create', 'UA-58001090-2', 'auto');
+          ga('create', '@{play.api.Play.current.configuration.getString("google.analytics.tracking.id")}', 'auto');
           //ga('send', 'pageview');
         </script>
         <!-- end google analytics -->
