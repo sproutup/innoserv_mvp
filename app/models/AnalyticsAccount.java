@@ -43,6 +43,9 @@ public class AnalyticsAccount extends TimeStampModel {
     public String username;
     public String errorMessage;
 
+	@OneToMany
+	public List<AnalyticsAccountSummary> summaries;
+
 	public static final Finder<Long, AnalyticsAccount> find = new Finder<Long, AnalyticsAccount>(
 			Long.class, AnalyticsAccount.class);
 
@@ -51,6 +54,9 @@ public class AnalyticsAccount extends TimeStampModel {
 		node.put("id", this.id);
 		node.put("googleAnalyticsAPI", this.googleAnalyticsAPI);
 		node.put("youtubeAnalyticsAPI", this.youtubeAnalyticsAPI);
+		if(this.summaries != null){
+			node.put("summaries", AnalyticsAccountSummary.toJson(this.summaries));
+		}
 		node.put("createdAt", new DateTime(this.createdAt).toString());
 		node.put("updatedAt", new DateTime(this.updatedAt).toString());
 		return node;
