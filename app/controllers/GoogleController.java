@@ -9,6 +9,7 @@ import com.fasterxml.jackson.databind.ObjectReader;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import models.AnalyticsAccount;
+import models.AnalyticsAccountSummary;
 import models.User;
 import org.scribe.builder.ServiceBuilder;
 import org.scribe.builder.api.GoogleApi;
@@ -157,6 +158,12 @@ public class GoogleController extends Controller {
                     public Result apply(WSResponse response) {
                     for(AnalyticsAccount analytics:  user.analyticsAccounts){
                         System.out.println("delete token: " + analytics.accessToken);
+
+                        for(AnalyticsAccountSummary summary: analytics.summaries){
+                            System.out.println("delete summary: " + summary.name);
+                            summary.delete();
+                        }
+
                         analytics.accessToken = "";
                         analytics.refreshToken = "";
                         analytics.isValid = -1;
