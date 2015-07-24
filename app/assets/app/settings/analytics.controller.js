@@ -43,9 +43,11 @@
 
             analyticsService.getAll().then(function(data){
                 vm.analytics = data;
-                vm.ga = $filter("filter")(data[0], {kind:"google"});
-                vm.yt = $filter("filter")(data[0], {kind:"youtube"});
+                vm.ga = $filter("filter")(data[0].summaries, {kind:"analytics#accountSummary"});
+                console.log("vm.ga: ", vm.ga);
+                vm.yt = $filter("filter")(data[0].summaries, {kind:"youtube#channel"});
                 authService.m.user.analytics = data;
+                console.log("vm.yt: ", vm.yt);
                 vm.googleAnalyticsAPI = data[0].googleAnalyticsAPI;
                 vm.youtubeAnalyticsAPI = data[0].youtubeAnalyticsAPI;
             });
