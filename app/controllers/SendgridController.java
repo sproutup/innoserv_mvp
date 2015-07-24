@@ -11,7 +11,10 @@ import utils.AWSSimpleQueueService;
 public class SendgridController {
 
     private static AWSSimpleQueueService awsQueue = AWSSimpleQueueService.getInstance();
-    private static String queueUrl = awsQueue.getQueueUrl(Play.application().configuration().getString("aws.sqs.sendgridQueue"));
+    private static Boolean enabled = Play.application().configuration().getString("sendgrid.enabled") == null ||
+            Boolean.parseBoolean(Play.application().configuration().getString("sendgrid.enabled"));
+    private static String queueUrl = enabled ? awsQueue.getQueueUrl(Play.application().configuration().getString("aws.sqs.sendgridQueue"))
+            : null;
 
     public static void pushToQueue(String methodName, String param1) {
         pushToQueue(methodName, param1, null, null);
@@ -22,25 +25,27 @@ public class SendgridController {
     }
 
     public static void pushToQueue(String methodName, String param1, String param2, String param3) {
-        if (param1.equals("defaultList")) {
-            param1 = Play.application().configuration().getString("sendgrid.list");
-        }
-        ObjectNode message = null;
-        if (methodName != null) {
-            message = Json.newObject();
-            message.put("methodName", methodName);
-            if (param1 != null) {
-                message.put("param1", param1);
-                if (param2 != null) {
-                    message.put("param2", param2);
-                    if (param3 != null) {
-                        message.put("param3", param3);
+        if (enabled) {
+            if (param1.equals("defaultList")) {
+                param1 = Play.application().configuration().getString("sendgrid.list");
+            }
+            ObjectNode message = null;
+            if (methodName != null) {
+                message = Json.newObject();
+                message.put("methodName", methodName);
+                if (param1 != null) {
+                    message.put("param1", param1);
+                    if (param2 != null) {
+                        message.put("param2", param2);
+                        if (param3 != null) {
+                            message.put("param3", param3);
+                        }
                     }
                 }
             }
-        }
-        if (message != null) {
-            awsQueue.sendMessageToQueue(queueUrl, message.toString());
+            if (message != null) {
+                awsQueue.sendMessageToQueue(queueUrl, message.toString());
+            }
         }
     }
 }
