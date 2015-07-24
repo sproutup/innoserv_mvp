@@ -18,12 +18,22 @@
             </div>
         </div>
         <div class="profile-edit--description success" ng-show="vm.googleAnalyticsAPI">
-            <p>Thanks for your authorization to view Google Analytics data.</p>
-            <p>Below is a list of sites that associate with your Google Analytics account.</p>
+            <p>Thanks for your authorization to view Google Analytics data. Below is a list of sites that associate with your Google Analytics account.</p>
             <p ng-hide="vm.ga.length > 0"><i class="fa fa-coffee"></i>Relax and have a cup of coffee. We are getting data from Google Analytics...</p>
-            <ul ng-show="vm.ga.length > 0">
-                <li ng-repeat="item in vm.ga">{{item.name}}  views: {{item.viewCount}}</li>
-            </ul>
+            <table class="table table-striped table-responsive analytics-table" ng-show="vm.ga.length > 0">
+                <thead>
+                <tr>
+                  <th class="leading-column">Site Name</th>
+                  <th>Unique Views / Month</th>
+                </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="item in vm.ga">
+                      <td class="leading-column">{{item.name}}</td>
+                      <td>We're working hard to get data...</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
         <div ng-hide="true" class="profile-edit--description warning">
             <p><i class="fa fa-bug"></i>Emm... There seems not sites associated with your Google Analytics account. Please double check if you chose the right account.</p>
@@ -40,14 +50,25 @@
             </div>
         </div>
         <div class="profile-edit--description success" ng-show="vm.youtubeAnalyticsAPI">
-            <p>Thanks for your authorization to view your YouTube account and your YouTube Analytics reports.</p>
-            <p ng-hide="vm.yt.length > 0">Below is the channel associated with your Youtube account.</p>
-            <p><i class="fa fa-coffee"></i>Relax and have a cup of coffee. We are getting data from YouTube...</p>
-            <ul ng-show="vm.yt.length > 0">
-                <li ng-repeat="item in vm.yt">{{item.name}}  views: {{item.viewCount}}</li>
-            </ul>
+            <p>Thanks for your authorization to view your YouTube account and your YouTube Analytics reports. Below is the channel associated with your Youtube account.</p>
+            <p ng-hide="vm.yt.length > 0"><i class="fa fa-coffee"></i>Relax and have a cup of coffee. We are getting data from YouTube...</p>
+            <table class="table table-striped table-responsive analytics-table" ng-show="vm.yt.length > 0">
+                <thead>
+                    <tr>
+                      <th class="leading-column">Channel Name</th>
+                      <th>Views</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="item in vm.yt">
+                      <td class="leading-column">{{item.name}}</td>
+                      <td>{{item.viewCount}}</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
 
+        <!-- revoke -->
         <div ng-show="vm.youtubeAnalyticsAPI || vm.googleAnalyticsAPI">
             <hr>
             <div class="profile-edit--description">
