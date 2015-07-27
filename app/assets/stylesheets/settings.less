@@ -160,19 +160,40 @@ a.list-group-item:hover {
 .my-content-item {
     margin: 15px 0px;
     padding: 0px;
-    background-color: @sproutup-lightgrey;
 }
 
 .my-content-item-summary {
-    border-right: 1px solid @sproutup-grey;
-    padding: 0px 25px;
+    padding: 15px 30px;
     margin: 15px 0px;
+    background-color: @sproutup-lightgrey;
+    border-radius: 8px;
 }
 
 @media (max-width:767px){
     .my-content-item-summary {
-        border: none;
+        padding: 15px 20px;
     }
+}
+
+.my-content-user-avatar {
+    padding-top: 15px;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-bottom: 15px;
+}
+
+.my-content-user-avatar img {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.my-content-user-img {
+    width: 80px;
+    height: auto;
+    -webkit-border-radius: 500px;
+    -moz-border-radius: 500px;
+    border-radius: 500px;
+    border: 2px solid @sproutup-grey;
 }
 
 .my-content-item-stat {
@@ -183,6 +204,27 @@ a.list-group-item:hover {
 .my-content-image {
     margin: 10px 0px 5px;
     border-radius: 4px;
+}
+
+.my-content-user {
+    font-size: 12pt;
+    font-weight: 700;
+    color: @sproutup-blue;
+    padding: 5px 0px;
+    margin: 0px;
+}
+
+.my-content-user span {
+    padding-left: 15px;
+    color: @main-text-2;
+}
+
+.my-content-timestamp {
+    font-weight: 400;
+    font-size: 10pt;
+    color: @secondary-text;
+    padding: 0px 0px 5px;
+    margin: 0px;
 }
 
 .my-content-headline {
@@ -307,7 +349,7 @@ a.list-group-item:hover {
 }
 
 .my-content-page {
-	max-width: 840px;
+	max-width: 720px;
 	margin: 90px auto 30px;
     padding: 0px 15px;
 }
