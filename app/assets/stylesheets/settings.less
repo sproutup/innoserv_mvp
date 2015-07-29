@@ -158,7 +158,7 @@ a.list-group-item:hover {
 }
 
 .my-content-item {
-    margin: 15px 0px;
+    margin: 0px;
     padding: 0px;
 }
 
@@ -166,7 +166,7 @@ a.list-group-item:hover {
     padding: 15px 30px;
     margin: 15px 0px;
     background-color: @sproutup-lightgrey;
-    border-radius: 8px;
+    border-radius: 0px;
 }
 
 @media (max-width:767px){
@@ -179,7 +179,7 @@ a.list-group-item:hover {
     padding-top: 15px;
     padding-left: 5px;
     padding-right: 5px;
-    padding-bottom: 15px;
+    padding-bottom: 0px;
 }
 
 .my-content-user-avatar img {
@@ -203,7 +203,6 @@ a.list-group-item:hover {
 
 .my-content-image {
     margin: 10px 0px 5px;
-    border-radius: 4px;
 }
 
 .my-content-user {
@@ -243,6 +242,44 @@ a.list-group-item:hover {
     line-height: 1.6;
     padding: 0px 0px 10px;
     margin: 0px;
+}
+
+.my-content-video {
+    margin: 10px 0px 5px;
+    background-color: #333;
+    height: 100%;
+    width: 100%;
+    color: @main-text-white;
+}
+
+.my-content-video.embedded {
+      position: relative;
+      padding-bottom: 56.25%;
+      padding-top: 30px;
+      height: 0;
+      overflow: hidden;
+}
+
+.my-content-video.embedded iframe,
+.my-content-video.embedded object,
+.my-content-video.embedded embed {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+}
+
+.my-content-add-item {
+    margin: 0px;
+    padding: 0px;
+}
+
+.my-content-add-item span {
+    font-weight: 700;
+    font-size: 11pt;
+    padding-right: 15px;
+    color: @sproutup-blue;
 }
 
 .product-trial-item-banner {
