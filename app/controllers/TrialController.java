@@ -1,13 +1,17 @@
 package controllers;
 
 import be.objectify.deadbolt.java.actions.SubjectPresent;
+
+import com.avaje.ebean.FetchConfig;
 import com.fasterxml.jackson.databind.JsonNode;
+
 import models.*;
 import play.Logger;
 import play.mvc.BodyParser;
 import play.mvc.Controller;
 import play.mvc.Result;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -69,25 +73,58 @@ public class TrialController extends Controller {
                 prod = Product.findBySlug(product_slug);
                 if (prod != null) {
                     item.product = prod;
+                    prod.cacheRemove();
                 }
                 else{
                     return notFound("Product for trial not found");
                 }
             }
 
-            item.generateRefUrl();
+            List<Integer> s = Arrays.asList(0, 1, 2, 3, 4);//only active requests and not cancelled ones
+            
+            /*
+             * Place trial request only if user has 3 or less active ones
+             */
+            List<Trial> t = Trial.find.fetch("user", new FetchConfig().query())
+                    .where()
+                    .eq("user.id", user.id)
+                    .in("status", s).findList();
+            System.out.println("number of active request for this user" + t.size());
+            if (t!=null && t.size()>=3) { return found("User already has more than 3 active requests");}
+            
+            /*
+            * Place trial request only if it doesn't exist before
+            */
+             t = Trial.find.fetch("user", new FetchConfig().query()).fetch("product", new FetchConfig().query())
+            .where()
+            .eq("user.id", user.id)
+            .eq("product.id", item.product.id)
+            .in("status", s).findList();
+            
+            
+             if (t==null || t.size()==0) {//only create trial if it doesn't exist
+                item.save();
+	
+	            /*
+	             * need to save first to generate item.id before we want to generate RefURL
+	             * so that each refferer id gets tied to a trial id
+	             */
+	            item.generateRefUrl();
+	            item.update();
+	            
 
-            item.save();
-            prod.cacheRemove();
+	            return created(item.toJson());
 
-            return created(item.toJson());
-        }
+            } else {
+            	return ok(item.toJson()); 
+            }
+        } 
     }
 
     @SubjectPresent
     public static Result update(Long id)
     {
-        User user = Application.getLocalUser(ctx().session());
+    	User user = Application.getLocalUser(ctx().session());
         Trial item = Trial.find.byId(id);
         // check that we found the trial and that user owns it
         if(item != null && item.user.id != null && item.user.id.longValue() == user.id.longValue()) {
