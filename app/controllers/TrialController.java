@@ -80,7 +80,8 @@ public class TrialController extends Controller {
                 }
             }
 
-            List<Integer> s = Arrays.asList(0, 1, 2, 3, 4);//only active requests and not cancelled ones
+            List<Integer> s1 = Arrays.asList(0, 1, 2, 3);//only active requests and not cancelled ones
+            List<Integer> s2 = Arrays.asList(0, 1, 2, 3, 4);//only active requests and not cancelled ones
             
             /*
              * Place trial request only if user has 3 or less active ones
@@ -88,7 +89,7 @@ public class TrialController extends Controller {
             List<Trial> t = Trial.find.fetch("user", new FetchConfig().query())
                     .where()
                     .eq("user.id", user.id)
-                    .in("status", s).findList();
+                    .in("status", s1).findList();
             
             if (t!=null && t.size()>=3) { return status(200, "User already has more than 3 active requests"); }
             
@@ -99,7 +100,7 @@ public class TrialController extends Controller {
             .where()
             .eq("user.id", user.id)
             .eq("product.id", item.product.id)
-            .in("status", s).findList();
+            .in("status", s2).findList();
             
             
              if (t==null || t.size()==0) {//only create trial if it doesn't exist
