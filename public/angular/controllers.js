@@ -605,6 +605,15 @@ productControllers.controller('productDetailCtrl', ['$scope', '$rootScope', '$st
                     $scope.hasCurrentTrial = false;
                 }
             }
+            console.log("## check for number of active trials")
+            $scope.hasReachedTrialLimit = false;
+            if(authService.m.user.trials !== undefined) {
+                var activeTrials = authService.m.user.trials.filter(function(element) {
+                    return (element.status >= 0 && element.status < 4)
+                });
+                $scope.hasReachedTrialLimit = (activeTrials.length >= 3);
+                console.log("## found " + activeTrials.length + " active trials");
+            }
         };
 
         ProductService.get({slug: $stateParams.slug}).$promise.then(
