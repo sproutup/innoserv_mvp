@@ -15,6 +15,7 @@ import java.util.Map;
 
 import models.Content;
 import models.EarlyAccessRequest;
+import models.InfluencerScore;
 import models.ProductSuggestion;
 import models.ProductTrial;
 import models.Trial;
@@ -26,6 +27,8 @@ import com.avaje.ebean.*;
 
 import constants.AppConstants;
 import static play.mvc.Http.MultipartFormData;
+
+import plugins.KloutPlugin;
 import views.html.admin.*;
 
 public class ReportAdminController extends Controller {
@@ -223,6 +226,68 @@ public class ReportAdminController extends Controller {
 
   }
 
-  
+    /**
+     * Adds Klout score to user given by userId. Adds to Influencer Score table if not currently present.
+     *
+     * @param userId id of user for whom Klout score must be gotten/updated
+     * @return redirect result leading back to first page of user list
+     */
+    public static Result updateKloutScore(Long userId) {
+        User influencer = User.find.byId(userId);
+        InfluencerScore influence = InfluencerScore.find.where().eq("user_id", userId).findUnique();
+        Double score = KloutPlugin.getKloutScoreFromUser(influencer);
+        if (score != null) {
+            if (influence == null) {
+                influence = new InfluencerScore();
+                influence.user = influencer;
+                influence.kloutScore = score;
+                influence.save();
+            }
+            else {
+                influence.kloutScore = score;
+                influence.update();
+            }
+        }
+        return redirect(routes.ReportAdminController.userList(0));
+    }
+
+    /**
+     * Adds Klout score for new users/those missing one if possible
+     * @return redirect result leading back to first page of user list
+     */
+    public static Result addKloutScores() {
+
+        //only add scores for users that don't have an existing score
+        String sql = "select id from users where users.id not in (select user_id from influencer_score where klout_score is not null)";
+
+        //parse sql
+        RawSql rSql = RawSqlBuilder.parse(sql).create();
+        List<User> userList = User.find.query().setRawSql(rSql).findList();
+
+        for (int i = 0; i < userList.size(); i++) {
+            Double score = KloutPlugin.getKloutScoreFromUser(userList.get(i));
+            if (score != null) {
+                InfluencerScore influence = new InfluencerScore();
+                influence.user = userList.get(i);
+                influence.kloutScore = score;
+                influence.save();
+            }
+        }
+        return redirect(routes.ReportAdminController.userList(0));
+    }
+
+    /**
+     * Updates Klout score for all entries in Influencer Score table
+     * @return redirect result leading back to first page of user list
+     */
+    public static Result updateAllKloutScores() {
+        List<InfluencerScore> influencerScoreList = InfluencerScore.find.all();
+        for (int i = 0; i < influencerScoreList.size(); i++) {
+            influencerScoreList.get(i).kloutScore = KloutPlugin.getKloutScoreFromUser(influencerScoreList.get(i).user);
+            influencerScoreList.get(i).update();
+        }
+        return redirect(routes.ReportAdminController.userList(0));
+    }
+
 }
 
