@@ -2,7 +2,8 @@
 <div class="product-trial-banner" up-background-image="{{vm.product.banner.url.image}}" up-background-attr="?w=1600" up-fallback-image="/assets/images/default-product-banner.jpg">
     <div class="product-info-wrapper">
         <div class="col-lg-12 product-info">
-            <div class="signup-wizard">
+            <!-- Show success if less than 3 requests, failure if more than 3 based on vm.trialSuccess -->
+            <div ng-show="vm.trialSuccess" class="signup-wizard">
                 <h1>Congrats, you're in line for trial! What's next?</h1>
                 <h3><i class="fa fa-chevron-circle-right"></i>Hang tight, we'll notify you via email soon</h3>
                 <p>Meanwhile, if you have any questions, please feel free to <a href="mailto:tao@sproutup.co" target="_top">contact us</a>, or visit <a ui-sref="user.faq">FAQs</a>.</p>
@@ -12,6 +13,13 @@
                 <p>Help the product creator: write a blog; make a YouTube video; tweet. Get great perks for spreading the word.</p>
                 <h3><i class="fa fa-chevron-circle-right"></i>Re-pack in the box, pat your back</h3>
                 <p>When the trial is over, just pack everything back in the box and send back (we provide shipping label).</p>
+                <div class="signup-wizard-actions">
+                    <button class="btn btn-lg sproutup-btn-md-main" ng-click="vm.finish()">Cool, got it</button>
+                    <!--button class="btn btn-lg sproutup-btn-md-main">Share on Twitter</button-->
+                </div>
+            </div>
+            <div ng-show="!vm.trialSuccess" class="signup-wizard">
+                <h1>Oops! You already have 3 active trial requests, and that is the limit!</h1>
                 <div class="signup-wizard-actions">
                     <button class="btn btn-lg sproutup-btn-md-main" ng-click="vm.finish()">Cool, got it</button>
                     <!--button class="btn btn-lg sproutup-btn-md-main">Share on Twitter</button-->
