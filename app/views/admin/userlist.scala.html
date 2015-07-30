@@ -33,6 +33,10 @@
       }
 
    </script>
+   <div>
+     <a href="/adminstuff/user/addKloutScores" class="btn" target="_self">Add Klout Scores</a>
+     <a href="/adminstuff/user/updateAllKloutScores" class="btn" target="_self">Update all Klout Scores</a>
+   </div>
    <div class="table-responsive">
    <table class="table table-striped">
     <thead>
@@ -90,6 +94,9 @@
         <td>@userForm.updatedAt</td>
         <td>@userForm.lastLogin</td>
 
+        <td>
+          <a href="/adminstuff/user/updateKloutScore/@userForm.id" class="btn" target="_self">Update Klout Score</a>
+        </td>
 
       </tr>
       }

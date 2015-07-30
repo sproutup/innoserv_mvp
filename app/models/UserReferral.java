@@ -10,8 +10,11 @@ import org.joda.time.DateTime;
 
 import play.libs.Json;
 
+import com.avaje.ebean.FetchConfig;
 import com.avaje.ebean.Page;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+
+import constants.AppConstants;
 
 /**
  * Created by nitin on 6/23/15.
@@ -62,8 +65,24 @@ public class UserReferral extends TimeStampModel {
 	                .getPage(page);
 	}
 	
+    public static Page<UserReferral> findTrialsbyInfluencers(int page) {
+    	
+    	return
+            find.fetch("user", new FetchConfig().query())
+            		.fetch("user.roles", new FetchConfig().query())
+            		//.fetch("userRef", new FetchConfig().query())
+                    .where()
+                    .eq("user.roles.roleName", AppConstants.INFLUENCER)
+                    .isNotNull("trial_id")
+                    .orderBy("id desc")
+                .findPagingList(2000)
+                .setFetchAhead(false)
+                .getPage(page);
+	}
+	
 	/**
-	 * Generate referralId associated with the current user if asking for the first time, 
+	 * Generate referralId associated with the current user and a campaign or trial
+	 * if asking for the first time, 
 	 * otherwise return from db
 	 * @param userId
 	 * @param campaignId

@@ -1,0 +1,44 @@
+@(inflList: java.util.List[User])
+@main("Influencer list") {
+
+    <h2><a href="/adminstuff" target="_self">Admin Home</a></h2>
+
+  <h2>Influencers
+	  </h2>
+
+<div class="table-responsive">
+   <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>User Id</th>
+        <th>Influencer Name</th>
+        <th>Total Trial Request</th>
+        <th>Signup Date</th>
+        <th>is Active</th>
+
+      </tr>
+    </thead>
+    <tbody>
+    @for(infl <- inflList) {
+
+      <tr>
+
+        <td>@infl.id</td>
+        <td>@infl.name</td>
+        @if(infl.trials!=null){
+        <td>
+        @infl.trials.size()</td>
+        } else {
+        <td>0</td>
+        }
+        <td>@infl.createdAt</td>
+        <td>@infl.active</td>
+
+      </tr>
+      }
+
+    </tbody>
+   </table>
+</div>
+
+}

@@ -1,14 +1,23 @@
 package models;
 
+import com.avaje.ebean.FetchConfig;
 import com.avaje.ebean.Page;
+import com.avaje.ebean.RawSql;
+import com.avaje.ebean.RawSqlBuilder;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+
+import constants.AppConstants;
+
 import org.joda.time.DateTime;
+
 import play.libs.Json;
 import service.GoogleURLShortener;
 
 import javax.persistence.*;
+
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -64,21 +73,37 @@ public class Trial extends TimeStampModel {
 
     public static Page<Trial> find(int page) {
 	    return
-            find.where()
-                .orderBy("id desc")
-                .findPagingList(100)
+            find
+            .where()
+            .orderBy("id desc")
+            .findPagingList(2000)
+            .setFetchAhead(false)
+            .getPage(page);
+	}
+    
+    public static Page<Trial> findTrialsbyInfluencers(int page) {
+    	
+    	return
+            find.fetch("user", new FetchConfig().query())
+            		.fetch("user.roles", new FetchConfig().query())
+            		.where()
+                    .eq("user.roles.roleName", AppConstants.INFLUENCER)
+                    .orderBy("id desc")
+                .findPagingList(2000)
                 .setFetchAhead(false)
                 .getPage(page);
 	}
+
     
     public String getStatus() {
 		return status.toString();
 	}
 
-    public void generateRefUrl() {
-        String referralId = UserReferral.getReferralId(user.id, null, id);
+    public String generateRefUrl() {
+        String referralId = UserReferral.getReferralId(user.id, null, this.id);
         String genURL = "http://sproutup.co/product/" + product.slug + "?refId="+ referralId;
-        refURL = GoogleURLShortener.shortenURL(genURL);
+        this.refURL = GoogleURLShortener.shortenURL(genURL);
+        return this.refURL;
     }
 
     public ObjectNode toJson(){
