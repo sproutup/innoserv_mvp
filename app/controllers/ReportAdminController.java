@@ -13,11 +13,14 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import models.Content;
+import models.EarlyAccessRequest;
 import models.ProductSuggestion;
 import models.ProductTrial;
 import models.Trial;
 import models.SecurityRole;
 import models.User;
+import models.UserReferral;
 
 import com.avaje.ebean.*;
 
@@ -48,6 +51,17 @@ public class ReportAdminController extends Controller {
     return ok(userlist.render(userForm, users));
   }
 
+  public static Result influencerList() {
+	    if(!admin_enabled){return notFound();};
+
+	    Logger.debug("mode: " + play.api.Play.current().mode());
+	    List<User> users = User.findInfluencers();//findAll();
+	    return ok(influencer_list.render(users));
+	  }
+  
+/**
+ * @deprecated
+ */
   public static Result trialList(Integer page) {
     if(!admin_enabled){return notFound();};
 
@@ -55,16 +69,37 @@ public class ReportAdminController extends Controller {
     Page<ProductTrial> trials = ProductTrial.find(page);//findAll();
     return ok(trial_list.render(trials));
   }
+  
+  public static Result allTrialList(Integer page) {
+	    if(!admin_enabled){return notFound();};
+
+	    Logger.debug("mode: " + play.api.Play.current().mode());
+	    
+	    Page<Trial> trials = Trial.find(page);//findAll();
+	    //return ok(influencer_trial_list.render(trials));
+	    return ok(all_trial_list.render(trialForm, trials));
+	  }
+
 
   public static Result influencerTrialList(Integer page) {
     if(!admin_enabled){return notFound();};
 
     Logger.debug("mode: " + play.api.Play.current().mode());
     
-    Page<Trial> trials = Trial.find(page);//findAll();
-    //return ok(influencer_trial_list.render(trials));
+    Page<Trial> trials = Trial.findTrialsbyInfluencers(page);
+    
     return ok(influencer_trial_list.render(trialForm, trials));
   }
+  
+  public static Result influencerReferralList(Integer page) {
+	    if(!admin_enabled){return notFound();};
+
+	    Logger.debug("mode: " + play.api.Play.current().mode());
+	    
+	    Page<UserReferral> trials = UserReferral.findTrialsbyInfluencers(page);
+	    
+	    return ok(influencer_referral_list.render(trials));
+	  }
   
   /**
    * Update Trial status for a specific trial request
@@ -88,9 +123,25 @@ public class ReportAdminController extends Controller {
 	    return redirect(routes.ReportAdminController.influencerTrialList(0));
 
 
-	  }
-
+  }
   
+  /**
+   * Get the content published by user on Trial
+   * @return
+   */
+  public static Result contentList(Integer page) {
+	  if(!admin_enabled){return notFound();};
+	  
+	  	Logger.debug("mode: " + play.api.Play.current().mode());
+	    Page<Content> urls = Content.find(page);//findAll();
+	    return ok(content_list.render(urls));
+  }
+
+  /**
+   * @deprecated
+   * @param page
+   * @return
+   */
   public static Result suggestedProductList(Integer page) {
 	    if(!admin_enabled){return notFound();};
 
@@ -98,6 +149,15 @@ public class ReportAdminController extends Controller {
 	    Page<ProductSuggestion> suggestions = ProductSuggestion.find(page);//findAll();
 	    return ok(suggested_product_list.render(suggestions));
   }
+  
+  public static Result earlyAccessRequestList(Integer page) {
+	    if(!admin_enabled){return notFound();};
+
+	    Logger.debug("mode: " + play.api.Play.current().mode());
+	    Page<EarlyAccessRequest> suggestions = EarlyAccessRequest.find(page);//findAll();
+	    return ok(early_access_list.render(suggestions));
+  }
+
 
 //  public static Result details(User user) {
 //    if(!admin_enabled){return notFound();};

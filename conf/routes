@@ -167,15 +167,20 @@ POST          /adminstuff/dosocialmediapost                                  con
 
 GET           /adminstuff/user                                            	 controllers.ReportAdminController.index()
 GET           /adminstuff/user/list                                       	 controllers.ReportAdminController.userList(page: Integer ?= 0)
+GET           /adminstuff/user/influencerlist                                controllers.ReportAdminController.influencerList()
 POST          /adminstuff/user/updateRole                  					 controllers.ReportAdminController.updateUserRole()
 GET           /adminstuff/trial/list                                       	 controllers.ReportAdminController.trialList(page: Integer ?= 0)
+GET           /adminstuff/influencer_trial/alllist                           controllers.ReportAdminController.allTrialList(page: Integer ?= 0)
 GET           /adminstuff/influencer_trial/list                              controllers.ReportAdminController.influencerTrialList(page: Integer ?= 0)
 POST          /adminstuff/influencer_trial/updateStatus                      controllers.ReportAdminController.updateTrialStatus()
+GET           /adminstuff/influencer_trial/reflist                           controllers.ReportAdminController.influencerReferralList(page: Integer ?= 0)
 GET           /adminstuff/suggest/list                                       controllers.ReportAdminController.suggestedProductList(page: Integer ?= 0)
+GET           /adminstuff/earlyAccess/list                                   controllers.ReportAdminController.earlyAccessRequestList(page: Integer ?= 0)
 GET           /adminstuff/campaign/list                                      controllers.CampaignController.list()
 GET           /adminstuff/campaign/new                                       controllers.CampaignController.newCampaign()
 POST          /adminstuff/campaign/save                                  	 controllers.CampaignController.save()
 GET           /adminstuff/campaign/:id                                       controllers.CampaignController.details(id: Long)
+GET           /adminstuff/content/list                                   	 controllers.ReportAdminController.contentList(page: Integer ?= 0)
 
 # Mockups
 GET           /mockups/product/:slug/about                                   controllers.MockupController.detailsAboutBySlug(slug: String)

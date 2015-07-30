@@ -1,0 +1,107 @@
+@(currentPage: com.avaje.ebean.Page[UserReferral])
+@import helper._
+
+@main("Product Trial list (By Influencers)") {
+
+<h2><a href="/adminstuff" target="_self" class="btn btn-lg">Admin Home</a></h2>
+
+  <h2>Product Trial list (By Influencers)
+  </h2>
+
+
+
+<div class="table-responsive">
+   <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Request Id</th>
+        <th>User Id</th>
+        <th>Name</th>
+        <th>Email/TwitterId/Phone</th>
+        <th>Ref Id</th>
+        <th>Product Name</th>
+        <th>Date of Request</th>
+        <th>Date status updated</th>
+        <th>status</th>
+
+
+      </tr>
+    </thead>
+    <tbody>
+
+    <input type="hidden" name="requestId"/>
+	<input type="hidden" name="statusVal"/>
+
+    @for(uref <- currentPage.getList()) {
+
+      <tr>
+
+        <td>@uref.trial.id</td>
+        @if(uref.user ==null){
+        <td>Null</td>
+        <td>@uref.trial.name</td>
+        <td>Unknown</td>
+        <td>@uref.trial.email
+        <br>/@uref.trial.phone
+        </td>
+        } else {
+        <td>@uref.user.id</td>
+        <td> @uref.user.name</td>
+        <td> @uref.user.email
+        <br>/ @uref.user.urlTwitter
+        <br>/ @uref.trial.phone
+
+        </td>
+        }
+        <td>@uref.referralId</td>
+        <td>@uref.trial.product.productName</td>
+        <td>@uref.trial.createdAt</td>
+        <td>@uref.trial.updatedAt</td>
+        <td>
+          <select id="status[@uref.trial.id]">
+			  <option value="0" @if(uref.trial.status.toString=="0"){ selected="selected" }>Requested</option>
+			  <option value="1" @if(uref.trial.status.toString=="1"){ selected="selected" }>Approved</option>
+			  <option value="2" @if(uref.trial.status.toString=="2"){ selected="selected" }>Sent</option>
+			  <option value="3" @if(uref.trial.status.toString=="3"){ selected="selected" }>Received</option>
+			  <option value="4" @if(uref.trial.status.toString=="4"){ selected="selected" }>Returned</option>
+			  <option value="-1" @if(uref.trial.status.toString=="-1"){ selected="selected" }>Rejected</option>
+			  <option value="-2" @if(uref.trial.status.toString=="-2"){ selected="selected" }>Cancelled</option>
+		</select>
+		</td>
+
+      </tr>
+      }
+ 
+    </tbody>
+   </table>
+
+   </div>
+
+   <div id="pagination" class="pagination">
+            <ul>
+                @if(currentPage.hasPrev) {
+                    <li class="prev">
+                        <a href="@routes.ReportAdminController.influencerReferralList(currentPage.getPageIndex - 1)" target="_self">&larr; </a>
+                    </li>
+                } else {
+                    <li class="prev disabled">
+                        <a>&larr;</a>
+                    </li>
+                }
+                <li class="current">
+                    @currentPage.getDisplayXtoYofZ(" - "," / ")
+                </li>
+                @if(currentPage.hasNext) {
+                    <li class="next">
+                        <a href="@routes.ReportAdminController.influencerReferralList(currentPage.getPageIndex + 1)" target="_self"> &rarr;</a>
+                    </li>
+                } else {
+                    <li class="next disabled">
+                        <a>&rarr;</a>
+                    </li>
+                }
+            </ul>
+        </div>
+
+
+}

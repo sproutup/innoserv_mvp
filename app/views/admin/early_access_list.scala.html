@@ -1,0 +1,80 @@
+@(currentPage: com.avaje.ebean.Page[EarlyAccessRequest])
+@main("Early Access Request list") {
+
+<h2><a href="/adminstuff" target="_self" class="btn btn-lg">Admin Home</a></h2>
+
+  <h2>All Early Access Request
+  </h2>
+
+    <script>
+     function del(urlToDelete) {
+        $.ajax({
+          url: urlToDelete,
+          type: 'DELETE',
+          success: function(results) {
+            // Refresh the page
+            location.reload();
+          }
+        });
+      }
+   </script>
+
+<div class="table-responsive">
+   <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Product URL</th>
+        <th>Email</th>
+        <th>Date added</th>
+        <th>Date updated</th>
+      </tr>
+    </thead>
+    <tbody>
+    @for(suggest <- currentPage.getList()) {
+
+      <tr>
+
+        <td>@suggest.id</td>
+        <td>@suggest.name</td>
+        <td>@suggest.productUrl</td>
+        <td>@suggest.email</td>
+        <td>@suggest.createdAt</td>
+        <td>@suggest.updatedAt</td>
+
+      </tr>
+      }
+
+    </tbody>
+   </table>
+</div>
+
+   <div id="pagination" class="pagination">
+            <ul>
+                @if(currentPage.hasPrev) {
+                    <li class="prev">
+                        <a href="@routes.ReportAdminController.suggestedProductList(currentPage.getPageIndex - 1)" target="_self">&larr; </a>
+                    </li>
+                } else {
+                    <li class="prev disabled">
+                        <a>&larr;</a>
+                    </li>
+                }
+                <li class="current">
+                    @currentPage.getDisplayXtoYofZ(" - "," / ")
+                </li>
+                @if(currentPage.hasNext) {
+                    <li class="next">
+                        <a href="@routes.ReportAdminController.suggestedProductList(currentPage.getPageIndex + 1)" target="_self"> &rarr;</a>
+                    </li>
+                } else {
+                    <li class="next disabled">
+                        <a>&rarr;</a>
+                    </li>
+                }
+            </ul>
+        </div>
+
+
+}

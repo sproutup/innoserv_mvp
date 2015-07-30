@@ -5,6 +5,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import play.db.ebean.Model.Finder;
+
+import com.avaje.ebean.Page;
+
 /**
  * Created by peter on 3/23/15.
  */
@@ -20,4 +24,16 @@ public class EarlyAccessRequest extends TimeStampModel {
     public String name;
 
     public String productUrl;
+    
+    public static Finder<Long, EarlyAccessRequest> find = new Finder<Long, EarlyAccessRequest>(
+            Long.class, EarlyAccessRequest.class);
+    
+    public static Page<EarlyAccessRequest> find(int page) {
+	    return
+	            find.where()
+	                .orderBy("id desc")
+	                .findPagingList(1000)
+	                .setFetchAhead(false)
+	                .getPage(page);
+	}
 }

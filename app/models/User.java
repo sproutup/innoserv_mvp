@@ -6,6 +6,7 @@ import be.objectify.deadbolt.core.models.Subject;
 
 import com.avaje.ebean.Ebean;
 import com.avaje.ebean.ExpressionList;
+import com.avaje.ebean.FetchConfig;
 import com.avaje.ebean.Page;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
@@ -154,7 +155,7 @@ public class User extends TimeStampModel implements Subject {
 
     @Transient
     private boolean isCreator;
-
+    
 	public static final Finder<Long, User> find = new Finder<Long, User>(
 			Long.class, User.class);
 
@@ -672,4 +673,16 @@ public class User extends TimeStampModel implements Subject {
 		}
 		super.save();
 	}
+	
+	public static List<User> findInfluencers() {
+		List<User> infl = 
+        find.fetch("roles", new FetchConfig().query())
+        .where()
+        .eq("roles.roleName", AppConstants.INFLUENCER)
+        .orderBy("id desc").findList();
+	return infl;
+		
+	}
+	
+	
 }
