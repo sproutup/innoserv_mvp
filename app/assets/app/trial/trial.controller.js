@@ -72,8 +72,8 @@
                 // Currently checking on data.id existence. Can't return empty data
                 if (typeof data.id !== 'undefined') {
                     vm.trialSuccess = true;
+                    authService.addTrial(data);
                 }
-                authService.addTrial(data);
                 $state.go("user.trial.confirmation");
             },
             function(err){
