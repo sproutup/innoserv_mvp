@@ -89,7 +89,7 @@ public class TrialController extends Controller {
                     .where()
                     .eq("user.id", user.id)
                     .in("status", s).findList();
-            System.out.println("number of active request for this user" + t.size());
+            
             if (t!=null && t.size()>=3) { return status(200, "User already has more than 3 active requests"); }
             
             /*
