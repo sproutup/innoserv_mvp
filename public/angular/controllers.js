@@ -137,13 +137,38 @@ fileControllers.controller('FileCtrl', ['$scope', '$rootScope', '$upload', 'File
 
 var authControllers = angular.module('AuthControllers', ['ui.bootstrap']);
 
-authControllers.controller('AuthCtrl', ['$scope', '$modal', '$log', 'AuthService', '$q', '$state',
-    function ($scope, $modal, $log, authService, $q, $state) {
+authControllers.controller('AuthCtrl', ['$scope', '$rootScope', '$modal', '$log', 'AuthService', '$q', '$state',
+    function ($scope, $rootScope, $modal, $log, authService, $q, $state) {
 
     var vm = this;
     vm.m = authService.m;
     vm.user = authService.user;
     vm.isLoggedIn = authService.isLoggedIn;
+    vm.numActiveTrials = 0;
+
+    activate();
+
+    function activate() {
+        if(!authService.ready()){
+            var unbindWatch = $rootScope.$watch(authService.ready, function (value) {
+                if ( value === true ) {
+                  unbindWatch();
+                  activate();
+                }
+            });
+        }
+        else{
+            checkActiveTrials()
+        }
+    }
+
+    function checkActiveTrials() {
+        if (authService.m.isLoggedIn && typeof authService.m.user.trials !== 'undefined') {
+            vm.numActiveTrials = authService.m.user.trials.filter(function (item) {
+                return (item.status >= 0 && item.status < 4);
+            }).length;
+        }
+    }
 
     $scope.signup = {
         'email': '',
