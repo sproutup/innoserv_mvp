@@ -1,0 +1,22 @@
+<!-- Content -->
+<div class="col-sm-9">
+
+    <div class="product-trial-header" ng-show="!vm.cancelled.length > 0">
+        <p>No cancelled product trials. If you haven't made your first request, browse our <a ui-sref="user.search">awesome collection of products</a> and get started.</p>
+    </div>
+
+    <div class="row product-trial-item" ng-repeat="item in vm.cancelled | orderBy:'-updatedAt'">
+        <div class="col-sm-12 product-trial-item-banner" up-background-image="{{item.product.banner.url.image}}" up-background-attr="?w=600&h=100" up-fallback-image="/assets/images/default-product-banner.jpg">
+            <p>{{item.product.name}}</p>
+        </div>
+        <div class="col-sm-12 product-trial-item--detail">
+            <div ng-switch="item.status">
+                <p ng-switch-when="-1" class="product-trial-item--status reject"><i class="fa fa-times-circle"></i>Not approved on {{item.updatedAt | date:'MMM dd, yyyy'}}</p>
+                <p ng-switch-when="-1" class="product-trial-item--status-desc">At this point, product trial is only available for eligible social influencers.</p>
+
+                <p ng-switch-when="-2" class="product-trial-item--status reject"><i class="fa fa-check-circle"></i>Cancelled on {{item.updatedAt | date:'MMM dd, yyyy'}}</p>
+                <p ng-switch-when="-2" class="product-trial-item--status-desc">We're so sorry, but we have to cancel your request because the product is not available at this moment.</p>
+            </div>
+        </div>
+    </div>
+</div>

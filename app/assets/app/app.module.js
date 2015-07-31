@@ -524,6 +524,13 @@ sproutupApp.config(['$routeProvider', '$stateProvider', '$locationProvider', '$u
                     title: 'My Past Product Trials'
                 }
             })
+            .state('user.mytrials.cancelled', {
+                url: '/cancelled',
+                templateUrl: 'assets/app/mytrials/cancelled.html',
+                data: {
+                    title: 'My Cancelled Product Trials'
+                }
+            })
         ;
 
 
