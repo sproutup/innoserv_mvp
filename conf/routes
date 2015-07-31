@@ -84,6 +84,8 @@ PUT           /api/content/:id                                               con
 POST          /api/content/:id                                               controllers.ContentController.update(id: Long)
 DELETE        /api/content/:id                                               controllers.ContentController.delete(id: Long)
 
+GET           /api/openGraph/parse/                                          controllers.OpenGraphController.parse(url: String ?="")
+
 GET           /api/products                                                  controllers.Products.getProducts
 GET           /api/products/:slug                                            controllers.Products.getProduct(slug: String)
 POST          /api/products                                                  controllers.Products.createProduct

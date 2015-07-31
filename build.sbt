@@ -45,6 +45,8 @@ libraryDependencies += "com.google.apis" % "google-api-services-urlshortener" % 
 
 libraryDependencies += "com.google.api-client" % "google-api-client-appengine" % "1.20.0"
 
+libraryDependencies += "org.jsoup" % "jsoup" % "1.8.2"
+
 resolvers += "org.sedis" at "http://pk11-scratch.googlecode.com/svn/trunk"
 
 //  Uncomment the next line for local development of the Play Authenticate core:
