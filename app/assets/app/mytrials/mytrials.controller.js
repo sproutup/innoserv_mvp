@@ -46,10 +46,13 @@
             }
             else{
                 vm.current = vm.user.trials.filter(function (item) {
-                    return item.active === true;
+                    return (item.status >= 0 && item.status < 4);
                 });
                 vm.past = vm.user.trials.filter(function (item) {
-                    return item.active === false;
+                    return item.status === 4;
+                });
+                vm.cancelled = vm.user.trials.filter(function (item) {
+                    return item.status < 0;
                 });
             }
         }
