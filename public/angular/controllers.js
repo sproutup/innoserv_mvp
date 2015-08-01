@@ -144,7 +144,7 @@ authControllers.controller('AuthCtrl', ['$scope', '$rootScope', '$modal', '$log'
     vm.m = authService.m;
     vm.user = authService.user;
     vm.isLoggedIn = authService.isLoggedIn;
-    vm.numActiveTrials = 0;
+    vm.init = false;
 
     activate();
 
@@ -158,16 +158,17 @@ authControllers.controller('AuthCtrl', ['$scope', '$rootScope', '$modal', '$log'
             });
         }
         else{
-            checkActiveTrials()
+            vm.init = true;
         }
     }
 
-    function checkActiveTrials() {
+    vm.getActiveTrials = function () {
         if (authService.m.isLoggedIn && typeof authService.m.user.trials !== 'undefined') {
-            vm.numActiveTrials = authService.m.user.trials.filter(function (item) {
+            return authService.m.user.trials.filter(function (item) {
                 return (item.status >= 0 && item.status < 4);
             }).length;
         }
+        else return 0;
     }
 
     $scope.signup = {
