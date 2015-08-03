@@ -114,7 +114,7 @@ public class TrialController extends Controller {
 	            item.update();
 	            
 
-	            return created(item.toJson());
+	            return created(item.toFullJson());
 
             } else {
             	return ok(item.toJson()); 

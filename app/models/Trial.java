@@ -106,6 +106,31 @@ public class Trial extends TimeStampModel {
         return this.refURL;
     }
 
+    public ObjectNode toFullJson(){
+        ObjectNode node = Json.newObject();
+        node.put("id", this.id);
+        node.put("name", this.name);
+        node.put("email", this.email);
+        node.put("address", this.address);
+        node.put("reason", this.reason);
+        node.put("phone", this.phone);
+        node.put("active", this.active);
+        node.put("status", this.status);
+        node.put("createdAt", new DateTime(this.createdAt).toString());
+        node.put("updatedAt", new DateTime(this.updatedAt).toString());
+        if(this.user != null) {
+            node.put("user", this.user.toJsonShort());
+        }
+        if(this.product != null) {
+            node.put("product", this.product.toJsonShort());
+        }
+        if(this.content != null) {
+            node.put("content", Content.toJson(this.content));
+        }
+        node.put("refURL", refURL);
+        return node;
+    }
+
     public ObjectNode toJson(){
         ObjectNode node = Json.newObject();
         node.put("id", this.id);
