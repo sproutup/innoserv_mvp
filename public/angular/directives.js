@@ -1595,6 +1595,15 @@ angular.module('sproutupApp').directive('upProductItem', [
             link: function (scope, element, attrs) {
                 attrs.$observe('product', function (producty) {
                 });
+
+                scope.getActiveRequests = function(product) {
+                    if (typeof product.trials !== 'undefined') {
+                        return product.trials.filter(function (element) {
+                            return element.status >= 0;
+                        });
+                    }
+                    else return [];
+                }
             }
         };
     }]);

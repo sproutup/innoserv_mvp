@@ -8,8 +8,8 @@
                 <div class="product-cover-title">{{product.productName}}</div>
                 <div class="product-cover-description">{{product.productDescription}}</div>
                 <div class="trial-user-list">
-                    <div ng-hide="!product.trials" class="trial-user-list-title">{{product.trials.length}} TRIALS REQUESTED</div>
-                    <img popover="{{trial.user.name}}" popover-trigger="mouseenter" ng-repeat="trial in product.trials | orderBy: '-createdAt' | limitTo:8" class="trial-user-img" src="{{trial.user.avatarUrl}}">
+                    <div ng-show="getActiveRequests(product).length!=0" class="trial-user-list-title">{{getActiveRequests(product).length}} TRIALS REQUESTED</div>
+                    <img popover="{{trial.user.name}}" popover-trigger="mouseenter" ng-repeat="trial in getActiveRequests(product) | orderBy: '-createdAt' | limitTo:8" class="trial-user-img" src="{{trial.user.avatarUrl}}">
                 </div>
             </div>
         </div>
