@@ -622,7 +622,7 @@ productControllers.controller('productDetailCtrl', ['$scope', '$rootScope', '$st
             $scope.hasCurrentTrial = false;
             if(authService.m.user.trials !== undefined){
                 var item = authService.m.user.trials.filter(function(element){
-                    return element.product.slug == slug;
+                    return element.product.slug == slug && element.status >= 0;
                 })
                 console.log("filter result: ", item);
                 if(item.length > 0){
