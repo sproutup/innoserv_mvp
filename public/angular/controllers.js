@@ -649,9 +649,11 @@ productControllers.controller('productDetailCtrl', ['$scope', '$rootScope', '$st
             function(data) {
                 // success
                 $scope.product = data;
-                var productTrials = data.trials.filter(function(trial) {
-                    return trial.status > 0;
-                });
+                if (typeof data.trials !== 'undefined') {
+                    var productTrials = data.trials.filter(function(trial) {
+                        return trial.status > 0;
+                    });
+                }
                 if (typeof productTrials !== 'undefined' && productTrials.length !== 0) {
                     $scope.hasTrial = true;
                     productTrials = shuffleArray(productTrials);
