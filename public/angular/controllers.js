@@ -495,7 +495,7 @@ productControllers.controller('productListCtrl', ['$scope', 'ProductService',
 // Controller for modal share (Sprout Up) instance created by @apurv
 productControllers.controller('modalShareCtrl', ['$scope', '$window', '$stateParams', '$modalInstance', '$http', 'ProductService', '$log',
    function ($scope, $window, $stateParams, $modalInstance, $http, ProductService, $log) {
-	var processShareData;
+	var processShareData = {};
 	ProductService.get({slug: $stateParams.slug}).$promise.then(
 			function(data) {
 				// success
@@ -509,9 +509,10 @@ productControllers.controller('modalShareCtrl', ['$scope', '$window', '$statePar
 			        // this callback will be called asynchronously
 			        // when the response is available
 					$scope.campaignName = data.campaignName;
-					$scope.rewardMessage = data.campaignLongDescription;
+					$scope.longDescription = data.campaignLongDescription;
+					if (typeof data.perks !== 'undefined') { $scope.perk1 = data.perks[0]; }
 					$scope.uniqueLink = data.url;
-					$scope.hasCheckbox = data.offerDiscount;
+					$scope.showCheckbox = data.offerDiscount;
 					$scope.checkboxText = data.discountText;
 					processShareData = {
 						"userId":data.userId,
@@ -560,13 +561,15 @@ productControllers.controller('modalShareCtrl', ['$scope', '$window', '$statePar
 	});
 
 	$scope.close = function () {
-		$log.debug(JSON.stringify(processShareData, null, 4))
-		$http({
-	        method: 'POST',
-	        url: '/api/campaign/processShare',
-	        data: processShareData,
-	        headers: {'Content-Type': 'application/json'}
-		});
+		if (processShareData.requestedDisc || processShareData.sharedOnSocialMedia) {
+            $log.debug(JSON.stringify(processShareData, null, 4))
+            $http({
+                method: 'POST',
+                url: '/api/campaign/processShare',
+                data: processShareData,
+                headers: {'Content-Type': 'application/json'}
+            });
+		}
 		$modalInstance.close();
 	};
 }]);

@@ -24,7 +24,7 @@
                 <a analytics-on="click" analytics-event="Request trial: {{product.productName}}" ng-show="init && product.isAvailableForTrial && isLoggedIn && !hasCurrentTrial && !hasReachedTrialLimit" class="btn btn-lg sproutup-btn-md-main" ui-sref="user.trial.request({ slug: product.slug })">Request Product Trial</a>
                 <a analytics-on="click" analytics-event="Request trial: {{product.productName}}" ng-show="init && product.isAvailableForTrial && isLoggedIn && !hasCurrentTrial && hasReachedTrialLimit" class="btn btn-lg sproutup-btn-md-main" ui-sref="user.trial.confirmation({ slug: product.slug })">Request Product Trial</a>
                 <a analytics-on="click" analytics-event="View trial status: {{product.productName}}" ng-show="init && isLoggedIn && hasCurrentTrial" class="btn btn-lg sproutup-btn-md-main" ui-sref="user.mytrials.current">View my trial Status</a>
-                <a ng-show="init && activeSprout && !isLoggedIn" class="btn btn-lg sproutup-btn-md-main" ui-sref="user.signup" href="/signup">Sprout {{product.productName}} Up!</a>
+                <a ng-show="init && activeSprout && !isLoggedIn" class="btn btn-lg sproutup-btn-md-main" ng-click="login('user.product.detail.about', {slug: product.slug} )" ui-sref="user.login">Sprout {{product.productName}} Up!</a>
                 <a ng-show="init && activeSprout && isLoggedIn" class="btn btn-lg sproutup-btn-md-main" ng-click="open()">Sprout {{product.productName}} Up!</a>
             </div>
             <div class="product-menu--help">
@@ -38,7 +38,8 @@
                             <h3 class="modal-title">Sprout {{product.productName}} Up!</h3>
                         </div>
                         <div class="modal-body">
-                            <p>{{rewardMessage}}</p>
+                            <p>{{longDescription}}</p>
+                            <p>{{perk1}}</p>
             	            <p>Here is your unique referral link: <a>{{uniqueLink}}</a></p>
             	            <div class="row product-share-buttons">
                                 <div class="fb-share-button">
@@ -50,9 +51,8 @@
                             </div>
                             <p><input ng-show="showCheckbox" type="checkbox" ng-click="handleCheckbox()" id="wantDiscount"/> {{checkboxText}}</p>
                         </div>
-						<div class="modal-footer">
-							<button class="btn btn-lg sproutup-btn-md-main" ng-click="close()">Cancel</button>
-							<button class="btn btn-lg sproutup-btn-md-main" ng-click="close()">OK</button>
+                        <div class="modal-footer">
+							<a class="btn sproutup-btn-md-main" ng-click="close()">Cool, all done!</a>
 						</div>
                     </script>
                 </div>
