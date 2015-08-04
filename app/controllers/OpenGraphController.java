@@ -108,6 +108,17 @@ public class OpenGraphController extends Controller {
         }
     }
 
+    public static Result deleteByContent(Long id) {
+        OpenGraph openGraph = OpenGraph.find.where().eq("content_id", id).findUnique();
+        if (openGraph != null) {
+            openGraph.delete();
+            return ok();
+        }
+        else {
+            return notFound("OpenGraph not found");
+        }
+    }
+
     private static boolean check(JsonNode root, String path){
         JsonNode node = root.path(path);
         return !node.isMissingNode() && !node.isNull();
