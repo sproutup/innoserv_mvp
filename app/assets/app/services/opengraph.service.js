@@ -3,38 +3,19 @@ angular
     .module('sproutupApp')
     .factory('OpenGraphService', OpenGraphService);
 
-OpenGraphService.$inject = ['$http', '$q', '$log'];
+OpenGraphService.$inject = ['$resource'];
 
-function OpenGraphService($http, $q, $log){
-
-    var service = {
-        parse: parse
-    };
-
-    activate();
-
-    return service;
-
-    function activate() {
-        $log.debug("opengraph service - activated");
-    }
-
-    function parse(url){
-        var deferred = $q.defer();
-        $log.debug("OpenGraph - parse");
-
-        $http({
-            method: 'GET',
-            url: 'api/openGraph/parse/',
-            params: { "url": url },
-            headers: {'Content-Type': 'application/json'}
-        }).success(function(data, status, headers, config) {
-            deferred.resolve(data);
-        }).error(function(data, status, headers, config){
-            $log.debug("Failed to obtain ogData from url");
-            deferred.reject("Failed to obtain ogData from url");
-        });
-
-        return deferred.promise;
-    }
+function OpenGraphService($resource){
+    return $resource('/api/openGraph/:id', {id:'@id'}, {
+        parse: {
+            url:'api/openGraph/parse/:url',
+            params:{url:""},
+            method: 'GET'
+        },
+        deleteByContent: {
+            url:'api/openGraph/byContent/:id',
+            params:{id:'@id'},
+            method:'DELETE'
+        }
+    });
 }
