@@ -1,0 +1,107 @@
+@(currentPage: com.avaje.ebean.Page[Product])
+@import java.math.BigInteger; var activeCount=0; 
+@main("Products that are/were available for Trials") {
+
+ <h2><a href="/adminstuff" target="_self">Admin Home</a></h2>
+
+  <h2>All products that are requested by Influencers for Trials
+ 
+  </h2>
+
+
+
+   <table cellspacing="0" cellpadding="0" class="table table-striped">
+    <thead>
+      <tr>
+        <th width="3%">Product Id</th>
+        <th width="10%">Name</th>
+        <th width="3%">Trial id</th>
+        <th width="11%">Request Date</th>
+        <th width="3%">User id</th>
+        <th width="10%">Request made by</th>
+        <th width="10%">User Email/Twitter handle</th>
+        <th width="30%" style="text-align:center">Address</th>
+        <th width="10%">Status</th>
+        <th width="5%"># requests</th>
+        <th width="5%"># units avail</th>
+      </tr>
+    </thead>
+    <tbody>
+    @for(product <- currentPage.getList()) {
+
+      <tr>
+        <td width="3%"><a href="@routes.ProductAdministrationController.details(product)" target="_self">
+          @product.id</a>
+        </td>
+        <td width="10%"><a href="@routes.ProductAdministrationController.details(product)" target="_self">@product.productName</a></td>
+        <td colspan="7" width="75%">
+        <table class="table table-striped" cellspacing="0" cellpadding="0" width="100%">
+         @(activeCount = 0)
+         @for(t <- product.trials) {
+         	@if(t.user.isInfluencer){
+				@if(t.status==0 ||t.status==1 || t.status==2 || t.status==3 || t.status==4){
+				@(activeCount=activeCount+1)
+				
+				<tr>	
+				<td width="4%"> @t.id</td>
+				<td width="14.7%"> @t.createdAt</td>
+				<td width="4%"> @t.user.id</td>
+				<td width="13.3%"> @t.user.name</td>
+				<td width="13.3%"> @t.user.email/<br>@t.user.urlTwitter</td>
+				<td width="40%"> @t.address</td>
+				<td width="13.3%"> <select disabled="disabled">
+					  <option value="0" @if(t.status.toString=="0"){ selected="selected" }>Requested</option>
+					  <option value="1" @if(t.status.toString=="1"){ selected="selected" }>Approved</option>
+					  <option value="2" @if(t.status.toString=="2"){ selected="selected" }>Sent</option>
+					  <option value="3" @if(t.status.toString=="3"){ selected="selected" }>Received</option>
+					  <option value="4" @if(t.status.toString=="4"){ selected="selected" }>Returned</option>
+					  <option value="-1" @if(t.status.toString=="-1"){ selected="selected" }>Rejected</option>
+					  <option value="-2" @if(t.status.toString=="-2"){ selected="selected" }>Cancelled</option>
+				</select>
+			</td>
+				</tr>
+				
+			
+				}
+			}
+		}
+		</table>
+		</td>
+		<td width="5%"> @activeCount</td>
+		<td width="5%"> @product.unitsAvailable</td>        
+      </tr>
+      }
+  
+    </tbody>
+   </table>
+
+   <div id="pagination" class="pagination">
+            <ul>
+                @if(currentPage.hasPrev) {
+                    <li class="prev">
+                        <a href="@routes.ProductAdministrationController.listInfluencerTrials(currentPage.getPageIndex - 1)" target="_self">&larr; </a>
+                    </li>
+                } else {
+                    <li class="prev disabled">
+                        <a>&larr;</a>
+                    </li>
+                }
+                <li class="current">
+                    @currentPage.getDisplayXtoYofZ(" - "," / ")
+                </li>
+                @if(currentPage.hasNext) {
+                    <li class="next">
+                        <a href="@routes.ProductAdministrationController.listInfluencerTrials(currentPage.getPageIndex + 1)" target="_self"> &rarr;</a>
+                    </li>
+                } else {
+                    <li class="next disabled">
+                        <a>&rarr;</a>
+                    </li>
+                }
+            </ul>
+        </div>
+
+  
+    
+  
+}
