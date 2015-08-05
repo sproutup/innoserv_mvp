@@ -1,24 +1,28 @@
-<div class="col-lg-12 profile-menu">
-    <div class="profile-menu--content">
-        <a class="profile-menu--item" ui-sref="profile.photos" ui-sref-active="active">
-            <span class="profile-menu--item-value">{{menu.photos}}</span>
-            <span class="profile-menu--item-label">Photos</span>
-        </a>
-        <a class="profile-menu--item" ui-sref="profile.videos" ui-sref-active="active">
-            <span class="profile-menu--item-value">{{menu.videos}}</span>
-            <span class="profile-menu--item-label">Videos</span>
-        </a>
-        <a class="profile-menu--item" ui-sref="profile.products" ui-sref-active="active">
-            <span class="profile-menu--item-value">{{menu.products}}</span>
-            <span class="profile-menu--item-label">Products</span>
-        </a>
-        <!--a class="profile-menu--item" ui-sref="profile.followers" ui-sref-active="active">
-            <span class="profile-menu--item-value">{{menu.followers}}</span>
-            <span class="profile-menu--item-label">Followers</span>
-        </a>
-        <a class="profile-menu--item" ui-sref="profile.followings" ui-sref-active="active">
-            <span class="profile-menu--item-value">{{menu.followings}}</span>
-            <span class="profile-menu--item-label">Followings</span>
-        </a-->
+<div class="profile-menu">
+    <div class="row profile-menu-body">
+        <div class="col-xs-4">
+            <div class="profile-menu--item">
+                <a ui-sref="profile.photos" ui-sref-active="active">
+                    <span class="profile-menu--item-value">{{menu.photos}}</span>
+                    <span class="profile-menu--item-label">Photos</span>
+                </a>
+            </div>
+        </div>
+        <div class="col-xs-4">
+            <div class="profile-menu--item">
+                <a ui-sref="profile.videos" ui-sref-active="active">
+                    <span class="profile-menu--item-value">{{menu.videos}}</span>
+                    <span class="profile-menu--item-label">Videos</span>
+                </a>
+            </div>
+        </div>
+        <div class="col-xs-4">
+            <div class="profile-menu--item">
+                <a ui-sref="profile.products" ui-sref-active="active">
+                    <span class="profile-menu--item-value">{{menu.products}}</span>
+                    <span class="profile-menu--item-label">Products</span>
+                </a>
+            </div>
+        </div>
     </div>
 </div>
