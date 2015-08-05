@@ -58,7 +58,7 @@
         <td>@uref.trial.createdAt</td>
         <td>@uref.trial.updatedAt</td>
         <td>
-          <select id="status[@uref.trial.id]">
+          <select id="status[@uref.trial.id]" disabled="disabled">
 			  <option value="0" @if(uref.trial.status.toString=="0"){ selected="selected" }>Requested</option>
 			  <option value="1" @if(uref.trial.status.toString=="1"){ selected="selected" }>Approved</option>
 			  <option value="2" @if(uref.trial.status.toString=="2"){ selected="selected" }>Sent</option>

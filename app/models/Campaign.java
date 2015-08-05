@@ -91,7 +91,7 @@ public class Campaign extends TimeStampModel implements PathBindable<Campaign>{
 	    return
 	            find.where()
 	                .orderBy("id desc")
-	                .findPagingList(100)
+	                .findPagingList(1000)
 	                .setFetchAhead(false)
 	                .getPage(page);
 	}

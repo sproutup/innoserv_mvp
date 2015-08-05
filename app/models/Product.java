@@ -10,6 +10,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import org.joda.time.DateTime;
 import org.xerial.snappy.Snappy;
+
 import play.Logger;
 import play.api.cache.Cache;
 import play.cache.*;
@@ -20,8 +21,10 @@ import play.libs.F;
 
 import javax.persistence.*;
 
+import com.avaje.ebean.FetchConfig;
 import com.avaje.ebean.Page;
 
+import constants.AppConstants;
 import utils.Slugify;
 import utils.Taggable;
 
@@ -66,6 +69,12 @@ public class Product extends SuperModel implements PathBindable<Product>,
 	public String urlFacebook;
 	public String urlTwitter;
 	public String urlCrowdFundingCampaign;
+	
+	public String  urlBuy;
+	public String  urlAppDownload;
+	//# of units available for trial/ordered etc.
+	public String unitsAvailable;
+	
 	public String contactEmailAddress;
 
 	public boolean isFeatured;
@@ -74,7 +83,7 @@ public class Product extends SuperModel implements PathBindable<Product>,
 	
 	public boolean trialSignUpFlag;
 	public boolean buyFlag;
-
+	
 	@OneToOne(cascade=CascadeType.ALL, mappedBy="product")
 	public ProductAdditionalDetail productAdditionalDetail;
 
@@ -207,10 +216,11 @@ public class Product extends SuperModel implements PathBindable<Product>,
 		    return
 		            find.where()
 		            	.orderBy("active_flag desc, id desc")
-		                .findPagingList(100)
+		                .findPagingList(2000)
 		                .setFetchAhead(false)
 		                .getPage(page);
 	}
+	
 
 	/*
 	 * Look in the db for a product with a product ID equal
@@ -354,6 +364,10 @@ public class Product extends SuperModel implements PathBindable<Product>,
         node.put("missionStatement", this.missionStatement);
         node.put("productStory", this.productStory);
         node.put("urlHome", this.urlHome);
+        node.put("urlFacebook", this.urlFacebook);
+        node.put("urlBuy", this.urlBuy);
+        node.put("urlAppDownload", this.urlAppDownload);
+        
         node.put("urlFacebook", this.urlFacebook);
         node.put("urlTwitter", this.urlTwitter);
 		if(this.urlTwitter != null && this.urlTwitter.length() > 10){

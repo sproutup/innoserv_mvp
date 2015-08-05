@@ -16,10 +16,12 @@ import play.mvc.With;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import com.avaje.ebean.*;
 
+import constants.AppConstants;
 import static play.mvc.Http.MultipartFormData;
 import views.html.productadministration.*;
 
@@ -40,18 +42,44 @@ public class ProductAdministrationController extends Controller {
     return ok(list.render(products));
   }
 
+  /**
+   * Products available for trial
+   * @param page
+   * @return
+   */
   public static Result listTrials(Integer page) {
 	    if(!admin_enabled){return notFound();};
 
 	    Logger.debug("mode: " + play.api.Play.current().mode());
 	    Page<Product> products = Product.find.where().eq("trial_sign_up_flag", "1")
                 .orderBy("active_flag desc, id desc")
-                .findPagingList(100)
+                .findPagingList(2000)
                 .setFetchAhead(false)
                 .getPage(page);
 	    		
 	    return ok(trial_list.render(products));
-}
+  }
+  
+	/**
+	 * Products that have been requested by Influencers
+	 * @param page
+	 * @return
+	 */
+	public static Result listInfluencerTrials(int page) {
+		if(!admin_enabled){return notFound();};
+		List<Integer> s2 = Arrays.asList(0, 1, 2, 3, 4);
+		Page<Product> products = Product.find.fetch("trials", new FetchConfig().query())
+	            	.fetch("trials.user", new FetchConfig().query())
+          		.fetch("trials.user.roles", new FetchConfig().query())
+	            	.where()
+	            	.eq("trials.user.roles.roleName", AppConstants.INFLUENCER)
+	            	.in("trials.status", s2)
+	            	.orderBy("productName asc, trials.id asc")
+	                .findPagingList(2000)
+	                .setFetchAhead(false)
+	                .getPage(page);
+		return ok(product_trial_list.render(products));
+	}
   
   //@SecureSocial.SecuredAction
   public static Result newProduct() {
