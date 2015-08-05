@@ -496,6 +496,7 @@ productControllers.controller('productListCtrl', ['$scope', 'ProductService',
 productControllers.controller('modalShareCtrl', ['$scope', '$window', '$stateParams', '$modalInstance', '$http', 'ProductService', '$log',
    function ($scope, $window, $stateParams, $modalInstance, $http, ProductService, $log) {
 	var processShareData = {};
+	$scope.checked = false;
 	ProductService.get({slug: $stateParams.slug}).$promise.then(
 			function(data) {
 				// success
@@ -511,6 +512,7 @@ productControllers.controller('modalShareCtrl', ['$scope', '$window', '$statePar
 					$scope.campaignName = data.campaignName;
 					$scope.longDescription = data.campaignLongDescription;
 					if (typeof data.perks !== 'undefined') { $scope.perk1 = data.perks[0]; }
+					if (typeof data.perks[1] !== 'undefined') { $scope.perk2 = data.perks[1]; }
 					$scope.uniqueLink = data.url;
 					$scope.showCheckbox = data.offerDiscount;
 					$scope.checkboxText = data.discountText;
@@ -553,6 +555,7 @@ productControllers.controller('modalShareCtrl', ['$scope', '$window', '$statePar
 	);
 
 	$scope.handleCheckbox = function () {
+	    $scope.checked = !$scope.checked;
 		processShareData.requestedDisc = !processShareData.requestedDisc;
 	}
 
