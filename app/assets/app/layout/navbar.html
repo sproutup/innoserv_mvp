@@ -12,15 +12,24 @@
             </a>
         </div>
 
+        <!-- Two different nav bars here and below. Second one shows under 767px and collapses on an item click. -->
         <div class="collapse navbar-collapse" id="sproutup-collapse-navbar">
-
-            <ul class="nav navbar-nav navbar-item navbar-right">
+            <ul class="nav navbar-nav navbar-item navbar-right navbar-wide">
                 <li><a analytics-on="click" analytics-event="View How it Works page" ui-sref="user.howitworks">HOW IT WORKS</a></li>
                 <li><a analytics-on="click" analytics-event="View FAQs page" ui-sref="user.faq">FAQs</a></li>
                 <li><a analytics-on="click" analytics-event="View Browse Products page" ui-sref="user.search">BROWSE PRODUCTS</a></li>
                 <li><a ui-sref="user.login">LOG IN</a></li>
                 <li><a ui-sref="user.signup">SIGN UP</a></li>
             </ul>
+
+            <ul class="nav navbar-nav navbar-item navbar-right navbar-skinny">
+                <li><a analytics-on="click" analytics-event="View How it Works page" ui-sref="user.howitworks" data-toggle="collapse" data-target="#sproutup-collapse-navbar">HOW IT WORKS</a></li>
+                <li><a analytics-on="click" analytics-event="View FAQs page" ui-sref="user.faq" data-toggle="collapse" data-target="#sproutup-collapse-navbar">FAQs</a></li>
+                <li><a analytics-on="click" analytics-event="View Browse Products page" ui-sref="user.search" data-toggle="collapse" data-target="#sproutup-collapse-navbar">BROWSE PRODUCTS</a></li>
+                <li><a ui-sref="user.login" data-toggle="collapse" data-target="#sproutup-collapse-navbar">LOG IN</a></li>
+                <li><a ui-sref="user.signup" data-toggle="collapse" data-target="#sproutup-collapse-navbar">SIGN UP</a></li>
+            </ul>
+
         </div>
     </nav>
 </span>
@@ -40,12 +49,20 @@
         </div>
 
 
-        <div class="collapse navbar-collapse" id="sproutup-collapse-navbar">
-            <ul class="nav navbar-nav navbar-item navbar-left">
+        <div class="collapse navbar-collapse navbar-heightBoost" id="sproutup-collapse-navbar">
+            <ul class="nav navbar-nav navbar-item navbar-left navbar-wide">
                 <li><a analytics-on="click" analytics-event="View Browse Product page" ui-sref="user.search">BROWSE PRODUCTS</a></li>
                 <li><a analytics-on="click" analytics-event="View My Trials page" ui-sref="user.mytrials.current">MY TRIALS<span class="navbar-badge" ng-show="auth.init && auth.getActiveTrials()>0">{{ auth.getActiveTrials() }}</span></a></li>
                 <li><a analytics-on="click" analytics-event="View Earn Perks page" ui-sref="user.perk">PERKS</a></li>
                 <li><a analytics-on="click" analytics-event="View FAQs page" ui-sref="user.faq">FAQs</a></li>
+                <!-- <li><a href="#">ACTIVITY <sup>&beta;</sup></a></li> -->
+            </ul>
+
+            <ul class="nav navbar-nav navbar-item navbar-left navbar-skinny">
+                <li><a analytics-on="click" analytics-event="View Browse Product page" ui-sref="user.search" data-toggle="collapse" data-target="#sproutup-collapse-navbar">BROWSE PRODUCTS</a></li>
+                <li><a analytics-on="click" analytics-event="View My Trials page" ui-sref="user.mytrials.current" data-toggle="collapse" data-target="#sproutup-collapse-navbar">MY TRIALS<span class="navbar-badge" ng-show="auth.init && auth.getActiveTrials()>0">{{ auth.getActiveTrials() }}</span></a></li>
+                <li><a analytics-on="click" analytics-event="View Earn Perks page" ui-sref="user.perk" data-toggle="collapse" data-target="#sproutup-collapse-navbar">PERKS</a></li>
+                <li><a analytics-on="click" analytics-event="View FAQs page" ui-sref="user.faq" data-toggle="collapse" data-target="#sproutup-collapse-navbar">FAQs</a></li>
                 <!-- <li><a href="#">ACTIVITY <sup>&beta;</sup></a></li> -->
             </ul>
 
@@ -57,9 +74,13 @@
 
                 <li about="" class="dropdown">
                     <a href="#" analytics-on="click" analytics-event="User Menu" class="dropdown-toggle" data-toggle="dropdown">{{auth.m.user.name}}<i class="fa fa-angle-down login-angle-down"></i></a>
-                    <ul class="dropdown-menu" role="menu">
+                    <ul class="dropdown-menu navbar-wide" role="menu">
                         <li><a analytics-on="click" analytics-event="Enter User Settings" ui-sref="user.settings.profile">Profile & Settings</a></li>
                         <li><a href="" analytics-on="click" analytics-event="Log Out" ng-click="auth.logout()">Log Out</a></li>
+                    </ul>
+                    <ul class="dropdown-menu navbar-skinny" role="menu">
+                        <li><a class="navbar-skinny" analytics-on="click" analytics-event="Enter User Settings" ui-sref="user.settings.profile" data-toggle="collapse" data-target="#sproutup-collapse-navbar">Profile & Settings</a></li>
+                        <li><a class="navbar-skinny" href="" analytics-on="click" analytics-event="Log Out" ng-click="auth.logout()" data-toggle="collapse" data-target="#sproutup-collapse-navbar">Log Out</a></li>
                     </ul>
                 </li>
             </ul>

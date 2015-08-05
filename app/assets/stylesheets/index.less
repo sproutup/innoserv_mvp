@@ -447,6 +447,15 @@
     line-height: 1.6;
 }
 
+.navbar-skinny {
+  display: none !important;
+  background: transparent !important;
+}
+
+.navbar-heightBoost {
+  max-height: 388px !important;
+}
+
 @media (min-width:767px) and (max-width:992px) {
   .suggest-product-form-input {
     width: 80%;
@@ -468,6 +477,12 @@
 }
 
 @media (max-width:767px) {
+  .navbar-skinny {
+    display: block !important;
+  }
+  .navbar-wide {
+    display: none !important;
+  }
   .influencer-profile-detail {
     text-align: center;
     padding-top: 0px;
