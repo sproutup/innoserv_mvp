@@ -83,16 +83,17 @@
           campaignForm("discountDescription"),
           '_label -> "Discount Offer Description"
           )
+          @textarea(field = campaignForm("campaignPerks2"), 
+          '_label -> "Coupon Code", 
+          'rows -> 1, 'cols -> 20
+          )
 		
 		  @textarea(field = campaignForm("campaignPerks1"), 
           '_label -> "Perks 1", 
           'rows -> 2, 'cols -> 50
           )	
           
-          @textarea(field = campaignForm("campaignPerks2"), 
-          '_label -> "Perks 2", 
-          'rows -> 2, 'cols -> 50
-          )
+     
           
 		  @textarea(field = campaignForm("campaignPerks3"), 
           '_label -> "Perks 3", 

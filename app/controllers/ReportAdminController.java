@@ -115,6 +115,7 @@ public class ReportAdminController extends Controller {
 	    Map<String, String[]> map = request().body().asFormUrlEncoded();
 	    String requestId = map.get("requestId")[0];
 	    String status = map.get("statusVal")[0];
+	    String page = map.get("page")[0];
 
 	    Trial trial = Trial.find.byId(Long.valueOf(requestId));
 	    if (trial!=null && status!=null && !status.equals("")){
@@ -122,9 +123,12 @@ public class ReportAdminController extends Controller {
 	 	    //update user
 	 	    trial.update();
 	    }
-
-	    return redirect(routes.ReportAdminController.influencerTrialList(0));
-
+	    
+	    if (page!=null && page.equals("influencer")){
+	    	return redirect(routes.ReportAdminController.influencerTrialList(0));
+	    } else {
+	    	return redirect(routes.ReportAdminController.allTrialList(0));
+	    }
 
   }
   
