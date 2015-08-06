@@ -63,15 +63,9 @@ public class OpenGraphController extends Controller {
             String url;
             if (check(json, "url")) { url = json.findPath("url").asText(); }
             else { return badRequest("Missing parameter [url]"); }
-            Long contentId;
-            if (check(json, "content_id")) { contentId = json.findPath("content_id").asLong(); }
-            else { return badRequest("Missing parameter [content_id]"); }
 
             Document doc = Jsoup.connect(url).get();
             OpenGraph openGraph = new OpenGraph();
-            Content content = Content.find.byId(contentId);
-            if (content == null) { return notFound("Content not found"); }
-            openGraph.content = content;
 
             Element ogTitle = doc.select("meta[property=og:title]").first();
             Element ogType = doc.select("meta[property=og:type]").first();
@@ -99,17 +93,6 @@ public class OpenGraphController extends Controller {
 
     public static Result delete(Long id) {
         OpenGraph openGraph = OpenGraph.find.byId(id);
-        if (openGraph != null) {
-            openGraph.delete();
-            return ok();
-        }
-        else {
-            return notFound("OpenGraph not found");
-        }
-    }
-
-    public static Result deleteByContent(Long id) {
-        OpenGraph openGraph = OpenGraph.find.where().eq("content_id", id).findUnique();
         if (openGraph != null) {
             openGraph.delete();
             return ok();

@@ -11,11 +11,6 @@ function OpenGraphService($resource){
             url:'api/openGraph/parse/:url',
             params:{url:""},
             method: 'GET'
-        },
-        deleteByContent: {
-            url:'api/openGraph/byContent/:id',
-            params:{id:'@id'},
-            method:'DELETE'
         }
     });
 }
