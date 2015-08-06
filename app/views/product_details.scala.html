@@ -26,10 +26,10 @@
                 <a analytics-on="click" analytics-event="View trial status: {{product.productName}}" ng-show="init && isLoggedIn && hasCurrentTrial" class="btn btn-lg sproutup-btn-md-main" ui-sref="user.mytrials.current">View Trial Status</a>
                 <a analytics-on="click" analytics-event="Sprout me Up: {{product.productName}}" ng-show="init && activeSprout && !isLoggedIn" class="btn btn-lg sproutup-btn-md-main" ng-click="login('user.product.detail.about', {slug: product.slug} )" ui-sref="user.login">Sprout me Up!</a>
                 <a analytics-on="click" analytics-event="Sprout me Up: {{product.productName}}" ng-show="init && activeSprout && isLoggedIn" class="btn btn-lg sproutup-btn-md-main" ng-click="open()">Sprout me Up!</a>
-                <a analytics-on="click" analytics-event="Buy product: {{product.productName}}" ng-show="init && product.isAvailableToBuy && product.urlBuy" class="btn btn-lg sproutup-btn-md-main" ng-href="{{product.urlBuy}}">Buy</a>
+                <a analytics-on="click" analytics-event="Buy: {{product.productName}}" ng-show="init && product.isAvailableToBuy && product.urlBuy" class="btn btn-lg sproutup-btn-md-main" ng-href="{{product.urlBuy}}" target="_blank"><i class="fa fa-shopping-cart"></i></a>
             </div>
             <div class="product-menu--help">
-                <a ng-show="init && product.isAvailableForTrial && !activeSprout" ui-sref="user.howitworks"><i class="fa fa-question-circle"></i>Learn how Trial works</a>
+                <a ng-show="init && product.isAvailableForTrial" ui-sref="user.howitworks"><i class="fa fa-question-circle"></i>Learn how Trial works</a>
 
                 <!-- Added by apurv (modal share/signup on Sprout <Product> Up) -->
                 <div style="display: inline">
