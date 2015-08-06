@@ -38,19 +38,18 @@
                             <h3 class="modal-title">Sprout {{product.productName}} Up!</h3>
                         </div>
                         <div class="modal-body">
-                            <p>{{longDescription}}</p>
-                            <p>{{perk1}}</p>
-            	            <p>Here is your unique referral link: <a>{{uniqueLink}}</a></p>
+                            <p class="campaign-description">{{longDescription}}</p>
+            	            <p class="campaign-body">Here is a unique referral link that you can embed anywhere or send to anyone: <span>{{uniqueLink}}</span></p>
             	            <div class="row product-share-buttons">
                                 <div class="fb-share-button">
-                                    <a analytics-on="click" analytics-event="Share Product on Facebook: {{product.productName}}" ng-click="fbShare()" class="btn btn-xs btn-facebook-share"><i class="fa fa-facebook"></i>Share</a>
+                                    <a analytics-on="click" analytics-event="Sprout up on Facebook: {{product.productName}}" ng-click="fbShare()" class="btn btn-xs btn-facebook-share"><i class="fa fa-facebook"></i></a>
                                 </div>
                                 <div class="tw-share-button">
-                            		<a analytics-on="click" analytics-event="Share Product on Twitter: {{product.productName}}" href="{{twtLink}}" class="btn btn-xs btn-twitter-share"><i class="fa fa-twitter"></i>Tweet</a>
-							</div>
+                            		<a analytics-on="click" analytics-event="Sprout up on Twitter: {{product.productName}}" href="{{twtLink}}" class="btn btn-xs btn-twitter-share"><i class="fa fa-twitter"></i></a>
+							    </div>
                             </div>
                             <p><input class="sproutup-checkbox" ng-show="showCheckbox" type="checkbox" ng-click="handleCheckbox()" id="wantDiscount"/> {{checkboxText}}</p>
-                            <p ng-show="checked && perk2">{{perk2}}</p>
+                            <p class="campaign-coupon" ng-show="checked && perk1">{{perk1}}</p>
                         </div>
                         <div class="modal-footer">
 							<a class="btn sproutup-btn-md-main" ng-click="close()">Cool, all done!</a>
