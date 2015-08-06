@@ -1,0 +1,1 @@
+alter table product add trial_full_house_flag tinyint(1) default 0;

@@ -83,6 +83,7 @@ public class Product extends SuperModel implements PathBindable<Product>,
 	
 	public boolean trialSignUpFlag;
 	public boolean buyFlag;
+	public boolean trialFullHouseFlag;
 	
 	@OneToOne(cascade=CascadeType.ALL, mappedBy="product")
 	public ProductAdditionalDetail productAdditionalDetail;
@@ -376,6 +377,8 @@ public class Product extends SuperModel implements PathBindable<Product>,
         node.put("isFeatured", this.isFeatured);
         node.put("isAvailableToBuy", this.buyFlag);
         node.put("isAvailableForTrial", this.trialSignUpFlag);
+        node.put("isTrialFullHouse", this.trialFullHouseFlag);
+        
         node.put("createdAt", new DateTime(this.createdAt).toString());
         node.put("updatedAt", new DateTime(this.updatedAt).toString());
 //        if(this.user != null) {
