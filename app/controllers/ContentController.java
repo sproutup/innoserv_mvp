@@ -70,6 +70,14 @@ public class ContentController extends Controller {
                 }
             }
 
+            if (check(root, "open_graph_id")) {
+                Long openGraph_id = root.path("open_graph_id").asLong();
+                OpenGraph openGraph = OpenGraph.find.byId(openGraph_id);
+                if (openGraph != null) {
+                    item.openGraph = openGraph;
+                }
+            }
+
             item.save();
 
             return created(item.toJson());

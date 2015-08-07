@@ -47,6 +47,7 @@ public class OpenGraph extends TimeStampModel {
      */
     public ObjectNode toJson(){
         ObjectNode node = Json.newObject();
+        node.put("id", this.id);
         node.put("title", this.title);
         node.put("type", this.type);
         node.put("image", this.image);

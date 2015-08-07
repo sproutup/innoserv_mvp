@@ -5,9 +5,9 @@
         .module('sproutupApp')
         .controller('MyTrialController', MyTrialController);
 
-    MyTrialController.$inject = ['$q', '$rootScope', '$stateParams', '$state', '$log', 'AuthService', '$location', '$window', 'TrialService', 'ContentService'];
+    MyTrialController.$inject = ['$q', '$rootScope', '$stateParams', '$state', '$log', 'AuthService', '$location', '$window', 'TrialService', 'ContentService', 'OpenGraphService'];
 
-    function MyTrialController($q, $rootScope, $stateParams, $state, $log, authService, $location, $window, TrialService, ContentService) {
+    function MyTrialController($q, $rootScope, $stateParams, $state, $log, authService, $location, $window, TrialService, ContentService, OpenGraphService) {
         $log.debug("entered my trials");
 
         var vm = this;
@@ -68,17 +68,29 @@
             var item = new ContentService();
             angular.extend(item, trial.form);
             item.product_trial_id = trial.id;
-            item.$save(function(content){
-                console.log("saved content");
-                $rootScope.$broadcast('alert:success', {
-                    message: 'Saved'
-                });
-                trial.isContentFormOpen = false;
-                trial.content.push(content);
-                console.log("## content: ", trial.content);
-                // reset input form
-                trial.form.url = "";
+
+            var og = new OpenGraphService();
+            angular.extend(og, {url: trial.form.url});
+            og.$save(function(openGraph) {
+                item.open_graph_id = openGraph.id;
+                saveContent(item);
+            }, function(err) {
+                saveContent(item);
             });
+
+            function saveContent(item) {
+                item.$save(function(content){
+                    console.log("saved content");
+                    $rootScope.$broadcast('alert:success', {
+                        message: 'Saved'
+                    });
+                    trial.isContentFormOpen = false;
+                    trial.content.push(content);
+                    console.log("## content: ", trial.content);
+                    // reset input form
+                    trial.form.url = "";
+                });
+            }
 
 
             //$state.go("user.trial.confirmation");
@@ -93,13 +105,19 @@
             return -1;
         }
 
-        function deleteContent(id, trial){
-            console.log("## deleteContent", id);
+        function deleteContent(content, trial){
+            console.log("## deleteContent", content.id);
             var item = new ContentService();
-            item.$delete({id: id},
+            item.$delete({id: content.id},
                 function(data){
+                    if (typeof content.openGraph !== 'undefined') {
+                        var og = new OpenGraphService();
+                        og.$delete({id: content.openGraph.id}, function(data) {
+                            console.log("deleted openGraph for content");
+                        });
+                    }
                     console.log("delete success");
-                    var index = findIndex(id, trial.content);
+                    var index = findIndex(content.id, trial.content);
                     // remove item from list
                     trial.content.splice(index, 1);
                     $rootScope.$broadcast('alert:success', {

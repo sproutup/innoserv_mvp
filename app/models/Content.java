@@ -79,6 +79,9 @@ public class Content extends SuperModel {
 //        if(this.product != null) {
 //            node.put("product", this.product.toJsonShort());
 //        }
+        if(this.openGraph != null) {
+            node.put("openGraph", this.openGraph.toJson());
+        }
         return node;
     }
 
