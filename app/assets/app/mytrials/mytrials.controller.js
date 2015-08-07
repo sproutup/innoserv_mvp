@@ -93,13 +93,13 @@
             return -1;
         }
 
-        function deleteContent(id, trial){
-            console.log("## deleteContent", id);
+        function deleteContent(content, trial){
+            console.log("## deleteContent", content.id);
             var item = new ContentService();
-            item.$delete({id: id},
+            item.$delete({id: content.id},
                 function(data){
                     console.log("delete success");
-                    var index = findIndex(id, trial.content);
+                    var index = findIndex(content.id, trial.content);
                     // remove item from list
                     trial.content.splice(index, 1);
                     $rootScope.$broadcast('alert:success', {
