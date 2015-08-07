@@ -162,11 +162,15 @@ a.list-group-item:hover {
     padding: 0px;
 }
 
-.my-content-item-summary {
+.my-content-body {
+    padding: 0px;
+    margin: 15px 0px 0px;
+}
+
+.my-content-item--summary {
+    margin: 0px;
     padding: 15px 30px;
-    margin: 15px 0px;
-    background-color: @sproutup-lightgrey;
-    border-radius: 0px;
+    background-color: @sproutup-verylightgrey;
 }
 
 @media (max-width:767px){
@@ -226,15 +230,31 @@ a.list-group-item:hover {
     padding-right: 10px;
 }
 
+.my-content-tags a span {
+    color: @sproutup-blue;
+}
+
+.my-content-tags a span:hover {
+    color: @sproutup-blue-hover;
+}
+
 .my-content-tags a:hover {
     color: @main-text;
 }
 
 .my-content-actions {
     padding: 10px 0px 0px;
-    font-size: 10pt;
+}
+
+.my-content-actions a {
+    padding-right: 15px;
+    font-size: 8.5pt;
     font-weight: 700;
-    color: @sproutup-blue;
+    color: @main-text-2;
+}
+
+.my-content-actions a:hover {
+    color: @sproutup-blue-hover;
 }
 
 .sproutup-btn-tags {
@@ -262,7 +282,7 @@ a.list-group-item:hover {
 }
 
 .my-content-user {
-    font-size: 12pt;
+    font-size: 11pt;
     font-weight: 700;
     color: @sproutup-blue;
     padding: 5px 0px;
@@ -270,7 +290,7 @@ a.list-group-item:hover {
 }
 
 .my-content-user.comment {
-    font-size: 11pt;
+    font-size: 10.5pt;
 }
 
 .my-content-user span {
@@ -295,8 +315,8 @@ a.list-group-item:hover {
 }
 
 .my-content-headline {
-    font-size: 14pt;
-    font-weight: 400;
+    font-size: 12pt;
+    font-weight: 700;
     color: @main-text;
     line-height: 1.6;
     padding: 10px 0px;
@@ -304,7 +324,7 @@ a.list-group-item:hover {
 }
 
 .my-content-text {
-    font-size: 11.5pt;
+    font-size: 11pt;
     font-weight: 400;
     color: @main-text;
     line-height: 1.6;
@@ -313,7 +333,7 @@ a.list-group-item:hover {
 }
 
 .my-content-text.comment {
-    font-size: 11pt;
+    font-size: 10.5pt;
 }
 
 .my-content-video {
@@ -554,17 +574,21 @@ a.list-group-item:hover {
 }
 
 .my-content-comments {
-    margin: 20px 0px 10px;
+    margin: 0px 0px 10px;
+    background-color: @sproutup-lightgrey;
+    -webkit-box-shadow: inset 0 12px 12px -12px rgba(0,0,0,0.15);
+    -moz-box-shadow: inset 0 12px 12px -12px rgba(0,0,0,0.15);
+    box-shadow: inset 0 12px 12px -12px rgba(0,0,0,0.15);
+    padding: 5px 0px 0px;
 }
 
 .my-content-comment-row {
-    margin: 0px 0px 10px;
-    background-color: #fafafa;
+    margin: 0px;
 }
 
 .my-content-comment-more {
     margin: 0px;
-    padding: 5px 0px 0px;
+    padding: 5px 0px 20px;
 }
 
 .my-content-comment-more a {
