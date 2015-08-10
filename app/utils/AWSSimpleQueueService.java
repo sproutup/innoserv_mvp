@@ -10,6 +10,7 @@ import plugins.S3Plugin;
 import java.io.FileInputStream;
 import java.util.List;
 import java.util.Properties;
+import play.Logger;
 
 /**
  * Created by peter on 3/11/15.
@@ -75,8 +76,13 @@ public class AWSSimpleQueueService {
      * @return
      */
     public String getQueueUrl(String queueName){
-        GetQueueUrlRequest getQueueUrlRequest = new GetQueueUrlRequest(queueName);
-        return this.sqs.getQueueUrl(getQueueUrlRequest).getQueueUrl();
+        try {
+            GetQueueUrlRequest getQueueUrlRequest = new GetQueueUrlRequest(queueName);
+            return this.sqs.getQueueUrl(getQueueUrlRequest).getQueueUrl();
+        }catch(Exception ex){
+            Logger.debug("getQueueUrl: " + ex.getMessage());
+            return null;
+        }
     }
 
     /**
