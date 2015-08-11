@@ -1,11 +1,15 @@
-
 <div class="product-list-wrapper" up-product-list>
 
     <div class="row sproutup-tabs">
         <div class="col-lg-12">
+            <!-- div to help test user-avatar directive -->
+<!--             <div class="trial-user-wrapper" ng-mouseenter="avatarHover = true" ng-mouseleave="avatarHover = false">
+                <img class="trial-user-img" src="https://pbs.twimg.com/profile_images/546875112947867649/U8BFoVYj.jpeg">
+                <user-card ng-if="avatarHover"></user-card>
+            </div> -->
             <div class="sproutup-tabs--content">
                 <a ng-click="query = {isAvailableForTrial: true}" class="btn btn-lg btn-sproutup-tab" ng-class="{'active': query.isAvailableForTrial==true}">Available for Trial</a>
-                <a ng-click="query = {isAvailableForTrial: false}" class="btn btn-lg btn-sproutup-tab" ng-class="{'active': query.isAvailableForTrial==false}">Coming Soon</a>
+                <a ui-sref="user.coming" class="btn btn-lg btn-sproutup-tab" ng-class="{'active': query.isAvailableForTrial==false}">Coming Soonn</a>
             </div>
         </div>
     </div>
