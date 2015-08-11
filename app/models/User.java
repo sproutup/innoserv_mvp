@@ -437,8 +437,8 @@ public class User extends TimeStampModel implements Subject {
 		node.put("id", this.id);
 		node.put("name", this.name);
 		node.put("nickname", this.nickname);
-//		node.put("email", this.email);
 		node.put("avatarUrl", getAvatar());
+		node.put("urlTwitter", this.urlTwitter);
 		return node;
 	}
 
