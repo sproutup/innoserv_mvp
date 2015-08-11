@@ -1883,6 +1883,7 @@ angular.module('sproutupApp').directive('userCard', [ 'AuthService',
                 user: "="
             },
             link: function(scope, element, attrs) {
+                console.log(scope);
                 var cardWrapper = element[0].children[0];
                 var hoverBox = element[0].children[1];
                 var arrowDown = element[0].children[0].children[3];
@@ -1892,6 +1893,7 @@ angular.module('sproutupApp').directive('userCard', [ 'AuthService',
                 var windowWidth = $(window).width();
                 var elementFromRight = windowWidth - elementOffset.left;
 
+                scope.user.twitterHandle = scope.user.urlTwitter.slice(20);
                 
                 if (elementOffset.top < 275) {
                     cardWrapper.style.bottom = '-266px';
@@ -1915,6 +1917,7 @@ angular.module('sproutupApp').directive('userCard', [ 'AuthService',
                     }
                 } else {
                     if (elementOffset.left < 140) {
+                        console.log(element);
                         cardWrapper.style.left = '-17px';
                         hoverBox.style.left = '0px';
                         arrowDown.style.left = '21px';

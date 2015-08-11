@@ -208,7 +208,7 @@ public class User extends TimeStampModel implements Subject {
 	    return
 	            find.where()
 	                .orderBy("id desc")
-	                .findPagingList(100)
+	                .findPagingList(2000)
 	                .setFetchAhead(false)
 	                .getPage(page);
 	}
@@ -437,8 +437,8 @@ public class User extends TimeStampModel implements Subject {
 		node.put("id", this.id);
 		node.put("name", this.name);
 		node.put("nickname", this.nickname);
-//		node.put("email", this.email);
 		node.put("avatarUrl", getAvatar());
+		node.put("urlTwitter", this.urlTwitter);
 		return node;
 	}
 

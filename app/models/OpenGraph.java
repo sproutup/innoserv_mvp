@@ -23,9 +23,6 @@ public class OpenGraph extends TimeStampModel {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     public Long id;
 
-    @OneToOne
-    public Content content;
-
     public String title;
     public String type;
     public String image;
@@ -50,7 +47,7 @@ public class OpenGraph extends TimeStampModel {
      */
     public ObjectNode toJson(){
         ObjectNode node = Json.newObject();
-        node.put("contentId", this.content.id);
+        node.put("id", this.id);
         node.put("title", this.title);
         node.put("type", this.type);
         node.put("image", this.image);

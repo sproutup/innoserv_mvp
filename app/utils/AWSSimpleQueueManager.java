@@ -33,6 +33,10 @@ public class AWSSimpleQueueManager implements Runnable{
         AWSSimpleQueueService awssqsUtil =   AWSSimpleQueueService.getInstance();
 
         String url  = awssqsUtil.getQueueUrl(awssqsUtil.getQueueName());
+        if(url == null){
+            Logger.debug("error queue url not found");
+            return;
+        }
         Logger.debug("queue url: " + url);
         List<Message> sqsmessages =  awssqsUtil.getMessagesFromQueue(url);
         for (Message sqsmessage : sqsmessages) {

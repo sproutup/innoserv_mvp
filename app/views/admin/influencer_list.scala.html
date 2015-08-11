@@ -1,4 +1,6 @@
 @(inflList: java.util.List[User])
+@import java.math.BigInteger; var activeCount=0; var complCount=0
+@import java.lang.String; var prodsActive="";var prodsCompl=""
 @main("Influencer list") {
 
     <h2><a href="/adminstuff" target="_self">Admin Home</a></h2>
@@ -11,10 +13,16 @@
     <thead>
       <tr>
         <th>User Id</th>
-        <th>Influencer Name</th>
-        <th>Total Trial Request</th>
+        <th>Infl Name</th>
+        <th>Email/Phone</th>
+        <th>Twitter</th>
+        <th>Blog/YouTube Channel</th>
+        <th># Active req</th>
+        <th>Prods req (ACTIVE)</th>
+        <th>Total Req</th>
+        <th>Compl Trials</th>
+        <th>Prod Tried</th>
         <th>Signup Date</th>
-        <th>is Active</th>
 
       </tr>
     </thead>
@@ -25,14 +33,42 @@
 
         <td>@infl.id</td>
         <td>@infl.name</td>
+        <td>@infl.email
+        @if(infl.phoneNumber !=null){
+         <br>/@infl.phoneNumber
+         }
+        <td>@infl.urlTwitter</td>
+        <td>@infl.urlBlog
+        <br>/@infl.urlYoutube</td>
+        
         @if(infl.trials!=null){
-        <td>
-        @infl.trials.size()</td>
+	        @(activeCount = 0)
+	        @(complCount = 0)
+	        @(prodsActive="")
+	        @(prodsCompl="")
+	        @for(t <- infl.trials) {
+	        	@if(t.status==0 ||t.status==1 || t.status==2 || t.status==3){
+	        		@(activeCount=activeCount+1)
+	        		@(prodsActive = t.product.productName + ", " + prodsActive)
+	        	}
+	        	@if(t.status==4){
+	        		@(complCount=complCount+1)
+	        		@(prodsCompl = t.product.productName + ", " + prodsCompl)
+	        	}	
+	        }
+			<td>@activeCount</td>
+			<td>@prodsActive</td>
+	        <td>@infl.trials.size()</td>
+        	<td>@complCount</td>
+			<td>@prodsCompl</td>
         } else {
         <td>0</td>
+        <td>none</td>
+        <td>0</td>
+        <td>0</td>
+        <td>none</td>
         }
         <td>@infl.createdAt</td>
-        <td>@infl.active</td>
 
       </tr>
       }

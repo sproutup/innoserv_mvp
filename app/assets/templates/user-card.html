@@ -4,8 +4,11 @@
 <div class="user-card-wrapper">
 	<img ng-src="{{ user.avatarUrl }}" class="user-card-avatar">
 	<div class="user-card-name">{{ user.name }}</div>
-	<div class="user-card-nickname">{{ user.nickname }}</div>
+	<a ng-href="{{ user.urlTwitter }}">
+		<div class="user-card-nickname">{{ user.twitterHandle }}</div>
+	</a>
 	<div class="user-card-arrow"></div>
+	<div class="user-card-arrow-up"></div>
 </div>
 <div class="user-card-hover-box"></div>
 

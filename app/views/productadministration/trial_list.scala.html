@@ -1,7 +1,8 @@
 @(currentPage: com.avaje.ebean.Page[Product])
 @main("Products that are/were available for Trials") {
-
-  <h2>All products for Trials
+	
+	<h2><a href="/adminstuff" target="_self">Admin Home</a></h2>
+  <h2>All products available for Trials
  
   </h2>
 
@@ -14,11 +15,13 @@
         <th>Product Id</th>
         <th>Name</th>
         <th>Description</th>
+        <th>Units Available</th>
+        <th># Trial Requests</th>
         <th>Date added</th>
         <th>Date updated</th>
         <th>Featured</th>
         <th>is Active</th>
-        <th></th>
+        <th>Edit</th>
       </tr>
     </thead>
     <tbody>
@@ -34,6 +37,12 @@
         </td>
         <td><a href="@routes.ProductAdministrationController.details(product)" target="_self">@product.productName</a></td>
         <td><a href="@routes.ProductAdministrationController.details(product)" target="_self">@product.productDescription</a></td>
+        <td align="center">@product.unitsAvailable</td>
+        @if(product.trials!=null) {
+        <td align="center">@product.trials.size()</td>
+        } else {
+        <td align="center">0</td>
+        }
         <td>@product.createdAt</td>
         <td>@product.updatedAt</td>
         <td><a href="@routes.ProductAdministrationController.details(product)" target="_self">@product.isFeatured</a></td>
@@ -53,7 +62,7 @@
             <ul>
                 @if(currentPage.hasPrev) {
                     <li class="prev">
-                        <a href="@routes.ProductAdministrationController.list(currentPage.getPageIndex - 1)" target="_self">&larr; </a>
+                        <a href="@routes.ProductAdministrationController.listTrials(currentPage.getPageIndex - 1)" target="_self">&larr; </a>
                     </li>
                 } else {
                     <li class="prev disabled">
@@ -65,7 +74,7 @@
                 </li>
                 @if(currentPage.hasNext) {
                     <li class="next">
-                        <a href="@routes.ProductAdministrationController.list(currentPage.getPageIndex + 1)" target="_self"> &rarr;</a>
+                        <a href="@routes.ProductAdministrationController.listTrials(currentPage.getPageIndex + 1)" target="_self"> &rarr;</a>
                     </li>
                 } else {
                     <li class="next disabled">

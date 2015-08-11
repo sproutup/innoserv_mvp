@@ -2,14 +2,9 @@
 
     <div class="row sproutup-tabs">
         <div class="col-lg-12">
-            <!-- div to help test user-avatar directive -->
-<!--             <div class="trial-user-wrapper" ng-mouseenter="avatarHover = true" ng-mouseleave="avatarHover = false">
-                <img class="trial-user-img" src="https://pbs.twimg.com/profile_images/546875112947867649/U8BFoVYj.jpeg">
-                <user-card ng-if="avatarHover"></user-card>
-            </div> -->
             <div class="sproutup-tabs--content">
-                <a ng-click="query = {isAvailableForTrial: true}" class="btn btn-lg btn-sproutup-tab" ng-class="{'active': query.isAvailableForTrial==true}">Available for Trial</a>
-                <a ui-sref="user.coming" class="btn btn-lg btn-sproutup-tab" ng-class="{'active': query.isAvailableForTrial==false}">Coming Soonn</a>
+                <a ng-click="query = {isAvailableForTrial: true}" class="btn btn-lg btn-sproutup-tab" ng-class="{'active': query.isAvailableForTrial==true}">All Products</a>
+                <a ng-click="query = {isAvailableForTrial: false}" class="btn btn-lg btn-sproutup-tab" ng-class="{'active': query.isAvailableForTrial==false}">Coming Soon</a>
             </div>
         </div>
     </div>
@@ -31,7 +26,6 @@
         </div>
 
         <!--hr>
-
         <div class="product-list-header">
             <h1>Help us develop a wicked product showcase. Suggest cool product you know about.</h1>
         </div>
@@ -41,12 +35,10 @@
                 <div class="col-sm-12 suggest-product-form">
                     <input type="text" class="form-control form-validate form-input large" placeholder="Product Name" name="productName" ng-model="newSuggestion.productName" required="">
                 </div>
-
                 < !-- Product URL - - >
                 <div class="col-sm-12 suggest-product-form">
                     <input type="text" class="form-control form-validate form-input large" placeholder="Product URL" name="productURL" ng-model="newSuggestion.productUrl" required="">
                 </div>
-
                 <div class="col-sm-12 suggest-product-form">
                     <a class="btn btn-lg btn-suggest-product" ng-click="addSuggestion()" ng-disabled="suggestion.$invalid">Suggest it</a>
                 </div>

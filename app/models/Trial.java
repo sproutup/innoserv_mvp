@@ -67,6 +67,18 @@ public class Trial extends TimeStampModel {
     @ManyToOne
     public User user;
 
+    @Override
+    public void save() {
+        if(this.product != null) this.product.cacheRemove();
+        super.save();
+    }
+
+    @Override
+    public void update() {
+        if(this.product != null) this.product.cacheRemove();
+        super.update();
+    }
+
     public static Trial findById(Long id) {
         return find.byId(id);
     }

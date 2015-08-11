@@ -84,6 +84,11 @@ public class TrialController extends Controller {
             List<Integer> s2 = Arrays.asList(0, 1, 2, 3, 4);//only active requests and not cancelled ones
             
             /*
+             * Place trial request only if product trial is not full house
+             */
+            if (item.product.trialFullHouseFlag){ return status(200, "Product Trial Full House; Not accepting more requests"); }
+            
+            /*
              * Place trial request only if user has 3 or less active ones
              */
             List<Trial> t = Trial.find.fetch("user", new FetchConfig().query())

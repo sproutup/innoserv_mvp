@@ -37,6 +37,9 @@ public class Content extends SuperModel {
     @ManyToOne
     public User user;
 
+    @OneToOne
+    public OpenGraph openGraph;
+
     public static Page<Content> find(int page) {
         return
             find.where()
@@ -44,6 +47,24 @@ public class Content extends SuperModel {
                 .findPagingList(1000)
                 .setFetchAhead(false)
                 .getPage(page);
+    }
+
+    public ObjectNode toFullJson(){
+        ObjectNode node = Json.newObject();
+        node.put("id", this.id);
+        node.put("url", this.url);
+        node.put("createdAt", new DateTime(this.createdAt).toString());
+        node.put("updatedAt", new DateTime(this.updatedAt).toString());
+        if(this.user != null) {
+            node.put("user", this.user.toJsonShort());
+        }
+        if(this.product != null) {
+            node.put("product", this.product.toJsonShort());
+        }
+        if(this.openGraph != null) {
+            node.put("openGraph", this.openGraph.toJson());
+        }
+        return node;
     }
 
     public ObjectNode toJson(){
@@ -58,6 +79,9 @@ public class Content extends SuperModel {
 //        if(this.product != null) {
 //            node.put("product", this.product.toJsonShort());
 //        }
+        if(this.openGraph != null) {
+            node.put("openGraph", this.openGraph.toJson());
+        }
         return node;
     }
 

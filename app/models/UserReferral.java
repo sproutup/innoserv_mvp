@@ -60,7 +60,7 @@ public class UserReferral extends TimeStampModel {
 	    return
 	            find.where()
 	                .orderBy("id desc")
-	                .findPagingList(100)
+	                .findPagingList(2000)
 	                .setFetchAhead(false)
 	                .getPage(page);
 	}

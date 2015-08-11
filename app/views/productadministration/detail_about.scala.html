@@ -34,6 +34,8 @@
                      <li>Facebook page URL:&nbsp;<input type="text" size="100" name="@productForm("urlFacebook").name" value="@productForm("urlFacebook").value"/></li>
                      <li>Twitter page URL:&nbsp;<input type="text" size="100" name="@productForm("urlTwitter").name" value="@productForm("urlTwitter").value"/></li>
                      <li>Crowdfunding Campaign page URL:&nbsp;<input type="text" size="100" name="@productForm("urlCrowdFundingCampaign").name" value="@productForm("urlCrowdFundingCampaign").value"/></li>
+                     <li>Buy link URL:&nbsp;<input type="text" size="100" name="@productForm("urlBuy").name" value="@productForm("urlBuy").value"/></li>
+                     <li>App Download URL:&nbsp;<input type="text" size="100" name="@productForm("urlAppDownload").name" value="@productForm("urlAppDownload").value"/></li>
                      <li>Contact Email:&nbsp;<input type="text" size="100" name="@productForm("contactEmailAddress").name" value="@productForm("contactEmailAddress").value"/></li>
 		             <br>
 		              <li>Active Flag:
@@ -43,9 +45,13 @@
 		             <input type="checkbox" name="@productForm("trialSignUpFlag").name" value="1" @if(productForm("trialSignUpFlag").value=="true"){ checked }>@productForm("trialSignUpFlag").value</li>
 		             <li>Offer Buy:<input type="checkbox" name="@productForm("buyFlag").name" value="1" @if(productForm("buyFlag").value=="true"){ checked }>@productForm("buyFlag").value</li>
 		             <li>Featured Product:<input type="checkbox" name="@productForm("isFeatured").name" value="1" @if(productForm("isFeatured").value=="true"){ checked }>@productForm("isFeatured").value</li>
+               		 <li>Trial Full House:<input type="checkbox" name="@productForm("trialFullHouseFlag").name" value="1" @if(productForm("trialFullHouseFlag").value=="true"){ checked }>@productForm("trialFullHouseFlag").value</li>
                		<br><br>
              		<li>Tags (comma separated):&nbsp;<input type="text" size="50" name="@productForm("tags").name" value="@productForm("tags").value">
                 	</li>
+                	<br>
+                     <li>Units Available for Product Trial:&nbsp;<input type="text" size="100" name="@productForm("unitsAvailable").name" value="@productForm("unitsAvailable").value"/></li>
+                   
              	 </ul>
               </div>
         </div>

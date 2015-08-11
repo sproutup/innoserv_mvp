@@ -32,7 +32,7 @@ public class ProductSuggestion extends TimeStampModel {
 	    return
 	            find.where()
 	                .orderBy("id desc")
-	                .findPagingList(100)
+	                .findPagingList(1000)
 	                .setFetchAhead(false)
 	                .getPage(page);
 	}

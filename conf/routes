@@ -89,7 +89,6 @@ GET           /api/openGraph/:id                                             con
 GET           /api/openGraph/parse/:url                                      controllers.OpenGraphController.parse(url: String)
 POST          /api/openGraph                                                 controllers.OpenGraphController.create
 DELETE        /api/openGraph/:id                                             controllers.OpenGraphController.delete(id: Long)
-DELETE        /api/openGraph/byContent/:id                                   controllers.OpenGraphController.deleteByContent(id: Long)
 
 GET           /api/products                                                  controllers.Products.getProducts
 GET           /api/products/:slug                                            controllers.Products.getProduct(slug: String)
@@ -158,11 +157,12 @@ GET           /adminstuff                                            		 controll
 GET           /adminstuff/product                                            controllers.ProductAdministrationController.index()
 GET           /adminstuff/product/list                                       controllers.ProductAdministrationController.list(page: Integer ?= 0)
 GET           /adminstuff/product/listTrials                                 controllers.ProductAdministrationController.listTrials(page: Integer ?= 0)
+GET           /adminstuff/product/listInfluencerTrials                       controllers.ProductAdministrationController.listInfluencerTrials(page: Integer ?= 0)
 POST          /adminstuff/product/list                                       controllers.ProductAdministrationController.save()
 GET           /adminstuff/product/new                                        controllers.ProductAdministrationController.newProduct()
 GET           /adminstuff/product/:slug                                      controllers.ProductAdministrationController.details(slug: models.Product)
 DELETE        /adminstuff/product/:id                                        controllers.ProductAdministrationController.delete(id: Long)
-#GET  /adminstuff/product/picture/:ean         	controllers.ProductAdministrationController.picture(ean)
+#GET  /adminstuff/product/picture/:ean         								 controllers.ProductAdministrationController.picture(ean)
 
 #GET   /adminstuff/company/uploadmedia    		controllers.MediaManagement.uploadCompanyMedia()
 GET           /adminstuff/company/uploadmedia/:companyslug/:mediaType        controllers.MediaManagement.uploadCompanyMedia(companyslug : String, mediaType : String)
