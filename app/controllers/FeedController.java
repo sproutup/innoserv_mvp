@@ -46,9 +46,9 @@ public class FeedController extends Controller {
                 node.put("id", id);
                 if (values.get(0)!=null) node.put("title", values.get(0));
                 if (values.get(1)!=null) node.put("url", values.get(1));
-                if (values.get(2)!=null) node.put("description", values.get(1));
-                if (values.get(3)!=null) node.put("image", values.get(1));
-                if (values.get(4)!=null) node.put("video", values.get(1));
+                if (values.get(2)!=null) node.put("description", values.get(2));
+                if (values.get(3)!=null) node.put("image", values.get(3));
+                if (values.get(4)!=null) node.put("video", values.get(4));
 
                 content.add(node);
             }
