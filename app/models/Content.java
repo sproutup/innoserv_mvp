@@ -4,11 +4,16 @@ import com.avaje.ebean.Page;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.typesafe.plugin.RedisPlugin;
 import org.joda.time.DateTime;
 import play.libs.Json;
+import redis.clients.jedis.Jedis;
 
 import javax.persistence.*;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import play.Logger;
 
 /**
  * Created by peter on 6/26/15.
@@ -40,12 +45,25 @@ public class Content extends SuperModel {
     @OneToOne
     public OpenGraph openGraph;
 
+    @Override
+    public void save() {
+        super.save();
+        hmset();
+        lpush();
+    }
+
+    @Override
+    public void update() {
+        super.update();
+        hmset();
+    }
+
     public static Page<Content> find(int page) {
         return
             find.where()
                 .orderBy("id desc")
                 .findPagingList(1000)
-                .setFetchAhead(false)
+                .setFetchAhead(true)
                 .getPage(page);
     }
 
@@ -91,5 +109,58 @@ public class Content extends SuperModel {
             arrayNode.add(item.toJson());
         }
         return arrayNode;
+    }
+
+    public static void initRedis(){
+        Logger.debug("init redis");
+
+        clearRedis();
+
+        for (Content content : find.all()){
+            content.hmset();
+            content.lpush();
+        }
+    }
+
+    public void lpush(){
+        Jedis j = play.Play.application().plugin(RedisPlugin.class).jedisPool().getResource();
+        try {
+            j.lpush("feed:all", this.id.toString());
+        } finally {
+            play.Play.application().plugin(RedisPlugin.class).jedisPool().returnResource(j);
+        }
+    }
+
+    public static void clearRedis(){
+        Jedis j = play.Play.application().plugin(RedisPlugin.class).jedisPool().getResource();
+        try {
+            j.del("feed:all");
+        } finally {
+            play.Play.application().plugin(RedisPlugin.class).jedisPool().returnResource(j);
+        }
+    }
+
+    public void hmset(){
+        Jedis j = play.Play.application().plugin(RedisPlugin.class).jedisPool().getResource();
+        try {
+            Map content = new HashMap();
+
+            // Create the hashmap values
+            content.put("url", this.url);
+            if(this.openGraph != null) {
+                if (this.openGraph.title != null) content.put("title", this.openGraph.title);
+                if (this.openGraph.description != null) content.put("description", this.openGraph.description);
+                if (this.openGraph.image != null) content.put("image", this.openGraph.image);
+                if (this.openGraph.video != null) content.put("video", this.openGraph.video);
+            }
+            else{
+                content.put("title", "Link");
+            }
+
+            // add the values
+            j.hmset("content:" + this.id, content);
+        } finally {
+            play.Play.application().plugin(RedisPlugin.class).jedisPool().returnResource(j);
+        }
     }
 }

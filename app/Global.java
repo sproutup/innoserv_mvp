@@ -1,6 +1,7 @@
 import java.util.Arrays;
 
 import models.Product;
+import models.Content;
 import models.SecurityRole;
 
 import com.avaje.ebean.*;
@@ -55,6 +56,8 @@ public class Global extends GlobalSettings {
 		Akka.system().scheduler().schedule(delay, sendgridVerifyFreq, new SendgridManager(), Akka.system().dispatcher());
 
 		EnsureRefUrl.genMissingUrls();
+
+		Content.initRedis();
 
 		PlayAuthenticate.setResolver(new Resolver() {
 
