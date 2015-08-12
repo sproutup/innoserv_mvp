@@ -9,12 +9,14 @@ import org.apache.commons.lang3.StringUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import play.Logger;
 import play.libs.Json;
 import play.mvc.BodyParser;
 import play.mvc.Controller;
 import play.mvc.Result;
 
 import java.io.IOException;
+import java.net.UnknownHostException;
 import java.util.List;
 import org.apache.commons.lang.StringUtils.*;
 
@@ -87,6 +89,9 @@ public class OpenGraphController extends Controller {
 
             openGraph.save();
             return ok(openGraph.toJson());
+        } catch (UnknownHostException e){
+            Logger.debug(e.getMessage());
+            return badRequest(e.getMessage());
         } catch (IOException e) {
             e.printStackTrace();
             return badRequest("Bad url given");
