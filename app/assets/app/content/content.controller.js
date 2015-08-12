@@ -12,12 +12,13 @@ function ContentController($stateParams, $state, FeedService) {
     vm.content = [];
 
     vm.content = FeedService.query();
+    console.log(vm.content);
     vm.busy = false;
-    var position = 6;
+    var position = 11;
 
     vm.loadMore = function() {
         vm.busy = true;
-
+        console.log('more');
         var more = [];
         more = FeedService.query({
             start: position
@@ -26,9 +27,10 @@ function ContentController($stateParams, $state, FeedService) {
                 vm.content.push(more[a]);
                 if ((a + 1) === more.length) {
                     vm.busy = false;
+                    console.log(vm.content);
                 }
             }
-            position += 6;
+            position += 11;
         });
     };
 
