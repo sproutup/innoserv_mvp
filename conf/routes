@@ -97,6 +97,13 @@ PUT           /api/products/:slug                                            con
 POST          /api/products/:slug                                            controllers.Products.updateProduct(slug: String)
 DELETE        /api/products/:id                                              controllers.Products.deleteProduct(id: Long)
 
+GET           /api/feed                                                      controllers.FeedController.getAll
+GET           /api/feed/:start                                               controllers.FeedController.getRange(start: Int)
+#POST          /api/feed                                                     controllers.FeedController.create
+#PUT           /api/feed/:slug                                               controllers.FeedController.update(slug: String)
+#POST          /api/feed/:slug                                               controllers.FeedController.update(slug: String)
+#DELETE        /api/feed/:id                                                 controllers.FeedController.delete(id: Long)
+
 GET           /api/company                                                  controllers.CompanyController.query
 #GET           /api/company/:id                                              controllers.CompanyController.getCompany(id: Long)
 POST          /api/company                                                  controllers.CompanyController.save
