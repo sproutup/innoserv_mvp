@@ -35,6 +35,8 @@ public class FeedController extends Controller {
         //Go to Redis to read the full roster of content.
         Jedis j = play.Play.application().plugin(RedisPlugin.class).jedisPool().getResource();
         try {
+            if(!j.exists("feed:all")) Content.initRedis();
+
             List<String> list = j.lrange("feed:all", start, start+5);
             for(String id: list) {
                 String key = "content:" + id;
