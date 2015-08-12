@@ -12,21 +12,25 @@ function ContentController($stateParams, $state, FeedService) {
     vm.content = [];
 
     vm.content = FeedService.query();
+    vm.busy = false;
+    var position = 6;
 
-    console.log(vm.content);
+    vm.loadMore = function() {
+        vm.busy = true;
 
-
-
-    // content = cs.$query();
-
-    // cs.$get(function(content) {
-    //     console.log(content);
-    // }, function(err) {
-    //     console.log(err);
-    // });
-
-    // var stream = [];
-    // stream = new ContentService({param: '1'}).$query();
+        var more = [];
+        more = FeedService.query({
+            start: position
+        }, function() {
+            for (var a = 0; a < more.length; a++) {
+                vm.content.push(more[a]);
+                if ((a + 1) === more.length) {
+                    vm.busy = false;
+                }
+            }
+            position += 6;
+        });
+    };
 
 }
 
