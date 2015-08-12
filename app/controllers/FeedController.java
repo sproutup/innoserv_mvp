@@ -37,7 +37,7 @@ public class FeedController extends Controller {
         try {
             if(!j.exists("feed:all")) Content.initRedis();
 
-            List<String> list = j.lrange("feed:all", start, start+5);
+            List<String> list = j.lrange("feed:all", start, start+10);
             for(String id: list) {
                 String key = "content:" + id;
                 List<String> values = j.hmget(key, "title", "url", "description", "image", "video");
