@@ -125,7 +125,15 @@ public class Content extends SuperModel {
     public void lpush(){
         Jedis j = play.Play.application().plugin(RedisPlugin.class).jedisPool().getResource();
         try {
+            // There is an interesting thing to notice in the code below:
+            // we use a new command called LTRIM after we perform the LPUSH operation in the global timeline.
+            // This is used in order to trim the list to just 1000 elements.
+            // The global timeline is actually only used in order to show a few posts in the home page,
+            // there is no need to have the full history of all the posts.
+            // Basically LTRIM + LPUSH is a way to create a capped collection in Redis.
+
             j.lpush("feed:all", this.id.toString());
+            j.ltrim("feed:all", 0, 1000);
         } finally {
             play.Play.application().plugin(RedisPlugin.class).jedisPool().returnResource(j);
         }

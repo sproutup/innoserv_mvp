@@ -5,16 +5,20 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import models.Content;
 import models.OpenGraph;
 
+import org.apache.commons.lang3.StringUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import play.Logger;
 import play.libs.Json;
 import play.mvc.BodyParser;
 import play.mvc.Controller;
 import play.mvc.Result;
 
 import java.io.IOException;
+import java.net.UnknownHostException;
 import java.util.List;
+import org.apache.commons.lang.StringUtils.*;
 
 /**
  * Created by Apurv on 7/30/15.
@@ -64,7 +68,7 @@ public class OpenGraphController extends Controller {
             if (check(json, "url")) { url = json.findPath("url").asText(); }
             else { return badRequest("Missing parameter [url]"); }
 
-            Document doc = Jsoup.connect(url).get();
+            Document doc = Jsoup.connect(url).userAgent("Mozilla/5.0").get();
             OpenGraph openGraph = new OpenGraph();
 
             Element ogTitle = doc.select("meta[property=og:title]").first();
@@ -75,16 +79,19 @@ public class OpenGraphController extends Controller {
             Element ogSiteName = doc.select("meta[property=og:site_name]").first();
             Element ogVideo = doc.select("meta[property=og:video]").first();
 
-            if (ogTitle != null) openGraph.title = ogTitle.attr("content");
-            if (ogType != null) openGraph.type = ogType.attr("content");
-            if (ogImage != null) openGraph.image = ogImage.attr("content");
-            if (ogUrl != null) openGraph.url = ogUrl.attr("content");
-            if (ogDescription != null) openGraph.description = ogDescription.attr("content");
-            if (ogSiteName != null) openGraph.siteName = ogSiteName.attr("content");
-            if (ogVideo != null) openGraph.video = ogVideo.attr("content");
+            if (ogTitle != null) openGraph.title = StringUtils.substring(ogTitle.attr("content").trim(), 0, 255);
+            if (ogType != null) openGraph.type = ogType.attr("content").trim();
+            if (ogImage != null) openGraph.image = ogImage.attr("content").trim();
+            if (ogUrl != null) openGraph.url = ogUrl.attr("content").trim();
+            if (ogDescription != null) openGraph.description = StringUtils.substring(ogDescription.attr("content").trim(), 0, 255);
+            if (ogSiteName != null) openGraph.siteName = StringUtils.substring(ogSiteName.attr("content").trim(), 0, 255);
+            if (ogVideo != null) openGraph.video = ogVideo.attr("content").trim();
 
             openGraph.save();
             return ok(openGraph.toJson());
+        } catch (UnknownHostException e){
+            Logger.debug(e.getMessage());
+            return badRequest(e.getMessage());
         } catch (IOException e) {
             e.printStackTrace();
             return badRequest("Bad url given");
