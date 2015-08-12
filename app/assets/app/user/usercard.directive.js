@@ -28,25 +28,25 @@ function userCard() {
         var elementFromRight = windowWidth - elementOffset.left;
 
         if (elementOffset.top < 275) {
-            cardWrapper.style.bottom = '-266px';
-            hoverBox.style.bottom = '-75px';
-            arrowDown.style.display = 'none';
-            arrowUp.style.display = 'block';
-            if (elementFromRight < 140) {
-                console.log(element);
-                cardWrapper.style.left = 'auto';
-                cardWrapper.style.right = '-17px';
-                hoverBox.style.left = 'auto';
-                hoverBox.style.right = '0px';
-                arrowUp.style.right = '25px';
-            } else if (elementOffset.left < 140) {
-                cardWrapper.style.left = '-17px';
-                hoverBox.style.left = '0px';
-                arrowUp.style.left = '21px';
-            } else {
-                cardWrapper.style.left = '-80px';
-                arrowUp.style.left = '84px';
-            }
+            // cardWrapper.style.bottom = '-266px';
+            // hoverBox.style.bottom = '-75px';
+            // arrowDown.style.display = 'none';
+            // arrowUp.style.display = 'block';
+            // if (elementFromRight < 140) {
+            //     console.log(element);
+            //     cardWrapper.style.left = 'auto';
+            //     cardWrapper.style.right = '-17px';
+            //     hoverBox.style.left = 'auto';
+            //     hoverBox.style.right = '0px';
+            //     arrowUp.style.right = '25px';
+            // } else if (elementOffset.left < 140) {
+            //     cardWrapper.style.left = '-17px';
+            //     hoverBox.style.left = '0px';
+            //     arrowUp.style.left = '21px';
+            // } else {
+            //     cardWrapper.style.left = '-80px';
+            //     arrowUp.style.left = '84px';
+            // }
         } else {
             if (elementOffset.left < 140) {
                 cardWrapper.style.left = '-17px';
@@ -66,5 +66,7 @@ function userCard() {
 
 function CardController() {
     var vm = this;
-    vm.user.twitterHandle = "@" + vm.user.urlTwitter.slice(20);
+    if (vm.user && vm.user.urlTwitter) {
+        vm.user.twitterHandle = "@" + vm.user.urlTwitter.slice(20);
+    }
 }
