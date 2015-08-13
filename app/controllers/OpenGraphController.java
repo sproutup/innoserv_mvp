@@ -6,6 +6,7 @@ import models.Content;
 import models.OpenGraph;
 
 import org.apache.commons.lang3.StringUtils;
+import org.jsoup.HttpStatusException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -78,11 +79,10 @@ public class OpenGraphController extends Controller {
             Logger.debug("scrape url: " + url);
 
             Document doc = Jsoup.connect(url)
-                    .userAgent("Mozilla")
-                    //.cookie("auth", "token")
+                    .userAgent("Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:25.0) Gecko/20100101 Firefox/25.0")
+                    .referrer("http://www.sproutup.co")
                     .timeout(3000)
-                    //.maxBodySize(3000)
-                    .post();
+                    .get();
 
             OpenGraph openGraph = new OpenGraph();
 
@@ -118,7 +118,10 @@ public class OpenGraphController extends Controller {
         } catch (UnknownHostException e){
             Logger.debug(e.getMessage());
             return badRequest(e.getMessage());
-        } catch (IOException e) {
+        } catch (HttpStatusException e) {
+            Logger.debug(e.getMessage());
+            return badRequest(e.getMessage());
+        }catch (IOException e) {
             e.printStackTrace();
             return badRequest("Bad url given");
         }
