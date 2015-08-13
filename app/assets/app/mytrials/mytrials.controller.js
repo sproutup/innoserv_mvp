@@ -63,6 +63,7 @@
         }
 
         function addContent(trial){
+            console.log('yo');
             console.log("## addContent", trial);
 
             var item = new ContentService();

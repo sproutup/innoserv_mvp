@@ -1,18 +1,16 @@
 <!-- content blurb -->
 <div class="col-sm-12 my-content-item">
     <!-- user photo -->
-    <div class="col-sm-2 my-content-user-avatar">
+<!--     <div class="col-sm-2 my-content-user-avatar">
         <img class="img-responsive my-content-user-img img-center" src="https://pbs.twimg.com/profile_images/546875112947867649/U8BFoVYj_400x400.jpeg">
-    </div>
+    </div> -->
     <!-- content thumbnail -->
     <div class="col-sm-10 my-content-body">
         <div class="my-content-item--summary">
-            <p class="my-content-user">User Name<span>@twitterhandle</span></p>
-            <p class="my-content-timestamp">Yesterday at 4:30pm</p>
             <div class="my-content-item-main">
-                <img class="my-content-image img-responsive" src="http://rack.1.mshcdn.com/media/ZgkyMDE1LzA3LzIyLzUyL1NwYWNlSmFtMi5hMDQxYS5qcGcKcAl0aHVtYgk5NTB4NTM0IwplCWpwZw/626b0601/1bf/SpaceJam2.jpg">
-                <p class="my-content-headline">'Space Jam 2' tho!? LeBron James inks deal with Warner Bros</p>
-                <p class="my-content-text">After LeBron James announces a partnership with Warner Bros., thirst for 'Space Jam 2' overruns the Internet.</p>
+                <img class="my-content-image img-responsive" src="{{vm.content.image}}">
+                <p class="my-content-headline">{{vm.content.title}}</p>
+                <p class="my-content-text">{{vm.content.description}}</p>
             </div>
             <div class="my-content-tags">
                 <a href="#"><span>#BloomSky</span></a>
