@@ -7,7 +7,9 @@
     <!-- content thumbnail -->
     <div class="col-sm-10 my-content-body">
         <div class="my-content-item--summary">
-            <p class="my-content-user">{{ vm.content.user.name }}<span>@twitterhandle</span></p>
+            <p class="my-content-user">{{ vm.content.user.name }}
+                <a ng-href="{{ vm.content.user.urlTwitter }}" target="blank"><span>@{{ vm.content.user.handleTwitter }}</span></a>
+            </p>
             <p class="my-content-timestamp">{{ vm.content.createdAt | fromNow }}</p>
             <a ng-href="{{ vm.content.url }}" target="blank">
                 <div class="my-content-item-main">
