@@ -18,6 +18,11 @@
                     <p class="my-content-text">{{vm.content.description}}</p>
                 </div>
             </a>
+            <div class="my-content-actions">
+                <up-like likes="vm.content.likes" up-id="vm.content.id" up-type="models.content"></up-like>
+                <a href="#">COMMENT (0)</a>
+                <a href="#">SHARE</a>
+            </div>
         </div>
     </div>
 </div>

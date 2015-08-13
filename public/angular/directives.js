@@ -808,81 +808,81 @@ angular.module('sproutupApp').directive('upSlideableToggle', ['$rootScope',
     }
 ]);
 
-angular.module('sproutupApp').directive('upLike', ['LikesService', 'AuthService', '$timeout',
-    function (likesService, authService, $timeout) {
-        return {
-            restrict: 'E',
-            replace: true,
-            scope: {
-                likes: '=',
-                id: '=upId',
-                type: '@upType'
-            },
-            templateUrl: 'assets/templates/up-like.html',
-            link: function (scope, element, attrs) {
-                attrs.$observe('likes', function (likes) {
-                    didIlikeItAlready();
-                });
+// angular.module('sproutupApp').directive('upLike', ['LikesService', 'AuthService', '$timeout',
+//     function (likesService, authService, $timeout) {
+//         return {
+//             restrict: 'E',
+//             replace: true,
+//             scope: {
+//                 likes: '=',
+//                 id: '=upId',
+//                 type: '@upType'
+//             },
+//             templateUrl: 'assets/templates/up-like.html',
+//             link: function (scope, element, attrs) {
+//                 attrs.$observe('likes', function (likes) {
+//                     didIlikeItAlready();
+//                 });
 
-                scope.$watch(function () {
-                        return authService.loggedIn();
-                    },
-                    function(newVal, oldVal) {
-                        didIlikeItAlready();
-                    }, true);
+//                 scope.$watch(function () {
+//                         return authService.loggedIn();
+//                     },
+//                     function(newVal, oldVal) {
+//                         didIlikeItAlready();
+//                     }, true);
 
-                function didIlikeItAlready() {
-                    if(authService.loggedIn()) {
-                        var userid = authService.m.user.id;
-                        if (scope.likes == undefined) {
-                            return false;
-                        }
-                        for (var i = 0; i < scope.likes.length; i++) {
-                            if (scope.likes[i].id == userid) {
-                                scope.upvoted = true;
-                                return true;
-                            }
-                        }
-                    }
-                    scope.upvoted = false;
-                    return false;
-                }
+//                 function didIlikeItAlready() {
+//                     if(authService.loggedIn()) {
+//                         var userid = authService.m.user.id;
+//                         if (scope.likes == undefined) {
+//                             return false;
+//                         }
+//                         for (var i = 0; i < scope.likes.length; i++) {
+//                             if (scope.likes[i].id == userid) {
+//                                 scope.upvoted = true;
+//                                 return true;
+//                             }
+//                         }
+//                     }
+//                     scope.upvoted = false;
+//                     return false;
+//                 }
 
-                element.on('click', function () {
-                    console.log("#########################");
-                    console.log("up-like > clicked id/type: " + scope.id + "/" + scope.type);
-                    console.log("up-like > is-logged-in: " + authService.loggedIn());
+//                 element.on('click', function () {
+//                     console.log("#########################");
+//                     console.log("up-like > clicked id/type: " + scope.id + "/" + scope.type);
+//                     console.log("up-like > is-logged-in: " + authService.loggedIn());
 
-                    if(!authService.loggedIn()){
-                        scope.$emit('LoginEvent', {
-                            someProp: 'Sending you an Object!' // send whatever you want
-                        });
-                        return;
-                    }
+//                     if(!authService.loggedIn()){
+//                         scope.$emit('LoginEvent', {
+//                             someProp: 'Sending you an Object!' // send whatever you want
+//                         });
+//                         return;
+//                     }
 
-                    if(scope.likes == undefined){
-                        scope.likes = [];
-                    }
+//                     if(scope.likes == undefined){
+//                         scope.likes = [];
+//                     }
 
-                    console.log("user.id: " + authService.m.user.id);
+//                     console.log("user.id: " + authService.m.user.id);
 
-                    if(didIlikeItAlready()==false){
-                        likesService.addLike(scope.id, scope.type, authService.m.user.id).then(
-                            function(data) {
-                                console.log("liked it: " + scope.id);
-                                scope.likes.push(data);
-                                scope.upvoted = true;
-                            }, function(reason) {
-                                console.log('up-files failed: ' + reason);
-                            }
-                        );
-                    };
+//                     if(didIlikeItAlready()==false){
+//                         likesService.addLike(scope.id, scope.type, authService.m.user.id).then(
+//                             function(data) {
+//                                 console.log("liked it: " + scope.id);
+//                                 scope.likes.push(data);
+//                                 scope.upvoted = true;
+//                             }, function(reason) {
+//                                 console.log('up-files failed: ' + reason);
+//                             }
+//                         );
+//                     };
 
-                });
-            }
-        }
-    }
-]);
+//                 });
+//             }
+//         }
+//     }
+// ]);
 
 angular.module('sproutupApp').directive('upAvatarUpload', ['FileService', 'AuthService', '$timeout',
     function (fileService, authService, $timeout) {
