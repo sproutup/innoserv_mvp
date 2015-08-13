@@ -155,6 +155,7 @@ public class Content extends SuperModel {
 
             // Create the hashmap values
             content.put("url", this.url);
+            content.put("createdAt", new DateTime(this.createdAt).toString());
             if(this.openGraph != null) {
                 if (this.openGraph.title != null) content.put("title", this.openGraph.title);
                 if (this.openGraph.description != null) content.put("description", this.openGraph.description);
@@ -181,16 +182,17 @@ public class Content extends SuperModel {
         ObjectNode node = Json.newObject();
         try {
             String key = "content:" + id;
-            List<String> values = j.hmget(key, "title", "url", "description", "image", "video", "user.id");
+            List<String> values = j.hmget(key, "title", "url", "createdAt", "description", "image", "video", "user.id");
 
             node.put("id", id);
             if (values.get(0) != null) node.put("title", values.get(0));
             if (values.get(1) != null) node.put("url", values.get(1));
-            if (values.get(2) != null) node.put("description", values.get(2));
-            if (values.get(3) != null) node.put("image", values.get(3));
-            if (values.get(4) != null) node.put("video", values.get(4));
-            if (values.get(5) != null) {
-                node.put("user", User.hmget(values.get(5)));
+            if (values.get(2) != null) node.put("createdAt", values.get(2));
+            if (values.get(3) != null) node.put("description", values.get(3));
+            if (values.get(4) != null) node.put("image", values.get(4));
+            if (values.get(5) != null) node.put("video", values.get(5));
+            if (values.get(6) != null) {
+                node.put("user", User.hmget(values.get(6)));
             }
 
         } finally {
