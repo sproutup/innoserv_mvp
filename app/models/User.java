@@ -457,6 +457,7 @@ public class User extends TimeStampModel implements Subject {
 			map.put("nickname", this.nickname);
 			map.put("avatarUrl", getAvatar());
 			map.put("urlTwitter", this.urlTwitter);
+			map.put("handleTwitter", this.urlTwitter.substring(urlTwitter.lastIndexOf("/")+1));
 
 			// add the values
 			j.hmset(key, map);
@@ -477,7 +478,7 @@ public class User extends TimeStampModel implements Subject {
 				User.find.byId(Long.parseLong(id, 10)).hmset();
 			}
 
-			List<String> values = j.hmget(key, "id", "name", "nickname", "avatarUrl", "urlTwitter");
+			List<String> values = j.hmget(key, "id", "name", "nickname", "avatarUrl", "urlTwitter", "handleTwitter");
 
 			node.put("id", id);
 			if (values.get(0) != null) node.put("id", values.get(0));
@@ -485,6 +486,7 @@ public class User extends TimeStampModel implements Subject {
 			if (values.get(2) != null) node.put("nickname", values.get(2));
 			if (values.get(3) != null) node.put("avatarUrl", values.get(3));
 			if (values.get(4) != null) node.put("urlTwitter", values.get(4));
+			if (values.get(5) != null) node.put("handleTwitter", values.get(5));
 		} finally {
 			play.Play.application().plugin(RedisPlugin.class).jedisPool().returnResource(j);
 		}
