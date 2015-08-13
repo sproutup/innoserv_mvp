@@ -165,10 +165,37 @@ public class Content extends SuperModel {
                 content.put("title", "Link");
             }
 
+            if(this.user != null) {
+                content.put("user.id", this.user.id.toString());
+            }
+
             // add the values
-            j.hmset("content:" + this.id, content);
+            j.hmset("content:" + this.id.toString(), content);
         } finally {
             play.Play.application().plugin(RedisPlugin.class).jedisPool().returnResource(j);
         }
+    }
+
+    public static ObjectNode hmget(String id){
+        Jedis j = play.Play.application().plugin(RedisPlugin.class).jedisPool().getResource();
+        ObjectNode node = Json.newObject();
+        try {
+            String key = "content:" + id;
+            List<String> values = j.hmget(key, "title", "url", "description", "image", "video", "user.id");
+
+            node.put("id", id);
+            if (values.get(0) != null) node.put("title", values.get(0));
+            if (values.get(1) != null) node.put("url", values.get(1));
+            if (values.get(2) != null) node.put("description", values.get(2));
+            if (values.get(3) != null) node.put("image", values.get(3));
+            if (values.get(4) != null) node.put("video", values.get(4));
+            if (values.get(5) != null) {
+                node.put("user", User.hmget(values.get(5)));
+            }
+
+        } finally {
+            play.Play.application().plugin(RedisPlugin.class).jedisPool().returnResource(j);
+        }
+        return node;
     }
 }

@@ -20,6 +20,7 @@ import com.feth.play.module.pa.user.EmailIdentity;
 import com.feth.play.module.pa.user.NameIdentity;
 import com.feth.play.module.pa.user.FirstLastNameIdentity;
 
+import com.typesafe.plugin.RedisPlugin;
 import constants.AppConstants;
 import constants.UserRole;
 import controllers.Application;
@@ -36,6 +37,7 @@ import play.data.validation.Constraints;
 import play.db.ebean.Model;
 import play.libs.Json;
 import play.mvc.Http;
+import redis.clients.jedis.Jedis;
 
 import javax.persistence.*;
 
@@ -247,7 +249,7 @@ public class User extends TimeStampModel implements Subject {
 
 	public static User create(final AuthUser authUser) {
 
-		return create (authUser, UserRole.CONSUMER.name());
+		return create(authUser, UserRole.CONSUMER.name());
 	}
 
 	public static User create(final AuthUser authUser, String role) {
@@ -441,6 +443,51 @@ public class User extends TimeStampModel implements Subject {
 		node.put("urlTwitter", this.urlTwitter);
 		return node;
 	}
+
+	public void hmset(){
+		Jedis j = play.Play.application().plugin(RedisPlugin.class).jedisPool().getResource();
+		try {
+			Map map = new HashMap();
+
+			// Create the hashmap values
+			map.put("id", this.id.toString());
+			map.put("name", this.name);
+			map.put("nickname", this.nickname);
+			map.put("avatarUrl", getAvatar());
+			map.put("urlTwitter", this.urlTwitter);
+
+			// add the values
+			j.hmset("user:" + this.id.toString(), map);
+		} finally {
+			play.Play.application().plugin(RedisPlugin.class).jedisPool().returnResource(j);
+		}
+	}
+
+	public static ObjectNode hmget(String id){
+		Jedis j = play.Play.application().plugin(RedisPlugin.class).jedisPool().getResource();
+		ObjectNode node = Json.newObject();
+		try {
+			String key = "user:" + id;
+
+			if(!j.exists(key)) {
+				Logger.debug("user added to cache " + key);
+				User.find.byId(Long.parseLong(id, 10)).hmset();
+			}
+
+			List<String> values = j.hmget(key, "id", "name", "nickname", "avatarUrl", "urlTwitter");
+
+			node.put("id", id);
+			if (values.get(0) != null) node.put("id", values.get(0));
+			if (values.get(1) != null) node.put("name", values.get(1));
+			if (values.get(2) != null) node.put("nickname", values.get(2));
+			if (values.get(3) != null) node.put("avatarUrl", values.get(3));
+			if (values.get(4) != null) node.put("urlTwitter", values.get(4));
+		} finally {
+			play.Play.application().plugin(RedisPlugin.class).jedisPool().returnResource(j);
+		}
+		return node;
+	}
+
 
 	public String getAvatar(){
 		if(avatar != null){
