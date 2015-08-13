@@ -1,0 +1,28 @@
+<div class="product-list-wrapper" up-product-list>
+
+    <div class="row sproutup-tabs">
+        <div class="col-lg-12">
+            <div class="sproutup-tabs--content">
+                <a ui-sref="user.search" class="btn btn-lg btn-sproutup-tab">All Products</a>
+                <a class="btn btn-lg btn-sproutup-tab active">Coming Soon</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="product-list" ng-init="query = {isAvailableForTrial: false}">
+        <div class="product-list-header">
+            <h1>We try our best to surprise you with the best innovative products. Request a trial and get a hands-on experience.</h1>
+        </div>
+
+        <div class="row product-list-container">
+            <div class="col-sm-12 product-list--search-area">
+                <input ng-model="query.$" class="form-control product-list--search-input" placeholder="Search products">
+                <span class="fa fa-search"></span>
+            </div>
+
+            <div ng-repeat="product in products | filter: query | orderBy:'random'">
+                <up-product-item product="product"></up-product-item>
+            </div>
+        </div>
+    </div>
+</div>
