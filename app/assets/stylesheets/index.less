@@ -456,6 +456,77 @@
   max-height: 388px !important;
 }
 
+.user-card-wrapper {
+  position: absolute;
+  bottom: 65px;
+  left: -75px;
+  display: inline-block;
+  width: 180px;
+  height: auto;
+  background-color: #EFEFEF;
+  z-index: 100;
+  border-radius: 10px;
+  padding-left: 12px;
+  padding-right: 12px;
+}
+
+.user-card-arrow {
+  width: 0;
+  height: 0;
+  border-left: 15px solid transparent;
+  border-right: 15px solid transparent;
+  border-top: 15px solid #EFEFEF;
+  position: absolute;
+  bottom: -15px;
+  left: 79px;
+}
+
+.user-card-arrow-up {
+  width: 0;
+  height: 0;
+  border-left: 15px solid transparent;
+  border-right: 15px solid transparent;
+  border-bottom: 15px solid #EFEFEF;
+  position: absolute;
+  display: none;
+  top: -15.5px;
+}
+
+.user-card-hover-box {
+  position: absolute;
+  bottom: 20px;
+  left: -3px;
+  height: 100px;
+  width: 44px;
+}
+
+.user-card-avatar {
+  margin-top: 40px;
+  margin-left: 38px;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  display: inherit;
+}
+
+.user-card-name {
+  margin-top: 20px;
+  text-align: center;
+  font-size: 17px;
+  color: black;
+}
+
+.user-card-nickname {
+  margin-top: 12px;
+  text-align: center;
+  color: black;
+  padding-bottom: 40px;
+}
+
+.twitterLink:hover {
+  text-decoration: none !important;
+}
+
 @media (min-width: 767px) {
   .navbar-toggleMenu {
     display: none !important;
@@ -485,9 +556,13 @@
 @media (max-width:767px) {
   .navbar-skinny {
     display: block !important;
+    color: white !important;
   }
   .navbar-wide {
     display: none !important;
+  }
+  .navbar-influencer {
+    background-color: #3b4546;
   }
   .influencer-profile-detail {
     text-align: center;
