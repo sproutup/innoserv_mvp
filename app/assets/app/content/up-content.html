@@ -1,22 +1,21 @@
 <!-- content blurb -->
 <div class="col-sm-12 my-content-item">
     <!-- user photo -->
-<!--     <div class="col-sm-2 my-content-user-avatar">
-        <img class="img-responsive my-content-user-img img-center" src="https://pbs.twimg.com/profile_images/546875112947867649/U8BFoVYj_400x400.jpeg">
-    </div> -->
+    <div class="col-sm-2 my-content-user-avatar">
+        <img class="img-responsive my-content-user-img img-center" ng-src="{{ vm.content.user.avatarUrl }}">
+    </div>
     <!-- content thumbnail -->
     <div class="col-sm-10 my-content-body">
         <div class="my-content-item--summary">
-            <div class="my-content-item-main">
-                <img class="my-content-image img-responsive" src="{{vm.content.image}}">
-                <p class="my-content-headline">{{vm.content.title}}</p>
-                <p class="my-content-text">{{vm.content.description}}</p>
-            </div>
-            <div class="my-content-tags">
-                <a href="#"><span>#BloomSky</span></a>
-                <a href="#">#Weather</a>
-                <a href="#">#Review</a>
-            </div>
+            <p class="my-content-user">{{ vm.content.user.name }}<span>@twitterhandle</span></p>
+            <p class="my-content-timestamp">Yesterday at 4:30pm</p>
+            <a ng-href="{{ vm.content.url }}" target="blank">
+                <div class="my-content-item-main">
+                    <img class="my-content-image img-responsive" src="{{vm.content.image}}">
+                    <p class="my-content-headline">{{vm.content.title}}</p>
+                    <p class="my-content-text">{{vm.content.description}}</p>
+                </div>
+            </a>
         </div>
     </div>
 </div>
