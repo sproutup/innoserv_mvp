@@ -449,6 +449,8 @@ public class User extends TimeStampModel implements Subject {
 		try {
 			Map map = new HashMap();
 
+			String key = "user:" + id.toString();
+
 			// Create the hashmap values
 			map.put("id", this.id.toString());
 			map.put("name", this.name);
@@ -457,7 +459,8 @@ public class User extends TimeStampModel implements Subject {
 			map.put("urlTwitter", this.urlTwitter);
 
 			// add the values
-			j.hmset("user:" + this.id.toString(), map);
+			j.hmset(key, map);
+			j.expire(key, 86400); // 60s x 60m x 24h = 86400s = 1 day
 		} finally {
 			play.Play.application().plugin(RedisPlugin.class).jedisPool().returnResource(j);
 		}

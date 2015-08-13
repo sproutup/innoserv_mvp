@@ -13,13 +13,10 @@ import javax.persistence.Version;
 
 import play.Logger;
 import play.db.ebean.Model;
-import utils.Fileable;
-import utils.Followeable;
-import utils.Likeable;
-import utils.Taggable;
+import utils.*;
 
 @MappedSuperclass
-public class SuperModel extends TimeStampModel implements Likeable, Taggable, Followeable, Fileable {
+public class SuperModel extends TimeStampModel implements Likeable, Taggable, Followeable, Fileable, Commentable {
 
   /**
 	 * For social media features
@@ -53,6 +50,31 @@ public class SuperModel extends TimeStampModel implements Likeable, Taggable, Fo
   public List<Likes> getAllLikes() {
     return Likes.getAllLikes(this.id, this.getClass().getName());
   }
+
+
+  /*
+    Commentable interface implementation
+  */
+  @Override
+  public void addComment(Long userId, String body) {
+      Comment.addComment(userId, body, this.id, this.getClass().getName());
+  }
+
+  @Override
+  public void removeComment(Long commentId) {
+      Comment.removeComment(commentId, this.id, this.getClass().getName());
+  }
+
+  @Override
+  public void removeAllComments() {
+    Comment.removeAllComments(this.id, this.getClass().getName());
+  }
+
+  @Override
+  public List<Comment> getAllComments() {
+    return Comment.getAllComments(this.id, this.getClass().getName());
+  }
+
 
   /*
   Taggable interface implementation
