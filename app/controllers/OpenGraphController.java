@@ -63,15 +63,42 @@ public class OpenGraphController extends Controller {
     public static Result create() {
         try {
             JsonNode json = request().body().asJson();
-            if (json == null) { return badRequest("Expected JSON data"); }
-            String url;
-            if (check(json, "url")) { url = json.findPath("url").asText(); }
-            else { return badRequest("Missing parameter [url]"); }
+            if (json == null) {
+                return badRequest("Expected JSON data");
+            }
 
-            Document doc = Jsoup.connect(url).userAgent("Mozilla/5.0").get();
+            String url;
+            if (check(json, "url")) {
+                url = json.findPath("url").asText();
+            }
+            else {
+                return badRequest("Missing parameter [url]");
+            }
+
+            Logger.debug("scrape url: " + url);
+
+            Document doc = Jsoup.connect(url)
+                    .userAgent("Mozilla")
+                    //.cookie("auth", "token")
+                    .timeout(3000)
+                    //.maxBodySize(3000)
+                    .post();
+
             OpenGraph openGraph = new OpenGraph();
 
             Element ogTitle = doc.select("meta[property=og:title]").first();
+            if (ogTitle != null) {
+                openGraph.title = StringUtils.substring(ogTitle.attr("content").trim(), 0, 255);
+            }
+            else{
+                ogTitle = doc.select("meta[name=title]").first();
+                if (ogTitle != null) {
+                    openGraph.title = StringUtils.substring(ogTitle.attr("content").trim(), 0, 255);
+                }
+            }
+
+            Logger.debug("scrape title: " + openGraph.title);
+
             Element ogType = doc.select("meta[property=og:type]").first();
             Element ogImage = doc.select("meta[property=og:image]").first();
             Element ogUrl = doc.select("meta[property=og:url]").first();
@@ -79,7 +106,6 @@ public class OpenGraphController extends Controller {
             Element ogSiteName = doc.select("meta[property=og:site_name]").first();
             Element ogVideo = doc.select("meta[property=og:video]").first();
 
-            if (ogTitle != null) openGraph.title = StringUtils.substring(ogTitle.attr("content").trim(), 0, 255);
             if (ogType != null) openGraph.type = ogType.attr("content").trim();
             if (ogImage != null) openGraph.image = ogImage.attr("content").trim();
             if (ogUrl != null) openGraph.url = ogUrl.attr("content").trim();
