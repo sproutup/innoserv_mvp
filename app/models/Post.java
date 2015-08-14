@@ -64,7 +64,8 @@ public class Post extends SuperModel implements Taggable {
         }
 		List<Likes> likes = this.getAllLikes();
 		if(likes.size()>0){
-			node.put("likes", Likes.toJson(likes));
+			//node.put("likes", Likes.toJson(likes));
+			node.put("likes", Likes.range(this.id.toString(), this.getClass().getName().toLowerCase()));
 		}
 		List<Tag> tags = this.getAllTags();
 		if(tags.size()>0){

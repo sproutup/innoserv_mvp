@@ -33,22 +33,22 @@ public class SuperModel extends TimeStampModel implements Likeable, Taggable, Fo
    */
   @Override
   public void addLike(Long userId) {
-    Likes.addLike(userId, this.id, this.getClass().getName());
+    Likes.addLike(userId, this.id, this.getClass().getName().toLowerCase());
   }
 
   @Override
   public void removeLike(Long userId) {
-    Likes.removeLike(userId, this.id, this.getClass().getName());
+    Likes.removeLike(userId, this.id, this.getClass().getName().toLowerCase());
   }
 
   @Override
   public void removeAllLikes() {
-    Likes.removeAllLikes(this.id, this.getClass().getName());
+    Likes.removeAllLikes(this.id, this.getClass().getName().toLowerCase());
   }
 
   @Override
   public List<Likes> getAllLikes() {
-    return Likes.getAllLikes(this.id, this.getClass().getName());
+    return Likes.getAllLikes(this.id, this.getClass().getName().toLowerCase());
   }
 
 

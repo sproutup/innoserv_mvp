@@ -28,7 +28,7 @@ angular.module('sproutupApp').directive('upLike', ['LikesService', 'AuthService'
                             return false;
                         }
                         for (var i = 0; i < scope.likes.length; i++) {
-                            if (scope.likes[i].id == userid) {
+                            if (scope.likes.data[i].user.id == userid) {
                                 scope.upvoted = true;
                                 return true;
                             }
