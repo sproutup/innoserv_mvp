@@ -1,3 +1,4 @@
 <a href="#">
-    <span ng-show="upvoted" class="upvoted">UPVOTED ({{likes.length || 0}})</span><span ng-hide="upvoted">UPVOTE ({{likes.length || 0}})</span>
+    <span ng-show="vm.upvoted" class="upvoted">UPVOTED ({{vm.likes.count || 0}})</span>
+    <span ng-hide="vm.upvoted">UPVOTE ({{vm.likes.count || 0}})</span>
 </a>

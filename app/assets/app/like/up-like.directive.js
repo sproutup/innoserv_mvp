@@ -1,5 +1,32 @@
-angular.module('sproutupApp').directive('upLike', ['LikesService', 'AuthService', '$timeout',
-    function (likesService, authService, $timeout) {
+angular
+    .module('sproutupApp')
+    .directive('upLike', upLike);
+
+function upLike() {
+    var directive = {
+        restrict: 'EA',
+        templateUrl: 'assets/app/like/up-like.html',
+        scope: {
+            likes: '=',
+            id: '=upId',
+            type: '@upType'
+        },
+        link: linkFunc,
+        controller: upLikeController,
+        controllerAs: 'vm',
+        bindToController: true // because the scope is isolated
+    };
+
+    return directive;
+
+    function linkFunc(scope, el, attr, ctrl) {
+        console.log('LINK: scope.vm.likes: ', scope.vm.likes);
+        console.log('LINK: scope.vm.id = %s', scope.vm.id);
+        console.log('LINK: scope.vm.type = %s', scope.vm.type);
+    }
+}
+/*
+function upLike(likesService, authService, $timeout) {
         return {
             restrict: 'E',
             replace: true,
@@ -76,3 +103,13 @@ angular.module('sproutupApp').directive('upLike', ['LikesService', 'AuthService'
         };
     }
 ]);
+*/
+
+upLikeController.$inject = ['LikesService', 'AuthService', '$timeout'];
+
+function upLikeController(likesService, authService, $timeout) {
+    var vm = this;
+
+    vm.upvoted = true;
+    vm.like = [];
+}
