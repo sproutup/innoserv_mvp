@@ -24,5 +24,5 @@ function upContent() {
 
 function UpContentController() {
     var vm = this;
-    vm.likes = content.likes;
+    vm.likes = vm.content.likes;
 }
