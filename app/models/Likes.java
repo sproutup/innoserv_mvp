@@ -127,7 +127,7 @@ public class Likes extends TimeStampModel {
 		// delete likes one by one
 		for (Likes like : likes) {
 			// delete from cache
-			like.zrem();
+			like.zrem(refId.toString(), refType);
 			like.del();
 			// delete from db
 			like.delete();
