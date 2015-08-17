@@ -168,7 +168,8 @@ public class Likes extends TimeStampModel {
 			items.put("count", j.zcard(key).toString());
 
 			for(String id: set) {
-				data.add(Content.hmget(id));
+				// get the data for each like
+				data.add(Likes.hmget(id));
 			}
 		} finally {
 			play.Play.application().plugin(RedisPlugin.class).jedisPool().returnResource(j);

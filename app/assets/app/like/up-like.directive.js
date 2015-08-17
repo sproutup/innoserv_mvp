@@ -20,14 +20,9 @@ function upLike() {
     return directive;
 
     function linkFunc(scope, el, attr, ctrl) {
-        console.log('LINK: scope.vm.likes: ', scope.vm.likes);
-        console.log('LINK: scope.vm.id = %s', scope.vm.id);
-        console.log('LINK: scope.vm.type = %s', scope.vm.type);
-        
         el.on('click', function () {
             vm.handleUpvoteClick();
         });
-
     }
 }
 

@@ -27,7 +27,7 @@ function ContentController($stateParams, $state, FeedService) {
                 vm.content.push(more[a]);
                 if ((a + 1) === more.length) {
                     vm.busy = false;
-                    console.log(vm.content);
+//                    console.log(vm.content);
                 }
             }
             position += 11;
