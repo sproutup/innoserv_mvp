@@ -44,6 +44,24 @@ function likesService($http, $log, $q) {
     return deferred.promise;
   };
 
+  LikesService.deleteLike = function(refId, refType, userId){
+    var deferred = $q.defer();
+    $http({
+        method: 'DELETE',
+        url: urlBase + "/" + refType + "/" + refId,
+        params: {user_id: userId},
+        data: "{}",
+        headers: {'Content-Type': 'application/json'}
+    }).success(function(data, status, headers, config){
+        console.log(data);
+        deferred.resolve(data);
+    }).error(function(data, status, headers, config) {
+        deferred.reject();
+    });
+
+    return deferred.promise;
+  };
+
   return LikesService;
 
 }

@@ -52,4 +52,22 @@ public class LikesController extends Controller {
             }
         }
     }
+
+    @BodyParser.Of(BodyParser.Json.class)
+    @SubjectPresent
+    public static Result deleteLikes(Long id, String type, Long userId) {
+        JsonNode json = request().body().asJson();
+        if (json == null) {
+            return badRequest("Expecting Json data");
+        } else {
+            //long user_id = json.findPath("user_id").longValue();
+            User user = User.find.byId(userId);
+            if (user == null) {
+                return badRequest("User not found [id]:" + userId);
+            } else {
+                Likes.removeLike(userId, id, type);
+                return ok();
+            }
+        }
+    }
 }
