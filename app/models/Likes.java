@@ -165,7 +165,7 @@ public class Likes extends TimeStampModel {
 			}
 
 			Set<String> set = j.zrange(key, 0, -1);
-			items.put("count", j.zcard(key).toString());
+			items.put("count", j.zcard(key));
 
 			for(String id: set) {
 				// get the data for each like
@@ -254,7 +254,7 @@ public class Likes extends TimeStampModel {
 
 			List<String> values = j.hmget(key, "id", "createdAt", "user.id");
 
-			if (values.get(0) != null) node.put("id", values.get(0));
+			if (values.get(0) != null) node.put("id", Long.parseLong(values.get(0),10));
 			if (values.get(1) != null) node.put("createdAt", values.get(1));
 			if (values.get(2) != null) {
 				node.put("user", User.hmget(values.get(2)));

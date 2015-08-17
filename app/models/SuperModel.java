@@ -61,8 +61,8 @@ public class SuperModel extends TimeStampModel implements Likeable, Taggable, Fo
   }
 
   @Override
-  public void removeComment(Long commentId) {
-      Comment.removeComment(commentId, this.id, this.getClass().getName());
+  public void removeComment(Long commentId, Long userId) {
+      Comment.deleteComment(commentId, this.id, this.getClass().getName(), userId);
   }
 
   @Override

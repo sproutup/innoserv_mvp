@@ -9,7 +9,7 @@ import java.util.List;
  */
 public interface Commentable {
     public void addComment(Long userId, String comment);
-    public void removeComment(Long commentId);
+    public void removeComment(Long commentId, Long userId);
     public void removeAllComments();
     public List<Comment> getAllComments();
     }
