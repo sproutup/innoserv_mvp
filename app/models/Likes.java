@@ -106,7 +106,7 @@ public class Likes extends TimeStampModel {
 		// if link is found then delete
 		if(rs != null){
 			// delete from cache
-			rs.zrem();
+			rs.zrem(refId.toString(), refType);
 			rs.del();
 			// delete from db
 			rs.delete();
@@ -209,11 +209,11 @@ public class Likes extends TimeStampModel {
 		}
 	}
 
-	public void zrem(){
+	public void zrem(String refId, String refType){
 		Jedis j = play.Play.application().plugin(RedisPlugin.class).jedisPool().getResource();
 		try {
 			// compose key
-			String key = "like:" + id.toString();
+			String key = "likes:"+ refType + ":" + refId;
 			// delete
 			j.zrem(key, this.id.toString());
 		} finally {
