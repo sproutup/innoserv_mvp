@@ -20,9 +20,14 @@ function upLike() {
     return directive;
 
     function linkFunc(scope, el, attr, ctrl) {
+        // console.log('LINK: scope.vm.likes: ', scope.vm.likes);
+        // console.log('LINK: scope.vm.id = %s', scope.vm.id);
+        // console.log('LINK: scope.vm.type = %s', scope.vm.type);
+        
         el.on('click', function () {
-            vm.handleUpvoteClick();
+            scope.vm.handleUpvoteClick();
         });
+
     }
 }
 
@@ -54,8 +59,7 @@ function upLikeController(likesService, authService, $timeout, $scope, $rootScop
 
     $scope.$watch(function () {
         return authService.loggedIn();
-    },
-    function(newVal, oldVal) {
+    }, function(newVal, oldVal) {
         didIlikeItAlready();
     }, true);
 
@@ -65,9 +69,11 @@ function upLikeController(likesService, authService, $timeout, $scope, $rootScop
             if ($scope.vm.likes === undefined) {
                 return false;
             }
-            for (var i = 0; i < $scope.vm.likes.length; i++) {
+            for (var i = 0; i < $scope.vm.likes.data.length; i++) {
+                console.log($scope.vm.likes.data);
                 if ($scope.vm.likes.data[i].user.id == userid) {
-                    $scope.upvoted = true;
+                    console.log('yo');
+                    $scope.vm.upvoted = true;
                     return true;
                 }
             }
@@ -78,6 +84,7 @@ function upLikeController(likesService, authService, $timeout, $scope, $rootScop
 
 
     vm.handleUpvoteClick = function() {
+        console.log($scope);
         if (!authService.loggedIn()) {
             $scope.$emit('LoginEvent', {
                 someProp: 'Sending you an Object!' // send whatever you want
@@ -85,20 +92,37 @@ function upLikeController(likesService, authService, $timeout, $scope, $rootScop
             return;
         }
 
-        if ($scope.likes === undefined) {
-            $scope.likes = [];
-        }
-
         console.log("user.id: " + authService.m.user.id);
 
         if (didIlikeItAlready() === false) {
-            console.log($scope);
-            likesService.addLike($scope.id, $scope.type, authService.m.user.id).then(
+            console.log($scope.vm.id + $scope.vm.type + authService.m.user.id);
+            likesService.addLike($scope.vm.id, $scope.vm.type, authService.m.user.id).then(
+                function(data) {
+                    $scope.vm.likes.data.push(data);
+                    $scope.vm.upvoted = true;
+                    $scope.vm.likes.count += 1;
+                }, function(reason) {
+                    console.log('up-files failed: ' + reason);
+                }
+            );
+        } else {
+            likesService.deleteLike($scope.vm.id, $scope.vm.type, authService.m.user.id).then(
                 function(data) {
                     console.log(data);
-                    console.log("liked it: " + $scope.id);
-                    $scope.likes.push(data);
-                    $scope.upvoted = true;
+                    console.log("did not like it: " + $scope.id);
+                    console.log($scope.vm.likes.data);
+                    console.log(authService.m.user.id);
+                    $scope.vm.likes.data.filter(function(like){
+                        if (like.user.id === authService.m.user.id) {
+                            var index = $scope.vm.likes.data.indexOf(like);
+                            $scope.vm.likes.data.splice(index, 1);
+                            $scope.vm.likes.count -= 1;
+                            $scope.vm.upvoted = false;
+                        }
+                    });
+                    // $scope.likes.push(data);
+                    // $scope.vm.upvoted = true;
+                    // $scope.vm.likes.count += 1;
                 }, function(reason) {
                     console.log('up-files failed: ' + reason);
                 }

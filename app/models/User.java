@@ -481,7 +481,7 @@ public class User extends TimeStampModel implements Subject {
 			List<String> values = j.hmget(key, "id", "name", "nickname", "avatarUrl", "urlTwitter", "handleTwitter");
 
 			node.put("id", id);
-			if (values.get(0) != null) node.put("id", values.get(0));
+			if (values.get(0) != null) node.put("id", Long.parseLong(values.get(0),10));
 			if (values.get(1) != null) node.put("name", values.get(1));
 			if (values.get(2) != null) node.put("nickname", values.get(2));
 			if (values.get(3) != null) node.put("avatarUrl", values.get(3));
