@@ -108,9 +108,9 @@ public class OpenGraphController extends Controller {
             if(doc.select("meta[property=og:image]").first() != null){
                 openGraph.image = doc.select("meta[property=og:image]").first().attr("content").trim();
             }
-            else if (doc.select("").first() != null) {
-
-            }
+//            else if (doc.select("").first() != null) {
+//
+//            }
 
             //[href*=/path/]
 
