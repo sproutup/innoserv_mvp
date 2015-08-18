@@ -86,30 +86,41 @@ public class OpenGraphController extends Controller {
 
             OpenGraph openGraph = new OpenGraph();
 
-            Element ogTitle = doc.select("meta[property=og:title]").first();
-            if (ogTitle != null) {
-                openGraph.title = StringUtils.substring(ogTitle.attr("content").trim(), 0, 255);
+            if (doc.select("meta[property=og:title]").first() != null) {
+                openGraph.title = StringUtils.substring(doc.select("meta[property=og:title]").first().attr("content").trim(), 0, 255);
             }
-            else{
-                ogTitle = doc.select("meta[name=title]").first();
-                if (ogTitle != null) {
-                    openGraph.title = StringUtils.substring(ogTitle.attr("content").trim(), 0, 255);
-                }
+            else if (doc.title() != null) {
+                openGraph.title = StringUtils.substring(doc.title().trim(), 0, 255);
             }
-
+            else {
+                openGraph.title = url;
+            }
             Logger.debug("scrape title: " + openGraph.title);
 
+            if(doc.select("meta[property=og:description]").first() != null) {
+                openGraph.description = StringUtils.substring(doc.select("meta[property=og:description]").first().attr("content").trim(), 0, 255);
+            }
+            else if (doc.select("meta[name=description]").first() != null) {
+                openGraph.description = StringUtils.substring(doc.select("meta[name=description]").first().attr("content").trim(), 0, 255);
+            }
+            Logger.debug("scrape desc: " + openGraph.description);
+
+            if(doc.select("meta[property=og:image]").first() != null){
+                openGraph.image = doc.select("meta[property=og:image]").first().attr("content").trim();
+            }
+            else if (doc.select("").first() != null) {
+
+            }
+
+            //[href*=/path/]
+
             Element ogType = doc.select("meta[property=og:type]").first();
-            Element ogImage = doc.select("meta[property=og:image]").first();
             Element ogUrl = doc.select("meta[property=og:url]").first();
-            Element ogDescription = doc.select("meta[property=og:description]").first();
             Element ogSiteName = doc.select("meta[property=og:site_name]").first();
             Element ogVideo = doc.select("meta[property=og:video]").first();
 
             if (ogType != null) openGraph.type = ogType.attr("content").trim();
-            if (ogImage != null) openGraph.image = ogImage.attr("content").trim();
             if (ogUrl != null) openGraph.url = ogUrl.attr("content").trim();
-            if (ogDescription != null) openGraph.description = StringUtils.substring(ogDescription.attr("content").trim(), 0, 255);
             if (ogSiteName != null) openGraph.siteName = StringUtils.substring(ogSiteName.attr("content").trim(), 0, 255);
             if (ogVideo != null) openGraph.video = ogVideo.attr("content").trim();
 
