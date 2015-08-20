@@ -136,7 +136,7 @@ POST          /api/likes/:type/:id                                           con
 DELETE        /api/likes/:type/:id                                           controllers.LikesController.deleteLikes(id: Long, type: String, user_id: Long)
 
 GET           /api/comment/:type/:id                                         controllers.CommentController.getComments(id: Long, type: String)
-POST          /api/comment/:type/:id                                         controllers.CommentController.addComment(id: Long, type: String, body: String)
+POST          /api/comment/:type/:id		                                 controllers.CommentController.addComment(id: Long, type: String)
 DELETE        /api/comment/:type/:id/:commentId                              controllers.CommentController.deleteComment(id: Long, type: String, commentId: Long)
 
 GET           /api/follow/:type/:id                                          controllers.FollowController.isFollowing(id: Long, type: String)

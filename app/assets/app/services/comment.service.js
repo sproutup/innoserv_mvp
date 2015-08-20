@@ -5,5 +5,12 @@ angular
 CommentService.$inject = ['$resource'];
 
 function CommentService($resource){
-    return $resource('/api/comment/:refType/:refId/:id', {id:'@id'}, {update:{method:'PUT'}} );
+	var service = {
+		comment: comment
+	};
+	return service;
+
+	function comment(refType, refId) {
+		return $resource('/api/comment/:refType/:refId/:commentId', {refType: refType, refId: refId, commentId: '@id'} );
+	}
 }
