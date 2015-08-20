@@ -514,12 +514,20 @@ a.list-group-item:hover {
 }
 
 .my-content-page {
-	max-width: 1024px;
+	max-width: 1100px;
 	margin: 90px auto 30px;
+    padding: 0px;
+}
+
+.my-content-left-rail {
     padding: 0px 15px;
+    margin: 0px;
+    border-right: 1px dashed @form-border;
 }
 
 .my-content-right-rail {
+    padding: 0px 15px;
+    margin: 0px;
 }
 
 .product-trial-item--input {
@@ -688,4 +696,40 @@ a.list-group-item:hover {
     color: @sproutup-blue;
     background-color: white;
     box-shadow: none;
+}
+
+.my-content-info-header {
+    background-color: @sproutup-blue-muted;
+    color: white;
+    margin: 15px 0px 10px;
+}
+
+.my-content-info-header p {
+    padding: 15px;
+    font-weight: 700;
+    font-size: 11pt;
+}
+
+.my-content-info-body {
+    color: @main-text;
+    margin: 0px;
+}
+
+.my-content-info-body h3 {
+    padding: 10px 15px;
+    margin: 0px;
+    font-weight: 700;
+    font-size: 11.5pt;
+    color: @sproutup-blue-muted;
+}
+
+.my-content-info-body h3 i {
+    padding-right: 10px;
+}
+
+.my-content-info-body p {
+    padding: 5px 15px 10px;
+    font-weight: 400;
+    font-size: 11pt;
+    line-height: 1.5;
 }
