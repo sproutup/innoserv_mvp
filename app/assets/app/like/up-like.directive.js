@@ -70,9 +70,7 @@ function upLikeController(likesService, authService, $timeout, $scope, $rootScop
                 return false;
             }
             for (var i = 0; i < $scope.vm.likes.data.length; i++) {
-                console.log($scope.vm.likes.data);
                 if ($scope.vm.likes.data[i].user.id == userid) {
-                    console.log('yo');
                     $scope.vm.upvoted = true;
                     return true;
                 }

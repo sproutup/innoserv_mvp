@@ -8,6 +8,7 @@ import models.User;
 import play.mvc.BodyParser;
 import play.mvc.Controller;
 import play.mvc.Result;
+import play.Logger;
 
 /**
  * Created by peter on 2/12/15.
@@ -26,7 +27,8 @@ public class CommentController extends Controller {
 
     @BodyParser.Of(BodyParser.Json.class)
     @SubjectPresent
-    public static Result addComment(Long id, String type, String body) {
+    public static Result addComment(Long id, String type) {
+        Logger.debug("hey");
         JsonNode json = request().body().asJson();
         if (json == null) {
             return badRequest("Expecting Json data");
@@ -35,6 +37,8 @@ public class CommentController extends Controller {
             if (user == null) {
                 return badRequest("User not found");
             } else {
+                String body = json.findPath("body").textValue();
+                Logger.debug(body);
                 Comment rs = Comment.addComment(user.id, body, id, type);
                 return created(Comment.hmget(rs.id.toString()));
             }
