@@ -20,6 +20,7 @@
                     <button class="btn btn-lg sproutup-btn-add-content"><i class="fa fa-link"></i>Link</button>
                     <button class="btn btn-lg sproutup-btn-add-content"><i class="fa fa-picture-o"></i>Photo</button>
                     <button class="btn btn-lg sproutup-btn-add-content"><i class="fa fa-video-camera"></i>Video</button>
+                    <button class="btn btn-lg sproutup-btn-add-content"><i class="fa fa-tags"></i>New Product</button>
                 </div>
             </div>
         </div>
@@ -107,17 +108,50 @@
         <!-- content thumbnail -->
         <div class="col-sm-10 my-content-body">
             <div class="my-content-item--summary">
-                <p class="my-content-user">User Name<span>@@twitterhandle</span></p>
-                <p class="my-content-timestamp">Yesterday at 4:30pm</p>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <p class="my-content-user">User Name<span>@@twitterhandle</span></p>
+                        <p class="my-content-timestamp">Yesterday at 4:30pm</p>
+                    </div>
+                    <div class="col-sm-6">
+                        <a href="#" class="my-content-related-product new-product"><i class="fa fa-tag"></i>New Product</a>
+                    </div>
+                </div>
+                <div class="my-content-item-main">
+                    <img class="my-content-image img-responsive" src="http://cdn.shopify.com/s/files/1/0122/8442/t/15/assets/FBimage.jpg?9612294250804976937">
+                    <p class="my-content-headline">Revolights</p>
+                    <p class="my-content-text">Revolights is an awesome bike safety light!!</p>
+                </div>
+                <div class="my-content-actions">
+                    <a href="#">UPVOTE (89)</a>
+                    <a href="#">COMMENT (12)</a>
+                    <a href="#">SHARE</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-12 my-content-item">
+        <!-- user photo -->
+        <div class="col-sm-2 my-content-user-avatar">
+            <img class="img-responsive my-content-user-img img-center" src="@routes.Assets.at("images/default-avatar.png")">
+        </div>
+        <!-- content thumbnail -->
+        <div class="col-sm-10 my-content-body">
+            <div class="my-content-item--summary">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <p class="my-content-user">User Name<span>@@twitterhandle</span></p>
+                        <p class="my-content-timestamp">Yesterday at 4:30pm</p>
+                    </div>
+                    <div class="col-sm-6">
+                        <a href="#" class="my-content-related-product"><i class="fa fa-tag"></i>BloomSky</a>
+                    </div>
+                </div>
                 <div class="my-content-item-main">
                     <img class="my-content-image img-responsive" src="http://rack.1.mshcdn.com/media/ZgkyMDE1LzA3LzIyLzUyL1NwYWNlSmFtMi5hMDQxYS5qcGcKcAl0aHVtYgk5NTB4NTM0IwplCWpwZw/626b0601/1bf/SpaceJam2.jpg">
                     <p class="my-content-headline">'Space Jam 2' tho!? LeBron James inks deal with Warner Bros</p>
                     <p class="my-content-text">After LeBron James announces a partnership with Warner Bros., thirst for 'Space Jam 2' overruns the Internet.</p>
-                </div>
-                <div class="my-content-tags">
-                    <a href="#"><span>#BloomSky</span></a>
-                    <a href="#">#Weather</a>
-                    <a href="#">#Review</a>
                 </div>
                 <div class="my-content-actions">
                     <a href="#">UPVOTE (89)</a>
@@ -171,11 +205,6 @@
                 <p class="my-content-timestamp">2 days ago</p>
                 <div class="my-content-item-main">
                     <img class="my-content-image img-responsive" src="http://rack.1.mshcdn.com/media/ZgkyMDE1LzA3LzIyLzUyL1NwYWNlSmFtMi5hMDQxYS5qcGcKcAl0aHVtYgk5NTB4NTM0IwplCWpwZw/626b0601/1bf/SpaceJam2.jpg">
-                </div>
-                <div class="my-content-tags">
-                    <a href="#"><span>#BloomSky</span></a>
-                    <a href="#">#Weather</a>
-                    <a href="#">#Review</a>
                 </div>
                 <div class="my-content-actions">
                     <a href="#">UPVOTE (89)</a>
@@ -252,11 +281,6 @@
                         </video>
                     </div>
                 </div>
-                <div class="my-content-tags">
-                    <a href="#"><span>#BloomSky</span></a>
-                    <a href="#">#Weather</a>
-                    <a href="#">#Review</a>
-                </div>
                 <div class="my-content-actions">
                     <a href="#">UPVOTE (89)</a>
                     <a href="#">COMMENT (12)</a>
@@ -279,11 +303,6 @@
                     <div class="my-content-video embedded">
                         <iframe width="560" height="315" src="https://www.youtube.com/embed/ENAXRU-3Tsw" frameborder="0" allowfullscreen></iframe>
                     </div>
-                </div>
-                <div class="my-content-tags">
-                    <a href="#"><span>#BloomSky</span></a>
-                    <a href="#">#Weather</a>
-                    <a href="#">#Review</a>
                 </div>
                 <div class="my-content-actions">
                     <a href="#">UPVOTE (89)</a>

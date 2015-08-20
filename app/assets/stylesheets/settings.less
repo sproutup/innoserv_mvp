@@ -171,6 +171,35 @@ a.list-group-item:hover {
     text-decoration: none !important;
 }
 
+.my-content-related-product {
+    float: right;
+    margin: 0px 0px 10px;
+    padding: 8px 12px;
+    background-color: @sproutup-green;
+    color: white;
+    font-weight: 700;
+    font-size: 10pt;
+    border-radius: 2px;
+}
+
+.my-content-related-product i {
+    padding-right: 10px;
+}
+
+.my-content-related-product:hover {
+    color: white;
+    background-color: @sproutup-green-hover;
+}
+
+.my-content-related-product.new-product {
+    background-color: @sproutup-purple;
+}
+
+.my-content-related-product.new-product:hover {
+    color: white;
+    background-color: @sproutup-purple-hover;
+}
+
 .my-content-item--summary {
     margin: 0px;
     padding: 15px 30px;
@@ -180,6 +209,10 @@ a.list-group-item:hover {
 @media (max-width:767px){
     .my-content-item-summary {
         padding: 15px 20px;
+    }
+
+    .my-content-related-product {
+        float: left;
     }
 }
 
@@ -220,6 +253,7 @@ a.list-group-item:hover {
 
 .my-content-image {
     margin: 0px;
+    border-radius: 4px;
 }
 
 .my-content-tags {
@@ -248,7 +282,7 @@ a.list-group-item:hover {
 }
 
 .my-content-actions {
-    padding: 10px 0px 0px;
+    padding: 5px 0px;
 }
 
 .my-content-actions a {
@@ -294,7 +328,7 @@ a.list-group-item:hover {
     font-size: 11pt;
     font-weight: 700;
     color: @sproutup-blue;
-    padding: 5px 0px 0px;
+    padding: 0px;
     margin: 0px;
 }
 
@@ -311,7 +345,7 @@ a.list-group-item:hover {
     font-weight: 400;
     font-size: 10pt;
     color: @secondary-text;
-    padding: 3px 0px 5px;
+    padding: 5px 0px;
     margin: 0px;
 }
 
@@ -320,7 +354,7 @@ a.list-group-item:hover {
 }
 
 .my-content-item-main {
-    margin: 5px 0px 10px;
+    margin: 10px 0px;
 }
 
 .my-content-headline {
@@ -333,9 +367,9 @@ a.list-group-item:hover {
 }
 
 .my-content-text {
-    font-size: 11pt;
+    font-size: 10.5pt;
     font-weight: 400;
-    color: @main-text;
+    color: @main-text-3;
     line-height: 1.6;
     padding: 0px;
     margin: 0px;

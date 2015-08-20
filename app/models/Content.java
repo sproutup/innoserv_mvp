@@ -195,6 +195,7 @@ public class Content extends SuperModel {
                 node.put("user", User.hmget(values.get(6)));
             }
             node.put("likes", Likes.range(id, "models.content"));
+            node.put("comments", Comment.range(id, "models.content"));
 
         } finally {
             play.Play.application().plugin(RedisPlugin.class).jedisPool().returnResource(j);
