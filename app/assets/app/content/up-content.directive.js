@@ -22,7 +22,9 @@ function upContent() {
     }    
 }
 
-function UpContentController() {
+UpContentController.$inject = ['AuthService', '$rootScope', '$scope'];
+
+function UpContentController(AuthService, $rootScope, $scope) {
     var vm = this;
     vm.likes = vm.content.likes;
 }

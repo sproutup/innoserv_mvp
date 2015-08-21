@@ -5,11 +5,31 @@ angular
     .module('sproutupApp')
     .controller('ContentController', ContentController);
 
-ContentController.$inject = ['$stateParams', '$state', 'FeedService'];
+ContentController.$inject = ['$stateParams', '$state', 'FeedService', 'AuthService', '$rootScope'];
 
-function ContentController($stateParams, $state, FeedService) {
+function ContentController($stateParams, $state, FeedService, AuthService, $rootScope) {
     var vm = this;
     vm.content = [];
+
+    activate();
+
+    function activate() {
+        if(!AuthService.ready()){
+            var unbindWatch = $rootScope.$watch(AuthService.loggedIn, function (value) {
+                if ( value === true ) {
+                  unbindWatch();
+                  activate();
+                }
+            });
+        }
+        else {
+            init();
+        }
+    }
+
+    function init() {
+        vm.user = angular.copy(AuthService.m.user);
+    }
 
     vm.content = FeedService.query();
     console.log(vm.content);
@@ -27,7 +47,6 @@ function ContentController($stateParams, $state, FeedService) {
                 vm.content.push(more[a]);
                 if ((a + 1) === more.length) {
                     vm.busy = false;
-//                    console.log(vm.content);
                 }
             }
             position += 11;
