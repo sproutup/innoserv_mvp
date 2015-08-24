@@ -1,38 +1,36 @@
-<section id="post-comments">
-    <!-- new comment from current user -->
-    <div class="row post-comment-row content-comment-row">
-        <div class="col-md-2 col-sm-2 post-comment-user-avatar">
+<div class="my-content-comments">
+    <!-- New comment from current user -->
+    <div class="row my-content-comment-row">
+        <div class="col-sm-2 my-content-user-avatar">
             <img class="img-responsive post-comment-user-img-circle img-center" src="https://pbs.twimg.com/profile_images/546875112947867649/U8BFoVYj_bigger.jpeg">
         </div>
         <form>
-            <div class="col-md-10 col-sm-10 post-comment-blurb">
-                <div class="post-comment-user-name">user<span>@user</span></div>
+            <div class="col-sm-10 my-content-comment-blurb">
                 <div class="post-comment-form">
-                    <textarea name="content" class="form-control post-comment-textarea" rows="2" ng-model="vm.newComment"></textarea>
+                    <textarea name="content" placeholder="Write a comment..." class="form-control post-comment-textarea" rows="2" ng-model="vm.newComment"></textarea>
                 </div>
                 <div class="post-new-comment-actions">
                     <button type="button" class="btn btn-cancel-post">Cancel</button>
-                    <button type="submit" class="btn btn-post" ng-click="vm.addComment()">Post</button>
+                    <button type="submit" class="btn btn-post-default" ng-click="vm.addComment()">Post</button>
                 </div>
             </div>
         </form>
     </div>
-
-    <!-- existing comments -->
-    <div class="row post-comment-row content-comment-row" ng-repeat="comment in vm.comments.data | orderBy: '-createdAt'">
-        <a/>
-        <div class="col-md-2 col-sm-2 post-comment-user-avatar">
+    <!-- Existing comments -->
+    <div class="row my-content-comment-row" ng-repeat="comment in vm.comments.data | orderBy: '-createdAt'">
+        <div class="col-sm-2 my-content-user-avatar">
             <img class="img-responsive post-comment-user-img-circle img-center" ng-src="{{ comment.user.avatarUrl }}">
         </div>
-        <div class="col-md-10 col-sm-10 post-comment-blurb">
-            <div class="post-comment-user-name">{{ comment.user.name }}<span>@{{ comment.user.handleTwitter }}</div>
-            <div class="post-comment-content">
-                <p>{{ comment.body }}</p>
-            </div>
-            <div class="post-comment-actions">
+        <div class="col-sm-10 my-content-comment-blurb">
+            <p class="my-content-user comment">{{ comment.user.name }}
+                <a ng-href="{{ comment.user.urlTwitter }}" target="blank"><span>@{{ comment.user.handleTwitter }}</span></a>
+            </p>
+            <!-- <p class="my-content-user comment">{{ comment.user.name }}<span>@{{ comment.user.handleTwitter }}</span></p> -->
+            <p class="my-content-timestamp comment">{{ comment.createdAt | fromNow }}</p>
+            <p class="my-content-text comment">{{ comment.body }}</p>
+            <div class="my-content-actions">
                 <up-like likes="comment.likes" up-id="comment.id" up-type="models.comment"></up-like>
             </div>
-            <div class="post-comment-timestamp">{{ comment.createdAt | fromNow }}</div>
         </div>
     </div>
-</section>
+</div>
