@@ -5,6 +5,8 @@ import be.objectify.deadbolt.java.actions.SubjectPresent;
 import com.avaje.ebean.FetchConfig;
 import com.fasterxml.jackson.databind.JsonNode;
 
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import models.*;
 import play.Logger;
 import play.mvc.BodyParser;
@@ -33,6 +35,27 @@ public class TrialController extends Controller {
                 .orderBy("id asc")
                 .findList();
         return ok(Trial.toJson(trials));
+    }
+
+    @BodyParser.Of(BodyParser.Json.class)
+    @SubjectPresent
+    public static Result getMyTriedProducts(){
+        User user = Application.getLocalUser(ctx().session());
+
+        List<Trial> trials = new Trial()
+                .find
+                .where()
+                .eq("user_id", user.id)
+                .gt("status", 1)
+                .orderBy("updated_at asc")
+                .findList();
+
+        ArrayNode arrayNode = new ArrayNode(JsonNodeFactory.instance);
+        for (Trial item : trials){
+            arrayNode.add(item.product.toJsonShort());
+        }
+
+        return ok(arrayNode);
     }
 
     @BodyParser.Of(BodyParser.Json.class)

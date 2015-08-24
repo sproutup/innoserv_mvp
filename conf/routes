@@ -70,6 +70,8 @@ PUT           /api/users/:nickname                                           con
 POST          /api/suggest/product                                           controllers.Application.addProductSuggestion
 POST          /api/creator/access                                            controllers.Application.addEarlyAccessRequest
 
+GET           /api/trials/products                                           controllers.TrialController.getMyTriedProducts
+
 GET           /api/trials                                                    controllers.TrialController.getall
 GET           /api/trials/:id                                                controllers.TrialController.get(id: Long)
 POST          /api/trials                                                    controllers.TrialController.create
