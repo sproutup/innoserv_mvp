@@ -5,9 +5,9 @@ angular
     .module('sproutupApp')
     .controller('ContentController', ContentController);
 
-ContentController.$inject = ['$stateParams', '$state', 'FeedService', 'AuthService', '$rootScope'];
+ContentController.$inject = ['$stateParams', '$state', 'FeedService', 'AuthService', '$rootScope', '$scope', 'MyTrialProductsService', 'ContentService'];
 
-function ContentController($stateParams, $state, FeedService, AuthService, $rootScope) {
+function ContentController($stateParams, $state, FeedService, AuthService, $rootScope, $scope, MyTrialProductsService, ContentService) {
     var vm = this;
     vm.content = [];
 
@@ -50,6 +50,48 @@ function ContentController($stateParams, $state, FeedService, AuthService, $root
                 }
             }
             position += 11;
+        });
+    };
+
+
+    // var productService = new MyTrialProductsService();
+
+    // productService.$query(function(res) {
+    //     console.log(res);
+    // });
+
+    vm.myTrialProducts = [];
+    vm.myTrialProducts = MyTrialProductsService.query();
+
+    vm.displayLinkInput = function() {
+        vm.enteringLink = true;
+        vm.enteringPhoto = vm.enteringVideo = false;
+    };
+
+    vm.displayLinkPhoto = function() {
+        vm.enteringPhoto = true;
+        vm.enteringVideo = vm.enteringLink = false;
+    };
+
+    vm.displayLinkVideo = function() {
+        vm.enteringVideo = true;
+        vm.enteringPhoto = vm.enteringLink = false;
+    };
+
+    vm.selectTrialProduct = function(p) {
+        vm.selectedProduct = p.id;
+    };
+
+    vm.addContent = function() {
+        var Content = new ContentService.content();
+        var item = new Content();
+        item.product_id = vm.selectedProduct;
+        item.url = vm.enteredUrl;
+        console.log(item);
+        item.$save(function(item) {
+            console.log(item);
+        }, function(err) {
+            console.log(err);
         });
     };
 
