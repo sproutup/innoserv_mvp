@@ -505,8 +505,8 @@ public class User extends TimeStampModel implements Subject {
 		}
 		else
 		if(getProviders().contains("twitter")){
-			return getAccountByProvider("twitter").providerUserImageUrl;
-			//return "http://graph.facebook.com/" + facebookId + "/picture/?type=large";
+			String url = getAccountByProvider("twitter").providerUserImageUrl;
+			return new StringBuilder(url).insert(url.length()-4, "_bigger").toString();
 		}
         else{
             return "assets/images/default-avatar.png";
