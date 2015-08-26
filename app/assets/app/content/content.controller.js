@@ -83,16 +83,31 @@ function ContentController($stateParams, $state, FeedService, AuthService, $root
     };
 
     vm.addContent = function() {
-        var Content = new ContentService.content();
-        var item = new Content();
-        item.product_id = vm.selectedProduct;
-        item.url = vm.enteredUrl;
-        console.log(item);
-        item.$save(function(item) {
-            console.log(item);
-        }, function(err) {
-            console.log(err);
-        });
+        if (!vm.selectedProduct) {
+            vm.productErrorMsg = true;
+        } else if (!vm.enteredBody) {
+            vm.productErrorMsg = false;
+            vm.textErrorMsg = true;
+        } else {
+            var Content = new ContentService.content();
+            var item = new Content();
+            item.product_id = vm.selectedProduct;
+            item.url = vm.enteredBody;
+            item.$save(function(res) {
+                console.log(res);
+                $rootScope.$broadcast('alert:success', {
+                    message: 'Saved'
+                });
+                vm.enteredBody = '';
+                vm.selectedProduct = null;
+                vm.productErrorMsg = false;
+                vm.textErrorMsg = false;
+            }, function(err) {
+                $rootScope.$broadcast('alert:error', {
+                    message: 'Fail'
+                });
+            });
+        }
     };
 
 }
