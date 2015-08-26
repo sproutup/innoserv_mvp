@@ -1,16 +1,15 @@
 <div class="my-content-comments">
     <!-- New comment from current user -->
-    <div class="row my-content-comment-row">
-        <div class="col-md-2 col-sm-2 post-comment-user-avatar">
+    <div class="row my-content-comment-row" ng-show="vm.commenting">
+        <div class="col-sm-2 my-content-user-avatar">
             <img class="img-responsive post-comment-user-img-circle img-center" ng-src="{{ vm.user.avatarUrl }}">
         </div>
         <form>
-            <div class="col-md-10 col-sm-10 post-comment-blurb">
+            <div class="col-md-10 col-sm-10 post-blurb">
                 <div class="post-comment-form">
                     <textarea name="content" placeholder="Write a comment..." class="form-control post-comment-textarea" rows="2" ng-model="vm.newComment"></textarea>
                 </div>
                 <div class="post-new-comment-actions">
-                    <button type="button" class="btn btn-cancel-post">Cancel</button>
                     <button type="submit" class="btn btn-post" ng-click="vm.addComment()">Post</button>
                 </div>
             </div>

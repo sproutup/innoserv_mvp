@@ -95,17 +95,12 @@ function ContentController($stateParams, $state, FeedService, AuthService, $root
             item.url = vm.enteredBody;
             item.$save(function(res) {
                 console.log(res);
-                $rootScope.$broadcast('alert:success', {
-                    message: 'Saved'
-                });
                 vm.enteredBody = '';
                 vm.selectedProduct = null;
                 vm.productErrorMsg = false;
                 vm.textErrorMsg = false;
             }, function(err) {
-                $rootScope.$broadcast('alert:error', {
-                    message: 'Fail'
-                });
+                console.log(err);
             });
         }
     };
