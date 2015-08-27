@@ -20,6 +20,7 @@ var sproutupApp = angular.module('sproutupApp', [
     'angulartics.scroll',
     'ngAutocomplete',
     'ui.bootstrap',
+    'ngSanitize',
     'infinite-scroll'
 ]);
 
@@ -171,6 +172,9 @@ sproutupApp.config(['$routeProvider', '$stateProvider', '$locationProvider', '$u
             .state('user.search' ,{
                 url: '/products',
                 templateUrl: 'views/search',
+                //templateUrl: 'assets/app/search/search.html',
+                //controller: 'SearchController',
+                //controllerAs: 'vm',
                 data: {
                     title: 'All Products - SproutUp'
                 }
@@ -427,6 +431,7 @@ sproutupApp.config(['$routeProvider', '$stateProvider', '$locationProvider', '$u
             .state('user.product.detail.about', {
                 url: '',
                 templateUrl: 'views/product-about',
+                //templateUrl: 'assets/app/products/about.html',
                 onEnter: function(){
                     console.log("enter product detail about");
                 },

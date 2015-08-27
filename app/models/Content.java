@@ -169,6 +169,9 @@ public class Content extends SuperModel {
             if(this.user != null) {
                 content.put("user.id", this.user.id.toString());
             }
+            if(this.product != null) {
+                content.put("product.id", this.product.id.toString());
+            }
 
             // add the values
             j.hmset("content:" + this.id.toString(), content);
@@ -182,7 +185,7 @@ public class Content extends SuperModel {
         ObjectNode node = Json.newObject();
         try {
             String key = "content:" + id;
-            List<String> values = j.hmget(key, "title", "url", "createdAt", "description", "image", "video", "user.id");
+            List<String> values = j.hmget(key, "title", "url", "createdAt", "description", "image", "video", "user.id", "product.id");
 
             node.put("id", id);
             if (values.get(0) != null) node.put("title", values.get(0));
@@ -193,6 +196,9 @@ public class Content extends SuperModel {
             if (values.get(5) != null) node.put("video", values.get(5));
             if (values.get(6) != null) {
                 node.put("user", User.hmget(values.get(6)));
+            }
+            if (values.get(7) != null) {
+                node.put("product", Product.hmget(values.get(7)));
             }
             node.put("likes", Likes.range(id, "models.content"));
             node.put("comments", Comment.range(id, "models.content"));
