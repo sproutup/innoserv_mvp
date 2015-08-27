@@ -10,21 +10,21 @@
 	            <!-- content thumbnail -->
 	            <div class="col-sm-10 my-content-body">
 	                <div class="my-content-item--summary">
-	                	<div class="select-product-text">Select a product:</div>
+	                	<div class="select-product-text">Select a product you're writing about</div>
 		                <!-- product selection -->
 				        <div>
 							<button class="trialProduct" ng-repeat="p in vm.myTrialProducts" ng-class="{ 'selectedTrialProduct': p.id === vm.selectedProduct }" ng-click="vm.selectTrialProduct(p)">{{ p.name }}</button>
 						</div>
 						<hr>
 	                    <div class="my-content-new">
-	                        <textarea placeholder="Paste a link to your content and/or comment on your experience here" class="form-control post-new-textarea link" ng-model="vm.enteredBody"></textarea>
+	                        <textarea placeholder="Paste a link to your content and/or write about your experience here" class="form-control post-new-textarea link" ng-model="vm.enteredBody"></textarea>
 <!-- 	                        <div class="addPhotoInput">Add a photo or video</div> -->
 	                    </div>
 	                    <div class="post-new-comment-actions">
 	                        <button type="button" class="btn btn-post-default content-post-button" ng-click="vm.addContent()">Post</button>
 	                    </div>
-	                    <div class="post-warning" ng-show="vm.productErrorMsg">Please choose a product.</div>
-	                    <div class="post-warning" ng-show="vm.textErrorMsg">Please enter some text and/or a url.</div>
+	                    <div class="post-warning" ng-show="vm.productErrorMsg">Please choose a product you post about</div>
+	                    <div class="post-warning" ng-show="vm.textErrorMsg">Please write something and/or paste a url</div>
 	                </div>
 	            </div>
 	        </div>
