@@ -27,7 +27,7 @@
                 <a analytics-on="click" analytics-event="View trial status: {{product.productName}}" ng-show="init && isLoggedIn && hasCurrentTrial" class="btn btn-lg sproutup-btn-md-main" ui-sref="user.mytrials.current">View Trial Status</a>
                 <a analytics-on="click" analytics-event="I Want It: {{product.productName}}" ng-show="init && activeSprout && !isLoggedIn" class="btn btn-lg sproutup-btn-md-main" ng-click="login('user.product.detail.about', {slug: product.slug} )" ui-sref="user.login" popover="Spread the word, unlock a special discount and buy it!" popover-trigger="mouseenter" popover-placement="top">I Want It!</a>
                 <a analytics-on="click" analytics-event="I Want It: {{product.productName}}" ng-show="init && activeSprout && isLoggedIn" class="btn btn-lg sproutup-btn-md-main" ng-click="open()" popover="Spread the word, unlock a special discount and buy it!" popover-trigger="mouseenter" popover-placement="top">I Want It!</a>
-                <!-- <a analytics-on="click" analytics-event="Buy: {{product.productName}}" ng-show="init && product.isAvailableToBuy && product.urlBuy" class="btn btn-lg sproutup-btn-md-main" ng-href="{{product.urlBuy}}" target="_blank"><i class="fa fa-shopping-cart"></i></a> -->
+                <a analytics-on="click" analytics-event="I Want It: {{product.productName}}" ng-show="init && !activeSprout && product.isAvailableToBuy && product.urlBuy" class="btn btn-lg sproutup-btn-md-main" ng-href="{{product.urlBuy}}" target="_blank">I want It!</a> 
             </div>
             <div class="product-menu--help">
                 <a ng-show="init && product.isAvailableForTrial" ui-sref="user.howitworks"><i class="fa fa-question-circle"></i>Learn how Trial works</a>
@@ -87,7 +87,7 @@
             		<p class="campaign-coupon" ng-show="perk1"><span>{{perk1}}</span></p>
 				</div>
 			</div>
-            <a class="btn sproutup-btn-md-main" href="{{product.urlBuy}}" target="_blank">Buy now</a>
+            <a analytics-on="click" analytics-event="Buy now: {{product.productName}}" class="btn sproutup-btn-md-main" ng-show="init && product.isAvailableToBuy && product.urlBuy" href="{{product.urlBuy}}" target="_blank">Buy now</a>
         </div>
     </script>
 </div>
