@@ -1419,7 +1419,6 @@ angular.module('sproutupApp').directive('subjectPresent', ['$parse', 'AuthServic
             var onLogin = $parse(attrs.login);
             var state = attrs.state;
             var params = attrs.params;
-            console.log(state);
 
             element.on('click', function () {
                 if(authService.m.isLoggedIn){
