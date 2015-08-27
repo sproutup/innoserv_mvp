@@ -23,10 +23,6 @@ function upLike() {
         // console.log('LINK: scope.vm.likes: ', scope.vm.likes);
         // console.log('LINK: scope.vm.id = %s', scope.vm.id);
         // console.log('LINK: scope.vm.type = %s', scope.vm.type);
-        
-        el.on('click', function () {
-            scope.vm.handleUpvoteClick();
-        });
 
     }
 }

@@ -66,7 +66,11 @@
             console.log('yo');
             console.log("## addContent", trial);
 
-            var item = new ContentService();
+            // var Comment = CommentService.comment('models.content', $scope.vm.id);
+            // var newComment = new Comment();
+
+            var Content = ContentService.content();
+            var item = new Content();
             angular.extend(item, trial.form);
             item.product_trial_id = trial.id;
 
@@ -108,7 +112,7 @@
 
         function deleteContent(content, trial){
             console.log("## deleteContent", content.id);
-            var item = new ContentService();
+            var item = new ContentService.content();
             item.$delete({id: content.id},
                 function(data){
                     if (typeof content.openGraph !== 'undefined') {

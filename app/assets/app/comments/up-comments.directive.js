@@ -9,7 +9,8 @@ function upComments() {
         scope: {
             comments: '=',
             id: '=upId',
-            type: '@upType'
+            type: '@upType',
+            commenting: '='
         },
         link: linkFunc,
         controller: upCommentsController,
@@ -59,6 +60,7 @@ function upCommentsController(CommentService, authService, $timeout, $scope, $ro
         newComment.$save(function(res) {
             $scope.vm.comments.data.push(res);
             $scope.vm.newComment = '';
+            $scope.vm.commenting = false;
         }, function(err) {
             console.log(err);
         });

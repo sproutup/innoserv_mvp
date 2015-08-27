@@ -22,7 +22,18 @@ function upContent() {
     }    
 }
 
-function UpContentController() {
+UpContentController.$inject = ['AuthService', '$rootScope', '$scope'];
+
+function UpContentController(AuthService, $rootScope, $scope) {
     var vm = this;
     vm.likes = vm.content.likes;
+
+    vm.commentToggle = function() {
+        if (!vm.content.commenting) {
+            vm.content.commenting = true;
+        } else {
+            vm.content.commenting = false;
+        }
+    };
+
 }

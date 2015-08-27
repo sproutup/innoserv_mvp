@@ -1423,6 +1423,8 @@ angular.module('sproutupApp').directive('subjectPresent', ['$parse', 'AuthServic
         link: function (scope, element, attrs) {
             var onPresent = $parse(attrs.subjectPresent);
             var onLogin = $parse(attrs.login);
+            var state = attrs.state;
+            var params = attrs.params;
 
             element.on('click', function () {
                 if(authService.m.isLoggedIn){
@@ -1435,10 +1437,15 @@ angular.module('sproutupApp').directive('subjectPresent', ['$parse', 'AuthServic
                     });
                 }
                 else{
-                    console.log(attrs.login);
                     scope.$apply(function () {
                         onLogin(scope);
                     });
+                    if (!params) {
+                        params = {};
+                    }
+                    if(state!==null){
+                        authService.loginAndRedirect(state, params);
+                    }
                 }
             });
         }

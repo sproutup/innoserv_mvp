@@ -83,11 +83,20 @@ fileControllers.controller('FileCtrl', ['$scope', '$rootScope', '$upload', 'File
 
         $scope.upload = function (files, message, refId, refType) {
             $log.debug("upload: " + refId);
-
+            console.log(files);
             var startTime = +new Date();
+
+            // for testing
+            if (!refId) {
+                refId = 2
+            }
+            if (!refType) {
+                refType = 'models.content'
+            }
 
             if (files && files.length) {
                 for (var i = 0; i < files.length; i++) {
+                    console.log(arguments);
                     FileService.authenticate(files[i], message, refId, refType).then(
                         function (result) {
                             $log.debug("upload auth returned");

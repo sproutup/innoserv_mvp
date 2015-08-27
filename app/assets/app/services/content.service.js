@@ -5,5 +5,12 @@ angular
 ContentService.$inject = ['$resource'];
 
 function ContentService($resource){
-    return $resource('/api/content/:id', {id:'@id'}, {update:{method:'PUT'}} );
+	var service = {
+		content: content
+	};
+	return service;
+
+	function content() {
+		return $resource('/api/content/:id', {id:'@id'}, {update:{method:'PUT'}} );
+	}
 }
