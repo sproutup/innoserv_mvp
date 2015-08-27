@@ -517,7 +517,6 @@ productControllers.controller('modalShareCtrl', ['$scope', '$window', '$statePar
 					$scope.offerDiscount = data.offerDiscount;
 					$scope.discountText = data.discountText;
 
-					console.log($scope);
 					processShareData = {
 						"userId":data.userId,
 						"referralId":data.referralId,
@@ -527,7 +526,6 @@ productControllers.controller('modalShareCtrl', ['$scope', '$window', '$statePar
 						"sharedOnSocialMedia":false,
 						"facebookPostId":""
 					}
-					
 
 					$scope.fbShare = function () {
 						var obj = {
@@ -540,7 +538,9 @@ productControllers.controller('modalShareCtrl', ['$scope', '$window', '$statePar
 						};
 						function callback(response) {
 							if (typeof response !== "undefined" && response !== null) {
-								$scope.sharedOnSocialMedia = true;
+                                $scope.$apply(function() {
+                                    $scope.sharedOnSocialMedia = true;
+                                });
 								processShareData.sharedOnSocialMedia = true;
                                 //@nitinj//get the postId from response
 								processShareData.facebookPostId = response.post_id;
@@ -571,7 +571,9 @@ productControllers.controller('modalShareCtrl', ['$scope', '$window', '$statePar
 
 	twttr.events.bind('tweet', function(event) {
 		processShareData.sharedOnSocialMedia = true;
-		$scope.sharedOnSocialMedia = true;
+        $scope.$apply(function() {
+            $scope.sharedOnSocialMedia = true;
+        });
         console.log("Twitter Posting completed.");
         //twitter does not return Tweet Id on its event
         //http://stackoverflow.com/questions/10841752/how-to-get-tweet-id-from-tweet-event
