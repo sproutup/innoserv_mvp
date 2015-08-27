@@ -357,6 +357,7 @@ angular.module('sproutupApp').directive('upTwitterTweet', ['TwitterService','$ti
             },
             link: function(scope, element, attrs){
                 scope.twttrReady = false;
+                scope.count = 0;
 
                 scope.user_timeline = function(){
                     console.log("twttr render user_timeline");
@@ -412,17 +413,22 @@ angular.module('sproutupApp').directive('upTwitterTweet', ['TwitterService','$ti
                     }
 
                     if(scope.productId === undefined){
-                        console.log("twttr render : product id type = ", typeof scope.productId);
+                        console.log("twttr render : wait and try again");
                         // wait and try again
-                        $timeout(
-                            function(){
-                                console.log("twttr timeout : product id type = ", typeof scope.productId);
-                                scope.render();
-                            },
-                            1000,
-                            true,
-                            scope
-                        );
+                        if(scope.count < 10){
+                            scope.count++;
+                            $timeout(
+                                function(){
+                                    scope.render();
+                                },
+                                1000,
+                                true,
+                                scope
+                            );
+                        }
+                        else{
+                            console.log("twttr render : tried but gave up");
+                        }
 
                         return;
                     }

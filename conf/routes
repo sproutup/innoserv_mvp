@@ -106,6 +106,9 @@ GET           /api/feed/:start                                               con
 #POST          /api/feed/:slug                                               controllers.FeedController.update(slug: String)
 #DELETE        /api/feed/:id                                                 controllers.FeedController.delete(id: Long)
 
+GET           /api/buzz                                                      controllers.BuzzController.getAll
+GET           /api/buzz/:start                                               controllers.BuzzController.getRange(start: Int)
+
 GET           /api/company                                                  controllers.CompanyController.query
 #GET           /api/company/:id                                              controllers.CompanyController.getCompany(id: Long)
 POST          /api/company                                                  controllers.CompanyController.save
@@ -124,9 +127,8 @@ GET           /api/file/:type/:id                                            con
 GET           /api/file/user                                                 controllers.FileController.getUserFiles
 POST          /api/file/avatar                                               controllers.FileController.addAvatar(uuid: String)
 
-GET           /api/forum/posts                                               controllers.PostController.getPosts(prod: Long ?= -1, cat: Long ?= -1)
-GET           /api/forum/posts/:id                                           controllers.PostController.getPost(id: Long)
-POST          /api/forum/posts                                               controllers.PostController.addPost
+GET           /api/post/:id                                                  controllers.PostController.getPost(id: Long)
+POST          /api/post                                                      controllers.PostController.addPost
 #PUT     /api/forum/posts/:id        controllers.PostController.updateProduct(id: Long)
 #DELETE  /api/forum/posts/:id        controllers.PostController.deleteProduct(id: Long)
 

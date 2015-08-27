@@ -2,6 +2,7 @@ package models;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
@@ -10,6 +11,12 @@ import javax.persistence.MappedSuperclass;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Version;
+
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+import play.libs.Json;
+import redis.clients.jedis.Jedis;
+import com.typesafe.plugin.RedisPlugin;
 
 import play.Logger;
 import play.db.ebean.Model;
@@ -51,7 +58,63 @@ public class SuperModel extends TimeStampModel implements Likeable, Taggable, Fo
     return Likes.getAllLikes(this.id, this.getClass().getName().toLowerCase());
   }
 
+  /*
+  Buzzable interface implementation
+   */
+/*
+  @Override
+  public void addBuzz() {
+    Likes.addLike(1L, this.id, this.getClass().getName().toLowerCase());
+  }
+*/
+  public void zadd(String key){
+      Jedis j = play.Play.application().plugin(RedisPlugin.class).jedisPool().getResource();
+      try {
+          Logger.debug("added to set: " + key);
+          j.zadd(key, updatedAt.getTime(), this.id.toString());
+      } finally {
+          play.Play.application().plugin(RedisPlugin.class).jedisPool().returnResource(j);
+      }
+  }
 
+  public void zrem(String key){
+      Jedis j = play.Play.application().plugin(RedisPlugin.class).jedisPool().getResource();
+      try {
+          // delete
+          j.zrem(key, this.id.toString());
+      } finally {
+          play.Play.application().plugin(RedisPlugin.class).jedisPool().returnResource(j);
+      }
+  }
+/*
+  public static ObjectNode range(String key, long start, long end){
+    ObjectNode items = Json.newObject();
+    ArrayNode data = items.putArray("data");
+
+    //Go to Redis to read the full roster of content.
+    Jedis j = play.Play.application().plugin(RedisPlugin.class).jedisPool().getResource();
+    try {
+      if(!j.exists(key)) {
+        Logger.debug("adding item to cache: " + key);
+        for(Product item: Product.getAllActive()){
+          item.zadd(key);
+        }
+      }
+
+      Set<String> set = j.zrange(key, start, end);
+      items.put("count", j.zcard(key));
+
+      for(String id: set) {
+        // get the data for each like
+        data.add(hmget(id));
+      }
+    } finally {
+      play.Play.application().plugin(RedisPlugin.class).jedisPool().returnResource(j);
+    }
+
+    return items;
+  }
+*/
   /*
     Commentable interface implementation
   */

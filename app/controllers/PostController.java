@@ -9,10 +9,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import constants.AppConstants;
-import models.Post;
-import models.Product;
-import models.Tag;
-import models.User;
+import models.*;
 import play.Logger;
 import play.libs.Json;
 import play.mvc.BodyParser;
@@ -23,6 +20,8 @@ import play.mvc.Results;
 import javax.persistence.PersistenceException;
 import java.util.Iterator;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class PostController extends Controller {
 
@@ -60,22 +59,15 @@ public class PostController extends Controller {
         if (json == null) {
             return badRequest("Expecting Json data");
         } else {
-            long parent_id = json.findPath("parent").longValue();
-            String content = json.findPath("content").textValue();
-            String title = json.findPath("title").textValue();
-            int category = json.findPath("category").asInt();
+            String body = json.findPath("body").textValue();
             long product_id = json.findPath("product_id").asLong();
-            if (content == null) {
-                return badRequest("Missing parameter [content]");
+
+            if (body == null) {
+                return badRequest("Missing parameter [body]");
             } else {
                 Post post = new Post();
-                post.title = title;
-                post.content = content;
-                post.category = category;
-                Post parent = Post.findById(parent_id);
-                if (parent != null) {
-                    post.parent = parent;
-                }
+                post.body = body;
+
                 Product prod = Product.findbyID(product_id);
                 if (prod != null) {
                     post.product = prod;
@@ -84,6 +76,19 @@ public class PostController extends Controller {
                 if (user != null) {
                     post.user = user;
                 }
+
+                Pattern urlpattern = Pattern.compile("(http|ftp|https)://([\\w_-]+(?:(?:\\.[\\w_-]+)+))([\\w.,@?^=%&:/~+#-]*[\\w@?^=%&/~+#-])?");
+                Matcher match = urlpattern.matcher(post.body);
+
+                if(match.find()){
+                    Content cnt = new Content();
+                    cnt.url = match.group();
+                    cnt.product = prod;
+                    cnt.user = user;
+                    cnt.save();
+                    post.content = cnt;
+                }
+
                 post.save();
 
                 // Add tags if they are there

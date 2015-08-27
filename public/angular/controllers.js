@@ -539,8 +539,8 @@ productControllers.controller('modalShareCtrl', ['$scope', '$window', '$statePar
 							method: 'feed',
 							link: data.url,
 							picture: data.productPictureURL,
-							name: 'Sprout ' + $scope.product.productName + ' Up!',
-							caption: $scope.product.productDescription,
+							name: 'Sprout ' + $scope.product.name + ' Up!',
+							caption: $scope.product.tagline,
 							description: data.campaignShareMessage
 						};
 						function callback(response) {
