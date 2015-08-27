@@ -537,6 +537,8 @@ productControllers.controller('modalShareCtrl', ['$scope', '$window', '$statePar
 						function callback(response) {
 							if (typeof response !== "undefined" && response !== null) {
 								processShareData.sharedOnSocialMedia = true;
+                                //@nitinj//get the postId from response
+                                console.log("FB Posting completed." + response.post_id);
 							}
 						}
 						FB.ui(obj, callback);
@@ -561,6 +563,7 @@ productControllers.controller('modalShareCtrl', ['$scope', '$window', '$statePar
 
 	twttr.events.bind('tweet', function(event) {
 		processShareData.sharedOnSocialMedia = true;
+        console.log("Twitter Posting completed.");
 	});
 
 	$scope.close = function () {
