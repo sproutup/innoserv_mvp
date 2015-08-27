@@ -63,7 +63,7 @@
     <script type="text/ng-template" id="myModalContent.html">
         <div class="modal-header">
             <button class="close" ng-click="close()">&times</button>
-            <h3 class="modal-title">OMG I want {{product.productName}}!</h3>
+            <h3 class="modal-title">I want {{product.productName}}!</h3>
         </div>
         <div class="modal-body">
             <p class="campaign-description">{{longDescription}}</p>
@@ -76,9 +76,18 @@
                 </div>
             </div>
             <hr>
-            <!--<p><input class="sproutup-checkbox" ng-show="showCheckbox" type="checkbox" ng-click="handleCheckbox()" id="wantDiscount"/> {{checkboxText}}</p>-->
-            <p class="campaign-description">Thanks for spreading the word! Here is a special coupon for you!</p>
-            <p class="campaign-coupon" ng-show="perk1">Use <span>{{perk1}}</span> to {{checkboxText}}</p>
+          
+			<div ng-show="offerDiscount">
+				<div ng-show="!sharedOnSocialMedia">
+					<p class="campaign-description">Spread the word to reveal a special coupon for you!</p>
+					<p class="campaign-coupon">XXXXXXXX</p>
+				</div>	
+				{{ sharedOnSocialMedia }}
+				<div ng-show="sharedOnSocialMedia">
+            		<p class="campaign-description">{{discountText}}</p>
+            		<p class="campaign-coupon" ng-show="perk1"><span>{{perk1}}</span></p>
+				</div>
+			</div>
             <a class="btn sproutup-btn-md-main" href="{{product.urlBuy}}" target="_blank">Buy now</a>
         </div>
     </script>

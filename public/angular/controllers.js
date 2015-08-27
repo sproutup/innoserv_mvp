@@ -514,16 +514,20 @@ productControllers.controller('modalShareCtrl', ['$scope', '$window', '$statePar
 					if (typeof data.perks !== 'undefined') { $scope.perk1 = data.perks[0]; }
 					if (typeof data.perks[1] !== 'undefined') { $scope.perk2 = data.perks[1]; }
 					$scope.uniqueLink = data.url;
-					$scope.showCheckbox = data.offerDiscount;
-					$scope.checkboxText = data.discountText;
+					$scope.offerDiscount = data.offerDiscount;
+					$scope.discountText = data.discountText;
+
+					console.log($scope);
 					processShareData = {
 						"userId":data.userId,
 						"referralId":data.referralId,
 						"referrerId":$window.sessionStorage.refId,
 						"campaignId":data.campaignId,
 						"requestedDisc":false,
-						"sharedOnSocialMedia":false
+						"sharedOnSocialMedia":false,
+						"facebookPostId":""
 					}
+					
 
 					$scope.fbShare = function () {
 						var obj = {
@@ -536,9 +540,13 @@ productControllers.controller('modalShareCtrl', ['$scope', '$window', '$statePar
 						};
 						function callback(response) {
 							if (typeof response !== "undefined" && response !== null) {
+								$scope.sharedOnSocialMedia = true;
 								processShareData.sharedOnSocialMedia = true;
                                 //@nitinj//get the postId from response
+								processShareData.facebookPostId = response.post_id;
                                 console.log("FB Posting completed." + response.post_id);
+                                console.log($scope.sharedOnSocialMedia);
+                                console.log($scope);
 							}
 						}
 						FB.ui(obj, callback);
@@ -563,7 +571,10 @@ productControllers.controller('modalShareCtrl', ['$scope', '$window', '$statePar
 
 	twttr.events.bind('tweet', function(event) {
 		processShareData.sharedOnSocialMedia = true;
+		$scope.sharedOnSocialMedia = true;
         console.log("Twitter Posting completed.");
+        //twitter does not return Tweet Id on its event
+        //http://stackoverflow.com/questions/10841752/how-to-get-tweet-id-from-tweet-event
 	});
 
 	$scope.close = function () {
