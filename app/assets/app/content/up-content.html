@@ -20,7 +20,7 @@
             </a>
             <div class="my-content-actions">
                 <up-like likes="vm.content.likes" up-id="vm.content.id" up-type="models.content"></up-like>
-                <a href="#" ng-click="vm.commentToggle()">COMMENT ({{ vm.content.comments.data.length }})</a>
+                <a href="#" subject-present="vm.commentToggle()" state="user.content">COMMENT ({{ vm.content.comments.data.length }})</a>
 <!--                 <a href="#">SHARE</a> -->
             </div>
         </div>
