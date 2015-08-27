@@ -31,34 +31,6 @@
             </div>
             <div class="product-menu--help">
                 <a ng-show="init && product.isAvailableForTrial" ui-sref="user.howitworks"><i class="fa fa-question-circle"></i>Learn how Trial works</a>
-
-                <!-- Added by apurv (modal share/signup on Sprout <Product> Up) -->
-                <div style="display: inline">
-                    <script type="text/ng-template" id="myModalContent.html">
-                        <div class="modal-header">
-                            <button class="close" ng-click="close()">&times</button>
-                            <h3 class="modal-title">OMG I want {{product.productName}}!</h3>
-                        </div>
-
-                        <div class="modal-body">
-                            <p class="campaign-description">{{longDescription}}</p>
-            	            <div class="row product-share-buttons">
-                                <div class="fb-share-button">
-                                    <a analytics-on="click" analytics-event="Sprout up on Facebook: {{product.productName}}" ng-click="fbShare()" class="btn btn-xs btn-facebook-share"><i class="fa fa-facebook"></i></a>
-                                </div>
-                                <div class="tw-share-button">
-                            		<a analytics-on="click" analytics-event="Sprout up on Twitter: {{product.productName}}" href="{{twtLink}}" class="btn btn-xs btn-twitter-share"><i class="fa fa-twitter"></i></a>
-							    </div>
-                            </div>
-                            <hr>
-                            <!--<p><input class="sproutup-checkbox" ng-show="showCheckbox" type="checkbox" ng-click="handleCheckbox()" id="wantDiscount"/> {{checkboxText}}</p>-->
-                            <p class="campaign-description">This is a special coupon for you!</p>
-                            <p class="campaign-coupon" ng-show="perk1">{{perk1}}</p>
-                            <a class="btn sproutup-btn-md-main" href="{{product.urlBuy}}" target="_blank">Buy now</a>
-                        </div>
-                    </script>
-                </div>
-
             </div>
         </div>
         <div ng-show="init && hasTrial" class="col-md-5 col-sm-6 about-product--quote">
@@ -84,6 +56,32 @@
             </div>
         </div>
     </div>
+</div>
+
+<!-- Added by apurv (modal share/signup on Sprout <Product> Up) -->
+<div>
+    <script type="text/ng-template" id="myModalContent.html">
+        <div class="modal-header">
+            <button class="close" ng-click="close()">&times</button>
+            <h3 class="modal-title">OMG I want {{product.productName}}!</h3>
+        </div>
+        <div class="modal-body">
+            <p class="campaign-description">{{longDescription}}</p>
+            <div class="row product-share-buttons">
+                <div class="fb-share-button">
+                    <a analytics-on="click" analytics-event="Sprout up on Facebook: {{product.productName}}" ng-click="fbShare()" class="btn btn-xs btn-facebook-share"><i class="fa fa-facebook"></i></a>
+                </div>
+                <div class="tw-share-button">
+                    <a analytics-on="click" analytics-event="Sprout up on Twitter: {{product.productName}}" href="{{twtLink}}" class="btn btn-xs btn-twitter-share"><i class="fa fa-twitter"></i></a>
+                </div>
+            </div>
+            <hr>
+            <!--<p><input class="sproutup-checkbox" ng-show="showCheckbox" type="checkbox" ng-click="handleCheckbox()" id="wantDiscount"/> {{checkboxText}}</p>-->
+            <p class="campaign-description">This is a special coupon for you!</p>
+            <p class="campaign-coupon" ng-show="perk1">{{perk1}}</p>
+            <a class="btn sproutup-btn-md-main" href="{{product.urlBuy}}" target="_blank">Buy now</a>
+        </div>
+    </script>
 </div>
 
 <!--div ng-include src="tabs[tabs.activeTab].page"></div-->
