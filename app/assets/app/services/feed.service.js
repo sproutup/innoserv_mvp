@@ -5,5 +5,5 @@ angular
 FeedService.$inject = ['$resource'];
 
 function FeedService($resource){
-    return $resource('/api/feed/:start', {start:'@start'}, {update:{method:'PUT'}} );
+    return $resource('/api/buzz/:start', {start:'@start'}, {update:{method:'PUT'}} );
 }

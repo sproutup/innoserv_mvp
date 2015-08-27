@@ -508,7 +508,7 @@ public class Product extends SuperModel implements PathBindable<Product>,
 			map.put("isAvailableForTrial", String.valueOf(this.trialSignUpFlag));
 
 			// add the values
-			j.hmset("product:" + this.id.toString(), map);
+			j.hmset("prod:" + this.id.toString(), map);
 		} finally {
 			play.Play.application().plugin(RedisPlugin.class).jedisPool().returnResource(j);
 		}
@@ -518,7 +518,7 @@ public class Product extends SuperModel implements PathBindable<Product>,
 		Jedis j = play.Play.application().plugin(RedisPlugin.class).jedisPool().getResource();
 		ObjectNode node = Json.newObject();
 		try {
-			String key = "product:" + id.toString();
+			String key = "prod:" + id.toString();
 
 			// if key not found then add item to cache
 			if(!j.exists(key)) {

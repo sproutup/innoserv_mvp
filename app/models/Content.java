@@ -47,6 +47,11 @@ public class Content extends SuperModel {
 
     @Override
     public void save() {
+        OpenGraph og = new OpenGraph();
+        og.scrape(this.url);
+        og.save();
+        openGraph = og;
+
         super.save();
         hmset();
         lpush();

@@ -5,9 +5,9 @@ angular
     .module('sproutupApp')
     .controller('ContentController', ContentController);
 
-ContentController.$inject = ['$stateParams', '$state', 'FeedService', 'AuthService', '$rootScope', '$scope', 'MyTrialProductsService', 'ContentService'];
+ContentController.$inject = ['$stateParams', '$state', 'FeedService', 'AuthService', '$rootScope', '$scope', 'MyTrialProductsService', 'PostService'];
 
-function ContentController($stateParams, $state, FeedService, AuthService, $rootScope, $scope, MyTrialProductsService, ContentService) {
+function ContentController($stateParams, $state, FeedService, AuthService, $rootScope, $scope, MyTrialProductsService, postService) {
     var vm = this;
     vm.content = [];
 
@@ -34,7 +34,7 @@ function ContentController($stateParams, $state, FeedService, AuthService, $root
     vm.content = FeedService.query();
     console.log(vm.content);
     vm.busy = false;
-    var position = 11;
+    var position = 10;
 
     vm.loadMore = function() {
         vm.busy = true;
@@ -49,7 +49,7 @@ function ContentController($stateParams, $state, FeedService, AuthService, $root
                     vm.busy = false;
                 }
             }
-            position += 11;
+            position += 10;
         });
     };
 
@@ -89,10 +89,12 @@ function ContentController($stateParams, $state, FeedService, AuthService, $root
             vm.productErrorMsg = false;
             vm.textErrorMsg = true;
         } else {
-            var Content = new ContentService.content();
-            var item = new Content();
+            var Post = postService.post();
+            var item = new Post();
+
+            item.body = vm.enteredBody;
             item.product_id = vm.selectedProduct;
-            item.url = vm.enteredBody;
+
             item.$save(function(res) {
                 console.log(res);
                 vm.enteredBody = '';
@@ -104,7 +106,6 @@ function ContentController($stateParams, $state, FeedService, AuthService, $root
             });
         }
     };
-
 }
 
 })();
