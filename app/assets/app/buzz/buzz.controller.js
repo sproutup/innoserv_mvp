@@ -3,13 +3,14 @@
 
 angular
     .module('sproutupApp')
-    .controller('ContentController', ContentController);
+    .controller('BuzzController', BuzzController);
 
-ContentController.$inject = ['$stateParams', '$state', 'FeedService', 'AuthService', '$rootScope', '$scope', 'MyTrialProductsService', 'PostService'];
+BuzzController.$inject = ['$stateParams', '$state', 'FeedService', 'AuthService', '$rootScope', '$scope', 'MyTrialProductsService', 'PostService'];
 
-function ContentController($stateParams, $state, FeedService, AuthService, $rootScope, $scope, MyTrialProductsService, postService) {
+function BuzzController($stateParams, $state, FeedService, AuthService, $rootScope, $scope, MyTrialProductsService, postService) {
     var vm = this;
     vm.content = [];
+    vm.loadInit = loadInit;
 
     activate();
 
@@ -28,19 +29,25 @@ function ContentController($stateParams, $state, FeedService, AuthService, $root
     }
 
     function init() {
-        vm.user = angular.copy(AuthService.m.user);
+        //loadInit(1);
     }
 
-    vm.content = FeedService.buzzAll().query();
-    console.log(vm.content);
-    vm.busy = false;
-    var position = 10;
+    function loadInit(productId){
+        console.log("init load");
+        vm.content = FeedService.buzzProduct().query({
+            id: productId,
+            start: 0
+        });
+        vm.busy = false;
+        var position = 10;
+    }
 
-    vm.loadMore = function() {
+    vm.loadMore = function(productId) {
         vm.busy = true;
         console.log('more');
         var more = [];
-        more = FeedService.query({
+        more = FeedService.buzzProduct().query({
+            id: productId,
             start: position
         }, function() {
             for (var a = 0; a < more.length; a++) {

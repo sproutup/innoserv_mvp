@@ -31,10 +31,10 @@ function config($stateProvider) {
         .state('user.product.detail.buzz', {
             url: '/buzz',
             templateUrl: 'assets/app/products/product-detail-buzz.html',
-            controller: 'ContentController',
+            controller: 'BuzzController',
             controllerAs: 'vm',
             onEnter: function(){
-                console.log("enter product detail bar");
+                console.log("enter product detail buzz");
             },
             data: {
                 title: 'Product - Geekout'
