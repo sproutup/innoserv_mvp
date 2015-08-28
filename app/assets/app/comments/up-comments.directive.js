@@ -54,7 +54,8 @@ function upCommentsController(CommentService, authService, $timeout, $scope, $ro
     }
 
     $scope.vm.addComment = function() {
-        var Comment = CommentService.comment('models.content', $scope.vm.id);
+        console.log($scope);
+        var Comment = CommentService.comment($scope.vm.type, $scope.vm.id);
         var newComment = new Comment();
         newComment.body = $scope.vm.newComment;
         newComment.$save(function(res) {
