@@ -1,14 +1,17 @@
 <div>
     <!-- product buzz -->
-    <div class="col-sm-7 forum-left-rail">
-        <up-content ng-repeat="item in vm.content" content="item"></up-content>
-    </div>
+    <div class="row product-detail-buzz">
+        <div class="col-sm-7 forum-left-rail">
+            <div class="product-detail-buzz-header left">Check out what product lovers are buzzing about {{product.name}}</div>
+            <up-content ng-repeat="item in vm.content" content="item"></up-content>
+        </div>
 
-    <!-- right rail -->
-    <div class="col-sm-5 forum-right-rail">
-        <!-- row 1: user tweets -->
-        <div class="col-sm-12 user-tweets-row">
-            <up-twitter-tweet product-id="product.id"></up-twitter-tweet>
+        <!-- right rail -->
+        <div class="col-sm-5 forum-right-rail">
+            <div class="product-detail-buzz-header right">Tweets about {{product.name}}</div>
+            <div class="col-sm-12 user-tweets-row">
+                <up-twitter-tweet product-id="product.id"></up-twitter-tweet>
+            </div>
         </div>
     </div>
 </div>

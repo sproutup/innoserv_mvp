@@ -28,7 +28,7 @@ public class BuzzController extends Controller {
     @BodyParser.Of(BodyParser.Json.class)
     public static Result getRange(int start)
     {
-        return ok(Post.range(start, start+9));
+        return ok(Post.range(start, start + 9));
 
 /*
         ObjectNode buzz = Json.newObject();
@@ -46,5 +46,11 @@ public class BuzzController extends Controller {
 */
 
 //        return items == null ? notFound("buzz out of bounds [" + start + "]") : ok(items);
+    }
+
+    @BodyParser.Of(BodyParser.Json.class)
+    public static Result getProductRange(Long id, int start)
+    {
+        return ok(Post.range(id.toString(), start, start+9 ));
     }
 }
