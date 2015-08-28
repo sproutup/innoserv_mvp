@@ -12,7 +12,7 @@
             </p>
             <p class="my-content-timestamp">{{ vm.content.createdAt | fromNow }}</p>
             <div class="my-content-item-main">
-                <div class="post-body">{{ vm.content.body }}</div>
+                <p class="my-content-text">{{ vm.content.body }}</p>
                 <a href="{{ vm.content.content.url }}">
                     <img class="my-content-image img-responsive" src="{{vm.content.content.image}}">
                     <p class="my-content-headline">{{ vm.content.content.title }}</p>
