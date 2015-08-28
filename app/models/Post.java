@@ -194,6 +194,9 @@ public class Post extends SuperModel implements Taggable {
 				Logger.debug("adding all posts to cache: " + key);
 				for(Post post: getAll()){
 					post.zadd(key);
+					if(post.product.id != null) {
+						post.zadd("buzz:product:" + post.product.id.toString());
+					}
 				}
 			}
 

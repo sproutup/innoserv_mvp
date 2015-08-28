@@ -1,0 +1,14 @@
+<div>
+    <!-- product buzz -->
+    <div class="col-sm-7 forum-left-rail">
+        <up-content ng-repeat="item in vm.content" content="item"></up-content>
+    </div>
+
+    <!-- right rail -->
+    <div class="col-sm-5 forum-right-rail">
+        <!-- row 1: user tweets -->
+        <div class="col-sm-12 user-tweets-row">
+            <up-twitter-tweet product-id="product.id"></up-twitter-tweet>
+        </div>
+    </div>
+</div>
