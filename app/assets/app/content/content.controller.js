@@ -91,12 +91,10 @@ function ContentController($stateParams, $state, FeedService, AuthService, $root
         } else {
             var Post = postService.post();
             var item = new Post();
-
             item.body = vm.enteredBody;
             item.product_id = vm.selectedProduct;
-
             item.$save(function(res) {
-                console.log(res);
+                vm.content.unshift(res);
                 vm.enteredBody = '';
                 vm.selectedProduct = null;
                 vm.productErrorMsg = false;

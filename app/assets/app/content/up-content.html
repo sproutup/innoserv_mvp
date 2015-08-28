@@ -11,13 +11,14 @@
                 <a ng-href="{{ vm.content.user.urlTwitter }}" target="blank"><span>@{{ vm.content.user.handleTwitter }}</span></a>
             </p>
             <p class="my-content-timestamp">{{ vm.content.createdAt | fromNow }}</p>
-            <a ng-href="{{ vm.content.url }}" target="blank">
-                <div class="my-content-item-main">
-                    <img class="my-content-image img-responsive" src="{{vm.content.image}}">
-                    <p class="my-content-headline">{{ vm.content.title }}</p>
-                    <p class="my-content-text">{{ vm.content.description }}</p>
-                </div>
-            </a>
+            <div class="my-content-item-main">
+                <div class="post-body">{{ vm.content.body }}</div>
+                <a href="{{ vm.content.content.url }}">
+                    <img class="my-content-image img-responsive" src="{{vm.content.content.image}}">
+                    <p class="my-content-headline">{{ vm.content.content.title }}</p>
+                    <p class="my-content-text">{{ vm.content.content.description }}</p>
+                </a>
+            </div>
             <div class="my-content-actions">
                 <up-like likes="vm.content.likes" up-id="vm.content.id" up-type="models.content"></up-like>
                 <a href="#" subject-present="vm.commentToggle()" state="user.content">COMMENT ({{ vm.content.comments.data.length }})</a>
