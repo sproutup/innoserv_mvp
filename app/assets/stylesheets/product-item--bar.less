@@ -8,6 +8,10 @@
     overflow: hidden;
 }
 
+.product-detail-buzz {
+    margin: 0px 30px;
+}
+
 .bar-tabs {
     background-color: #fff;
     height: 70px;
@@ -145,14 +149,30 @@
     box-shadow: none;
 }
 
+.product-detail-buzz-header {
+    font-weight: 700;
+    font-size: 12pt;
+    padding: 10px;
+}
+
+.product-detail-buzz-header.left {
+    color: @main-text-3;
+}
+
+.product-detail-buzz-header.right {
+    color: @twitter-blue;
+}
+
 .forum-left-rail {
     margin: 0 0;
+    padding-top: 20px;
     padding-left: 10px;
     padding-right: 10px;
 }
 
 .forum-right-rail {
     margin: 0 0;
+    padding-top: 20px;
     padding-left: 10px;
     padding-right: 10px;
     border-left: dashed 1px #ccc;
@@ -175,6 +195,14 @@
 @media(max-width:767px) {
     .post-comment-row {
         margin-left: 10px;
+    }
+
+    .forum-right-rail {
+        border: none;
+    }
+
+    .product-detail-buzz {
+        margin: 0px 15px;
     }
 }
 
@@ -666,8 +694,7 @@
 }
 
 .user-tweets-row {
-    padding-left: 5px;
-    padding-right: 5px;
+    padding: 0px;
 }
 
 .user-tweets-header {
