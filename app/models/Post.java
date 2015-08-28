@@ -62,6 +62,22 @@ public class Post extends SuperModel implements Taggable {
         return find.byId(id);
     }
 
+	@Override
+	public void save() {
+		super.save();
+		hmset();
+		zadd("buzz:all");
+		if(product!=null) {
+			zadd("buzz:product:" + product.id.toString());
+		}
+	}
+
+	@Override
+	public void update() {
+		super.update();
+		hmset();
+	}
+
     private ObjectNode toJsonRaw(){
         ObjectNode node = Json.newObject();
         node.put("id", this.id);
@@ -194,7 +210,7 @@ public class Post extends SuperModel implements Taggable {
 				Logger.debug("adding all posts to cache: " + key);
 				for(Post post: getAll()){
 					post.zadd(key);
-					if(post.product.id != null) {
+					if(post.product != null) {
 						post.zadd("buzz:product:" + post.product.id.toString());
 					}
 				}

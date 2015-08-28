@@ -56,7 +56,6 @@ function upCommentsController(CommentService, authService, $timeout, $scope, $ro
     $scope.vm.addComment = function() {
         if (!vm.newComment) {
             vm.commentWarning = true;
-            console.log('ey');
         } else {
             var Comment = CommentService.comment(vm.type, vm.id);
             var newComment = new Comment();
@@ -65,7 +64,9 @@ function upCommentsController(CommentService, authService, $timeout, $scope, $ro
                 vm.comments.data.push(res);
                 vm.newComment = '';
                 vm.commenting = false;
+                vm.commentWarning = false;
             }, function(err) {
+                vm.commentWarning = false;
                 console.log(err);
             });
         }

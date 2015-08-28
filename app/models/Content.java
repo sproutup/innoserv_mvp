@@ -190,6 +190,12 @@ public class Content extends SuperModel {
         ObjectNode node = Json.newObject();
         try {
             String key = "content:" + id;
+
+            if(!j.exists(key)) {
+                Logger.debug("content added to cache " + key);
+                Content.find.byId(Long.parseLong(id, 10)).hmset();
+            }
+
             List<String> values = j.hmget(key, "title", "url", "createdAt", "description", "image", "video", "user.id", "product.id");
 
             node.put("id", id);
