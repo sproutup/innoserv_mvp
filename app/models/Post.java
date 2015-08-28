@@ -202,7 +202,7 @@ public class Post extends SuperModel implements Taggable {
 //				end = count - start - 1;
 //			}
 //			Logger.debug("range: " + start + " " + end + " " + count);
-			Set<String> set = j.zrange(key, start, end);
+			Set<String> set = j.zrevrange(key, start, end);
 			items.put("count", j.zcard(key));
 
 			for(String id: set) {

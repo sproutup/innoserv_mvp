@@ -199,6 +199,7 @@ public class Content extends SuperModel {
             if (values.get(3) != null) node.put("description", values.get(3));
             if (values.get(4) != null) node.put("image", values.get(4));
             if (values.get(5) != null) node.put("video", values.get(5));
+/*
             if (values.get(6) != null) {
                 node.put("user", User.hmget(values.get(6)));
             }
@@ -207,6 +208,7 @@ public class Content extends SuperModel {
             }
             node.put("likes", Likes.range(id, "models.content"));
             node.put("comments", Comment.range(id, "models.content"));
+*/
 
         } finally {
             play.Play.application().plugin(RedisPlugin.class).jedisPool().returnResource(j);
