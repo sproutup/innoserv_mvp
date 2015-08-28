@@ -54,18 +54,20 @@ function upCommentsController(CommentService, authService, $timeout, $scope, $ro
     }
 
     $scope.vm.addComment = function() {
-        console.log($scope);
-        var Comment = CommentService.comment($scope.vm.type, $scope.vm.id);
-        var newComment = new Comment();
-        newComment.body = $scope.vm.newComment;
-        newComment.$save(function(res) {
-            $scope.vm.comments.data.push(res);
-            $scope.vm.newComment = '';
-            $scope.vm.commenting = false;
-        }, function(err) {
-            console.log(err);
-        });
-
-
+        if (!vm.newComment) {
+            vm.commentWarning = true;
+            console.log('ey');
+        } else {
+            var Comment = CommentService.comment(vm.type, vm.id);
+            var newComment = new Comment();
+            newComment.body = vm.newComment;
+            newComment.$save(function(res) {
+                vm.comments.data.push(res);
+                vm.newComment = '';
+                vm.commenting = false;
+            }, function(err) {
+                console.log(err);
+            });
+        }
     };
 }
