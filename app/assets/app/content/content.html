@@ -12,9 +12,7 @@
 	                <div class="my-content-item--summary">
 	                	<div class="select-product-text">Select a product you'd like to post about</div>
 		                <!-- product selection -->
-				        <div>
-							<button class="trialProduct" ng-repeat="p in vm.myTrialProducts" ng-class="{ 'selectedTrialProduct': p.id === vm.selectedProduct }" ng-click="vm.selectTrialProduct(p)">{{ p.name }}</button>
-						</div>
+						<button class="trial-product" ng-repeat="p in vm.myTrialProducts" ng-class="{ 'selectedTrialProduct': p.id === vm.selectedProduct }" ng-click="vm.selectTrialProduct(p)">{{ p.name }}</button>
 						<div ng-show="vm.selectedProduct">
 		                    <div class="my-content-new">
 		                        <textarea placeholder="Paste a link to your content and/or write about your experience here" class="form-control post-new-textarea link" ng-model="vm.enteredBody"></textarea>
