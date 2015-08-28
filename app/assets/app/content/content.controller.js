@@ -94,8 +94,7 @@ function ContentController($stateParams, $state, FeedService, AuthService, $root
             item.body = vm.enteredBody;
             item.product_id = vm.selectedProduct;
             item.$save(function(res) {
-                console.log(res);
-                vm.content.push(res);
+                vm.content.unshift(res);
                 vm.enteredBody = '';
                 vm.selectedProduct = null;
                 vm.productErrorMsg = false;
