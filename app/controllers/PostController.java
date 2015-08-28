@@ -77,6 +77,7 @@ public class PostController extends Controller {
                     post.user = user;
                 }
 
+                // look for the first url and save it as content if found
                 Pattern urlpattern = Pattern.compile("(http|ftp|https)://([\\w_-]+(?:(?:\\.[\\w_-]+)+))([\\w.,@?^=%&:/~+#-]*[\\w@?^=%&/~+#-])?");
                 Matcher match = urlpattern.matcher(post.body);
 
@@ -98,52 +99,8 @@ public class PostController extends Controller {
                     post.addTag(node.findPath("text").textValue());
                 }
 
-                return created(post.toJson());
+                return created(Post.hmget(post.id.toString()));
             }
         }
     }
-
-//        Post newPost = Json.fromJson(request().body().asJson(), Post.class);
-//        try {
-//            newPost.parent. = 1;
-//            newPost.save();
-//            return created(newPost.toJson());
-//        }
-//        catch(PersistenceException e){
-//            return Results.badRequest(e.getMessage());
-//        }
-//    }
-
-//    public static Result updateProduct(Long id)
-//    {
-//        Product existing = new Product().findbyID(id);
-//        if(existing != null) {
-//            Product updated = Json.fromJson(request().body().asJson(), Product.class);
-//            if(updated.productName != null) { existing.productName = updated.productName; };
-//            if(updated.productEAN != null) { existing.productEAN = updated.productEAN; };
-//            if(updated.productDescription != null) { existing.productDescription = updated.productDescription; };
-//            if(updated.productLongDescription != null) { existing.productLongDescription = updated.productLongDescription; };
-//            if(updated.urlHome != null) { existing.urlHome = updated.urlHome; };
-//            if(updated.urlFacebook != null) { existing.urlFacebook = updated.urlFacebook; };
-//            if(updated.urlTwitter != null) { existing.urlTwitter = updated.urlTwitter; };
-//            existing.save();
-//            return ok(Json.toJson(existing));
-//        }
-//        else{
-//            return Results.notFound("Product not found");
-//        }
-//    }
-
-//    public static Result deleteProduct(Long id)
-//    {
-//        Product del = new Product().findbyID(id);
-//        if(del != null) {
-//            del.delete();
-//            return ok();
-//        }
-//        else{
-//            return Results.notFound("Product not found");
-//        }
-//    }
-
 }
