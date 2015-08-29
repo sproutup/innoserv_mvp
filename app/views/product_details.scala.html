@@ -63,7 +63,7 @@
     <script type="text/ng-template" id="myModalContent.html">
         <div class="modal-header">
             <button class="close" ng-click="close()">&times</button>
-            <h3 class="modal-title">I want {{product.productName}}!</h3>
+            <h3 class="modal-title">I want {{product.name}}!</h3>
         </div>
         <div class="modal-body">
             <p class="campaign-description">{{longDescription}}</p>
@@ -86,7 +86,7 @@
             		<p class="campaign-coupon" ng-show="perk1">{{perk1}}</p>
 				</div>
 			</div>
-            <a analytics-on="click" analytics-event="Buy now: {{product.productName}}" class="btn sproutup-btn-md-main" ng-show="product.isAvailableToBuy && product.urlBuy" href="{{product.urlBuy}}" target="_blank">Buy {{product.productName}} now</a>
+            <a analytics-on="click" analytics-event="Buy now: {{product.name}}" class="btn sproutup-btn-md-main" ng-show="product.isAvailableToBuy && product.urlBuy" href="{{product.urlBuy}}" target="_blank">Buy {{product.name}} now</a>
         </div>
     </script>
 </div>
