@@ -1,5 +1,6 @@
 package controllers;
 
+import be.objectify.deadbolt.java.actions.SubjectPresent;
 import com.fasterxml.jackson.databind.JsonNode;
 import models.Likes;
 import models.Post;
@@ -26,13 +27,15 @@ public class LikesController extends Controller {
     public static Result getLikes(Long id, String type) {
 
         // get all likes for object
-        List<Likes> likes = Likes.getAllLikes(id, type);
+        //List<Likes> likes = Likes.getAllLikes(id, type);
+        return ok(Likes.range(id.toString(), type));
 
         // convert to json and return
-        return ok(Likes.toJson(likes));
+        //return ok(Likes.toJson(likes));
     }
 
     @BodyParser.Of(BodyParser.Json.class)
+    @SubjectPresent
     public static Result addLikes(Long id, String type, Long userId) {
         JsonNode json = request().body().asJson();
         if (json == null) {
@@ -44,7 +47,26 @@ public class LikesController extends Controller {
                 return badRequest("User not found [id]:" + userId);
             } else {
                 Likes rs = Likes.addLike(userId, id, type);
-                return created(rs.toJson());
+                return created(Likes.hmget(rs.id.toString()));
+                //return created(rs.toJson());
+            }
+        }
+    }
+
+    @BodyParser.Of(BodyParser.Json.class)
+    @SubjectPresent
+    public static Result deleteLikes(Long id, String type, Long userId) {
+        JsonNode json = request().body().asJson();
+        if (json == null) {
+            return badRequest("Expecting Json data");
+        } else {
+            //long user_id = json.findPath("user_id").longValue();
+            User user = User.find.byId(userId);
+            if (user == null) {
+                return badRequest("User not found [id]:" + userId);
+            } else {
+                Likes.removeLike(userId, id, type);
+                return ok();
             }
         }
     }

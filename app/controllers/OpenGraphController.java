@@ -5,16 +5,21 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import models.Content;
 import models.OpenGraph;
 
+import org.apache.commons.lang3.StringUtils;
+import org.jsoup.HttpStatusException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import play.Logger;
 import play.libs.Json;
 import play.mvc.BodyParser;
 import play.mvc.Controller;
 import play.mvc.Result;
 
 import java.io.IOException;
+import java.net.UnknownHostException;
 import java.util.List;
+import org.apache.commons.lang.StringUtils.*;
 
 /**
  * Created by Apurv on 7/30/15.
@@ -59,33 +64,75 @@ public class OpenGraphController extends Controller {
     public static Result create() {
         try {
             JsonNode json = request().body().asJson();
-            if (json == null) { return badRequest("Expected JSON data"); }
-            String url;
-            if (check(json, "url")) { url = json.findPath("url").asText(); }
-            else { return badRequest("Missing parameter [url]"); }
+            if (json == null) {
+                return badRequest("Expected JSON data");
+            }
 
-            Document doc = Jsoup.connect(url).get();
+            String url;
+            if (check(json, "url")) {
+                url = json.findPath("url").asText();
+            }
+            else {
+                return badRequest("Missing parameter [url]");
+            }
+
+            Logger.debug("scrape url: " + url);
+
+            Document doc = Jsoup.connect(url)
+                    .userAgent("Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:25.0) Gecko/20100101 Firefox/25.0")
+                    .referrer("http://www.sproutup.co")
+                    .timeout(3000)
+                    .get();
+
             OpenGraph openGraph = new OpenGraph();
 
-            Element ogTitle = doc.select("meta[property=og:title]").first();
+            if (doc.select("meta[property=og:title]").first() != null) {
+                openGraph.title = StringUtils.substring(doc.select("meta[property=og:title]").first().attr("content").trim(), 0, 255);
+            }
+            else if (doc.title() != null) {
+                openGraph.title = StringUtils.substring(doc.title().trim(), 0, 255);
+            }
+            else {
+                openGraph.title = url;
+            }
+            Logger.debug("scrape title: " + openGraph.title);
+
+            if(doc.select("meta[property=og:description]").first() != null) {
+                openGraph.description = StringUtils.substring(doc.select("meta[property=og:description]").first().attr("content").trim(), 0, 255);
+            }
+            else if (doc.select("meta[name=description]").first() != null) {
+                openGraph.description = StringUtils.substring(doc.select("meta[name=description]").first().attr("content").trim(), 0, 255);
+            }
+            Logger.debug("scrape desc: " + openGraph.description);
+
+            if(doc.select("meta[property=og:image]").first() != null){
+                openGraph.image = doc.select("meta[property=og:image]").first().attr("content").trim();
+            }
+//            else if (doc.select("").first() != null) {
+//
+//            }
+
+            //[href*=/path/]
+
             Element ogType = doc.select("meta[property=og:type]").first();
-            Element ogImage = doc.select("meta[property=og:image]").first();
             Element ogUrl = doc.select("meta[property=og:url]").first();
-            Element ogDescription = doc.select("meta[property=og:description]").first();
             Element ogSiteName = doc.select("meta[property=og:site_name]").first();
             Element ogVideo = doc.select("meta[property=og:video]").first();
 
-            if (ogTitle != null) openGraph.title = ogTitle.attr("content");
-            if (ogType != null) openGraph.type = ogType.attr("content");
-            if (ogImage != null) openGraph.image = ogImage.attr("content");
-            if (ogUrl != null) openGraph.url = ogUrl.attr("content");
-            if (ogDescription != null) openGraph.description = ogDescription.attr("content");
-            if (ogSiteName != null) openGraph.siteName = ogSiteName.attr("content");
-            if (ogVideo != null) openGraph.video = ogVideo.attr("content");
+            if (ogType != null) openGraph.type = ogType.attr("content").trim();
+            if (ogUrl != null) openGraph.url = ogUrl.attr("content").trim();
+            if (ogSiteName != null) openGraph.siteName = StringUtils.substring(ogSiteName.attr("content").trim(), 0, 255);
+            if (ogVideo != null) openGraph.video = ogVideo.attr("content").trim();
 
             openGraph.save();
             return ok(openGraph.toJson());
-        } catch (IOException e) {
+        } catch (UnknownHostException e){
+            Logger.debug(e.getMessage());
+            return badRequest(e.getMessage());
+        } catch (HttpStatusException e) {
+            Logger.debug(e.getMessage());
+            return badRequest(e.getMessage());
+        }catch (IOException e) {
             e.printStackTrace();
             return badRequest("Bad url given");
         }

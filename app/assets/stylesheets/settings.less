@@ -158,7 +158,7 @@ a.list-group-item:hover {
 }
 
 .my-content-item {
-    margin: 0px;
+    margin: 0px 0px 10px;
     padding: 0px;
 }
 
@@ -167,15 +167,58 @@ a.list-group-item:hover {
     margin: 15px 0px 0px;
 }
 
+.my-content-body a:hover,
+.my-content-body a:focus {
+    text-decoration: none !important;
+}
+
+.my-content-related-product {
+    float: right;
+    margin: 0px 0px 10px;
+    padding: 8px 12px;
+    background-color: @sproutup-green;
+    color: white;
+    font-weight: 700;
+    font-size: 10pt;
+    border-radius: 2px;
+}
+
+.my-content-related-product i {
+    padding-right: 10px;
+}
+
+.product-post-tag {
+    padding-right: 8px;
+}
+
+.my-content-related-product:hover {
+    color: white;
+    background-color: @sproutup-green-hover;
+}
+
+.my-content-related-product.new-product {
+    background-color: @sproutup-purple;
+}
+
+.my-content-related-product.new-product:hover {
+    color: white;
+    background-color: @sproutup-purple-hover;
+}
+
 .my-content-item--summary {
     margin: 0px;
     padding: 15px 30px;
-    background-color: @sproutup-verylightgrey;
+    background-color: white;
+    border: 1px solid @sproutup-lightgrey;
 }
 
 @media (max-width:767px){
     .my-content-item-summary {
         padding: 15px 20px;
+    }
+
+    .my-content-related-product {
+        float: left;
     }
 }
 
@@ -216,6 +259,7 @@ a.list-group-item:hover {
 
 .my-content-image {
     margin: 0px;
+    border-radius: 4px;
 }
 
 .my-content-tags {
@@ -244,14 +288,18 @@ a.list-group-item:hover {
 }
 
 .my-content-actions {
-    padding: 10px 0px 0px;
+
 }
 
 .my-content-actions a {
     padding-right: 15px;
-    font-size: 8.5pt;
+    font-size: 9pt;
     font-weight: 700;
     color: @main-text-2;
+}
+
+.my-content-actions a .upvoted {
+    color: @sproutup-blue;
 }
 
 .my-content-actions a:hover {
@@ -286,7 +334,7 @@ a.list-group-item:hover {
     font-size: 11pt;
     font-weight: 700;
     color: @sproutup-blue;
-    padding: 5px 0px 0px;
+    padding: 0px;
     margin: 0px;
 }
 
@@ -295,7 +343,7 @@ a.list-group-item:hover {
 }
 
 .my-content-user span {
-    padding-left: 15px;
+    padding-left: 10px;
     color: @main-text-2;
 }
 
@@ -303,19 +351,19 @@ a.list-group-item:hover {
     font-weight: 400;
     font-size: 10pt;
     color: @secondary-text;
-    padding: 3px 0px 5px;
+    padding: 5px 0px;
     margin: 0px;
 }
 
 .my-content-timestamp.comment {
-    font-size: 9.5pt;
+    font-size: 9pt;
 }
 
 .my-content-item-main {
     margin: 5px 0px 10px;
 }
 
-.my-content-headline {
+.my-content-og-headline {
     font-size: 12pt;
     font-weight: 700;
     color: @main-text;
@@ -325,16 +373,31 @@ a.list-group-item:hover {
 }
 
 .my-content-text {
-    font-size: 11pt;
+    font-size: 11.5pt;
     font-weight: 400;
-    color: @main-text;
+    color: @main-text-3;
     line-height: 1.6;
     padding: 0px;
     margin: 0px;
+    white-space: pre-wrap;
+    padding-bottom: 10px;
+}
+
+.my-content-og-text {
+    font-size: 10pt;
+    font-weight: 400;
+    color: @main-text-3;
+    line-height: 1.6;
+    padding: 0px;
+    margin: 0px;
+    white-space: pre-wrap;
+    padding-bottom: 5px;
 }
 
 .my-content-text.comment {
-    font-size: 10.5pt;
+    font-size: 11pt;
+    padding-bottom: 9px;
+    padding-top: 5px;
 }
 
 .my-content-video {
@@ -472,9 +535,20 @@ a.list-group-item:hover {
 }
 
 .my-content-page {
-	max-width: 700px;
+	max-width: 1100px;
 	margin: 90px auto 30px;
+    padding: 0px;
+}
+
+.my-content-left-rail {
     padding: 0px 15px;
+    margin: 0px;
+    border-right: 1px dashed @form-border;
+}
+
+.my-content-right-rail {
+    padding: 0px 15px;
+    margin: 0px;
 }
 
 .product-trial-item--input {
@@ -575,19 +649,20 @@ a.list-group-item:hover {
 }
 
 .my-content-comments {
-    margin: 0px 0px 10px;
+    margin: 0px 0px 0px;
     padding: 0px;
 }
 
 .my-content-comment-row {
-    background-color: @sproutup-lightgrey;
+    background-color: @sproutup-lightergrey;
     margin: 0px 0px 1px;
+    padding-top: 8px;
 }
 
 .my-content-comment-more {
     margin: 0px 0px 1px;
     padding: 15px 0px;
-    background-color: @sproutup-lightgrey;
+    background-color: @sproutup-lightergrey;
 }
 
 .my-content-comment-more a {
@@ -604,5 +679,77 @@ a.list-group-item:hover {
 }
 
 .my-content-comment-blurb {
-    padding: 10px 10px 15px;
+    padding: 10px 10px 14px;
+}
+
+.my-content-new {
+    margin: 15px 0px 10px;
+    background-color: white;
+}
+
+.my-content-new hr {
+    margin: 10px 5px;
+}
+
+.btn-my-content-add-media {
+    width: 100%;
+  height: 120px;
+  font-weight: 400;
+  font-size: 11pt;
+  color: @input-placeholder-text;
+  background-color: white;
+  border: none;
+  padding: 23px 0px 0px;
+  margin: 0px;
+  box-shadow: none;
+}
+
+.btn-my-content-add-media i {
+    font-size: 30pt;
+    display: block;
+    padding: 5px 0px;
+}
+
+.btn-my-content-add-media:hover,
+.btn-my-content-add-media:focus,
+.btn-my-content-add-media:active {
+    color: @sproutup-blue;
+    background-color: white;
+    box-shadow: none;
+}
+
+.my-content-info-header {
+    background-color: @sproutup-blue-muted;
+    color: white;
+    margin: 15px 0px 10px;
+}
+
+.my-content-info-header p {
+    padding: 12px 15px;
+    font-weight: 700;
+    font-size: 11pt;
+}
+
+.my-content-info-body {
+    color: @main-text;
+    margin: 0px;
+}
+
+.my-content-info-body h3 {
+    padding: 10px 15px;
+    margin: 0px;
+    font-weight: 700;
+    font-size: 11.5pt;
+    color: @sproutup-blue-muted;
+}
+
+.my-content-info-body h3 i {
+    padding-right: 10px;
+}
+
+.my-content-info-body p {
+    padding: 5px 15px;
+    font-weight: 400;
+    font-size: 11pt;
+    line-height: 1.5;
 }

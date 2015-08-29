@@ -4,6 +4,7 @@ import com.avaje.ebean.FetchConfig;
 import com.avaje.ebean.Page;
 import com.avaje.ebean.RawSql;
 import com.avaje.ebean.RawSqlBuilder;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -12,13 +13,15 @@ import constants.AppConstants;
 
 import org.joda.time.DateTime;
 
+import play.Logger;
 import play.libs.Json;
+import redis.clients.jedis.Jedis;
+import com.typesafe.plugin.RedisPlugin;
 import service.GoogleURLShortener;
 
 import javax.persistence.*;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by peter on 3/23/15.
@@ -174,5 +177,54 @@ public class Trial extends TimeStampModel {
             arrayNode.add(item.toJson());
         }
         return arrayNode;
+    }
+
+    public void hmset(){
+        Jedis j = play.Play.application().plugin(RedisPlugin.class).jedisPool().getResource();
+        try {
+            Map map = new HashMap();
+
+            // Create the hashmap values
+            map.put("name", this.name);
+            map.put("updatedAt", new DateTime(this.updatedAt).toString());
+            if(this.user != null) {
+            }
+
+            // add the values
+            j.hmset("trial:" + this.id.toString(), map);
+        } finally {
+            play.Play.application().plugin(RedisPlugin.class).jedisPool().returnResource(j);
+        }
+    }
+
+    public static String key(String id){
+        return "trial:" + id;
+    }
+
+    public static ObjectNode hmget(String id){
+        Jedis j = play.Play.application().plugin(RedisPlugin.class).jedisPool().getResource();
+        ObjectNode node = Json.newObject();
+        try {
+            String key = Trial.key(id);
+            // if key not found then add item to cache
+            if(!j.exists(key)) {
+                Logger.debug("item added to cache " + key);
+                Trial.find.byId(Long.parseLong(id, 10)).hmset();
+            }
+
+            // get the values
+            List<String> values = j.hmget(key,
+                    "name",
+                    "updatedAt"
+            );
+
+            // build json object
+            node.put("id", id);
+            if (values.get(0) != null) node.put("name", values.get(0));
+            if (values.get(1) != null) node.put("updatedAt", values.get(1));
+        } finally {
+            play.Play.application().plugin(RedisPlugin.class).jedisPool().returnResource(j);
+        }
+        return node;
     }
 }

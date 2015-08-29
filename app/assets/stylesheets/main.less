@@ -635,6 +635,14 @@ input[type=checkbox] {
     padding-bottom: 10px;
 }
 
+.likeLink:link .likeLink:active, .likeLink:visited, .likeLink:hover, .likeLink {
+    text-decoration: none !important;
+}
+
+.likeLink:hover {
+    color: #929292 !important;
+}
+
 @media (max-width:767px) {
     .logo {
         width: 120px;
@@ -682,8 +690,114 @@ input[type=checkbox] {
         color: #fff;;
     }
 
+    .sproutup-btn-md-main {
+    	font-size: 10pt;
+        padding-top: 13px;
+    }
+
 }
 
 .popover-content {
     color: @main-text-1;
+}
+
+.label-new-feature {
+    background-color: @sproutup-orange;
+    font-size: 8pt;
+    font-weight: 700;
+    margin-left: 5px;
+    position: relative;
+    bottom: 7px;
+}
+
+.content-comment-row {
+    margin-left: 0px !important;
+}
+
+.my-content-text p {
+    font-size: 11pt;
+    margin: 0px !important;
+    margin-top: 5px !important;
+    margin-bottom: 5px !important;
+}
+
+.trial-product {
+    margin-right: 11px;
+    margin-top: 5px;
+    border: none;
+    display: inline-block;
+    height: 32px;
+    font-weight: 400;
+    font-size: 10.5pt;
+    border-radius: 0px;
+    color: @sproutup-grey;
+    background-color: white;
+    padding-left: 14px;
+    padding-right: 14px;
+    border: 1px solid @sproutup-grey;
+    border-radius: 15px;
+}
+
+.trial-product:active {
+    outline: none;
+}
+
+.trial-product:focus {
+    outline: none;
+}
+
+.selected-trial-product {
+    background-color: @sproutup-orange;
+    border: 1px solid @sproutup-orange;
+    color: #fff;
+}
+
+.up-content-product {
+    float: right;
+    position: absolute;
+    right: 6px;
+    top: 12px;
+}
+
+.addPhotoInput {
+    border-top: 1px solid #bababa;
+    padding: 11px;
+    color: #bababa;
+    font-size: 11pt;
+    font-weight: 400;
+}
+
+.call-to-post {
+    font-size: 14pt;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.content-post-button {
+    margin-top: 5px;
+}
+
+.comment-post-button {
+    margin-top: 2px;
+    margin-bottom: 8px;
+}
+
+.post-warning {
+    font-weight: 700;
+    font-size: 10pt;
+    margin-top: 10px;
+    color: @sproutup-orange;
+}
+
+.select-product-text {
+    font-weight: 400;
+    font-size: 10.5pt;
+    padding-left: 1px;
+    margin-bottom: 5px;
+    color: @main-text-2;
+}
+
+.post-body {
+    margin-bottom: 20px;
+    font-size: 12pt;
 }

@@ -1,0 +1,34 @@
+<div class="col-md-4 col-sm-6 col-xs-12 product-list-item">
+<<<<<<< HEAD
+    <a analytics-on="click" analytics-event="Enter Product: {{product.productName}}" ui-sref="user.product.detail.about({ slug: product.slug })">
+        <div class="product-cover-photo" up-background-image="{{product.banner.url.image}}" up-background-attr="?w=800" up-fallback-image="/assets/images/default-product-banner.jpg">
+=======
+    <a analytics-on="click" analytics-event="Enter Product: {{product.name}}" ui-sref="user.product.detail.about({ slug: product.slug })">
+        <div class="product-cover-photo" up-background-image="{{product.banner.url.image}}" up-background-attr="?w=1600" up-fallback-image="/assets/images/default-product-banner.jpg">
+>>>>>>> content-feature
+            <div class="product-cover-info">
+                <div class="product-category-list">
+                    <button ng-repeat="tag in product.tags" class="btn btn-product-category" type="button">{{tag.name}}</button>
+                </div>
+<<<<<<< HEAD
+                <div class="product-cover-title">{{product.productName}}</div>
+                <div class="product-cover-description">{{product.productDescription}}</div>
+=======
+                <div class="product-cover-title">{{product.name}}</div>
+                <div class="product-cover-description">{{product.tagline}}</div>
+                <div class="trial-user-list">
+                    <div ng-show="getActiveRequests(product).length!=0" class="trial-user-list-title">{{getActiveRequests(product).length}} TRIALS REQUESTED</div>
+                    <img popover="{{trial.user.name}}" popover-trigger="mouseenter" ng-repeat="trial in getActiveRequests(product) | orderBy: '-createdAt' | limitTo:8" class="trial-user-img" src="{{trial.user.avatarUrl}}">
+                </div>
+>>>>>>> content-feature
+            </div>
+        </div>
+    </a>
+    <div class="trial-user-list">
+        <div ng-show="getActiveRequests(product).length!=0" class="trial-user-list-title">{{getActiveRequests(product).length}} TRIALS REQUESTED</div>
+        <div class="trial-user-wrapper" ng-repeat="trial in getActiveRequests(product) | orderBy: '-createdAt' | limitTo:8" ng-mouseenter="avatarHover = true" ng-mouseleave="avatarHover = false">
+            <img class="trial-user-img" ng-src="{{trial.user.avatarUrl}}">
+            <user-card user="trial.user" ng-if="avatarHover"></user-card>
+        </div>
+    </div>
+</div>

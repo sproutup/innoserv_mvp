@@ -8,6 +8,7 @@ import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
+import com.typesafe.plugin.RedisPlugin;
 import org.joda.time.DateTime;
 import org.xerial.snappy.Snappy;
 
@@ -25,12 +26,15 @@ import com.avaje.ebean.FetchConfig;
 import com.avaje.ebean.Page;
 
 import constants.AppConstants;
+import redis.clients.jedis.Jedis;
 import utils.Slugify;
 import utils.Taggable;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 @Entity
 public class Product extends SuperModel implements PathBindable<Product>,
@@ -121,11 +125,10 @@ public class Product extends SuperModel implements PathBindable<Product>,
 		return find.all();
 	}
 
-	public List<Product> getAllActive() {
+	public static List<Product> getAllActive() {
 		return find.where().eq("activeFlag", "1").findList();
 	}
 
-	
 	public static Product findbyID(Long id) {
 		return find.byId(id);
 	}
@@ -156,6 +159,7 @@ public class Product extends SuperModel implements PathBindable<Product>,
 	public void cacheRemove(){
 		if(this.id != null) {
 			play.cache.Cache.remove("product:" + this.id);
+			//this.hmset();
 		}
 	}
 
@@ -307,7 +311,7 @@ public class Product extends SuperModel implements PathBindable<Product>,
         ObjectNode node;
         final ObjectReader reader = mapper.reader();
 
-        byte[] compressed = (byte[]) play.cache.Cache.get("product:" + this.id);
+        byte[] compressed = (byte[]) play.cache.Cache.get("product:" + this.id.toString());
         if (compressed != null) {
             Logger.debug("product: cache hit");
             try {
@@ -338,7 +342,7 @@ public class Product extends SuperModel implements PathBindable<Product>,
 		node.put("id", this.id);
 		node.put("name", this.productName);
 		node.put("slug", this.slug);
-		node.put("productDescription", this.productDescription);
+		node.put("tagline", this.productDescription);
 		node.put("urlHome", this.urlHome);
 		node.put("urlFacebook", this.urlFacebook);
 		node.put("urlTwitter", this.urlTwitter);
@@ -356,14 +360,14 @@ public class Product extends SuperModel implements PathBindable<Product>,
     private ObjectNode toJsonRaw(){
         ObjectNode node = Json.newObject();
         node.put("id", this.id);
-        node.put("productEAN", this.productEAN);
-        node.put("productName", this.productName);
+//        node.put("productEAN", this.productEAN);
+        node.put("name", this.productName);
         node.put("slug", this.slug);
-        node.put("productDescription", this.productDescription);
-        node.put("productLongDescription", this.productLongDescription);
-        node.put("featureList", this.featureList);
-        node.put("missionStatement", this.missionStatement);
-        node.put("productStory", this.productStory);
+        node.put("tagline", this.productDescription);
+        node.put("description", this.productLongDescription);
+        node.put("features", this.featureList);
+        node.put("mission", this.missionStatement);
+        node.put("story", this.productStory);
         node.put("urlHome", this.urlHome);
         node.put("urlFacebook", this.urlFacebook);
         node.put("urlBuy", this.urlBuy);
@@ -419,70 +423,6 @@ public class Product extends SuperModel implements PathBindable<Product>,
 				storyArrayNode.add(this.productAdditionalDetail.productStoryPara4);
 			}
 			node.put("story", storyArrayNode);
-
-			ArrayNode teamArrayNode = new ArrayNode(JsonNodeFactory.instance);
-
-			if (this.productAdditionalDetail.member1Name != null && this.productAdditionalDetail.member1Name != "") {
-				ObjectNode member = Json.newObject();
-				member.put("name", this.productAdditionalDetail.member1Name);
-				member.put("description", this.productAdditionalDetail.member1Description);
-				member.put("title", this.productAdditionalDetail.member1Title);
-				if (this.productAdditionalDetail.member1Photo != null) {
-					member.put("photo", this.productAdditionalDetail.member1Photo.toJson());
-				}
-				teamArrayNode.add(member);
-			}
-			if (this.productAdditionalDetail.member2Name != null && this.productAdditionalDetail.member2Name != "") {
-				ObjectNode member = Json.newObject();
-				member.put("name", this.productAdditionalDetail.member2Name);
-				member.put("description", this.productAdditionalDetail.member2Description);
-				member.put("title", this.productAdditionalDetail.member2Title);
-				if (this.productAdditionalDetail.member2Photo != null) {
-					member.put("photo", this.productAdditionalDetail.member2Photo.toJson());
-				}
-				teamArrayNode.add(member);
-			}
-			if (this.productAdditionalDetail.member3Name != null && this.productAdditionalDetail.member3Name != "") {
-				ObjectNode member = Json.newObject();
-				member.put("name", this.productAdditionalDetail.member3Name);
-				member.put("description", this.productAdditionalDetail.member3Description);
-				member.put("title", this.productAdditionalDetail.member3Title);
-				if (this.productAdditionalDetail.member3Photo != null) {
-					member.put("photo", this.productAdditionalDetail.member3Photo.toJson());
-				}
-				teamArrayNode.add(member);
-			}
-			if (this.productAdditionalDetail.member4Name != null && this.productAdditionalDetail.member4Name != "") {
-				ObjectNode member = Json.newObject();
-				member.put("name", this.productAdditionalDetail.member4Name);
-				member.put("description", this.productAdditionalDetail.member4Description);
-				member.put("title", this.productAdditionalDetail.member4Title);
-				if (this.productAdditionalDetail.member4Photo != null) {
-					member.put("photo", this.productAdditionalDetail.member4Photo.toJson());
-				}
-				teamArrayNode.add(member);
-			}
-			if (this.productAdditionalDetail.member5Name != null && this.productAdditionalDetail.member5Name != "") {
-				ObjectNode member = Json.newObject();
-				member.put("name", this.productAdditionalDetail.member5Name);
-				member.put("description", this.productAdditionalDetail.member5Description);
-				member.put("title", this.productAdditionalDetail.member5Title);
-				if (this.productAdditionalDetail.member5Photo != null) {
-					member.put("photo", this.productAdditionalDetail.member5Photo.toJson());
-				}
-				teamArrayNode.add(member);
-			}
-			if (this.productAdditionalDetail.member6Name != null && this.productAdditionalDetail.member6Name != "") {
-				ObjectNode member = Json.newObject();
-				member.put("name", this.productAdditionalDetail.member6Name);
-				member.put("description", this.productAdditionalDetail.member6Description);
-				member.put("title", this.productAdditionalDetail.member6Title);
-				if (this.productAdditionalDetail.member6Photo != null) {
-					member.put("photo", this.productAdditionalDetail.member6Photo.toJson());
-				}
-				teamArrayNode.add(member);
-			}
-			node.put("team", teamArrayNode);
 		}
         return node;
     }
@@ -494,4 +434,131 @@ public class Product extends SuperModel implements PathBindable<Product>,
         }
         return arrayNode;
     }
+
+	public void zadd(String key){
+		Jedis j = play.Play.application().plugin(RedisPlugin.class).jedisPool().getResource();
+		try {
+			Logger.debug("product added to set: " + key);
+			j.zadd(key, updatedAt.getTime(), this.id.toString());
+		} finally {
+			play.Play.application().plugin(RedisPlugin.class).jedisPool().returnResource(j);
+		}
+	}
+
+	public void zrem(String key){
+		Jedis j = play.Play.application().plugin(RedisPlugin.class).jedisPool().getResource();
+		try {
+			// delete
+			j.zrem(key, this.id.toString());
+		} finally {
+			play.Play.application().plugin(RedisPlugin.class).jedisPool().returnResource(j);
+		}
+	}
+
+	public static ObjectNode range(String key){
+		ObjectNode items = Json.newObject();
+		ArrayNode data = items.putArray("data");
+
+		//Go to Redis to read the full roster of content.
+		Jedis j = play.Play.application().plugin(RedisPlugin.class).jedisPool().getResource();
+		try {
+			if(!j.exists(key)) {
+				Logger.debug("adding products to cache: " + key);
+				for(Product item: Product.getAllActive()){
+					item.zadd(key);
+				}
+			}
+
+			Set<String> set = j.zrange(key, 0, -1);
+			items.put("count", j.zcard(key));
+
+			for(String id: set) {
+				// get the data for each like
+				data.add(Product.hmget(id));
+			}
+		} finally {
+			play.Play.application().plugin(RedisPlugin.class).jedisPool().returnResource(j);
+		}
+
+		return items;
+	}
+
+	public void hmset(){
+		Jedis j = play.Play.application().plugin(RedisPlugin.class).jedisPool().getResource();
+		try {
+			Map map = new HashMap();
+
+			// Create the hashmap values
+			map.put("name", this.productName);
+			map.put("slug", this.slug);
+			if(this.productDescription!=null) map.put("tagline", this.productDescription);
+			if(this.productLongDescription!=null) map.put("description", this.productLongDescription);
+			if(this.productStory!=null) map.put("story", this.productStory);
+			if(this.missionStatement!=null) map.put("mission", this.missionStatement);
+			if(this.urlHome!=null) map.put("urlHome", this.urlHome);
+			if(this.urlFacebook!=null) map.put("urlFacebook", this.urlFacebook);
+			if(this.urlTwitter!=null) map.put("urlTwitter", this.urlTwitter);
+
+			if(this.productAdditionalDetail!=null) {
+				if (productAdditionalDetail.bannerPhoto != null) {
+					map.put("banner", productAdditionalDetail.bannerPhoto.id.toString());
+				}
+			}
+
+			map.put("isAvailableForTrial", String.valueOf(this.trialSignUpFlag));
+
+			// add the values
+			j.hmset("prod:" + this.id.toString(), map);
+		} finally {
+			play.Play.application().plugin(RedisPlugin.class).jedisPool().returnResource(j);
+		}
+	}
+
+	public static ObjectNode hmget(String id){
+		Jedis j = play.Play.application().plugin(RedisPlugin.class).jedisPool().getResource();
+		ObjectNode node = Json.newObject();
+		try {
+			String key = "prod:" + id.toString();
+
+			// if key not found then add item to cache
+			if(!j.exists(key)) {
+				Logger.debug("product added to cache " + key);
+				Product.find.byId(Long.parseLong(id, 10)).hmset();
+			}
+
+			// get the values
+			List<String> values = j.hmget(key,
+					"name",
+					"slug",
+					"tagline",
+					"description",
+					"story",
+					"mission",
+					"urlHome",
+					"urlFacebook",
+					"urlTwitter",
+					"banner",
+					"isAvailableForTrial"
+			);
+
+			// build json object
+			node.put("id", id);
+			if (values.get(0) != null) node.put("name", values.get(0));
+			if (values.get(1) != null) node.put("slug", values.get(1));
+			if (values.get(2) != null) node.put("tagline", values.get(2));
+			if (values.get(3) != null) node.put("description", values.get(3));
+			if (values.get(4) != null) node.put("story", values.get(4));
+			if (values.get(5) != null) node.put("mission", values.get(5));
+			if (values.get(6) != null) node.put("urlHome", values.get(6));
+			if (values.get(7) != null) node.put("urlFacebook", values.get(7));
+			if (values.get(8) != null) node.put("urlTwitter", values.get(8));
+			if (values.get(9) != null) {
+				node.put("banner", File.hmget(values.get(9)));
+			}
+			if (values.get(10) != null) node.put("isAvailableForTrial", Boolean.valueOf(values.get(10)));
+		} finally {
+			play.Play.application().plugin(RedisPlugin.class).jedisPool().returnResource(j);
+		}
+		return node;
+	}
 }

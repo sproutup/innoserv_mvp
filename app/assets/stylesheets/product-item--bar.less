@@ -8,6 +8,10 @@
     overflow: hidden;
 }
 
+.product-detail-buzz {
+    margin: 0px 30px;
+}
+
 .bar-tabs {
     background-color: #fff;
     height: 70px;
@@ -145,14 +149,30 @@
     box-shadow: none;
 }
 
+.product-detail-buzz-header {
+    font-weight: 700;
+    font-size: 12pt;
+    padding: 10px;
+}
+
+.product-detail-buzz-header.left {
+    color: @main-text-3;
+}
+
+.product-detail-buzz-header.right {
+    color: @twitter-blue;
+}
+
 .forum-left-rail {
     margin: 0 0;
+    padding-top: 20px;
     padding-left: 10px;
     padding-right: 10px;
 }
 
 .forum-right-rail {
     margin: 0 0;
+    padding-top: 20px;
     padding-left: 10px;
     padding-right: 10px;
     border-left: dashed 1px #ccc;
@@ -175,6 +195,14 @@
 @media(max-width:767px) {
     .post-comment-row {
         margin-left: 10px;
+    }
+
+    .forum-right-rail {
+        border: none;
+    }
+
+    .product-detail-buzz {
+        margin: 0px 15px;
     }
 }
 
@@ -280,6 +308,7 @@
 .post-comment-user-avatar {
     padding-top: 10px;
     padding-bottom: 10px;
+    width: 75px !important;
 }
 
 .post-comment-user-avatar img {
@@ -376,7 +405,6 @@
 }
 
 .post-comment-form {
-    padding-top: 5px;
     padding-bottom: 10px;
 }
 
@@ -391,34 +419,40 @@
     border: none;
     color: @main-text;
     line-height: 1.5;
-    font-size: 12pt;
+    font-size: 11pt;
     font-weight: 400;
     box-shadow: none !important;
+    margin: 0px;
+}
+
+.post-new-textbox.related-products {
+    font-size: 10pt;
 }
 
 .post-new-textarea {
-    min-height: 80px;
-    margin-top: 3px;
-    margin-bottom: 3px;
-    padding-top: 8px;
-    padding-bottom: 8px;
-    border-left: none;
-    border-right: none;
-    border-top: dashed 1px @form-border;
-    border-bottom: dashed 1px @form-border;
+    min-height: 120px;
+    margin: 0px;
     color: @main-text;
+    border-radius: 0px;
     line-height: 1.5;
-    font-size: 12pt;
+    font-size: 11pt;
     font-weight: 400;
     resize: vertical;
-    border-radius: 0px;
     box-shadow: none !important;
 }
 
-.post-new-textarea:focus {
-    border-top: dashed 1px @form-border;
-    border-bottom: dashed 1px @form-border;
+/*.post-new-textarea::-webkit-input-placeholder {
+    color: @sproutup-grey !important;
 }
+.post-new-textarea:-moz-placeholder {
+    color: @sproutup-grey !important;
+}
+.post-new-textarea::-moz-placeholder {
+    color: @sproutup-grey !important;
+}
+.post-new-textarea:-ms-input-placeholder {
+    color: @sproutup-grey !important;
+}*/
 
 .form-control::-moz-placeholder {
     color: @input-placeholder-text;
@@ -660,8 +694,7 @@
 }
 
 .user-tweets-row {
-    padding-left: 5px;
-    padding-right: 5px;
+    padding: 0px;
 }
 
 .user-tweets-header {
@@ -715,6 +748,7 @@
 .post-new-comment-actions {
     padding-top: 0px;
     padding-bottom: 0px;
+    margin-bottom: 6px;
 }
 
 .btn-cancel-post {
@@ -758,7 +792,7 @@
 .btn-post {
     font-size: 10pt;
     font-weight: 700;
-    color: #fff;
+    color: #fff !important;
     height: 36px;
     border-radius: 0px;
     padding-top: 6px;

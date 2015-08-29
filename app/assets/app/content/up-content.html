@@ -1,0 +1,60 @@
+<!-- content blurb -->
+<div class="col-sm-12 my-content-item">
+    <!-- user photo -->
+    <div class="col-sm-2 my-content-user-avatar">
+        <img class="img-responsive my-content-user-img img-center" ng-src="{{ vm.content.user.avatarUrl }}">
+    </div>
+    <!-- content thumbnail -->
+    <div class="col-sm-10 my-content-body">
+        <div class="my-content-item--summary">
+            <p class="my-content-user">{{ vm.content.user.name }}
+                <a ng-href="{{ vm.content.user.urlTwitter }}" target="blank"><span>@{{ vm.content.user.handleTwitter }}</span></a>
+            </p>
+            <p class="my-content-timestamp">{{ vm.content.createdAt | fromNow }}</p>
+            <div class="my-content-item-main">
+                <a ui-sref="user.product.detail.about({ slug: vm.content.product.slug })">
+                    <button class="trial-product selected-trial-product up-content-product"><i class="fa fa-tag product-post-tag"></i>{{ vm.content.product.name }}</button>
+                </a>
+                <p class="my-content-text">{{ vm.content.body }}</p>
+                <a href="{{ vm.content.content.url }}" target="blank">
+                    <img class="my-content-image img-responsive" src="{{vm.content.content.image}}">
+                    <p class="my-content-og-headline" ng-show="vm.content.content.title">{{ vm.content.content.title }}</p>
+                    <p class="my-content-og-text" ng-show="vm.content.content.description">{{ vm.content.content.description }}</p>
+                </a>
+            </div>
+            <div class="my-content-actions">
+                <up-like likes="vm.content.likes" up-id="vm.content.id" up-type="models.post"></up-like>
+                <a href="#" subject-present="vm.commentToggle()" state="user.content">COMMENT ({{ vm.content.comments.data.length }})</a>
+<!--                 <a href="#">SHARE</a> -->
+            </div>
+        </div>
+        <up-comments commenting="vm.content.commenting" comments="vm.content.comments" up-id="vm.content.id" up-type="models.post"></up-comments>
+    </div>
+</div>
+
+
+
+<!-- content blurb -->
+<!-- <div class="col-sm-12 my-content-item"> -->
+    <!-- user photo -->
+<!--     <div class="col-sm-2 my-content-user-avatar">
+        <img class="img-responsive my-content-user-img img-center" src="@routes.Assets.at("images/default-avatar.png")">
+    </div> -->
+    <!-- content thumbnail -->
+<!--     <div class="col-sm-10 my-content-body">
+        <div class="my-content-item--summary">
+            <p class="my-content-user">User Name<span>@@twitterhandle</span></p>
+            <p class="my-content-timestamp">Yesterday at 4:30pm</p>
+            <div class="my-content-item-main">
+                <img class="my-content-image img-responsive" src="http://rack.1.mshcdn.com/media/ZgkyMDE1LzA3LzIyLzUyL1NwYWNlSmFtMi5hMDQxYS5qcGcKcAl0aHVtYgk5NTB4NTM0IwplCWpwZw/626b0601/1bf/SpaceJam2.jpg">
+                <p class="my-content-headline">'Space Jam 2' tho!? LeBron James inks deal with Warner Bros</p>
+                <p class="my-content-text">After LeBron James announces a partnership with Warner Bros., thirst for 'Space Jam 2' overruns the Internet.</p>
+            </div>
+            <div class="my-content-tags">
+                <a href="#"><span>#BloomSky</span></a>
+                <a href="#">#Weather</a>
+                <a href="#">#Review</a>
+            </div>
+        </div>
+    </div>
+</div> -->

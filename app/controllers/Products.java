@@ -77,8 +77,9 @@ public class Products extends Controller {
     @BodyParser.Of(BodyParser.Json.class)
     public static Result getProducts()
     {
-        List<Product> products_ = new Product().getAllActive();
+        List<Product> products_ = Product.getAllActive();
         return ok(Product.toJson(products_));
+        //return ok(Product.range("product:active"));
     }
 
     @BodyParser.Of(BodyParser.Json.class)
@@ -108,9 +109,9 @@ public class Products extends Controller {
                 User user = Application.getLocalUser(ctx().session());
 
                 Product prod = new Product();
-                prod.productName = json.findPath("productName").textValue();
+                prod.productName = json.findPath("name").textValue();
                 prod.slug = json.findPath("slug").textValue();
-                prod.productDescription = json.findPath("productDescription").textValue();
+                prod.productDescription = json.findPath("tagline").textValue();
                 prod.urlHome = json.findPath("urlHome").textValue();
                 prod.urlFacebook = json.findPath("urlFacebook").textValue();
                 prod.urlTwitter = json.findPath("urlTwitter").textValue();
@@ -148,7 +149,7 @@ public class Products extends Controller {
                     prod.save();
                     return created(prod.toJson());
                 } else {
-                    return badRequest("Missing parameter [productName]");
+                    return badRequest("Missing parameter [name]");
                 }
             }
             catch(PersistenceException e){
@@ -184,17 +185,17 @@ public class Products extends Controller {
         Product prod = user.hasProduct(slug);
         if(prod != null) {
             JsonNode json = request().body().asJson();
-            prod.productName = json.findPath("productName").textValue();
+            prod.productName = json.findPath("name").textValue();
             prod.slug = json.findPath("slug").textValue();
-            prod.productDescription = json.findPath("productDescription").textValue();
+            prod.productDescription = json.findPath("tagline").textValue();
             prod.urlHome = json.findPath("urlHome").textValue();
             prod.urlFacebook = json.findPath("urlFacebook").textValue();
             prod.urlTwitter = json.findPath("urlTwitter").textValue();
             prod.urlCrowdFundingCampaign = json.findPath("urlCrowdFundingCampaign").textValue();
-            prod.productLongDescription = json.findPath("productLongDescription").textValue();
-            prod.featureList = json.findPath("featureList").textValue();
-            prod.missionStatement = json.findPath("missionStatement").textValue();
-            prod.productStory = json.findPath("productStory").textValue();
+            prod.productLongDescription = json.findPath("description").textValue();
+            prod.featureList = json.findPath("features").textValue();
+            prod.missionStatement = json.findPath("mission").textValue();
+            prod.productStory = json.findPath("story").textValue();
             prod.save();
             return ok(prod.toJson());
         }

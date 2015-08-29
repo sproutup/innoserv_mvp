@@ -70,6 +70,8 @@ PUT           /api/users/:nickname                                           con
 POST          /api/suggest/product                                           controllers.Application.addProductSuggestion
 POST          /api/creator/access                                            controllers.Application.addEarlyAccessRequest
 
+GET           /api/trials/products                                           controllers.TrialController.getMyTriedProducts
+
 GET           /api/trials                                                    controllers.TrialController.getall
 GET           /api/trials/:id                                                controllers.TrialController.get(id: Long)
 POST          /api/trials                                                    controllers.TrialController.create
@@ -97,6 +99,17 @@ PUT           /api/products/:slug                                            con
 POST          /api/products/:slug                                            controllers.Products.updateProduct(slug: String)
 DELETE        /api/products/:id                                              controllers.Products.deleteProduct(id: Long)
 
+GET           /api/feed                                                      controllers.FeedController.getAll
+GET           /api/feed/:start                                               controllers.FeedController.getRange(start: Int)
+#POST          /api/feed                                                     controllers.FeedController.create
+#PUT           /api/feed/:slug                                               controllers.FeedController.update(slug: String)
+#POST          /api/feed/:slug                                               controllers.FeedController.update(slug: String)
+#DELETE        /api/feed/:id                                                 controllers.FeedController.delete(id: Long)
+
+GET           /api/buzz                                                      controllers.BuzzController.getAll
+GET           /api/buzz/:start                                               controllers.BuzzController.getRange(start: Int)
+GET           /api/buzz/product/:id/:start                                   controllers.BuzzController.getProductRange(id: Long, start: Int)
+
 GET           /api/company                                                  controllers.CompanyController.query
 #GET           /api/company/:id                                              controllers.CompanyController.getCompany(id: Long)
 POST          /api/company                                                  controllers.CompanyController.save
@@ -115,9 +128,8 @@ GET           /api/file/:type/:id                                            con
 GET           /api/file/user                                                 controllers.FileController.getUserFiles
 POST          /api/file/avatar                                               controllers.FileController.addAvatar(uuid: String)
 
-GET           /api/forum/posts                                               controllers.PostController.getPosts(prod: Long ?= -1, cat: Long ?= -1)
-GET           /api/forum/posts/:id                                           controllers.PostController.getPost(id: Long)
-POST          /api/forum/posts                                               controllers.PostController.addPost
+GET           /api/post/:id                                                  controllers.PostController.getPost(id: Long)
+POST          /api/post                                                      controllers.PostController.addPost
 #PUT     /api/forum/posts/:id        controllers.PostController.updateProduct(id: Long)
 #DELETE  /api/forum/posts/:id        controllers.PostController.deleteProduct(id: Long)
 
@@ -126,6 +138,11 @@ GET           /api/tags/post/top/:id/:category                               con
 
 GET           /api/likes/:type/:id                                           controllers.LikesController.getLikes(id: Long, type: String)
 POST          /api/likes/:type/:id                                           controllers.LikesController.addLikes(id: Long, type: String, user_id: Long)
+DELETE        /api/likes/:type/:id                                           controllers.LikesController.deleteLikes(id: Long, type: String, user_id: Long)
+
+GET           /api/comment/:type/:id                                         controllers.CommentController.getComments(id: Long, type: String)
+POST          /api/comment/:type/:id		                                 controllers.CommentController.addComment(id: Long, type: String)
+DELETE        /api/comment/:type/:id/:commentId                              controllers.CommentController.deleteComment(id: Long, type: String, commentId: Long)
 
 GET           /api/follow/:type/:id                                          controllers.FollowController.isFollowing(id: Long, type: String)
 POST          /api/follow/:type/:id                                          controllers.FollowController.follow(id: Long, type: String)

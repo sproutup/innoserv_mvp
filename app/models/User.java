@@ -20,6 +20,7 @@ import com.feth.play.module.pa.user.EmailIdentity;
 import com.feth.play.module.pa.user.NameIdentity;
 import com.feth.play.module.pa.user.FirstLastNameIdentity;
 
+import com.typesafe.plugin.RedisPlugin;
 import constants.AppConstants;
 import constants.UserRole;
 import controllers.Application;
@@ -36,6 +37,7 @@ import play.data.validation.Constraints;
 import play.db.ebean.Model;
 import play.libs.Json;
 import play.mvc.Http;
+import redis.clients.jedis.Jedis;
 
 import javax.persistence.*;
 
@@ -247,7 +249,7 @@ public class User extends TimeStampModel implements Subject {
 
 	public static User create(final AuthUser authUser) {
 
-		return create (authUser, UserRole.CONSUMER.name());
+		return create(authUser, UserRole.CONSUMER.name());
 	}
 
 	public static User create(final AuthUser authUser, String role) {
@@ -442,6 +444,56 @@ public class User extends TimeStampModel implements Subject {
 		return node;
 	}
 
+	public void hmset(){
+		Jedis j = play.Play.application().plugin(RedisPlugin.class).jedisPool().getResource();
+		try {
+			Map map = new HashMap();
+
+			String key = "user:" + id.toString();
+
+			// Create the hashmap values
+			map.put("id", this.id.toString());
+			map.put("name", this.name);
+			map.put("nickname", this.nickname);
+			map.put("avatarUrl", getAvatar());
+			map.put("urlTwitter", this.urlTwitter);
+			map.put("handleTwitter", this.urlTwitter.substring(urlTwitter.lastIndexOf("/")+1));
+
+			// add the values
+			j.hmset(key, map);
+			j.expire(key, 86400); // 60s x 60m x 24h = 86400s = 1 day
+		} finally {
+			play.Play.application().plugin(RedisPlugin.class).jedisPool().returnResource(j);
+		}
+	}
+
+	public static ObjectNode hmget(String id){
+		Jedis j = play.Play.application().plugin(RedisPlugin.class).jedisPool().getResource();
+		ObjectNode node = Json.newObject();
+		try {
+			String key = "user:" + id;
+
+			if(!j.exists(key)) {
+				Logger.debug("user added to cache " + key);
+				User.find.byId(Long.parseLong(id, 10)).hmset();
+			}
+
+			List<String> values = j.hmget(key, "id", "name", "nickname", "avatarUrl", "urlTwitter", "handleTwitter");
+
+			node.put("id", id);
+			if (values.get(0) != null) node.put("id", Long.parseLong(values.get(0),10));
+			if (values.get(1) != null) node.put("name", values.get(1));
+			if (values.get(2) != null) node.put("nickname", values.get(2));
+			if (values.get(3) != null) node.put("avatarUrl", values.get(3));
+			if (values.get(4) != null) node.put("urlTwitter", values.get(4));
+			if (values.get(5) != null) node.put("handleTwitter", values.get(5));
+		} finally {
+			play.Play.application().plugin(RedisPlugin.class).jedisPool().returnResource(j);
+		}
+		return node;
+	}
+
+
 	public String getAvatar(){
 		if(avatar != null){
 			return avatar.getURL() + "?w=256&h=256";
@@ -453,8 +505,9 @@ public class User extends TimeStampModel implements Subject {
 		}
 		else
 		if(getProviders().contains("twitter")){
-			return getAccountByProvider("twitter").providerUserImageUrl;
-			//return "http://graph.facebook.com/" + facebookId + "/picture/?type=large";
+			String url = getAccountByProvider("twitter").providerUserImageUrl;
+			int index = url.lastIndexOf('.');
+			return new StringBuilder(url).insert(index, "_bigger").toString();
 		}
         else{
             return "assets/images/default-avatar.png";

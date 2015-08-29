@@ -74,9 +74,12 @@
         <script src="@routes.Assets.at("javascripts/angulartics-scroll.min.js")"></script>
         <script src="@routes.Assets.at("javascripts/ngAutocomplete.js")"></script>
         <script src="@routes.Assets.at("javascripts/ui-bootstrap-tpls-0.13.0.min.js")"></script>
+        <script src="@routes.Assets.at("javascripts/angular-sanitize.min.js")"></script>
 
         <script src="@routes.Assets.at("library/angular-file-upload/angular-file-upload.min.js")"></script>
         <script src="@routes.Assets.at("library/angular-masonry/angular-masonry.js")"></script>
+        <script src="@routes.Assets.at("library/ngInfiniteScroll/build/ng-infinite-scroll.min.js")"></script>
+        <script src="@routes.Assets.at("library/showdown/showdown.min.js")"></script>
 
         <script src="@routes.Assets.at("app/components/facebook/facebook-directive.js")"></script>
         <script src="@routes.Assets.at("angular/config.js")"></script>
@@ -90,6 +93,7 @@
         <script src="@routes.Assets.at("javascripts/angular-ui-router.min.js")"></script>
         <!--script data-main="/javascripts/main.js" src="/lib/requirejs/require.js"></script-->
 
+        <script src="@routes.Assets.at("app/markdown/markdown.directive.js")"></script>
         <script src="@routes.Assets.at("app/user/login.controller.js")"></script>
         <script src="@routes.Assets.at("app/user/signup.controller.js")"></script>
         <script src="@routes.Assets.at("app/user/usercard.directive.js")"></script>
@@ -106,9 +110,24 @@
         <script src="@routes.Assets.at("app/services/content.service.js")"></script>
         <script src="@routes.Assets.at("app/services/user.service.js")"></script>
         <script src="@routes.Assets.at("app/services/google.api.service.js")"></script>
+        <script src="@routes.Assets.at("app/services/feed.service.js")"></script>
         <script src="@routes.Assets.at("app/services/opengraph.service.js")"></script>
         <script src="@routes.Assets.at("app/services/analytics.service.js")"></script>
+        <script src="@routes.Assets.at("app/services/likes.service.js")"></script>
+        <script src="@routes.Assets.at("app/services/comment.service.js")"></script>
+        <script src="@routes.Assets.at("app/services/post.service.js")"></script>
+        <script src="@routes.Assets.at("app/services/mytrialproducts.service.js")"></script>
         <script src="@routes.Assets.at("app/products/dashboard.controller.js")"></script>
+        <script src="@routes.Assets.at("app/products/dashboard.controller.js")"></script>
+        <script src="@routes.Assets.at("app/content/content.controller.js")"></script>
+        <script src="@routes.Assets.at("app/content/content.routes.js")"></script>
+        <script src="@routes.Assets.at("app/content/up-content.directive.js")"></script>
+        <script src="@routes.Assets.at("app/like/up-like.directive.js")"></script>
+        <script src="@routes.Assets.at("app/comments/up-comments.directive.js")"></script>
+        <script src="@routes.Assets.at("app/products/product-card.directive.js")"></script>
+        <script src="@routes.Assets.at("app/products/product.routes.js")"></script>
+        <script src="@routes.Assets.at("app/search/search.controller.js")"></script>
+        <script src="@routes.Assets.at("app/buzz/buzz.controller.js")"></script>
 
         <!-- Tooltips -->
         <script>
@@ -137,6 +156,22 @@
           //ga('send', 'pageview');
         </script>
         <!-- end google analytics -->
+
+        <!-- Facebook Pixel Code -->
+        <script>
+            !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+            n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+            n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+            t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+            document,'script','//connect.facebook.net/en_US/fbevents.js');
+
+            fbq('init', '962504880462598');
+            fbq('track', 'PageView');
+        </script>
+        <noscript>
+            <img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=962504880462598&ev=PageView&noscript=1"/>
+        </noscript>
+        <!-- End Facebook Pixel Code -->
 
         <base href="/"/>
     </head>

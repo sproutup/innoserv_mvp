@@ -816,49 +816,6 @@ productServices.factory('TagsService', ['$http', '$q', '$log',
 
 }]);
 
-productServices.factory('LikesService', ['$http','$log','$q',
-    function($http, $log, $q){
-  var urlBase = '/api/likes';
-  var LikesService = {};
-
-  LikesService.getLikes = function(refId, refType){
-    return $http({
-        method: 'GET',
-        url: urlBase + "/" + refType + "/" + refId,
-      })
-    };
-
-  LikesService.addLikes = function(refId, refType, userId, data){
-    return $http({
-        method: 'POST',
-        url: urlBase + "/" + refType + "/" + refId,
-        params: {user_id: userId},
-        data: "{}",
-        headers: {'Content-Type': 'application/json'}
-      });
-    };
-
-      LikesService.addLike = function(refId, refType, userId){
-          var deferred = $q.defer();
-          $http({
-              method: 'POST',
-              url: urlBase + "/" + refType + "/" + refId,
-              params: {user_id: userId},
-              data: "{}",
-              headers: {'Content-Type': 'application/json'}
-          }).success(function(data, status, headers, config){
-              deferred.resolve(data);
-          }).error(function(data, status, headers, config) {
-              deferred.reject();
-          });
-
-          return deferred.promise;
-      };
-
-  return LikesService;
-
-}]);
-
 productServices.factory('FollowService', ['$http', '$q', '$log',
     function($http, $q, $log){
     var urlBase = '/api/follow';

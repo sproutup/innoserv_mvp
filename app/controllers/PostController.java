@@ -9,10 +9,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import constants.AppConstants;
-import models.Post;
-import models.Product;
-import models.Tag;
-import models.User;
+import models.*;
 import play.Logger;
 import play.libs.Json;
 import play.mvc.BodyParser;
@@ -23,6 +20,8 @@ import play.mvc.Results;
 import javax.persistence.PersistenceException;
 import java.util.Iterator;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class PostController extends Controller {
 
@@ -60,22 +59,15 @@ public class PostController extends Controller {
         if (json == null) {
             return badRequest("Expecting Json data");
         } else {
-            long parent_id = json.findPath("parent").longValue();
-            String content = json.findPath("content").textValue();
-            String title = json.findPath("title").textValue();
-            int category = json.findPath("category").asInt();
+            String body = json.findPath("body").textValue();
             long product_id = json.findPath("product_id").asLong();
-            if (content == null) {
-                return badRequest("Missing parameter [content]");
+
+            if (body == null) {
+                return badRequest("Missing parameter [body]");
             } else {
                 Post post = new Post();
-                post.title = title;
-                post.content = content;
-                post.category = category;
-                Post parent = Post.findById(parent_id);
-                if (parent != null) {
-                    post.parent = parent;
-                }
+                post.body = body;
+
                 Product prod = Product.findbyID(product_id);
                 if (prod != null) {
                     post.product = prod;
@@ -84,6 +76,20 @@ public class PostController extends Controller {
                 if (user != null) {
                     post.user = user;
                 }
+
+                // look for the first url and save it as content if found
+                Pattern urlpattern = Pattern.compile("(http|ftp|https)://([\\w_-]+(?:(?:\\.[\\w_-]+)+))([\\w.,@?^=%&:/~+#-]*[\\w@?^=%&/~+#-])?");
+                Matcher match = urlpattern.matcher(post.body);
+
+                if(match.find()){
+                    Content cnt = new Content();
+                    cnt.url = match.group();
+                    cnt.product = prod;
+                    cnt.user = user;
+                    cnt.save();
+                    post.content = cnt;
+                }
+
                 post.save();
 
                 // Add tags if they are there
@@ -93,52 +99,8 @@ public class PostController extends Controller {
                     post.addTag(node.findPath("text").textValue());
                 }
 
-                return created(post.toJson());
+                return created(Post.hmget(post.id.toString()));
             }
         }
     }
-
-//        Post newPost = Json.fromJson(request().body().asJson(), Post.class);
-//        try {
-//            newPost.parent. = 1;
-//            newPost.save();
-//            return created(newPost.toJson());
-//        }
-//        catch(PersistenceException e){
-//            return Results.badRequest(e.getMessage());
-//        }
-//    }
-
-//    public static Result updateProduct(Long id)
-//    {
-//        Product existing = new Product().findbyID(id);
-//        if(existing != null) {
-//            Product updated = Json.fromJson(request().body().asJson(), Product.class);
-//            if(updated.productName != null) { existing.productName = updated.productName; };
-//            if(updated.productEAN != null) { existing.productEAN = updated.productEAN; };
-//            if(updated.productDescription != null) { existing.productDescription = updated.productDescription; };
-//            if(updated.productLongDescription != null) { existing.productLongDescription = updated.productLongDescription; };
-//            if(updated.urlHome != null) { existing.urlHome = updated.urlHome; };
-//            if(updated.urlFacebook != null) { existing.urlFacebook = updated.urlFacebook; };
-//            if(updated.urlTwitter != null) { existing.urlTwitter = updated.urlTwitter; };
-//            existing.save();
-//            return ok(Json.toJson(existing));
-//        }
-//        else{
-//            return Results.notFound("Product not found");
-//        }
-//    }
-
-//    public static Result deleteProduct(Long id)
-//    {
-//        Product del = new Product().findbyID(id);
-//        if(del != null) {
-//            del.delete();
-//            return ok();
-//        }
-//        else{
-//            return Results.notFound("Product not found");
-//        }
-//    }
-
 }

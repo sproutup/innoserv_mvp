@@ -1,0 +1,64 @@
+<div class="row my-content-page" infinite-scroll='vm.loadMore()' infinite-scroll-disabled='vm.busy' infinite-scroll-distance='0'>
+	<div class="col-sm-8 my-content-left-rail">
+		<!-- add content -->
+		<div class="add-content-wrapper" ng-show="vm.myTrialProducts.length > 0">
+	        <div class="col-sm-12 my-content-item">
+	            <!-- user photo -->
+	            <div class="col-sm-2 my-content-user-avatar">
+	                <img class="img-responsive my-content-user-img img-center" ng-src="{{ vm.user.avatarUrl }}">
+	            </div>
+	            <!-- content thumbnail -->
+	            <div class="col-sm-10 my-content-body">
+	                <div class="my-content-item--summary">
+	                	<div class="select-product-text">Select a product you'd like to post about</div>
+		                <!-- product selection -->
+						<button class="trial-product" ng-repeat="p in vm.myTrialProducts" ng-class="{ 'selected-trial-product': p.id === vm.selectedProduct }" ng-click="vm.selectTrialProduct(p)">{{ p.name }}</button>
+						<div ng-show="vm.selectedProduct">
+		                    <div class="my-content-new">
+		                        <textarea placeholder="Paste a link to your content and/or write about your experience here" class="form-control post-new-textarea link" ng-model="vm.enteredBody"></textarea>
+	<!-- 	                        <div class="addPhotoInput">Add a photo or video</div> -->
+		                    </div>
+		                    <div class="post-new-comment-actions">
+		                        <button type="button" class="btn btn-post content-post-button btn-post-default" ng-click="vm.addContent()">Post</button>
+		                    </div>
+		                    <div class="post-warning" ng-show="vm.productErrorMsg">Please choose a product</div>
+		                    <div class="post-warning" ng-show="vm.textErrorMsg">Please write something and/or paste a url</div>
+		                </div>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
+		<up-content ng-repeat="item in vm.content" content="item"></up-content>
+	</div>
+
+	<div class="col-sm-4 my-content-right-rail">
+		<div class="my-content-info-header">
+			<p>What is Buzz</p>
+		</div>
+		<div class="my-content-info-body">
+			<p>Buzz is a place for influencers to showcase content they have for their SproutUp product trials.</p>
+		</div>
+		<div class="my-content-info-header">
+			<p>Benefits of Buzz</p>
+		</div>
+		<div class="my-content-info-body">
+			<h3><i class="fa fa-star"></i>Inspire other product enthusiasts</h3>
+			<p>You've created an intriguing content — inspire others by sharing your personal experience on this radical product!</p>
+			<h3><i class="fa fa-bullhorn"></i>Increase your influence circle</h3>
+			<p>Your content is promoted to a broad SproutUp community of tech influencers and enthusiasts, and even to our partner media sites.</p>
+			<h3><i class="fa fa-users"></i>Socialize with fellow influencers</h3>
+			<p>Connect with other like-minded influencers, upvote or share content you love, and make constructive comments to help each other grow.</p>
+			<h3><i class="fa fa-gift"></i>Earn rewards (coming soon)</h3>
+			<p>Earn rewards for publishing great content and actively participating in quality discussions.</p>
+		</div>
+		<div class="my-content-info-header">
+			<p>What to post</p>
+		</div>
+		<div class="my-content-info-body">
+			<p>Our community loves to see your awesome content about your personal trial experience. Excite the community by sharing cool ways you used the product and the features you found particularly useful. Or ask questions, engage in discussions that help emerging products evolve.</p>
+			<p>Pictures are worth a thousand words, so upload photos or a short video while enjoying the product. You may publish your social media post or blog by embedding a URL. Or, write directly on SproutUp (coming soon).</p>
+			<p>Community members appreciate quality and constructive comments on their content. Please avoid bashing people or products. You know that, “we all are a cool bunch..”</p>
+		</div>
+	</div>
+
+</div>

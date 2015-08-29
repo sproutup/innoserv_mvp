@@ -1,0 +1,88 @@
+<div class="product-about-page">
+
+    <!-- left rail -->
+    <div class="col-sm-8 about-left-rail">
+        <div>
+            <!-- intro video -->
+            <div class="row about-product-row">
+                <div ng-if="product.video">
+                    <div class="col-sm-12 about-product-tile">
+                        <div class="about-product--video">
+                            <up-video-simple file="vm.product.video" overlay="false"></up-video-simple>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- product description -->
+            <div class="row about-product-row">
+                <div class="col-sm-12 about-product-tile">
+                    <div class="about-product--feature left watch">
+                        <p class="about-product--header">Our Product</p>
+                        <p class="about-product--content">
+                            {{vm.product.description}}
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- product features -->
+            <div class="row about-product-row">
+                <div class="col-sm-12 about-product-tile" up-product-about-features product="product">
+                    <div class="about-product--feature right watch">
+                        <p class="about-product--header">Cool Features</p>
+                        <p class="about-product--content">{{vm.product.features}}</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- mission statements -->
+            <div ng-show="product.missionStatement" class="row about-product-row">
+                <div class="col-md-12 about-product-tile" up-product-about-mission product="product">
+                    <div class="about-product--mission secondrow watch">
+                        <p class="about-product--header">Mission</p>
+                        <p class="about-product--content">{{vm.product.mission}}</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- product story -->
+            <div ng-show="!product.productStory" class="row about-product-row">
+                <div class="col-sm-12 about-product-tile" up-product-about-story product="product" equal-height="false">
+                    <div class="about-product--story">
+                        <p class="about-product--header">Story of {{product.name}}</p>
+                        <div class="about-product--story-content">
+                            <p>{{vm.product.story}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- right rail -->
+    <div class="col-sm-4 about-right-rail">
+        <!-- tweets from user timeline -->
+        <div class="row about-product-row">
+            <div class="col-sm-12 about-product-tile">
+                <div class="about-product--twitter">
+                    <p class="about-product--header-right"><i class="fa fa-twitter"></i>Latest Tweets from {{product.name}}</p>
+                </div>
+                <up-twitter-tweet product-id="product.id" api="statuses/user_timeline"></up-twitter-tweet>
+            </div>
+        </div>
+
+        <!-- facebook statuses -->
+        <div class="row about-product-row">
+            <div class="col-sm-12 about-product-tile">
+                <div class="about-product--facebook">
+                    <p class="about-product--header-right"><i class="fa fa-facebook"></i>{{product.name}} on Facebook</p>
+                </div>
+                <up-facebook-post product="product.id"></up-facebook-post>
+            </div>
+        </div>
+
+    </div>
+
+</div>

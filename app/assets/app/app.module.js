@@ -19,7 +19,9 @@ var sproutupApp = angular.module('sproutupApp', [
     'angulartics.mixpanel',
     'angulartics.scroll',
     'ngAutocomplete',
-    'ui.bootstrap'
+    'ui.bootstrap',
+    'ngSanitize',
+    'infinite-scroll'
 ]);
 
 sproutupApp.config(function ($provide) {
@@ -170,6 +172,9 @@ sproutupApp.config(['$routeProvider', '$stateProvider', '$locationProvider', '$u
             .state('user.search' ,{
                 url: '/products',
                 templateUrl: 'views/search',
+                //templateUrl: 'assets/app/search/search.html',
+                //controller: 'SearchController',
+                //controllerAs: 'vm',
                 data: {
                     title: 'All Products - SproutUp'
                 }
@@ -416,73 +421,6 @@ sproutupApp.config(['$routeProvider', '$stateProvider', '$locationProvider', '$u
                 },
                 data: {
                     title: 'Add product'
-                }
-            })
-            .state('user.product.detail', {
-                url: '/:slug?refId',
-                abstract: true,
-                templateUrl: 'views/product-details',
-                controller: 'productDetailCtrl',
-                onEnter: function(){
-                    console.log("enter product detail");
-                },
-                data: {
-                    title: ''
-                }
-            })
-            .state('user.product.detail.about', {
-                url: '',
-                templateUrl: 'views/product-about',
-                onEnter: function(){
-                    console.log("enter product detail about");
-                },
-                data: {
-                    title: 'Product - About'
-                }
-            })
-            .state('user.product.detail.bar', {
-                url: '/bar',
-                templateUrl: 'views/product-bar',
-                controller: 'ForumCtrl',
-                onEnter: function(){
-                    console.log("enter product detail bar");
-                },
-                data: {
-                    title: 'Product - Geekout'
-                }
-            })
-            .state('user.product.detail.bar.question', {
-                url: '/question',
-                controller: function($scope){
-                    $scope.changeCategory(1);
-                },
-                onEnter: function(){
-                    console.log("enter product detail bar question");
-                },
-                data: {
-                    title: 'Product - Geekout'
-                }
-            })
-            .state('user.product.detail.bar.compliment', {
-                url: '/compliment',
-                controller: function($scope){
-                    $scope.changeCategory(2);
-                },
-                onEnter: function(){
-                    console.log("enter product detail bar compliment");
-                },
-                data: {
-                    title: 'Product - Geekout'
-                }
-            })
-            .state('user.product.detail.gallery', {
-                url: '/gallery',
-                templateUrl: 'views/product-gallery',
-                onEnter: function(){
-                    console.log("enter product detail gallery");
-                },
-                data: {
-                    title: 'Product - Gallery'
                 }
             })
             .state('user.trial', {

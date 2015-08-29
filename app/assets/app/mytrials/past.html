@@ -17,28 +17,6 @@
 
             <p ng-show="item.refURL != null" class="product-trial-item--status"><i class="fa fa-link"></i>Your unique referral link: <span>{{item.refURL}}</span></p>
             <p class="product-trial-item--status-desc">Please embed this unique referral link in any of your content. Share this link on social media. We use this link to measure conversions and reward you accordingly.</p>
-
-            <p ng-show="item.content.length===0" class="product-trial-item--status"><i class="fa fa-file-text"></i>You haven't uploaded any content yet. Click "Add my content" below to start!</p>
-            <p ng-show="item.content.length==1" class="product-trial-item--status"><i class="fa fa-file-text"></i>You have added 1 item. Awesome job!!</p>
-            <p ng-show="item.content.length>1" class="product-trial-item--status"><i class="fa fa-file-text"></i>You have added {{item.content.length}} items. Awesome job!!</p>
-            <div class="product-trial-item--result" ng-repeat="content in item.content">
-                <a ng-click="vm.deleteContent(content, item)" href="#"><i class="fa fa-times-circle"></i></a>
-                <a ng-href="{{content.url}}" target="_blank">{{content.url}}</a>
-            </div>
-
-            <div class="product-trial-item--actions">
-                <a analytics-on="click" analytics-event="Click Add Content button: {{item.product.name}}" ng-click="item.isContentFormOpen = !item.isContentFormOpen" href="#" class="btn btn-lg sproutup-btn-md-main">Add my content</a>
-                <a analytics-on="click" analytics-event="Visit forum: {{item.product.name}}" ui-sref="user.product.detail.bar({ slug: item.product.slug })" class="btn btn-lg sproutup-btn-md-main">Join discussion</a>
-                <!--a href="#" class="btn btn-lg sproutup-btn-md-main">Tweet</a-->
-            </div>
-            <div ng-show="item.isContentFormOpen" class="product-trial-item--input">
-                <p>Once you write a blog or make a video, please share the link with us. We will help promote the content and build more brand awareness for this product. You will also earn influence, followers, and perks.</p>
-                <form name="addContentForm" ng-submit="vm.addContent(item)">
-                    <input type="url" required="" ng-model="item.form.url" http-prefix="" class="form-control form-validate form-input medium" placeholder="Please enter the url of content you created, e.g. blog, video, etc.">
-                    <button analytics-on="click" analytics-event="Add content for {{item.product.name}}" ng-disabled="addContentForm.$invalid" class="btn btn-lg sproutup-btn-md-main" type="submit">Add</button>
-                    <a analytics-on="click" analytics-event="Cancel adding content for {{item.product.name}}" ng-click="item.isContentFormOpen=false" class="btn btn-lg sproutup-btn-md-cancel">Cancel</a>
-                </form>
-            </div>
         </div>
     </div>
 </div>
