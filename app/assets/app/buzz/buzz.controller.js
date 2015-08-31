@@ -36,6 +36,10 @@ function BuzzController($stateParams, $state, FeedService, AuthService, $rootSco
         vm.content = FeedService.buzzProduct().query({
             slug: vm.slug,
             start: 0
+        }, function() {
+            for (var c = 0; c < vm.content.length; c++) {
+                vm.content[c].htmlBody = urlify(vm.content[c].body);
+            }
         });
         vm.busy = false;
         var position = 10;
@@ -50,6 +54,7 @@ function BuzzController($stateParams, $state, FeedService, AuthService, $rootSco
             start: position
         }, function() {
             for (var a = 0; a < more.length; a++) {
+                more[a].htmlBody = urlify(more[a].body);
                 vm.content.push(more[a]);
                 if ((a + 1) === more.length) {
                     vm.busy = false;
@@ -100,6 +105,7 @@ function BuzzController($stateParams, $state, FeedService, AuthService, $rootSco
             item.body = vm.enteredBody;
             item.product_id = vm.selectedProduct;
             item.$save(function(res) {
+                res.htmlBody = urlify(res.body);
                 vm.content.unshift(res);
                 vm.enteredBody = '';
                 vm.selectedProduct = null;
@@ -110,6 +116,20 @@ function BuzzController($stateParams, $state, FeedService, AuthService, $rootSco
             });
         }
     };
+
+    function urlify(text) {
+        var urlRegex = /(https?:\/\/[^\s]+)/g;
+        return text.replace(urlRegex, function(url) {
+            var displayedUrl;
+            if (url.length > 50) {
+                displayedUrl = url.substring(0, 50);
+                displayedUrl += '...';
+            } else {
+                displayedUrl = url;
+            }
+            return '<a href="' + url + '">' + displayedUrl + '</a>';
+        });
+    }
 }
 
 })();
