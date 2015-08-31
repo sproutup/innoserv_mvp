@@ -40,7 +40,7 @@ function ContentController($stateParams, $state, FeedService, AuthService, $root
         vm.busy = true;
         console.log('more');
         var more = [];
-        more = FeedService.query({
+        more = FeedService.buzzAll().query({
             start: position
         }, function() {
             for (var a = 0; a < more.length; a++) {
