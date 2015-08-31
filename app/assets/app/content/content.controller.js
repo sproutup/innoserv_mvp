@@ -10,6 +10,8 @@ ContentController.$inject = ['$stateParams', '$state', 'FeedService', 'AuthServi
 function ContentController($stateParams, $state, FeedService, AuthService, $rootScope, $scope, MyTrialProductsService, postService) {
     var vm = this;
     vm.content = [];
+    var local = {};
+    local.urlify = urlify;
 
     activate();
 
@@ -31,34 +33,32 @@ function ContentController($stateParams, $state, FeedService, AuthService, $root
         vm.user = angular.copy(AuthService.m.user);
     }
 
-    vm.content = FeedService.buzzAll().query();
-    console.log(vm.content);
+    vm.content = FeedService.buzzAll().query(function() {
+        for (var c = 0; c < vm.content.length; c++) {
+            vm.content[c].htmlBody = urlify(vm.content[c].body);
+        }
+    });
+
     vm.busy = false;
     var position = 10;
 
     vm.loadMore = function() {
         vm.busy = true;
-        console.log('more');
         var more = [];
         more = FeedService.buzzAll().query({
             start: position
         }, function() {
             for (var a = 0; a < more.length; a++) {
+                more[a].htmlBody = urlify(more[a].body);
                 vm.content.push(more[a]);
                 if ((a + 1) === more.length) {
                     vm.busy = false;
                 }
+
             }
             position += 10;
         });
     };
-
-
-    // var productService = new MyTrialProductsService();
-
-    // productService.$query(function(res) {
-    //     console.log(res);
-    // });
 
     vm.myTrialProducts = [];
     vm.myTrialProducts = MyTrialProductsService.query();
@@ -94,6 +94,7 @@ function ContentController($stateParams, $state, FeedService, AuthService, $root
             item.body = vm.enteredBody;
             item.product_id = vm.selectedProduct;
             item.$save(function(res) {
+                res.htmlBody = urlify(res.body);
                 vm.content.unshift(res);
                 vm.enteredBody = '';
                 vm.selectedProduct = null;
@@ -104,6 +105,20 @@ function ContentController($stateParams, $state, FeedService, AuthService, $root
             });
         }
     };
+
+    function urlify(text) {
+        var urlRegex = /(https?:\/\/[^\s]+)/g;
+        return text.replace(urlRegex, function(url) {
+            var displayedUrl;
+            if (url.length > 50) {
+                displayedUrl = url.substring(0, 50);
+                displayedUrl += '...';
+            } else {
+                displayedUrl = url;
+            }
+            return '<a href="' + url + '">' + displayedUrl + '</a>';
+        });
+    }
 }
 
 })();
