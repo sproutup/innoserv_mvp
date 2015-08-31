@@ -2,9 +2,9 @@
     <!-- product buzz -->
     <div class="row product-detail-buzz">
         <div class="col-sm-7 forum-left-rail">
-            <div class="product-detail-buzz-header left">Check out what product lovers are buzzing about {{product.name}}</div>
-            <div class="product-detail-buzz-header-2">We are waiting for some awesome content from influencers to show up...</div>
-            <up-content ng-repeat="item in vm.content" content="item" ng-init="vm.loadInit(product.id)"></up-content>
+            <div ng-show="vm.content.length > 0" class="product-detail-buzz-header left">Check out what product lovers are buzzing about {{product.name}}</div>
+            <div ng-hide="vm.content.length > 0" class="product-detail-buzz-header-2">We are waiting for some awesome content from influencers to show up...</div>
+            <up-content ng-repeat="item in vm.content" content="item"></up-content>
         </div>
 
         <!-- right rail -->

@@ -11,16 +11,15 @@ function BuzzController($stateParams, $state, FeedService, AuthService, $rootSco
     var vm = this;
     vm.content = [];
     vm.loadInit = loadInit;
+    vm.slug = $stateParams.slug;
 
     activate();
 
     function activate() {
         if(!AuthService.ready()){
             var unbindWatch = $rootScope.$watch(AuthService.loggedIn, function (value) {
-                if ( value === true ) {
-                  unbindWatch();
-                  activate();
-                }
+                unbindWatch();
+                activate();
             });
         }
         else {
@@ -29,13 +28,13 @@ function BuzzController($stateParams, $state, FeedService, AuthService, $rootSco
     }
 
     function init() {
-        //loadInit(1);
+        loadInit();
     }
 
-    function loadInit(productId){
+    function loadInit(){
         console.log("init load");
         vm.content = FeedService.buzzProduct().query({
-            id: productId,
+            slug: vm.slug,
             start: 0
         });
         vm.busy = false;
@@ -47,7 +46,7 @@ function BuzzController($stateParams, $state, FeedService, AuthService, $rootSco
         console.log('more');
         var more = [];
         more = FeedService.buzzProduct().query({
-            id: productId,
+            slug: vm.slug,
             start: position
         }, function() {
             for (var a = 0; a < more.length; a++) {

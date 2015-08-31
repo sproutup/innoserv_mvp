@@ -49,8 +49,8 @@ public class BuzzController extends Controller {
     }
 
     @BodyParser.Of(BodyParser.Json.class)
-    public static Result getProductRange(Long id, int start)
+    public static Result getProductRange(String slug, int start)
     {
-        return ok(Post.range(id.toString(), start, start+9 ));
+        return ok(Post.range(slug, start, start+9 ));
     }
 }
