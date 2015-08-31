@@ -68,7 +68,7 @@ public class Post extends SuperModel implements Taggable {
 		hmset();
 		zadd("buzz:all");
 		if(product!=null) {
-			zadd("buzz:product:" + product.id.toString());
+			zadd("buzz:product:" + this.product.slug);
 		}
 	}
 
