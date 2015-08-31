@@ -235,20 +235,20 @@ public class Post extends SuperModel implements Taggable {
 		return data;
 	}
 
-	public static ArrayNode range(String id, long start, long end){
+	public static ArrayNode range(String slug, long start, long end){
 		ObjectNode items = Json.newObject();
 		ArrayNode data = items.putArray("data");
 
 		//Go to Redis to read the full roster of content.
 		Jedis j = play.Play.application().plugin(RedisPlugin.class).jedisPool().getResource();
 		try {
-			String key = "buzz:product:" + id;
+			String key = "buzz:product:" + slug;
 
 			if(!j.exists(key)) {
 				Logger.debug("adding all posts to buzz: " + key);
 				for(Post post: getAll()){
-					if(post.product.id != null) {
-						post.zadd("buzz:product:" + post.product.id.toString());
+					if(post.product != null) {
+						post.zadd("buzz:product:" + post.product.slug);
 					}
 				}
 			}
