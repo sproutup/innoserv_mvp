@@ -3,7 +3,7 @@
 		<!-- if no user logs in, display this message -->
 		<div class="col-sm-12 my-content-item" ng-show="!vm.user.id">
 			<div class="my-content-headsup">
-            	<p class="my-content-headsup-text">It sounds obvious, but <a ui-sref="user.login">log in</a> is required for posting anything.</p>
+            	<p class="my-content-headsup-text">It sounds obvious, but <a subject-present state="user.content" href="#">log in</a> is required for posting anything.</p>
 			</div>
 		</div>
 
