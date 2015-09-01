@@ -81,8 +81,8 @@ sproutupApp.config([
     ]
 );
 
-sproutupApp.config(['$routeProvider', '$stateProvider', '$locationProvider', '$urlRouterProvider',
-    function($routeProvider, $stateProvider, $locationProvider, $urlRouterProvider ) {
+sproutupApp.config(['$routeProvider', '$stateProvider', '$locationProvider', '$urlRouterProvider', '$sceDelegateProvider',
+    function($routeProvider, $stateProvider, $locationProvider, $urlRouterProvider, $sceDelegateProvider) {
         $locationProvider.html5Mode(true);
         var access = routingConfig.accessLevels;
 
@@ -502,4 +502,11 @@ sproutupApp.config(['$routeProvider', '$stateProvider', '$locationProvider', '$u
 
             return false;
         });
+
+        $sceDelegateProvider.resourceUrlWhitelist([
+            // Allow same origin resource loads.
+            'self',
+            // Allow loading from our assets domain.  Notice the difference between * and **.
+            'https://www.youtube.com/**'
+        ]);
   }]);
