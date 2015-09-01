@@ -134,20 +134,6 @@ sproutupApp.config(['$routeProvider', '$stateProvider', '$locationProvider', '$u
                     title: 'About Us - SproutUp'
                 }
             })
-            .state('user.terms' ,{
-                url: '/terms',
-                templateUrl: 'views/terms',
-                data: {
-                    title: 'Terms of Service - SproutUp'
-                }
-            })
-            .state('user.privacy' ,{
-                url: '/privacy',
-                templateUrl: 'views/privacy',
-                data: {
-                    title: 'Privacy Policy - SproutUp'
-                }
-            })
             .state('user.howitworks' ,{
                 url: '/how-it-works',
                 templateUrl: 'views/how-it-works',
