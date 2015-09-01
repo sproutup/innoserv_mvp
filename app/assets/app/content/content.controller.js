@@ -134,7 +134,7 @@ function ContentController($stateParams, $state, FeedService, AuthService, $root
             } else {
                 displayedUrl = url;
             }
-            return '<a href="' + url + '">' + displayedUrl + '</a>';
+            return '<a href="' + url + '" target="_blank">' + displayedUrl + '</a>';
         });
     }
 
