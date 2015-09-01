@@ -99,24 +99,22 @@ function ContentController($stateParams, $state, FeedService, AuthService, $root
 
                 var postButton = document.getElementsByClassName('content-post-button');
                 var spinner = new Spinner(opts).spin(postButton[0]);
-                setTimeout(function() {
-                    item.$save(function(res) {
-                        res.htmlBody = urlify(res.body);
-                        vm.content.unshift(res);
-                        vm.enteredBody = '';
-                        vm.selectedProduct = null;
-                        vm.productErrorMsg = false;
-                        vm.textErrorMsg = false;
-                        vm.postCount = 0;
-                        var spinnerToRemove = document.getElementsByClassName('spinner');
-                        spinnerToRemove[0].remove();
-                    }, function(err) {
-                        console.log(err);
-                        vm.postCount = 0;
-                        var spinnerToRemove = document.getElementsByClassName('spinner');
-                        spinnerToRemove[0].remove();
-                    });
-                }, 2000);
+                item.$save(function(res) {
+                    res.htmlBody = urlify(res.body);
+                    vm.content.unshift(res);
+                    vm.enteredBody = '';
+                    vm.selectedProduct = null;
+                    vm.productErrorMsg = false;
+                    vm.textErrorMsg = false;
+                    vm.postCount = 0;
+                    var spinnerToRemove = document.getElementsByClassName('spinner');
+                    spinnerToRemove[0].remove();
+                }, function(err) {
+                    console.log(err);
+                    vm.postCount = 0;
+                    var spinnerToRemove = document.getElementsByClassName('spinner');
+                    spinnerToRemove[0].remove();
+                });
 
             }
         } else {
