@@ -164,11 +164,12 @@ public class Likes extends TimeStampModel {
 		//Go to Redis to read the full roster of content.
 		String key = "likes:"+ refType + ":" + refId;
 
-		if(!j.exists(key)) {
+		if(!j.exists(key+":init")) {
 			Logger.debug("adding likes to cache: " + key);
 			for(Likes like: getAllLikes(Long.parseLong(refId, 10), refType)){
 				like.zadd(refId, refType);
 			}
+			j.set(key + ":init", "1");
 		}
 
 		Set<String> set = j.zrange(key, 0, -1);

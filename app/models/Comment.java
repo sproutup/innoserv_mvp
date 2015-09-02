@@ -256,11 +256,12 @@ public class Comment extends SuperModel {
 
 		String key = "comments:" + refType + ":" + refId;
 
-		if(!j.exists(key)) {
+		if(!j.exists(key+ ":init")) {
 			Logger.debug("adding comments to cache: " + key);
 			for(Comment item: getAllComments(Long.parseLong(refId, 10), refType)){
 				item.zadd(refId, refType, j);
 			}
+			j.set(key + ":init", "1");
 		}
 
 		Set<String> set = j.zrange(key, 0, -1);
