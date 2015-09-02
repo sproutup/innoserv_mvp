@@ -205,6 +205,7 @@ GET           /adminstuff/campaign/new                                       con
 POST          /adminstuff/campaign/save                                  	 controllers.CampaignController.save()
 GET           /adminstuff/campaign/:id                                       controllers.CampaignController.details(id: Long)
 GET           /adminstuff/content/list                                   	 controllers.ReportAdminController.contentList(page: Integer ?= 0)
+POST          /adminstuff/content/updateContentOG                      		 controllers.ReportAdminController.updateContentOG()
 GET           /adminstuff/user/updateKloutScore/:id                          controllers.ReportAdminController.updateKloutScore(id: Long)
 GET           /adminstuff/user/addKloutScores                                controllers.ReportAdminController.addKloutScores()
 GET           /adminstuff/user/updateAllKloutScores                          controllers.ReportAdminController.updateAllKloutScores()

@@ -471,6 +471,14 @@ public class User extends TimeStampModel implements Subject {
 
 	public static ObjectNode hmget(String id){
 		Jedis j = play.Play.application().plugin(RedisPlugin.class).jedisPool().getResource();
+		try {
+			return hmget(id, j);
+		} finally {
+			play.Play.application().plugin(RedisPlugin.class).jedisPool().returnResource(j);
+		}
+	}
+
+	public static ObjectNode hmget(String id, Jedis j){
 		ObjectNode node = Json.newObject();
 		try {
 			String key = "user:" + id;
@@ -490,7 +498,6 @@ public class User extends TimeStampModel implements Subject {
 			if (values.get(4) != null) node.put("urlTwitter", values.get(4));
 			if (values.get(5) != null) node.put("handleTwitter", values.get(5));
 		} finally {
-			play.Play.application().plugin(RedisPlugin.class).jedisPool().returnResource(j);
 		}
 		return node;
 	}
