@@ -5,11 +5,12 @@ angular
     .module('sproutupApp')
     .controller('ContentController', ContentController);
 
-ContentController.$inject = ['$stateParams', '$state', 'FeedService', 'AuthService', '$rootScope', '$scope', 'MyTrialProductsService', 'PostService', '$sce'];
+ContentController.$inject = ['$stateParams', '$state', 'FeedService', 'AuthService', '$rootScope', '$scope', 'MyTrialProductsService', 'PostService', '$sce', '$timeout'];
 
-function ContentController($stateParams, $state, FeedService, AuthService, $rootScope, $scope, MyTrialProductsService, postService, $sce) {
+function ContentController($stateParams, $state, FeedService, AuthService, $rootScope, $scope, MyTrialProductsService, postService, $sce, $timeout) {
     var vm = this;
     vm.content = [];
+    vm.busy = true;
     var local = {};
     local.urlify = urlify;
 
@@ -40,9 +41,9 @@ function ContentController($stateParams, $state, FeedService, AuthService, $root
                 displayYoutubeVideo(vm.content[c].content);
             }
         }
+        $timeout(function(){vm.busy = false;}, 1000);
     });
 
-    vm.busy = false;
     var position = 10;
 
     vm.loadMore = function() {
@@ -57,11 +58,8 @@ function ContentController($stateParams, $state, FeedService, AuthService, $root
                 }
                 more[a].htmlBody = urlify(more[a].body);
                 vm.content.push(more[a]);
-                if ((a + 1) === more.length) {
-                    vm.busy = false;
-                }
-
             }
+            $timeout(function(){vm.busy = false;}, 1000);
             position += 10;
         });
     };
