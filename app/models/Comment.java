@@ -173,27 +173,31 @@ public class Comment extends SuperModel {
 
 	public static ObjectNode hmget(String id){
 		Jedis j = play.Play.application().plugin(RedisPlugin.class).jedisPool().getResource();
-		ObjectNode node = Json.newObject();
 		try {
-			String key = "comment:" + id.toString();
-
-			if(!j.exists(key)) {
-				Logger.debug("comment added to cache " + key);
-				Comment.find.byId(Long.parseLong(id, 10)).hmset();
-			}
-
-			List<String> values = j.hmget(key, "id", "createdAt", "body", "user.id");
-
-			if (values.get(0) != null) node.put("id", values.get(0));
-			if (values.get(1) != null) node.put("createdAt", values.get(1));
-			if (values.get(2) != null) node.put("body", values.get(2));
-			if (values.get(3) != null) {
-				node.put("user", User.hmget(values.get(3)));
-			}
-			node.put("likes", Likes.range(id, "models.comment"));
+			return hmget(id, j);
 		} finally {
 			play.Play.application().plugin(RedisPlugin.class).jedisPool().returnResource(j);
 		}
+	}
+
+	public static ObjectNode hmget(String id, Jedis j){
+		ObjectNode node = Json.newObject();
+		String key = "comment:" + id.toString();
+
+		if(!j.exists(key)) {
+			Logger.debug("comment added to cache " + key);
+			Comment.find.byId(Long.parseLong(id, 10)).hmset();
+		}
+
+		List<String> values = j.hmget(key, "id", "createdAt", "body", "user.id");
+
+		if (values.get(0) != null) node.put("id", values.get(0));
+		if (values.get(1) != null) node.put("createdAt", values.get(1));
+		if (values.get(2) != null) node.put("body", values.get(2));
+		if (values.get(3) != null) {
+			node.put("user", User.hmget(values.get(3)));
+		}
+		node.put("likes", Likes.range(id, "models.comment"));
 		return node;
 	}
 
@@ -210,14 +214,18 @@ public class Comment extends SuperModel {
 	public void zadd(String refId, String refType){
 		Jedis j = play.Play.application().plugin(RedisPlugin.class).jedisPool().getResource();
 		try {
-			// compose key
-			String key = "comments:"+ refType + ":" + refId;
-			// left push to list
-			Logger.debug("comment added to list " + key);
-			j.zadd(key, createdAt.getTime(), this.id.toString());
+			zadd(refId, refType, j);
 		} finally {
 			play.Play.application().plugin(RedisPlugin.class).jedisPool().returnResource(j);
 		}
+	}
+
+	public void zadd(String refId, String refType, Jedis j){
+		// compose key
+		String key = "comments:"+ refType + ":" + refId;
+		// left push to list
+		Logger.debug("comment added to list " + key);
+		j.zadd(key, createdAt.getTime(), this.id.toString());
 	}
 
 	public void zrem(String refId, String refType){
@@ -251,7 +259,7 @@ public class Comment extends SuperModel {
 		if(!j.exists(key)) {
 			Logger.debug("adding comments to cache: " + key);
 			for(Comment item: getAllComments(Long.parseLong(refId, 10), refType)){
-				item.zadd(refId, refType);
+				item.zadd(refId, refType, j);
 			}
 		}
 
@@ -260,7 +268,7 @@ public class Comment extends SuperModel {
 
 		for(String id: set) {
 			// get the data for each like
-			data.add(Comment.hmget(id));
+			data.add(Comment.hmget(id, j));
 		}
 
 		return items;
