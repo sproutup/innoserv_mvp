@@ -27,9 +27,17 @@
 
         <td>@con.id</td>
         <td>@con.user.name</td>
+        @if(con.product !=null){
         <td>@con.product.productName</td>
+        }else {
+        <td>N/A</td>
+        }
         <td>@con.url</td>
+        @if(con.trial !=null){
         <td>@con.trial.id</td>
+        }else {
+        <td>N/A</td>
+        }
         <td>@con.createdAt</td>
         <td>@con.updatedAt</td>
       </tr>
