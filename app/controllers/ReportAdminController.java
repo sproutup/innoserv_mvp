@@ -144,6 +144,31 @@ public class ReportAdminController extends Controller {
 	    return ok(content_list.render(urls));
   }
 
+  
+  /**
+   * Update Content OG
+   * @return
+   */
+  public static Result updateContentOG(){
+	    if(!admin_enabled){return notFound();};
+	    // get hidden objects from submitted form
+	    Map<String, String[]> map = request().body().asFormUrlEncoded();
+	    String contentId = map.get("contentId")[0];
+	    String page = map.get("page")[0];
+
+	    Content con = Content.find.byId(Long.valueOf(contentId));
+	    if (con!=null){
+	        //update content
+	        con.update();
+	    }
+	    
+	    if (page!=null){
+	    	return redirect(routes.ReportAdminController.contentList(Integer.valueOf(page)));
+	    } else {
+	    	return redirect(routes.ReportAdminController.contentList(0));
+	    }
+  }
+  
   /**
    * @deprecated
    * @param page

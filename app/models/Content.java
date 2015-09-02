@@ -62,10 +62,15 @@ public class Content extends SuperModel {
         OpenGraph og = new OpenGraph();
         og.scrape(this.url);
         og.save();
-        openGraph.delete();
+        Long oldOGId = null;
+        if (openGraph!=null){
+        	oldOGId =openGraph.id; 
+        }
         openGraph = og;
-
         super.update();
+        if (oldOGId!=null){
+        	OpenGraph.find.byId(oldOGId).delete();
+        }
         hmset();
     }
 
