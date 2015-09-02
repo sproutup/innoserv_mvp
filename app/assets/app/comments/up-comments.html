@@ -1,4 +1,21 @@
 <div class="my-content-comments">
+    <!-- Existing comments -->
+    <div class="row my-content-comment-row" ng-repeat="comment in vm.comments.data | orderBy: 'createdAt'">
+        <div class="col-sm-2 my-content-user-avatar">
+            <img class="img-responsive post-comment-user-img-circle img-center" ng-src="{{ comment.user.avatarUrl }}">
+        </div>
+        <div class="col-sm-10 my-content-comment-blurb">
+            <p class="my-content-user comment">{{ comment.user.name }}
+                <a ng-href="{{ comment.user.urlTwitter }}" target="blank"><span>@{{ comment.user.handleTwitter }}</span></a>
+            </p>
+            <!-- <p class="my-content-user comment">{{ comment.user.name }}<span>@{{ comment.user.handleTwitter }}</span></p> -->
+            <p class="my-content-timestamp comment">{{ comment.createdAt | fromNow }}</p>
+            <p class="my-content-text comment">{{ comment.body }}</p>
+            <div class="my-content-actions">
+                <up-like likes="comment.likes" up-id="comment.id" up-type="models.comment"></up-like>
+            </div>
+        </div>
+    </div>
     <!-- New comment from current user -->
     <div class="row my-content-comment-row" ng-show="vm.commenting">
         <div class="col-sm-2 my-content-user-avatar">
@@ -14,22 +31,5 @@
                 </div>
             </div>
         </form>
-    </div>
-    <!-- Existing comments -->
-    <div class="row my-content-comment-row" ng-repeat="comment in vm.comments.data | orderBy: '-createdAt'">
-        <div class="col-sm-2 my-content-user-avatar">
-            <img class="img-responsive post-comment-user-img-circle img-center" ng-src="{{ comment.user.avatarUrl }}">
-        </div>
-        <div class="col-sm-10 my-content-comment-blurb">
-            <p class="my-content-user comment">{{ comment.user.name }}
-                <a ng-href="{{ comment.user.urlTwitter }}" target="blank"><span>@{{ comment.user.handleTwitter }}</span></a>
-            </p>
-            <!-- <p class="my-content-user comment">{{ comment.user.name }}<span>@{{ comment.user.handleTwitter }}</span></p> -->
-            <p class="my-content-timestamp comment">{{ comment.createdAt | fromNow }}</p>
-            <p class="my-content-text comment">{{ comment.body }}</p>
-            <div class="my-content-actions">
-                <up-like likes="comment.likes" up-id="comment.id" up-type="models.comment"></up-like>
-            </div>
-        </div>
     </div>
 </div>
