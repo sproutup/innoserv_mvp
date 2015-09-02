@@ -1,4 +1,4 @@
-<div class="row my-content-page" infinite-scroll='vm.loadMore()' infinite-scroll-disabled='vm.busy' infinite-scroll-distance='0'>
+<div class="row my-content-page" infinite-scroll='vm.loadMore()' infinite-scroll-disabled='vm.busy' infinite-scroll-distance='2'>
 	<div class="col-sm-8 my-content-left-rail">
 		<!-- if no user logs in, display this message -->
 		<div class="col-sm-12 my-content-item" ng-show="!vm.user.id">
@@ -33,7 +33,7 @@
 	<!-- 	                        <div class="addPhotoInput">Add a photo or video</div> -->
 		                    </div>
 		                    <div class="post-new-comment-actions">
-		                        <button type="button" class="btn btn-post content-post-button btn-post-default" ng-click="vm.addContent()">Post</button>
+		                        <button type="button" class="btn btn-post content-post-button btn-post-default" ng-click="vm.addContent()"><span ng-hide="vm.postCount === 1">Post</span></button>
 		                    </div>
 		                    <div class="post-warning" ng-show="vm.productErrorMsg">Please choose a product</div>
 		                    <div class="post-warning" ng-show="vm.textErrorMsg">Please write something and/or paste a url</div>

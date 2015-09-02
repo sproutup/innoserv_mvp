@@ -209,9 +209,9 @@ public class Post extends SuperModel implements Taggable {
 			if(!j.exists(key)) {
 				Logger.debug("adding all posts to cache: " + key);
 				for(Post post: getAll()){
-					post.zadd(key);
+					post.zadd(key, j);
 					if(post.product != null) {
-						post.zadd("buzz:product:" + post.product.id.toString());
+						post.zadd("buzz:product:" + post.product.id.toString(), j);
 					}
 				}
 			}
@@ -226,7 +226,7 @@ public class Post extends SuperModel implements Taggable {
 
 			for(String id: set) {
 				// get the data for each like
-				data.add(Post.hmget(id));
+				data.add(Post.hmget(id, j));
 			}
 		} finally {
 			play.Play.application().plugin(RedisPlugin.class).jedisPool().returnResource(j);
@@ -248,7 +248,7 @@ public class Post extends SuperModel implements Taggable {
 				Logger.debug("adding all posts to buzz: " + key);
 				for(Post post: getAll()){
 					if(post.product != null) {
-						post.zadd("buzz:product:" + post.product.slug);
+						post.zadd("buzz:product:" + post.product.slug, j);
 					}
 				}
 			}
@@ -257,7 +257,7 @@ public class Post extends SuperModel implements Taggable {
 
 			for(String itemid: set) {
 				// get the data for each like
-				data.add(Post.hmget(itemid));
+				data.add(Post.hmget(itemid, j));
 			}
 		} finally {
 			play.Play.application().plugin(RedisPlugin.class).jedisPool().returnResource(j);
@@ -269,60 +269,68 @@ public class Post extends SuperModel implements Taggable {
 	public void hmset(){
 		Jedis j = play.Play.application().plugin(RedisPlugin.class).jedisPool().getResource();
 		try {
-			Map map = new HashMap();
-
-			// Create the hashmap values
-			map.put("body", this.body);
-			map.put("createdAt", new DateTime(this.createdAt).toString());
-
-			if(this.user != null) {
-				map.put("user.id", this.user.id.toString());
-			}
-			if(this.product != null) {
-				map.put("product.id", this.product.id.toString());
-			}
-			if(this.content != null) {
-				map.put("content.id", this.content.id.toString());
-			}
-
-			// add the values
-			j.hmset("post:" + this.id.toString(), map);
+			hmset(j);
 		} finally {
 			play.Play.application().plugin(RedisPlugin.class).jedisPool().returnResource(j);
 		}
 	}
 
+	public void hmset(Jedis j){
+		Map map = new HashMap();
+
+		// Create the hashmap values
+		map.put("body", this.body);
+		map.put("createdAt", new DateTime(this.createdAt).toString());
+
+		if(this.user != null) {
+			map.put("user.id", this.user.id.toString());
+		}
+		if(this.product != null) {
+			map.put("product.id", this.product.id.toString());
+		}
+		if(this.content != null) {
+			map.put("content.id", this.content.id.toString());
+		}
+
+		// add the values
+		j.hmset("post:" + this.id.toString(), map);
+	}
+
 	public static ObjectNode hmget(String id){
 		Jedis j = play.Play.application().plugin(RedisPlugin.class).jedisPool().getResource();
-		ObjectNode node = Json.newObject();
 		try {
-			String key = "post:" + id;
-
-			if(!j.exists(key)) {
-				Logger.debug("post added to cache " + key);
-				Post.find.byId(Long.parseLong(id, 10)).hmset();
-			}
-
-			List<String> values = j.hmget(key, "body", "createdAt", "user.id", "product.id", "content.id");
-
-			node.put("id", id);
-			if (values.get(0) != null) node.put("body", values.get(0));
-			if (values.get(1) != null) node.put("createdAt", values.get(1));
-			if (values.get(2) != null) {
-				node.put("user", User.hmget(values.get(2)));
-			}
-			if (values.get(3) != null) {
-				node.put("product", Product.hmget(values.get(3)));
-			}
-			if (values.get(4) != null) {
-				node.put("content", Content.hmget(values.get(4)));
-			}
-			node.put("likes", Likes.range(id, "models.post"));
-			node.put("comments", Comment.range(id, "models.post"));
-
+			return hmget(id, j);
 		} finally {
 			play.Play.application().plugin(RedisPlugin.class).jedisPool().returnResource(j);
 		}
+	}
+
+	public static ObjectNode hmget(String id, Jedis j){
+		ObjectNode node = Json.newObject();
+		String key = "post:" + id;
+
+		if(!j.exists(key)) {
+			Logger.debug("post added to cache " + key);
+			Post.find.byId(Long.parseLong(id, 10)).hmset(j);
+		}
+
+		List<String> values = j.hmget(key, "body", "createdAt", "user.id", "product.id", "content.id");
+
+		node.put("id", id);
+		if (values.get(0) != null) node.put("body", values.get(0));
+		if (values.get(1) != null) node.put("createdAt", values.get(1));
+		if (values.get(2) != null) {
+			node.put("user", User.hmget(values.get(2), j));
+		}
+		if (values.get(3) != null) {
+			node.put("product", Product.hmget(values.get(3), j));
+		}
+		if (values.get(4) != null) {
+			node.put("content", Content.hmget(values.get(4), j));
+		}
+		node.put("likes", Likes.range(id, "models.post", j));
+		node.put("comments", Comment.range(id, "models.post", j));
+
 		return node;
 	}
 }

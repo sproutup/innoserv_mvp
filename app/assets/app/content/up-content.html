@@ -16,8 +16,12 @@
                     <button class="trial-product selected-trial-product up-content-product"><i class="fa fa-tag product-post-tag"></i>{{ vm.content.product.name }}</button>
                 </a>
                 <p class="my-content-text" ng-bind-html="vm.content.htmlBody"></p>
+                
+                <div class="my-content-video embedded" ng-if="vm.content.content.youtube">
+                    <iframe width="560" height="315" ng-src="{{ vm.content.content.youtube }}" frameborder="0" allowfullscreen></iframe>
+                </div>
                 <a analytics-on="click" analytics-event="Click on post: {{vm.content.id}}" href="{{ vm.content.content.url }}" target="blank">
-                    <img class="my-content-image img-responsive" src="{{vm.content.content.image}}">
+                    <img class="my-content-image img-responsive" src="{{vm.content.content.image}}" ng-hide="vm.content.content.youtube">
                     <p class="my-content-og-headline" ng-show="vm.content.content.title">{{ vm.content.content.title }}</p>
                     <p class="my-content-og-text" ng-show="vm.content.content.description">{{ vm.content.content.description }}</p>
                 </a>

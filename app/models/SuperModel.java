@@ -23,7 +23,7 @@ import play.db.ebean.Model;
 import utils.*;
 
 @MappedSuperclass
-public class SuperModel extends TimeStampModel implements Likeable, Taggable, Followeable, Fileable, Commentable {
+public abstract class SuperModel extends TimeStampModel implements Likeable, Taggable, Followeable, Fileable, Commentable, Buzzable {
 
   /**
 	 * For social media features
@@ -68,24 +68,35 @@ public class SuperModel extends TimeStampModel implements Likeable, Taggable, Fo
   }
 */
   public void zadd(String key){
-      Jedis j = play.Play.application().plugin(RedisPlugin.class).jedisPool().getResource();
-      try {
-          Logger.debug("added to set: " + key);
-          j.zadd(key, updatedAt.getTime(), this.id.toString());
-      } finally {
-          play.Play.application().plugin(RedisPlugin.class).jedisPool().returnResource(j);
-      }
+    Jedis j = play.Play.application().plugin(RedisPlugin.class).jedisPool().getResource();
+    try {
+      Logger.debug("added to set: " + key);
+      j.zadd(key, updatedAt.getTime(), this.id.toString());
+    } finally {
+      play.Play.application().plugin(RedisPlugin.class).jedisPool().returnResource(j);
+    }
+  }
+
+  public void zadd(String key, Jedis j){
+    Logger.debug("added to set: " + key);
+    j.zadd(key, updatedAt.getTime(), this.id.toString());
   }
 
   public void zrem(String key){
-      Jedis j = play.Play.application().plugin(RedisPlugin.class).jedisPool().getResource();
-      try {
-          // delete
-          j.zrem(key, this.id.toString());
-      } finally {
-          play.Play.application().plugin(RedisPlugin.class).jedisPool().returnResource(j);
-      }
+    Jedis j = play.Play.application().plugin(RedisPlugin.class).jedisPool().getResource();
+    try {
+      // delete
+      j.zrem(key, this.id.toString());
+    } finally {
+      play.Play.application().plugin(RedisPlugin.class).jedisPool().returnResource(j);
+    }
   }
+
+  public void zrem(String key, Jedis j){
+    // delete
+    j.zrem(key, this.id.toString());
+  }
+
 /*
   public static ObjectNode range(String key, long start, long end){
     ObjectNode items = Json.newObject();
