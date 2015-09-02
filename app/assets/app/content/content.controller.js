@@ -9,10 +9,13 @@ ContentController.$inject = ['$stateParams', '$state', 'FeedService', 'AuthServi
 
 function ContentController($stateParams, $state, FeedService, AuthService, $rootScope, $scope, MyTrialProductsService, postService, $sce, $timeout) {
     var vm = this;
-    vm.content = [];
+    vm.loadMore = loadMore;
+    vm.addContent = addContent;
     vm.busy = true;
     var local = {};
     local.urlify = urlify;
+    local.displayYoutubeVideo = displayYoutubeVideo;
+    local.displayTweet = displayTweet;
 
     activate();
 
@@ -34,11 +37,14 @@ function ContentController($stateParams, $state, FeedService, AuthService, $root
         vm.user = angular.copy(AuthService.m.user);
     }
 
+    vm.content = [];
     vm.content = FeedService.buzzAll().query(function() {
+        console.log(vm.content);
         for (var c = 0; c < vm.content.length; c++) {
             vm.content[c].htmlBody = urlify(vm.content[c].body);
             if (vm.content[c].content) {
                 displayYoutubeVideo(vm.content[c].content);
+                displayTweet(vm.content[c].content);
             }
         }
         $timeout(function(){vm.busy = false;}, 1000);
@@ -46,7 +52,7 @@ function ContentController($stateParams, $state, FeedService, AuthService, $root
 
     var position = 10;
 
-    vm.loadMore = function() {
+    function loadMore() {
         vm.busy = true;
         var more = [];
         more = FeedService.buzzAll().query({
@@ -55,6 +61,7 @@ function ContentController($stateParams, $state, FeedService, AuthService, $root
             for (var a = 0; a < more.length; a++) {
                 if (more[a].content) {
                     displayYoutubeVideo(more[a].content);
+                    displayTweet(more[a].content);
                 }
                 more[a].htmlBody = urlify(more[a].body);
                 vm.content.push(more[a]);
@@ -62,7 +69,7 @@ function ContentController($stateParams, $state, FeedService, AuthService, $root
             $timeout(function(){vm.busy = false;}, 1000);
             position += 10;
         });
-    };
+    }
 
     vm.myTrialProducts = [];
     vm.myTrialProducts = MyTrialProductsService.query();
@@ -87,7 +94,7 @@ function ContentController($stateParams, $state, FeedService, AuthService, $root
     };
 
     vm.postCount = 0;
-    vm.addContent = function() {
+    function addContent() {
         if (vm.postCount !== 1) {
             if (!vm.selectedProduct) {
                 vm.productErrorMsg = true;
@@ -112,6 +119,7 @@ function ContentController($stateParams, $state, FeedService, AuthService, $root
                     vm.postCount = 0;
                     if (res.content) {
                         displayYoutubeVideo(res.content);
+                        displayTweet(res.content);
                     }
                     var spinnerToRemove = document.getElementsByClassName('spinner');
                     spinnerToRemove[0].remove();
@@ -122,10 +130,8 @@ function ContentController($stateParams, $state, FeedService, AuthService, $root
                     spinnerToRemove[0].remove();
                 });
             }
-        } else {
-            console.log('already posted');
         }
-    };
+    }
 
     function urlify(text) {
         var urlRegex = /(https?:\/\/[^\s]+)/g;
@@ -179,6 +185,22 @@ function ContentController($stateParams, $state, FeedService, AuthService, $root
             if (id) {
                 content.youtube = "https://www.youtube.com/embed/" + id;
             }
+        }
+    }
+
+    function displayTweet(content) {
+        var match = content.url.match(/twitter.com\/\w+\/status\/\w+/g);
+        if (match) {
+            var statusIndex = match[0].indexOf('/status/');
+            var twitterUsername = match[0].substring(12, statusIndex);
+            var onTwitterIndex = content.title.indexOf('on Twitter');
+            var twitterName = content.title.substring(0, onTwitterIndex);
+            var tweetBody = content.description.substring(1, (content.description.length - 1));
+            content.tweet = {
+                twitterUsername: twitterUsername,
+                twitterName: twitterName,
+                tweetBody: tweetBody
+            };
         }
     }
 
