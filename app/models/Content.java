@@ -59,6 +59,12 @@ public class Content extends SuperModel {
 
     @Override
     public void update() {
+        OpenGraph og = new OpenGraph();
+        og.scrape(this.url);
+        og.save();
+        openGraph.delete();
+        openGraph = og;
+
         super.update();
         hmset();
     }
