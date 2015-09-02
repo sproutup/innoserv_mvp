@@ -193,6 +193,14 @@ public class Content extends SuperModel {
 
     public static ObjectNode hmget(String id){
         Jedis j = play.Play.application().plugin(RedisPlugin.class).jedisPool().getResource();
+        try {
+            return hmget(id, j);
+        } finally {
+            play.Play.application().plugin(RedisPlugin.class).jedisPool().returnResource(j);
+        }
+    }
+
+    public static ObjectNode hmget(String id, Jedis j){
         ObjectNode node = Json.newObject();
         try {
             String key = "content:" + id;
@@ -223,7 +231,6 @@ public class Content extends SuperModel {
 */
 
         } finally {
-            play.Play.application().plugin(RedisPlugin.class).jedisPool().returnResource(j);
         }
         return node;
     }

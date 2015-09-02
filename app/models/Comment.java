@@ -233,30 +233,34 @@ public class Comment extends SuperModel {
 	}
 
 	public static ObjectNode range(String refId, String refType){
-		ObjectNode items = Json.newObject();
-		ArrayNode data = items.putArray("data");
-
 		//Go to Redis to read the full roster of content.
 		Jedis j = play.Play.application().plugin(RedisPlugin.class).jedisPool().getResource();
 		try {
-			String key = "comments:" + refType + ":" + refId;
-
-			if(!j.exists(key)) {
-				Logger.debug("adding comments to cache: " + key);
-				for(Comment item: getAllComments(Long.parseLong(refId, 10), refType)){
-					item.zadd(refId, refType);
-				}
-			}
-
-			Set<String> set = j.zrange(key, 0, -1);
-			items.put("count", j.zcard(key).toString());
-
-			for(String id: set) {
-				// get the data for each like
-				data.add(Comment.hmget(id));
-			}
+			return range(refId, refType, j);
 		} finally {
 			play.Play.application().plugin(RedisPlugin.class).jedisPool().returnResource(j);
+		}
+	}
+
+	public static ObjectNode range(String refId, String refType, Jedis j){
+		ObjectNode items = Json.newObject();
+		ArrayNode data = items.putArray("data");
+
+		String key = "comments:" + refType + ":" + refId;
+
+		if(!j.exists(key)) {
+			Logger.debug("adding comments to cache: " + key);
+			for(Comment item: getAllComments(Long.parseLong(refId, 10), refType)){
+				item.zadd(refId, refType);
+			}
+		}
+
+		Set<String> set = j.zrange(key, 0, -1);
+		items.put("count", j.zcard(key).toString());
+
+		for(String id: set) {
+			// get the data for each like
+			data.add(Comment.hmget(id));
 		}
 
 		return items;

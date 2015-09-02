@@ -516,6 +516,14 @@ public class Product extends SuperModel implements PathBindable<Product>,
 
 	public static ObjectNode hmget(String id){
 		Jedis j = play.Play.application().plugin(RedisPlugin.class).jedisPool().getResource();
+		try {
+			return hmget(id, j);
+		} finally {
+			play.Play.application().plugin(RedisPlugin.class).jedisPool().returnResource(j);
+		}
+	}
+
+	public static ObjectNode hmget(String id, Jedis j){
 		ObjectNode node = Json.newObject();
 		try {
 			String key = "prod:" + id.toString();
@@ -557,7 +565,6 @@ public class Product extends SuperModel implements PathBindable<Product>,
 			}
 			if (values.get(10) != null) node.put("isAvailableForTrial", Boolean.valueOf(values.get(10)));
 		} finally {
-			play.Play.application().plugin(RedisPlugin.class).jedisPool().returnResource(j);
 		}
 		return node;
 	}
