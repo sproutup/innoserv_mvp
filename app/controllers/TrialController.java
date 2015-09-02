@@ -46,7 +46,7 @@ public class TrialController extends Controller {
                 .find
                 .where()
                 .eq("user_id", user.id)
-                .gt("status", 1)
+                .ge("status", 1)
                 .orderBy("updated_at asc")
                 .findList();
 
@@ -105,12 +105,12 @@ public class TrialController extends Controller {
 
             List<Integer> s1 = Arrays.asList(0, 1, 2, 3);//only active requests and not cancelled ones
             List<Integer> s2 = Arrays.asList(0, 1, 2, 3, 4);//only active requests and not cancelled ones
-            
+
             /*
              * Place trial request only if product trial is not full house
              */
             if (item.product.trialFullHouseFlag){ return status(200, "Product Trial Full House; Not accepting more requests"); }
-            
+
             /*
              * Place trial request only if user has 3 or less active ones
              */
@@ -118,9 +118,9 @@ public class TrialController extends Controller {
                     .where()
                     .eq("user.id", user.id)
                     .in("status", s1).findList();
-            
+
             if (t!=null && t.size()>=3) { return status(200, "User already has more than 3 active requests"); }
-            
+
             /*
             * Place trial request only if it doesn't exist before
             */
@@ -129,25 +129,25 @@ public class TrialController extends Controller {
             .eq("user.id", user.id)
             .eq("product.id", item.product.id)
             .in("status", s2).findList();
-            
-            
+
+
              if (t==null || t.size()==0) {//only create trial if it doesn't exist
                 item.save();
-	
+
 	            /*
 	             * need to save first to generate item.id before we want to generate RefURL
 	             * so that each refferer id gets tied to a trial id
 	             */
 	            item.generateRefUrl();
 	            item.update();
-	            
+
 
 	            return created(item.toFullJson());
 
             } else {
-            	return ok(item.toJson()); 
+            	return ok(item.toJson());
             }
-        } 
+        }
     }
 
     @SubjectPresent

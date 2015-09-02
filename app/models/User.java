@@ -454,10 +454,12 @@ public class User extends TimeStampModel implements Subject {
 			// Create the hashmap values
 			map.put("id", this.id.toString());
 			map.put("name", this.name);
-			map.put("nickname", this.nickname);
-			map.put("avatarUrl", getAvatar());
-			map.put("urlTwitter", this.urlTwitter);
-			map.put("handleTwitter", this.urlTwitter.substring(urlTwitter.lastIndexOf("/")+1));
+			if(this.nickname!=null) map.put("nickname", this.nickname);
+			if(this.getAvatar()!=null) map.put("avatarUrl", getAvatar());
+			if(this.urlTwitter!=null) {
+				map.put("urlTwitter", this.urlTwitter);
+				map.put("handleTwitter", this.urlTwitter.substring(urlTwitter.lastIndexOf("/") + 1));
+			}
 
 			// add the values
 			j.hmset(key, map);
