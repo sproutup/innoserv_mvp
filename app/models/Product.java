@@ -437,7 +437,7 @@ public class Product extends SuperModel implements PathBindable<Product>,
 			prod.remove("urlHome");
 			prod.remove("urlFacebook");
 			prod.remove("urlTwitter");
-			prod.remove("banner");
+//			prod.remove("banner");
 			prod.remove("isAvailableToBuy");
 			prod.remove("isFeatured");
 			prod.remove("isTrialFullHouse");
