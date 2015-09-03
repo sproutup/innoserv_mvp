@@ -182,9 +182,9 @@ public class Trial extends TimeStampModel {
         if(this.user != null) {
             node.put("user", this.user.toJsonShort());
         }
-//        if(this.product != null) {
-//            node.put("product", this.product.toJsonShort());
-//        }
+        if(this.product != null) {
+            node.put("slug", this.product.slug);
+        }
 //        if(this.content != null) {
 //            node.put("content", Content.toJson(this.content));
 //        }
