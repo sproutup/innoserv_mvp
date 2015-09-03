@@ -430,7 +430,20 @@ public class Product extends SuperModel implements PathBindable<Product>,
     public static ArrayNode toJson(List<Product> products){
         ArrayNode arrayNode = new ArrayNode(JsonNodeFactory.instance);
         for (Product product : products){
-            arrayNode.add(product.toJson());
+			ObjectNode prod = product.toJson();
+			prod.remove("story");
+			prod.remove("mission");
+			prod.remove("description");
+			prod.remove("urlHome");
+			prod.remove("urlFacebook");
+			prod.remove("urlTwitter");
+			prod.remove("banner");
+			prod.remove("isAvailableToBuy");
+			prod.remove("isFeatured");
+			prod.remove("isTrialFullHouse");
+			prod.remove("urlAppDownload");
+			prod.remove("urlBuy");
+			arrayNode.add(prod);
         }
         return arrayNode;
     }

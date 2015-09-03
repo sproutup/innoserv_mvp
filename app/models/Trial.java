@@ -171,10 +171,31 @@ public class Trial extends TimeStampModel {
         return node;
     }
 
+    public ObjectNode toJsonShort(){
+        ObjectNode node = Json.newObject();
+        node.put("id", this.id);
+//        node.put("name", this.name);
+//        node.put("reason", this.reason);
+        node.put("status", this.status);
+//        node.put("createdAt", new DateTime(this.createdAt).toString());
+//        node.put("updatedAt", new DateTime(this.updatedAt).toString());
+        if(this.user != null) {
+            node.put("user", this.user.toJsonShort());
+        }
+        if(this.product != null) {
+            node.put("slug", this.product.slug);
+        }
+//        if(this.content != null) {
+//            node.put("content", Content.toJson(this.content));
+//        }
+//        node.put("refURL", refURL);
+        return node;
+    }
+
     public static ArrayNode toJson(List<Trial> items){
         ArrayNode arrayNode = new ArrayNode(JsonNodeFactory.instance);
         for (Trial item : items){
-            arrayNode.add(item.toJson());
+            arrayNode.add(item.toJsonShort());
         }
         return arrayNode;
     }
