@@ -323,7 +323,16 @@ public class Post extends SuperModel implements Taggable {
 			node.put("user", User.hmget(values.get(2), j));
 		}
 		if (values.get(3) != null) {
-			node.put("product", Product.hmget(values.get(3), j));
+			ObjectNode prod = Product.hmget(values.get(3), j);
+			// trim unnecessary data
+			prod.remove("story");
+			prod.remove("mission");
+			prod.remove("description");
+			prod.remove("urlHome");
+			prod.remove("urlFacebook");
+			prod.remove("urlTwitter");
+			prod.remove("banner");
+			node.put("product", prod);
 		}
 		if (values.get(4) != null) {
 			node.put("content", Content.hmget(values.get(4), j));
