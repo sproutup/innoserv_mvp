@@ -810,6 +810,12 @@ input[type=checkbox] {
     padding: 18px;
     color: #414141;
     margin-bottom: 22px;
+    overflow: hidden;
+}
+
+.tweetTextWithPicture {
+    position: relative;
+    bottom: 4px;
 }
 
 .tweetWrapper:hover {
@@ -826,8 +832,9 @@ input[type=checkbox] {
 }
 
 .tweetBody {
-    padding-top: 8px;
+    padding-top: 4px;
     padding-bottom: 2px;
+    display: table;
 }
 
 .tweet--quote-block {
@@ -835,4 +842,11 @@ input[type=checkbox] {
     margin-left: 20px;
     margin-top: 20px;
     padding: 0px 15px;
+}
+
+.tweet--picture {
+    max-height: 90px;
+    max-width: 90px;
+    float: left;
+    margin-right: 15px;
 }

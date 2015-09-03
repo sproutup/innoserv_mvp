@@ -196,11 +196,15 @@ function ContentController($stateParams, $state, FeedService, AuthService, $root
             var onTwitterIndex = content.title.indexOf('on Twitter');
             var twitterName = content.title.substring(0, onTwitterIndex);
             var tweetBody = content.description.substring(1, (content.description.length - 1));
+            var mediaIndex = content.image.indexOf('/media/');
             content.tweet = {
                 twitterUsername: twitterUsername,
                 twitterName: twitterName,
                 tweetBody: tweetBody
             };
+            if (mediaIndex > 0) {
+                content.tweet.picture = content.image;
+            }
         }
     }
 
