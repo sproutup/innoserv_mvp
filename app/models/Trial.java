@@ -175,7 +175,7 @@ public class Trial extends TimeStampModel {
         ObjectNode node = Json.newObject();
         node.put("id", this.id);
 //        node.put("name", this.name);
-//        node.put("reason", this.reason);
+        node.put("reason", this.reason);
         node.put("status", this.status);
 //        node.put("createdAt", new DateTime(this.createdAt).toString());
 //        node.put("updatedAt", new DateTime(this.updatedAt).toString());
