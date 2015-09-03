@@ -42,9 +42,17 @@ function ContentController($stateParams, $state, FeedService, AuthService, $root
         console.log(vm.content);
         for (var c = 0; c < vm.content.length; c++) {
             vm.content[c].htmlBody = urlify(vm.content[c].body);
+            // display youtube videos and tweets
             if (vm.content[c].content) {
                 displayYoutubeVideo(vm.content[c].content);
                 displayTweet(vm.content[c].content);
+            }
+            // urlify comments
+            if (vm.content[c].comments && vm.content[c].comments.data.length > 0) {
+                for (var d = 0; d < vm.content[c].comments.data.length; d++) {
+                    console.log(vm.content[c].comments.data[d].body);
+                    vm.content[c].comments.data[d].htmlBody = urlify(vm.content[c].comments.data[d].body);
+                }
             }
         }
         $timeout(function(){vm.busy = false;}, 1000);
@@ -64,6 +72,11 @@ function ContentController($stateParams, $state, FeedService, AuthService, $root
                     displayTweet(more[a].content);
                 }
                 more[a].htmlBody = urlify(more[a].body);
+                if (more[a].comments && more[a].comments.data.length > 0) {
+                    for (var c = 0; c < more[a].comments.data.length; c++) {
+                        more[a].comments.data[c].htmlBody = urlify(more[a].comments.data[c].body);
+                    }
+                }
                 vm.content.push(more[a]);
             }
             $timeout(function(){vm.busy = false;}, 1000);
@@ -136,6 +149,7 @@ function ContentController($stateParams, $state, FeedService, AuthService, $root
     function urlify(text) {
         var urlRegex = /(https?:\/\/[^\s]+)/g;
         return text.replace(urlRegex, function(url) {
+
             var displayedUrl;
             if (url.length > 50) {
                 displayedUrl = url.substring(0, 50);
