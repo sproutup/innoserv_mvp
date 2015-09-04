@@ -15,7 +15,7 @@
         <div class="row signup-form-block">
           <div class="col-md-8 col-md-offset-2">
 
-        @helper.form(action = routes.SocialMediaPostAdminController.save(), 'enctype -> "multipart/form-data") {
+        @helper.form(action = routes.SocialMediaPostAdminController.saveSocialMediaPost(), 'enctype -> "multipart/form-data") {
 		
           @select(
           socialMediaPostForm("product.id"),

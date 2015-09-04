@@ -186,8 +186,9 @@ GET           /adminstuff/company/uploadmedia/:companyslug/:mediaType        con
 POST          /adminstuff/company/domediaupload                              controllers.MediaManagement.doCompanyMediaUpload()
 GET           /adminstuff/uploadmedia                                        controllers.MediaManagement.upload()
 POST          /adminstuff/doupload                                           controllers.MediaManagement.doUpload()
-GET           /adminstuff/socialmediapost                                    controllers.SocialMediaPostAdminController.newPost()
-POST          /adminstuff/dosocialmediapost                                  controllers.SocialMediaPostAdminController.save()
+GET           /adminstuff/buzzpost                                    		 controllers.SocialMediaPostAdminController.newPost()
+POST          /adminstuff/dosocialmediapost                                  controllers.SocialMediaPostAdminController.saveSocialMediaPost()
+POST          /adminstuff/dobuzzpost                                  		 controllers.SocialMediaPostAdminController.addPost()
 
 GET           /adminstuff/user                                            	 controllers.ReportAdminController.index()
 GET           /adminstuff/user/list                                       	 controllers.ReportAdminController.userList(page: Integer ?= 0)
