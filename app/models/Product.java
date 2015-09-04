@@ -397,7 +397,7 @@ public class Product extends SuperModel implements PathBindable<Product>,
             node.put("tags", Tag.toJson(tags));
         }
 		if (this.trials!=null && this.trials.size()>0){
-			node.put("trials", Trial.toJson(trials));
+			node.put("trials", Trial.toJsonShort(trials));
 		}
 
 		if(this.productAdditionalDetail!=null) {

@@ -195,6 +195,14 @@ public class Trial extends TimeStampModel {
     public static ArrayNode toJson(List<Trial> items){
         ArrayNode arrayNode = new ArrayNode(JsonNodeFactory.instance);
         for (Trial item : items){
+            arrayNode.add(item.toJson());
+        }
+        return arrayNode;
+    }
+
+    public static ArrayNode toJsonShort(List<Trial> items){
+        ArrayNode arrayNode = new ArrayNode(JsonNodeFactory.instance);
+        for (Trial item : items){
             arrayNode.add(item.toJsonShort());
         }
         return arrayNode;
