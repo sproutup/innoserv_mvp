@@ -27,12 +27,12 @@
                 </a>
                 <a ng-href="{{ vm.content.content.url }}" ng-if="vm.content.content.tweet" target="blank">
                     <div class="tweetWrapper" ng-href="vm.content.content.url" ng-class="{ 'tweetWithPicture': vm.content.content.tweet.picture }">
-                        <img ng-src="{{ vm.content.content.tweet.picture }}" ng-if="vm.content.content.tweet.picture" class="tweet--picture"/>
                         <div class="tweetTextWrapper" ng-class="{ 'tweetWithPicture': vm.content.content.tweet.picture }">
                             <span class="tweetName">{{ vm.content.content.tweet.twitterName }}</span>
                             <span class="tweetUsername">@{{ vm.content.content.tweet.twitterUsername }}</span>
                             <div class="tweetBody">{{ vm.content.content.tweet.tweetBody }}</div>
                         </div>
+                        <img ng-src="{{ vm.content.content.tweet.picture }}" ng-if="vm.content.content.tweet.picture" class="tweet--picture"/>
                     </div>
                 </a>
             </div>
