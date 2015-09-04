@@ -8,7 +8,17 @@
  
   </h2>
 
+    <script>
 
+     function updateTrialStatus(id){
+    	 //alert(id);
+    	 var v = document.forms[0].elements['status['+ id+ ']'].value;
+    	 //alert(v);
+    	 document.forms[0].elements['requestId'].value = id;
+    	 document.forms[0].elements['statusVal'].value = v;
+    	 document.forms[0].submit();
+     }
+   </script>
 
    <table cellspacing="0" cellpadding="0" class="table table-striped">
     <thead>
@@ -27,6 +37,13 @@
       </tr>
     </thead>
     <tbody>
+        @helper.form(action = routes.ReportAdminController.updateTrialStatus()) {
+
+	    <input type="hidden" name="requestId"/>
+		<input type="hidden" name="statusVal"/>
+		<input type="hidden" name="page" value="producttrialinfluencer"/>
+		<input type="hidden" name="pageNum" value="@currentPage.getPageIndex"/>
+    
     @for(product <- currentPage.getList()) {
 
       <tr>
@@ -49,7 +66,7 @@
 				<td width="13.3%"> @t.user.name</td>
 				<td width="13.3%"> @t.user.email/<br>@t.user.urlTwitter</td>
 				<td width="40%"> @t.address</td>
-				<td width="13.3%"> <select disabled="disabled">
+				<td width="13.3%"> <select id="status[@t.id]" onChange="updateTrialStatus(@t.id)">
 					  <option value="0" @if(t.status.toString=="0"){ selected="selected" }>Requested</option>
 					  <option value="1" @if(t.status.toString=="1"){ selected="selected" }>Approved</option>
 					  <option value="2" @if(t.status.toString=="2"){ selected="selected" }>Sent</option>
@@ -71,7 +88,7 @@
 		<td width="5%"> @product.unitsAvailable</td>        
       </tr>
       }
-  
+  }
     </tbody>
    </table>
 
