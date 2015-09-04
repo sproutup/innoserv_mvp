@@ -68,6 +68,7 @@ function BuzzController($stateParams, $state, FeedService, AuthService, $rootSco
                 }
                 $timeout(function(){vm.busy = false;}, 1000);
                 position += 10;
+                vm.init = true;
             });
         } else {
             vm.content = FeedService.buzzAll().query(function() {
@@ -85,6 +86,7 @@ function BuzzController($stateParams, $state, FeedService, AuthService, $rootSco
                         }
                     }
                 }
+                vm.init = true;
                 $timeout(function(){vm.busy = false;}, 1000);
                 position += 10;
             });
