@@ -1,21 +1,21 @@
 <div class="row my-content-page" infinite-scroll='vm.loadMore()' infinite-scroll-disabled='vm.busy' infinite-scroll-distance='2'>
 	<div class="col-sm-8 my-content-left-rail">
 		<!-- if no user logs in, display this message -->
-		<div class="col-sm-12 my-content-item" ng-show="!vm.user.id">
+		<div class="col-sm-12 my-content-item" ng-if="vm.init && !vm.user.id">
 			<div class="my-content-headsup">
             	<p class="my-content-headsup-text">It sounds obvious, but <a subject-present state="user.content" href="#">log in</a> is required for posting anything.</p>
 			</div>
 		</div>
 
 		<!-- for users who cannot post yet, display this message -->
-		<div class="col-sm-12 my-content-item" ng-show="vm.user.id && vm.myTrialProducts.length < 1">
+		<div class="col-sm-12 my-content-item" ng-if="vm.init && vm.user.id && vm.myTrialProducts.length < 1">
 			<div class="my-content-headsup">
             	<p class="my-content-headsup-text">Posting content is limited to influencers with approved product trials. Everyone can upvote and comment. We are working hard to scale SproutUp so that more content creators can join.</p>
 			</div>
 		</div>
 
 		<!-- add content -->
-		<div class="add-content-wrapper" ng-show="vm.myTrialProducts.length > 0">
+		<div class="add-content-wrapper" ng-if="vm.init && vm.myTrialProducts.length > 0">
 	        <div class="col-sm-12 my-content-item">
 	            <!-- user photo -->
 	            <div class="col-sm-2 my-content-user-avatar">

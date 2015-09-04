@@ -66,7 +66,7 @@ function upCommentsController(CommentService, authService, $timeout, $scope, $ro
                 vm.commentCount = 1;
 
                 newComment.$save(function(res) {
-                    res.htmlBody = urlify(res.body);
+                    res.body = urlify(res.body);
                     vm.comments.data.push(res);
                     vm.newComment = '';
                     vm.commenting = false;
