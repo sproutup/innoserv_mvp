@@ -5,13 +5,30 @@ angular
     .module('sproutupApp')
     .controller('BuzzController', BuzzController);
 
-BuzzController.$inject = ['$stateParams', '$state', 'FeedService', 'AuthService', '$rootScope', '$scope', 'MyTrialProductsService', 'PostService'];
+// This controller contains logic for main buzz page as well as individual product buzz pages
+// Functions loadInit and loadMore have seperate queries for when a slug is present (product buzz page) vs. when there is no slug (main buzz page)
 
-function BuzzController($stateParams, $state, FeedService, AuthService, $rootScope, $scope, MyTrialProductsService, postService) {
+BuzzController.$inject = ['$stateParams', '$state', 'FeedService', 'AuthService', '$rootScope', '$scope', 'MyTrialProductsService', 'PostService', '$timeout'];
+
+function BuzzController($stateParams, $state, FeedService, AuthService, $rootScope, $scope, MyTrialProductsService, postService, $timeout) {
     var vm = this;
     vm.content = [];
+    vm.myTrialProducts = [];
+    vm.myTrialProducts = MyTrialProductsService.query();
     vm.loadInit = loadInit;
     vm.slug = $stateParams.slug;
+    vm.addContent = addContent;
+    vm.displayLinkInput = displayLinkInput;
+    vm.displayLinkPhoto = displayLinkPhoto;
+    vm.displayLinkVideo = displayLinkVideo;
+    vm.selectTrialProduct = selectTrialProduct;
+    vm.busy = true;
+    var local = {};
+    local.urlify = urlify;
+    local.displayYoutubeVideo = displayYoutubeVideo;
+    local.displayTweet = displayTweet;
+    local.optimizeContentDisplay = local.optimizeContentDisplay;
+    var position = 0;
 
     activate();
 
@@ -28,101 +45,141 @@ function BuzzController($stateParams, $state, FeedService, AuthService, $rootSco
     }
 
     function init() {
+        vm.user = angular.copy(AuthService.m.user);
         loadInit();
     }
 
     function loadInit(){
-        console.log("init load");
-        vm.content = FeedService.buzzProduct().query({
-            slug: vm.slug,
-            start: 0
-        }, function() {
-            for (var c = 0; c < vm.content.length; c++) {
-                if (vm.content[c].content) {
-                    optimizeContentDisplay(vm.content[c]);
+        if (vm.slug) {
+            vm.content = FeedService.buzzProduct().query({
+                slug: vm.slug,
+                start: 0
+            }, function() {
+                for (var c = 0; c < vm.content.length; c++) {
+                    vm.content[c].body = urlify(vm.content[c].body);
+                    if (vm.content[c].content) {
+                        optimizeContentDisplay(vm.content[c]);
+                    }
+                    if (vm.content[c].comments) {
+                        for (var d = 0; d < vm.content[c].comments.data.length; d ++) {
+                            vm.content[c].comments.data[d].body = urlify(vm.content[c].comments.data[d].body);
+                        }
+                    }
                 }
-            }
-        });
-        vm.busy = false;
-        var position = 10;
+                $timeout(function(){vm.busy = false;}, 1000);
+                position += 10;
+            });
+        } else {
+            vm.content = FeedService.buzzAll().query(function() {
+                for (var c = 0; c < vm.content.length; c++) {
+                    vm.content[c].body = urlify(vm.content[c].body);
+                    // display youtube videos and tweets
+                    if (vm.content[c].content) {
+                        displayYoutubeVideo(vm.content[c].content);
+                        displayTweet(vm.content[c].content);
+                    }
+                    // urlify comments
+                    if (vm.content[c].comments && vm.content[c].comments.data.length > 0) {
+                        for (var d = 0; d < vm.content[c].comments.data.length; d++) {
+                            vm.content[c].comments.data[d].body = urlify(vm.content[c].comments.data[d].body);
+                        }
+                    }
+                }
+                $timeout(function(){vm.busy = false;}, 1000);
+                position += 10;
+            });
+        }
+
     }
 
     vm.loadMore = function(productId) {
         vm.busy = true;
-        console.log('more');
         var more = [];
-        more = FeedService.buzzProduct().query({
-            slug: vm.slug,
-            start: position
-        }, function() {
-            for (var a = 0; a < more.length; a++) {
-                optimizeContentDisplay(more[a]);
-                vm.content.push(more[a]);
-                if ((a + 1) === more.length) {
-                    vm.busy = false;
+        if (vm.slug) {
+            more = FeedService.buzzProduct().query({
+                slug: vm.slug,
+                start: position
+            }, function() {
+                for (var a = 0; a < more.length; a++) {
+                    if (more[a].content) {
+                        optimizeContentDisplay(more[a]);
+                    }
+                    if (more[a].comments) {
+                        for (var c = 0; c < more[a].comments.data.length; c++) {
+                            more[a].comments.data[c].body = urlify(more[a].comments.data[c].body);
+                        } 
+                    }
+                    more[a].body = urlify(more[a].body);
+                    vm.content.push(more[a]);
                 }
-            }
-            position += 10;
-        });
-    };
-
-
-    // var productService = new MyTrialProductsService();
-
-    // productService.$query(function(res) {
-    //     console.log(res);
-    // });
-
-    vm.myTrialProducts = [];
-    vm.myTrialProducts = MyTrialProductsService.query();
-
-    vm.displayLinkInput = function() {
-        vm.enteringLink = true;
-        vm.enteringPhoto = vm.enteringVideo = false;
-    };
-
-    vm.displayLinkPhoto = function() {
-        vm.enteringPhoto = true;
-        vm.enteringVideo = vm.enteringLink = false;
-    };
-
-    vm.displayLinkVideo = function() {
-        vm.enteringVideo = true;
-        vm.enteringPhoto = vm.enteringLink = false;
-    };
-
-    vm.selectTrialProduct = function(p) {
-        vm.selectedProduct = p.id;
-    };
-
-    vm.addContent = function() {
-        if (!vm.selectedProduct) {
-            vm.productErrorMsg = true;
-        } else if (!vm.enteredBody) {
-            vm.productErrorMsg = false;
-            vm.textErrorMsg = true;
+                $timeout(function(){vm.busy = false;}, 1000);
+                position += 10;
+            });
         } else {
-            var Post = postService.post();
-            var item = new Post();
-            item.body = vm.enteredBody;
-            item.product_id = vm.selectedProduct;
-            item.$save(function(res) {
-                optimizeContentDisplay(res);
-                vm.content.unshift(res);
-                vm.enteredBody = '';
-                vm.selectedProduct = null;
-                vm.productErrorMsg = false;
-                vm.textErrorMsg = false;
-            }, function(err) {
-                console.log(err);
+            more = FeedService.buzzAll().query({
+                start: position
+            }, function() {
+                for (var a = 0; a < more.length; a++) {
+                    if (more[a].content) {
+                        optimizeContentDisplay(more[a]);
+                    }
+                    more[a].body = urlify(more[a].body);
+                    if (more[a].comments && more[a].comments.data.length > 0) {
+                        for (var c = 0; c < more[a].comments.data.length; c++) {
+                            more[a].comments.data[c].body = urlify(more[a].comments.data[c].body);
+                        }
+                    }
+                    vm.content.push(more[a]);
+                }
+                $timeout(function(){vm.busy = false;}, 1000);
+                position += 10;
             });
         }
     };
 
+    vm.postCount = 0;
+    function addContent() {
+        if (vm.postCount !== 1) {
+            if (!vm.selectedProduct) {
+                vm.productErrorMsg = true;
+            } else if (!vm.enteredBody) {
+                vm.productErrorMsg = false;
+                vm.textErrorMsg = true;
+            } else {
+                var Post = postService.post();
+                var item = new Post();
+                var postButton = document.getElementsByClassName('content-post-button');
+                var spinner = new Spinner(opts).spin(postButton[0]);
+                vm.postCount = 1;
+                item.body = vm.enteredBody;
+                item.product_id = vm.selectedProduct;
+                item.$save(function(res) {
+                    res.body = urlify(res.body);
+                    vm.content.unshift(res);
+                    vm.enteredBody = '';
+                    vm.selectedProduct = null;
+                    vm.productErrorMsg = false;
+                    vm.textErrorMsg = false;
+                    vm.postCount = 0;
+                    if (res.content) {
+                        displayYoutubeVideo(res.content);
+                        displayTweet(res.content);
+                    }
+                    var spinnerToRemove = document.getElementsByClassName('spinner');
+                    spinnerToRemove[0].remove();
+                }, function(err) {
+                    console.log(err);
+                    vm.postCount = 0;
+                    var spinnerToRemove = document.getElementsByClassName('spinner');
+                    spinnerToRemove[0].remove();
+                });
+            }
+        }
+    }
+
     function optimizeContentDisplay(contentObject) {
         displayYoutubeVideo(contentObject.content);
         displayTweet(contentObject.content);
-        contentObject.body = urlify(contentObject.body);
     }
 
     function urlify(text) {
@@ -135,7 +192,6 @@ function BuzzController($stateParams, $state, FeedService, AuthService, $rootSco
             } else {
                 displayedUrl = url;
             }
-            console.log(url);
             return '<a href="' + url + '">' + displayedUrl + '</a>';
         });
     }
@@ -148,14 +204,11 @@ function BuzzController($stateParams, $state, FeedService, AuthService, $rootSco
     var timeRegexp = /t=(\d+)[ms]?(\d+)?s?/;
 
     function displayYoutubeVideo(content) {
-        console.log(content);
         var match = content.url.match(/https:\/\/www.youtube.com\/watch/g);
         if (match) {
             var id = content.url.replace(youtubeRegexp, '$1');
-
             if (contains(id, ';')) {
                 var pieces = id.split(';');
-
                 if (contains(pieces[1], '%')) {
                     // links like this:
                     // "http://www.youtube.com/attribution_link?a=pxa6goHqzaA&amp;u=%2Fwatch%3Fv%3DdPdgx30w9sU%26feature%3Dshare"
@@ -175,7 +228,6 @@ function BuzzController($stateParams, $state, FeedService, AuthService, $rootSco
                 // and we want '93LvTKF_jW0'
                 id = id.split('#')[0];
             }
-
             if (id) {
                 content.youtube = "https://www.youtube.com/embed/" + id;
             }
@@ -201,6 +253,49 @@ function BuzzController($stateParams, $state, FeedService, AuthService, $rootSco
             }
         }
     }
+
+    function displayLinkInput() {
+        vm.enteringLink = true;
+        vm.enteringPhoto = vm.enteringVideo = false;
+    }
+
+    function displayLinkPhoto() {
+        vm.enteringPhoto = true;
+        vm.enteringVideo = vm.enteringLink = false;
+    }
+
+    function displayLinkVideo() {
+        vm.enteringVideo = true;
+        vm.enteringPhoto = vm.enteringLink = false;
+    }
+
+    function selectTrialProduct(p) {
+        vm.selectedProduct = p.id;
+    }
+
+    // logic for a spinner after the save—should be moved to a directive 
+    var opts = {
+        lines: 8, // The number of lines to draw
+        length: 16, // The length of each line
+        width: 23, // The line thickness
+        radius: 42, // The radius of the inner circle
+        scale: 0.13, // Scales overall size of the spinner
+        corners: 1, // Corner roundness (0..1)
+        color: 'white', // #rgb or #rrggbb or array of colors
+        opacity: 0.25, // Opacity of the lines
+        rotate: 0, // The rotation offset
+        direction: -1, // 1: clockwise, -1: counterclockwise
+        speed: 0.8, // Rounds per second
+        trail: 60, // Afterglow percentage
+        fps: 20, // Frames per second when using setTimeout() as a fallback for CSS
+        zIndex: 2e9, // The z-index (defaults to 2000000000)
+        className: 'spinner', // The CSS class to assign to the spinner
+        top: '50%', // Top position relative to parent
+        left: '50%', // Left position relative to parent
+        shadow: false,// Whether to render a shadow
+        hwaccel: false, // Whether to use hardware acceleration
+        position: 'absolute' // Element positioning
+    };
 }
 
 })();

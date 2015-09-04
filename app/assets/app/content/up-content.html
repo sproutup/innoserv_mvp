@@ -15,7 +15,6 @@
                 <a ui-sref="user.product.detail.about({ slug: vm.content.product.slug })">
                     <button class="trial-product selected-trial-product up-content-product"><i class="fa fa-tag product-post-tag"></i>{{ vm.content.product.name }}</button>
                 </a>
-                <div>{{ vm.content.content.htmlBody }}</div>
                 <p class="my-content-text" ng-bind-html="vm.content.body"></p>
 
                 <div class="my-content-video embedded" ng-if="vm.content.content.youtube" ng-hide="vm.content.content.tweet">

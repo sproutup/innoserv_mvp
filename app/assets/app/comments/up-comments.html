@@ -10,8 +10,7 @@
             </p>
             <!-- <p class="my-content-user comment">{{ comment.user.name }}<span>@{{ comment.user.handleTwitter }}</span></p> -->
             <p class="my-content-timestamp comment">{{ comment.createdAt | fromNow }}</p>
-            <p class="my-content-text comment" ng-hide="comment.htmlBody">{{ comment.body }}</p>
-            <p class="my-content-text comment" ng-show="comment.htmlBody" ng-bind-html="comment.htmlBody"></p>
+            <p class="my-content-text comment" ng-bind-html="comment.body"></p>
             <div class="my-content-actions">
                 <up-like likes="comment.likes" up-id="comment.id" up-type="models.comment"></up-like>
             </div>

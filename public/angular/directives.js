@@ -1611,7 +1611,6 @@ angular.module('sproutupApp').directive('upProductItem', [
 
                 scope.getActiveRequests = function(product) {
                     if (typeof product.trials !== 'undefined') {
-                        console.log(product.trials);
                         return product.trials.filter(function (element) {
                             return element.status >= 0;
                         });
