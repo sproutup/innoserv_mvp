@@ -194,7 +194,7 @@ function BuzzController($stateParams, $state, FeedService, AuthService, $rootSco
             } else {
                 displayedUrl = url;
             }
-            return '<a href="' + url + '">' + displayedUrl + '</a>';
+            return '<a href="' + url + '" target="blank">' + displayedUrl + '</a>';
         });
     }
 
