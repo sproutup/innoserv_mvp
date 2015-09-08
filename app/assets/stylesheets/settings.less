@@ -208,8 +208,32 @@ a.list-group-item:hover {
 .my-content-item--summary {
     margin: 0px;
     padding: 15px 30px;
-    background-color: white;
+    background-color: @sproutup-superlightgrey;
     border: 1px solid @sproutup-lightgrey;
+}
+
+.my-content-headsup {
+    margin: 15px 0px 20px;
+    background-color: @sproutup-lightergrey;
+    text-align: center;
+}
+
+.my-content-headsup-text {
+    font-weight: 400;
+    font-size: 11pt;
+    line-height: 1.6;
+    color: @main-text-1;
+    margin: 0px;
+    padding: 15px 25px;
+}
+
+.my-content-headsup-text a {
+    color: @sproutup-blue;
+    text-decoration: none !important;
+}
+
+.my-content-headsup-text a:hover {
+    color: @sproutup-blue-hover;
 }
 
 @media (max-width:767px){
@@ -288,7 +312,8 @@ a.list-group-item:hover {
 }
 
 .my-content-actions {
-
+    border-top: 1px dashed @sproutup-grey;
+    padding-top: 10px;
 }
 
 .my-content-actions a {
@@ -375,12 +400,21 @@ a.list-group-item:hover {
 .my-content-text {
     font-size: 11.5pt;
     font-weight: 400;
-    color: @main-text-3;
+    color: @main-text;
     line-height: 1.6;
     padding: 0px;
     margin: 0px;
     white-space: pre-wrap;
     padding-bottom: 10px;
+}
+
+.my-content-text a {
+    color: @sproutup-blue;
+    text-decoration: none !important;
+}
+
+.my-content-text a:hover {
+    color: @sproutup-blue-hover;
 }
 
 .my-content-og-text {
@@ -730,6 +764,10 @@ a.list-group-item:hover {
     font-size: 11pt;
 }
 
+.my-content-info-header p a {
+    color: white;
+}
+
 .my-content-info-body {
     color: @main-text;
     margin: 0px;
@@ -741,6 +779,7 @@ a.list-group-item:hover {
     font-weight: 700;
     font-size: 11.5pt;
     color: @sproutup-blue-muted;
+    line-height: 17pt;
 }
 
 .my-content-info-body h3 i {
@@ -752,4 +791,86 @@ a.list-group-item:hover {
     font-weight: 400;
     font-size: 11pt;
     line-height: 1.5;
+}
+
+@media (max-width:767px) {
+    .comment-user-avatar {
+        padding: 0px;
+        float: left;
+    }
+
+    .post-user-avatar {
+        position: absolute;
+        top: 0px;
+        z-index: 2;
+        padding-left: 27px;
+        border: none;
+    }
+
+    .my-content-timestamp, .my-content-user {
+        padding-left: 70px;
+    }
+
+    .my-comment-timestamp, .my-comment-user {
+        padding-left: 57px;
+    }
+
+    .my-content-user-img {
+        border: none;
+        width: 50px;
+    }
+
+    .my-content-user span, .my-comment-user span {
+        display: none;
+    }
+
+    .up-content-product {
+        display: block;
+        margin: 18px 0px;
+        float: none;
+        position: inherit;
+    }
+
+    .my-content-comment-row {
+        padding: 15px 25px;
+    }
+
+    .my-content-text.comment {
+        padding-top: 10px;
+    }
+
+    .post-comment-user-img-circle {
+        width: 40px;
+        position: relative;
+        top: 1px;
+    }
+
+    .my-content-item--summary {
+        padding: 17px 25px;
+    }
+
+    .my-content-comment-blurb {
+        padding: 0px;
+    }
+
+    .post-content-user {
+        display: none;
+    }
+
+    .my-content-page {
+        margin: 60px auto 30px;
+    }
+
+    .new-comment-avatar {
+        display: none;
+    }
+
+    .my-content-left-rail {
+        border-right: none;
+    }
+
+    .my-content-right-rail {
+        display: none;
+    }
+
 }

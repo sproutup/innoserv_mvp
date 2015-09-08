@@ -80,6 +80,24 @@ public class ProductAdministrationController extends Controller {
 	                .getPage(page);
 		return ok(product_trial_list.render(products));
 	}
+	
+	/**
+	 * Products that have been requested by All Users
+	 * @param page
+	 * @return
+	 */
+	public static Result listAllUserTrials(int page) {
+		if(!admin_enabled){return notFound();};
+		Page<Product> products = Product.find.fetch("trials", new FetchConfig().query())
+	            	.fetch("trials.user", new FetchConfig().query())
+	            	.where()
+	            	.isNotNull("trials.id")
+                	.orderBy("productName asc, trials.id asc")
+	                .findPagingList(2000)
+	                .setFetchAhead(false)
+	                .getPage(page);
+		return ok(product_trial_list_all.render(products));
+	}
   
   //@SecureSocial.SecuredAction
   public static Result newProduct() {

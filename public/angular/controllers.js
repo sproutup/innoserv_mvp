@@ -608,7 +608,7 @@ productControllers.controller('productDetailCtrl', ['$scope', '$rootScope', '$st
     $log.debug("entered product details ctrl. slug=" + $stateParams.slug);
 
     var slug = $stateParams.slug;
-    $scope.init = false;
+    $scope.initVar = false;
     $scope.isLoggedIn = false;
     $scope.activeSprout = false;
     $scope.hasTrial = false;
@@ -650,7 +650,7 @@ productControllers.controller('productDetailCtrl', ['$scope', '$rootScope', '$st
             $scope.hasCurrentTrial = false;
             if(authService.m.user.trials !== undefined){
                 var item = authService.m.user.trials.filter(function(element){
-                    return element.product.slug == slug && element.status >= 0;
+                    return element.slug == slug && element.status >= 0;
                 })
                 console.log("filter result: ", item);
                 if(item.length > 0){
@@ -689,7 +689,7 @@ productControllers.controller('productDetailCtrl', ['$scope', '$rootScope', '$st
                     $scope.trialReason = productTrials[0].reason;
                     $scope.avatarUrl = productTrials[0].user.avatarUrl;
                 }
-                $scope.init = true;
+                $scope.initVar = true;
             },
             function(error) {
                 // error handler
@@ -741,7 +741,7 @@ productControllers.controller('productDetailCtrl', ['$scope', '$rootScope', '$st
 		        // this callback will be called asynchronously
 		        // when the response is available
 				$scope.activeSprout = data.active;
-				$scope.init = true;
+				$scope.initVar = true;
 		    })
         },
         function(error) {

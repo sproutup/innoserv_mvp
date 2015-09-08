@@ -4,11 +4,10 @@
 
  <h2><a href="/adminstuff" target="_self">Admin Home</a></h2>
 
-  <h2>All products that are requested by Influencers for Trials
+  <h2>All products that are requested by All Users for Trials
  
   </h2>
-
-    <script>
+ <script>
 
      function updateTrialStatus(id){
     	 //alert(id);
@@ -20,30 +19,32 @@
      }
    </script>
 
+
    <table cellspacing="0" cellpadding="0" class="table table-striped">
     <thead>
       <tr>
         <th width="3%">Product Id</th>
         <th width="10%">Name</th>
         <th width="3%">Trial id</th>
-        <th width="11%">Request Date</th>
+        <th width="8%">Request Date</th>
         <th width="3%">User id</th>
-        <th width="10%">Request made by</th>
+        <th width="10%">Requested by</th>
+        <th width="7%">isInfluencer</th>
         <th width="10%">User Email/Twitter handle</th>
-        <th width="30%" style="text-align:center">Address</th>
+        <th width="25%" style="text-align:center">Address</th>
         <th width="10%">Status</th>
         <th width="5%"># requests</th>
         <th width="5%"># units avail</th>
       </tr>
     </thead>
     <tbody>
-        @helper.form(action = routes.ReportAdminController.updateTrialStatus()) {
+    @helper.form(action = routes.ReportAdminController.updateTrialStatus()) {
 
 	    <input type="hidden" name="requestId"/>
 		<input type="hidden" name="statusVal"/>
-		<input type="hidden" name="page" value="producttrialinfluencer"/>
+		<input type="hidden" name="page" value="producttrialAll"/>
 		<input type="hidden" name="pageNum" value="@currentPage.getPageIndex"/>
-    
+		
     @for(product <- currentPage.getList()) {
 
       <tr>
@@ -55,18 +56,17 @@
         <table class="table table-striped" cellspacing="0" cellpadding="0" width="100%">
          @(activeCount = 0)
          @for(t <- product.trials) {
-         	@if(t.user.isInfluencer){
-				@if(t.status==0 ||t.status==1 || t.status==2 || t.status==3 || t.status==4){
-				@(activeCount=activeCount+1)
+         		@(activeCount=activeCount+1)
 				
 				<tr>	
 				<td width="4%"> @t.id</td>
 				<td width="14.7%"> @t.createdAt</td>
 				<td width="4%"> @t.user.id</td>
 				<td width="13.3%"> @t.user.name</td>
+				<td width="8%"> @t.user.isInfluencer</td>
 				<td width="13.3%"> @t.user.email/<br>@t.user.urlTwitter</td>
-				<td width="40%"> @t.address</td>
-				<td width="13.3%"> <select id="status[@t.id]" onChange="updateTrialStatus(@t.id)">
+				<td width="32%"> @t.address</td>
+				<td width="13.3%">  <select id="status[@t.id]" onChange="updateTrialStatus(@t.id)">
 					  <option value="0" @if(t.status.toString=="0"){ selected="selected" }>Requested</option>
 					  <option value="1" @if(t.status.toString=="1"){ selected="selected" }>Approved</option>
 					  <option value="2" @if(t.status.toString=="2"){ selected="selected" }>Sent</option>
@@ -77,10 +77,7 @@
 				</select>
 			</td>
 				</tr>
-				
 			
-				}
-			}
 		}
 		</table>
 		</td>
@@ -96,7 +93,7 @@
             <ul>
                 @if(currentPage.hasPrev) {
                     <li class="prev">
-                        <a href="@routes.ProductAdministrationController.listInfluencerTrials(currentPage.getPageIndex - 1)" target="_self">&larr; </a>
+                        <a href="@routes.ProductAdministrationController.listAllUserTrials(currentPage.getPageIndex - 1)" target="_self">&larr; </a>
                     </li>
                 } else {
                     <li class="prev disabled">
@@ -108,7 +105,7 @@
                 </li>
                 @if(currentPage.hasNext) {
                     <li class="next">
-                        <a href="@routes.ProductAdministrationController.listInfluencerTrials(currentPage.getPageIndex + 1)" target="_self"> &rarr;</a>
+                        <a href="@routes.ProductAdministrationController.listAllUserTrials(currentPage.getPageIndex + 1)" target="_self"> &rarr;</a>
                     </li>
                 } else {
                     <li class="next disabled">

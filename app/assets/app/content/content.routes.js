@@ -8,7 +8,7 @@ function config($stateProvider) {
         .state('user.content' ,{
             url: '/content',
             templateUrl: 'assets/app/content/content.html',
-            controller: 'ContentController',
+            controller: 'BuzzController',
             controllerAs: 'vm',
             data: {
                 title: 'Content - SproutUp'

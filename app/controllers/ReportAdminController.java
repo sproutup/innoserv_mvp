@@ -116,6 +116,9 @@ public class ReportAdminController extends Controller {
 	    String requestId = map.get("requestId")[0];
 	    String status = map.get("statusVal")[0];
 	    String page = map.get("page")[0];
+	    String pageNum = map.get("pageNum")[0];
+	    if (pageNum==null)
+	    	pageNum = "0";
 
 	    Trial trial = Trial.find.byId(Long.valueOf(requestId));
 	    if (trial!=null && status!=null && !status.equals("")){
@@ -126,7 +129,12 @@ public class ReportAdminController extends Controller {
 	    
 	    if (page!=null && page.equals("influencer")){
 	    	return redirect(routes.ReportAdminController.influencerTrialList(0));
-	    } else {
+	    } else if (page!=null && page.equals("producttrialinfluencer")) {
+	    	return redirect(routes.ProductAdministrationController.listInfluencerTrials(Integer.valueOf(pageNum)));
+	    } else if (page!=null && page.equals("producttrialAll")) {
+	    	return redirect(routes.ProductAdministrationController.listAllUserTrials(Integer.valueOf(pageNum)));
+	    }
+	    else {
 	    	return redirect(routes.ReportAdminController.allTrialList(0));
 	    }
 
@@ -144,6 +152,31 @@ public class ReportAdminController extends Controller {
 	    return ok(content_list.render(urls));
   }
 
+  
+  /**
+   * Update Content OG
+   * @return
+   */
+  public static Result updateContentOG(){
+	    if(!admin_enabled){return notFound();};
+	    // get hidden objects from submitted form
+	    Map<String, String[]> map = request().body().asFormUrlEncoded();
+	    String contentId = map.get("contentId")[0];
+	    String page = map.get("page")[0];
+
+	    Content con = Content.find.byId(Long.valueOf(contentId));
+	    if (con!=null){
+	        //update content
+	        con.update();
+	    }
+	    
+	    if (page!=null){
+	    	return redirect(routes.ReportAdminController.contentList(Integer.valueOf(page)));
+	    } else {
+	    	return redirect(routes.ReportAdminController.contentList(0));
+	    }
+  }
+  
   /**
    * @deprecated
    * @param page

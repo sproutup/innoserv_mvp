@@ -755,7 +755,7 @@ input[type=checkbox] {
 .up-content-product {
     float: right;
     position: absolute;
-    right: 6px;
+    right: 20px;
     top: 12px;
 }
 
@@ -775,6 +775,8 @@ input[type=checkbox] {
 
 .content-post-button {
     margin-top: 5px;
+    position: relative;
+    width: 53px !important;
 }
 
 .comment-post-button {
@@ -800,4 +802,53 @@ input[type=checkbox] {
 .post-body {
     margin-bottom: 20px;
     font-size: 12pt;
+}
+
+.tweetWrapper {
+    border: 1px solid #bfbfbf;
+    border-radius: 4px;
+    padding: 18px;
+    color: #414141;
+    margin-bottom: 22px;
+    overflow: hidden;
+}
+
+.tweetTextWithPicture {
+    position: relative;
+    bottom: 4px;
+}
+
+.tweetWrapper:hover {
+    border: 1px solid @twitter-blue;
+}
+
+.tweetName {
+    padding-right: 10px;
+    font-weight: 700;
+}
+
+.tweetUsername {
+    color: #929292;
+}
+
+.tweetBody {
+    padding-top: 4px;
+    padding-bottom: 2px;
+    display: table;
+}
+
+.tweet--quote-block {
+    border-left: solid 5px @sproutup-lightgrey;
+    margin-left: 20px;
+    margin-top: 20px;
+    padding: 0px 15px;
+}
+
+.tweet--picture {
+    //max-height: 90px;
+    //max-width: 90px;
+    width: 100%;
+    margin-top: 10px;
+    //float: left;
+    margin-right: 15px;
 }

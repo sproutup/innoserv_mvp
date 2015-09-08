@@ -148,31 +148,36 @@ public class Likes extends TimeStampModel {
 		return likes;
 	}
 
-	public static ObjectNode range(String refId, String refType){
+    public static ObjectNode range(String refId, String refType){
+		Jedis j = play.Play.application().plugin(RedisPlugin.class).jedisPool().getResource();
+		try {
+			return range(refId, refType, j);
+		} finally {
+			play.Play.application().plugin(RedisPlugin.class).jedisPool().returnResource(j);
+		}
+	}
+
+	public static ObjectNode range(String refId, String refType, Jedis j){
 		ObjectNode items = Json.newObject();
 		ArrayNode data = items.putArray("data");
 
 		//Go to Redis to read the full roster of content.
-		Jedis j = play.Play.application().plugin(RedisPlugin.class).jedisPool().getResource();
-		try {
-			String key = "likes:"+ refType + ":" + refId;
+		String key = "likes:"+ refType + ":" + refId;
 
-			if(!j.exists(key)) {
-				Logger.debug("adding likes to cache: " + key);
-				for(Likes like: getAllLikes(Long.parseLong(refId, 10), refType)){
-					like.zadd(refId, refType);
-				}
+		if(!j.exists(key+":init")) {
+			Logger.debug("adding likes to cache: " + key);
+			for(Likes like: getAllLikes(Long.parseLong(refId, 10), refType)){
+				like.zadd(refId, refType);
 			}
+			j.set(key + ":init", "1");
+		}
 
-			Set<String> set = j.zrange(key, 0, -1);
-			items.put("count", j.zcard(key));
+		Set<String> set = j.zrange(key, 0, -1);
+		items.put("count", j.zcard(key));
 
-			for(String id: set) {
-				// get the data for each like
-				data.add(Likes.hmget(id));
-			}
-		} finally {
-			play.Play.application().plugin(RedisPlugin.class).jedisPool().returnResource(j);
+		for(String id: set) {
+			// get the data for each like
+			data.add(Likes.hmget(id));
 		}
 
 		return items;

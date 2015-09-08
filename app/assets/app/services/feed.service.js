@@ -16,6 +16,6 @@ function FeedService($resource){
 	}
 
 	function buzzProduct() {
-        return $resource('/api/buzz/product/:id/:start', {id:'@id', start:'@start'}, {update:{method:'PUT'}} );
+        return $resource('/api/buzz/product/:slug/:start', {slug:'@slug', start:'@start'}, {update:{method:'PUT'}} );
 	}
 }

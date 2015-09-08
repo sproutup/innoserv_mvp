@@ -108,7 +108,7 @@ GET           /api/feed/:start                                               con
 
 GET           /api/buzz                                                      controllers.BuzzController.getAll
 GET           /api/buzz/:start                                               controllers.BuzzController.getRange(start: Int)
-GET           /api/buzz/product/:id/:start                                   controllers.BuzzController.getProductRange(id: Long, start: Int)
+GET           /api/buzz/product/:slug/:start                                 controllers.BuzzController.getProductRange(slug: String, start: Int)
 
 GET           /api/company                                                  controllers.CompanyController.query
 #GET           /api/company/:id                                              controllers.CompanyController.getCompany(id: Long)
@@ -175,6 +175,7 @@ GET           /adminstuff/product                                            con
 GET           /adminstuff/product/list                                       controllers.ProductAdministrationController.list(page: Integer ?= 0)
 GET           /adminstuff/product/listTrials                                 controllers.ProductAdministrationController.listTrials(page: Integer ?= 0)
 GET           /adminstuff/product/listInfluencerTrials                       controllers.ProductAdministrationController.listInfluencerTrials(page: Integer ?= 0)
+GET           /adminstuff/product/listAllUserTrials                       	 controllers.ProductAdministrationController.listAllUserTrials(page: Integer ?= 0)
 POST          /adminstuff/product/list                                       controllers.ProductAdministrationController.save()
 GET           /adminstuff/product/new                                        controllers.ProductAdministrationController.newProduct()
 GET           /adminstuff/product/:slug                                      controllers.ProductAdministrationController.details(slug: models.Product)
@@ -186,8 +187,9 @@ GET           /adminstuff/company/uploadmedia/:companyslug/:mediaType        con
 POST          /adminstuff/company/domediaupload                              controllers.MediaManagement.doCompanyMediaUpload()
 GET           /adminstuff/uploadmedia                                        controllers.MediaManagement.upload()
 POST          /adminstuff/doupload                                           controllers.MediaManagement.doUpload()
-GET           /adminstuff/socialmediapost                                    controllers.SocialMediaPostAdminController.newPost()
-POST          /adminstuff/dosocialmediapost                                  controllers.SocialMediaPostAdminController.save()
+GET           /adminstuff/buzzpost                                    		 controllers.SocialMediaPostAdminController.newPost()
+POST          /adminstuff/dosocialmediapost                                  controllers.SocialMediaPostAdminController.saveSocialMediaPost()
+POST          /adminstuff/dobuzzpost                                  		 controllers.SocialMediaPostAdminController.addPost()
 
 GET           /adminstuff/user                                            	 controllers.ReportAdminController.index()
 GET           /adminstuff/user/list                                       	 controllers.ReportAdminController.userList(page: Integer ?= 0)
@@ -205,6 +207,7 @@ GET           /adminstuff/campaign/new                                       con
 POST          /adminstuff/campaign/save                                  	 controllers.CampaignController.save()
 GET           /adminstuff/campaign/:id                                       controllers.CampaignController.details(id: Long)
 GET           /adminstuff/content/list                                   	 controllers.ReportAdminController.contentList(page: Integer ?= 0)
+POST          /adminstuff/content/updateContentOG                      		 controllers.ReportAdminController.updateContentOG()
 GET           /adminstuff/user/updateKloutScore/:id                          controllers.ReportAdminController.updateKloutScore(id: Long)
 GET           /adminstuff/user/addKloutScores                                controllers.ReportAdminController.addKloutScores()
 GET           /adminstuff/user/updateAllKloutScores                          controllers.ReportAdminController.updateAllKloutScores()

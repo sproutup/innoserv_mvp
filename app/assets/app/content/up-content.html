@@ -1,7 +1,7 @@
 <!-- content blurb -->
 <div class="col-sm-12 my-content-item">
     <!-- user photo -->
-    <div class="col-sm-2 my-content-user-avatar">
+    <div class="col-sm-2 my-content-user-avatar post-user-avatar">
         <img class="img-responsive my-content-user-img img-center" ng-src="{{ vm.content.user.avatarUrl }}">
     </div>
     <!-- content thumbnail -->
@@ -15,17 +15,31 @@
                 <a ui-sref="user.product.detail.about({ slug: vm.content.product.slug })">
                     <button class="trial-product selected-trial-product up-content-product"><i class="fa fa-tag product-post-tag"></i>{{ vm.content.product.name }}</button>
                 </a>
-                <p class="my-content-text">{{ vm.content.body }}</p>
-                <a href="{{ vm.content.content.url }}" target="blank">
-                    <img class="my-content-image img-responsive" src="{{vm.content.content.image}}">
+                <p class="my-content-text" ng-bind-html="vm.content.body"></p>
+
+                <div class="my-content-video embedded" ng-if="vm.content.content.youtube" ng-hide="vm.content.content.tweet">
+                    <iframe width="560" height="315" ng-src="{{ vm.content.content.youtube }}" frameborder="0" allowfullscreen></iframe>
+                </div>
+                <a analytics-on="click" analytics-event="Click on post: {{vm.content.id}}" href="{{ vm.content.content.url }}" target="blank" ng-hide="vm.content.content.tweet">
+                    <img class="my-content-image img-responsive" src="{{vm.content.content.image}}" ng-hide="vm.content.content.youtube">
                     <p class="my-content-og-headline" ng-show="vm.content.content.title">{{ vm.content.content.title }}</p>
                     <p class="my-content-og-text" ng-show="vm.content.content.description">{{ vm.content.content.description }}</p>
+                </a>
+                <a ng-href="{{ vm.content.content.url }}" ng-if="vm.content.content.tweet" target="blank">
+                    <div class="tweetWrapper" ng-href="vm.content.content.url" ng-class="{ 'tweetWithPicture': vm.content.content.tweet.picture }">
+                        <div class="tweetTextWrapper" ng-class="{ 'tweetWithPicture': vm.content.content.tweet.picture }">
+                            <span class="tweetName">{{ vm.content.content.tweet.twitterName }}</span>
+                            <span class="tweetUsername">@{{ vm.content.content.tweet.twitterUsername }}</span>
+                            <div class="tweetBody">{{ vm.content.content.tweet.tweetBody }}</div>
+                        </div>
+                        <img ng-src="{{ vm.content.content.tweet.picture }}" ng-if="vm.content.content.tweet.picture" class="tweet--picture"/>
+                    </div>
                 </a>
             </div>
             <div class="my-content-actions">
                 <up-like likes="vm.content.likes" up-id="vm.content.id" up-type="models.post"></up-like>
                 <a href="#" subject-present="vm.commentToggle()" state="user.content">COMMENT ({{ vm.content.comments.data.length }})</a>
-<!--                 <a href="#">SHARE</a> -->
+<!--                 <a ng-href="{{ vm.tweetContentLink }}">SHARE</a> -->
             </div>
         </div>
         <up-comments commenting="vm.content.commenting" comments="vm.content.comments" up-id="vm.content.id" up-type="models.post"></up-comments>

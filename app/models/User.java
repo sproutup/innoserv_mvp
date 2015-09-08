@@ -454,10 +454,12 @@ public class User extends TimeStampModel implements Subject {
 			// Create the hashmap values
 			map.put("id", this.id.toString());
 			map.put("name", this.name);
-			map.put("nickname", this.nickname);
-			map.put("avatarUrl", getAvatar());
-			map.put("urlTwitter", this.urlTwitter);
-			map.put("handleTwitter", this.urlTwitter.substring(urlTwitter.lastIndexOf("/")+1));
+			if(this.nickname!=null) map.put("nickname", this.nickname);
+			if(this.getAvatar()!=null) map.put("avatarUrl", getAvatar());
+			if(this.urlTwitter!=null) {
+				map.put("urlTwitter", this.urlTwitter);
+				map.put("handleTwitter", this.urlTwitter.substring(urlTwitter.lastIndexOf("/") + 1));
+			}
 
 			// add the values
 			j.hmset(key, map);
@@ -469,6 +471,14 @@ public class User extends TimeStampModel implements Subject {
 
 	public static ObjectNode hmget(String id){
 		Jedis j = play.Play.application().plugin(RedisPlugin.class).jedisPool().getResource();
+		try {
+			return hmget(id, j);
+		} finally {
+			play.Play.application().plugin(RedisPlugin.class).jedisPool().returnResource(j);
+		}
+	}
+
+	public static ObjectNode hmget(String id, Jedis j){
 		ObjectNode node = Json.newObject();
 		try {
 			String key = "user:" + id;
@@ -488,7 +498,6 @@ public class User extends TimeStampModel implements Subject {
 			if (values.get(4) != null) node.put("urlTwitter", values.get(4));
 			if (values.get(5) != null) node.put("handleTwitter", values.get(5));
 		} finally {
-			play.Play.application().plugin(RedisPlugin.class).jedisPool().returnResource(j);
 		}
 		return node;
 	}

@@ -5,6 +5,15 @@
 
   <h2>Content URLs posted on Product Trials
   </h2>
+  
+     <script>
+     function updateContentOG(id){
+    	 //alert(id);
+    	 document.forms[0].elements['contentId'].value = id;
+    	 document.forms[0].elements['page'].value = @currentPage.getPageIndex;
+    	 document.forms[0].submit();
+     }
+   </script>
 
 
 <div class="table-responsive">
@@ -18,23 +27,44 @@
         <th>Trial Id</th>
         <th>Date added</th>
         <th>Date updated</th>
+        <th>Open Graph Id</th>
+        <th>Update OG</th>
       </tr>
     </thead>
     <tbody>
+    
+     @helper.form(action = routes.ReportAdminController.updateContentOG()) {
+
+    <input type="hidden" name="contentId"/>
+	<input type="hidden" name="page"/>
+    
     @for(con <- currentPage.getList()) {
 
       <tr>
-
         <td>@con.id</td>
         <td>@con.user.name</td>
+        @if(con.product !=null){
         <td>@con.product.productName</td>
+        }else {
+        <td>N/A</td>
+        }
         <td>@con.url</td>
+        @if(con.trial !=null){
         <td>@con.trial.id</td>
+        }else {
+        <td>N/A</td>
+        }
         <td>@con.createdAt</td>
         <td>@con.updatedAt</td>
+         @if(con.openGraph !=null){
+        	<td>@con.openGraph.id</td>
+        }else {
+        	<td>N/A</td>
+        }
+        <td><a href="javascript:updateContentOG(@con.id)">Update OG</a></td>
       </tr>
       }
-
+	}
     </tbody>
    </table>
 </div>

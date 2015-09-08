@@ -397,7 +397,7 @@ public class Product extends SuperModel implements PathBindable<Product>,
             node.put("tags", Tag.toJson(tags));
         }
 		if (this.trials!=null && this.trials.size()>0){
-			node.put("trials", Trial.toJson(trials));
+			node.put("trials", Trial.toJsonShort(trials));
 		}
 
 		if(this.productAdditionalDetail!=null) {
@@ -430,7 +430,20 @@ public class Product extends SuperModel implements PathBindable<Product>,
     public static ArrayNode toJson(List<Product> products){
         ArrayNode arrayNode = new ArrayNode(JsonNodeFactory.instance);
         for (Product product : products){
-            arrayNode.add(product.toJson());
+			ObjectNode prod = product.toJson();
+			prod.remove("story");
+			prod.remove("mission");
+			prod.remove("description");
+			prod.remove("urlHome");
+			prod.remove("urlFacebook");
+			prod.remove("urlTwitter");
+//			prod.remove("banner");
+			prod.remove("isAvailableToBuy");
+			prod.remove("isFeatured");
+			prod.remove("isTrialFullHouse");
+			prod.remove("urlAppDownload");
+			prod.remove("urlBuy");
+			arrayNode.add(prod);
         }
         return arrayNode;
     }
@@ -516,6 +529,14 @@ public class Product extends SuperModel implements PathBindable<Product>,
 
 	public static ObjectNode hmget(String id){
 		Jedis j = play.Play.application().plugin(RedisPlugin.class).jedisPool().getResource();
+		try {
+			return hmget(id, j);
+		} finally {
+			play.Play.application().plugin(RedisPlugin.class).jedisPool().returnResource(j);
+		}
+	}
+
+	public static ObjectNode hmget(String id, Jedis j){
 		ObjectNode node = Json.newObject();
 		try {
 			String key = "prod:" + id.toString();
@@ -557,7 +578,6 @@ public class Product extends SuperModel implements PathBindable<Product>,
 			}
 			if (values.get(10) != null) node.put("isAvailableForTrial", Boolean.valueOf(values.get(10)));
 		} finally {
-			play.Play.application().plugin(RedisPlugin.class).jedisPool().returnResource(j);
 		}
 		return node;
 	}
