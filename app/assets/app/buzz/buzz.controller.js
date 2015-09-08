@@ -188,8 +188,8 @@ function BuzzController($stateParams, $state, FeedService, AuthService, $rootSco
         var urlRegex = /(https?:\/\/[^\s]+)/g;
         return text.replace(urlRegex, function(url) {
             var displayedUrl;
-            if (url.length > 50) {
-                displayedUrl = url.substring(0, 50);
+            if (url.length > 40) {
+                displayedUrl = url.substring(0, 40);
                 displayedUrl += '...';
             } else {
                 displayedUrl = url;
