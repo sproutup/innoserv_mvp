@@ -71,7 +71,6 @@ function BuzzController($stateParams, $state, FeedService, AuthService, $rootSco
                 vm.init = true;
             });
         } else if ($stateParams.id) {
-            vm.content = {};
             vm.content = FeedService.buzzSingle().get({
                 id: $stateParams.id
             }, function() {
