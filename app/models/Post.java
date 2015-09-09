@@ -330,7 +330,7 @@ public class Post extends SuperModel implements Taggable {
 			prod.remove("description");
 			prod.remove("urlHome");
 			prod.remove("urlFacebook");
-			prod.remove("urlTwitter");
+			// prod.remove("urlTwitter");
 			prod.remove("banner");
 			node.put("product", prod);
 		}
