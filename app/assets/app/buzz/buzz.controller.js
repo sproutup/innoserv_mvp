@@ -70,6 +70,12 @@ function BuzzController($stateParams, $state, FeedService, AuthService, $rootSco
                 position += 10;
                 vm.init = true;
             });
+        } else if ($stateParams.id) {
+            vm.content = FeedService.buzzSingle().get({
+                id: $stateParams.id
+            }, function() {
+                // vm.content.push(single);
+            });
         } else {
             vm.content = FeedService.buzzAll().query(function() {
                 for (var c = 0; c < vm.content.length; c++) {
