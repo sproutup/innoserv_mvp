@@ -1,7 +1,7 @@
 <!-- content blurb -->
 <div class="col-sm-12 my-content-item">
     <!-- user photo -->
-    <div class="col-sm-2 my-content-user-avatar">
+    <div class="col-sm-2 my-content-user-avatar post-user-avatar">
         <img class="img-responsive my-content-user-img img-center" ng-src="{{ vm.content.user.avatarUrl }}">
     </div>
     <!-- content thumbnail -->
@@ -15,7 +15,7 @@
                 <a ui-sref="user.product.detail.about({ slug: vm.content.product.slug })">
                     <button class="trial-product selected-trial-product up-content-product"><i class="fa fa-tag product-post-tag"></i>{{ vm.content.product.name }}</button>
                 </a>
-                <p class="my-content-text" ng-bind-html="vm.content.htmlBody"></p>
+                <p class="my-content-text" ng-bind-html="vm.content.body"></p>
 
                 <div class="my-content-video embedded" ng-if="vm.content.content.youtube" ng-hide="vm.content.content.tweet">
                     <iframe width="560" height="315" ng-src="{{ vm.content.content.youtube }}" frameborder="0" allowfullscreen></iframe>
@@ -39,7 +39,7 @@
             <div class="my-content-actions">
                 <up-like likes="vm.content.likes" up-id="vm.content.id" up-type="models.post"></up-like>
                 <a href="#" subject-present="vm.commentToggle()" state="user.content">COMMENT ({{ vm.content.comments.data.length }})</a>
-<!--                 <a href="#">SHARE</a> -->
+<!--                 <a ng-href="{{ vm.tweetContentLink }}">SHARE</a> -->
             </div>
         </div>
         <up-comments commenting="vm.content.commenting" comments="vm.content.comments" up-id="vm.content.id" up-type="models.post"></up-comments>

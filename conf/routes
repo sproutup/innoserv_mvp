@@ -175,6 +175,7 @@ GET           /adminstuff/product                                            con
 GET           /adminstuff/product/list                                       controllers.ProductAdministrationController.list(page: Integer ?= 0)
 GET           /adminstuff/product/listTrials                                 controllers.ProductAdministrationController.listTrials(page: Integer ?= 0)
 GET           /adminstuff/product/listInfluencerTrials                       controllers.ProductAdministrationController.listInfluencerTrials(page: Integer ?= 0)
+GET           /adminstuff/product/listAllUserTrials                       	 controllers.ProductAdministrationController.listAllUserTrials(page: Integer ?= 0)
 POST          /adminstuff/product/list                                       controllers.ProductAdministrationController.save()
 GET           /adminstuff/product/new                                        controllers.ProductAdministrationController.newProduct()
 GET           /adminstuff/product/:slug                                      controllers.ProductAdministrationController.details(slug: models.Product)

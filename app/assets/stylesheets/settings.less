@@ -779,6 +779,7 @@ a.list-group-item:hover {
     font-weight: 700;
     font-size: 11.5pt;
     color: @sproutup-blue-muted;
+    line-height: 17pt;
 }
 
 .my-content-info-body h3 i {
@@ -790,4 +791,86 @@ a.list-group-item:hover {
     font-weight: 400;
     font-size: 11pt;
     line-height: 1.5;
+}
+
+@media (max-width:767px) {
+    .comment-user-avatar {
+        padding: 0px;
+        float: left;
+    }
+
+    .post-user-avatar {
+        position: absolute;
+        top: 0px;
+        z-index: 2;
+        padding-left: 27px;
+        border: none;
+    }
+
+    .my-content-timestamp, .my-content-user {
+        padding-left: 70px;
+    }
+
+    .my-comment-timestamp, .my-comment-user {
+        padding-left: 57px;
+    }
+
+    .my-content-user-img {
+        border: none;
+        width: 50px;
+    }
+
+    .my-content-user span, .my-comment-user span {
+        display: none;
+    }
+
+    .up-content-product {
+        display: block;
+        margin: 18px 0px;
+        float: none;
+        position: inherit;
+    }
+
+    .my-content-comment-row {
+        padding: 15px 25px;
+    }
+
+    .my-content-text.comment {
+        padding-top: 10px;
+    }
+
+    .post-comment-user-img-circle {
+        width: 40px;
+        position: relative;
+        top: 1px;
+    }
+
+    .my-content-item--summary {
+        padding: 17px 25px;
+    }
+
+    .my-content-comment-blurb {
+        padding: 0px;
+    }
+
+    .post-content-user {
+        display: none;
+    }
+
+    .my-content-page {
+        margin: 60px auto 30px;
+    }
+
+    .new-comment-avatar {
+        display: none;
+    }
+
+    .my-content-left-rail {
+        border-right: none;
+    }
+
+    .my-content-right-rail {
+        display: none;
+    }
+
 }

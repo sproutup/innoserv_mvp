@@ -36,4 +36,8 @@ function UpContentController(AuthService, $rootScope, $scope) {
         }
     };
 
+    vm.tweetContentLink = 'https://twitter.com/intent/tweet' +
+                          '?text=Check out ' + vm.content.user.name + '\'s post on @sproutupco';
+                          // need to add unique url to this.
+
 }

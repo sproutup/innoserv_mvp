@@ -40,7 +40,10 @@ function upProductCardController() {
     }
 
     function getActiveRequests() {
+        console.log('hey');
         if (typeof vm.product.trials !== 'undefined') {
+
+            console.log(vm.product.trials);
             return vm.product.trials.filter(function (element) {
                 return element.status >= 0;
             });

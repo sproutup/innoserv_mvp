@@ -48,8 +48,9 @@ public class PostController extends Controller {
     @BodyParser.Of(BodyParser.Json.class)
     public static Result getPost(Long id)
     {
-        Post item = new Post().findById(id);
-        return item == null ? notFound("Post not found [" + id + "]") : ok(item.toJson());
+        return ok(Post.hmget(id.toString()));
+//        Post item = new Post().findById(id);
+//        return item == null ? notFound("Post not found [" + id + "]") : ok(item.toJson());
     }
 
     @BodyParser.Of(BodyParser.Json.class)
