@@ -22,9 +22,9 @@ function upContent() {
     }    
 }
 
-UpContentController.$inject = ['AuthService', '$rootScope', '$scope'];
+UpContentController.$inject = ['AuthService', '$scope'];
 
-function UpContentController(AuthService, $rootScope, $scope) {
+function UpContentController(AuthService, $scope) {
     var vm = this;
     vm.likes = vm.content.likes;
 
@@ -36,8 +36,10 @@ function UpContentController(AuthService, $rootScope, $scope) {
         }
     };
 
-    // vm.tweetContentLink = 'https://twitter.com/intent/tweet' +
-    //                       '?text=Check out ' + vm.content.user.name + '\'s post on @sproutupco';
-    //                       // need to add unique url to this.
+    if (vm.content.user) {
+        vm.content.tweetContentLink = 'https://twitter.com/intent/tweet' +
+                                      '?text=Check out @' + vm.content.user.handleTwitter +
+                                      '\'s post on @sproutupco—http://sproutup.co/buzz/' + vm.content.id;
+    }
 
 }

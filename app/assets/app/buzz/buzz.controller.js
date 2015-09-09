@@ -71,10 +71,13 @@ function BuzzController($stateParams, $state, FeedService, AuthService, $rootSco
                 vm.init = true;
             });
         } else if ($stateParams.id) {
+            vm.content = {};
             vm.content = FeedService.buzzSingle().get({
                 id: $stateParams.id
             }, function() {
-                // vm.content.push(single);
+                vm.content.tweetContentLink = 'https://twitter.com/intent/tweet' +
+                                              '?text=Check out @' + vm.content.user.handleTwitter +
+                                              '\'s post on @sproutupco—http://sproutup.co/buzz/' + vm.content.id;
             });
         } else {
             vm.content = FeedService.buzzAll().query(function() {
