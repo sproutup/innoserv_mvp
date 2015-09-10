@@ -9,7 +9,9 @@ function upLike() {
         scope: {
             likes: '=',
             id: '=upId',
-            type: '@upType'
+            type: '@upType',
+            state: "@",
+            params: "@"
         },
         link: linkFunc,
         controller: upLikeController,

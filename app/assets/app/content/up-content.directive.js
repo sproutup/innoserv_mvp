@@ -7,7 +7,9 @@ function upContent() {
         restrict: 'EA',
         templateUrl: 'assets/app/content/up-content.html',
         scope: {
-            content: "="
+            content: "=",
+            state: "@",
+            params: "="
         },
         link: linkFunc,
         controller: UpContentController,
