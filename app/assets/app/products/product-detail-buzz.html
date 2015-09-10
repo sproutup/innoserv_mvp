@@ -4,7 +4,7 @@
         <div class="col-sm-7 forum-left-rail">
             <div ng-show="vm.content.length > 0" class="product-detail-buzz-header left">Check out what product lovers are buzzing about {{product.name}}</div>
             <div ng-hide="vm.content.length > 0" class="product-detail-buzz-header-2">We are waiting for some awesome content from influencers to show up...</div>
-            <up-content ng-repeat="item in vm.content" content="item"></up-content>
+            <up-content ng-repeat="item in vm.content" content="item" state="user.product.detail.buzz" params="product.slug"></up-content>
         </div>
 
         <!-- right rail -->

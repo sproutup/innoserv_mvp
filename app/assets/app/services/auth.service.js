@@ -86,8 +86,12 @@ function authService($http, $q, $cookieStore, $log, userService, $timeout, $stat
             $cookieStore.remove("redirectParams");
             if (state_tmp === 'user.singleBuzz') {
                 $state.go(state_tmp, { id: params_tmp });
-            } else {
+            } else if (state_tmp === 'user.product.detail.buzz') {
+                $state.go(state_tmp, {slug: params_tmp});
+            } else if (state_tmp === 'user.buzz') {
                 $state.go(state_tmp);
+            } else {
+                $state.go(state_tmp, params_tmp);
             }
             
         }
