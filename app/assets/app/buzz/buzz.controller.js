@@ -74,12 +74,22 @@ function BuzzController($stateParams, $state, FeedService, AuthService, $rootSco
             vm.content = FeedService.buzzSingle().get({
                 id: $stateParams.id
             }, function() {
+                vm.content.body = urlify(vm.content.body);
+                if (vm.content.content) {
+                    displayYoutubeVideo(vm.content.content);
+                    displayTweet(vm.content.content);
+                }
+                if (vm.content.comments && vm.content.comments.data.length > 0) {
+                    for (var d = 0; d < vm.content.comments.data.length; d++) {
+                        vm.content.comments.data[d].body = urlify(vm.content.comments.data[d].body);
+                    }
+                }
                 // Get twitter handle of the product for twitter share
                 if (vm.content.product && vm.content.product.urlTwitter) {
                     var index = vm.content.product.urlTwitter.indexOf('twitter.com/');
                     vm.content.product.twitterHandle = vm.content.product.urlTwitter.substring((index + 12), vm.content.product.urlTwitter.length);
                 }
-                
+
                 // Set the twitter share info based on whether or not the user and product have twitter handles
                 if (vm.content.user && vm.content.user.handleTwitter && vm.content.product.urlTwitter) {
                     vm.content.tweetContentLink = 'https://twitter.com/intent/tweet' +
