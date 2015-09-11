@@ -12,7 +12,7 @@
             <p class="my-content-timestamp my-comment-timestamp comment">{{ comment.createdAt | fromNow }}</p>
             <p class="my-content-text comment" ng-bind-html="comment.body"></p>
             <div class="my-content-actions">
-                <up-like likes="comment.likes" up-id="comment.id" up-type="models.comment"></up-like>
+                <up-like likes="comment.likes" up-id="comment.id" up-type="models.comment" state="{{ vm.state }}" params="vm.params"></up-like>
             </div>
         </div>
     </div>

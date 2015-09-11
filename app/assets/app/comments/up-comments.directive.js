@@ -10,7 +10,9 @@ function upComments() {
             comments: '=',
             id: '=upId',
             type: '@upType',
-            commenting: '='
+            commenting: '=',
+            state: "@",
+            params: "="
         },
         link: linkFunc,
         controller: upCommentsController,

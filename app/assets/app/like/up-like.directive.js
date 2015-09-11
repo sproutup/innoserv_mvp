@@ -11,7 +11,7 @@ function upLike() {
             id: '=upId',
             type: '@upType',
             state: "@",
-            params: "@"
+            params: "="
         },
         link: linkFunc,
         controller: upLikeController,

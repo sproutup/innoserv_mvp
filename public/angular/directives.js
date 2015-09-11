@@ -1424,12 +1424,10 @@ angular.module('sproutupApp').directive('subjectPresent', ['$parse', 'AuthServic
             var onPresent = $parse(attrs.subjectPresent);
             var onLogin = $parse(attrs.login);
             var state = attrs.state;
-            var params = attrs.params;
 
             element.on('click', function () {
+                var params = scope.vm.params;
                 if(authService.m.isLoggedIn){
-                    console.log(attrs.subjectPresent);
-
                     // The event originated outside of angular,
                     // We need to call $apply
                     scope.$apply(function () {

@@ -16,7 +16,7 @@ function config($stateProvider) {
         })
         .state('user.singleBuzz' ,{
             url: '/buzz/:id',
-            templateUrl: 'assets/app/buzz/singleBuzz.html',
+            templateUrl: 'assets/app/buzz/single-buzz.html',
             controller: 'BuzzController',
             controllerAs: 'vm',
             data: {

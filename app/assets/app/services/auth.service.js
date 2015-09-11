@@ -71,29 +71,21 @@ function authService($http, $q, $cookieStore, $log, userService, $timeout, $stat
      *  If no redirect state exists then redirect to state in param
      */
     function redirect(state){
-        console.log(state);
         model.redirectState = $cookieStore.get("redirectState");
         model.redirectParams = $cookieStore.get("redirectParams");
         if(model.redirectState === undefined){
             $state.go(state);
-        } else {
-            console.log("redirect state from cookie:", model.redirectState);
+        }
+        else{
+            // console.log("redirect state from cookie:", model.redirectState);
+            // console.log("model.redirectParams:" ,model.redirectParams);
             var state_tmp = model.redirectState;
             var params_tmp = model.redirectParams;
             model.redirectState = null;
             model.redirectParams = null;
             $cookieStore.remove("redirectState");
             $cookieStore.remove("redirectParams");
-            if (state_tmp === 'user.singleBuzz') {
-                $state.go(state_tmp, { id: params_tmp });
-            } else if (state_tmp === 'user.product.detail.buzz') {
-                $state.go(state_tmp, {slug: params_tmp});
-            } else if (state_tmp === 'user.buzz') {
-                $state.go(state_tmp);
-            } else {
-                $state.go(state_tmp, params_tmp);
-            }
-            
+            $state.go(state_tmp, params_tmp);
         }
     }
 
