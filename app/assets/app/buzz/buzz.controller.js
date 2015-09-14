@@ -245,6 +245,8 @@ function BuzzController($stateParams, $state, FeedService, AuthService, $rootSco
     var timeRegexp = /t=(\d+)[ms]?(\d+)?s?/;
 
     function displayYoutubeVideo(content) {
+        if (typeof content.url == 'undefined') return;
+
         var match = content.url.match(/https:\/\/www.youtube.com\/watch/g);
         if (match) {
             var id = content.url.replace(youtubeRegexp, '$1');
@@ -276,6 +278,8 @@ function BuzzController($stateParams, $state, FeedService, AuthService, $rootSco
     }
 
     function displayTweet(content) {
+        if (typeof content.url == 'undefined') return;
+
         var match = content.url.match(/twitter.com\/\w+\/status\/\w+/g);
         if (match) {
             var statusIndex = match[0].indexOf('/status/');
