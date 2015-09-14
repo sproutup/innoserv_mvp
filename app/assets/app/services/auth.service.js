@@ -3,9 +3,9 @@ angular
     .module('sproutupApp')
     .factory('AuthService', authService);
 
-authService.$inject = ['$http', '$q', '$cookieStore', '$log', 'UserService', '$timeout', '$state'];
+authService.$inject = ['$http', '$q', '$cookieStore', '$log', 'UserService', '$timeout', '$state', '$analytics'];
 
-function authService($http, $q, $cookieStore, $log, userService, $timeout, $state){
+function authService($http, $q, $cookieStore, $log, userService, $timeout, $state, $analytics){
     var user = {};
     var isReady = false;
     var urlBase = '/api/auth';
@@ -136,8 +136,10 @@ function authService($http, $q, $cookieStore, $log, userService, $timeout, $stat
         return accessLevel.bitMask & role.bitMask;
     }
 
-    function getAuthenticatedUser(){
+    function getAuthenticatedUser(signup){
         var deferred = $q.defer();
+
+        signup = typeof signup !== 'undefined' ? signup : false;
 
         $http({
             method: 'GET',
@@ -152,6 +154,17 @@ function authService($http, $q, $cookieStore, $log, userService, $timeout, $stat
                     console.log("#3 status: ", status);
                     isReady = true;
                     model.isLoggedIn = true;
+
+                    if(signup){
+                        console.log('signup data: ', data);
+                        $analytics.setAlias(model.user.id);
+                        $analytics.setUserPropertiesOnce({name: model.user.name});
+                    }
+                    else{
+                        console.log('signin data: ', data);
+                        $analytics.setUsername(model.user.id);
+                    }
+
                     refreshTrials();
                     $log.debug("auth user service returned success: " + model.user.name);
                     deferred.resolve(model.user);
@@ -262,7 +275,7 @@ function authService($http, $q, $cookieStore, $log, userService, $timeout, $stat
             headers: {'Content-Type': 'application/json'}
         }).success(function(data, status, headers, config){
             //angular.extend(model.user,data);
-            getAuthenticatedUser().then(function () {
+            getAuthenticatedUser(true).then(function () {
                 $log.debug("signup service get user success");
                     deferred.resolve("success");
                 }
