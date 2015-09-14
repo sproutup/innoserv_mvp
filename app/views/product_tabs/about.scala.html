@@ -41,7 +41,7 @@
         <div class="row about-product-row">
             <div class="col-sm-12 about-product-tile">
                 <div class="about-product--twitter">
-                    <p class="about-product--header-right"><i class="fa fa-twitter"></i>Latest Tweets from {{product.productName}}</p>
+                    <p class="about-product--header-right"><i class="fa fa-twitter"></i>Latest Tweets from {{product.name}}</p>
                 </div>
                 <up-twitter-tweet product-id="product.id" api="statuses/user_timeline"></up-twitter-tweet>
             </div>
@@ -53,7 +53,7 @@
         <div class="row about-product-row">
             <div class="col-sm-12 about-product-tile">
                 <div class="about-product--facebook">
-                    <p class="about-product--header-right"><i class="fa fa-facebook"></i>{{product.productName}} on Facebook</p>
+                    <p class="about-product--header-right"><i class="fa fa-facebook"></i>{{product.name}} on Facebook</p>
                 </div>
                 <up-facebook-post product="product.id"></up-facebook-post>
             </div>
