@@ -14,7 +14,7 @@
                     <p>By requesting the product trial, I agree to SproutUp's <a href="#" ui-sref="user.trial-terms">Product Trial Terms and Conditions</a>.</p>
 
                     <div class="signup-wizard-actions">
-                        <button type="submit" analytics-on="click" analytics-event="Confirm trial: {{vm.product.name}}" ng-disabled="basicform.$invalid" class="btn btn-lg sproutup-btn-md-main" ng-click="vm.submit()">Continue</button>
+                        <button type="submit" analytics-on="click" analytics-event="Confirm trial" analytics-properties="{product_slug: vm.product.slug}" ng-disabled="basicform.$invalid" class="btn btn-lg sproutup-btn-md-main" ng-click="vm.submit()">Continue</button>
                         <a type="submit" class="btn btn-lg sproutup-btn-md-cancel" ng-click="vm.cancel()">Cancel</a>
                     </div>
                 </div>
