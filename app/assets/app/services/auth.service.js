@@ -158,12 +158,12 @@ function authService($http, $q, $cookieStore, $log, userService, $timeout, $stat
                     if(signup){
                         console.log('signup data: ', data);
                         $analytics.setAlias(model.user.id);
-                        $analytics.setUserPropertiesOnce({name: model.user.name});
                     }
                     else{
                         console.log('signin data: ', data);
                         $analytics.setUsername(model.user.id);
                     }
+                    $analytics.setUserPropertiesOnce({name: model.user.name});
 
                     refreshTrials();
                     $log.debug("auth user service returned success: " + model.user.name);
