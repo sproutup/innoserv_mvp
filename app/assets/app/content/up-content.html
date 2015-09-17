@@ -20,7 +20,7 @@
                 <div class="my-content-video embedded" ng-if="vm.content.content.youtube" ng-hide="vm.content.content.tweet">
                     <iframe width="560" height="315" ng-src="{{ vm.content.content.youtube }}" frameborder="0" allowfullscreen></iframe>
                 </div>
-                <a analytics-on="click" analytics-event="Click on post" analytics-properties="{ content_id: vm.content.id }" href="{{ vm.content.content.url }}" target="blank" ng-hide="vm.content.content.tweet">
+                <a analytics-on="click" analytics-event="Click Buzz Post" analytics-post="{{ vm.content.id }}" analytics-author="{{ vm.content.user.name }}" href="{{ vm.content.content.url }}" target="blank" ng-hide="vm.content.content.tweet">
                     <img class="my-content-image img-responsive" src="{{vm.content.content.image}}" ng-hide="vm.content.content.youtube">
                     <p class="my-content-og-headline" ng-show="vm.content.content.title">{{ vm.content.content.title }}</p>
                     <p class="my-content-og-text" ng-show="vm.content.content.description">{{ vm.content.content.description }}</p>

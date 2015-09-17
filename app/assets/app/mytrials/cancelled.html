@@ -6,9 +6,11 @@
     </div>
 
     <div class="row product-trial-item" ng-repeat="item in vm.cancelled | orderBy:'-updatedAt'">
-        <div class="col-sm-12 product-trial-item-banner" up-background-image="{{item.product.banner.url.image}}" up-background-attr="?w=600&h=100" up-fallback-image="/assets/images/default-product-banner.jpg">
-            <p>{{item.product.name}}</p>
-        </div>
+        <a ui-sref="user.product.detail.about({ slug: item.product.slug })">
+            <div class="col-sm-12 product-trial-item-banner" up-background-image="{{item.product.banner.url.image}}" up-background-attr="?w=600&h=100" up-fallback-image="/assets/images/default-product-banner.jpg">
+                <p>{{item.product.name}}</p>
+            </div>
+        </a>
         <div class="col-sm-12 product-trial-item--detail">
             <div ng-switch="item.status">
                 <p ng-switch-when="-1" class="product-trial-item--status reject"><i class="fa fa-times-circle"></i>Not approved on {{item.updatedAt | date:'MMM dd, yyyy'}}</p>

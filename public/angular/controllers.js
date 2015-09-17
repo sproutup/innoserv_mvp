@@ -698,7 +698,7 @@ productControllers.controller('productDetailCtrl', ['$scope', '$rootScope', '$st
         );
 
         if($stateParams.refId!==undefined){
-            $analytics.eventTrack('Referral Page Views', { category: 'Referral Link', refId: $stateParams.refId, label: $stateParams.refId });
+            $analytics.eventTrack('Referral Page Views', { category: 'Referral Link', refId: $stateParams.refId, slug: $stateParams.slug });
         }
     }
 
