@@ -31,7 +31,6 @@ angular.module('sproutupApp').filter('urlEncode', [
 angular.module('sproutupApp').filter('humanizeNumber', [
     function () {
         return function (n) {
-            console.log('##humanize', n);
             var num = parseInt(n, 10);
             if (isNaN(num)) {
                 return n;
