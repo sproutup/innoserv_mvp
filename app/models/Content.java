@@ -170,6 +170,7 @@ public class Content extends SuperModel {
             Map content = new HashMap();
 
             // Create the hashmap values
+            content.put("id", this.id.toString());
             content.put("url", this.url);
             content.put("createdAt", new DateTime(this.createdAt).toString());
             if(this.openGraph != null) {

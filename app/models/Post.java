@@ -336,11 +336,15 @@ public class Post extends SuperModel implements Taggable {
 		}
 		if (values.get(4) != null) {
 			node.put("content", Content.hmget(values.get(4), j));
-		}
 
-		ObjectNode analytics = Json.newObject();
-		analytics.put("total", 12000);
-		node.put("analytics", analytics);
+			String views_string = j.get("analytics:content:" + values.get(4) + ":views");
+			if(views_string != null) {
+				Long views = Long.parseLong(views_string, 10);
+				ObjectNode analytics = Json.newObject();
+				analytics.put("total", views);
+				node.put("analytics", analytics);
+			}
+		}
 
 		node.put("likes", Likes.range(id, "models.post", j));
 		node.put("comments", Comment.range(id, "models.post", j));
