@@ -57,7 +57,7 @@
 }
 
 .perk .intro-message {
-    padding: 190px 15px 0px;
+    padding: 100px 15px 0px;
 }
 
 .intro-message > h1 {
@@ -69,11 +69,24 @@
 .intro-message > h3 {
   font-weight: 300;
   margin: 0;
-  padding-top: 30px;
-  padding-bottom: 70px;
+  padding-top: 10px;
+  padding-bottom: 30px;
   font-size: 20pt;
   line-height: 1.5;
   color: @main-text-white;
+}
+
+.intro-message > p {
+  font-weight: 300;
+  margin: 0;
+  padding-top: 50px;
+  font-size: 13.5pt;
+  line-height: 1.6;
+  color: @main-text-white; 
+}
+
+.intro-message p span {
+  font-weight: 700;
 }
 
 .btn-lg-outline {
@@ -298,12 +311,12 @@
 }
 
 .how-it-works--blurb {
-  padding: 20px 10px;
+  padding: 20px 20px 40px;
   margin: 0px auto;
 }
 
 .how-it-works--blurb-b {
-    padding: 20px 10px;
+    padding: 20px 20px 40px;
     margin: 0px auto;
     background-color: #f5f5f5;
 }
@@ -312,7 +325,7 @@
   font-size: 18pt;
   font-weight: 400;
   color: @sproutup-blue;
-  padding: 10px;
+  padding: 10px 10px 0px;
 }
 
 .perk .how-it-works--title {
@@ -355,16 +368,24 @@
 }
 
 .how-it-works--subtitle {
+  max-width: 700px;
     font-size: 13pt;
     font-weight: 400;
+    line-height: 1.6;
     color: @main-text-1;
-    padding: 0px;
-    margin: 0px;
+    padding: 0px 0px 10px;
+    margin: 0px auto;
+}
+
+.how-it-works--subtitle a {
+  text-decoration: none !important;
+  font-weight: 700;
+  color: @sproutup-darkgreen;
 }
 
 .how-it-works--main {
     max-width: 800px;
-  padding: 30px 10px 10px;
+  padding: 10px;
   margin: 0px auto;
 }
 
@@ -411,7 +432,7 @@
 }
 
 .perk .how-it-works--content {
-    margin: 10px 0px;
+    margin: 0px;
 }
 
 .perk .how-it-works--content h1 {

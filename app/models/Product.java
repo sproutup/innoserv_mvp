@@ -88,6 +88,8 @@ public class Product extends SuperModel implements PathBindable<Product>,
 	public boolean trialSignUpFlag;
 	public boolean buyFlag;
 	public boolean trialFullHouseFlag;
+	public boolean contestFlag;
+	public boolean discountFlag;
 	
 	@OneToOne(cascade=CascadeType.ALL, mappedBy="product")
 	public ProductAdditionalDetail productAdditionalDetail;
@@ -382,6 +384,8 @@ public class Product extends SuperModel implements PathBindable<Product>,
         node.put("isAvailableToBuy", this.buyFlag);
         node.put("isAvailableForTrial", this.trialSignUpFlag);
         node.put("isTrialFullHouse", this.trialFullHouseFlag);
+        node.put("isAvailableForDiscount", this.discountFlag);
+        node.put("isAvailableForContest", this.contestFlag);
         
         node.put("createdAt", new DateTime(this.createdAt).toString());
         node.put("updatedAt", new DateTime(this.updatedAt).toString());
@@ -519,6 +523,9 @@ public class Product extends SuperModel implements PathBindable<Product>,
 			}
 
 			map.put("isAvailableForTrial", String.valueOf(this.trialSignUpFlag));
+			map.put("isAvailableForDiscount", String.valueOf(this.discountFlag));
+			map.put("isAvailableForContest", String.valueOf(this.contestFlag));
+
 
 			// add the values
 			j.hmset("prod:" + this.id.toString(), map);
@@ -559,7 +566,9 @@ public class Product extends SuperModel implements PathBindable<Product>,
 					"urlFacebook",
 					"urlTwitter",
 					"banner",
-					"isAvailableForTrial"
+					"isAvailableForTrial",
+					"isAvailableForDiscount",
+					"isAvailableForContest"
 			);
 
 			// build json object
@@ -577,6 +586,8 @@ public class Product extends SuperModel implements PathBindable<Product>,
 				node.put("banner", File.hmget(values.get(9)));
 			}
 			if (values.get(10) != null) node.put("isAvailableForTrial", Boolean.valueOf(values.get(10)));
+			if (values.get(11) != null) node.put("isAvailableForDiscount", Boolean.valueOf(values.get(11)));
+			if (values.get(12) != null) node.put("isAvailableForContest", Boolean.valueOf(values.get(12)));
 		} finally {
 		}
 		return node;
