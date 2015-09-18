@@ -625,7 +625,7 @@ productControllers.controller('modalContestCtrl', ['$scope', '$window', '$stateP
 					
 					processContestData = {
 						"contestId":$scope.contestId,
-parti						"facebookPostId":""
+						"facebookPostId":""
 					}
 					
 					$scope.fbShare = function () {
