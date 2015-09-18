@@ -625,8 +625,7 @@ productControllers.controller('modalContestCtrl', ['$scope', '$window', '$stateP
 					
 					processContestData = {
 						"contestId":$scope.contestId,
-						"contestSharedOnSocialMedia":false,
-						"facebookPostId":""
+parti						"facebookPostId":""
 					}
 					
 					$scope.fbShare = function () {
@@ -873,6 +872,7 @@ productControllers.controller('productDetailCtrl', ['$scope', '$rootScope', '$st
 				$scope.contestDescription = data.contestDescription;
 				$scope.contestConfirmation = data.contestConfirmation;
 				$scope.totalNumParticipated = data.totalNumParticipated;
+				$scope.minimumNumRequired = data.minimumNumRequired;
 				$scope.contestSocialMediaShareMessage = data.contestSocialMediaShareMessage;
 				
 		    })
