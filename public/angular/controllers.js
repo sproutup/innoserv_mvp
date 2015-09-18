@@ -634,9 +634,9 @@ productControllers.controller('modalContestCtrl', ['$scope', '$window', '$stateP
 							method: 'feed',
 							link: data.url,
 							picture: data.productPictureURL,
-							name: 'Sprout ' + $scope.product.name + ' Up!',
+							name: $scope.contestTitle,
 							caption: $scope.product.tagline,
-							description: $scope.contestSocialMediaShareMessage
+							description: $scope.contestDescription + " " + $scope.contestSocialMediaShareMessage
 						};
 						function callback(response) {
 							if (typeof response !== "undefined" && response !== null) {
@@ -680,7 +680,7 @@ productControllers.controller('modalContestCtrl', ['$scope', '$window', '$stateP
         
         //twitter does not return Tweet Id on its event
         //http://stackoverflow.com/questions/10841752/how-to-get-tweet-id-from-tweet-event
-        console.log("twitter event");
+        console.log("facebook event");
         $log.debug(JSON.stringify(processContestData, null, 4))
         $http({
             method: 'POST',

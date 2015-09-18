@@ -97,6 +97,7 @@ public class Contest extends TimeStampModel implements PathBindable<Contest>{
 	public String contestOutcome;
 
     public int totalNumParticipated;
+    public int minimumNumRequired;
     
 	public static Page<Contest> find(int page) {
 	    return
@@ -187,6 +188,7 @@ public class Contest extends TimeStampModel implements PathBindable<Contest>{
 		node.put("contestConfirmation", this.contestConfirmation);
 		node.put("contestOutcome", this.contestOutcome);
 		node.put("totalNumParticipated", this.totalNumParticipated);
+		node.put("minimumNumRequired", this.minimumNumRequired);
 		node.put("active", this.active);
 		node.put("createdAt", new DateTime(this.createdAt).toString());
 		node.put("productId", this.product.id);
