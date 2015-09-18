@@ -646,7 +646,14 @@ productControllers.controller('modalContestCtrl', ['$scope', '$window', '$stateP
                                 processContestData.contestSharedOnSocialMedia = true;
                                 //@nitinj//get the postId from response
                                 processContestData.facebookPostId = response.post_id;
-                                
+                                console.log("facebook event");
+                                $log.debug(JSON.stringify(processContestData, null, 4))
+                                $http({
+                                    method: 'POST',
+                                    url: '/api/contest/processShare',
+                                    data: processContestData,
+                                    headers: {'Content-Type': 'application/json'}
+                                });
 							}
 						}
 						FB.ui(obj, callback);
@@ -673,17 +680,26 @@ productControllers.controller('modalContestCtrl', ['$scope', '$window', '$stateP
         
         //twitter does not return Tweet Id on its event
         //http://stackoverflow.com/questions/10841752/how-to-get-tweet-id-from-tweet-event
+        console.log("twitter event");
+        $log.debug(JSON.stringify(processContestData, null, 4))
+        $http({
+            method: 'POST',
+            url: '/api/contest/processShare',
+            data: processContestData,
+            headers: {'Content-Type': 'application/json'}
+        });
+        
 	});
 
 	$scope.close = function () {
 		if (processContestData.contestSharedOnSocialMedia) {
-            $log.debug(JSON.stringify(processContestData, null, 4))
-            $http({
-                method: 'POST',
-                url: '/api/contest/processShare',
-                data: processContestData,
-                headers: {'Content-Type': 'application/json'}
-            });
+           // $log.debug(JSON.stringify(processContestData, null, 4))
+//            $http({
+//                method: 'POST',
+//                url: '/api/contest/processShare',
+//                data: processContestData,
+//                headers: {'Content-Type': 'application/json'}
+//            });
 		}
 		$modalInstance.close();
 	};
