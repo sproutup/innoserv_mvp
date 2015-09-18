@@ -205,6 +205,11 @@ public class CampaignController extends Controller {
           if ("Copy".equals(action)) {
         	  campaign.id=null;
         	  campaign.product.id=null;
+           } else {//if not copying update the flag;
+        	   Product prod = Product.findbyID(campaign.product.id);
+	           prod.discountFlag = (campaign.active && campaign.offerDiscount);
+	           prod.update();
+             
            }
         }  
         if (campaign.id == null) {

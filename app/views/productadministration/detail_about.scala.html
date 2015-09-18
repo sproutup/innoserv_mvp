@@ -46,6 +46,9 @@
 		             <li>Offer Buy:<input type="checkbox" name="@productForm("buyFlag").name" value="1" @if(productForm("buyFlag").value=="true"){ checked }>@productForm("buyFlag").value</li>
 		             <li>Featured Product:<input type="checkbox" name="@productForm("isFeatured").name" value="1" @if(productForm("isFeatured").value=="true"){ checked }>@productForm("isFeatured").value</li>
                		 <li>Trial Full House:<input type="checkbox" name="@productForm("trialFullHouseFlag").name" value="1" @if(productForm("trialFullHouseFlag").value=="true"){ checked }>@productForm("trialFullHouseFlag").value</li>
+               		 <li>Discount offered:<input disabled type="checkbox" name="@productForm("discountFlag").name" value="1" @if(productForm("discountFlag").value=="true"){ checked }>@productForm("discountFlag").value</li>
+               		 <li>Active Contest:<input disabled type="checkbox" name="@productForm("contestFlag").name" value="1" @if(productForm("contestFlag").value=="true"){ checked }>@productForm("contestFlag").value</li>
+               		
                		<br><br>
              		<li>Tags (comma separated):&nbsp;<input type="text" size="50" name="@productForm("tags").name" value="@productForm("tags").value">
                 	</li>

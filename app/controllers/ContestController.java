@@ -138,10 +138,15 @@ public class ContestController extends Controller {
           return badRequest("You must provide a valid action");
         } else {
           String action = postAction[0];
-          System.out.println("Action is: " + action);
+          
           if ("Copy".equals(action)) {
         	  contest.id=null;
         	  contest.product.id=null;
+           } else {//if not copying update the flag;
+        	   Product prod = Product.findbyID(contest.product.id);
+	           prod.contestFlag = contest.active;
+	           prod.update();
+             
            }
         }  
         if (contest.id == null) {
@@ -150,6 +155,7 @@ public class ContestController extends Controller {
         	//update campaign
         	contest.update();
         }
+        
         
        return redirect(routes.ContestController.list());
     }
