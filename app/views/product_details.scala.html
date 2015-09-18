@@ -25,10 +25,11 @@
                 <a analytics-on="click" analytics-event="Request Trial" analytics-slug="{{product.slug}}" ng-if="initVar && product.isAvailableForTrial && isLoggedIn && !hasCurrentTrial && hasReachedTrialLimit && !product.isTrialFullHouse" class="btn btn-lg sproutup-btn-md-main" ui-sref="user.trial.confirmation({ slug: product.slug })">Request Product Trial</a>
                 <a analytics-on="click" analytics-event="Request Trial" analytics-slug="{{product.slug}}" ng-if="initVar && product.isAvailableForTrial && !hasCurrentTrial && product.isTrialFullHouse" class="btn btn-lg sproutup-btn-md-main" ng-disabled="product.isTrialFullHouse" popover="Product trial is temporarily unavailable since we have too many requests :( But hey, please check back later!" popover-trigger="mouseenter" popover-placement="right">Request Product Trial</a>
                 <a analytics-on="click" analytics-event="View Request Status" analytics-slug="{{product.slug}}" ng-if="initVar && isLoggedIn && hasCurrentTrial" class="btn btn-lg sproutup-btn-md-main" ui-sref="user.mytrials.current">View Trial Status</a>
-                <a analytics-on="click" analytics-event="Earn Discount" analytics-slug="{{product.slug}}" ng-if="initVar && activeSprout && !isLoggedIn" class="btn btn-lg sproutup-btn-md-main" ng-click="login('user.product.detail.about', {slug: product.slug} )" ui-sref="user.login" popover="Spread the word, unlock a special discount and buy it!" popover-trigger="mouseenter" popover-placement="top">Earn Discount</a>
-                <a analytics-on="click" analytics-event="Earn Discount" analytics-slug="{{product.slug}}" ng-if="initVar && activeSprout && isLoggedIn" class="btn btn-lg sproutup-btn-md-main" ng-click="open()" popover="Spread the word, unlock a special discount and buy it!" popover-trigger="mouseenter" popover-placement="top">Earn Discount</a>
+                <a analytics-on="click" analytics-event="Enter Contest" analytics-slug="{{product.slug}}" ng-if="initVar && activeContest" class="btn btn-lg sproutup-btn-md-main contest" ng-click="openContest()" popover="Enter free giveaway and spread the word!" popover-trigger="mouseenter" popover-placement="top">{{contestButtonTitle}}</a>
+                <a analytics-on="click" analytics-event="Earn Discount" analytics-slug="{{product.slug}}" ng-if="initVar && activeSprout && !isLoggedIn" class="btn btn-lg sproutup-btn-md-main discount" ng-click="login('user.product.detail.about', {slug: product.slug} )" ui-sref="user.login" popover="Spread the word, unlock a special discount and buy it!" popover-trigger="mouseenter" popover-placement="top">Earn Discount</a>
+                <a analytics-on="click" analytics-event="Earn Discount" analytics-slug="{{product.slug}}" ng-if="initVar && activeSprout && isLoggedIn" class="btn btn-lg sproutup-btn-md-main discount" ng-click="open()" popover="Spread the word, unlock a special discount and buy it!" popover-trigger="mouseenter" popover-placement="top">Earn Discount</a>
                 <a analytics-on="click" analytics-event="I Want One" analytics-slug="{{product.slug}}" ng-if="initVar && !activeSprout && product.isAvailableToBuy && product.urlBuy" class="btn btn-lg sproutup-btn-md-main" ng-href="{{product.urlBuy}}" target="_blank">I Want One</a>
-                <a analytics-on="click" analytics-event="Enter Contest" analytics-slug="{{product.slug}}" ng-if="initVar && activeContest" class="btn btn-lg sproutup-btn-md-main" ng-click="openContest()" popover="Spread the word, get a free giveaway!" popover-trigger="mouseenter" popover-placement="top">{{contestButtonTitle}}</a>
+                
             </div>
             <div class="product-menu--help">
                 <a ng-show="initVar && product.isAvailableForTrial" ui-sref="user.howitworks"><i class="fa fa-question-circle"></i>Learn how Product Trial works</a>
@@ -101,6 +102,7 @@
         </div>
         <div class="modal-body">
             <p class="campaign-description">{{contestDescription}}</p>
+            <p class="campaign-description"><span>83</span> entries (we are looking for at least <span>1000</span> entries)</p>
             <div class="row product-share-buttons">
                 <div class="fb-share-button">
                     <a analytics-on="click" analytics-event="Share for Contest" analytics-slug="{{product.slug}}" ng-click="fbShare()" class="btn btn-xs btn-facebook-share"><i class="fa fa-facebook"></i></a>
