@@ -169,6 +169,11 @@ GET			  /api/campaign/getActive/:productId							 controllers.CampaignController
 GET			  /api/campaign/getInfo/:productId								 controllers.CampaignController.getCampaignInfo(productId: Long)
 POST		  /api/campaign/processShare									 controllers.CampaignController.processShare()	
 
+GET			  /api/contest/getActive/:productId							 	 controllers.ContestController.getActiveContest(productId: Long)
+GET			  /api/contest/getShortenURL/:slug								 controllers.ContestController.getContestURL(slug: String)
+POST		  /api/contest/processShare									 	 controllers.ContestController.processShare()	
+
+
 # Internal Administration Only - Not visible to public
 GET           /adminstuff                                            		 controllers.ReportAdminController.home()
 GET           /adminstuff/product                                            controllers.ProductAdministrationController.index()
@@ -211,6 +216,10 @@ POST          /adminstuff/content/updateContentOG                      		 contro
 GET           /adminstuff/user/updateKloutScore/:id                          controllers.ReportAdminController.updateKloutScore(id: Long)
 GET           /adminstuff/user/addKloutScores                                controllers.ReportAdminController.addKloutScores()
 GET           /adminstuff/user/updateAllKloutScores                          controllers.ReportAdminController.updateAllKloutScores()
+GET           /adminstuff/contest/list                                      controllers.ContestController.list()
+GET           /adminstuff/contest/new                                       controllers.ContestController.newContest()
+POST          /adminstuff/contest/save                                  	 controllers.ContestController.save()
+GET           /adminstuff/contest/:id                                       controllers.ContestController.details(id: Long)
 
 # Mockups
 GET           /mockups/product/:slug/about                                   controllers.MockupController.detailsAboutBySlug(slug: String)

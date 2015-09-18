@@ -28,6 +28,7 @@
                 <a analytics-on="click" analytics-event="Earn Discount" analytics-slug="{{product.slug}}" ng-if="initVar && activeSprout && !isLoggedIn" class="btn btn-lg sproutup-btn-md-main" ng-click="login('user.product.detail.about', {slug: product.slug} )" ui-sref="user.login" popover="Spread the word, unlock a special discount and buy it!" popover-trigger="mouseenter" popover-placement="top">Earn Discount</a>
                 <a analytics-on="click" analytics-event="Earn Discount" analytics-slug="{{product.slug}}" ng-if="initVar && activeSprout && isLoggedIn" class="btn btn-lg sproutup-btn-md-main" ng-click="open()" popover="Spread the word, unlock a special discount and buy it!" popover-trigger="mouseenter" popover-placement="top">Earn Discount</a>
                 <a analytics-on="click" analytics-event="I Want One" analytics-slug="{{product.slug}}" ng-if="initVar && !activeSprout && product.isAvailableToBuy && product.urlBuy" class="btn btn-lg sproutup-btn-md-main" ng-href="{{product.urlBuy}}" target="_blank">I Want One</a>
+                <a analytics-on="click" analytics-event="Contest" analytics-slug="{{product.slug}}" ng-if="initVar && activeContest" class="btn btn-lg sproutup-btn-md-main" ng-click="openContest()" popover="Spread the word, get a free giveaway!" popover-trigger="mouseenter" popover-placement="top">{{contestButtonTitle}}</a>
             </div>
             <div class="product-menu--help">
                 <a ng-show="initVar && product.isAvailableForTrial" ui-sref="user.howitworks"><i class="fa fa-question-circle"></i>Learn how Product Trial works</a>
@@ -87,6 +88,33 @@
 				</div>
 			</div>
             <a analytics-on="click" analytics-event="Buy Now" analytics-slug="{{product.slug}}" class="btn sproutup-btn-md-main" ng-show="product.isAvailableToBuy && product.urlBuy" href="{{product.urlBuy}}" target="_blank">Buy {{product.name}} now</a>
+        </div>
+    </script>
+</div>
+
+<!-- Added by nitinj (modal Contest) -->
+<div>
+    <script type="text/ng-template" id="contestModal.html">
+        <div class="modal-header">
+            <button class="close" ng-click="close()">&times</button>
+            <h3 class="modal-title">{{contestTitle}}!</h3>
+        </div>
+        <div class="modal-body">
+            <p class="campaign-description">{{contestDescription}}</p>
+            <div class="row product-share-buttons">
+                <div class="fb-share-button">
+                    <a analytics-on="click" analytics-event="Share for Contest" analytics-slug="{{product.slug}}" ng-click="fbShare()" class="btn btn-xs btn-facebook-share"><i class="fa fa-facebook"></i></a>
+                </div>
+                <div class="tw-share-button">
+                    <a analytics-on="click" analytics-event="Share for Contest" analytics-slug="{{product.slug}}" href="{{twtLink}}" class="btn btn-xs btn-twitter-share"><i class="fa fa-twitter"></i></a>
+                </div>
+            </div>
+            <hr>
+			<div>
+				<div ng-show="contestSharedOnSocialMedia">
+            		<p class="campaign-description">{{contestConfirmation}}</p>
+				</div>
+			</div>
         </div>
     </script>
 </div>
