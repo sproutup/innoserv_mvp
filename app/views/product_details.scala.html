@@ -102,7 +102,7 @@
         </div>
         <div class="modal-body">
             <p class="campaign-description">{{contestDescription}}</p>
-            <p class="campaign-description"><span>83</span> entries (we are looking for at least <span>1000</span> entries)</p>
+            <p class="campaign-description"><span>{{totalNumParticipated}}</span> already in. Be the next! Expecting at least <span>{{minimumNumRequired}}</span> entries.</p>
             <div class="row product-share-buttons">
                 <div class="fb-share-button">
                     <a analytics-on="click" analytics-event="Share for Contest" analytics-slug="{{product.slug}}" ng-click="fbShare()" class="btn btn-xs btn-facebook-share"><i class="fa fa-facebook"></i></a>
