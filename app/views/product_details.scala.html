@@ -28,7 +28,7 @@
                 <a analytics-on="click" analytics-event="Earn Discount" analytics-slug="{{product.slug}}" ng-if="initVar && activeSprout && !isLoggedIn" class="btn btn-lg sproutup-btn-md-main" ng-click="login('user.product.detail.about', {slug: product.slug} )" ui-sref="user.login" popover="Spread the word, unlock a special discount and buy it!" popover-trigger="mouseenter" popover-placement="top">Earn Discount</a>
                 <a analytics-on="click" analytics-event="Earn Discount" analytics-slug="{{product.slug}}" ng-if="initVar && activeSprout && isLoggedIn" class="btn btn-lg sproutup-btn-md-main" ng-click="open()" popover="Spread the word, unlock a special discount and buy it!" popover-trigger="mouseenter" popover-placement="top">Earn Discount</a>
                 <a analytics-on="click" analytics-event="I Want One" analytics-slug="{{product.slug}}" ng-if="initVar && !activeSprout && product.isAvailableToBuy && product.urlBuy" class="btn btn-lg sproutup-btn-md-main" ng-href="{{product.urlBuy}}" target="_blank">I Want One</a>
-                <a analytics-on="click" analytics-event="Contest" analytics-slug="{{product.slug}}" ng-if="initVar && activeContest" class="btn btn-lg sproutup-btn-md-main" ng-click="openContest()" popover="Spread the word, get a free giveaway!" popover-trigger="mouseenter" popover-placement="top">{{contestButtonTitle}}</a>
+                <a analytics-on="click" analytics-event="Enter Contest" analytics-slug="{{product.slug}}" ng-if="initVar && activeContest" class="btn btn-lg sproutup-btn-md-main" ng-click="openContest()" popover="Spread the word, get a free giveaway!" popover-trigger="mouseenter" popover-placement="top">{{contestButtonTitle}}</a>
             </div>
             <div class="product-menu--help">
                 <a ng-show="initVar && product.isAvailableForTrial" ui-sref="user.howitworks"><i class="fa fa-question-circle"></i>Learn how Product Trial works</a>
@@ -112,7 +112,7 @@
             <hr>
 			<div>
 				<div ng-show="contestSharedOnSocialMedia">
-            		<p class="campaign-description">{{contestConfirmation}}</p>
+            		<p class="campaign-confirmation">{{contestConfirmation}}</p>
 				</div>
 			</div>
         </div>
