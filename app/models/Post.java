@@ -70,6 +70,9 @@ public class Post extends SuperModel implements Taggable {
 		if(product!=null) {
 			zadd("buzz:product:" + this.product.slug);
 		}
+		if(user!=null) {
+			zadd("buzz:user:" + this.user.id);
+		}
 	}
 
 	@Override
@@ -213,14 +216,12 @@ public class Post extends SuperModel implements Taggable {
 					if(post.product != null) {
 						post.zadd("buzz:product:" + post.product.id.toString(), j);
 					}
+					if(post.user != null){
+						post.zadd("buzz:user:" + post.user.id.toString(), j);
+					}
 				}
 			}
 
-//			long count = j.zcard(key);
-//			if(start+end+1 > count){
-//				end = count - start - 1;
-//			}
-//			Logger.debug("range: " + start + " " + end + " " + count);
 			Set<String> set = j.zrevrange(key, start, end);
 			items.put("count", j.zcard(key));
 
@@ -244,14 +245,27 @@ public class Post extends SuperModel implements Taggable {
 		try {
 			String key = "buzz:product:" + slug;
 
-			if(!j.exists(key)) {
-				Logger.debug("adding all posts to buzz: " + key);
-				for(Post post: getAll()){
-					if(post.product != null) {
-						post.zadd("buzz:product:" + post.product.slug, j);
-					}
-				}
+			Set<String> set = j.zrevrange(key, start, end);
+
+			for(String itemid: set) {
+				// get the data for each like
+				data.add(Post.hmget(itemid, j));
 			}
+		} finally {
+			play.Play.application().plugin(RedisPlugin.class).jedisPool().returnResource(j);
+		}
+
+		return data;
+	}
+
+	public static ArrayNode range(Long user_id, long start, long end){
+		ObjectNode items = Json.newObject();
+		ArrayNode data = items.putArray("data");
+
+		//Go to Redis to read the full roster of content.
+		Jedis j = play.Play.application().plugin(RedisPlugin.class).jedisPool().getResource();
+		try {
+			String key = "buzz:user:" + user_id.toString();
 
 			Set<String> set = j.zrevrange(key, start, end);
 

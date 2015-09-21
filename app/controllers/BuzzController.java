@@ -53,4 +53,10 @@ public class BuzzController extends Controller {
     {
         return ok(Post.range(slug, start, start+9 ));
     }
+
+    @BodyParser.Of(BodyParser.Json.class)
+    public static Result getUserRange(Long user_id, int start)
+    {
+        return ok(Post.range(user_id, start, start+9 ));
+    }
 }

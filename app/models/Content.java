@@ -184,10 +184,10 @@ public class Content extends SuperModel {
             }
 
             if(this.user != null) {
-                content.put("user.id", this.user.id.toString());
+                content.put("user_id", this.user.id.toString());
             }
             if(this.product != null) {
-                content.put("product.id", this.product.id.toString());
+                content.put("product_id", this.product.id.toString());
             }
 
             // add the values
@@ -216,7 +216,7 @@ public class Content extends SuperModel {
                 Content.find.byId(Long.parseLong(id, 10)).hmset();
             }
 
-            List<String> values = j.hmget(key, "title", "url", "createdAt", "description", "image", "video", "user.id", "product.id");
+            List<String> values = j.hmget(key, "title", "url", "createdAt", "description", "image", "video", "user_id", "product_id");
 
             node.put("id", id);
             if (values.get(0) != null) node.put("title", values.get(0));
