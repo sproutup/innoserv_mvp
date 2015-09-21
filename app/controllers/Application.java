@@ -86,6 +86,14 @@ public class Application extends Controller {
     }
 
     public static Result main_product_about(String slug) {
+
+        // added by Tao Ni - Sept 19th 
+        if(slug.equals("rocketskates") == true) {
+            slug = "rocketskates-r8";
+        }
+        
+        System.out.println("slug: " + slug);
+
         // set meta tags
         Product product = new Product().findbySlug(slug);
         JsonNode node = product.toJson();

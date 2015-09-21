@@ -1,9 +1,5 @@
 package controllers;
 
-import be.objectify.deadbolt.java.actions.Group;
-import be.objectify.deadbolt.java.actions.Restrict;
-import be.objectify.deadbolt.java.actions.SubjectPresent;
-
 import com.avaje.ebean.Page;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -60,20 +56,15 @@ public class ContestController extends Controller {
 	/*
 	 * Gets called when user clicks on the SproutUp or Share button
 	 */
-	@SubjectPresent
-    @BodyParser.Of(BodyParser.Json.class)
+	@BodyParser.Of(BodyParser.Json.class)
     public static Result getContestURL(String productSlug) {
-        User user = Application.getLocalUser(ctx().session());
-        if (user == null) {
-            return badRequest("User not found");
-        } else {
         	
         	ObjectNode rs = Json.newObject();
     		String genURL = "http://sproutup.co/product/" + productSlug + "?refId=contest";
             String shortURL= GoogleURLShortener.shortenURL(genURL);
         	rs.put("url", shortURL);
             return created(rs);
-        }
+        
     }
     
     /*
@@ -81,7 +72,6 @@ public class ContestController extends Controller {
      * has shared the contest
      */
     @BodyParser.Of(BodyParser.Json.class)
-    @SubjectPresent
     public static Result processShare() {
         JsonNode json = request().body().asJson();
         long contestId = json.findPath("contestId").longValue();

@@ -51,10 +51,10 @@
     <div class="product-menu">
         <div class="row product-menu--content">
             <div class="col-xs-6">
-                <a analytics-on="click" analytics-event="Product About" analytics-slug="{{product.slug}}" ui-sref="user.product.detail.about({ slug: product.slug })" class="product-menu--item" ui-sref-active="active" href="#">About</a>
+                <a analytics-on="click" analytics-event="Product Buzz" analytics-slug="{{product.slug}}" ui-sref="user.product.detail.buzz({ slug: product.slug })" class="product-menu--item" ui-sref-active="active" href="#">Buzz<span class="label label-new-feature">new</span></a>
             </div>
             <div class="col-xs-6">
-                <a analytics-on="click" analytics-event="Product Buzz" analytics-slug="{{product.slug}}" ui-sref="user.product.detail.buzz({ slug: product.slug })" class="product-menu--item" ui-sref-active="active" href="#">Buzz<span class="label label-new-feature">new</span></a>
+                <a analytics-on="click" analytics-event="Product About" analytics-slug="{{product.slug}}" ui-sref="user.product.detail.about({ slug: product.slug })" class="product-menu--item" ui-sref-active="active" href="#">About</a>
             </div>
         </div>
     </div>
@@ -102,7 +102,7 @@
         </div>
         <div class="modal-body">
             <p class="campaign-description">{{contestDescription}}</p>
-            <p class="campaign-description"><span>83</span> entries (we are looking for at least <span>1000</span> entries)</p>
+            <p class="campaign-description"><span>{{totalNumParticipated}}</span> already in. Be the next! Expecting at least <span>{{minimumNumRequired}}</span> entries.</p>
             <div class="row product-share-buttons">
                 <div class="fb-share-button">
                     <a analytics-on="click" analytics-event="Share for Contest" analytics-slug="{{product.slug}}" ng-click="fbShare()" class="btn btn-xs btn-facebook-share"><i class="fa fa-facebook"></i></a>
