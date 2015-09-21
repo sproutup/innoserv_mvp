@@ -214,7 +214,7 @@ public class Post extends SuperModel implements Taggable {
 				for(Post post: getAll()){
 					post.zadd(key, j);
 					if(post.product != null) {
-						post.zadd("buzz:product:" + post.product.id.toString(), j);
+						post.zadd("buzz:product:" + post.product.slug.toString(), j);
 					}
 					if(post.user != null){
 						post.zadd("buzz:user:" + post.user.id.toString(), j);
