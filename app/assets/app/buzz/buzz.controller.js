@@ -33,19 +33,12 @@ function BuzzController($stateParams, $state, FeedService, AuthService, $rootSco
     activate();
 
     function activate() {
-        if(!AuthService.ready()){
-            var unbindWatch = $rootScope.$watch(AuthService.loggedIn, function (value) {
-                unbindWatch();
-                activate();
-            });
-        }
-        else {
-            init();
-        }
+        init();
     }
 
     function init() {
-        vm.user = angular.copy(AuthService.m.user);
+        //vm.user = angular.copy(AuthService.m.user);
+        vm.user = AuthService.m.user;
         loadInit();
     }
 
