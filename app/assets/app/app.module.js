@@ -327,15 +327,15 @@ sproutupApp.config(['$routeProvider', '$stateProvider', '$locationProvider', '$u
                     title: 'Email'
                 }
             })
-            .state('profile' ,{
-                url: '/user/:nickname',
-                abstract: true,
-                templateUrl: 'views/profile',
-                controller: 'userDetailCtrl',
-                data: {
-                    title: 'User Profile'
-                }
-            })
+            // .state('profile' ,{
+            //     url: '/user/:nickname',
+            //     abstract: true,
+            //     templateUrl: 'views/profile',
+            //     controller: 'userDetailCtrl',
+            //     data: {
+            //         title: 'User Profile'
+            //     }
+            // })
             .state('profile.photos' ,{
                 url: '',
                 templateUrl: 'views/profile/photos',

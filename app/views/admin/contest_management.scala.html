@@ -1,0 +1,125 @@
+@(contestForm: Form[Contest])(products: List[models.Product])
+
+@import helper._
+@implicitFieldConstructor = @{ FieldConstructor(twitterBootstrapBasic.f) }
+
+@main(Messages("Create/Edit/Copy a Contest")) {
+
+
+  <div class="row">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+        <h2><a href="/adminstuff" target="_self" class="btn btn-lg">Admin Home</a></h2>
+          <h1 class="form-header">Create/Edit a Contest</h1>
+        </div>
+
+        <div class="row signup-form-block">
+          <div class="col-md-8 col-md-offset-2">
+
+        @helper.form(action = routes.ContestController.save()) {
+		<input type="hidden" value="@contestForm("id").valueOr("")" name="id"/>
+          @select(
+          contestForm("product.id"),
+          products.map {p =>
+            (p.id.toString) -> p.productName
+          },
+          '_label -> "Product Name",'_default -> "-- Select --"
+          )
+
+          @inputText(
+          contestForm("contestName"),
+          '_label -> "Contest Name"
+          )
+          <b>Active Flag:</b>
+		  <input type="checkbox" name="@contestForm("active").name" value="true" @if(contestForm("active").value=="true"){ checked }>&nbsp;@contestForm("active").value
+		  <br>
+		  @inputText(
+          contestForm("contestTitle"),
+          '_label -> "Contest Title (Display)"
+          )
+		  @inputText(
+          contestForm("contestButtonTitle"),
+          '_label -> "Contest Button Title (Display)"
+          )
+
+          @textarea(field = contestForm("contestDescription"),
+          '_label -> "Contest Description (Display)",
+          'rows -> 2, 'cols -> 50
+          )
+
+          @if(contestForm("beginDate").value==null || contestForm("beginDate").value.isEmpty ) {
+          @inputText(
+          contestForm("beginDate"),
+          '_label -> "Contest Begin Date/Time",
+          'type -> "datetime-local"
+          )
+          } else {
+          @inputText(
+          contestForm("beginDate"),
+          '_label -> "Contest Begin Date/Time"
+          )
+		  }
+
+          @if(contestForm("endDate").value==null || contestForm("endDate").value.isEmpty ) {
+          @inputText(
+          contestForm("endDate"),
+          '_label -> "Contest End Date/Time",
+          'type -> "datetime-local"
+          )
+          } else {
+          @inputText(
+          contestForm("endDate"),
+          '_label -> "Contest End Date/Time"
+          )
+          }
+
+		  @inputText(
+          	contestForm("contestConfirmation"),
+          '_label -> "Contest Confirmation"
+          )
+
+          @textarea(field = contestForm("socialMediaShareMessage"),
+          '_label -> "Social Media Share Message",
+          'rows -> 2, 'cols -> 50
+          )
+
+          @textarea(field = contestForm("contestPerk"),
+          '_label -> "Contest Perk",
+          'rows -> 1, 'cols -> 20
+          )
+		
+			@inputText(
+          contestForm("totalNumParticipated"),
+          '_label -> "Total # Participated (till date)"
+          )
+          
+          	@inputText(
+          contestForm("minimumNumRequired"),
+          '_label -> "Minimum # Required"
+          )
+
+		  @inputText(
+          	contestForm("contestOutcome"),
+          '_label -> "Contest Outcome"
+          )
+
+          <div>
+            <input class="btn btn-primary" type="submit" name="action" value="Save">
+           <a href="/adminstuff/campaign/list" target="_self">
+            <input class="btn btn-primary" type="button" name="list" value="Cancel" >
+            </a>
+            <input class="btn btn-primary" type="submit" name="action" value="Copy">
+          </div>
+        }
+      </div>
+    </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <hr>
+
+}

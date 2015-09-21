@@ -224,7 +224,7 @@ function BuzzController($stateParams, $state, FeedService, AuthService, $rootSco
     }
 
     function urlify(text) {
-        var urlRegex = /(http|ftp|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/;
+        var urlRegex = /(http|ftp|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/g;
         return text.replace(urlRegex, function(url) {
             var displayedUrl;
             if (url.length > 40) {

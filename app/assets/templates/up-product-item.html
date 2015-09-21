@@ -2,8 +2,12 @@
     <a analytics-on="click" analytics-event="View Product" analytics-slug="{{product.slug}}" ui-sref="user.product.detail.about({ slug: product.slug })">
         <div class="product-cover-photo" up-background-image="{{product.banner.url.image}}" up-background-attr="?w=800" up-fallback-image="/assets/images/default-product-banner.jpg">
             <div class="product-cover-info">
-                <div class="product-cover-title">{{product.name}}<!-- <span class="label label-discount">DISCOUNT</span> --></div>
+                <div class="product-cover-title">{{product.name}}</div>
                 <div class="product-cover-description">{{product.tagline}}</div>
+                <div class="product-cover-label">  
+                    <img ng-show="product.isAvailableForContest" class="img-responsive product-cover-label-img" src="assets/images/giveaway.png">
+                    <img ng-show="product.isAvailableForDiscount" class="img-responsive product-cover-label-img" src="assets/images/discount.png">
+                </div>
             </div>
         </div>
     </a>
