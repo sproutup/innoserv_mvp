@@ -12,7 +12,7 @@
             </p>
             <p class="my-content-timestamp">{{ vm.content.createdAt | fromNow }}</p>
             <div class="my-content-item-main">
-                <a ui-sref="user.product.detail.about({ slug: vm.content.product.slug })">
+                <a ui-sref="user.product.detail.buzz({ slug: vm.content.product.slug })">
                     <button class="trial-product selected-trial-product up-content-product"><i class="fa fa-tag product-post-tag"></i>{{ vm.content.product.name }}</button>
                 </a>
                 <p class="my-content-text" ng-bind-html="vm.content.body"></p>

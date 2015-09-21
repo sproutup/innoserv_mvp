@@ -59,7 +59,7 @@
 
         function cancel(){
             console.log("## cancel", new Date());
-            $state.go("user.product.detail.about", { slug: $stateParams.slug });
+            $state.go("user.product.detail.buzz", { slug: $stateParams.slug });
         }
 
         function addContent(trial){
@@ -136,7 +136,7 @@
         }
 
         function finish() {
-            $state.go("user.product.detail.about", { slug: $stateParams.slug });
+            $state.go("user.product.detail.buzz", { slug: $stateParams.slug });
         }
     }
 })();

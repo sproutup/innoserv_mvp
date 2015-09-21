@@ -18,7 +18,7 @@ function config($stateProvider) {
             }
         })
         .state('user.product.detail.about', {
-            url: '',
+            url: '/about',
             templateUrl: 'views/product-about',
             //templateUrl: 'assets/app/products/about.html',
             onEnter: function(){
@@ -29,7 +29,7 @@ function config($stateProvider) {
             }
         })
         .state('user.product.detail.buzz', {
-            url: '/buzz',
+            url: '',
             templateUrl: 'assets/app/products/product-detail-buzz.html',
             controller: 'BuzzController',
             controllerAs: 'vm',
