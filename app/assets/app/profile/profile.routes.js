@@ -23,8 +23,8 @@ function config($stateProvider) {
         .state('user.profile.trials' ,{
             url: '/trials',
             templateUrl: 'assets/app/profile/user-trials.html',
-            // controller: 'BuzzController',
-            // controllerAs: 'vm',
+            controller: 'userTrialsController',
+            controllerAs: 'vm',
             data: {
                 title: 'User Trials'
             }

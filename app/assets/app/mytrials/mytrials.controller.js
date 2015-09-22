@@ -5,9 +5,9 @@
         .module('sproutupApp')
         .controller('MyTrialController', MyTrialController);
 
-    MyTrialController.$inject = ['$q', '$rootScope', '$stateParams', '$state', '$log', 'AuthService', '$location', '$window', 'TrialService', 'ContentService', 'OpenGraphService'];
+    MyTrialController.$inject = ['$q', '$rootScope', '$stateParams', '$state', '$log', 'AuthService', '$location', '$window', 'ContentService', 'OpenGraphService'];
 
-    function MyTrialController($q, $rootScope, $stateParams, $state, $log, authService, $location, $window, TrialService, ContentService, OpenGraphService) {
+    function MyTrialController($q, $rootScope, $stateParams, $state, $log, authService, $location, $window, ContentService, OpenGraphService) {
         $log.debug("entered my trials");
 
         var vm = this;

@@ -64,23 +64,18 @@
         }
 
         function submit(){
-            console.log("## submit", vm.request);
-
-            var newTrial = new TrialService();
-            angular.extend(newTrial, vm.request);
-            newTrial.$save(function(data){
+            var MyTrial = TrialService.myTrials();
+            var item = new MyTrial(vm.request);
+            item.$save(function(data) {
                 // Currently checking on data.id existence. Can't return empty data
                 if (typeof data.id !== 'undefined') {
                     vm.trialSuccess = true;
                     authService.addTrial(data);
                 }
                 $state.go("user.trial.confirmation");
-            },
-            function(err){
-                //todo add error handling
+            }, function(err) {
+                // handle err here
             });
-
-
         }
 
         function finish() {

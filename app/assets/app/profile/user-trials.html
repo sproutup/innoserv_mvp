@@ -1,3 +1,9 @@
 <div>
-	List trials here
+	<div class="user-trial-wrapper" ng-repeat="trial in vm.trials">
+		<img class="user-trial-picture" ng-src="{{ trial.product.banner.url.image }}">
+		<div class="user-trial-info">
+			<div class="user-trial-product-name">{{ trial.product.name }}</div>
+			<div class="user-trial-status">status - {{ trial.status }}</div>
+		</div>
+	</div>
 </div>
