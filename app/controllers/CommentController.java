@@ -2,9 +2,7 @@ package controllers;
 
 import be.objectify.deadbolt.java.actions.SubjectPresent;
 import com.fasterxml.jackson.databind.JsonNode;
-import models.Comment;
-import models.Likes;
-import models.User;
+import models.*;
 import play.mvc.BodyParser;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -40,6 +38,20 @@ public class CommentController extends Controller {
                 String body = json.findPath("body").textValue();
                 Logger.debug(body);
                 Comment rs = Comment.addComment(user.id, body, id, type);
+
+                if(type.compareToIgnoreCase("models.post")==0) {
+                    // Add reward points
+                    RewardActivity publishContent = RewardActivity.find.byId(3002L);
+
+                    RewardEvent event = new RewardEvent();
+                    //event.product = Post.find.byId(id);
+                    event.user = user;
+                    //event.content = post.content;
+                    event.activity = publishContent;
+                    event.points = publishContent.points;
+                    event.save();
+                }
+
                 return created(Comment.hmget(rs.id.toString()));
             }
         }
