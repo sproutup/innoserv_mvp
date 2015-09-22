@@ -1,16 +1,16 @@
 <div class="row profile-info">
         <div class="col-sm-3 profile-user--avatar">
-            <img class="img-responsive" src="assets/images/user/zWnxNjhz_400x400.jpeg">
+            <img class="img-responsive" ng-src="{{ user.avatarUrl }}">
         </div>
         <div class="col-sm-9 profile-user--details">
-            <p class="profile-user--name">{{user.name}}<span class="profile-user--alias">@{{user.nickname}}</span></p>
+            <p class="profile-user--name">{{user.name}}</p>
             <p class="profile-user--description">{{user.description}}</p>
             <ul class="list-inline profile-user-social-buttons">
-                <li><a href="#" target="_blank"><i class="fa fa-twitter"></i></a></li>
-                <li><a href="#" target="_blank"><i class="fa fa-facebook"></i></a></li>
-                <li><a href="#" target="_blank"><i class="fa fa-pinterest"></i></a></li>
-                <li><a href="#" target="_blank"><i class="fa fa-rss"></i></a></li>
-                <li><a href="#" target="_blank"><i class="fa fa-youtube"></i></a></li>
+                <li ng-if="user.urlTwitter"><a ng-href="{{ user.urlTwitter }}" target="_blank"><i class="fa fa-twitter"></i></a></li>
+                <li ng-if="user.urlFacebook"><a ng-href="{{ user.urlFacebook }}" target="_blank"><i class="fa fa-facebook"></i></a></li>
+                <li ng-if="user.urlPinterest"><a ng-href="{{ user.urlPinterest }}" target="_blank"><i class="fa fa-pinterest"></i></a></li>
+                <li ng-if="user.urlBlog"><a ng-href="{{ user.urlBlog }}" target="_blank"><i class="fa fa-rss"></i></a></li>
+                <li ng-if="user.urlYoutube"><a ng-href="{{ user.urlYoutube }}" target="_blank"><i class="fa fa-youtube"></i></a></li>
             </ul>
             <ul class="list-inline profile-user--badge">
                 <li class="profile-user--badge-item">Influencer</li>
