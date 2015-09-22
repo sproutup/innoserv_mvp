@@ -103,6 +103,29 @@ function BuzzController($stateParams, $state, FeedService, AuthService, $rootSco
                                                   ' on @sproutupco—http://sproutup.co/buzz/' + vm.content.id;
                 }
             });
+        } else if ($stateParams.nickname) {
+            vm.content = FeedService.buzzUser().query({
+                nickname: $stateParams.nickname,
+                start: 0
+            }, function() {
+                for (var c = 0; c < vm.content.length; c++) {
+                    vm.content[c].body = urlify(vm.content[c].body);
+                    // display youtube videos and tweets
+                    if (vm.content[c].content) {
+                        displayYoutubeVideo(vm.content[c].content);
+                        displayTweet(vm.content[c].content);
+                    }
+                    // urlify comments
+                    if (vm.content[c].comments && vm.content[c].comments.data.length > 0) {
+                        for (var d = 0; d < vm.content[c].comments.data.length; d++) {
+                            vm.content[c].comments.data[d].body = urlify(vm.content[c].comments.data[d].body);
+                        }
+                    }
+                }
+                vm.init = true;
+                $timeout(function(){vm.busy = false;}, 1000);
+                position += 10;
+            });
         } else {
             vm.content = FeedService.buzzAll().query(function() {
                 for (var c = 0; c < vm.content.length; c++) {
@@ -133,6 +156,26 @@ function BuzzController($stateParams, $state, FeedService, AuthService, $rootSco
         if (vm.slug) {
             more = FeedService.buzzProduct().query({
                 slug: vm.slug,
+                start: position
+            }, function() {
+                for (var a = 0; a < more.length; a++) {
+                    if (more[a].content) {
+                        optimizeContentDisplay(more[a]);
+                    }
+                    if (more[a].comments) {
+                        for (var c = 0; c < more[a].comments.data.length; c++) {
+                            more[a].comments.data[c].body = urlify(more[a].comments.data[c].body);
+                        } 
+                    }
+                    more[a].body = urlify(more[a].body);
+                    vm.content.push(more[a]);
+                }
+                $timeout(function(){vm.busy = false;}, 1000);
+                position += 10;
+            });
+        } else if ($stateParams.nickname) {
+            more = FeedService.buzzUser().query({
+                nickname: $stateParams.nickname,
                 start: position
             }, function() {
                 for (var a = 0; a < more.length; a++) {

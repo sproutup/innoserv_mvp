@@ -437,10 +437,15 @@ public class User extends TimeStampModel implements Subject {
 	public ObjectNode toJsonShort(){
 		ObjectNode node = Json.newObject();
 		node.put("id", this.id);
+		node.put("description", this.description);
 		node.put("name", this.name);
 		node.put("nickname", this.nickname);
 		node.put("avatarUrl", getAvatar());
 		node.put("urlTwitter", this.urlTwitter);
+		node.put("urlFacebook", this.urlFacebook);
+		node.put("urlBlog", this.urlBlog);
+		node.put("urlPinterest", this.urlPinterest);
+		node.put("urlYoutube", this.urlYoutube);
 		return node;
 	}
 

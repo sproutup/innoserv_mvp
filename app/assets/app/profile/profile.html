@@ -1,4 +1,5 @@
-<div up-profile>
+<!-- To help with load, this shows *if* $scope.stranger is loaded -->
+<div up-profile ng-if="stranger">
     <div class="profile-header">
         <up-profile-info user="stranger"></up-profile-info>
         <!-- Menu in banner -->
