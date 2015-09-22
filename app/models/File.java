@@ -266,7 +266,7 @@ public class File extends SuperModel {
 
     public ObjectNode toJson(){
         ObjectNode node = Json.newObject();
-        node.put("id", this.id);
+  //      node.put("id", this.id);
         node.put("filename", this.getFileName());
         node.put("type", this.type);
         ObjectNode urlnode = Json.newObject();
@@ -279,17 +279,17 @@ public class File extends SuperModel {
             urlnode.put("image", this.getURL());
         }
         node.put("url", urlnode);
-        node.put("comment", this.comment);
-        node.put("username", this.user != null ? this.user.name : "");
+//        node.put("comment", this.comment);
+//        node.put("username", this.user != null ? this.user.name : "");
         node.put("createdAt", new DateTime(this.createdAt).toString());
-        node.put("isVerified", this.verified);
-        node.put("isTranscoded", this.isTranscoded);
+//        node.put("isVerified", this.verified);
+//        node.put("isTranscoded", this.isTranscoded);
 
         // add likes to the node
-        List<Likes> likes = this.getAllLikes();
-        if(likes.size()>0){
-            node.put("likes", Likes.toJson(likes));
-        }
+//        List<Likes> likes = this.getAllLikes();
+//        if(likes.size()>0){
+//            node.put("likes", Likes.toJson(likes));
+//        }
 
         return node;
     }

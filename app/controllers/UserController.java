@@ -23,7 +23,7 @@ public class UserController extends Controller {
     public static Result getUser(String nickname)
     {
         User user = new User().findByNickname(nickname);
-        return user == null ? notFound("User not found [" + nickname + "]") : ok(user.toJson());
+        return user == null ? notFound("User not found [" + nickname + "]") : ok(user.toJsonShort());
     }
 
     @BodyParser.Of(BodyParser.Json.class)
