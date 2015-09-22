@@ -258,14 +258,14 @@ public class Post extends SuperModel implements Taggable {
 		return data;
 	}
 
-	public static ArrayNode range(Long user_id, long start, long end){
+	public static ArrayNode userRange(String nickname, long start, long end){
 		ObjectNode items = Json.newObject();
 		ArrayNode data = items.putArray("data");
 
 		//Go to Redis to read the full roster of content.
 		Jedis j = play.Play.application().plugin(RedisPlugin.class).jedisPool().getResource();
 		try {
-			String key = "buzz:user:" + user_id.toString();
+			String key = "buzz:user:" + nickname;
 
 			Set<String> set = j.zrevrange(key, start, end);
 

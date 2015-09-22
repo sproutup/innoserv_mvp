@@ -8,14 +8,12 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import models.*;
-import play.Logger;
 import play.mvc.BodyParser;
 import play.mvc.Controller;
 import play.mvc.Result;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
 public class TrialController extends Controller {
 
@@ -35,6 +33,23 @@ public class TrialController extends Controller {
                 .orderBy("id asc")
                 .findList();
         return ok(Trial.toJson(trials));
+    }
+
+    @BodyParser.Of(BodyParser.Json.class)
+    public static Result getByNickname(String nickname) {
+        User user = new User()
+                .find
+                .where()
+                .eq("nickname", nickname)
+                .orderBy("id asc")
+                .findUnique();
+
+        if(user != null){
+            return ok(Trial.toJsonShort(user.trials));
+        }
+        else {
+            return notFound();
+        }
     }
 
     @BodyParser.Of(BodyParser.Json.class)
