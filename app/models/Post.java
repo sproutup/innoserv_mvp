@@ -71,7 +71,7 @@ public class Post extends SuperModel implements Taggable {
 			zadd("buzz:product:" + this.product.slug);
 		}
 		if(user!=null) {
-			zadd("buzz:user:" + this.user.id);
+			zadd("buzz:user:" + this.user.nickname);
 		}
 	}
 
@@ -217,7 +217,7 @@ public class Post extends SuperModel implements Taggable {
 						post.zadd("buzz:product:" + post.product.slug.toString(), j);
 					}
 					if(post.user != null){
-						post.zadd("buzz:user:" + post.user.id.toString(), j);
+						post.zadd("buzz:user:" + post.user.nickname, j);
 					}
 				}
 			}
