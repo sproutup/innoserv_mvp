@@ -8,7 +8,8 @@ function FeedService($resource){
 	var service = {
 		buzzAll: buzzAll,
 		buzzProduct: buzzProduct,
-		buzzSingle: buzzSingle
+		buzzSingle: buzzSingle,
+		buzzUser: buzzUser
 	};
 
 	return service;
@@ -23,6 +24,10 @@ function FeedService($resource){
 
 	function buzzSingle() {
 		return $resource('/api/post/:id', {id:'@id'}, {update:{method:'PUT'}});
+	}
+
+	function buzzUser() {
+		return $resource('/api/buzz/user/:nickname/:start', {nickname:'@nickname', start:'@start'}, {update:{method:'PUT'}});
 	}
 
 }

@@ -8,9 +8,9 @@
     <div class="col-sm-10 my-content-body">
         <div class="my-content-item--summary">
             <p class="my-content-user">{{ vm.content.user.name }}
-                <a ng-href="{{ vm.content.user.urlTwitter }}" target="blank"><span>@{{ vm.content.user.handleTwitter }}</span></a>
+                <span><a ng-href="{{ vm.content.user.urlTwitter }}" target="blank">@{{ vm.content.user.handleTwitter }}</a></span>
             </p>
-            <p class="my-content-timestamp">{{ vm.content.createdAt | fromNow }}</p>
+            <p class="my-content-timestamp"><a ui-sref="user.singleBuzz({ id: vm.content.id })">{{ vm.content.createdAt | fromNow }}</a></p>
             <div class="my-content-item-main">
                 <a ui-sref="user.product.detail.buzz({ slug: vm.content.product.slug })">
                     <button class="trial-product selected-trial-product up-content-product"><i class="fa fa-tag product-post-tag"></i>{{ vm.content.product.name }}</button>

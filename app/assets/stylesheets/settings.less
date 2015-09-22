@@ -367,10 +367,16 @@ a.list-group-item:hover {
     font-size: 10.5pt;
 }
 
-.my-content-user span {
+.my-content-user span a {
     padding-left: 10px;
     color: @main-text-2;
 }
+
+.my-content-user span a:hover {
+    color: @main-text-2;
+    text-decoration: underline !important;
+}
+
 
 .my-content-timestamp {
     font-weight: 400;
@@ -379,6 +385,16 @@ a.list-group-item:hover {
     padding: 5px 0px;
     margin: 0px;
 }
+
+.my-content-timestamp a {
+    color: @secondary-text;
+}
+
+.my-content-timestamp a:hover {
+    color: @secondary-text;
+    text-decoration: underline !important;
+}
+
 
 .my-content-timestamp.comment {
     font-size: 9pt;
@@ -415,6 +431,7 @@ a.list-group-item:hover {
 
 .my-content-text a:hover {
     color: @sproutup-blue-hover;
+    text-decoration: underline !important;
 }
 
 .my-content-og-text {

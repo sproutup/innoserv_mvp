@@ -16,6 +16,7 @@ function BuzzController($stateParams, $state, FeedService, AuthService, $rootSco
     vm.myTrialProducts = [];
     vm.myTrialProducts = MyTrialProductsService.query();
     vm.loadInit = loadInit;
+    vm.loadMore = loadMore;
     vm.slug = $stateParams.slug;
     vm.addContent = addContent;
     vm.displayLinkInput = displayLinkInput;
@@ -126,7 +127,7 @@ function BuzzController($stateParams, $state, FeedService, AuthService, $rootSco
 
     }
 
-    vm.loadMore = function(productId) {
+    function loadMore(productId) {
         vm.busy = true;
         var more = [];
         if (vm.slug) {
@@ -169,7 +170,7 @@ function BuzzController($stateParams, $state, FeedService, AuthService, $rootSco
                 position += 10;
             });
         }
-    };
+    }
 
     vm.postCount = 0;
     function addContent() {
@@ -274,7 +275,7 @@ function BuzzController($stateParams, $state, FeedService, AuthService, $rootSco
         if (typeof content.url == 'undefined') return;
 
         var match = content.url.match(/twitter.com\/\w+\/status\/\w+/g);
-        if (match) {
+        if (match && content.title) {
             var statusIndex = match[0].indexOf('/status/');
             var twitterUsername = match[0].substring(12, statusIndex);
             var onTwitterIndex = content.title.indexOf('on Twitter');
