@@ -23,6 +23,7 @@
 .profile-info {
   padding: 20px 0px;
   margin: 0px;
+  margin-top: 30px !important;
 }
 
 .profile-user--avatar {
@@ -36,7 +37,6 @@
   margin-right: auto;
   border-radius: 8px;
   width: 140px;
-  height: 140px;
 }
 
 .profile-user--details {
@@ -241,6 +241,13 @@ ul.profile-user-social-buttons li a:hover {
     margin: 10px;
 }
 
+@media (min-width:767px) {
+  .profile-user--avatar img {
+    position: relative;
+    right: 10px;
+  }
+}
+
 @media (max-width:767px) {
     .profile-user--details {
         text-align: center;
@@ -339,4 +346,60 @@ ul.profile-user-social-buttons li a:hover {
 
 .user-trial-completed {
   background-color: @sproutup-orange;
+}
+
+.user-profile-menu {
+  display: inline-block;
+  position: relative;
+  top: 20px;
+  left: 50%;
+  width: 180px;
+  margin-left: -89px;
+}
+
+.user-profile-menu-buzz {
+  margin-right: 20px;
+}
+
+.user-profile-menu-item {
+  display: inline-block !important;
+  padding: 6px;
+  width: 78px;
+  height: 40px;
+  text-align: center;
+  padding-top: 8px;
+  color: @sproutup-blue;
+  border-radius: 3px;
+  font-size: 12pt;
+}
+
+.user-profile-menu-item:hover {
+  background-color: @sproutup-grey;
+  color: white;
+  cursor: pointer;
+}
+
+.active-profile-button {
+  background-color: #2996cc !important;
+  color: white !important;
+}
+
+.user-profile-menu-bar {
+  width: 2px;
+  height: 41px;
+  position: absolute;
+  background-color: @sproutup-blue;
+  display: inline-block;
+}
+
+.user-profile-menu-item:link, .user-profile-menu-item:visited, .user-profile-menu-item:hover, .user-profile-menu-item:active {
+  text-decoration: none !important;
+}
+
+.user-profile-content {
+  margin-top: 90px;
+}
+
+.user-profile-buzz {
+  margin-top: 78px !important;
 }
