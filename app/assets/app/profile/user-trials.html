@@ -1,5 +1,5 @@
 <div class="row my-content-page single-post">
-	<div class="user-trial-wrapper" ng-repeat="trial in vm.trials | orderBy: '-updatedAt'" up-background-image="{{ trial.product.banner.url.image }}" up-background-attr="?w=720&h=200">
+	<div class="user-trial-wrapper" ng-repeat="trial in vm.trials | orderBy: '-updatedAt'" up-background-image="{{ trial.product.banner.url.image }}" up-background-attr="?w=720&h=200" up-fallback-image="/assets/images/default-product-banner.jpg">
 		<div class="user-trial-info">
 			<div class="user-trial-product-name">{{ trial.product.name }}</div>
 			<div class="user-trial-requested" ng-if="trial.status === 0 || trial.status === 1">Requesting</div>
