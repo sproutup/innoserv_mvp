@@ -2,26 +2,25 @@
 <div up-profile ng-if="stranger">
     <div class="profile-header">
         <up-profile-info user="stranger"></up-profile-info>
-        <!-- Menu in banner -->
-        <div class="profile-menu">
-		    <div class="row profile-menu-body">
-		        <div class="col-xs-4">
-		            <div class="profile-menu--item">
-		            	<a ui-sref="user.profile.buzz" ui-sref-active="active">
-		                    <span class="profile-menu--item-label">Buzz</span>
-		                </a>
-		            </div>
-		        </div>
-		      	<div class="col-xs-4">
-		            <div class="profile-menu--item">
-		            	<a ui-sref="user.profile.trials" ui-sref-active="active">
-		                    <span class="profile-menu--item-label">Product Trials</span>
-		                </a>
-		            </div>
-		        </div>
-		     </div>
-		</div>
     </div>
+    <div class="profile-menu">
+	    <div class="row profile-menu-body">
+	        <div class="col-xs-4">
+	            <div class="profile-menu--item">
+	            	<a ui-sref="user.profile.buzz" ui-sref-active="active">
+	                    <span class="profile-menu--item-label">Buzz</span>
+	                </a>
+	            </div>
+	        </div>
+	      	<div class="col-xs-4">
+	            <div class="profile-menu--item">
+	            	<a ui-sref="user.profile.trials" ui-sref-active="active">
+	                    <span class="profile-menu--item-label">Product Trials</span>
+	                </a>
+	            </div>
+	        </div>
+	     </div>
+	</div>
 
     <div ui-view class=""></div>
 </div>
