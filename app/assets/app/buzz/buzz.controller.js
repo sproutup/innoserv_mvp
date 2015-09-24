@@ -283,7 +283,6 @@ function BuzzController($stateParams, $state, FeedService, AuthService, $rootSco
 
     function displayYoutubeVideo(content) {
         if (typeof content.url == 'undefined') return;
-
         var match = content.url.match(/https:\/\/www.youtube.com\/watch/g);
         if (match) {
             var id = content.url.replace(youtubeRegexp, '$1');
@@ -311,6 +310,17 @@ function BuzzController($stateParams, $state, FeedService, AuthService, $rootSco
             if (id) {
                 content.youtube = "https://www.youtube.com/embed/" + id;
             }
+        }
+        // Check for 'youtu.be' links
+        var secondMatch;
+        if (!match) {
+            secondMatch = content.url.match(/youtu.be\//g);
+            if (secondMatch) {
+                var index = content.url.indexOf(secondMatch);
+                var videoID = content.url.substring((index + 9), content.url.length);
+                content.youtube = "https://www.youtube.com/embed/" + videoID;
+            }
+            
         }
     }
 
