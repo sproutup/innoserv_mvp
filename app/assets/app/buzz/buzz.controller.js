@@ -122,6 +122,7 @@ function BuzzController($stateParams, $state, FeedService, AuthService, $rootSco
                         }
                     }
                 }
+                vm.buzzInit = true;
                 vm.init = true;
                 $timeout(function(){vm.busy = false;}, 1000);
                 position += 10;
