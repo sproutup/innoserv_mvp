@@ -1,11 +1,14 @@
-<div class="row my-content-page single-post user-profile-content">
+<div class="row my-profile-trial-page single-post user-profile-content">
 	<div class="product-detail-buzz-header-2" ng-if="vm.trials.length < 1 && vm.trialsInit">This user hasn't posted requested any products yet. ¯\_(ツ)_/¯</div>
-	<div class="user-trial-wrapper" ng-repeat="trial in vm.trials | orderBy: '-updatedAt'" up-background-image="{{ trial.product.banner.url.image }}" up-background-attr="?w=720&h=230" up-fallback-image="/assets/images/default-product-banner.jpg">
-		<div class="user-trial-info">
-			<div class="user-trial-product-name">{{ trial.product.name }}</div>
-			<div class="user-trial-requested" ng-if="trial.status === 0 || trial.status === 1">Requesting</div>
-			<div class="user-trial-active" ng-if="trial.status === 2 || trial.status === 3">Trying now</div>
-			<div class="user-trial-completed" ng-if="trial.status === 4">Completed the trial</div>
+		<div class="user-trial-wrapper" ng-repeat="trial in vm.trials | orderBy: '-updatedAt'" up-background-image="{{ trial.product.banner.url.image }}" up-background-attr="?w=720&h=230" up-fallback-image="/assets/images/default-product-banner.jpg">
+			<a ui-sref="user.product.detail.buzz({ slug: trial.product.slug })">
+				<div class="user-trial-info">
+					<div class="user-trial-product-name">{{ trial.product.name }}</div>
+					<div class="user-trial-status requested" ng-if="trial.status === 0 || trial.status === 1">Requested Trial</div>
+					<div class="user-trial-status active" ng-if="trial.status === 2 || trial.status === 3">Trying Now</div>
+					<div class="user-trial-status completed" ng-if="trial.status === 4">Trial Completed</div>
+				</div>
+			</a>
 		</div>
-	</div>
+	
 </div>
