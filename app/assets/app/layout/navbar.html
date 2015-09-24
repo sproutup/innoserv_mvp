@@ -12,7 +12,7 @@
             </a>
         </div>
 
-        <!-- Two different nav bars here and below. Second one shows under 767px and collapses on an item click. -->
+        <!-- Two different nav bars. First for desktop, second one shows under 767px and collapses on an item click. -->
         <div class="collapse navbar-collapse" id="sproutup-collapse-navbar">
             <ul class="nav navbar-nav navbar-item navbar-right navbar-wide">
                 <li><a analytics-on="click" analytics-event="Enter Products page" ui-sref="user.search">PRODUCTS</a></li>
@@ -75,11 +75,13 @@
                 <li about="" class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{auth.m.user.name}}<i class="fa fa-angle-down login-angle-down"></i></a>
                     <ul class="dropdown-menu navbar-wide" role="menu">
-                        <li><a analytics-on="click" analytics-event="Enter Profile & Settings" ui-sref="user.settings.profile">Profile & Settings</a></li>
+                        <li><a analytics-on="click" analytics-event="Enter Profile" ui-sref="user.profile.buzz({ nickname: auth.m.user.nickname })">My Profile</a></li>
+                        <li><a analytics-on="click" analytics-event="Enter Settings" ui-sref="user.settings.profile">Settings</a></li>
                         <li><a href="" analytics-on="click" analytics-event="Log Out" ng-click="auth.logout()">Log Out</a></li>
                     </ul>
                     <ul class="dropdown-menu navbar-toggleMenu" role="menu">
-                        <li><a class="navbar-skinny" analytics-on="click" analytics-event="Enter Profile & Settings" ui-sref="user.settings.profile" data-toggle="collapse" data-target="#sproutup-collapse-navbar">Profile & Settings</a></li>
+                        <li><a class="navbar-skinny" analytics-on="click" ui-sref="user.profile.buzz({ nickname: auth.m.user.nickname })" data-toggle="collapse" data-target="#sproutup-collapse-navbar">My Profile</a></li>
+                        <li><a class="navbar-skinny" analytics-on="click" analytics-event="Enter Profile & Settings" ui-sref="user.settings.profile" data-toggle="collapse" data-target="#sproutup-collapse-navbar">Settings</a></li>
                         <li><a class="navbar-skinny" href="" analytics-on="click" analytics-event="Log Out" ng-click="auth.logout()" data-toggle="collapse" data-target="#sproutup-collapse-navbar">Log Out</a></li>
                     </ul>
                 </li>

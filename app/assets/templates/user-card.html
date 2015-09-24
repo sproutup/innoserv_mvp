@@ -2,9 +2,13 @@
 <!-- 	If the order of these elements is changed, the directive must be changed accordingly in directives.js.  -->
 
 <div class="user-card-wrapper">
-	<img ng-src="{{ vm.user.avatarUrl }}" class="user-card-avatar">
-	<div class="user-card-name">{{ vm.user.name }}</div>
-	<a class="twitterLink" ng-href="{{ vm.user.urlTwitter }}" target="_blank">
+	<a class="user-card-avatar-link" ui-sref="user.profile.buzz({ nickname: vm.user.nickname })">
+		<img ng-src="{{ vm.user.avatarUrl }}" class="user-card-avatar">
+	</a>
+	<a class="user-card-name-link" ui-sref="user.profile.buzz({ nickname: vm.user.nickname })">
+		<div class="user-card-name">{{ vm.user.name }}</div>
+	</a>
+	<a class="user-card-twitter-link" ng-href="{{ vm.user.urlTwitter }}" target="_blank">
 		<div class="user-card-nickname">{{ vm.user.twitterHandle }}</div>
 	</a>
 	<div class="user-card-arrow"></div>

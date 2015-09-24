@@ -471,7 +471,7 @@
 }
 
 .navbar-heightBoost {
-  max-height: 388px !important;
+  max-height: 500px !important;
 }
 
 .user-card-wrapper {
@@ -512,7 +512,7 @@
 
 .user-card-hover-box {
   position: absolute;
-  bottom: 20px;
+  bottom: 36px;
   left: -3px;
   height: 100px;
   width: 44px;
@@ -533,7 +533,7 @@
   text-align: center;
   font-size: 12pt;
   font-weight: 700;
-  color: black;
+  color: @sproutup-dark-grey;
 }
 
 .user-card-nickname {
@@ -545,8 +545,18 @@
   padding-bottom: 25px;
 }
 
-.twitterLink:hover {
-  text-decoration: none !important;
+.user-card-avatar-link {
+  margin-left: 38px;
+}
+
+.user-card-twitter-link:hover {
+  text-decoration: underline !important;
+  color: @sproutup-blue !important;
+}
+
+.user-card-name-link:hover {
+  text-decoration: underline !important;
+  color: @sproutup-dark-grey !important;
 }
 
 @media (min-width: 767px) {

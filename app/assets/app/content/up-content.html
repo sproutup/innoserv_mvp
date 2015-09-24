@@ -2,13 +2,19 @@
 <div class="col-sm-12 my-content-item">
     <!-- user photo -->
     <div class="col-sm-2 my-content-user-avatar post-user-avatar">
-        <img class="img-responsive my-content-user-img img-center" ng-src="{{ vm.content.user.avatarUrl }}">
+        <a ui-sref="user.profile.buzz({ nickname: vm.content.user.nickname })">
+            <img class="img-responsive my-content-user-img img-center" ng-src="{{ vm.content.user.avatarUrl }}">
+        </a>
     </div>
     <!-- content thumbnail -->
     <div class="col-sm-10 my-content-body">
         <div class="my-content-item--summary">
-            <p class="my-content-user">{{ vm.content.user.name }}
-                <span ng-if="vm.content.user.urlTwitter"><a ng-href="{{ vm.content.user.urlTwitter }}" target="blank">@{{ vm.content.user.handleTwitter }}</a></span>
+
+            <p class="my-content-user">
+                <span class="my-content-user-name">
+                    <a class="content-user-link" ui-sref="user.profile.buzz({ nickname: vm.content.user.nickname })">{{ vm.content.user.name }}</a>
+                </span>
+                <span class="my-content-user-twitter" ng-if="vm.content.user.urlTwitter"><a ng-href="{{ vm.content.user.urlTwitter }}" target="blank">@{{ vm.content.user.handleTwitter }}</a></span>
             </p>
             <p class="my-content-timestamp"><a ui-sref="user.singleBuzz({ id: vm.content.id })">{{ vm.content.createdAt | fromNow }}</a></p>
             <div class="my-content-item-main">

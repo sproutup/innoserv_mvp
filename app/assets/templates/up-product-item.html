@@ -14,8 +14,11 @@
     <div class="trial-user-list">
         <div ng-show="getActiveRequests(product).length!=0" class="trial-user-list-title">{{getActiveRequests(product).length}} TRIALS REQUESTED</div>
         <div class="trial-user-wrapper" ng-repeat="trial in getActiveRequests(product) | orderBy: '-updatedAt' | limitTo:8" ng-mouseenter="avatarHover = true" ng-mouseleave="avatarHover = false">
-            <img class="trial-user-img" ng-src="{{trial.user.avatarUrl}}">
+            <a ui-sref="user.profile.buzz({ nickname: trial.user.nickname })">
+                <img class="trial-user-img" ng-src="{{trial.user.avatarUrl}}">
+            </a>
             <user-card user="trial.user" ng-if="avatarHover"></user-card>
         </div>
+        
     </div>
 </div>
