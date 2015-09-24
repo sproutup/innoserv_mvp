@@ -5,7 +5,7 @@
             <img class="img-responsive post-comment-user-img-circle img-center" ng-src="{{ comment.user.avatarUrl }}">
         </div>
         <div class="col-sm-10 my-content-comment-blurb">
-            <p class="my-content-user my-comment-user comment"><a ui-sref="user.profile.buzz({ nickname: comment.user.nickname })">{{ comment.user.name }}</a></p>
+            <p class="my-content-user my-comment-user comment"><a analytics-on="click" analytics-event="Check Public Profile" analytics-user="{{comment.user.nickname}}" ui-sref="user.profile.buzz({ nickname: comment.user.nickname })">{{ comment.user.name }}</a></p>
             <p class="my-content-timestamp my-comment-timestamp comment">{{ comment.createdAt | fromNow }}</p>
             <p class="my-content-text comment" ng-bind-html="comment.body"></p>
             <div class="my-content-actions">
