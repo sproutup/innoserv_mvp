@@ -8,6 +8,7 @@
   background-size: cover;
   position: relative;
   color: @main-text-white;
+  margin-bottom: 20px;
 }
 
 .profile-header::after {
@@ -327,34 +328,29 @@ ul.profile-user-social-buttons li a:hover {
   top: -6px;
 }
 
-.user-trial-requested, .user-trial-active, .user-trial-completed {
+.user-trial-status {
   display: inline-block;
-  padding: 4px 8px;
-  padding-bottom: 5px;
+  padding: 8px 10px;
   margin-top: 6px;
   margin-bottom: 4px;
   border-radius: 2px;
 }
 
-.user-trial-requested {
+.user-trial-status.requested {
   background-color: @sproutup-blue;
 }
 
-.user-trial-active {
+.user-trial-status.active {
   background-color: @sproutup-green;
 }
 
-.user-trial-completed {
+.user-trial-status.completed {
   background-color: @sproutup-orange;
 }
 
 .user-profile-menu {
-  display: inline-block;
-  position: relative;
-  top: 30px;
-  left: 50%;
-  width: 180px;
-  margin-left: -89px;
+  border-bottom: 1px dashed @sproutup-blue;
+  padding: 0px 0px 20px;
 }
 
 .user-profile-menu-buzz {
@@ -362,7 +358,7 @@ ul.profile-user-social-buttons li a:hover {
 }
 
 .user-profile-buzz-wrapper {
-  margin-top: 78px !important;
+  margin-top: 30px !important;
 }
 
 .user-profile-menu-item {
@@ -401,5 +397,11 @@ ul.profile-user-social-buttons li a:hover {
 }
 
 .user-profile-content {
-  margin-top: 90px;
+  margin-top: 20px;
+}
+
+.my-profile-trial-page {
+  max-width: 640px;
+  margin: 50px auto;
+  padding: 0px;
 }
