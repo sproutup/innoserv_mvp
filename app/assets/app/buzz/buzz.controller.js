@@ -261,6 +261,7 @@ function BuzzController($stateParams, $state, FeedService, AuthService, $rootSco
         displayTweet(contentObject.content);
     }
 
+    //
     function urlify(text) {
         var urlRegex = /(http|ftp|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/g;
         return text.replace(urlRegex, function(url) {
@@ -284,30 +285,44 @@ function BuzzController($stateParams, $state, FeedService, AuthService, $rootSco
 
     function displayYoutubeVideo(content) {
         if (typeof content.url == 'undefined') return;
-        var id = content.url.replace(youtubeRegexp, '$1');
-        if (contains(id, ';')) {
-            var pieces = id.split(';');
-            if (contains(pieces[1], '%')) {
-                // links like this:
-                // "http://www.youtube.com/attribution_link?a=pxa6goHqzaA&amp;u=%2Fwatch%3Fv%3DdPdgx30w9sU%26feature%3Dshare"
-                // have the real query string URI encoded behind a ';'.
-                // at this point, `id is 'pxa6goHqzaA;u=%2Fwatch%3Fv%3DdPdgx30w9sU%26feature%3Dshare'
-                var uriComponent = decodeURIComponent(id.split(';')[1]);
-                id = ('http://youtube.com' + uriComponent)
-                        .replace(youtubeRegexp, '$1');
-            } else {
-                // https://www.youtube.com/watch?v=VbNF9X1waSc&amp;feature=youtu.be
-                // `id` looks like 'VbNF9X1waSc;feature=youtu.be' currently.
-                // strip the ';feature=youtu.be'
-                id = pieces[0];
+        var match = content.url.match(/https:\/\/www.youtube.com\/watch/g);
+        if (match) {
+            var id = content.url.replace(youtubeRegexp, '$1');
+            if (contains(id, ';')) {
+                var pieces = id.split(';');
+                if (contains(pieces[1], '%')) {
+                    // links like this:
+                    // "http://www.youtube.com/attribution_link?a=pxa6goHqzaA&amp;u=%2Fwatch%3Fv%3DdPdgx30w9sU%26feature%3Dshare"
+                    // have the real query string URI encoded behind a ';'.
+                    // at this point, `id is 'pxa6goHqzaA;u=%2Fwatch%3Fv%3DdPdgx30w9sU%26feature%3Dshare'
+                    var uriComponent = decodeURIComponent(id.split(';')[1]);
+                    id = ('http://youtube.com' + uriComponent)
+                            .replace(youtubeRegexp, '$1');
+                } else {
+                    // https://www.youtube.com/watch?v=VbNF9X1waSc&amp;feature=youtu.be
+                    // `id` looks like 'VbNF9X1waSc;feature=youtu.be' currently.
+                    // strip the ';feature=youtu.be'
+                    id = pieces[0];
+                }
+            } else if (contains(id, '#')) {
+                // id might look like '93LvTKF_jW0#t=1'
+                // and we want '93LvTKF_jW0'
+                id = id.split('#')[0];
             }
-        } else if (contains(id, '#')) {
-            // id might look like '93LvTKF_jW0#t=1'
-            // and we want '93LvTKF_jW0'
-            id = id.split('#')[0];
+            if (id) {
+                content.youtube = "https://www.youtube.com/embed/" + id;
+            }
         }
-        if (id) {
-            content.youtube = "https://www.youtube.com/embed/" + id;
+        // Check for 'youtu.be' links
+        var secondMatch;
+        if (!match) {
+            secondMatch = content.url.match(/youtu.be\//g);
+            if (secondMatch) {
+                var index = content.url.indexOf(secondMatch);
+                var videoID = content.url.substring((index + 9), content.url.length);
+                content.youtube = "https://www.youtube.com/embed/" + videoID;
+            }
+            
         }
     }
 
