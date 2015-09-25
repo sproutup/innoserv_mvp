@@ -3,13 +3,13 @@
 		<span ng-class="{ 'upvoted': vm.upvoted }">UPVOTE ({{vm.likes.count}})</span>
 	</a>
 	<div class="upvote-list" ng-show="vm.hovering && vm.likes.data.length > 0">
-		<div class="upvote-hover-box"></div>
 		<div class="upvote-user" ng-repeat="like in vm.likes.data">
 			<a ui-sref="user.profile.buzz({ nickname: like.user.nickname })">
 				<img class="upvote-user-avatar" ng-src="{{ like.user.avatarUrl }}" />
 				<span class="upvote-user-name">{{ like.user.name }}</span>
 			</a>
 		</div>
-		<div class="user-card-arrow upvotes"></div>
 	</div>
+	<div class="upvote-hover-box"></div>
+	<div class="user-card-arrow upvotes" ng-show="vm.hovering && vm.likes.data.length > 0"></div>
 </div>
