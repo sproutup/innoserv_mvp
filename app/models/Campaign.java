@@ -188,7 +188,7 @@ public class Campaign extends TimeStampModel implements PathBindable<Campaign>{
 		node.put("perks", perksArrayNode);
 		node.put("campaignOutcome", this.campaignOutcome);
 		node.put("totalNumViewed", this.totalNumViewed);
-		node.put("totalNumViewed", this.totalNumViewed);
+		node.put("totalNumParticipated", this.totalNumParticipated);
 		node.put("active", this.active);
 		node.put("createdAt", new DateTime(this.createdAt).toString());
 		node.put("productId", this.product.id);
