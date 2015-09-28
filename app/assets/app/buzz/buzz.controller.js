@@ -8,9 +8,9 @@ angular
 // This controller contains logic for main buzz page as well as individual product buzz pages
 // Functions loadInit and loadMore have seperate queries for when a slug is present (product buzz page) vs. when there is no slug (main buzz page)
 
-BuzzController.$inject = ['$stateParams', '$state', 'FeedService', 'AuthService', '$rootScope', '$scope', 'MyTrialProductsService', 'PostService', '$timeout'];
+BuzzController.$inject = ['$stateParams', '$state', 'FeedService', 'AuthService', '$rootScope', '$scope', 'MyTrialProductsService', 'PostService', '$timeout', 'usSpinnerService'];
 
-function BuzzController($stateParams, $state, FeedService, AuthService, $rootScope, $scope, MyTrialProductsService, postService, $timeout) {
+function BuzzController($stateParams, $state, FeedService, AuthService, $rootScope, $scope, MyTrialProductsService, postService, $timeout, usSpinnerService) {
     var vm = this;
     vm.content = [];
     vm.myTrialProducts = [];
@@ -227,8 +227,7 @@ function BuzzController($stateParams, $state, FeedService, AuthService, $rootSco
             } else {
                 var Post = postService.post();
                 var item = new Post();
-                var postButton = document.getElementsByClassName('content-post-button');
-                var spinner = new Spinner(opts).spin(postButton[0]);
+                usSpinnerService.spin('spinner-1');
                 vm.postCount = 1;
                 item.body = vm.enteredBody;
                 item.product_id = vm.selectedProduct;
@@ -244,13 +243,11 @@ function BuzzController($stateParams, $state, FeedService, AuthService, $rootSco
                         displayYoutubeVideo(res.content);
                         displayTweet(res.content);
                     }
-                    var spinnerToRemove = document.getElementsByClassName('spinner');
-                    spinnerToRemove[0].remove();
+                    usSpinnerService.stop('spinner-1');
                 }, function(err) {
                     console.log(err);
                     vm.postCount = 0;
-                    var spinnerToRemove = document.getElementsByClassName('spinner');
-                    spinnerToRemove[0].remove();
+                    usSpinnerService.stop('spinner-1');
                 });
             }
         }
@@ -261,7 +258,7 @@ function BuzzController($stateParams, $state, FeedService, AuthService, $rootSco
         displayTweet(contentObject.content);
     }
 
-    //
+    // Put into filter
     function urlify(text) {
         var urlRegex = /(http|ftp|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/g;
         return text.replace(urlRegex, function(url) {
@@ -283,6 +280,7 @@ function BuzzController($stateParams, $state, FeedService, AuthService, $rootSco
     var youtubeRegexp = /https?:\/\/(?:[0-9A-Z-]+\.)?(?:youtu\.be\/|youtube(?:-nocookie)?\.com\S*[^\w\s-])([\w-]{11})(?=[^\w-]|$)(?![?=&+%\w.-]*(?:['"][^<>]*>|<\/a>))[?=&+%\w.-]*/ig;
     var timeRegexp = /t=(\d+)[ms]?(\d+)?s?/;
 
+    // Put into service. Refactor the Regex. It should handle all of the logic that grabs the id.
     function displayYoutubeVideo(content) {
         if (typeof content.url == 'undefined') return;
         var match = content.url.match(/https:\/\/www.youtube.com\/watch/g);
@@ -326,6 +324,7 @@ function BuzzController($stateParams, $state, FeedService, AuthService, $rootSco
         }
     }
 
+    // Put into service. 
     function displayTweet(content) {
         if (typeof content.url == 'undefined') return;
 
@@ -367,29 +366,6 @@ function BuzzController($stateParams, $state, FeedService, AuthService, $rootSco
         vm.selectedProduct = p.id;
     }
 
-    // logic for a spinner after the save—should be moved to a directive 
-    var opts = {
-        lines: 8, // The number of lines to draw
-        length: 16, // The length of each line
-        width: 23, // The line thickness
-        radius: 42, // The radius of the inner circle
-        scale: 0.13, // Scales overall size of the spinner
-        corners: 1, // Corner roundness (0..1)
-        color: 'white', // #rgb or #rrggbb or array of colors
-        opacity: 0.25, // Opacity of the lines
-        rotate: 0, // The rotation offset
-        direction: -1, // 1: clockwise, -1: counterclockwise
-        speed: 0.8, // Rounds per second
-        trail: 60, // Afterglow percentage
-        fps: 20, // Frames per second when using setTimeout() as a fallback for CSS
-        zIndex: 2e9, // The z-index (defaults to 2000000000)
-        className: 'spinner', // The CSS class to assign to the spinner
-        top: '50%', // Top position relative to parent
-        left: '50%', // Left position relative to parent
-        shadow: false,// Whether to render a shadow
-        hwaccel: false, // Whether to use hardware acceleration
-        position: 'absolute' // Element positioning
-    };
 }
 
 })();
