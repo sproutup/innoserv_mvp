@@ -513,26 +513,16 @@ productControllers.controller('modalShareCtrl', ['$scope', '$window', '$statePar
 
 				$http({
 			        method: 'GET',
-			        url: '/api/campaign/getInfo/' + $scope.product.id,
+			        url: '/api/campaign/getShortenURL/' + $scope.product.slug,
 			        headers: {'Content-Type': 'application/json'}
 				}).success(function(data, status, headers, config){
 			        // this callback will be called asynchronously
 			        // when the response is available
-					$scope.campaignName = data.campaignName;
-					$scope.longDescription = data.campaignLongDescription;
-					if (typeof data.perks !== 'undefined') { $scope.perk1 = data.perks[0]; }
-					if (typeof data.perks[1] !== 'undefined') { $scope.perk2 = data.perks[1]; }
+					
 					$scope.uniqueLink = data.url;
-					$scope.offerDiscount = data.offerDiscount;
-					$scope.discountText = data.discountText;
 
 					processShareData = {
-						"userId":data.userId,
-						"referralId":data.referralId,
-						"referrerId":$window.sessionStorage.refId,
-						"campaignId":data.campaignId,
-						"requestedDisc":false,
-						"sharedOnSocialMedia":false,
+						"campaignId":$scope.campaignId,
 						"facebookPostId":""
 					}
 
@@ -543,7 +533,7 @@ productControllers.controller('modalShareCtrl', ['$scope', '$window', '$statePar
 							picture: data.productPictureURL,
 							name: 'Sprout ' + $scope.product.name + ' Up!',
 							caption: $scope.product.tagline,
-							description: data.campaignShareMessage
+							description: $scope.longDescription
 						};
 						function callback(response) {
 							if (typeof response !== "undefined" && response !== null) {
@@ -556,13 +546,20 @@ productControllers.controller('modalShareCtrl', ['$scope', '$window', '$statePar
                                 console.log("FB Posting completed." + response.post_id);
                                 console.log($scope.sharedOnSocialMedia);
                                 console.log($scope);
+                                $log.debug(JSON.stringify(processShareData, null, 4))
+                                $http({
+                                    method: 'POST',
+                                    url: '/api/campaign/processShare',
+                                    data: processShareData,
+                                    headers: {'Content-Type': 'application/json'}
+                                });
 							}
 						}
 						FB.ui(obj, callback);
 					}
 
 					$scope.twtLink = 'https://twitter.com/intent/tweet' +
-						'?text=' + encodeURIComponent(data.campaignShareMessage) +
+						'?text=' + encodeURIComponent($scope.campaignShareMessage) +
 						'&via=' + 'sproutupco' +
 						'&url=' + encodeURIComponent($scope.uniqueLink);
 			    })
@@ -586,17 +583,24 @@ productControllers.controller('modalShareCtrl', ['$scope', '$window', '$statePar
         console.log("Twitter Posting completed.");
         //twitter does not return Tweet Id on its event
         //http://stackoverflow.com/questions/10841752/how-to-get-tweet-id-from-tweet-event
+        $log.debug(JSON.stringify(processShareData, null, 4))
+        $http({
+            method: 'POST',
+            url: '/api/campaign/processShare',
+            data: processShareData,
+            headers: {'Content-Type': 'application/json'}
+        });
 	});
 
 	$scope.close = function () {
 		if (processShareData.requestedDisc || processShareData.sharedOnSocialMedia) {
-            $log.debug(JSON.stringify(processShareData, null, 4))
-            $http({
-                method: 'POST',
-                url: '/api/campaign/processShare',
-                data: processShareData,
-                headers: {'Content-Type': 'application/json'}
-            });
+//            $log.debug(JSON.stringify(processShareData, null, 4))
+//            $http({
+//                method: 'POST',
+//                url: '/api/campaign/processShare',
+//                data: processShareData,
+//                headers: {'Content-Type': 'application/json'}
+//            });
 		}
 		$modalInstance.close();
 	};
@@ -635,7 +639,7 @@ productControllers.controller('modalContestCtrl', ['$scope', '$window', '$stateP
 							picture: data.productPictureURL,
 							name: $scope.contestTitle,
 							caption: $scope.product.tagline,
-							description: $scope.contestDescription + " " + $scope.contestSocialMediaShareMessage
+							description: $scope.contestDescription
 						};
 						function callback(response) {
 							if (typeof response !== "undefined" && response !== null) {
@@ -679,7 +683,7 @@ productControllers.controller('modalContestCtrl', ['$scope', '$window', '$stateP
         
         //twitter does not return Tweet Id on its event
         //http://stackoverflow.com/questions/10841752/how-to-get-tweet-id-from-tweet-event
-        console.log("facebook event");
+        console.log("twitter event");
         $log.debug(JSON.stringify(processContestData, null, 4))
         $http({
             method: 'POST',
@@ -723,7 +727,8 @@ productControllers.controller('productDetailCtrl', ['$scope', '$rootScope', '$st
 		var modalInstance = $modal.open({
 			animation: true,
 			templateUrl: 'myModalContent.html',
-			controller: 'modalShareCtrl'
+			controller: 'modalShareCtrl',
+			scope: $scope
 		});
 	};
 	
@@ -853,8 +858,17 @@ productControllers.controller('productDetailCtrl', ['$scope', '$rootScope', '$st
 			}).success(function(data, status, headers, config) {
 		        // this callback will be called asynchronously
 		        // when the response is available
+				$scope.campaignId = data.campaignId;
 				$scope.activeSprout = data.active;
 				$scope.initVar = true;
+				$scope.campaignName = data.campaignName;
+				$scope.longDescription = data.campaignLongDescription;
+				if (typeof data.perks !== 'undefined') { $scope.perk1 = data.perks[0]; }
+				if (data.perks && typeof data.perks[1] !== 'undefined') { $scope.perk2 = data.perks[1]; }
+				$scope.campaignShareMessage = data.campaignShareMessage;
+				$scope.offerDiscount = data.offerDiscount;
+				$scope.discountText = data.discountText;
+
 		    })
 		    // Active contest check added by @nitinj
 		   

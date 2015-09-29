@@ -13,7 +13,7 @@
                 <li ng-if="user.urlYoutube"><a ng-href="{{ user.urlYoutube }}" target="_blank"><i class="fa fa-youtube"></i></a></li>
             </ul>
             <ul class="list-inline profile-user--badge">
-                <li class="profile-user--badge-item">Influencer</li>
+                <li class="profile-user--badge-item" ng-if="user.isInfluencer">Influencer</li>
             </ul>
         </div>
 </div>

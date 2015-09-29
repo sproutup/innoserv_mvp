@@ -1,4 +1,4 @@
-<span ng-if="!auth.m.isLoggedIn">
+<span ng-if="!auth.m.isLoggedIn && auth.init">
     <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#sproutup-collapse-navbar">
@@ -36,7 +36,7 @@
     </nav>
 </span>
 
-<span ng-if="auth.m.isLoggedIn">
+<span ng-if="auth.m.isLoggedIn && auth.init">
     <nav class="navbar navbar-default navbar-fixed-top navbar-influencer" role="navigation">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#sproutup-collapse-navbar">

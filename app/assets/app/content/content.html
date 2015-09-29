@@ -1,4 +1,4 @@
-<div class="row my-content-page" infinite-scroll='vm.loadMore()' infinite-scroll-disabled='vm.busy' infinite-scroll-distance='2'>
+<div class="row my-content-page" infinite-scroll='vm.loadContent()' infinite-scroll-disabled='vm.busy' infinite-scroll-distance='2'>
 	<div class="col-sm-8 my-content-left-rail">
 		<!-- if no user logs in, display this message -->
 		<div class="col-sm-12 my-content-item" ng-if="vm.init && !vm.user.id">
@@ -19,7 +19,9 @@
 	        <div class="col-sm-12 my-content-item">
 	            <!-- user photo -->
 	            <div class="col-sm-2 my-content-user-avatar post-content-user">
-	                <img class="img-responsive my-content-user-img img-center" ng-src="{{ vm.user.avatarUrl }}">
+	            	<a ui-sref="user.profile.buzz({ nickname: vm.user.nickname })">
+	                	<img class="img-responsive my-content-user-img img-center" ng-src="{{ vm.user.avatarUrl }}">
+	                </a>
 	            </div>
 	            <!-- content thumbnail -->
 	            <div class="col-sm-10 my-content-body">
@@ -33,7 +35,10 @@
 	<!-- 	                        <div class="addPhotoInput">Add a photo or video</div> -->
 		                    </div>
 		                    <div class="post-new-comment-actions">
-		                        <button type="button" class="btn btn-post content-post-button btn-post-default" ng-click="vm.addContent()"><span ng-hide="vm.postCount === 1">Post</span></button>
+		                        <button type="button" analytics-on="click" analytics-event="Post Content" analytics-user="{{vm.user.nickname}}" class="btn btn-post content-post-button btn-post-default" ng-click="vm.addContent()">
+		                        	<span ng-hide="vm.postCount === 1">Post</span>
+		                        	<span us-spinner spinner-key="spinner-1"></span>
+		                        </button>
 		                    </div>
 		                    <div class="post-warning" ng-show="vm.productErrorMsg">Please choose a product</div>
 		                    <div class="post-warning" ng-show="vm.textErrorMsg">Please write something and/or paste a url</div>

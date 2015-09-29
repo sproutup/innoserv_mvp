@@ -34,6 +34,8 @@ upLikeController.$inject = ['LikesService', 'AuthService', '$timeout', '$scope',
 
 function upLikeController(likesService, authService, $timeout, $scope, $rootScope) {
     var vm = this;
+    vm.upvoteMouseEnter = upvoteMouseEnter;
+    vm.upvoteMouseLeave = upvoteMouseLeave;
 
     activate();
 
@@ -78,6 +80,21 @@ function upLikeController(likesService, authService, $timeout, $scope, $rootScop
         return false;
     }
 
+    function upvoteMouseEnter() {
+        $timeout(function() {
+            if (!vm.justLeft) {
+                vm.hovering = true;
+            }
+        }, 300);
+    }
+
+    function upvoteMouseLeave() {
+        vm.hovering = false;
+        vm.justLeft = true;
+        $timeout(function() {
+            vm.justLeft = false;
+        }, 300);
+    }
 
     vm.handleUpvoteClick = function() {
         console.log($scope);

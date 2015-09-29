@@ -891,3 +891,70 @@ input[type=checkbox] {
 .analytics-total {
     float: right;
 }
+
+.product-trial-stage-title {
+    text-align: center;
+    color: white;
+    padding: 12px;
+    font-size: 12pt;
+    border-radius: 6px;
+    margin-bottom: 20px;
+}
+
+.product-trial-stage-title.active {
+    background-color: @sproutup-blue;
+}
+
+.product-trial-stage-title.next {
+    background-color: @sproutup-purple;
+}
+
+.product-trial-stage-title.finished {
+    background-color: @sproutup-orange;
+}
+
+.product-trial-stage {
+    margin-bottom: 40px;
+}
+
+.product-trial-status {
+    
+}
+
+.product-trial-stage-user {
+    width: 80px;
+    height: 80px;
+    position: relative;
+    display: inline-block;
+}
+
+.product-trial-stage-avatar {
+    width: 80px;
+    position: absolute;
+    z-index: -1;
+}
+
+.active-trial-status {
+    position: relative;
+    top: 60px;
+    width: 80px;
+    height: 20px;
+    text-align: center;
+    font-size: 8pt;
+    background-color: white;
+    opacity: .95;
+}
+
+.active-trial-status.bar {
+    width: 40px;
+    background-color: @sproutup-blue;
+    opacity: .4;
+    position: absolute;
+    top: 0px;
+}
+
+.active-trial-status span {
+    color: @sproutup-blue;
+    position: relative;
+    top: 1.5px;
+}

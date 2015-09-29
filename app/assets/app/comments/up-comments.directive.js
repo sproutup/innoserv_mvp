@@ -68,7 +68,6 @@ function upCommentsController(CommentService, authService, $timeout, $scope, $ro
                 vm.commentCount = 1;
 
                 newComment.$save(function(res) {
-                    res.body = urlify(res.body);
                     vm.comments.data.push(res);
                     vm.newComment = '';
                     vm.commenting = false;
@@ -83,22 +82,6 @@ function upCommentsController(CommentService, authService, $timeout, $scope, $ro
         }
         
     };
-
-    function urlify(text) {
-        var urlRegex = /(https?:\/\/[^\s]+)/g;
-        return text.replace(urlRegex, function(url) {
-
-            var displayedUrl;
-            if (url.length > 50) {
-                displayedUrl = url.substring(0, 50);
-                displayedUrl += '...';
-            } else {
-                displayedUrl = url;
-            }
-            console.log(url);
-            return '<a href="' + url + '" target="_blank">' + displayedUrl + '</a>';
-        });
-    }
 
     // logic for a spinner after the save—should be moved to a directive 
     var opts = {

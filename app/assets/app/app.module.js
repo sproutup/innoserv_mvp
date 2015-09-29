@@ -21,7 +21,8 @@ var sproutupApp = angular.module('sproutupApp', [
     'ngAutocomplete',
     'ui.bootstrap',
     'ngSanitize',
-    'infinite-scroll'
+    'infinite-scroll',
+    'angularSpinner'
 ]);
 
 sproutupApp.config(function ($provide) {
@@ -496,3 +497,15 @@ sproutupApp.config(['$routeProvider', '$stateProvider', '$locationProvider', '$u
             'https://www.youtube.com/**'
         ]);
   }]);
+
+sproutupApp.config(['usSpinnerConfigProvider', function (usSpinnerConfigProvider) {
+    usSpinnerConfigProvider.setDefaults({
+        lines: 8, // The number of lines to draw
+        length: 16, // The length of each line
+        width: 23, // The line thickness
+        radius: 42, // The radius of the inner circle
+        scale: 0.13, // Scales overall size of the spinner
+        corners: 1, // Corner roundness (0..1)
+        color: 'white', // #rgb or #rrggbb or array of colors
+    });
+}]);
