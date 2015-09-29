@@ -67,6 +67,9 @@ public class Trial extends TimeStampModel {
     @OneToMany
     public List<Content> content;
 
+    @OneToMany
+    public List<TrialLog> log;
+
     @ManyToOne
     public User user;
 
@@ -74,12 +77,14 @@ public class Trial extends TimeStampModel {
     public void save() {
         if(this.product != null) this.product.cacheRemove();
         super.save();
+        TrialLog.log(this);
     }
 
     @Override
     public void update() {
         if(this.product != null) this.product.cacheRemove();
         super.update();
+        TrialLog.log(this);
     }
 
     public static Trial findById(Long id) {
@@ -158,6 +163,7 @@ public class Trial extends TimeStampModel {
         node.put("status", this.status);
         node.put("createdAt", new DateTime(this.createdAt).toString());
         node.put("updatedAt", new DateTime(this.updatedAt).toString());
+        node.put("trialEndsAt", new DateTime(this.createdAt).toString());
         if(this.user != null) {
             node.put("user", this.user.toJsonShort());
         }
@@ -166,6 +172,9 @@ public class Trial extends TimeStampModel {
         }
         if(this.content != null) {
             node.put("content", Content.toJson(this.content));
+        }
+        if(this.log != null) {
+            node.put("log", TrialLog.toJson(this.log));
         }
         node.put("refURL", refURL);
         return node;
