@@ -864,7 +864,7 @@ productControllers.controller('productDetailCtrl', ['$scope', '$rootScope', '$st
 				$scope.campaignName = data.campaignName;
 				$scope.longDescription = data.campaignLongDescription;
 				if (typeof data.perks !== 'undefined') { $scope.perk1 = data.perks[0]; }
-				if (typeof data.perks[1] !== 'undefined') { $scope.perk2 = data.perks[1]; }
+				if (data.perks && typeof data.perks[1] !== 'undefined') { $scope.perk2 = data.perks[1]; }
 				$scope.campaignShareMessage = data.campaignShareMessage;
 				$scope.offerDiscount = data.offerDiscount;
 				$scope.discountText = data.discountText;
