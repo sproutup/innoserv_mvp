@@ -60,9 +60,6 @@ public class TrialController extends Controller {
         if(prod == null) return notFound();
 
         ArrayNode arrayNode = Trial.toJson(prod.trials);
-        for (Trial item : prod.trials){
-            arrayNode.add(item.product.toJsonShort());
-        }
 
         return ok(arrayNode);
     }
