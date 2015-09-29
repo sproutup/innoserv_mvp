@@ -12,11 +12,11 @@ BuzzController.$inject = ['$stateParams', '$state', 'FeedService', 'AuthService'
 
 function BuzzController($stateParams, $state, FeedService, AuthService, $rootScope, $scope, MyTrialProductsService, postService, $timeout, usSpinnerService) {
     var vm = this;
+    var content = [];
     vm.content = [];
     vm.myTrialProducts = [];
     vm.myTrialProducts = MyTrialProductsService.query();
-    vm.loadInit = loadInit;
-    vm.loadMore = loadMore;
+    vm.loadContent = loadContent;
     vm.slug = $stateParams.slug;
     vm.addContent = addContent;
     vm.displayLinkInput = displayLinkInput;
@@ -25,6 +25,7 @@ function BuzzController($stateParams, $state, FeedService, AuthService, $rootSco
     vm.selectTrialProduct = selectTrialProduct;
     vm.busy = true;
     var local = {};
+    local.loadCallback = loadCallback;
     local.displayYoutubeVideo = displayYoutubeVideo;
     local.displayTweet = displayTweet;
     local.optimizeContentDisplay = local.optimizeContentDisplay;
@@ -37,25 +38,25 @@ function BuzzController($stateParams, $state, FeedService, AuthService, $rootSco
     }
 
     function init() {
-        //vm.user = angular.copy(AuthService.m.user);
         vm.user = AuthService.m.user;
-        loadInit();
+        loadContent();
     }
 
-    function loadInit(){
+    function loadContent() {
+        vm.busy = true;
         if (vm.slug) {
-            vm.content = FeedService.buzzProduct().query({
+            content = FeedService.buzzProduct().query({
                 slug: vm.slug,
-                start: 0
+                start: position
             }, function() {
-                for (var c = 0; c < vm.content.length; c++) {
-                    if (vm.content[c].content) {
-                        optimizeContentDisplay(vm.content[c]);
-                    }
-                }
-                $timeout(function(){vm.busy = false;}, 1000);
-                position += 10;
-                vm.init = true;
+                loadCallback(content);
+            });
+        } else if ($stateParams.nickname) {
+            content = FeedService.buzzUser().query({
+                nickname: $stateParams.nickname,
+                start: position
+            }, function() {
+                loadCallback(content);
             });
         } else if ($stateParams.id) {
             vm.content = FeedService.buzzSingle().get({
@@ -90,85 +91,27 @@ function BuzzController($stateParams, $state, FeedService, AuthService, $rootSco
                                                   ' on @sproutupco—http://sproutup.co/buzz/' + vm.content.id;
                 }
             });
-        } else if ($stateParams.nickname) {
-            vm.content = FeedService.buzzUser().query({
-                nickname: $stateParams.nickname,
-                start: 0
-            }, function() {
-                for (var c = 0; c < vm.content.length; c++) {
-                    // display youtube videos and tweets
-                    if (vm.content[c].content) {
-                        displayYoutubeVideo(vm.content[c].content);
-                        displayTweet(vm.content[c].content);
-                    }
-                }
-                vm.buzzInit = true;
-                vm.init = true;
-                $timeout(function(){vm.busy = false;}, 1000);
-                position += 10;
-            });
         } else {
-            vm.content = FeedService.buzzAll().query(function() {
-                for (var c = 0; c < vm.content.length; c++) {
-                    // display youtube videos and tweets
-                    if (vm.content[c].content) {
-                        displayYoutubeVideo(vm.content[c].content);
-                        displayTweet(vm.content[c].content);
-                    }
-                }
-                vm.init = true;
-                $timeout(function(){vm.busy = false;}, 1000);
-                position += 10;
+            content = FeedService.buzzAll().query({
+                start: position
+            }, function() {
+                loadCallback(content);
             });
         }
-
     }
 
-    function loadMore(productId) {
-        vm.busy = true;
-        var more = [];
-        if (vm.slug) {
-            more = FeedService.buzzProduct().query({
-                slug: vm.slug,
-                start: position
-            }, function() {
-                for (var a = 0; a < more.length; a++) {
-                    if (more[a].content) {
-                        optimizeContentDisplay(more[a]);
-                    }
-                    vm.content.push(more[a]);
-                }
-                $timeout(function(){vm.busy = false;}, 1000);
-                position += 10;
-            });
-        } else if ($stateParams.nickname) {
-            more = FeedService.buzzUser().query({
-                nickname: $stateParams.nickname,
-                start: position
-            }, function() {
-                for (var a = 0; a < more.length; a++) {
-                    if (more[a].content) {
-                        optimizeContentDisplay(more[a]);
-                    }
-                    vm.content.push(more[a]);
-                }
-                $timeout(function(){vm.busy = false;}, 1000);
-                position += 10;
-            });
-        } else {
-            more = FeedService.buzzAll().query({
-                start: position
-            }, function() {
-                for (var a = 0; a < more.length; a++) {
-                    if (more[a].content) {
-                        optimizeContentDisplay(more[a]);
-                    }
-                    vm.content.push(more[a]);
-                }
-                $timeout(function(){vm.busy = false;}, 1000);
-                position += 10;
-            });
+    function loadCallback(content) {
+        for (var c = 0; c < content.length; c++) {
+            if (content[c].content) {
+                optimizeContentDisplay(content[c]);
+            }
+            vm.content.push(content[c]);
         }
+        if (position === 0) {
+            vm.init = true;
+        }
+        $timeout(function(){vm.busy = false;}, 1000);
+        position += 10;
     }
 
     vm.postCount = 0;
