@@ -28,6 +28,22 @@ angular.module('sproutupApp').filter('urlEncode', [
     }
 ]);
 
+angular.module('sproutupApp').filter('urlify', function() {
+    return function(text) {
+        var urlRegex = /(http|ftp|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/g;
+        return text.replace(urlRegex, function(url) {
+            var displayedUrl;
+            if (url.length > 40) {
+                displayedUrl = url.substring(0, 40);
+                displayedUrl += '...';
+            } else {
+                displayedUrl = url;
+            }
+            return '<a href="' + url + '" target="blank">' + displayedUrl + '</a>';
+        });
+    }
+});
+
 angular.module('sproutupApp').filter('humanizeNumber', [
     function () {
         return function (n) {

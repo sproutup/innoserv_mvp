@@ -25,7 +25,6 @@ function BuzzController($stateParams, $state, FeedService, AuthService, $rootSco
     vm.selectTrialProduct = selectTrialProduct;
     vm.busy = true;
     var local = {};
-    local.urlify = urlify;
     local.displayYoutubeVideo = displayYoutubeVideo;
     local.displayTweet = displayTweet;
     local.optimizeContentDisplay = local.optimizeContentDisplay;
@@ -50,14 +49,8 @@ function BuzzController($stateParams, $state, FeedService, AuthService, $rootSco
                 start: 0
             }, function() {
                 for (var c = 0; c < vm.content.length; c++) {
-                    vm.content[c].body = urlify(vm.content[c].body);
                     if (vm.content[c].content) {
                         optimizeContentDisplay(vm.content[c]);
-                    }
-                    if (vm.content[c].comments) {
-                        for (var d = 0; d < vm.content[c].comments.data.length; d ++) {
-                            vm.content[c].comments.data[d].body = urlify(vm.content[c].comments.data[d].body);
-                        }
                     }
                 }
                 $timeout(function(){vm.busy = false;}, 1000);
@@ -68,15 +61,9 @@ function BuzzController($stateParams, $state, FeedService, AuthService, $rootSco
             vm.content = FeedService.buzzSingle().get({
                 id: $stateParams.id
             }, function() {
-                vm.content.body = urlify(vm.content.body);
                 if (vm.content.content) {
                     displayYoutubeVideo(vm.content.content);
                     displayTweet(vm.content.content);
-                }
-                if (vm.content.comments && vm.content.comments.data.length > 0) {
-                    for (var d = 0; d < vm.content.comments.data.length; d++) {
-                        vm.content.comments.data[d].body = urlify(vm.content.comments.data[d].body);
-                    }
                 }
                 // Get twitter handle of the product for twitter share
                 if (vm.content.product && vm.content.product.urlTwitter) {
@@ -109,17 +96,10 @@ function BuzzController($stateParams, $state, FeedService, AuthService, $rootSco
                 start: 0
             }, function() {
                 for (var c = 0; c < vm.content.length; c++) {
-                    vm.content[c].body = urlify(vm.content[c].body);
                     // display youtube videos and tweets
                     if (vm.content[c].content) {
                         displayYoutubeVideo(vm.content[c].content);
                         displayTweet(vm.content[c].content);
-                    }
-                    // urlify comments
-                    if (vm.content[c].comments && vm.content[c].comments.data.length > 0) {
-                        for (var d = 0; d < vm.content[c].comments.data.length; d++) {
-                            vm.content[c].comments.data[d].body = urlify(vm.content[c].comments.data[d].body);
-                        }
                     }
                 }
                 vm.buzzInit = true;
@@ -130,17 +110,10 @@ function BuzzController($stateParams, $state, FeedService, AuthService, $rootSco
         } else {
             vm.content = FeedService.buzzAll().query(function() {
                 for (var c = 0; c < vm.content.length; c++) {
-                    vm.content[c].body = urlify(vm.content[c].body);
                     // display youtube videos and tweets
                     if (vm.content[c].content) {
                         displayYoutubeVideo(vm.content[c].content);
                         displayTweet(vm.content[c].content);
-                    }
-                    // urlify comments
-                    if (vm.content[c].comments && vm.content[c].comments.data.length > 0) {
-                        for (var d = 0; d < vm.content[c].comments.data.length; d++) {
-                            vm.content[c].comments.data[d].body = urlify(vm.content[c].comments.data[d].body);
-                        }
                     }
                 }
                 vm.init = true;
@@ -163,12 +136,6 @@ function BuzzController($stateParams, $state, FeedService, AuthService, $rootSco
                     if (more[a].content) {
                         optimizeContentDisplay(more[a]);
                     }
-                    if (more[a].comments) {
-                        for (var c = 0; c < more[a].comments.data.length; c++) {
-                            more[a].comments.data[c].body = urlify(more[a].comments.data[c].body);
-                        } 
-                    }
-                    more[a].body = urlify(more[a].body);
                     vm.content.push(more[a]);
                 }
                 $timeout(function(){vm.busy = false;}, 1000);
@@ -183,12 +150,6 @@ function BuzzController($stateParams, $state, FeedService, AuthService, $rootSco
                     if (more[a].content) {
                         optimizeContentDisplay(more[a]);
                     }
-                    if (more[a].comments) {
-                        for (var c = 0; c < more[a].comments.data.length; c++) {
-                            more[a].comments.data[c].body = urlify(more[a].comments.data[c].body);
-                        } 
-                    }
-                    more[a].body = urlify(more[a].body);
                     vm.content.push(more[a]);
                 }
                 $timeout(function(){vm.busy = false;}, 1000);
@@ -201,12 +162,6 @@ function BuzzController($stateParams, $state, FeedService, AuthService, $rootSco
                 for (var a = 0; a < more.length; a++) {
                     if (more[a].content) {
                         optimizeContentDisplay(more[a]);
-                    }
-                    more[a].body = urlify(more[a].body);
-                    if (more[a].comments && more[a].comments.data.length > 0) {
-                        for (var c = 0; c < more[a].comments.data.length; c++) {
-                            more[a].comments.data[c].body = urlify(more[a].comments.data[c].body);
-                        }
                     }
                     vm.content.push(more[a]);
                 }
@@ -232,7 +187,6 @@ function BuzzController($stateParams, $state, FeedService, AuthService, $rootSco
                 item.body = vm.enteredBody;
                 item.product_id = vm.selectedProduct;
                 item.$save(function(res) {
-                    res.body = urlify(res.body);
                     vm.content.unshift(res);
                     vm.enteredBody = '';
                     vm.selectedProduct = null;
@@ -256,21 +210,6 @@ function BuzzController($stateParams, $state, FeedService, AuthService, $rootSco
     function optimizeContentDisplay(contentObject) {
         displayYoutubeVideo(contentObject.content);
         displayTweet(contentObject.content);
-    }
-
-    // Put into filter
-    function urlify(text) {
-        var urlRegex = /(http|ftp|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/g;
-        return text.replace(urlRegex, function(url) {
-            var displayedUrl;
-            if (url.length > 40) {
-                displayedUrl = url.substring(0, 40);
-                displayedUrl += '...';
-            } else {
-                displayedUrl = url;
-            }
-            return '<a href="' + url + '" target="blank">' + displayedUrl + '</a>';
-        });
     }
 
     function contains(str, substr) {
