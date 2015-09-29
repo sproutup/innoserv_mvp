@@ -7,7 +7,8 @@ TrialService.$inject = ['$resource'];
 function TrialService($resource) {
 	var service = {
 		myTrials: myTrials,
-		userTrials: userTrials
+		userTrials: userTrials,
+		productTrials: productTrials
 	};
 
 	return service;
@@ -18,5 +19,9 @@ function TrialService($resource) {
 
 	function userTrials() {
 		return $resource('/api/user/:nickname/trials', {nickname:'@nickname'}, {update:{method:'PUT'}} );
+	}
+
+	function productTrials() {
+		return $resource('/api/trials/product/:slug', {slug:'@slug'});
 	}
 }

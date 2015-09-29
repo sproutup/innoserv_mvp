@@ -16,67 +16,130 @@
         </div>
 
         <!--  new right rail -->
-<!--         <div class="col-sm-5 forum-right-rail">
+        <!-- <div class="col-sm-5 forum-right-rail" ng-controller="ProductTrialsController as vm">
 
-            <div class="product-trial-stage">
-                <div class="product-trial-stage-title active">Trying Jibo now</div>
-                <div class="product-trial-stage-user">
-                    <img class="product-trial-stage-avatar" src="https://pbs.twimg.com/profile_images/629369915359821824/2JsBP2bl.jpg"/>
-                    <div class="active-trial-status">
-                        <div class="active-trial-status bar"></div>
-                        <span>2 days left</span>
+            <div class="product-trial-stage row" ng-if="vm.active.length > 0">
+                <div class="product-trial-stage-title active">Trying {{$stateParams.slug}} now</div>
+
+                <div class="col-sm-4 col-md-4 col-lg-3 product-trial-stage-user" ng-repeat="trial in vm.active">
+                    <div class="product-trial-stage-user-inner-wrapper">
+                        <img class="product-trial-stage-avatar" ng-src="{{ trial.user.avatarUrl }}"/>
+                        <div class="active-trial-status">
+
+                            <progressbar class="days-left-bar" value="trial.percentageLeft"></progressbar>
+                            <span>{{ trial.daysLeft }} days left</span>
+                        </div>
+                    </div>
+                </div> -->
+
+<!--                <div class="col-sm-4 col-md-4 col-lg-3 product-trial-stage-user">
+                    <div class="product-trial-stage-user-inner-wrapper">
+                        <img class="product-trial-stage-avatar" src="https://pbs.twimg.com/profile_images/629369915359821824/2JsBP2bl.jpg"/>
+                        <div class="active-trial-status">
+                            <div class="active-trial-status bar"></div>
+                            <span>2 days left</span>
+                        </div>
                     </div>
                 </div>
-                <div class="product-trial-stage-user">
-                    <img class="product-trial-stage-avatar" src="https://pbs.twimg.com/profile_images/637229465152581632/rHZ0lrIJ.jpg"/>
-                    <div class="active-trial-status">
-                        <div class="active-trial-status bar"></div>
-                        <span>2 days left</span>
+                <div class="col-sm-4 col-md-4 col-lg-3 product-trial-stage-user">
+                    <div class="product-trial-stage-user-inner-wrapper">
+                        <img class="product-trial-stage-avatar" src="https://pbs.twimg.com/profile_images/637229465152581632/rHZ0lrIJ.jpg"/>
+                        <div class="active-trial-status">
+                            <div class="active-trial-status bar"></div>
+                            <span>2 days left</span>
+                        </div>
                     </div>
                 </div>
-                <div class="product-trial-stage-user">
-                    <img class="product-trial-stage-avatar" src="https://pbs.twimg.com/profile_images/616983642578001920/McXOdvAM_400x400.jpg"/>
-                    <div class="active-trial-status">
-                        <div class="active-trial-status bar"></div>
-                        <span>2 days overdue</span>
+                <div class="col-sm-4 col-md-4 col-lg-3 product-trial-stage-user">
+                    <div class="product-trial-stage-user-inner-wrapper">
+                        <img class="product-trial-stage-avatar" src="https://pbs.twimg.com/profile_images/616983642578001920/McXOdvAM_400x400.jpg"/>
+                        <div class="active-trial-status">
+                            <div class="active-trial-status bar"></div>
+                            <span>2 days overdue</span>
+                        </div>
                     </div>
                 </div>
-                <div class="product-trial-stage-user">
-                    <img class="product-trial-stage-avatar" src="https://pbs.twimg.com/profile_images/626750311256829952/OzhbRJDq_400x400.png"/>
-                    <div class="active-trial-status">
-                        <div class="active-trial-status bar"></div>
-                        <span>2 days overdue</span>
+                <div class="col-sm-4 col-md-4 col-lg-3 product-trial-stage-user">
+                    <div class="product-trial-stage-user-inner-wrapper">
+                        <img class="product-trial-stage-avatar" src="https://pbs.twimg.com/profile_images/626750311256829952/OzhbRJDq_400x400.png"/>
+                        <div class="active-trial-status">
+                            <div class="active-trial-status bar"></div>
+                            <span>2 days overdue</span>
+                        </div>
                     </div>
                 </div>
-            </div>
+                <div class="col-sm-4 col-md-4 col-lg-3 product-trial-stage-user">
+                    <div class="product-trial-stage-user-inner-wrapper">
+                        <img class="product-trial-stage-avatar" src="https://pbs.twimg.com/profile_images/626750311256829952/OzhbRJDq_400x400.png"/>
+                        <div class="active-trial-status">
+                            <div class="active-trial-status bar"></div>
+                            <span>2 days overdue</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4 col-md-4 col-lg-3 product-trial-stage-user">
+                    <div class="product-trial-stage-user-inner-wrapper">
+                        <img class="product-trial-stage-avatar" src="https://pbs.twimg.com/profile_images/626750311256829952/OzhbRJDq_400x400.png"/>
+                        <div class="active-trial-status">
+                            <div class="active-trial-status bar"></div>
+                            <span>2 days overdue</span>
+                        </div>
+                    </div>
+                </div> -->
+<!--             </div>
 
 
-            <div class="product-trial-stage">
-                <div class="product-trial-stage-title next">Next to try Jibo</div>
-                <div class="product-trial-stage-user">
-                    <img class="product-trial-stage-avatar" src="https://pbs.twimg.com/profile_images/637229465152581632/rHZ0lrIJ.jpg"/>
+            <div class="product-trial-stage row" ng-if="vm.next.length > 0">
+                <div class="product-trial-stage-title next">Next to try {{$stateParams.slug}}</div>
+
+                <div class="col-sm-4 col-md-4 col-lg-3 product-trial-stage-user" ng-repeat="trial in vm.next">
+                    <div class="product-trial-stage-user-inner-wrapper">
+                        <img class="product-trial-stage-avatar" ng-src="{{ trial.user.avatarUrl }}"/>
+                    </div>
+                </div> -->
+
+                <!-- <div class="col-sm-4 col-md-4 col-lg-3 product-trial-stage-user">
+                    <div class="product-trial-stage-user-inner-wrapper">
+                        <img class="product-trial-stage-avatar" src="https://pbs.twimg.com/profile_images/626750311256829952/OzhbRJDq_400x400.png"/>
+                    </div>
                 </div>
-                <div class="product-trial-stage-user">
-                    <img class="product-trial-stage-avatar" src="https://pbs.twimg.com/profile_images/637229465152581632/rHZ0lrIJ.jpg"/>
+                <div class="col-sm-4 col-md-4 col-lg-3 product-trial-stage-user">
+                    <div class="product-trial-stage-user-inner-wrapper">
+                        <img class="product-trial-stage-avatar" src="https://pbs.twimg.com/profile_images/616983642578001920/McXOdvAM_400x400.jpg"/>
+                    </div>
                 </div>
-                <div class="product-trial-stage-user">
-                    <img class="product-trial-stage-avatar" src="https://pbs.twimg.com/profile_images/637229465152581632/rHZ0lrIJ.jpg"/>
-                </div>
-            </div>
+                <div class="col-sm-4 col-md-4 col-lg-3 product-trial-stage-user">
+                    <div class="product-trial-stage-user-inner-wrapper">
+                        <img class="product-trial-stage-avatar" src="https://pbs.twimg.com/profile_images/629369915359821824/2JsBP2bl.jpg"/>
+                    </div>
+                </div> -->
+<!--             </div>
 
 
-            <div class="product-trial-stage">
-                <div class="product-trial-stage-title finished">Finished trying Jibo</div>
-                <div class="product-trial-stage-user">
-                    <img class="product-trial-stage-avatar" src="https://pbs.twimg.com/profile_images/637229465152581632/rHZ0lrIJ.jpg"/>
+            <div class="product-trial-stage" ng-if="vm.finished.length > 0">
+                <div class="product-trial-stage-title finished">Finished trying {{$stateParams.slug}}</div>
+
+                <div class="col-sm-4 col-md-4 col-lg-3 product-trial-stage-user" ng-repeat="trial in vm.finished">
+                    <div class="product-trial-stage-user-inner-wrapper">
+                        <img class="product-trial-stage-avatar" ng-src="{{ trial.user.avatarUrl }}"/>
+                    </div>
+                </div> -->
+                <!-- <div class="col-sm-4 col-md-4 col-lg-3 product-trial-stage-user">
+                    <div class="product-trial-stage-user-inner-wrapper">
+                        <img class="product-trial-stage-avatar" src="https://pbs.twimg.com/profile_images/616983642578001920/McXOdvAM_400x400.jpg"/>
+                    </div>
                 </div>
-                <div class="product-trial-stage-user">
-                    <img class="product-trial-stage-avatar" src="https://pbs.twimg.com/profile_images/637229465152581632/rHZ0lrIJ.jpg"/>
+                <div class="col-sm-4 col-md-4 col-lg-3 product-trial-stage-user">
+                    <div class="product-trial-stage-user-inner-wrapper">
+                        <img class="product-trial-stage-avatar" src="https://pbs.twimg.com/profile_images/629369915359821824/2JsBP2bl.jpg"/>
+                    </div>
                 </div>
-                <div class="product-trial-stage-user">
-                    <img class="product-trial-stage-avatar" src="https://pbs.twimg.com/profile_images/637229465152581632/rHZ0lrIJ.jpg"/>
-                </div>
-            </div>
+                <div class="col-sm-4 col-md-4 col-lg-3 product-trial-stage-user">
+                    <div class="product-trial-stage-user-inner-wrapper">
+                        <img class="product-trial-stage-avatar" src="https://pbs.twimg.com/profile_images/626750311256829952/OzhbRJDq_400x400.png"/>
+                    </div>
+                </div> -->
+<!--             </div>
         </div> -->
 
     </div>

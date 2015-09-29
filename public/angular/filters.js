@@ -32,7 +32,6 @@ angular.module('sproutupApp').filter('urlEncode', [
  * 
  */
 angular.module('sproutupApp').filter('urlify', function() {
-    console.log(this);
     return function(text) {
         var urlRegex = /(http|ftp|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/g;
         if (text) {

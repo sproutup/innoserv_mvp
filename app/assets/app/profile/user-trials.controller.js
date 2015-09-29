@@ -12,7 +12,6 @@ function userTrialsController(TrialService, $stateParams) {
         nickname: $stateParams.nickname
     }, function() {
         vm.trialsInit = true;
-        console.log(vm.trials);
     });
 }
 

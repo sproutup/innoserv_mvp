@@ -97,7 +97,6 @@ function upLikeController(likesService, authService, $timeout, $scope, $rootScop
     }
 
     vm.handleUpvoteClick = function() {
-        console.log($scope);
         if (!authService.loggedIn()) {
             $scope.$emit('LoginEvent', {
                 someProp: 'Sending you an Object!' // send whatever you want
@@ -105,10 +104,7 @@ function upLikeController(likesService, authService, $timeout, $scope, $rootScop
             return;
         }
 
-        console.log("user.id: " + authService.m.user.id);
-
         if (didIlikeItAlready() === false) {
-            console.log($scope.vm.id + $scope.vm.type + authService.m.user.id);
             likesService.addLike($scope.vm.id, $scope.vm.type, authService.m.user.id).then(
                 function(data) {
                     $scope.vm.likes.data.push(data);
