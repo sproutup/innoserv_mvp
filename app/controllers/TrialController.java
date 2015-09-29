@@ -53,6 +53,21 @@ public class TrialController extends Controller {
     }
 
     @BodyParser.Of(BodyParser.Json.class)
+    public static Result getTrialsOnProduct(String slug){
+        Product prod = new Product()
+                .findbySlug(slug);
+
+        if(prod == null) return notFound();
+
+        ArrayNode arrayNode = Trial.toJson(prod.trials);
+        for (Trial item : prod.trials){
+            arrayNode.add(item.product.toJsonShort());
+        }
+
+        return ok(arrayNode);
+    }
+
+    @BodyParser.Of(BodyParser.Json.class)
     @SubjectPresent
     public static Result getMyTriedProducts(){
         User user = Application.getLocalUser(ctx().session());

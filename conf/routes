@@ -74,6 +74,7 @@ GET           /api/trials/products                                           con
 
 GET           /api/trials                                                    controllers.TrialController.getall
 GET           /api/trials/:id                                                controllers.TrialController.get(id: Long)
+GET           /api/trials/product/:slug                                      controllers.TrialController.getTrialsOnProduct(slug: String)
 POST          /api/trials                                                    controllers.TrialController.create
 PUT           /api/trials/:id                                                controllers.TrialController.update(id: Long)
 POST          /api/trials/:id                                                controllers.TrialController.update(id: Long)
