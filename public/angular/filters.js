@@ -29,7 +29,7 @@ angular.module('sproutupApp').filter('urlEncode', [
 ]);
 
 /*
- * 
+ * Take text and return html with a tags around links
  */
 angular.module('sproutupApp').filter('urlify', function() {
     return function(text) {
