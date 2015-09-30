@@ -6,9 +6,9 @@
             <div class="product-title">{{product.name}}</div>
             <div class="product-description">{{product.tagline}}</div>
             <ul class="list-inline product-social-buttons">
-                <li ng-show="product.urlHome"><a analytics-on="click" analytics-event="Visit Product Site: {{product.name}}" href="{{product.urlHome}}" target="_blank"><i class="fa fa-home"></i></a></li>
-                <li ng-show="product.urlFacebook"><a analytics-on="click" analytics-event="Visit Product Facebook: {{product.name}}" href="{{product.urlFacebook}}" target="_blank"><i class="fa fa-facebook"></i></a></li>
-                <li ng-show="product.urlTwitter"><a  analytics-on="click" analytics-event="Visit Product Twitter: {{product.name}}" href="{{product.urlTwitter}}" target="_blank"><i class="fa fa-twitter"></i></a></li>
+                <li ng-show="product.urlHome"><a analytics-on="click" analytics-event="Visit Product Site" analytics-slug="{{product.slug}}" href="{{product.urlHome}}" target="_blank"><i class="fa fa-home"></i></a></li>
+                <li ng-show="product.urlFacebook"><a analytics-on="click" analytics-event="Visit Product Facebook" analytics-slug="{{product.slug}}" href="{{product.urlFacebook}}" target="_blank"><i class="fa fa-facebook"></i></a></li>
+                <li ng-show="product.urlTwitter"><a  analytics-on="click" analytics-event="Visit Product Twitter" analytics-slug="{{product.slug}}" href="{{product.urlTwitter}}" target="_blank"><i class="fa fa-twitter"></i></a></li>
             </ul>
             <!-- <div class="row product-share-buttons">
                 <div class="fb-share-button">
