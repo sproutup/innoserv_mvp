@@ -79,7 +79,7 @@
         }
 
         function finish() {
-            $state.go("user.product.detail.about", { slug: $stateParams.slug });
+            $state.go("user.product.detail.buzz", { slug: $stateParams.slug });
         }
     }
 })();
