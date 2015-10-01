@@ -1,16 +1,18 @@
 angular
     .module('sproutupApp')
-    .directive('userCard', userCard);
+    .directive('upUserCard', upUserCard);
 
-function userCard() {
+// todo -rename to upUserCard
+
+function upUserCard() {
     var directive = {
         restrict: 'EA',
-        templateUrl: '/assets/templates/user-card.html',
+        templateUrl: '/assets/templates/up-user-card.html',
         scope: {
             user: "="
         },
         link: linkFunc,
-        controller: CardController,
+        controller: UpUserCardController,
         controllerAs: 'vm',
         bindToController: true
     };
@@ -64,7 +66,7 @@ function userCard() {
     }    
 }
 
-function CardController() {
+function UpUserCardController() {
     var vm = this;
     if (vm.user && vm.user.urlTwitter) {
         vm.user.twitterHandle = "@" + vm.user.urlTwitter.slice(20);
