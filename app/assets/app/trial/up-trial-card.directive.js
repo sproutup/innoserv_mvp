@@ -36,6 +36,7 @@ function upTrialCardController($state) {
     if (vm.trial.status === 3) {
         var recievedEvent = vm.trial.log.filter(isRecievedEvent);
         if (recievedEvent[0]) {
+            vm.trial.recievedEvent = true;
             var start = moment(recievedEvent[0].createdAt);
             var end = moment(vm.trial.trialEndsAt);
             var duration = end.diff(start, 'days');
