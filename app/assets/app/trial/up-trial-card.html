@@ -1,14 +1,14 @@
 <div class="col-sm-4 col-md-3 col-lg-3 product-trial-stage-user" ng-if="vm.trial.user.avatarUrl"> 
-        <div class="product-trial-stage-user-inner-wrapper">
-            <a ui-sref="user.profile.buzz({ nickname: vm.trial.user.nickname })">
-                <img class="product-trial-stage-avatar" ng-src="{{ vm.trial.user.avatarUrl }}"/>
-            </a>
-            <div class="active-trial-status" ng-if="vm.trial.status === 3">
-                <progressbar class="days-left-bar" ng-class="{ 'trial-overdue': vm.trial.overdue }" value="vm.trial.percentageLeft"></progressbar>
-                <span ng-if="!vm.trial.overdue && vm.trial.daysLeft !== 1">{{ vm.trial.daysLeft }} days left</span>
-                <span ng-if="!vm.trial.overdue && vm.trial.daysLeft === 1">1 day left</span>
-                <span ng-if="vm.trial.overdue && vm.trial.daysLeft !== 1" ng-class="{ 'trial-overdue': vm.trial.overdue }">{{ vm.trial.daysLeft }} days overdue</span>
-                <span ng-if="vm.trial.overdue && vm.trial.daysLeft === 1" ng-class="{ 'trial-overdue': vm.trial.overdue }">1 day overdue</span>
-            </div>
+    <div class="product-trial-stage-user-inner-wrapper">
+        <a ui-sref="user.profile.buzz({ nickname: vm.trial.user.nickname })" ng-if="vm.state !== 'user.mytrials.current'">
+            <img class="product-trial-stage-avatar" ng-src="{{ vm.trial.user.avatarUrl }}"/>
+        </a>
+        <div class="active-trial-status" ng-if="vm.trial.status === 3">
+            <progressbar class="days-left-bar" ng-class="{ 'trial-overdue': vm.trial.overdue }" value="vm.trial.percentageLeft"></progressbar>
+            <span ng-if="!vm.trial.overdue && vm.trial.daysLeft !== 1">{{ vm.trial.daysLeft }} days left</span>
+            <span ng-if="!vm.trial.overdue && vm.trial.daysLeft === 1">1 day left</span>
+            <span ng-if="vm.trial.overdue && vm.trial.daysLeft !== 1" ng-class="{ 'trial-overdue': vm.trial.overdue }">{{ vm.trial.daysLeft }} days overdue</span>
+            <span ng-if="vm.trial.overdue && vm.trial.daysLeft === 1" ng-class="{ 'trial-overdue': vm.trial.overdue }">1 day overdue</span>
         </div>
+    </div>
 </div>
