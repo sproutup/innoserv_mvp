@@ -67,7 +67,7 @@ public class Trial extends TimeStampModel {
     @OneToMany
     public List<Content> content;
 
-    @OneToMany
+    @OneToMany(mappedBy="trial")
     public List<TrialLog> log;
 
     @ManyToOne
@@ -100,7 +100,7 @@ public class Trial extends TimeStampModel {
             .setFetchAhead(false)
             .getPage(page);
 	}
-    
+
     public static Page<Trial> findTrialsbyInfluencers(int page) {
     	
     	return
@@ -163,7 +163,14 @@ public class Trial extends TimeStampModel {
         node.put("status", this.status);
         node.put("createdAt", new DateTime(this.createdAt).toString());
         node.put("updatedAt", new DateTime(this.updatedAt).toString());
-        node.put("trialEndsAt", new DateTime(this.createdAt).toString());
+
+        if(this.log != null) {
+            DateTime received = TrialLog.findTrialReceivedDate(this.log);
+            if (received != null){
+                node.put("trialEndsAt", received.plusDays(this.product.trialDurationNbrDays).toString());
+            }
+        }
+
         if(this.user != null) {
             node.put("user", this.user.toJsonShort());
         }
@@ -187,7 +194,7 @@ public class Trial extends TimeStampModel {
         node.put("reason", this.reason);
         node.put("status", this.status);
 //        node.put("createdAt", new DateTime(this.createdAt).toString());
-       node.put("updatedAt", new DateTime(this.updatedAt).toString());
+        node.put("updatedAt", new DateTime(this.updatedAt).plusDays(14).toString());
         if(this.user != null) {
             node.put("user", this.user.toJsonShort());
         }

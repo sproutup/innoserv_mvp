@@ -86,6 +86,7 @@ public class Product extends SuperModel implements PathBindable<Product>,
 	public boolean activeFlag;
 	
 	public boolean trialSignUpFlag;
+	public int	   trialDurationNbrDays;
 	public boolean buyFlag;
 	public boolean trialFullHouseFlag;
 	public boolean contestFlag;

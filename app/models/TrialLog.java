@@ -80,6 +80,13 @@ public class TrialLog extends TimeStampModel {
         return arrayNode;
     }
 
+    public static DateTime findTrialReceivedDate(List<TrialLog> items){
+        for (TrialLog item : items){
+            if(item.status == 3) return new DateTime(item.createdAt);
+        }
+        return null;
+    }
+
     public void hmset(){
         Jedis j = play.Play.application().plugin(RedisPlugin.class).jedisPool().getResource();
         try {

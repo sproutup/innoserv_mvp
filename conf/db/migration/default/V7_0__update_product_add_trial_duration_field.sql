@@ -1,0 +1,1 @@
+alter table product add trial_duration_nbr_days int default 17;
