@@ -678,60 +678,6 @@ input[type=checkbox] {
     color: #929292 !important;
 }
 
-@media (max-width:767px) {
-    .logo {
-        width: 120px;
-    }
-
-    .navbar {
-        padding: 0px 15px;
-        margin: 0px;
-    }
-
-    .navbar-brand {
-        padding: 17px 0px 0px;
-    }
-
-    .navbar-influencer .logo {
-        width: 32px;
-    }
-
-    .dropdown-menu:before {
-        position: absolute;
-        display: inline-block;
-        border: none;
-        content: '';
-    }
-
-    .dropdown-menu:after {
-        position: absolute;
-        display: inline-block;
-        border: none;
-        content: '';
-    }
-
-    .sproutup-footer-links {
-        max-width: 160px;
-    }
-
-    .dropdown-menu li a {
-        padding: 6px 20px;
-        font-weight: 400;
-        font-size: 11pt;
-        color: @main-text-white;
-    }
-
-    .dropdown-menu li a:hover {
-        color: #fff;;
-    }
-
-    .sproutup-btn-md-main {
-    	font-size: 10pt;
-        padding-top: 13px;
-    }
-
-}
-
 .popover-content {
     color: @main-text-1;
 }
@@ -936,8 +882,8 @@ input[type=checkbox] {
 }
 
 .product-trial-stage-avatar {
-    width: 85%;
-    max-width: 120px;
+    width: 80px;
+    height: 80px;
     z-index: -1;
     border-radius: 50%;
     border: 2px solid #bfbfbf;
@@ -956,6 +902,10 @@ input[type=checkbox] {
     opacity: .95;
     margin-left: auto;
     margin-right: auto;
+}
+
+.active-trial-status.my-trials {
+    background-color: white;
 }
 
 .active-trial-status.bar {
@@ -992,4 +942,65 @@ input[type=checkbox] {
 
 .trial-overdue {
     color: @sproutup-red !important;
+}
+
+@media (min-width: 1200px) {
+    .product-trial-stage-avatar {
+        width: 95px;
+        height: 95px;
+    }
+}
+
+@media (max-width:767px) {
+    .logo {
+        width: 120px;
+    }
+
+    .navbar {
+        padding: 0px 15px;
+        margin: 0px;
+    }
+
+    .navbar-brand {
+        padding: 17px 0px 0px;
+    }
+
+    .navbar-influencer .logo {
+        width: 32px;
+    }
+
+    .dropdown-menu:before {
+        position: absolute;
+        display: inline-block;
+        border: none;
+        content: '';
+    }
+
+    .dropdown-menu:after {
+        position: absolute;
+        display: inline-block;
+        border: none;
+        content: '';
+    }
+
+    .sproutup-footer-links {
+        max-width: 160px;
+    }
+
+    .dropdown-menu li a {
+        padding: 6px 20px;
+        font-weight: 400;
+        font-size: 11pt;
+        color: @main-text-white;
+    }
+
+    .dropdown-menu li a:hover {
+        color: #fff;;
+    }
+
+    .sproutup-btn-md-main {
+        font-size: 10pt;
+        padding-top: 13px;
+    }
+
 }
