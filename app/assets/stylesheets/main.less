@@ -914,7 +914,7 @@ input[type=checkbox] {
 }
 
 .product-trial-stage {
-    margin-bottom: 40px;
+    margin-bottom: 30px;
     margin-left: 0px !important;
     margin-right: 0px !important;
 }
@@ -925,28 +925,37 @@ input[type=checkbox] {
 
 .product-trial-stage-user {
     padding: 0px !important;
+    text-align: center;
 }
 
 .product-trial-stage-user-inner-wrapper {
     margin-left: 6px;
     margin-right: 6px;
     position: relative;
+    margin-bottom: 10px;
 }
 
 .product-trial-stage-avatar {
-    width: 100%;
+    width: 85%;
+    max-width: 120px;
     z-index: -1;
+    border-radius: 50%;
+    border: 2px solid #bfbfbf;
 }
 
 .active-trial-status {
-    position: absolute;
-    bottom: 0px;
+    position: relative;
+    bottom: -10px;
     width: 100%;
+    max-width: 120px;
     height: 20px;
+    margin-bottom: 30px;
     text-align: center;
     font-size: 8pt;
-    background-color: white;
+    background-color: #ECEAEA;
     opacity: .95;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .active-trial-status.bar {
@@ -970,5 +979,17 @@ input[type=checkbox] {
     width: 100%;
     position: absolute;
     border: none !important;
-    opacity: .3;
+    opacity: .25;
+}
+
+.days-left-bar div {
+    float: right !important;
+}
+
+.trial-overdue div {
+    background-color: @sproutup-red !important;
+}
+
+.trial-overdue {
+    color: @sproutup-red !important;
 }

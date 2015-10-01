@@ -7,7 +7,7 @@
             <up-content ng-repeat="item in vm.content" content="item" state="user.product.detail.buzz" params="{ slug: product.slug }"></up-content>
         </div>
 
-        <!-- right rail -->
+        <!-- old right rail -->
         <div class="col-sm-5 forum-right-rail">
             <div class="product-detail-buzz-header right">Tweets about {{product.name}}</div>
             <div class="col-sm-12 user-tweets-row">
@@ -16,131 +16,27 @@
         </div>
 
         <!--  new right rail -->
-        <!-- <div class="col-sm-5 forum-right-rail" ng-controller="ProductTrialsController as vm">
-
+<!--         <div class="col-sm-5 forum-right-rail" ng-controller="ProductTrialsController as vm" ng-show="vm.trialInit">
             <div class="product-trial-stage row" ng-if="vm.active.length > 0">
-                <div class="product-trial-stage-title active">Trying {{$stateParams.slug}} now</div>
-
-                <div class="col-sm-4 col-md-4 col-lg-3 product-trial-stage-user" ng-repeat="trial in vm.active">
-                    <div class="product-trial-stage-user-inner-wrapper">
-                        <img class="product-trial-stage-avatar" ng-src="{{ trial.user.avatarUrl }}"/>
-                        <div class="active-trial-status">
-
-                            <progressbar class="days-left-bar" value="trial.percentageLeft"></progressbar>
-                            <span>{{ trial.daysLeft }} days left</span>
-                        </div>
-                    </div>
-                </div> -->
-
-<!--                <div class="col-sm-4 col-md-4 col-lg-3 product-trial-stage-user">
-                    <div class="product-trial-stage-user-inner-wrapper">
-                        <img class="product-trial-stage-avatar" src="https://pbs.twimg.com/profile_images/629369915359821824/2JsBP2bl.jpg"/>
-                        <div class="active-trial-status">
-                            <div class="active-trial-status bar"></div>
-                            <span>2 days left</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-4 col-md-4 col-lg-3 product-trial-stage-user">
-                    <div class="product-trial-stage-user-inner-wrapper">
-                        <img class="product-trial-stage-avatar" src="https://pbs.twimg.com/profile_images/637229465152581632/rHZ0lrIJ.jpg"/>
-                        <div class="active-trial-status">
-                            <div class="active-trial-status bar"></div>
-                            <span>2 days left</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-4 col-md-4 col-lg-3 product-trial-stage-user">
-                    <div class="product-trial-stage-user-inner-wrapper">
-                        <img class="product-trial-stage-avatar" src="https://pbs.twimg.com/profile_images/616983642578001920/McXOdvAM_400x400.jpg"/>
-                        <div class="active-trial-status">
-                            <div class="active-trial-status bar"></div>
-                            <span>2 days overdue</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-4 col-md-4 col-lg-3 product-trial-stage-user">
-                    <div class="product-trial-stage-user-inner-wrapper">
-                        <img class="product-trial-stage-avatar" src="https://pbs.twimg.com/profile_images/626750311256829952/OzhbRJDq_400x400.png"/>
-                        <div class="active-trial-status">
-                            <div class="active-trial-status bar"></div>
-                            <span>2 days overdue</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-4 col-md-4 col-lg-3 product-trial-stage-user">
-                    <div class="product-trial-stage-user-inner-wrapper">
-                        <img class="product-trial-stage-avatar" src="https://pbs.twimg.com/profile_images/626750311256829952/OzhbRJDq_400x400.png"/>
-                        <div class="active-trial-status">
-                            <div class="active-trial-status bar"></div>
-                            <span>2 days overdue</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-4 col-md-4 col-lg-3 product-trial-stage-user">
-                    <div class="product-trial-stage-user-inner-wrapper">
-                        <img class="product-trial-stage-avatar" src="https://pbs.twimg.com/profile_images/626750311256829952/OzhbRJDq_400x400.png"/>
-                        <div class="active-trial-status">
-                            <div class="active-trial-status bar"></div>
-                            <span>2 days overdue</span>
-                        </div>
-                    </div>
-                </div> -->
-<!--             </div>
-
-
+                <div class="product-trial-stage-title active">Trying {{vm.trials[1].product.name}} now</div>
+                <up-trial-card ng-repeat="trial in vm.active" trial='trial'></up-trial-card>
+            </div>
             <div class="product-trial-stage row" ng-if="vm.next.length > 0">
-                <div class="product-trial-stage-title next">Next to try {{$stateParams.slug}}</div>
-
-                <div class="col-sm-4 col-md-4 col-lg-3 product-trial-stage-user" ng-repeat="trial in vm.next">
-                    <div class="product-trial-stage-user-inner-wrapper">
-                        <img class="product-trial-stage-avatar" ng-src="{{ trial.user.avatarUrl }}"/>
-                    </div>
-                </div> -->
-
-                <!-- <div class="col-sm-4 col-md-4 col-lg-3 product-trial-stage-user">
-                    <div class="product-trial-stage-user-inner-wrapper">
-                        <img class="product-trial-stage-avatar" src="https://pbs.twimg.com/profile_images/626750311256829952/OzhbRJDq_400x400.png"/>
-                    </div>
-                </div>
-                <div class="col-sm-4 col-md-4 col-lg-3 product-trial-stage-user">
-                    <div class="product-trial-stage-user-inner-wrapper">
-                        <img class="product-trial-stage-avatar" src="https://pbs.twimg.com/profile_images/616983642578001920/McXOdvAM_400x400.jpg"/>
-                    </div>
-                </div>
-                <div class="col-sm-4 col-md-4 col-lg-3 product-trial-stage-user">
-                    <div class="product-trial-stage-user-inner-wrapper">
-                        <img class="product-trial-stage-avatar" src="https://pbs.twimg.com/profile_images/629369915359821824/2JsBP2bl.jpg"/>
-                    </div>
-                </div> -->
-<!--             </div>
-
-
+                <div class="product-trial-stage-title next">Next to try {{vm.trials[1].product.name}}</div>
+                <up-trial-card ng-repeat="trial in vm.next" trial='trial'></up-trial-card>
+            </div>
             <div class="product-trial-stage" ng-if="vm.finished.length > 0">
-                <div class="product-trial-stage-title finished">Finished trying {{$stateParams.slug}}</div>
-
-                <div class="col-sm-4 col-md-4 col-lg-3 product-trial-stage-user" ng-repeat="trial in vm.finished">
-                    <div class="product-trial-stage-user-inner-wrapper">
-                        <img class="product-trial-stage-avatar" ng-src="{{ trial.user.avatarUrl }}"/>
-                    </div>
-                </div> -->
-                <!-- <div class="col-sm-4 col-md-4 col-lg-3 product-trial-stage-user">
-                    <div class="product-trial-stage-user-inner-wrapper">
-                        <img class="product-trial-stage-avatar" src="https://pbs.twimg.com/profile_images/616983642578001920/McXOdvAM_400x400.jpg"/>
-                    </div>
-                </div>
-                <div class="col-sm-4 col-md-4 col-lg-3 product-trial-stage-user">
-                    <div class="product-trial-stage-user-inner-wrapper">
-                        <img class="product-trial-stage-avatar" src="https://pbs.twimg.com/profile_images/629369915359821824/2JsBP2bl.jpg"/>
-                    </div>
-                </div>
-                <div class="col-sm-4 col-md-4 col-lg-3 product-trial-stage-user">
-                    <div class="product-trial-stage-user-inner-wrapper">
-                        <img class="product-trial-stage-avatar" src="https://pbs.twimg.com/profile_images/626750311256829952/OzhbRJDq_400x400.png"/>
-                    </div>
-                </div> -->
-<!--             </div>
+                <div class="product-trial-stage-title finished">Finished {{vm.trials[1].product.name}} trial</div>
+                <up-trial-card ng-repeat="trial in vm.finished" trial='trial'></up-trial-card>
+            </div>
         </div> -->
+
+            <!-- dummy user -->
+    <!--    <div class="col-sm-4 col-md-3 col-lg-3 product-trial-stage-user">
+                <div class="product-trial-stage-user-inner-wrapper">
+                    <img class="product-trial-stage-avatar" src="https://pbs.twimg.com/profile_images/626750311256829952/OzhbRJDq_400x400.png"/>
+                </div>
+            </div> -->
 
     </div>
 </div>
