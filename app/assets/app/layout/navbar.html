@@ -75,12 +75,12 @@
                 <li about="" class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{auth.m.user.name}}<i class="fa fa-angle-down login-angle-down"></i></a>
                     <ul class="dropdown-menu navbar-wide" role="menu">
-                        <li><a analytics-on="click" analytics-event="Enter Profile" ui-sref="user.profile.buzz({ nickname: auth.m.user.nickname })">My Profile</a></li>
+                        <li><a analytics-on="click" analytics-event="View My Profile" ui-sref="user.profile.buzz({ nickname: auth.m.user.nickname })">{{auth.m.user.name}}<span>(View Profile)</span></a></li>
                         <li><a analytics-on="click" analytics-event="Enter Account Settings" ui-sref="user.settings.profile">Account Settings</a></li>
                         <li><a href="" analytics-on="click" analytics-event="Log Out" ng-click="auth.logout()">Log Out</a></li>
                     </ul>
                     <ul class="dropdown-menu navbar-toggleMenu" role="menu">
-                        <li><a class="navbar-skinny" analytics-on="click" ui-sref="user.profile.buzz({ nickname: auth.m.user.nickname })" data-toggle="collapse" data-target="#sproutup-collapse-navbar">My Profile</a></li>
+                        <li><a class="navbar-skinny" analytics-on="click" analytics-event="View My Profile" ui-sref="user.profile.buzz({ nickname: auth.m.user.nickname })" data-toggle="collapse" data-target="#sproutup-collapse-navbar">{{auth.m.user.name}}<span>(View Profile)</span></a></a></li>
                         <li><a class="navbar-skinny" analytics-on="click" analytics-event="Enter Account Settings" ui-sref="user.settings.profile" data-toggle="collapse" data-target="#sproutup-collapse-navbar">Account Settings</a></li>
                         <li><a class="navbar-skinny" href="" analytics-on="click" analytics-event="Log Out" ng-click="auth.logout()" data-toggle="collapse" data-target="#sproutup-collapse-navbar">Log Out</a></li>
                     </ul>
