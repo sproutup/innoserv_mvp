@@ -37,8 +37,8 @@ function upTrialCardController($state) {
         var recievedEvent = vm.trial.log.filter(isRecievedEvent);
         if (recievedEvent[0]) {
             vm.trial.recievedEvent = true;
-            var start = moment(recievedEvent[0].createdAt);
-            var end = moment(vm.trial.trialEndsAt);
+            var start = moment(recievedEvent[0].createdAt).startOf('day');
+            var end = moment(vm.trial.trialEndsAt).startOf('day');
             var duration = end.diff(start, 'days');
             vm.trial.daysLeft = end.diff(moment(), 'days');
             vm.trial.percentageLeft = (vm.trial.daysLeft / duration) * 100;
