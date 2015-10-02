@@ -28,6 +28,10 @@
 
             <up-trial-card trial='item'></up-trial-card>
 
+            <p ng-if="item.status==3" class="product-trial-item--status"><i class="fa fa-truck"></i>Please return your product by</p>
+            <p ng-if="item.status==3" class="product-trial-item--status-desc"><span>{{item.trialEndsAt | date:'MMM dd, yyyy'}}</span></p>
+
+
             <p ng-show="item.refURL != null" class="product-trial-item--status"><i class="fa fa-link"></i>Your unique referral link: </p>
             <p class="product-trial-item--status-desc"><span>{{item.refURL}}</span></p>
             <p class="product-trial-item--status-desc">Please embed this unique referral link in any of your content. Share this link on social media. We use this link to measure conversions and reward you accordingly.</p>
