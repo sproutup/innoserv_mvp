@@ -20,6 +20,7 @@ function upUserCard() {
     return directive;
 
     function linkFunc(scope, element, attr, ctrl) {
+        console.log(element);
         var cardWrapper = element[0].children[0];
         var hoverBox = element[0].children[1];
         var arrowDown = element[0].children[0].children[3];
@@ -51,16 +52,9 @@ function upUserCard() {
             // }
         } else {
             if (elementOffset.left < 140) {
-                cardWrapper.style.left = '-17px';
-                hoverBox.style.left = '0px';
-                arrowDown.style.left = '21px';
+                element.addClass('left-user-card');
             } else if (elementFromRight < 140) {
-                cardWrapper.style.left = 'auto';
-                cardWrapper.style.right = '-17px';
-                hoverBox.style.left = 'auto';
-                hoverBox.style.right = '0px';
-                arrowDown.style.left = 'auto';
-                arrowDown.style.right = '25px';
+                element.addClass('right-user-card');
             }
         }
     }    
