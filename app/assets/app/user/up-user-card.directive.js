@@ -7,7 +7,7 @@ angular
 function upUserCard() {
     var directive = {
         restrict: 'EA',
-        templateUrl: '/assets/templates/up-user-card.html',
+        templateUrl: '/assets/app/user/up-user-card.html',
         scope: {
             user: "="
         },
