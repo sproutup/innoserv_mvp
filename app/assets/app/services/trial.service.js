@@ -8,7 +8,8 @@ function TrialService($resource) {
 	var service = {
 		myTrials: myTrials,
 		userTrials: userTrials,
-		productTrials: productTrials
+		productTrials: productTrials,
+		cancelTrial: cancelTrial
 	};
 
 	return service;
@@ -23,5 +24,9 @@ function TrialService($resource) {
 
 	function productTrials() {
 		return $resource('/api/trials/product/:slug', {slug:'@slug'});
+	}
+
+	function cancelTrial() {
+		return $resource('/api/trials/:id/cancel', {id:'@id'});
 	}
 }

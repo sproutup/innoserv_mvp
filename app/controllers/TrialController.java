@@ -199,6 +199,22 @@ public class TrialController extends Controller {
     }
 
     @SubjectPresent
+    public static Result cancel(Long id)
+    {
+        User user = Application.getLocalUser(ctx().session());
+        Trial item = Trial.find.byId(id);
+        // check that we found the trial and that user owns it
+        if(item != null && item.user.id != null && item.user.id.longValue() == user.id.longValue()) {
+            item.status = -2;
+            item.save();
+            return ok(item.toJson());
+        }
+        else{
+            return play.mvc.Results.notFound("Trial not found");
+        }
+    }
+
+    @SubjectPresent
     public static Result delete(Long id)
     {
         User user = Application.getLocalUser(ctx().session());

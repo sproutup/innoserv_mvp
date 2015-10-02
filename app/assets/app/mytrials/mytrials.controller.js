@@ -5,9 +5,9 @@
         .module('sproutupApp')
         .controller('MyTrialController', MyTrialController);
 
-    MyTrialController.$inject = ['$q', '$rootScope', '$stateParams', '$state', '$log', 'AuthService', '$location', '$window', 'ContentService', 'OpenGraphService'];
+    MyTrialController.$inject = ['$q', '$rootScope', '$stateParams', '$state', '$log', 'AuthService', '$location', '$window', 'ContentService', 'OpenGraphService', 'TrialService'];
 
-    function MyTrialController($q, $rootScope, $stateParams, $state, $log, authService, $location, $window, ContentService, OpenGraphService) {
+    function MyTrialController($q, $rootScope, $stateParams, $state, $log, authService, $location, $window, ContentService, OpenGraphService, TrialService) {
         $log.debug("entered my trials");
 
         var vm = this;
@@ -21,6 +21,7 @@
         vm.trial = {};
         vm.user = authService.m.user;
         vm.ready = authService.ready;
+        vm.cancelTrial = cancelTrial;
 
         activate();
 
@@ -137,6 +138,43 @@
 
         function finish() {
             $state.go("user.product.detail.buzz", { slug: $stateParams.slug });
+        }
+
+        function cancelTrial(trialId) {
+            var Cancel = TrialService.cancelTrial();
+            var item = new Cancel();
+            item.$save({
+                id: trialId
+            }, function(res) {
+                // Remove trial form vm.trials
+                var toRemoveTrial = vm.user.trials.filter(function (vmTrial) {
+                    return vmTrial.id === trialId;
+                });
+                var trialIndex = vm.user.trials.indexOf(toRemoveTrial[0]);
+                if (trialIndex > -1) {
+                    vm.user.trials.splice(trialIndex, 1);
+                }
+
+                // Remove trial from vm.current
+                var toRemoveCurrent = vm.current.filter(function(vmCurrent) {
+                    return vmCurrent.id === trialId;
+                });
+                var currentIndex;
+                if (toRemoveCurrent[0]) {
+                    currentIndex = vm.current.indexOf(toRemoveCurrent[0]);
+                }
+                if (currentIndex > -1) {
+                    vm.current.splice(currentIndex, 1);
+                }
+
+                // Push trial to vm.cancelled 
+                toRemoveTrial[0].status = -2;
+                vm.cancelled.push(toRemoveTrial[0]);
+
+                $rootScope.$broadcast('alert:success', {
+                    message: 'Trial cancelled'
+                });
+            });
         }
     }
 })();

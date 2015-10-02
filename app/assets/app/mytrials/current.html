@@ -26,7 +26,7 @@
                 <p ng-switch-when="3" class="product-trial-item--status-desc">The product you requested is delivered. Enjoy!</p>
             </div>
 
-            <up-trial-card trial='item'></up-trial-card>
+            <up-trial-card trial='item' ng-if="item.status === 3"></up-trial-card>
 
             <p ng-if="item.status==3" class="product-trial-item--status"><i class="fa fa-truck"></i>Please return your product by</p>
             <p ng-if="item.status==3" class="product-trial-item--status-desc"><span>{{item.trialEndsAt | date:'MMM dd, yyyy'}}</span></p>
@@ -36,7 +36,7 @@
             <p class="product-trial-item--status-desc"><span>{{item.refURL}}</span></p>
             <p class="product-trial-item--status-desc">Please embed this unique referral link in any of your content. Share this link on social media. We use this link to measure conversions and reward you accordingly.</p>
 
-<!--             <button class="btn btn-md sproutup-btn-md-main cancel" ng-click="vm.cancelTrial(item.id)">Cancel Trial</button> -->
+            <button class="btn btn-md sproutup-btn-md-main cancel" ng-confirm-click="Are you should you want to cancel this trial?" confirmed-click="vm.cancelTrial(item.id)" ng-if="item.status < 3">Cancel Trial</button>
         </div>
     </div>
 </div>
