@@ -39,10 +39,13 @@ function upTrialCardController($state) {
             vm.trial.recievedEvent = true;
             var start = moment(recievedEvent[0].createdAt).startOf('day');
             var end = moment(vm.trial.trialEndsAt).startOf('day');
-            var duration = end.diff(start, 'days');
+            var duration = end.diff(start, 'days') - 1;
             vm.trial.daysLeft = end.diff(moment(), 'days');
             vm.trial.percentageLeft = (vm.trial.daysLeft / duration) * 100;
-
+            // Make sure percentageLeft is 0 if days left is 0
+            if (vm.trial.daysLeft === 0) {
+                vm.trial.percentageLeft = 0;
+            }
             // Check if this trial is overdue 
             if (vm.trial.daysLeft < 0) {
                 vm.trial.overdue = true;
