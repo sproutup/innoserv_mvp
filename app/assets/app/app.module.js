@@ -108,6 +108,13 @@ sproutupApp.config(['$routeProvider', '$stateProvider', '$locationProvider', '$u
                     title: 'SproutUp - Together, we help products grow'
                 }
             })
+            .state('user.404' ,{
+                url: '/404',
+                templateUrl: 'assets/app/404/404.html',
+                data: {
+                    title: 'SproutUp - Oops'
+                }
+            })
             .state('user.login', {
                 url: '/login',
                 templateUrl: 'assets/app/user/login.html',
@@ -489,6 +496,8 @@ sproutupApp.config(['$routeProvider', '$stateProvider', '$locationProvider', '$u
 
             return false;
         });
+
+        $urlRouterProvider.otherwise('/404');
 
         $sceDelegateProvider.resourceUrlWhitelist([
             // Allow same origin resource loads.
