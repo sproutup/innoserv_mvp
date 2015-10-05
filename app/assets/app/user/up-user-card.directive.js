@@ -9,7 +9,8 @@ function upUserCard() {
         restrict: 'EA',
         templateUrl: '/assets/app/user/up-user-card.html',
         scope: {
-            user: "="
+            user: "=",
+            context: "="
         },
         link: linkFunc,
         controller: UpUserCardController,
@@ -20,7 +21,6 @@ function upUserCard() {
     return directive;
 
     function linkFunc(scope, element, attr, ctrl) {
-        console.log(element);
         var cardWrapper = element[0].children[0];
         var hoverBox = element[0].children[1];
         var arrowDown = element[0].children[0].children[3];
@@ -30,31 +30,25 @@ function upUserCard() {
         var windowWidth = $(window).width();
         var elementFromRight = windowWidth - elementOffset.left;
 
-        if (elementOffset.top < 275) {
-            // cardWrapper.style.bottom = '-266px';
-            // hoverBox.style.bottom = '-75px';
-            // arrowDown.style.display = 'none';
-            // arrowUp.style.display = 'block';
-            // if (elementFromRight < 140) {
-            //     console.log(element);
-            //     cardWrapper.style.left = 'auto';
-            //     cardWrapper.style.right = '-17px';
-            //     hoverBox.style.left = 'auto';
-            //     hoverBox.style.right = '0px';
-            //     arrowUp.style.right = '25px';
-            // } else if (elementOffset.left < 140) {
-            //     cardWrapper.style.left = '-17px';
-            //     hoverBox.style.left = '0px';
-            //     arrowUp.style.left = '21px';
-            // } else {
-            //     cardWrapper.style.left = '-80px';
-            //     arrowUp.style.left = '84px';
-            // }
+        if (attr.context === 'product-trail') {
+            arrangeProductTrialContext();
         } else {
-            if (elementOffset.left < 140) {
-                element.addClass('left-user-card');
-            } else if (elementFromRight < 140) {
-                element.addClass('right-user-card');
+            arrangeDefault();
+        }
+
+        function arrangeProductTrialContext() {
+            // code to make the card display nicely on the product trial 
+        }
+
+        function arrangeDefault() {
+            if (elementOffset.top < 275) {
+                // code for images at top of apge
+            } else {
+                if (elementOffset.left < 140) {
+                    element.addClass('left-user-card');
+                } else if (elementFromRight < 140) {
+                    element.addClass('right-user-card');
+                }
             }
         }
     }    
