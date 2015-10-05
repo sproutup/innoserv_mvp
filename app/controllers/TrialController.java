@@ -14,6 +14,8 @@ import play.mvc.Result;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Date;
+
 
 public class TrialController extends Controller {
 
@@ -206,6 +208,7 @@ public class TrialController extends Controller {
         // check that we found the trial and that user owns it
         if(item != null && item.user.id != null && item.user.id.longValue() == user.id.longValue()) {
             item.status = -2;
+            item.updatedAt = new Date();
             item.save();
             return ok(item.toJson());
         }

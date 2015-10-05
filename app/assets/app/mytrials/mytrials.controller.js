@@ -167,9 +167,8 @@
                     vm.current.splice(currentIndex, 1);
                 }
 
-                // Push trial to vm.cancelled 
-                toRemoveTrial[0].status = -2;
-                vm.cancelled.push(toRemoveTrial[0]);
+                // Push trial to vm.cancelled
+                vm.cancelled.push(res);
 
                 $rootScope.$broadcast('alert:success', {
                     message: 'Trial cancelled'
