@@ -914,6 +914,11 @@ input[type=checkbox] {
     border: 2px solid #bfbfbf;
 }
 
+.product-trial-stage-avatar.small {
+    max-width: 60px;
+    max-height: 60px;
+}
+
 .active-trial-status {
     position: relative;
     bottom: -10px;
@@ -978,6 +983,13 @@ input[type=checkbox] {
         width: 80px;
         height: 80px;
     }
+}
+
+@media (max-width: 1180px) {
+  .product-trial-stage-avatar.small {
+    width: 50px;
+    height: 50px;
+  }
 }
 
 @media (max-width:767px) {
