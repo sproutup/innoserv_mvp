@@ -180,6 +180,14 @@ sproutupApp.config(['$routeProvider', '$stateProvider', '$locationProvider', '$u
                     title: 'Coming Soon - SproutUp'
                 }
             })
+            .state('user.twitterauth' ,{
+                url: '/authenticate/twitter',
+                templateUrl: 'assets/app/user/login.html',
+            })
+            .state('user.facebookauth' ,{
+                url: '/authenticate/facebook',
+                templateUrl: 'assets/app/user/login.html',
+            })
             .state('user.oauth' ,{
                 url: '/oauth2callback?code&scope',
                 template: '<div>oauth2callback</div>',
