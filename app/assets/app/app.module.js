@@ -497,7 +497,10 @@ sproutupApp.config(['$routeProvider', '$stateProvider', '$locationProvider', '$u
             return false;
         });
 
-        $urlRouterProvider.otherwise('/404');
+        $urlRouterProvider.otherwise(function ($injector, $location) {
+            var $state = $injector.get('$state');
+            $state.go('user.404');
+        });
 
         $sceDelegateProvider.resourceUrlWhitelist([
             // Allow same origin resource loads.
