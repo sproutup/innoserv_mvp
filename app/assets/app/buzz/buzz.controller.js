@@ -110,8 +110,10 @@ function BuzzController($stateParams, $state, FeedService, AuthService, $rootSco
         if (position === 0) {
             vm.init = true;
         }
-        $timeout(function(){vm.busy = false;}, 1000);
-        position += 10;
+        if (content.length === 10) {
+            $timeout(function(){vm.busy = false;}, 1000);
+            position += 10;
+        }
     }
 
     vm.postCount = 0;
