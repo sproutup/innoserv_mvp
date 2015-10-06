@@ -2,7 +2,6 @@
 @import helper._
 @import helper.twitterBootstrap._
 
-@main("Product form") {
 <script src="@routes.Assets.at("javascripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
   <h1>Product form</h1>
   @helper.form(action = routes.ProductAdministrationController.save(), 'enctype -> "multipart/form-data") {
@@ -258,7 +257,6 @@
     <i class="icon-plus"></i> Upload Media</a>
       -->
   }
-}
 
 
 </div>
