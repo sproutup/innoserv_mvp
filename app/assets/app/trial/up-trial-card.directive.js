@@ -8,6 +8,7 @@ function upTrialCard() {
         templateUrl: 'assets/app/trial/up-trial-card.html',
         scope: {
             trial: '=',
+            context: '@'
         },
         link: linkFunc,
         controller: upTrialCardController,
@@ -18,7 +19,7 @@ function upTrialCard() {
     return directive;
 
     function linkFunc(scope, el, attr, ctrl) {
-
+        scope.vm.context = attr.context;
     }
 }
 

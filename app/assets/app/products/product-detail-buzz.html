@@ -11,15 +11,15 @@
         <div class="col-sm-5 forum-right-rail" ng-controller="ProductTrialsController as vm" ng-show="vm.trialInit">
             <div class="product-trial-stage row" ng-if="vm.active.length > 0">
                 <div class="product-trial-stage-title active">Trying {{vm.trials[1].product.name}} now</div>
-                <up-trial-card ng-repeat="trial in vm.active" trial='trial'></up-trial-card>
+                <up-trial-card ng-repeat="trial in vm.active" trial='trial' context="product-trial-big"></up-trial-card>
             </div>
             <div class="product-trial-stage row" ng-if="vm.next.length > 0">
                 <div class="product-trial-stage-title next">Next to try {{vm.trials[1].product.name}}</div>
-                <up-trial-card ng-repeat="trial in vm.next" trial='trial'></up-trial-card>
+                <up-trial-card ng-repeat="trial in vm.next" trial='trial' context="product-trial-small"></up-trial-card>
             </div>
             <div class="product-trial-stage row" ng-if="vm.finished.length > 0">
                 <div class="product-trial-stage-title finished">Finished {{vm.trials[1].product.name}} trial</div>
-                <up-trial-card ng-repeat="trial in vm.finished" trial='trial'></up-trial-card>
+                <up-trial-card ng-repeat="trial in vm.finished" trial='trial' context="product-trial-small"></up-trial-card>
             </div>
 
             <hr>

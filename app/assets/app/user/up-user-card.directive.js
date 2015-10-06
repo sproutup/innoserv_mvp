@@ -10,7 +10,7 @@ function upUserCard() {
         templateUrl: '/assets/app/user/up-user-card.html',
         scope: {
             user: "=",
-            context: "="
+            context: "@"
         },
         link: linkFunc,
         controller: UpUserCardController,
@@ -21,23 +21,16 @@ function upUserCard() {
     return directive;
 
     function linkFunc(scope, element, attr, ctrl) {
-        var cardWrapper = element[0].children[0];
-        var hoverBox = element[0].children[1];
-        var arrowDown = element[0].children[0].children[3];
-        var arrowUp = element[0].children[0].children[4];
-
         var elementOffset = element.offset();
         var windowWidth = $(window).width();
         var elementFromRight = windowWidth - elementOffset.left;
 
-        if (attr.context === 'product-trail') {
-            arrangeProductTrialContext();
+        if (attr.context === 'product-trial-big') {
+            element.addClass('product-trial-user-card big'); 
+        } else if (attr.context === 'product-trial-small') {
+            element.addClass('product-trial-user-card small'); 
         } else {
             arrangeDefault();
-        }
-
-        function arrangeProductTrialContext() {
-            // code to make the card display nicely on the product trial 
         }
 
         function arrangeDefault() {
