@@ -17,8 +17,8 @@
             <ul class="nav navbar-nav navbar-item navbar-right navbar-wide">
                 <li><a analytics-on="click" analytics-event="Enter Products page" ui-sref="user.search">PRODUCTS</a></li>
                 <li><a analytics-on="click" analytics-event="Enter Buzz page" ui-sref="user.buzz">BUZZ<span class="label label-new-feature">new</span></a></li>
+                <li><a analytics-on="click" analytics-event="Enter Rewards page" ui-sref="user.perk">REWARDS<span class="label label-new-feature">rad</span></a></li>
                 <li><a analytics-on="click" analytics-event="Enter How it Works page" ui-sref="user.howitworks">HOW IT WORKS</a></li>
-                <li><a analytics-on="click" analytics-event="Enter Rewards page" ui-sref="user.perk">REWARDS</a></li>
                 <li><a ui-sref="user.login">LOG IN</a></li>
                 <li><a ui-sref="user.signup">SIGN UP</a></li>
             </ul>
@@ -26,8 +26,8 @@
             <ul class="nav navbar-nav navbar-item navbar-right navbar-skinny">
                 <li><a analytics-on="click" analytics-event="Enter Products page" ui-sref="user.search" data-toggle="collapse" data-target="#sproutup-collapse-navbar">PRODUCTS</a></li>
                 <li><a analytics-on="click" analytics-event="Enter Buzz page" ui-sref="user.buzz" data-toggle="collapse" data-target="#sproutup-collapse-navbar">BUZZ<span class="label label-new-feature">new</span></a></li>
+                <li><a analytics-on="click" analytics-event="Enter Rewards page" ui-sref="user.perk">REWARDS<span class="label label-new-feature">rad</span></a></li>
                 <li><a analytics-on="click" analytics-event="Enter How it Works page" ui-sref="user.howitworks" data-toggle="collapse" data-target="#sproutup-collapse-navbar">HOW IT WORKS</a></li>
-                <li><a analytics-on="click" analytics-event="Enter Rewards page" ui-sref="user.perk">REWARDS</a></li>
                 <li><a ui-sref="user.login" data-toggle="collapse" data-target="#sproutup-collapse-navbar">LOG IN</a></li>
                 <li><a ui-sref="user.signup" data-toggle="collapse" data-target="#sproutup-collapse-navbar">SIGN UP</a></li>
             </ul>
@@ -65,9 +65,8 @@
             </ul>
 
             <ul class="nav navbar-nav navbar-item navbar-right">
-                <li>
-                    <img class="profile-img" ng-src="{{auth.m.user.avatarUrl}}">
-                </li>
+                <li><a href="#"><span class="navbar-reward-points">9,239</span> Points</a></li>
+                <li><img class="profile-img" ng-src="{{auth.m.user.avatarUrl}}"></li>
                 <li about="" class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{auth.m.user.name}}<i class="fa fa-angle-down login-angle-down"></i></a>
                     <ul class="dropdown-menu navbar-wide" role="menu">
