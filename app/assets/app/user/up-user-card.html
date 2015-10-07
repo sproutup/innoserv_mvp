@@ -7,9 +7,10 @@
 	<a class="user-card-name-link" ui-sref="user.profile.buzz({ nickname: vm.user.nickname })">
 		<div class="user-card-name">{{ vm.user.name }}</div>
 	</a>
-	<a class="user-card-twitter-link" ng-href="{{ vm.user.urlTwitter }}" target="_blank">
+	<a class="user-card-twitter-link" ng-href="{{ vm.user.urlTwitter }}" target="_blank" ng-if="vm.user.urlTwitter">
 		<div class="user-card-nickname">{{ vm.user.twitterHandle }}</div>
 	</a>
+	<p class="user-card-points">6,092 Points</p>
 	<div class="user-card-arrow"></div>
 	<div class="user-card-arrow up"></div>
 </div>
