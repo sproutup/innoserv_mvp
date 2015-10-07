@@ -143,6 +143,9 @@ public class User extends TimeStampModel implements Subject {
 	@OneToMany
 	public List<Trial> trials;
 
+	@OneToMany
+	public List<RewardEvent> rewardEvents;
+
 	@ManyToOne
 	public Company company;
 
@@ -412,6 +415,13 @@ public class User extends TimeStampModel implements Subject {
 		if (this.trials!=null && this.trials.size()>0){
 			node.put("trials", Trial.toJson(trials));
 		}
+		int points = 0;
+		if (this.rewardEvents!=null && this.rewardEvents.size()>0){
+			for(RewardEvent event : this.rewardEvents){
+				points += event.points;
+			}
+		}
+		node.put("points", points);
 		if (this.analyticsAccounts!=null && this.analyticsAccounts.size()>0){
 			node.put("analytics", AnalyticsAccount.toJson(this.analyticsAccounts));
 		}
