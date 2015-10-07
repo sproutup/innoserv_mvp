@@ -1,6 +1,8 @@
 @(trialForm: Form[Trial])(currentPage: com.avaje.ebean.Page[Trial])
 @import helper._
 
+@admin_wrapper("Product Trial list (By Influencers)") {
+
 <h2><a href="/adminstuff" target="_self" class="btn btn-lg">Admin Home</a></h2>
 
   <h2>Product Trial list (By Influencers)
@@ -109,27 +111,28 @@
    </div>
 
    <div id="pagination" class="pagination">
-            <ul>
-                @if(currentPage.hasPrev) {
-                    <li class="prev">
-                        <a href="@routes.ReportAdminController.influencerTrialList(currentPage.getPageIndex - 1)" target="_self">&larr; </a>
-                    </li>
-                } else {
-                    <li class="prev disabled">
-                        <a>&larr;</a>
-                    </li>
-                }
-                <li class="current">
-                    @currentPage.getDisplayXtoYofZ(" - "," / ")
+        <ul>
+            @if(currentPage.hasPrev) {
+                <li class="prev">
+                    <a href="@routes.ReportAdminController.influencerTrialList(currentPage.getPageIndex - 1)" target="_self">&larr; </a>
                 </li>
-                @if(currentPage.hasNext) {
-                    <li class="next">
-                        <a href="@routes.ReportAdminController.influencerTrialList(currentPage.getPageIndex + 1)" target="_self"> &rarr;</a>
-                    </li>
-                } else {
-                    <li class="next disabled">
-                        <a>&rarr;</a>
-                    </li>
-                }
-            </ul>
-        </div>
+            } else {
+                <li class="prev disabled">
+                    <a>&larr;</a>
+                </li>
+            }
+            <li class="current">
+                @currentPage.getDisplayXtoYofZ(" - "," / ")
+            </li>
+            @if(currentPage.hasNext) {
+                <li class="next">
+                    <a href="@routes.ReportAdminController.influencerTrialList(currentPage.getPageIndex + 1)" target="_self"> &rarr;</a>
+                </li>
+            } else {
+                <li class="next disabled">
+                    <a>&rarr;</a>
+                </li>
+            }
+        </ul>
+    </div>
+}

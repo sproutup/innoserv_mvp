@@ -1,6 +1,8 @@
 @(currentPage: com.avaje.ebean.Page[Product])
 @import java.math.BigInteger; var activeCount=0; 
 
+@admin_wrapper("All products that are requested by Influencers for Trials") {
+
  <h2><a href="/adminstuff" target="_self">Admin Home</a></h2>
 
   <h2>All products that are requested by Influencers for Trials
@@ -116,3 +118,5 @@
                 }
             </ul>
         </div>
+
+}

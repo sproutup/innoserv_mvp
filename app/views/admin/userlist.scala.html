@@ -1,6 +1,8 @@
 @(userForm: Form[User])(currentPage: com.avaje.ebean.Page[User])
 @import helper._
 
+@admin_wrapper("All users") {
+
 <h2><a href="/adminstuff" target="_self" class="btn btn-lg">Admin Home</a></h2>
 
   <h2>All users
@@ -128,3 +130,5 @@
                 }
             </ul>
         </div>
+
+}

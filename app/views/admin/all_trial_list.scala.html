@@ -1,6 +1,8 @@
 @(trialForm: Form[Trial])(currentPage: com.avaje.ebean.Page[Trial])
 @import helper._
 
+@admin_wrapper("All Requests for Product Trials") {
+
 <h2><a href="/adminstuff" target="_self" class="btn btn-lg">Admin Home</a></h2>
 
   <h2>All Requests for Product Trials
@@ -132,3 +134,5 @@
                 }
             </ul>
     </div>
+
+}
