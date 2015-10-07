@@ -98,6 +98,9 @@ sproutupApp.config(['$routeProvider', '$stateProvider', '$locationProvider', '$u
                         templateUrl: 'assets/app/layout/navbar.html',
                         controller: 'AuthCtrl',
                         controllerAs: 'auth'
+                    },
+                    'footer': {
+                        templateUrl: 'assets/app/layout/footer.html'
                     }
                 }
             })
