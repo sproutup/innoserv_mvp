@@ -1,5 +1,5 @@
 <div class="row my-content-page single-post user-profile-content user-profile-buzz-wrapper" infinite-scroll='vm.loadContent()' infinite-scroll-disabled='vm.busy' infinite-scroll-distance='2'>
-	<div class="product-detail-buzz-header-2" ng-if="vm.content.length < 1 && vm.init">This user hasn't posted any content to SproutUp.</div>
+	<div class="product-detail-buzz-header-2" ng-if="vm.content.length < 1 && vm.init">This user hasn't posted any content to SproutUp ¯\_(ツ)_/¯</div>
 	<div class="col-sm-12">
 		<up-content ng-repeat="content in vm.content" content="content" state="user.profile.buzz" params="{ nickname: content.user.nickname }"></up-content>
 	</div>
