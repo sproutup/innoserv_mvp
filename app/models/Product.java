@@ -332,7 +332,7 @@ public class Product extends SuperModel implements PathBindable<Product>,
             String src = node.toString();
             try {
                 compressed = Snappy.compress(src.getBytes());
-                play.cache.Cache.set("product:" + this.id, compressed);
+                play.cache.Cache.set("product:" + this.id, compressed, 3600);
             } catch(Exception e){
                 return null;
             }
