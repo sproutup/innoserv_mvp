@@ -196,7 +196,8 @@ public class Trial extends TimeStampModel {
 //        node.put("createdAt", new DateTime(this.createdAt).toString());
         node.put("updatedAt", new DateTime(this.updatedAt).plusDays(14).toString());
         if(this.user != null) {
-            node.put("user", this.user.toJsonShort());
+            //node.put("user", this.user.toJsonShort());
+            node.put("user", User.hmget(this.user.id.toString()));
         }
         if(this.product != null) {
             node.put("product", this.product.toJsonShort());
