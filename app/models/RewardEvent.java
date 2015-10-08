@@ -6,7 +6,6 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.typesafe.plugin.RedisPlugin;
 import org.joda.time.DateTime;
 import play.Logger;
-import play.data.validation.Constraints;
 import play.libs.Json;
 import redis.clients.jedis.Jedis;
 
@@ -48,8 +47,20 @@ public class RewardEvent extends SuperModel {
     public RewardActivity activity;
 
 	public static RewardEvent findById(Long id) {
-        return find.byId(id);
-    }
+		return find.byId(id);
+	}
+
+	public static List<RewardEvent> findByUser(User user) {
+
+		List<RewardEvent> events = new RewardEvent()
+				.find
+				.where()
+				.eq("user_id", user.id)
+				.orderBy("id asc")
+				.findList();
+
+		return events;
+	}
 
 	@Override
 	public void save() {
@@ -66,8 +77,9 @@ public class RewardEvent extends SuperModel {
     private ObjectNode toJson(){
         ObjectNode node = Json.newObject();
         node.put("id", this.id);
-        node.put("name", this.points);
-        node.put("title", this.activity.title);
+        node.put("points", this.points);
+		node.put("title", this.activity.title);
+		node.put("activity_id", this.activity.id);
 		node.put("createdAt", new DateTime(this.createdAt).toString());
 		node.put("updatedAt", new DateTime(this.updatedAt).toString());
         return node;
