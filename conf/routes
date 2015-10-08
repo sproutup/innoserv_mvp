@@ -80,6 +80,7 @@ PUT           /api/trials/:id                                                con
 POST          /api/trials/:id                                                controllers.TrialController.update(id: Long)
 DELETE        /api/trials/:id                                                controllers.TrialController.delete(id: Long)
 POST          /api/trials/:id/cancel                                         controllers.TrialController.cancel(id: Long)
+GET           /api/trials/:id/log                                            controllers.TrialLogController.getall(id: Long)
 
 GET           /api/user/:nickname/trials                                     controllers.TrialController.getByNickname(nickname: String)
 
