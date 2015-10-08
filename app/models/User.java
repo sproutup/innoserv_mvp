@@ -457,6 +457,13 @@ public class User extends TimeStampModel implements Subject {
 		node.put("urlPinterest", this.urlPinterest);
 		node.put("urlYoutube", this.urlYoutube);
 		node.put("isInfluencer", this.isInfluencer());
+		int points = 0;
+		if (this.rewardEvents!=null && this.rewardEvents.size()>0){
+			for(RewardEvent event : this.rewardEvents){
+				points += event.points;
+			}
+		}
+		node.put("points", Integer.toString(points));
 		return node;
 	}
 

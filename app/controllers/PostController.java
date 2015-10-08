@@ -93,16 +93,18 @@ public class PostController extends Controller {
 
                 post.save();
 
-                // Add reward points
-                RewardActivity publishContent = RewardActivity.find.byId(3000L);
+                if(post.content != null) {
+                    // Add reward points for posting content on the buzz
+                    RewardActivity publishContent = RewardActivity.find.byId(1000L);
 
-                RewardEvent event = new RewardEvent();
-                event.product = prod;
-                event.user = user;
-                event.content = post.content;
-                event.activity = publishContent;
-                event.points = publishContent.points;
-                event.save();
+                    RewardEvent event = new RewardEvent();
+                    event.product = prod;
+                    event.user = user;
+                    event.content = post.content;
+                    event.activity = publishContent;
+                    event.points = publishContent.points;
+                    event.save();
+                }
 
                 // Add tags if they are there
                 Iterator<JsonNode> myIterator = json.findPath("tags").elements();
