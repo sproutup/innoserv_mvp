@@ -93,7 +93,7 @@ public class PostController extends Controller {
 
                 post.save();
 
-                if(post.content != null) {
+                if(post.content != null && (post.content.isBlog() || post.content.isYoutubeVideo()) ) {
                     // Add reward points for posting content on the buzz
                     RewardActivity publishContent = RewardActivity.find.byId(1000L);
 

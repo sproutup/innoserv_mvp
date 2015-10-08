@@ -13,6 +13,9 @@ import javax.persistence.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import play.Logger;
 
 /**
@@ -99,6 +102,44 @@ public class Content extends SuperModel {
             node.put("openGraph", this.openGraph.toJson());
         }
         return node;
+    }
+
+    public boolean isYoutubeVideo(){
+        boolean res = false;
+
+        String pattern = "(http(s?):\\/\\/)?(www\\.)?youtu(be)?\\.([a-z])+\\/(watch(.*?)(\\?|\\&)v=)?(.*?)(&(.)*)?";
+
+        // Create a Pattern object
+        Pattern r = Pattern.compile(pattern);
+
+        // Now create matcher object.
+        Matcher m = r.matcher(this.url);
+        res = m.find();
+        Logger.debug("is youtube: " + res);
+        return res;
+    }
+
+    public boolean isBlog(){
+        boolean res = false;
+        Pattern urlpattern = Pattern.compile("(http|ftp|https)://([\\w_-]+(?:(?:\\.[\\w_-]+)+))([\\w.,@?^=%&:/~+#-]*[\\w@?^=%&/~+#-])?");
+
+        if(this.user.urlBlog == null || this.url == null) return false;
+        Logger.debug(user.urlBlog);
+        Logger.debug(url);
+
+        // Now create matcher object.
+        Matcher murl = urlpattern.matcher(this.url);
+        Matcher mblog = urlpattern.matcher(this.user.urlBlog);
+
+        if(murl.groupCount() == 0 || mblog.groupCount() == 0) return false;
+
+        murl.matches();
+        mblog.matches();
+        Logger.debug(mblog.group(2));
+        Logger.debug(murl.group(2));
+        res = murl.group(2).equalsIgnoreCase(mblog.group(2));
+        Logger.debug("is blog: " + res);
+        return res;
     }
 
     public ObjectNode toJson(){
