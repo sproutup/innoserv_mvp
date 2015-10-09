@@ -3,9 +3,9 @@ angular
     .module('sproutupApp')
     .factory('AuthService', authService);
 
-authService.$inject = ['$http', '$q', '$cookieStore', '$log', 'UserService', '$timeout', '$state', '$analytics'];
+authService.$inject = ['$http', '$q', '$cookieStore', '$log', 'UserService', '$timeout', '$state', '$analytics', '$resource'];
 
-function authService($http, $q, $cookieStore, $log, userService, $timeout, $state, $analytics){
+function authService($http, $q, $cookieStore, $log, userService, $timeout, $state, $analytics, $resource){
     var user = {};
     var isReady = false;
     var urlBase = '/api/auth';
@@ -34,7 +34,8 @@ function authService($http, $q, $cookieStore, $log, userService, $timeout, $stat
         addTrial: addTrial,
         redirect: redirect,
         loginAndRedirect: loginAndRedirect,
-        refreshTrials: refreshTrials
+        refreshTrials: refreshTrials,
+        validateUsername: validateUsername,
     };
 
     activate();
@@ -45,6 +46,10 @@ function authService($http, $q, $cookieStore, $log, userService, $timeout, $stat
         return getAuthenticatedUser().then(function() {
             console.log('Return User');
         });
+    }
+
+    function validateUsername() {
+        return $resource('/api/auth/username/validate/:username', { username:'@username' });
     }
 
     /*

@@ -9,14 +9,18 @@
                 <input popover="Your full name" popover-trigger="focus" type="text" class="form-control form-validate form-input medium" placeholder="Full Name" ng-model="vm.user.name" required>
             </div>
         </div>
+
         <!-- email and username -->
         <div class="row profile-input-row">
             <div class="col-sm-6 profile-input-cell">
                 <input popover="Your email" popover-trigger="focus" type="email" disabled class="form-control form-validate form-input medium" placeholder="Email" ng-model="vm.user.email">
             </div>
             <div class="col-sm-6 profile-input-cell">
-                <input popover="Your SproutUp @username" popover-trigger="focus" type="text" class="form-control form-validate form-input medium" placeholder="Pick a SproutUp username" ng-model="vm.user.nickname" required>
+                <input popover="Your SproutUp @username" popover-trigger="focus" type="text" class="form-control form-validate form-input medium" placeholder="Pick a SproutUp username" ng-model="vm.user.nickname" name="username" ng-model-options="{ debounce: 400 }" username required>
             </div>
+            <span ng-show="checking && vm.basicinfoform.username.$pending.username">Checking if this name is available...</span>
+            <span ng-show="vm.basicinfoform.username.$valid" class="success">Cool, this username is available!</span>
+            <span ng-show="vm.basicinfoform.username.$error.username" class="error">This username is already taken!</span>
         </div>
         <!-- short description -->
         <div class="row profile-input-row">
