@@ -167,6 +167,7 @@ GET           /api/auth/logout                                               con
 POST          /api/auth/login                                                controllers.AuthController.login
 POST          /api/auth/signup                                               controllers.AuthController.signup
 POST          /api/auth/provider/:provider                                   controllers.AuthController.provider(provider: String)
+POST          /api/auth/username/validate/:username                          controllers.AuthController.validate(username: String)
 
 GET           /media/image/:w/x/:image                                       controllers.Application.image(image: String, w: Int, h: Int = -1)
 GET           /media/image/x/:h/:image                                       controllers.Application.image(image: String, w: Int = -1, h: Int)

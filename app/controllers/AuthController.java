@@ -52,7 +52,7 @@ public class AuthController extends Controller {
 
 	        // signup user and return result
 	        com.feth.play.module.pa.controllers.Authenticate.noCache(response());
-            final Form<MyUsernamePasswordAuthProvider.MySignup> filledForm = MyUsernamePasswordAuthProvider.SIGNUP_FORM.bind(json,"name","email","password", "repeatPassword");
+            final Form<MyUsernamePasswordAuthProvider.MySignup> filledForm = MyUsernamePasswordAuthProvider.SIGNUP_FORM.bind(json, "name", "email", "password", "repeatPassword");
 
             if (filledForm.hasErrors()) {
                 // User did not fill everything properly
@@ -79,6 +79,17 @@ public class AuthController extends Controller {
         return badRequest("Missing request body");
     }
 
+
+    public static Result validate(String username){
+        boolean res = false;
+        if(User.findByNickname(username) == null) {
+            return ok("{unique: true}");
+        }
+        else{
+            return ok("{unique: false}");
+        }
+    }
+
     @BodyParser.Of(BodyParser.Json.class)
     public static Result logout(){
 
@@ -91,7 +102,7 @@ public class AuthController extends Controller {
     @BodyParser.Of(BodyParser.Json.class)
     public static Result user(){
         User localUser = Application.getLocalUser(session());
-        if(localUser != null){
+        if(localUser != null) {
             return ok(localUser.toJson());
         }
         else {
