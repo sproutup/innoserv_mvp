@@ -82,11 +82,14 @@ public class AuthController extends Controller {
 
     public static Result validate(String username){
         boolean res = false;
+        ObjectNode node = Json.newObject();
         if(User.findByNickname(username) == null) {
-            return ok("{unique: true}");
+            node.put("unique", true);
+            return ok(node);
         }
         else{
-            return ok("{unique: false}");
+            node.put("unique", false);
+            return ok(node);
         }
     }
 
