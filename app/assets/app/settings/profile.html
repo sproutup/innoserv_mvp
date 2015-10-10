@@ -18,9 +18,9 @@
             <div class="col-sm-6 profile-input-cell">
                 <input popover="Your SproutUp @username" popover-trigger="focus" type="text" class="form-control form-validate form-input medium" placeholder="Pick a SproutUp username" ng-model="vm.user.nickname" name="username" ng-model-options="{ debounce: 400 }" username required>
             </div>
-            <span ng-show="checking && vm.basicinfoform.username.$pending.username">Checking if this name is available...</span>
-            <span ng-show="vm.basicinfoform.username.$valid" class="success">Cool, this username is available!</span>
-            <span ng-show="vm.basicinfoform.username.$error.username" class="error">This username is already taken!</span>
+            <span ng-show="checking && vm.basicinfoform.username.$pending.username" class="username-message">Checking if this name is available...</span>
+            <span ng-show="vm.basicinfoform.username.$valid" class="username-message success">Cool, this username is available!</span>
+            <span ng-show="vm.basicinfoform.username.$error.username" class="username-message error">This username is already taken!</span>
         </div>
         <!-- short description -->
         <div class="row profile-input-row">
