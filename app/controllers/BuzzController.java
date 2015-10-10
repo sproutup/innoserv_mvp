@@ -29,29 +29,12 @@ public class BuzzController extends Controller {
     public static Result getRange(int start)
     {
         return ok(Post.range(start, start + 9));
-
-/*
-        ObjectNode buzz = Json.newObject();
-        ArrayNode items = buzz.putArray("buzz");
-        //Go to Redis to read the full roster of content.
-        Jedis j = play.Play.application().plugin(RedisPlugin.class).jedisPool().getResource();
-        try {
-            Set<String> set = j.zrange("buzz:all", start, start + 9);
-            for(String id: set) {
-                items.add(Post.hmget(id));
-            }
-        } finally {
-            play.Play.application().plugin(RedisPlugin.class).jedisPool().returnResource(j);
-        }
-*/
-
-//        return items == null ? notFound("buzz out of bounds [" + start + "]") : ok(items);
     }
 
     @BodyParser.Of(BodyParser.Json.class)
     public static Result getProductRange(String slug, int start)
     {
-        return ok(Post.range(slug, start, start+9 ));
+        return ok(Post.productRange(slug, start, start+9 ));
     }
 
     @BodyParser.Of(BodyParser.Json.class)
