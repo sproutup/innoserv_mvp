@@ -24,7 +24,7 @@ function myPointsController($scope, AuthService, $rootScope, RewardService, $sta
                 if(AuthService.m.isLoggedIn) {
                     init();
                 } else {
-                    vm.rewardsInit = true;
+                    $state.go('user.perk');
                 }
             }
         }
