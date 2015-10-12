@@ -1,5 +1,6 @@
 package controllers;
 
+import be.objectify.deadbolt.java.actions.SubjectPresent;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.feth.play.module.pa.PlayAuthenticate;
@@ -80,9 +81,18 @@ public class AuthController extends Controller {
     }
 
 
+    @SubjectPresent
     public static Result validate(String username){
         boolean res = false;
+        User user = Application.getLocalUser(ctx().session());
+
         ObjectNode node = Json.newObject();
+        if(user.nickname.equalsIgnoreCase(username.trim())){
+            node.put("unique", true);
+            node.put("mine", true);
+            return ok(node);
+        }
+
         if(User.findByNickname(username) == null) {
             node.put("unique", true);
             return ok(node);
