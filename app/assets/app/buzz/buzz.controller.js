@@ -133,6 +133,7 @@ function BuzzController($stateParams, $state, FeedService, AuthService, $rootSco
                 item.product_id = vm.selectedProduct;
                 item.$save(function(res) {
                     vm.content.unshift(res);
+                    AuthService.m.user.points += AuthService.refreshPoints();
                     vm.enteredBody = '';
                     vm.selectedProduct = null;
                     vm.productErrorMsg = false;

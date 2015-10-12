@@ -36,6 +36,7 @@ function authService($http, $q, $cookieStore, $log, userService, $timeout, $stat
         loginAndRedirect: loginAndRedirect,
         refreshTrials: refreshTrials,
         validateUsername: validateUsername,
+        refreshPoints: refreshPoints
     };
 
     activate();
@@ -317,6 +318,10 @@ function authService($http, $q, $cookieStore, $log, userService, $timeout, $stat
 
         $log.debug("auth signup service returned promise");
         return deferred.promise;
+    }
+
+    function refreshPoints() {
+        return 10;
     }
 
     AuthService.accessLevels = accessLevels;

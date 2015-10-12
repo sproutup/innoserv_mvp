@@ -1,5 +1,22 @@
+<div class="perk">
+	<div class="intro-header">
+	    <div class="container">
+	        <div class="row">
+	            <div class="col-lg-12">
+	                <div class="intro-message points">
+	                    <h3>Your Reward Points</h3>
+	                    <h1>{{ vm.user.points }}</h1>
+	                    <h4 ng-if="vm.rewardsLog.length > 0">Keep up the great work :)</h4>
+	                    <h4 ng-if="vm.rewardsInit && vm.rewardsLog <= 0">
+	                    	<a ui-sref="user.perk" class="btn btn-lg sproutup-btn-lg-main">See how rewards work</a>
+	                    </h4>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+</div>
 <div class="points-table">
-	<h2 class="product-trial-header">Here's log of all of your points so far.</h2>
 	<table class="table table-bordered table-striped table-responsive">
 		<thead>
 			<tr>
@@ -8,23 +25,30 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr>
-				<td class="points-column">1000</td>
-				<td>Posted on buzz <span>10/10/10</span></td>
+			<tr ng-repeat="log in vm.rewardsLog | orderBy: '-createdAt'">
+				<td class="points-column">{{ log.points }}</td>
+				<td>{{ log.title }} <span>{{ log.createdAt | date:'MM/dd/yy' }}</span></td>
 			</tr>
-			<tr>
-				<td class="points-column">100</td>
-				<td>Commented on Peter Andersen's post <span>10/1/09</span></td>
+			<tr ng-if="vm.rewardsLog.length < 1">
+				<td class="points-column"></td>
+				<td></td>
 			</tr>
-			<tr>
-				<td class="points-column">200</td>
-				<td>Shared Tao Ni's post <span>10/1/09</span></td>
+			<tr ng-if="vm.rewardsLog.length < 2">
+				<td class="points-column"></td>
+				<td></td>
 			</tr>
-			<tr>
-				<td class="points-column">200</td>
-				<td>Tweeted for the mycestro v2 launch <span>10/1/09</span></td>
+			<tr ng-if="vm.rewardsLog.length < 3">
+				<td class="points-column"></td>
+				<td></td>
+			</tr>
+			<tr ng-if="vm.rewardsLog.length < 4">
+				<td class="points-column"></td>
+				<td></td>
+			</tr>
+			<tr ng-if="vm.rewardsLog.length < 5">
+				<td class="points-column"></td>
+				<td></td>
 			</tr>
 		</tbody>
 	</table>
-
 </div>
