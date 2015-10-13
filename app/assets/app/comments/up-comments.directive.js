@@ -69,6 +69,7 @@ function upCommentsController(CommentService, authService, $timeout, $scope, $ro
 
                 newComment.$save(function(res) {
                     vm.comments.data.push(res);
+                    authService.m.user.points += authService.refreshPoints();
                     vm.newComment = '';
                     vm.commenting = false;
                     vm.commentWarning = false;
