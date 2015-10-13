@@ -36,6 +36,8 @@ function myPointsController($scope, AuthService, $rootScope, RewardService, $sta
                 vm.rewardsLog = MyRewards.query(function(res) {
                     vm.rewardsInit = true;
                 });
+            } else {
+                vm.rewardsInit = true;
             }
         }
 }
