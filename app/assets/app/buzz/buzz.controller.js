@@ -15,7 +15,6 @@ function BuzzController($stateParams, $state, FeedService, AuthService, $rootSco
     var content = [];
     vm.content = [];
     vm.myTrialProducts = [];
-    vm.myTrialProducts = MyTrialProductsService.query();
     vm.loadContent = loadContent;
     vm.slug = $stateParams.slug;
     vm.addContent = addContent;
@@ -34,12 +33,25 @@ function BuzzController($stateParams, $state, FeedService, AuthService, $rootSco
     activate();
 
     function activate() {
-        init();
+        if(!AuthService.ready()){
+            var unbindWatch = $rootScope.$watch(AuthService.ready, function (value) {
+                if ( value === true ) {
+                  unbindWatch();
+                  activate();
+                }
+            });
+        }
+        else {
+            init();
+        }
     }
 
     function init() {
-        vm.user = AuthService.m.user;
+        vm.user = angular.copy(AuthService.m.user);
         loadContent();
+        if (vm.user.id) {
+            vm.myTrialProducts = MyTrialProductsService.query();
+        }
     }
 
     function loadContent() {
