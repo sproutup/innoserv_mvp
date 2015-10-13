@@ -83,6 +83,7 @@ POST          /api/trials/:id/cancel                                         con
 GET           /api/trials/:id/log                                            controllers.TrialLogController.getall(id: Long)
 
 GET           /api/user/reward                                               controllers.RewardController.getall
+GET           /api/user/points                                               controllers.AuthController.points
 
 GET           /api/user/:nickname/trials                                     controllers.TrialController.getByNickname(nickname: String)
 

@@ -365,6 +365,16 @@ public class User extends TimeStampModel implements Subject {
 		TokenAction.deleteByUser(unverified, Type.EMAIL_VERIFICATION);
 	}
 
+	public int points(){
+		int points = 0;
+		if (this.rewardEvents!=null && this.rewardEvents.size()>0) {
+			for (RewardEvent event : this.rewardEvents) {
+				points += event.points;
+			}
+		}
+		return points;
+	}
+
 	public void changePassword(final UsernamePasswordAuthUser authUser,
 			final boolean create) {
 		LinkedAccount a = this.getAccountByProvider(authUser.getProvider());

@@ -103,6 +103,14 @@ public class AuthController extends Controller {
         }
     }
 
+    @SubjectPresent
+    public static Result points(){
+        User user = Application.getLocalUser(ctx().session());
+        ObjectNode node = Json.newObject();
+        node.put("points", user.points());
+        return ok(node);
+    }
+
     @BodyParser.Of(BodyParser.Json.class)
     public static Result logout(){
 
