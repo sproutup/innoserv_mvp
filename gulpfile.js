@@ -11,6 +11,7 @@ var shell = require('gulp-shell');
 var runSequence = require('run-sequence');
 var plugins = gulpLoadPlugins();
 var path = require('path');
+var gulpNgConfig = require('gulp-ng-config');
 
 // Set NODE_ENV to 'test'
 gulp.task('env:test', function () {
@@ -42,6 +43,12 @@ gulp.task('play', shell.task([
   'echo starting play',
   'activator run'
 ]));
+
+gulp.task('config', function () {
+  gulp.src('config.json')
+  .pipe(gulpNgConfig('myApp.config'))
+  .pipe(gulp.dest('.'));
+});
 
 // Watch Files For Changes
 gulp.task('watch', function() {
@@ -207,7 +214,7 @@ gulp.task('test', function(done) {
 // Run the project in development mode
 gulp.task('default', function(done) {
 //  runSequence('env:dev', 'lint', ['nodemon', 'watch'], done);
-  runSequence('env:dev', 'play', done);
+  runSequence('env:dev', 'config', 'play', done);
 });
 
 // Run the project in debug mode

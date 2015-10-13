@@ -1,0 +1,17 @@
+{
+  "local": {
+    "EnvironmentConfig": {
+      "api": "http://localhost/"
+    }
+  },
+  "develop": {
+    "EnvironmentConfig": {
+      "api": "https://api.production.com/"
+    }
+  },
+  "production": {
+    "EnvironmentConfig": {
+      "api": "https://api.production.com/"
+    }
+  }
+}
