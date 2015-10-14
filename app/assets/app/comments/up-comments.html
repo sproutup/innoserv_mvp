@@ -26,7 +26,10 @@
                     <textarea name="content" placeholder="Write a comment... Be cool / kind / funny / constructive / helpful..." class="form-control post-comment-textarea" rows="2" ng-model="vm.newComment"></textarea>
                 </div>
                 <div class="post-new-comment-actions">
-                    <button type="submit" class="btn btn-post btn-post-default" ng-click="vm.addComment()">Post</button>
+                    <button type="submit" class="btn btn-post btn-post-default" ng-click="vm.addComment()" ng-disabled="vm.disabled" ng-class="{'disabled': vm.disabled}">
+                        <span ng-hide="vm.disabled">Post</span>
+                        <span us-spinner class="comment-spinner" spinner-key="spinner-3"></span>
+                    </button>
                 </div>
             </div>
         </form>
