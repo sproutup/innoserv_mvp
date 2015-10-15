@@ -1,17 +1,17 @@
 {
   "local": {
     "EnvironmentConfig": {
-      "api": "http://localhost/"
+      "analytics": "http://localhost:3001/"
     }
   },
   "develop": {
     "EnvironmentConfig": {
-      "api": "https://api.production.com/"
+      "analytics": "http://analytics-develop-sproutup-co.elasticbeanstalk.com/"
     }
   },
   "production": {
     "EnvironmentConfig": {
-      "api": "https://api.production.com/"
+      "analytics": "http://analytics.sproutup.co/"
     }
   }
 }

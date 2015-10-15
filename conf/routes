@@ -82,6 +82,8 @@ DELETE        /api/trials/:id                                                con
 POST          /api/trials/:id/cancel                                         controllers.TrialController.cancel(id: Long)
 GET           /api/trials/:id/log                                            controllers.TrialLogController.getall(id: Long)
 
+POST          /api/reward/event/:activity_id                                 controllers.RewardController.logEvent(activity_id: Long )
+
 GET           /api/user/reward                                               controllers.RewardController.getall
 GET           /api/user/points                                               controllers.AuthController.points
 
