@@ -20,13 +20,13 @@
         <div class="col-sm-2 my-content-user-avatar new-comment-avatar">
             <img class="img-responsive post-comment-user-img-circle img-center" ng-src="{{ vm.user.avatarUrl }}">
         </div>
-        <form>
+        <form name="form" novalidate>
             <div class="col-md-10 col-sm-10 post-blurb">
                 <div class="post-comment-form">
-                    <textarea name="content" placeholder="Write a comment... Be cool / kind / funny / constructive / helpful..." class="form-control post-comment-textarea" rows="2" ng-model="vm.newComment"></textarea>
+                    <textarea name="comment" placeholder="Write a comment... Be cool / kind / funny / constructive / helpful..." class="form-control post-comment-textarea" rows="2" ng-model="vm.newComment" required=""></textarea>
                 </div>
                 <div class="post-new-comment-actions">
-                    <button type="submit" class="btn btn-post btn-post-default" ng-click="vm.addComment()" ng-disabled="vm.disabled" ng-class="{'disabled': vm.disabled}">
+                    <button type="submit" class="btn btn-post btn-post-default" ng-click="vm.addComment()" ng-disabled="vm.disabled || form.comment.$error.required" ng-class="{'disabled': vm.disabled || form.comment.$error.required}">
                         <span ng-hide="vm.disabled">Post</span>
                         <span us-spinner class="comment-spinner" spinner-key="spinner-3"></span>
                     </button>

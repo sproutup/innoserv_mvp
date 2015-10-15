@@ -6,14 +6,12 @@
             	<p class="my-content-headsup-text">It sounds obvious, but <a subject-present state="user.buzz" href="#">log in</a> is required for posting anything.</p>
 			</div>
 		</div>
-
 		<!-- for users who cannot post yet, display this message -->
 		<div class="col-sm-12 my-content-item" ng-if="vm.init && vm.user.id && vm.myTrialProducts.length < 1">
 			<div class="my-content-headsup">
             	<p class="my-content-headsup-text">Posting content is limited to influencers with approved product trials. Everyone can upvote and comment. We are working hard to scale SproutUp so that more content creators can join.</p>
 			</div>
 		</div>
-
 		<!-- add content -->
 		<div class="add-content-wrapper" ng-if="vm.init && vm.myTrialProducts.length > 0">
 	        <div class="col-sm-12 my-content-item">
@@ -29,20 +27,18 @@
 	                	<div class="select-product-text">Select a product you'd like to post about</div>
 		                <!-- product selection -->
 						<button class="trial-product" ng-repeat="p in vm.myTrialProducts" ng-class="{ 'selected-trial-product': p.id === vm.selectedProduct }" ng-click="vm.selectTrialProduct(p)">{{ p.name }}</button>
-						<div ng-show="vm.selectedProduct">
+						<form name="form" ng-show="vm.selectedProduct" novalidate>
 		                    <div class="my-content-new">
-		                        <textarea placeholder="Paste a link to your content and/or write about your experience here" class="form-control post-new-textarea link" ng-model="vm.enteredBody"></textarea>
-	<!-- 	                        <div class="addPhotoInput">Add a photo or video</div> -->
+		                        <textarea name="content" placeholder="Paste a link to your content and/or write about your experience here" class="form-control post-new-textarea link" ng-model="vm.enteredBody" required></textarea>
+							<!-- <div class="addPhotoInput">Add a photo or video</div> -->
 		                    </div>
 		                    <div class="post-new-comment-actions">
-		                        <button type="button" analytics-on="click" analytics-event="Post Content" analytics-user="{{vm.user.nickname}}" class="btn btn-post content-post-button btn-post-default" ng-click="vm.addContent()" ng-disabled="vm.disabled" ng-class="{'disabled': vm.disabled}">
+		                        <button type="button" analytics-on="click" analytics-event="Post Content" analytics-user="{{vm.user.nickname}}" class="btn btn-post content-post-button btn-post-default" ng-click="vm.addContent()" ng-disabled="vm.disabled || form.content.$error.required" ng-class="{'disabled': vm.disabled || form.content.$error.required}">
 		                        	<span ng-hide="vm.disabled">Post</span>
 		                        	<span us-spinner spinner-key="spinner-1"></span>
 		                        </button>
 		                    </div>
-		                    <div class="post-warning" ng-show="vm.productErrorMsg">Please choose a product</div>
-		                    <div class="post-warning" ng-show="vm.textErrorMsg">Please write something and/or paste a url</div>
-		                </div>
+		                </form>
 	                </div>
 	            </div>
 	        </div>
