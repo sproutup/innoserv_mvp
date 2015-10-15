@@ -316,6 +316,19 @@ public class Post extends SuperModel implements Taggable {
 		return data;
 	}
 
+	public static Long userCount(Long id){
+		//Go to Redis to read the full roster of content.
+		Jedis j = play.Play.application().plugin(RedisPlugin.class).jedisPool().getResource();
+		try {
+			String key = "buzz:user:" + id.toString();
+
+			Long number = j.zcard(key);
+			return number;
+		} finally {
+			play.Play.application().plugin(RedisPlugin.class).jedisPool().returnResource(j);
+		}
+	}
+
 	public void hmset(){
 		Jedis j = play.Play.application().plugin(RedisPlugin.class).jedisPool().getResource();
 		try {

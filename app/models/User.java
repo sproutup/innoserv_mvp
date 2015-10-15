@@ -474,6 +474,14 @@ public class User extends TimeStampModel implements Subject {
 			}
 		}
 		node.put("points", Integer.toString(points));
+		node.put("posts", Post.userCount(this.id));
+		if(this.trials != null) {
+			node.put("trials", this.trials.size());
+		}
+		else{
+			node.put("trials", 0);
+		}
+
 		return node;
 	}
 
@@ -500,7 +508,13 @@ public class User extends TimeStampModel implements Subject {
 				}
 			}
 			map.put("points", Integer.toString(points));
-
+			map.put("posts", Post.userCount(this.id));
+			if(this.trials != null) {
+				map.put("trials", this.trials.size());
+			}
+			else{
+				map.put("trials", 0);
+			}
 
 			// add the values
 			j.hmset(key, map);
