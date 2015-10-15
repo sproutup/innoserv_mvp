@@ -323,7 +323,6 @@ function authService($http, $q, $cookieStore, $log, userService, $timeout, $stat
     function refreshPoints() {
         var Refresh = $resource('/api/user/points');
         Refresh.get(function(res){
-            console.log(model);
             model.user.points = res.points;
         });
     }
