@@ -1192,19 +1192,6 @@ angular.module('sproutupApp').directive('upProfileVideos', ['FileService',
     }
 ]);
 
-angular.module('sproutupApp').directive('upProfileInfo', ['AuthService',
-    function (authService) {
-        return {
-            restrict: 'E',
-            scope: {
-                user: "="
-            },
-            link: function (scope, element, attrs) {
-            },
-            templateUrl: 'assets/templates/up-profile-info.html'
-        }
-    }
-]);
 
 angular.module('sproutupApp').directive('upProfileMenu', ['AuthService','$filter','$state',
     function (authService, $filter, $state) {

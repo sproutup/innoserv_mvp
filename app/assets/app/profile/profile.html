@@ -1,36 +1,28 @@
 <!-- To help with load, this shows *if* $scope.stranger is loaded -->
 <div up-profile ng-if="stranger">
     <div class="profile-header">
-        <up-profile-info user="stranger"></up-profile-info>
+        <up-profile-info user="vm.stranger"></up-profile-info>
     </div>
     <div class="row text-center user-profile-menu">
 		<div class="col-sm-12">
 			<a ui-sref="user.profile.buzz" class="user-profile-menu-item user-profile-menu-buzz" ui-sref-active="active-profile-button">
-			 Buzz
+				<span class="profile-nav-label">Buzz</span>
+				<span class="profile-nav-value">{{vm.posts || 0}}</span>
 			</a>
-	    	<a class="user-profile-menu-item" ui-sref="user.profile.trials" ui-sref-active="active-profile-button">
-	    		Trials
-	    	</a>
+			<a class="user-profile-menu-item" ui-sref="user.profile.trials" ui-sref-active="active-profile-button">
+				<span class="profile-nav-label">Trials</span>
+				<span class="profile-nav-value">{{vm.trials || 0}}</span>
+			</a>
+			<a class="user-profile-menu-item" ui-sref="user.profile.reach" ui-sref-active="active-profile-button">
+				<span class="profile-nav-label">Reach</span>
+				<span class="profile-nav-value">{{vm.reach || 0}}</span>
+			</a>
+			<a class="user-profile-menu-item" ui-sref="user.profile.points" ui-sref-active="active-profile-button">
+				<span class="profile-nav-label">Points</span>
+				<span class="profile-nav-value">{{vm.points || 0}}</span>
+			</a>
     	</div>
     </div>
-<!--     <div class="profile-menu">
-	    <div class="row profile-menu-body">
-	        <div class="col-xs-4">
-	            <div class="profile-menu--item">
-	            	<a ui-sref="user.profile.buzz" ui-sref-active="active">
-	                    <span class="profile-menu--item-label">Buzz</span>
-	                </a>
-	            </div>
-	        </div>
-	      	<div class="col-xs-4">
-	            <div class="profile-menu--item">
-	            	<a ui-sref="user.profile.trials" ui-sref-active="active">
-	                    <span class="profile-menu--item-label">Product Trials</span>
-	                </a>
-	            </div>
-	        </div>
-	     </div>
-	</div> -->
 
     <div ui-view class=""></div>
 </div>
