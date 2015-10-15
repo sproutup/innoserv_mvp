@@ -321,7 +321,11 @@ function authService($http, $q, $cookieStore, $log, userService, $timeout, $stat
     }
 
     function refreshPoints() {
-        return 10;
+        var Refresh = $resource('/api/user/points');
+        Refresh.get(function(res){
+            console.log(model);
+            model.user.points = res.points;
+        });
     }
 
     AuthService.accessLevels = accessLevels;
