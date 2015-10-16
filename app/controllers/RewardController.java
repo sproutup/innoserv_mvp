@@ -25,6 +25,11 @@ public class RewardController extends Controller {
     }
 
     @BodyParser.Of(BodyParser.Json.class)
+    public static Result getAggregate(Long user_id) {
+        return ok(RewardEvent.getUserSummary(user_id));
+    }
+
+    @BodyParser.Of(BodyParser.Json.class)
     @SubjectPresent
     public static Result logEvent(Long activity_id) {
         User user = Application.getLocalUser(ctx().session());

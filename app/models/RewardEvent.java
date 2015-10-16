@@ -1,5 +1,7 @@
 package models;
 
+import com.avaje.ebean.RawSql;
+import com.avaje.ebean.RawSqlBuilder;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -72,6 +74,45 @@ public class RewardEvent extends SuperModel {
 	public void update() {
 		super.update();
 		hmset();
+	}
+
+	/*
+      Get reward summary
+    */
+	public static ArrayNode getUserSummary(Long id) {
+		ArrayNode arrayNode = new ArrayNode(JsonNodeFactory.instance);
+		// sql that selects all the tag links for the object
+		String sql = "select re.reward_activity_id, ra.title, count(re.id), sum(re.points) " +
+				"from reward_event re, reward_activity ra " +
+				"where re.reward_activity_id = ra.id " +
+				"and re.user_id = " + id + " " +
+				"group by reward_activity_id";
+
+		// parse the sql
+		RawSql rawSql = RawSqlBuilder.parse(sql)
+				// map resultSet columns to bean properties
+				.columnMapping("re.reward_activity_id", "id")
+				.columnMapping("ra.title", "title")
+				.columnMapping("count(re.id)", "quantity")
+				.columnMapping("sum(re.points)", "points")
+				.create();
+
+		// execute the query
+		List<RewardAggregate> summary = RewardAggregate.find.query()
+				.setRawSql(rawSql)
+				.where()
+				.findList();
+
+		for (RewardAggregate item : summary){
+			ObjectNode res = Json.newObject();
+			res.put("id", item.id);
+			res.put("title", item.title);
+			res.put("quantity", item.quantity);
+			res.put("points", item.points);
+			arrayNode.add(res);
+		}
+
+		return arrayNode;
 	}
 
     private ObjectNode toJson(){
