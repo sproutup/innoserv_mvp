@@ -127,6 +127,8 @@ POST          /api/company                                                  cont
 
 GET           /api/analytics                                                 controllers.AnalyticsController.getAll
 
+GET           /api/twitter/api/params                                        controllers.TwitterController.AuthorizeParams
+
 GET           /api/google/api/params                                         controllers.GoogleController.AuthorizeParams
 POST          /api/google/api/code                                           controllers.GoogleController.ExchangeAuthorizationCodeForToken(code: String, scope: String)
 POST          /api/google/api/revoke                                         controllers.GoogleController.oauth2revoke
