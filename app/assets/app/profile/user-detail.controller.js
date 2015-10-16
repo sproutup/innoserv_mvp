@@ -21,7 +21,7 @@ function userDetailCtrl($scope, $stateParams, $state, $log, UserService, Analyti
 
             AnalyticsService.UserReach().get({userId: data.id}).$promise.then(function(reach){
                 console.log('reach: ', reach);
-                vm.reach = reach.total;
+                vm.reach = reach;
             });
         },
         function(error) {

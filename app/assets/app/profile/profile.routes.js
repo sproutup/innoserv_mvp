@@ -29,5 +29,23 @@ function config($stateProvider) {
             data: {
                 title: 'User Trials'
             }
+        })
+        .state('user.profile.reach' ,{
+            url: '/reach',
+            templateUrl: 'assets/app/profile/user-reach.html',
+//            controller: 'userTrialsController',
+//            controllerAs: 'vm',
+            data: {
+                title: 'User Trials'
+            }
+        })
+        .state('user.profile.points' ,{
+            url: '/points',
+            templateUrl: 'assets/app/profile/user-points.html',
+//            controller: 'userTrialsController',
+//            controllerAs: 'vm',
+            data: {
+                title: 'User Trials'
+            }
         });
 }

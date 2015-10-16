@@ -1,0 +1,37 @@
+<div class="row my-profile-trial-page single-post user-profile-content" ng-class="{ 'empty': vm.reach == 0 }">
+	<div class="product-detail-buzz-header-2" ng-if="vm.reach < 1">This user doesn't have any reach ¯\_(ツ)_/¯</div>
+	<div class="profile-edit--header">User Reach</div>
+
+	<div class="profile-edit--description">
+		<p>User Reach is calculated from the accounts that the user has authorised SproutUp to look at.</p>
+	</div>
+
+
+	<table class="table table-striped table-responsive analytics-table">
+		<thead>
+		<tr>
+			<th class="leading-column">Medium</th>
+			<th>Reach</th>
+		</tr>
+		</thead>
+		<tbody>
+		<tr>
+			<td class="leading-column">Twitter</td>
+			<td>{{vm.reach.twitter || 0}}</td>
+		</tr>
+		<tr>
+			<td class="leading-column">Youtube</td>
+			<td>{{vm.reach.youtube || 0}}</td>
+		</tr>
+		<tr>
+			<td class="leading-column">Blog</td>
+			<td>{{vm.reach.blog || 0}}</td>
+		</tr>
+		<tr>
+			<td class="leading-column">Total</td>
+			<td>{{vm.reach.total || 0}}</td>
+		</tr>
+		</tbody>
+	</table>
+
+</div>
