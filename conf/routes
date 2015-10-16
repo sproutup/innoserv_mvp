@@ -85,6 +85,7 @@ GET           /api/trials/:id/log                                            con
 POST          /api/reward/event/:activity_id                                 controllers.RewardController.logEvent(activity_id: Long )
 
 GET           /api/user/reward                                               controllers.RewardController.getall
+GET           /api/user/:id/reward/summary                                   controllers.RewardController.getAggregate(id: Long)
 GET           /api/user/points                                               controllers.AuthController.points
 
 GET           /api/user/:nickname/trials                                     controllers.TrialController.getByNickname(nickname: String)
