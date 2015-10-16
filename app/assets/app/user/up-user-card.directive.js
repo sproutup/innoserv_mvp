@@ -49,11 +49,11 @@ function upUserCard() {
     }    
 }
 
-UpUserCardController.$inject = ['$state', '$scope'];
+UpUserCardController.$inject = ['$state', '$scope', 'AuthService'];
 
-function UpUserCardController($state, $scope) {
+function UpUserCardController($state, $scope, AuthService) {
     var vm = this;
-
+    vm.loggedInUserId = AuthService.m.user.id;
     // Get this twitter handle. Then set up tweets if we're on the product page.
     if (vm.user && vm.user.urlTwitter) {
         vm.user.twitterHandle = "@" + vm.user.urlTwitter.slice(20);
