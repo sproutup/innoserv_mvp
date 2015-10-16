@@ -30,9 +30,9 @@ function upComments() {
 }
 
 
-upCommentsController.$inject = ['CommentService', 'AuthService', '$timeout', '$scope', '$rootScope', '$resource'];
+upCommentsController.$inject = ['CommentService', 'AuthService', '$timeout', '$scope', '$rootScope', '$resource', 'usSpinnerService'];
 
-function upCommentsController(CommentService, authService, $timeout, $scope, $rootScope, $resource) {
+function upCommentsController(CommentService, authService, $timeout, $scope, $rootScope, $resource, usSpinnerService) {
     var vm = this;
 
     activate();
@@ -53,35 +53,24 @@ function upCommentsController(CommentService, authService, $timeout, $scope, $ro
 
     function init() {
         vm.user = angular.copy(authService.m.user);
+        vm.disabled = false;
     }
 
-    vm.commentCount = 0;
     $scope.vm.addComment = function() {
-        if (vm.commentCount !== 1) {
-            console.log('postijg');
-            if (!vm.newComment) {
-                vm.commentWarning = true;
-            } else {
-                var Comment = CommentService.comment(vm.type, vm.id);
-                var newComment = new Comment();
-                newComment.body = vm.newComment;
-                vm.commentCount = 1;
-
-                newComment.$save(function(res) {
-                    vm.comments.data.push(res);
-                    authService.m.user.points += authService.refreshPoints();
-                    vm.newComment = '';
-                    vm.commenting = false;
-                    vm.commentWarning = false;
-                    vm.commentCount = 0;
-                }, function(err) {
-                    vm.commentWarning = false;
-                    vm.commentCount = 0;
-                    console.log(err);
-                });
-            }
-        }
-        
+      // Prevent double posting with vm.disabled
+      vm.disabled = true;
+      usSpinnerService.spin('spinner-3');
+      var Comment = CommentService.comment(vm.type, vm.id);
+      var newComment = new Comment();
+      newComment.body = vm.newComment;
+      newComment.$save(function(res) {
+        vm.comments.data.push(res);
+        authService.refreshPoints();
+        vm.newComment = '';
+        vm.commenting = false;
+        vm.disabled = false;
+        usSpinnerService.stop('spinner-3');
+      });
     };
 
     // logic for a spinner after the save—should be moved to a directive 

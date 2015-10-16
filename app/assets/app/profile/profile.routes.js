@@ -9,7 +9,8 @@ function config($stateProvider) {
             url: '/user/:nickname',
             abstract: true,
             templateUrl: 'assets/app/profile/profile.html',
-            controller: 'userDetailCtrl'
+            controller: 'userDetailCtrl',
+            controllerAs: 'vm'
         })
         .state('user.profile.buzz' ,{
             url: '',

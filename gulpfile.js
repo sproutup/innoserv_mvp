@@ -44,10 +44,31 @@ gulp.task('play', shell.task([
   'activator run'
 ]));
 
-gulp.task('config', function () {
+gulp.task('config:local', function () {
   gulp.src('config.json')
-  .pipe(gulpNgConfig('myApp.config'))
-  .pipe(gulp.dest('.'));
+  .pipe(gulpNgConfig('sproutupApp.config', {
+      environment: 'local'
+    })
+  )
+  .pipe(gulp.dest('./app/assets/app/'));
+});
+
+gulp.task('config:dev', function () {
+  gulp.src('config.json')
+  .pipe(gulpNgConfig('sproutupApp.config', {
+      environment: 'develop'
+    })
+  )
+  .pipe(gulp.dest('./app/assets/app/'));
+});
+
+gulp.task('config:prod', function () {
+  gulp.src('config.json')
+  .pipe(gulpNgConfig('sproutupApp.config', {
+      environment: 'production'
+    })
+  )
+  .pipe(gulp.dest('./app/assets/app/'));
 });
 
 // Watch Files For Changes
@@ -214,7 +235,7 @@ gulp.task('test', function(done) {
 // Run the project in development mode
 gulp.task('default', function(done) {
 //  runSequence('env:dev', 'lint', ['nodemon', 'watch'], done);
-  runSequence('env:dev', 'config', 'play', done);
+  runSequence('env:dev', 'config:local', 'play', done);
 });
 
 // Run the project in debug mode
@@ -224,5 +245,5 @@ gulp.task('debug', function(done) {
 
 // Run the project in production mode
 gulp.task('prod', function(done) {
-  runSequence('build', 'lint', ['nodemon', 'watch'], done);
+  runSequence('config:prod', 'build', 'lint', ['nodemon', 'watch'], done);
 });

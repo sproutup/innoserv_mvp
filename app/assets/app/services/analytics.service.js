@@ -3,15 +3,16 @@ angular
     .module('sproutupApp')
     .factory('AnalyticsService', AnalyticsService);
 
-AnalyticsService.$inject = ['$http', '$q', '$log', 'UserService', '$timeout'];
+AnalyticsService.$inject = ['$http', '$q', '$log', 'UserService', '$timeout', '$resource'];
 
-function AnalyticsService($http, $q, $log, userService, $timeout){
+function AnalyticsService($http, $q, $log, userService, $timeout, $resource){
     var user = {};
     var isReady = false;
     var urlBase = '/api/analytics';
 
     var service = {
-        getAll: getAll
+        getAll: getAll,
+        UserReach: UserReach
     };
 
     activate();
@@ -20,6 +21,10 @@ function AnalyticsService($http, $q, $log, userService, $timeout){
 
     function activate() {
         $log.debug("analytics service - activated");
+    }
+
+    function UserReach(userId){
+        return $resource('http://localhost:3000/api/user/:userId/reach', {userId:'@id'});
     }
 
     function getAll(){

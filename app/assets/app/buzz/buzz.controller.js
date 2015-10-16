@@ -8,9 +8,9 @@ angular
 // This controller contains logic for main buzz page as well as individual product buzz pages
 // Functions loadInit and loadMore have seperate queries for when a slug is present (product buzz page) vs. when there is no slug (main buzz page)
 
-BuzzController.$inject = ['$stateParams', '$state', 'FeedService', 'AuthService', '$rootScope', '$scope', 'MyTrialProductsService', 'PostService', '$timeout', 'usSpinnerService'];
+BuzzController.$inject = ['$stateParams', '$state', 'FeedService', 'AuthService', '$rootScope', '$scope', 'MyTrialProductsService', 'PostService', '$timeout', 'usSpinnerService', 'PointsService'];
 
-function BuzzController($stateParams, $state, FeedService, AuthService, $rootScope, $scope, MyTrialProductsService, postService, $timeout, usSpinnerService) {
+function BuzzController($stateParams, $state, FeedService, AuthService, $rootScope, $scope, MyTrialProductsService, postService, $timeout, usSpinnerService, PointsService) {
     var vm = this;
     var content = [];
     vm.content = [];
@@ -23,6 +23,7 @@ function BuzzController($stateParams, $state, FeedService, AuthService, $rootSco
     vm.displayLinkVideo = displayLinkVideo;
     vm.selectTrialProduct = selectTrialProduct;
     vm.busy = true;
+    vm.disabled = false;
     var local = {};
     local.loadCallback = loadCallback;
     local.displayYoutubeVideo = displayYoutubeVideo;
@@ -31,6 +32,9 @@ function BuzzController($stateParams, $state, FeedService, AuthService, $rootSco
     var position = 0;
 
     activate();
+
+    console.log('initing buzz');
+    $rootScope.sharing = false;
 
     function activate() {
         if(!AuthService.ready()){
@@ -128,40 +132,36 @@ function BuzzController($stateParams, $state, FeedService, AuthService, $rootSco
         }
     }
 
-    vm.postCount = 0;
     function addContent() {
-        if (vm.postCount !== 1) {
-            if (!vm.selectedProduct) {
-                vm.productErrorMsg = true;
-            } else if (!vm.enteredBody) {
+        vm.disabled = true;
+        if (!vm.selectedProduct) {
+            vm.productErrorMsg = true;
+        } else if (!vm.enteredBody) {
+            vm.productErrorMsg = false;
+            vm.textErrorMsg = true;
+        } else {
+            var Post = postService.post();
+            var item = new Post();
+            usSpinnerService.spin('spinner-1');
+            item.body = vm.enteredBody;
+            item.product_id = vm.selectedProduct;
+            item.$save(function(res) {
+                vm.content.unshift(res);
+                AuthService.refreshPoints();
+                vm.enteredBody = '';
+                vm.selectedProduct = null;
                 vm.productErrorMsg = false;
-                vm.textErrorMsg = true;
-            } else {
-                var Post = postService.post();
-                var item = new Post();
-                usSpinnerService.spin('spinner-1');
-                vm.postCount = 1;
-                item.body = vm.enteredBody;
-                item.product_id = vm.selectedProduct;
-                item.$save(function(res) {
-                    vm.content.unshift(res);
-                    AuthService.m.user.points += AuthService.refreshPoints();
-                    vm.enteredBody = '';
-                    vm.selectedProduct = null;
-                    vm.productErrorMsg = false;
-                    vm.textErrorMsg = false;
-                    vm.postCount = 0;
-                    if (res.content) {
-                        displayYoutubeVideo(res.content);
-                        displayTweet(res.content);
-                    }
-                    usSpinnerService.stop('spinner-1');
-                }, function(err) {
-                    console.log(err);
-                    vm.postCount = 0;
-                    usSpinnerService.stop('spinner-1');
-                });
-            }
+                vm.disabled = false;
+                if (res.content) {
+                    displayYoutubeVideo(res.content);
+                    displayTweet(res.content);
+                }
+                usSpinnerService.stop('spinner-1');
+            }, function(err) {
+                console.log(err);
+                vm.postCount = 0;
+                usSpinnerService.stop('spinner-1');
+            });
         }
     }
 
@@ -262,6 +262,25 @@ function BuzzController($stateParams, $state, FeedService, AuthService, $rootSco
     function selectTrialProduct(p) {
         vm.selectedProduct = p.id;
     }
+
+    twttr.events.bind('tweet', function(event) {
+        if ($rootScope.sharing === true || !AuthService.m.isLoggedIn) {
+            return;
+        }
+        $rootScope.sharing = true;
+        if (event.target.id === '3000') {
+            var AddPoints = PointsService.addPoints();
+            AddPoints.save({
+                activity_id: event.target.id,
+                product_id: event.target.attributes.product.value
+            }, function() {
+                AuthService.refreshPoints();
+                $timeout(function() {
+                    $rootScope.sharing = false;
+                }, 1000);
+            });
+        }
+    });
 
 }
 
