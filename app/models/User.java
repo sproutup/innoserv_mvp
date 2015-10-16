@@ -508,12 +508,12 @@ public class User extends TimeStampModel implements Subject {
 				}
 			}
 			map.put("points", Integer.toString(points));
-			map.put("posts", Post.userCount(this.id));
+			map.put("posts", Post.userCount(this.id).toString());
 			if(this.trials != null) {
-				map.put("trials", this.trials.size());
+				map.put("trials", Integer.toString(this.trials.size()));
 			}
 			else{
-				map.put("trials", 0);
+				map.put("trials", "0");
 			}
 
 			// add the values
