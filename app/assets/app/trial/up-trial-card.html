@@ -3,7 +3,7 @@
         <a ui-sref="user.profile.buzz({ nickname: vm.trial.user.nickname })" ng-if="vm.state !== 'user.mytrials.current'">
             <img class="product-trial-stage-avatar" ng-src="{{ vm.trial.user.avatarUrl }}" ng-class="{ 'small': vm.trial.status !== 3 }"/>
         </a>
-        <up-user-card context="{{vm.context}}" user="vm.trial.user" ng-if="vm.hovering"></up-user-card>
+        <up-user-card context="{{vm.context}}" user="vm.trial.user" product="vm.product" ng-if="vm.hovering"></up-user-card>
         <div class="active-trial-status" ng-if="vm.trial.status === 3 && vm.trial.recievedEvent" ng-class="{ 'my-trials': vm.state === 'user.mytrials.current' }">
             <progressbar class="days-left-bar" ng-class="{ 'trial-overdue': vm.trial.overdue }" value="vm.trial.percentageLeft"></progressbar>
             <span ng-if="!vm.trial.overdue && vm.trial.daysLeft !== 1">{{ vm.trial.daysLeft }} days left</span>

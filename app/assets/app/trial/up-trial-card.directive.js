@@ -8,7 +8,8 @@ function upTrialCard() {
         templateUrl: 'assets/app/trial/up-trial-card.html',
         scope: {
             trial: '=',
-            context: '@'
+            context: '@',
+            product: '='
         },
         link: linkFunc,
         controller: upTrialCardController,
