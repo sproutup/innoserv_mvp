@@ -52,7 +52,6 @@ function upUserCard() {
 UpUserCardController.$inject = ['$state', '$scope'];
 
 function UpUserCardController($state, $scope) {
-    console.log('in controller');
     var vm = this;
 
     // Get this twitter handle. Then set up tweets if we're on the product page.
@@ -63,12 +62,12 @@ function UpUserCardController($state, $scope) {
         if (vm.user.twitterHandle && vm.context === 'product-trial-active') {
             if (vm.product.twitterUserName) {
                 vm.tweet = 'https://twitter.com/intent/tweet' +
-                           '?text=' + vm.user.twitterHandle + ' hey, how\'s the @' +
-                           vm.product.twitterUserName + ' trial going?';
+                           '?text=' + vm.user.twitterHandle + ' how\'s the @' +
+                           vm.product.twitterUserName + ' trial going? 🌱';
             } else {
                 vm.tweet = 'https://twitter.com/intent/tweet' +
                            '?text=' + vm.user.twitterHandle + ' hey, how\'s the ' +
-                           vm.product.name + ' trial going?';
+                           vm.product.name + ' trial going? 🌱';
             }
         } else if (vm.user.twitterHandle && vm.context === 'product-trial-finished') {
             if (vm.product.twitterUserName) {
