@@ -27,7 +27,7 @@ import java.util.*;
  * Created by peter on 3/23/15.
  */
 @Entity
-public class Trial extends TimeStampModel {
+public class Trial extends SuperModel {
 
     public static Finder<Long, Trial> find = new Finder<Long, Trial>(
             Long.class, Trial.class);
@@ -75,16 +75,30 @@ public class Trial extends TimeStampModel {
 
     @Override
     public void save() {
-        if(this.product != null) this.product.cacheRemove();
+        Logger.debug("trial save()");
         super.save();
         TrialLog.log(this);
+        this.hmset();
+        if(status>=0) {
+            this.zadd("zset:trial:product:" + this.product.id);
+        }
+        else{
+            this.zrem("zset:trial:product:" + this.product.id);
+        }
     }
 
     @Override
     public void update() {
-        if(this.product != null) this.product.cacheRemove();
+        Logger.debug("trial update()");
         super.update();
         TrialLog.log(this);
+        this.hmset();
+        if(status>=0) {
+            this.zadd("zset:trial:product:" + this.product.id);
+        }
+        else{
+            this.zrem("zset:trial:product:" + this.product.id);
+        }
     }
 
     public static Trial findById(Long id) {
@@ -206,6 +220,25 @@ public class Trial extends TimeStampModel {
         return node;
     }
 
+    public ObjectNode toJsonSuperShort(){
+        ObjectNode node = Json.newObject();
+        node.put("id", this.id);
+//        node.put("name", this.name);
+//        node.put("reason", this.reason);
+        node.put("status", this.status);
+//        node.put("createdAt", new DateTime(this.createdAt).toString());
+        node.put("updatedAt", new DateTime(this.updatedAt).plusDays(14).toString());
+        if(this.user != null) {
+            //node.put("user", this.user.toJsonShort());
+            node.put("user", User.hmget(this.user.id.toString()));
+        }
+//        if(this.product != null) {
+//            node.put("product", this.product.toJsonShort());
+//        }
+//        node.put("refURL", refURL);
+        return node;
+    }
+
     public static ArrayNode toJson(List<Trial> items){
         ArrayNode arrayNode = new ArrayNode(JsonNodeFactory.instance);
         for (Trial item : items){
@@ -222,15 +255,36 @@ public class Trial extends TimeStampModel {
         return arrayNode;
     }
 
+    public static ObjectNode toJsonOverview(List<Trial> items){
+        ObjectNode node = Json.newObject();
+
+        ArrayNode arrayNode = new ArrayNode(JsonNodeFactory.instance);
+        for (Trial item : items){
+            arrayNode.add(item.toJsonSuperShort());
+        }
+        node.put("count", items.size());
+        node.put("users", arrayNode);
+
+        return node;
+    }
+
     public void hmset(){
         Jedis j = play.Play.application().plugin(RedisPlugin.class).jedisPool().getResource();
         try {
             Map map = new HashMap();
 
             // Create the hashmap values
-            map.put("name", this.name);
+            map.put("id", this.id.toString());
             map.put("updatedAt", new DateTime(this.updatedAt).toString());
+            map.put("createdAt", new DateTime(this.createdAt).toString());
+            map.put("name", this.name);
+            map.put("reason", this.reason);
+            map.put("status", this.status.toString());
             if(this.user != null) {
+                map.put("user_id", this.user.id.toString());
+            }
+            if(this.product != null) {
+                map.put("product_id", this.product.id.toString());
             }
 
             // add the values
@@ -246,28 +300,81 @@ public class Trial extends TimeStampModel {
 
     public static ObjectNode hmget(String id){
         Jedis j = play.Play.application().plugin(RedisPlugin.class).jedisPool().getResource();
-        ObjectNode node = Json.newObject();
         try {
-            String key = Trial.key(id);
-            // if key not found then add item to cache
-            if(!j.exists(key)) {
-                Logger.debug("item added to cache " + key);
-                Trial.find.byId(Long.parseLong(id, 10)).hmset();
-            }
-
-            // get the values
-            List<String> values = j.hmget(key,
-                    "name",
-                    "updatedAt"
-            );
-
-            // build json object
-            node.put("id", id);
-            if (values.get(0) != null) node.put("name", values.get(0));
-            if (values.get(1) != null) node.put("updatedAt", values.get(1));
+            return hmget(id, j);
         } finally {
             play.Play.application().plugin(RedisPlugin.class).jedisPool().returnResource(j);
         }
+    }
+
+    public static ObjectNode hmget(String id, Jedis j){
+        ObjectNode node = Json.newObject();
+
+        String key = Trial.key(id);
+        // if key not found then add item to cache
+        if(!j.exists(key)) {
+            Logger.debug("item added to cache " + key);
+            Trial.find.byId(Long.parseLong(id, 10)).hmset();
+        }
+
+        // get the values
+        List<String> values = j.hmget(key,
+                "id",
+                "updatedAt",
+                "createdAt",
+                "name",
+                "reason",
+                "status",
+                "user_id",
+                "product_id"
+                );
+
+        // build json object
+        node.put("id", id);
+        if (values.get(0) != null) node.put("id", Long.parseLong(values.get(0)));
+        if (values.get(1) != null) node.put("updatedAt", values.get(1));
+        if (values.get(2) != null) node.put("createdAt", values.get(2));
+        if (values.get(3) != null) node.put("name", values.get(3));
+        if (values.get(4) != null) node.put("reason", values.get(4));
+        if (values.get(5) != null) node.put("status", Long.parseLong(values.get(5)));
+        if (values.get(6) != null){
+            node.put("user", User.hmget(values.get(6), j));
+        }
+        if (values.get(7) != null) node.put("product_id", Long.parseLong(values.get(7)));
+
         return node;
+    }
+
+    public static ObjectNode range(long product_id, long start, long end){
+        ObjectNode items = Json.newObject();
+        ArrayNode data = items.putArray("data");
+
+        //Go to Redis to read the full roster of content.
+        Jedis j = play.Play.application().plugin(RedisPlugin.class).jedisPool().getResource();
+        try {
+            String key = "zset:trial:product:" + product_id;
+
+            if(!j.exists(key)) {
+                Logger.debug("adding all trial users to cache: " + key);
+
+                for(Trial item: Product.find.byId(product_id).trials){
+                    if(item.status>=0) {
+                        item.zadd(key, j);
+                    }
+                }
+            }
+
+            Set<String> set = j.zrevrange(key, start, end);
+            items.put("count", j.zcard(key));
+
+            for(String id: set) {
+                // get the data for each like
+                data.add(Trial.hmget(id, j));
+            }
+        } finally {
+            play.Play.application().plugin(RedisPlugin.class).jedisPool().returnResource(j);
+        }
+
+        return items;
     }
 }
