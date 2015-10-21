@@ -41,6 +41,7 @@ public class Product extends SuperModel implements PathBindable<Product>,
 		QueryStringBindable<Product>, Taggable {
 
 	private static final long serialVersionUID = 1L;
+	public static final String zset_key = "zset:product:active";
     private static ObjectMapper mapper = new ObjectMapper(); // can reuse, share globally
 
     @Id
@@ -142,6 +143,8 @@ public class Product extends SuperModel implements PathBindable<Product>,
 		this.slugify();
 		super.save();
 		this.hmset();
+		if(activeFlag) this.zadd(zset_key);
+		if(!activeFlag) this.zrem(zset_key);
 	}
 
 	@Override
@@ -150,6 +153,8 @@ public class Product extends SuperModel implements PathBindable<Product>,
 		this.slugify();
 		super.update(o);
 		this.hmset();
+		if(activeFlag) this.zadd(zset_key);
+		if(!activeFlag) this.zrem(zset_key);
 	}
 	
 	public void update() {
@@ -157,6 +162,8 @@ public class Product extends SuperModel implements PathBindable<Product>,
 		this.slugify();
 		super.update();
 		this.hmset();
+		if(activeFlag) this.zadd(zset_key);
+		if(!activeFlag) this.zrem(zset_key);
 	}
 
 	/*
@@ -476,20 +483,20 @@ public class Product extends SuperModel implements PathBindable<Product>,
 		}
 	}
 
-	public static ArrayNode range(String key){
+	public static ArrayNode range(){
 		ArrayNode data = new ArrayNode(JsonNodeFactory.instance);
 
 		//Go to Redis to read the full roster of content.
 		Jedis j = play.Play.application().plugin(RedisPlugin.class).jedisPool().getResource();
 		try {
-			if(!j.exists(key)) {
-				Logger.debug("adding products to cache: " + key);
+			if(!j.exists(zset_key)) {
+				Logger.debug("adding products to cache: " + zset_key);
 				for(Product item: Product.getAllActive()){
-					item.zadd(key);
+					item.zadd(zset_key);
 				}
 			}
 
-			Set<String> set = j.zrange(key, 0, -1);
+			Set<String> set = j.zrange(zset_key, 0, -1);
 
 			for(String id: set) {
 				// get the data for each like

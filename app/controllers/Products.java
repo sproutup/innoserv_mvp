@@ -79,7 +79,7 @@ public class Products extends Controller {
     {
         //List<Product> products_ = Product.getAllActive();
         //return ok(Product.toJson(products_));
-        return ok(Product.range("product:active"));
+        return ok(Product.range());
     }
 
     @BodyParser.Of(BodyParser.Json.class)
