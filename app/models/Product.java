@@ -41,6 +41,7 @@ public class Product extends SuperModel implements PathBindable<Product>,
 		QueryStringBindable<Product>, Taggable {
 
 	private static final long serialVersionUID = 1L;
+	public static final String zset_key = "zset:product:active";
     private static ObjectMapper mapper = new ObjectMapper(); // can reuse, share globally
 
     @Id
@@ -141,6 +142,9 @@ public class Product extends SuperModel implements PathBindable<Product>,
 		cacheRemove();
 		this.slugify();
 		super.save();
+		this.hmset();
+		if(activeFlag) this.zadd(zset_key);
+		if(!activeFlag) this.zrem(zset_key);
 	}
 
 	@Override
@@ -148,12 +152,18 @@ public class Product extends SuperModel implements PathBindable<Product>,
 		cacheRemove();
 		this.slugify();
 		super.update(o);
+		this.hmset();
+		if(activeFlag) this.zadd(zset_key);
+		if(!activeFlag) this.zrem(zset_key);
 	}
 	
 	public void update() {
 		cacheRemove();
 		this.slugify();
 		super.update();
+		this.hmset();
+		if(activeFlag) this.zadd(zset_key);
+		if(!activeFlag) this.zrem(zset_key);
 	}
 
 	/*
@@ -473,22 +483,20 @@ public class Product extends SuperModel implements PathBindable<Product>,
 		}
 	}
 
-	public static ObjectNode range(String key){
-		ObjectNode items = Json.newObject();
-		ArrayNode data = items.putArray("data");
+	public static ArrayNode range(){
+		ArrayNode data = new ArrayNode(JsonNodeFactory.instance);
 
 		//Go to Redis to read the full roster of content.
 		Jedis j = play.Play.application().plugin(RedisPlugin.class).jedisPool().getResource();
 		try {
-			if(!j.exists(key)) {
-				Logger.debug("adding products to cache: " + key);
+			if(!j.exists(zset_key)) {
+				Logger.debug("adding products to cache: " + zset_key);
 				for(Product item: Product.getAllActive()){
-					item.zadd(key);
+					item.zadd(zset_key);
 				}
 			}
 
-			Set<String> set = j.zrange(key, 0, -1);
-			items.put("count", j.zcard(key));
+			Set<String> set = j.zrange(zset_key, 0, -1);
 
 			for(String id: set) {
 				// get the data for each like
@@ -498,7 +506,7 @@ public class Product extends SuperModel implements PathBindable<Product>,
 			play.Play.application().plugin(RedisPlugin.class).jedisPool().returnResource(j);
 		}
 
-		return items;
+		return data;
 	}
 
 	public void hmset(){
@@ -560,9 +568,9 @@ public class Product extends SuperModel implements PathBindable<Product>,
 					"name",
 					"slug",
 					"tagline",
-					"description",
-					"story",
-					"mission",
+//					"description",
+//					"story",
+//					"mission",
 					"urlHome",
 					"urlFacebook",
 					"urlTwitter",
@@ -577,18 +585,20 @@ public class Product extends SuperModel implements PathBindable<Product>,
 			if (values.get(0) != null) node.put("name", values.get(0));
 			if (values.get(1) != null) node.put("slug", values.get(1));
 			if (values.get(2) != null) node.put("tagline", values.get(2));
-			if (values.get(3) != null) node.put("description", values.get(3));
-			if (values.get(4) != null) node.put("story", values.get(4));
-			if (values.get(5) != null) node.put("mission", values.get(5));
-			if (values.get(6) != null) node.put("urlHome", values.get(6));
-			if (values.get(7) != null) node.put("urlFacebook", values.get(7));
-			if (values.get(8) != null) node.put("urlTwitter", values.get(8));
-			if (values.get(9) != null) {
-				node.put("banner", File.hmget(values.get(9)));
+//			if (values.get(3) != null) node.put("description", values.get(3));
+//			if (values.get(4) != null) node.put("story", values.get(4));
+//			if (values.get(5) != null) node.put("mission", values.get(5));
+			if (values.get(3) != null) node.put("urlHome", values.get(3));
+			if (values.get(4) != null) node.put("urlFacebook", values.get(4));
+			if (values.get(5) != null) node.put("urlTwitter", values.get(5));
+			if (values.get(6) != null) {
+				node.put("banner", File.hmget(values.get(6)));
 			}
-			if (values.get(10) != null) node.put("isAvailableForTrial", Boolean.valueOf(values.get(10)));
-			if (values.get(11) != null) node.put("isAvailableForDiscount", Boolean.valueOf(values.get(11)));
-			if (values.get(12) != null) node.put("isAvailableForContest", Boolean.valueOf(values.get(12)));
+			if (values.get(7) != null) node.put("isAvailableForTrial", Boolean.valueOf(values.get(7)));
+			if (values.get(8) != null) node.put("isAvailableForDiscount", Boolean.valueOf(values.get(8)));
+			if (values.get(9) != null) node.put("isAvailableForContest", Boolean.valueOf(values.get(9)));
+     		node.put("trials", Trial.range(Long.parseLong(id, 10), 0, 9));
+
 		} finally {
 		}
 		return node;

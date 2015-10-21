@@ -30,9 +30,7 @@ function upProductCard() {
 function upProductCardController() {
     var vm = this;
 
-    vm.getActiveRequests = getActiveRequests;
-
-    console.log('product: ', vm.product);
+//    vm.getActiveRequests = getActiveRequests;
 
     activate();
 
@@ -40,11 +38,8 @@ function upProductCardController() {
     }
 
     function getActiveRequests() {
-        console.log('hey');
         if (typeof vm.product.trials !== 'undefined') {
-
-            console.log(vm.product.trials);
-            return vm.product.trials.filter(function (element) {
+            return vm.product.trials.data.filter(function (element) {
                 return element.status >= 0;
             });
         }

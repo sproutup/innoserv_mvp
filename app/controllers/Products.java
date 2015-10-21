@@ -77,9 +77,9 @@ public class Products extends Controller {
     @BodyParser.Of(BodyParser.Json.class)
     public static Result getProducts()
     {
-        List<Product> products_ = Product.getAllActive();
-        return ok(Product.toJson(products_));
-        //return ok(Product.range("product:active"));
+        //List<Product> products_ = Product.getAllActive();
+        //return ok(Product.toJson(products_));
+        return ok(Product.range());
     }
 
     @BodyParser.Of(BodyParser.Json.class)
