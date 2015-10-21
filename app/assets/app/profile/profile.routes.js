@@ -42,8 +42,6 @@ function config($stateProvider) {
         .state('user.profile.points' ,{
             url: '/points',
             templateUrl: 'assets/app/profile/user-points.html',
-//            controller: 'userTrialsController',
-//            controllerAs: 'vm',
             data: {
                 title: 'User Trials'
             }

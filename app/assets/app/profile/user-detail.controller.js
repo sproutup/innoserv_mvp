@@ -4,12 +4,12 @@ angular
     .module('sproutupApp')
     .controller('userDetailCtrl', userDetailCtrl);
 
-userDetailCtrl.$inject = ['$scope', '$stateParams', '$state', '$log', 'UserService', 'AnalyticsService'];
+userDetailCtrl.$inject = ['$scope', '$stateParams', '$state', '$log', 'UserService', 'AnalyticsService', 'PointsService'];
 
-function userDetailCtrl($scope, $stateParams, $state, $log, UserService, AnalyticsService) {
+function userDetailCtrl($scope, $stateParams, $state, $log, UserService, AnalyticsService, PointsService) {
     var vm = this;
-
-    $log.debug("entered user details ctrl. nickname=" + $stateParams.nickname);
+    vm.getPoints = getPoints;
+    
     UserService.get({nickname: $stateParams.nickname}).$promise.then(
         function(data) {
             // success
@@ -20,7 +20,6 @@ function userDetailCtrl($scope, $stateParams, $state, $log, UserService, Analyti
             vm.stranger = data;
 
             AnalyticsService.UserReach().get({userId: data.id}).$promise.then(function(reach){
-                console.log('reach: ', reach);
                 vm.reach = reach;
             });
         },
@@ -29,6 +28,14 @@ function userDetailCtrl($scope, $stateParams, $state, $log, UserService, Analyti
             $state.go("home");
         }
     );
+
+    function getPoints() {
+        PointsService.getSummary().query({
+            id: vm.stranger.id
+        }, function(res) {
+            vm.summary = res;
+        });
+    }
 
 }
 
