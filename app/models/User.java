@@ -572,7 +572,15 @@ public class User extends TimeStampModel implements Subject {
 		if(getProviders().contains("twitter")){
 			String url = getAccountByProvider("twitter").providerUserImageUrl;
 			int index = url.lastIndexOf('.');
-			return new StringBuilder(url).insert(index, "_bigger").toString();
+			int indexmini = url.lastIndexOf("_mini.");
+			int indexnormal = url.lastIndexOf("_normal.");
+			int indexbigger = url.lastIndexOf("_bigger.");
+			if(indexmini!=-1 && indexnormal!=-1 && indexbigger!=-1) {
+				return new StringBuilder(url).insert(index, "_bigger").toString();
+			}
+			else{
+				return url;
+			}
 		}
         else{
             return "assets/images/default-avatar.png";
