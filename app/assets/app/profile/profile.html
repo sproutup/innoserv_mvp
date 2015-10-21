@@ -2,27 +2,28 @@
 <div up-profile ng-if="stranger">
     <div class="profile-header">
         <up-profile-info user="vm.stranger"></up-profile-info>
+        <div class="product-menu">
+            <div class="row product-menu--content stats">
+                <div class="col-sm-2">
+                    <a class="stats-link" ui-sref="user.profile.buzz">
+                        <div>Buzz</div>
+                        <div ng-class="{ 'active-stat': $state.current.name === 'user.profile.buzz' }">{{ vm.posts }}</div>
+                    </a>
+                </div>
+                <div class="col-sm-2">
+                    <a class="stats-link" ui-sref="user.profile.trials">
+                        <div>Trials</div>
+                        <div ng-class="{ 'active-stat': $state.current.name === 'user.profile.trials' }">{{ vm.trials }}</div>
+                    </a>
+                </div>
+                <div class="col-sm-2">
+                    <a class="stats-link" ui-sref="user.profile.points">
+                        <div>Points</div>
+                        <div ng-class="{ 'active-stat': $state.current.name === 'user.profile.points' }">{{ vm.points }}</div>
+                    </a>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="row text-center user-profile-menu">
-		<div class="col-sm-12">
-			<a ui-sref="user.profile.buzz" class="user-profile-menu-item user-profile-menu-buzz" ui-sref-active="active-profile-button">
-				<span class="profile-nav-label">Buzz</span>
-				<span class="profile-nav-value">{{vm.posts || 0}}</span>
-			</a>
-			<a class="user-profile-menu-item" ui-sref="user.profile.trials" ui-sref-active="active-profile-button">
-				<span class="profile-nav-label">Trials</span>
-				<span class="profile-nav-value">{{vm.trials || 0}}</span>
-			</a>
-			<!--a class="user-profile-menu-item" ui-sref="user.profile.reach" ui-sref-active="active-profile-button">
-				<span class="profile-nav-label">Reach</span>
-				<span class="profile-nav-value">{{vm.reach.total || 0}}</span>
-			</a-->
-			<a class="user-profile-menu-item" ui-sref="user.profile.points" ui-sref-active="active-profile-button">
-				<span class="profile-nav-label">Points</span>
-				<span class="profile-nav-value">{{vm.points || 0}}</span>
-			</a>
-    	</div>
-    </div>
-
     <div ui-view class=""></div>
 </div>
