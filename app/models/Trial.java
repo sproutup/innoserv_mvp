@@ -140,6 +140,14 @@ public class Trial extends SuperModel {
         return this.refURL;
     }
 
+    public static int getActiveCount(List<Trial> items) {
+        int count = 0;
+        for (Trial item : items){
+            if(item.status >= 0) count++;
+        }
+        return count;
+    }
+
     public ObjectNode toFullJson(){
         ObjectNode node = Json.newObject();
         node.put("id", this.id);

@@ -1,16 +1,13 @@
 <div class="row my-profile-trial-page single-post user-profile-content" ng-class="{ 'empty': vm.summary.length < 1 }" ng-init="vm.getPoints()" ng-show="vm.summary">
-	<div class="product-detail-buzz-header-2" ng-if="vm.summary.length < 1">This user doesn't have any points ¯\_(ツ)_/¯</div>
+	<div class="product-detail-buzz-header-2" ng-if="vm.summary.length < 1">This user has not earned any Reward Points yet ¯\_(ツ)_/¯</div>
 	<div ng-if="vm.summary.length > 0">
-		<div class="profile-edit--header">Points</div>
-		<div class="profile-edit--description">
-			<p>Points are earned by user actions on SproutUp.</p>
-		</div>
+		<div class="profile-edit--header">Reward Points this user has earned</div>
 		<table class="table table-striped table-responsive analytics-table">
 			<thead>
 				<tr>
-					<th class="leading-column">Activity</th>
-					<th>#</th>
-					<th>Points</th>
+					<th class="leading-column">Activities</th>
+					<th>Count</th>
+					<th>Points Earned</th>
 				</tr>
 			</thead>
 			<tbody>
