@@ -476,7 +476,7 @@ public class User extends TimeStampModel implements Subject {
 		node.put("points", Integer.toString(points));
 		node.put("posts", Post.userCount(this.id));
 		if(this.trials != null) {
-			node.put("trials", this.trials.size());
+			node.put("trials", Trial.getActiveCount(this.trials));
 		}
 		else{
 			node.put("trials", 0);
