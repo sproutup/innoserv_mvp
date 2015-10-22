@@ -1,5 +1,5 @@
 <div class="col-sm-9">
-    <div class="profile-edit--header">Social Media Links</div>
+    <div class="profile-edit--header">Social Media Network</div>
     <table class="table table-striped table-responsive analytics-table">
         <thead>
         <tr>
@@ -11,39 +11,29 @@
         <tbody>
         <tr>
             <td class="leading-column">Google Analytics</td>
-            <td>{{vm.network.ga.message}}</td>
+            <td><div ng-show='vm.network.ga.connected && vm.network.ga.error'>Connection error: please reauthorize or <a ng-click="vm.disconnect('ga')">disconnect</a></div></td>
             <td>
-                <a ng-hide='vm.network.ga.connected'analytics-on="click" analytics-event="Authorize GA access" class="btn btn-lg sproutup-btn-md-main" ng-href="{{vm.requestAnalyticsTokenUrl}}">Connect</a>
-                <a ng-show='vm.network.ga.connected && !vm.network.ga.error' analytics-on="click" analytics-event="Authorize YouTube access" ng-disabled="vm.youtubeAnalyticsAPI" class="" ng-href="{{vm.requestYoutubeTokenUrl}}">Disconnect</a>
-                <a ng-show='vm.network.ga.connected && vm.network.ga.error' analytics-on="click" analytics-event="Authorize YouTube access" ng-disabled="vm.youtubeAnalyticsAPI" class="btn btn-lg sproutup-btn-md-main red" ng-href="{{vm.requestYoutubeTokenUrl}}">Reauthorize</a>
+                <a ng-hide='vm.network.ga.connected' analytics-on="click" analytics-event="Authorize" analytics-properties="{provider: 'ga'}" class="btn btn-lg sproutup-btn-md-main" ng-click="vm.connect('ga')">Connect</a>
+                <a ng-show='vm.network.ga.connected && !vm.network.ga.error' analytics-on="click" analytics-event="Disconnect" analytics-properties="{provider: 'ga'}" class="" ng-click="vm.disconnect('ga')">Disconnect</a>
+                <a ng-show='vm.network.ga.connected && vm.network.ga.error' analytics-on="click" analytics-event="Reauthorize" analytics-properties="{provider: 'ga'}" class="btn btn-lg sproutup-btn-md-main red" ng-click="vm.reauthorize('ga')">Reauthorize</a>
             </td>
         </tr>
         <tr>
             <td class="leading-column">Youtube</td>
-            <td></td>
+            <td><div ng-show='vm.network.yt.connected && vm.network.yt.error'>Connection error: please reauthorize or <a ng-click="vm.disconnect('yt')">disconnect</a></div></td>
             <td>
-                <a analytics-on="click" analytics-event="Authorize YouTube access" ng-disabled="vm.youtubeAnalyticsAPI" class="btn btn-lg sproutup-btn-md-main" ng-href="{{vm.requestYoutubeTokenUrl}}">Connect</a>
+                <a ng-hide='vm.network.yt.connected' analytics-on="click" analytics-event="Authorize" analytics-properties="{provider: 'yt'}" class="btn btn-lg sproutup-btn-md-main" ng-click="vm.connect('yt')">Connect</a>
+                <a ng-show='vm.network.yt.connected && !vm.network.yt.error' analytics-on="click" analytics-event="Disconnect" analytics-properties="{provider: 'yt'}" class="" ng-click="vm.disconnect('yt')">Disconnect</a>
+                <a ng-show='vm.network.yt.connected && vm.network.yt.error' analytics-on="click" analytics-event="Reauthorize" analytics-properties="{provider: 'yt'}" class="btn btn-lg sproutup-btn-md-main red" ng-click="vm.reauthorize('yt')">Reauthorize</a>
             </td>
         </tr>
         <tr>
             <td class="leading-column">Twitter</td>
-            <td></td>
+            <td><div ng-show='vm.network.tw.connected && vm.network.tw.error'>Connection error: please reauthorize or <a ng-click="vm.disconnect('tw')">disconnect</a></div></td>
             <td>
-                <a analytics-on="click" analytics-event="Authorize YouTube access" ng-disabled="vm.youtubeAnalyticsAPI" class="btn btn-lg sproutup-btn-md-main" ng-href="{{vm.requestYoutubeTokenUrl}}">Connect</a>
-            </td>
-        </tr>
-        <tr>
-            <td class="leading-column">Twitter</td>
-            <td></td>
-            <td>
-                <a analytics-on="click" analytics-event="Authorize YouTube access" ng-disabled="vm.youtubeAnalyticsAPI" class="" ng-href="{{vm.requestYoutubeTokenUrl}}">Disconnect</a>
-            </td>
-        </tr>
-        <tr>
-            <td class="leading-column">Twitter</td>
-            <td>Connection error: please reauthorize or <a>disconnect</a></td>
-            <td>
-                <a analytics-on="click" analytics-event="Authorize YouTube access" ng-disabled="vm.youtubeAnalyticsAPI" class="btn btn-lg sproutup-btn-md-main red" ng-href="{{vm.requestYoutubeTokenUrl}}">Reauthorize</a>
+                <a ng-hide='vm.network.tw.connected' analytics-on="click" analytics-event="Authorize" analytics-properties="{provider: 'tw'}" class="btn btn-lg sproutup-btn-md-main" ng-click="vm.connect('tw')">Connect</a>
+                <a ng-show='vm.network.tw.connected && !vm.network.tw.error' analytics-on="click" analytics-event="Disconnect" analytics-properties="{provider: 'tw'}" class="" ng-click="vm.disconnect('tw')">Disconnect</a>
+                <a ng-show='vm.network.tw.connected && vm.network.tw.error' analytics-on="click" analytics-event="Reauthorize" analytics-properties="{provider: 'tw'}" class="btn btn-lg sproutup-btn-md-main red" ng-click="vm.reauthorize('tw')">Reauthorize</a>
             </td>
         </tr>
         </tbody>

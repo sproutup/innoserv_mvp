@@ -22,9 +22,12 @@
         vm.revokeAuthorization = revokeAuthorization;
         vm.network = {
             ga: {connected: false, error: true, message: 'tada...'},
-            yt: {connected: true, error: true, message: 'tada...'},
+            yt: {connected: true, error: true, message: 'Connection error: please reauthorize or <a>disconnect</a>'},
             tw: {connected: true, error: false, message: 'tada...'}
         };
+        vm.connect = connect;
+        vm.disconnect = disconnect;
+        vm.reauthorize = reauthorize;
 
         activate();
 
@@ -63,6 +66,52 @@
 //                vm.youtubeAnalyticsAPI = authService.m.user.analytics[0].youtubeAnalyticsAPI;
 //            }
         }
+
+        function connect(provider){
+            console.log('connect: ', provider);
+            switch(provider){
+            case 'ga':
+                vm.network.ga.connected = true;
+                break;
+            case 'yt':
+                vm.network.yt.connected = true;
+                break;
+            case 'tw':
+                vm.network.tw.connected = true;
+                break;
+            }
+        }
+
+        function disconnect(provider){
+            console.log('disconnect: ', provider);
+            switch(provider){
+            case 'ga':
+                vm.network.ga.connected = false;
+                break;
+            case 'yt':
+                vm.network.yt.connected = false;
+                break;
+            case 'tw':
+                vm.network.tw.connected = false;
+                break;
+            }
+        }
+
+        function reauthorize(provider){
+            console.log('reauthorize: ', provider);
+            switch(provider){
+            case 'ga':
+                vm.network.ga.error = false;
+                break;
+            case 'yt':
+                vm.network.yt.error = false;
+                break;
+            case 'tw':
+                vm.network.tw.error = false;
+                break;
+            }
+        }
+
 
         function requestGoogleApiToken() {
             googleApiService.getAuthorizationParams().then(function(data) {
