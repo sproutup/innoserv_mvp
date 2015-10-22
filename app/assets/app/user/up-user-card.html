@@ -7,9 +7,6 @@
 	<a class="user-card-name-link" ui-sref="user.profile.buzz({ nickname: vm.user.nickname })">
 		<div class="user-card-name">{{ vm.user.name }}</div>
 	</a>
-	<a class="user-card-twitter-link" ng-href="{{ vm.user.urlTwitter }}" target="_blank" ng-if="vm.user.handleTwitter">
-		<div class="user-card-nickname" ng-class="{'with-twitter-button': vm.tweet}">@{{ vm.user.handleTwitter }}</div>
-	</a>
 	<a ng-href="{{ vm.tweet }}" target="_blank" ng-if="vm.tweet && vm.user.id !== vm.loggedInUserId">
 		<img class="send-tweet-button" src="http://iconmonstr.com/g/gd/makefg.php?i=s2/default/iconmonstr-pen-14-icon.png&r=41&g=150&b=204" />
 	</a>
