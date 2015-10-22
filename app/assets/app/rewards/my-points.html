@@ -4,7 +4,7 @@
 	        <div class="row">
 	            <div class="col-lg-12">
 	                <div class="intro-message points" ng-if="vm.rewardsInit">
-	                    <h3>Your Reward Points</h3>
+	                    <h3>Your Sprout Points</h3>
 	                    <h1>{{ vm.user.points }}</h1>
 	                    <h4 ng-if="vm.rewardsLog.length > 0">Keep up the great work :)</h4>
 	                    <h4 ng-if="vm.rewardsInit && vm.rewardsLog <= 0"><a ui-sref="user.perk" class="btn btn-lg sproutup-btn-lg-main">See how rewards work</a></h4>	                    
@@ -15,7 +15,7 @@
 	</div>
 </div>
 <div class="points-table" ng-if="vm.rewardsInit">
-	<p class="points-learn-more"><a ui-sref="user.perk"><i class="fa fa-question-circle"></i>Learn more about Reward Points</a></p>
+	<p class="points-learn-more"><a ui-sref="user.perk"><i class="fa fa-question-circle"></i>Learn more about Sprout Points</a></p>
 	<table class="table table-bordered table-striped table-responsive">
 		<thead>
 			<tr>
