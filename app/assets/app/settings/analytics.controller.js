@@ -20,6 +20,11 @@
         vm.requestAnalyticsTokenUrl = '';
         vm.requestYoutubeTokenUrl = '';
         vm.revokeAuthorization = revokeAuthorization;
+        vm.network = {
+            ga: {connected: false, error: true, message: 'tada...'},
+            yt: {connected: true, error: true, message: 'tada...'},
+            tw: {connected: true, error: false, message: 'tada...'}
+        };
 
         activate();
 
