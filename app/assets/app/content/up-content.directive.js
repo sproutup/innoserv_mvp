@@ -48,19 +48,19 @@ function UpContentController(AuthService, $scope) {
     if (vm.content.user && vm.content.user.handleTwitter && vm.content.product.urlTwitter) {
         vm.content.tweetContentLink = 'https://twitter.com/intent/tweet' +
                                       '?text=Check out @' + vm.content.user.handleTwitter + '\'s post about @' + vm.content.product.twitterHandle +
-                                      ' on @sproutupco—http://sproutup.co/buzz/' + vm.content.id;
+                                      '—http://sproutup.co/buzz/' + vm.content.id;
     } else if (vm.content.user && vm.content.user.handleTwitter) {
         vm.content.tweetContentLink = 'https://twitter.com/intent/tweet' +
                                       '?text=Check out @' + vm.content.user.handleTwitter + '\'s post about ' + vm.content.product.name +
-                                      ' on @sproutupco—http://sproutup.co/buzz/' + vm.content.id;
+                                      '—http://sproutup.co/buzz/' + vm.content.id;
     } else if (vm.content.user && vm.content.product.urlTwitter) {
         vm.content.tweetContentLink = 'https://twitter.com/intent/tweet' +
                                       '?text=Check out ' + vm.content.user.name + '\'s post about @' + vm.content.product.twitterHandle +
-                                      ' on @sproutupco—http://sproutup.co/buzz/' + vm.content.id;
+                                      '—http://sproutup.co/buzz/' + vm.content.id;
     } else if (vm.content.user) {
         vm.content.tweetContentLink = 'https://twitter.com/intent/tweet' +
                                       '?text=Check out ' + vm.content.user.name + '\'s post about ' + vm.content.product.name +
-                                      ' on @sproutupco—http://sproutup.co/buzz/' + vm.content.id;
+                                      '—http://sproutup.co/buzz/' + vm.content.id;
     }
 
 }
