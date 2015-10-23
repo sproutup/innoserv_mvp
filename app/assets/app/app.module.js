@@ -176,13 +176,13 @@ sproutupApp.config(['$routeProvider', '$stateProvider', '$locationProvider', '$u
                     title: 'All Products - SproutUp'
                 }
             })
-            .state('user.comingsoon' ,{
-                url: '/comingsoon',
-                templateUrl: 'assets/app/products/comingsoon.html',
-                data: {
-                    title: 'Coming Soon - SproutUp'
-                }
-            })
+            // .state('user.comingsoon' ,{
+            //     url: '/comingsoon',
+            //     templateUrl: 'assets/app/products/comingsoon.html',
+            //     data: {
+            //         title: 'Coming Soon - SproutUp'
+            //     }
+            // })
             .state('user.twitterauth' ,{
                 url: '/authenticate/twitter',
                 templateUrl: 'assets/app/user/login.html',
