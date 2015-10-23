@@ -226,7 +226,7 @@ sproutupApp.config(['$routeProvider', '$stateProvider', '$locationProvider', '$u
                 }
             })
             .state('user.perk' ,{
-                url: '/rewards',
+                url: '/points',
                 templateUrl: 'views/perk',
                 data: {
                     title: 'Rewards - SproutUp'
