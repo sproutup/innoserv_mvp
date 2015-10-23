@@ -32,6 +32,20 @@
                 <a analytics-on="click" analytics-event="Earn Discount" analytics-slug="{{product.slug}}" ng-if="initVar && product.isAvailableForDiscount" class="btn btn-lg sproutup-btn-md-main discount" ng-click="open()" popover="Spread the word, unlock a special discount and buy it!" popover-trigger="mouseenter" popover-placement="top">Get Discount</a>
                 <a analytics-on="click" analytics-event="I Want One" analytics-slug="{{product.slug}}" ng-if="initVar && !product.isAvailableForDiscount && product.isAvailableToBuy && product.urlBuy" class="btn btn-lg sproutup-btn-md-main" ng-href="{{product.urlBuy}}" target="_blank">I Want One</a>
                 
+<!--                 <div data-embed_type="product"
+                    data-shop="thomas-stuff.myshopify.com"
+                    data-product_name=""
+                    data-product_handle="gold"
+                    data-has_image="false"
+                    data-display_size="compact"
+                    data-redirect_to="checkout"
+                    data-buy_button_text="Buy now"
+                    data-button_background_color="7db461"
+                    data-button_text_color="ffffff">
+               </div>
+
+               <up-lazy-script src="https://widgets.shopifyapps.com/assets/widgets/embed/client.js" id='ShopifyEmbedScript'></up-lazy-script> -->
+
             </div>
             <div class="product-menu--help">
                 <a ng-show="initVar && product.isAvailableForTrial" ui-sref="user.howitworks"><i class="fa fa-question-circle"></i>Learn how Product Trial works</a>
