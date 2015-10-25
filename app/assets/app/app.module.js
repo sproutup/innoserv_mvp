@@ -173,14 +173,14 @@ sproutupApp.config(['$routeProvider', '$stateProvider', '$locationProvider', '$u
                 //controller: 'SearchController',
                 //controllerAs: 'vm',
                 data: {
-                    title: 'All Products - SproutUp'
+                    title: 'Products - Try me out - SproutUp'
                 }
             })
             .state('user.comingsoon' ,{
-                url: '/comingsoon',
+                url: '/more-products',
                 templateUrl: 'assets/app/products/comingsoon.html',
                 data: {
-                    title: 'Coming Soon - SproutUp'
+                    title: 'Products - More rad stuff - SproutUp'
                 }
             })
             .state('user.twitterauth' ,{
