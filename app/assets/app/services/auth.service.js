@@ -33,6 +33,7 @@ function authService($http, $q, $cookieStore, $log, userService, $timeout, $stat
         loggedIn: loggedIn,
         addTrial: addTrial,
         redirect: redirect,
+        setRedirect: setRedirect,
         loginAndRedirect: loginAndRedirect,
         refreshTrials: refreshTrials,
         validateUsername: validateUsername,
@@ -100,6 +101,11 @@ function authService($http, $q, $cookieStore, $log, userService, $timeout, $stat
         $cookieStore.put("redirectState", state);
         $cookieStore.put("redirectParams", params);
         $state.go("user.login");
+    }
+
+    function setRedirect(state, params){
+        $cookieStore.put("redirectState", state);
+        $cookieStore.put("redirectParams", params);
     }
 
     function addTrial(data){

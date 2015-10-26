@@ -191,26 +191,6 @@ sproutupApp.config(['$routeProvider', '$stateProvider', '$locationProvider', '$u
                 url: '/authenticate/facebook',
                 templateUrl: 'assets/app/user/login.html',
             })
-            .state('user.oauth' ,{
-                url: '/oauth2callback?code&scope',
-                template: '<div>oauth2callback</div>',
-                controller: 'Oauth2Controller',
-                controllerAs: 'vm',
-                data: {
-                    title: 'Delete Me'
-                }
-            })
-            .state('user.oauth2callback' ,{
-                //url: '/oauth2callback?code&scope',
-                url: '/oauth',
-                template: '<div>oauth2callback</div>',
-                //templateUrl: 'assets/app/home/index.html',
-                controller: 'Oauth2Controller',
-                controllerAs: 'vm',
-                data: {
-                    title: 'oauth2callback'
-                }
-            })
             // .state('user.community' ,{
             //     url: '/community',
             //     templateUrl: 'views/community',

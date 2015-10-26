@@ -5,9 +5,9 @@
         .module('sproutupApp')
         .controller('AnalyticsController', AnalyticsController);
 
-    AnalyticsController.$inject = ['$rootScope', '$state', '$log', 'AuthService','GoogleApiService', 'AnalyticsService', '$filter'];
+    AnalyticsController.$inject = ['$rootScope', '$state', '$log', 'AuthService','GoogleApiService', 'AnalyticsService', '$filter', 'OAuthService', '$window'];
 
-    function AnalyticsController($rootScope, $state, $log, authService, googleApiService, analyticsService, $filter) {
+    function AnalyticsController($rootScope, $state, $log, authService, googleApiService, analyticsService, $filter, oauth, $window) {
         var vm = this;
 
         vm.user = {};
@@ -22,8 +22,8 @@
         vm.revokeAuthorization = revokeAuthorization;
         vm.network = {
             ga: {connected: false, error: true, message: 'tada...'},
-            yt: {connected: true, error: true, message: 'Connection error: please reauthorize or <a>disconnect</a>'},
-            tw: {connected: true, error: false, message: 'tada...'}
+            yt: {connected: false, error: true, message: 'Connection error: please reauthorize or <a>disconnect</a>'},
+            tw: {connected: false, error: false, message: 'tada...'}
         };
         vm.connect = connect;
         vm.disconnect = disconnect;
@@ -47,9 +47,25 @@
 
         function init() {
             vm.user = angular.copy(authService.m.user);
-            requestGoogleApiToken();
+            //requestGoogleApiToken();
 
-            analyticsService.getAll().then(function(data){
+            oauth.getNetwork(vm.user.id).then(function(data){
+                data.forEach(function(item){
+                    console.log('[analytics] provider:', item.provider);
+                    switch(item.provider){
+                    case 'ga':
+                        vm.network.ga.connected = true;
+                        break;
+                    case 'yt':
+                        vm.network.yt.connected = true;
+                        break;
+                    case 'tw':
+                        vm.network.tw.connected = (item.status === 1);
+                        vm.network.tw.message = item.token;
+                        break;
+                    }
+                });
+            /*
                 vm.analytics = data;
                 vm.ga = $filter("filter")(data[0].summaries, {kind:"analytics#accountSummary"});
                 console.log("vm.ga: ", vm.ga);
@@ -58,6 +74,8 @@
                 console.log("vm.yt: ", vm.yt);
                 vm.googleAnalyticsAPI = data[0].googleAnalyticsAPI;
                 vm.youtubeAnalyticsAPI = data[0].youtubeAnalyticsAPI;
+              */
+                vm.network.data = data;
             });
 
 //            // right now we can have only one, but its prepared for more than one account
@@ -69,32 +87,30 @@
 
         function connect(provider){
             console.log('connect: ', provider);
-            switch(provider){
-            case 'ga':
-                vm.network.ga.connected = true;
-                break;
-            case 'yt':
-                vm.network.yt.connected = true;
-                break;
-            case 'tw':
-                vm.network.tw.connected = true;
-                break;
-            }
+
+            oauth.getAuthorizeUrl(provider, vm.user.id).then(function(data){
+                authService.setRedirect('user.settings.social','');
+                console.log('connect:', data);
+                $window.location.href = data.url;
+            });
         }
 
         function disconnect(provider){
             console.log('disconnect: ', provider);
-            switch(provider){
-            case 'ga':
-                vm.network.ga.connected = false;
-                break;
-            case 'yt':
-                vm.network.yt.connected = false;
-                break;
-            case 'tw':
-                vm.network.tw.connected = false;
-                break;
-            }
+            oauth.deleteNetwork(provider, vm.user.id).then(function(data){
+                console.log('disconnect:', data);
+                switch(provider){
+                case 'ga':
+                    vm.network.ga.connected = false;
+                    break;
+                case 'yt':
+                    vm.network.yt.connected = false;
+                    break;
+                case 'tw':
+                    vm.network.tw.connected = false;
+                    break;
+                }
+            });
         }
 
         function reauthorize(provider){
@@ -111,7 +127,6 @@
                 break;
             }
         }
-
 
         function requestGoogleApiToken() {
             googleApiService.getAuthorizationParams().then(function(data) {

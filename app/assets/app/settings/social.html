@@ -5,7 +5,10 @@
             <!-- Twitter -->
             <tr>
                 <td><img class="social-media-icons" src="assets/images/settings/twitter.png">Twitter</td>
-                <td><p class="social-media-connection-status" ng-show='vm.network.tw.connected && vm.network.tw.error'>Connection error: please reauthorize or <a href="#" ng-click="vm.disconnect('tw')">disconnect</a></p></td>
+                <td>
+                    <p>{{vm.network.tw.message}}</p>
+                    <p class="social-media-connection-status" ng-show='vm.network.tw.connected && vm.network.tw.error'>Connection error: please reauthorize or <a href="#" ng-click="vm.disconnect('tw')">disconnect</a></p>
+                </td>
                 <td>
                     <a ng-hide='vm.network.tw.connected' analytics-on="click" analytics-event="Authorize" analytics-properties="{provider: 'tw'}" class="btn btn-lg sproutup-btn-md-main" ng-click="vm.connect('tw')">Connect</a>
                     <a href="#" ng-show='vm.network.tw.connected && !vm.network.tw.error' analytics-on="click" analytics-event="Disconnect" analytics-properties="{provider: 'tw'}" class="" ng-click="vm.disconnect('tw')">Disconnect</a>
