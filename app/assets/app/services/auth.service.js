@@ -323,6 +323,11 @@ function authService($http, $q, $cookieStore, $log, userService, $timeout, $stat
     function refreshPoints() {
         var Refresh = $resource('/api/user/points');
         Refresh.get(function(res){
+            if (model.user.points === res.points) {
+                return;
+            }
+            // keep oldPoints for animation transition
+            model.user.oldPoints = model.user.points;
             model.user.points = res.points;
             $rootScope.$emit('PointsEvent');
         });
