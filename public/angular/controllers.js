@@ -206,6 +206,13 @@ authControllers.controller('AuthCtrl', ['$scope', '$rootScope', '$modal', '$log'
         $scope.trial('sm');
     });
 
+    $rootScope.$on('PointsEvent', function(event, mass) {
+        $scope.updatingPoints = true;
+        setTimeout(function() {
+            $scope.updatingPoints = false
+        }, 3000);
+    });
+
     $scope.signup = function (size) {
         var signupInstance = $modal.open({
             templateUrl: '/assets/templates/signup.html',

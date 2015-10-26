@@ -3,9 +3,9 @@ angular
     .module('sproutupApp')
     .factory('AuthService', authService);
 
-authService.$inject = ['$http', '$q', '$cookieStore', '$log', 'UserService', '$timeout', '$state', '$analytics', '$resource'];
+authService.$inject = ['$http', '$q', '$cookieStore', '$log', 'UserService', '$timeout', '$state', '$analytics', '$resource', '$rootScope'];
 
-function authService($http, $q, $cookieStore, $log, userService, $timeout, $state, $analytics, $resource){
+function authService($http, $q, $cookieStore, $log, userService, $timeout, $state, $analytics, $resource, $rootScope){
     var user = {};
     var isReady = false;
     var urlBase = '/api/auth';
@@ -324,6 +324,7 @@ function authService($http, $q, $cookieStore, $log, userService, $timeout, $stat
         var Refresh = $resource('/api/user/points');
         Refresh.get(function(res){
             model.user.points = res.points;
+            $rootScope.$emit('PointsEvent');
         });
     }
 

@@ -66,7 +66,7 @@
 
             <ul class="nav navbar-nav navbar-item navbar-right">
                 <li ng-if="!auth.m.user.points || auth.m.user.points < 1"><a ui-sref="user.perk" class="navbar-reward-points"><span>0</span>Points</a></li>
-                <li ng-if="auth.m.user && auth.m.user.points > 1"><a ui-sref="user.points" class="navbar-reward-points"><span>{{ auth.m.user.points }}</span>Points</a></li>
+                <li ng-if="auth.m.user && auth.m.user.points > 1"><a ui-sref="user.points" class="navbar-reward-points" ng-class="{'fadeInDown animated': updatingPoints }"><span>{{ auth.m.user.points }}</span>Points</a></li>
                 <li><img class="profile-img" ng-src="{{auth.m.user.avatarUrl}}"></li>
                 <li about="" class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{auth.m.user.name}}<i class="fa fa-angle-down login-angle-down"></i></a>
