@@ -24,19 +24,21 @@ function upContent() {
     }    
 }
 
-UpContentController.$inject = ['AuthService', '$scope'];
+UpContentController.$inject = ['AuthService', '$scope', '$rootScope'];
 
-function UpContentController(AuthService, $scope) {
+function UpContentController(AuthService, $scope, $rootScope) {
     var vm = this;
     vm.likes = vm.content.likes;
+    vm.commentToggle = commentToggle;
+    vm.recordShareClick = recordShareClick;
 
-    vm.commentToggle = function() {
+    function commentToggle() {
         if (!vm.content.commenting) {
             vm.content.commenting = true;
         } else {
             vm.content.commenting = false;
         }
-    };
+    }
 
     // Get twitter handle of the product for twitter share
     if (vm.content.product && vm.content.product.urlTwitter) {
@@ -61,6 +63,14 @@ function UpContentController(AuthService, $scope) {
         vm.content.tweetContentLink = 'https://twitter.com/intent/tweet' +
                                       '?text=Check out ' + vm.content.user.name + '\'s post about ' + vm.content.product.name +
                                       '—http://sproutup.co/buzz/' + vm.content.id;
+    }
+
+    function recordShareClick(event) {
+        $rootScope.eventObj = {
+            y: event.pageY,
+            x: event.pageX
+        };
+        console.log($rootScope);
     }
 
 }
