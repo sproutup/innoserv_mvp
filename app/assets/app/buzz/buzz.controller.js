@@ -117,6 +117,7 @@ function BuzzController($stateParams, $state, FeedService, AuthService, $rootSco
     }
 
     function addContent(event) {
+        vm.disabled = true;
         var Post = postService.post();
         var item = new Post();
         usSpinnerService.spin('spinner-1');
