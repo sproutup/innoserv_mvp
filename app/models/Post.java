@@ -123,13 +123,18 @@ public class Post extends SuperModel implements Taggable {
     }
 
 	public static List<Post> getAll() {
-		return find.where().order("id desc").findList();
+		return find
+				.where()
+				.eq("active_flag", "1")
+				.order("id desc")
+				.findList();
 	}
 
 	public static List<Post> getAllByUser(User user) {
 		return find
 				.where()
 				.eq("user_id", user.id)
+				.eq("active_flag", "1")
 				.order("id desc")
 				.findList();
 	}
@@ -138,6 +143,7 @@ public class Post extends SuperModel implements Taggable {
 		return find
 				.where()
 				.eq("product_id", prod.id)
+				.eq("active_flag", "1")
 				.order("id desc")
 				.findList();
 	}
