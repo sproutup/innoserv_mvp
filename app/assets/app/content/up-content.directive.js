@@ -70,7 +70,6 @@ function UpContentController(AuthService, $scope, $rootScope) {
             y: event.pageY,
             x: event.pageX
         };
-        console.log($rootScope);
     }
 
 }
