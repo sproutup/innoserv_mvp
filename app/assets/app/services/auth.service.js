@@ -329,7 +329,13 @@ function authService($http, $q, $cookieStore, $log, userService, $timeout, $stat
             // keep oldPoints for animation transition
             model.user.oldPoints = model.user.points;
             model.user.points = res.points;
+            // set points event for the points directive
+            $rootScope.eventObj.points = 1000;
             $rootScope.$emit('PointsEvent');
+            $rootScope.pointsAdded = true;
+            setTimeout(function() {
+                $rootScope.pointsAdded = false;
+            }, 2500);
         });
     }
 

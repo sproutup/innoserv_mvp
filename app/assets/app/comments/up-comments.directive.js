@@ -56,7 +56,7 @@ function upCommentsController(CommentService, authService, $timeout, $scope, $ro
         vm.disabled = false;
     }
 
-    $scope.vm.addComment = function() {
+    $scope.vm.addComment = function(event) {
       // Prevent double posting with vm.disabled
       vm.disabled = true;
       usSpinnerService.spin('spinner-3');
@@ -65,6 +65,10 @@ function upCommentsController(CommentService, authService, $timeout, $scope, $ro
       newComment.body = vm.newComment;
       newComment.$save(function(res) {
         vm.comments.data.push(res);
+        $rootScope.eventObj = {
+          y: event.pageY,
+          x: event.pageX
+        };
         authService.refreshPoints();
         vm.newComment = '';
         vm.commenting = false;

@@ -116,6 +116,35 @@ function BuzzController($stateParams, $state, FeedService, AuthService, $rootSco
         }
     }
 
+    function addContent(event) {
+        var Post = postService.post();
+        var item = new Post();
+        usSpinnerService.spin('spinner-1');
+        item.body = vm.enteredBody;
+        item.product_id = vm.selectedProduct;
+        item.$save(function(res) {
+            vm.content.unshift(res);
+            $rootScope.eventObj = {
+                x: event.pageX,
+                y: event.pageY
+            };
+            AuthService.refreshPoints();
+            vm.enteredBody = '';
+            vm.selectedProduct = null;
+            vm.productErrorMsg = false;
+            vm.disabled = false;
+            if (res.content) {
+                displayYoutubeVideo(res.content);
+                displayTweet(res.content);
+            }
+            usSpinnerService.stop('spinner-1');
+        }, function(err) {
+            console.log(err);
+            vm.postCount = 0;
+            usSpinnerService.stop('spinner-1');
+        });
+    }
+
     function loadCallback(content) {
         for (var c = 0; c < content.length; c++) {
             if (content[c].content) {
@@ -132,38 +161,7 @@ function BuzzController($stateParams, $state, FeedService, AuthService, $rootSco
         }
     }
 
-    function addContent() {
-        vm.disabled = true;
-        if (!vm.selectedProduct) {
-            vm.productErrorMsg = true;
-        } else if (!vm.enteredBody) {
-            vm.productErrorMsg = false;
-            vm.textErrorMsg = true;
-        } else {
-            var Post = postService.post();
-            var item = new Post();
-            usSpinnerService.spin('spinner-1');
-            item.body = vm.enteredBody;
-            item.product_id = vm.selectedProduct;
-            item.$save(function(res) {
-                vm.content.unshift(res);
-                AuthService.refreshPoints();
-                vm.enteredBody = '';
-                vm.selectedProduct = null;
-                vm.productErrorMsg = false;
-                vm.disabled = false;
-                if (res.content) {
-                    displayYoutubeVideo(res.content);
-                    displayTweet(res.content);
-                }
-                usSpinnerService.stop('spinner-1');
-            }, function(err) {
-                console.log(err);
-                vm.postCount = 0;
-                usSpinnerService.stop('spinner-1');
-            });
-        }
-    }
+    
 
     function optimizeContentDisplay(contentObject) {
         displayYoutubeVideo(contentObject.content);
