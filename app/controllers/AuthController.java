@@ -7,6 +7,7 @@ import com.feth.play.module.pa.PlayAuthenticate;
 import com.feth.play.module.pa.providers.password.UsernamePasswordAuthProvider;
 
 import com.feth.play.module.pa.user.AuthUser;
+import models.RewardEvent;
 import models.User;
 import play.Logger;
 import play.data.Form;
@@ -108,6 +109,7 @@ public class AuthController extends Controller {
         User user = Application.getLocalUser(ctx().session());
         ObjectNode node = Json.newObject();
         node.put("points", user.points());
+        node.put("events", RewardEvent.toJson(RewardEvent.getLatest(user.id)));
         return ok(node);
     }
 

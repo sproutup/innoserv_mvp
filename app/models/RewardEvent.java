@@ -134,9 +134,13 @@ public class RewardEvent extends SuperModel {
         return arrayNode;
     }
 
-    public static List<RewardEvent> getAll() {
-        return find.where().order("id desc").findList();
-    }
+	public static List<RewardEvent> getAll() {
+		return find.where().order("id desc").findList();
+	}
+
+	public static List<RewardEvent> getLatest(Long userId) {
+		return find.where().eq("user_id", userId).order("id desc").setMaxRows(5).findList();
+	}
 
 	public static ArrayNode range(long start, long end){
 		ObjectNode items = Json.newObject();
