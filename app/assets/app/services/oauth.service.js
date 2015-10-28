@@ -13,17 +13,15 @@ function oauthService($http, $q, $cookieStore, $log, userService, $timeout, $sta
         userRoles = routingConfig.userRoles;
 
     var model = {
-      OAuth1Connect: $resource('http://localhost:3000/api/network/:provider/:userId/connect', { provider:'@provider', userId:'@userId' }),
-      OAuth1Callback: $resource('http://localhost:3000/api/network/callback/:token', { token:'@token' }),
-      Network: $resource('http://localhost:3000/api/network/user/:userId', { userId:'@userId' }),
-      UserNetwork: $resource('http://localhost:3000/api/user/:userId/network/:provider')
+      Network: $resource('/api/analytics/user/:userId/network/:provider', { provider:'@provider', userId:'@userId' }),
+      OAuthCallback: $resource('/api/analytics/network/callback/:token', { token:'@token' })
     };
 
     var service = {
         m: model,
-        getNetwork: getNetwork,
+        listNetwork: listNetwork,
         deleteNetwork: deleteNetwork,
-        getAuthorizeUrl: getAuthorizeUrl,
+        createNetwork: createNetwork,
         saveCallback: saveCallback
     };
 
@@ -34,10 +32,10 @@ function oauthService($http, $q, $cookieStore, $log, userService, $timeout, $sta
     function init() {
     }
 
-    function getAuthorizeUrl(provider, userId) {
+    function createNetwork(provider, userId) {
         var deferred = $q.defer();
 
-        model.OAuth1Connect.get({provider: provider, userId: userId})
+        model.Network.save({provider: provider, userId: userId})
             .$promise.then(function(data) {
               console.log('res: ', data);
               deferred.resolve(data);
@@ -49,34 +47,21 @@ function oauthService($http, $q, $cookieStore, $log, userService, $timeout, $sta
     function deleteNetwork(provider, userId) {
         var deferred = $q.defer();
 
-        $http({
-            method: 'DELETE',
-            url: 'http://localhost:3000/api/user/' + userId + '/network/' + provider,
-            headers: {'Content-Type': 'application/json'}
-        }).success(function(data, status, headers, config){
-            deferred.resolve(data);
-        }).error(function(data, status, headers, config){
-            // called asynchronously if an error occurs
-            // or server returns response with an error status.
-            $log.debug("auth user service returned error");
-            deferred.reject("delete failed");
-        });
-
-/*        model.UserNetwork.delete({provider: provider, userId: userId})
+        model.Network.delete({provider: provider, userId: userId})
             .$promise.then(function(data) {
               console.log('res: ', data);
               deferred.resolve(data);
             });
-*/
+
         return deferred.promise;
     }
 
-    function getNetwork(userId){
+    function listNetwork(userId){
         var deferred = $q.defer();
 
         model.Network.query({userId: userId})
             .$promise.then(function(data) {
-              console.log('[oauth1] ', data);
+              console.log('[oauth1] list user network: ', data);
               deferred.resolve(data);
             });
 
@@ -85,7 +70,7 @@ function oauthService($http, $q, $cookieStore, $log, userService, $timeout, $sta
 
     function saveCallback(token, verifier) {
         var deferred = $q.defer();
-        var item = new model.OAuth1Callback({token: token});
+        var item = new model.OAuthCallback({token: token});
         item.verifier = verifier;
 
         item.$save(function (data, headers) {
@@ -98,15 +83,5 @@ function oauthService($http, $q, $cookieStore, $log, userService, $timeout, $sta
            });
 
         return deferred.promise;
-    }
-
-    /*
-    *   Return true when user auth data has been received
-    */
-    function ready(){
-//        var deferred = $q.defer();
-//        deferred.resolve(model.user);
-        return isReady;
-//        return deferred.promise;
     }
 }

@@ -187,8 +187,13 @@ POST		  /api/campaign/processShare									 controllers.CampaignController.proce
 
 GET			  /api/contest/getActive/:productId							 	 controllers.ContestController.getActiveContest(productId: Long)
 GET			  /api/contest/getShortenURL/:slug								 controllers.ContestController.getContestURL(slug: String)
-POST		  /api/contest/processShare									 	 controllers.ContestController.processShare()	
+POST		  /api/contest/processShare									 	 controllers.ContestController.processShare()
 
+GET           /api/analytics/user/:userId/network                            controllers.AnalyticsController.listNetwork(userId: String)
+GET           /api/analytics/user/:userId/network/:provider                  controllers.AnalyticsController.readNetwork(provider: String, userId: String)
+POST          /api/analytics/user/:userId/network/:provider                  controllers.AnalyticsController.createNetwork(provider: String, userId: String)
+DELETE        /api/analytics/user/:userId/network/:provider                  controllers.AnalyticsController.deleteNetwork(provider: String, userId: String)
+POST          /api/analytics/network/callback/:token                         controllers.AnalyticsController.saveCallback(token: String)
 
 # Internal Administration Only - Not visible to public
 GET           /adminstuff                                            		 controllers.ReportAdminController.home()

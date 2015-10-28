@@ -5,7 +5,7 @@
         .module('sproutupApp')
         .controller('Oauth1Controller', Oauth1Controller);
 
-    Oauth1Controller.$inject = ['$rootScope', '$stateParams', '$state', '$log', 'AuthService','OAuthService'];
+    Oauth1Controller.$inject = ['$rootScope', '$stateParams', '$state', '$log', 'AuthService', 'OAuthService'];
 
     function Oauth1Controller($rootScope, $stateParams, $state, $log, authService, oauth) {
         var vm = this;

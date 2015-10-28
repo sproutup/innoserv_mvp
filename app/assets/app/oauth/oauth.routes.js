@@ -6,7 +6,16 @@ function config($stateProvider) {
 
     $stateProvider
         .state('user.oauth' ,{
-            url: '/oauth2callback?code&scope',
+            url: '/oauth2callback?state&code&scope',
+            template: '<div>oauth2callback</div>',
+            controller: 'Oauth2Controller',
+            controllerAs: 'vm',
+            data: {
+                title: 'Delete Me'
+            }
+        })
+        .state('user.oauth2' ,{
+            url: '/oauth/2/callback?state&code&scope',
             template: '<div>oauth2callback</div>',
             controller: 'Oauth2Controller',
             controllerAs: 'vm',
