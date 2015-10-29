@@ -21,6 +21,6 @@ function upPointsAdded() {
             setTimeout(function() {
                 el[0].remove();
             }, 1000);
-        }, 2500);
+        }, 2000);
     }
 }
