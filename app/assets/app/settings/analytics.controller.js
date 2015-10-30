@@ -50,7 +50,15 @@
 
         function init() {
             vm.user = angular.copy(authService.m.user);
-            //requestGoogleApiToken();
+
+            vm.network = {
+                ga: {connected: false, error: false, message: ''},
+                yt: {connected: false, error: false, message: ''},
+                tw: {connected: false, error: false, message: ''},
+                fb: {connected: false, error: false, message: ''},
+                ig: {status: 0, connected: false, error: false, message: ''},
+                pi: {connected: false, error: false, message: ''}
+            };
 
             oauth.listNetwork(vm.user.id).then(function(data){
                 data.forEach(function(item){
@@ -59,30 +67,36 @@
                     case 'ga':
                         vm.network.ga.connected = (item.status === 1);
                         vm.network.ga.error = (item.status === -1);
+                        vm.network.ga.status = item.status;
                         break;
                     case 'yt':
                         vm.network.yt.connected = (item.status === 1);
                         vm.network.yt.error = (item.status === -1);
+                        vm.network.yt.status = item.status;
                         break;
                     case 'tw':
                         vm.network.tw.connected = (item.status === 1);
                         vm.network.tw.message = item.token;
                         vm.network.tw.error = (item.status === -1);
+                        vm.network.tw.status = item.status;
                         break;
                     case 'fb':
                         vm.network.fb.connected = (item.status === 1);
                         vm.network.fb.message = item.token;
                         vm.network.fb.error = (item.status === -1);
+                        vm.network.fb.status = item.status;
                         break;
                     case 'ig':
                         vm.network.ig.connected = (item.status === 1);
                         vm.network.ig.message = item.token;
                         vm.network.ig.error = (item.status === -1);
+                        vm.network.ig.status = item.status;
                         break;
                     case 'pi':
                         vm.network.pi.connected = (item.status === 1);
                         vm.network.pi.message = item.token;
                         vm.network.pi.error = (item.status === -1);
+                        vm.network.pi.status = item.status;
                         break;
                     }
                 });
@@ -98,12 +112,6 @@
               */
                 vm.network.data = data;
             });
-
-//            // right now we can have only one, but its prepared for more than one account
-//            if(authService.m.user.analytics!==undefined){
-//                vm.googleAnalyticsAPI = authService.m.user.analytics[0].googleAnalyticsAPI;
-//                vm.youtubeAnalyticsAPI = authService.m.user.analytics[0].youtubeAnalyticsAPI;
-//            }
         }
 
         function connect(provider){
@@ -120,51 +128,18 @@
             console.log('disconnect: ', provider);
             oauth.deleteNetwork(provider, vm.user.id).then(function(data){
                 console.log('disconnect:', data);
-                switch(provider){
-                case 'ga':
-                    vm.network.ga.connected = false;
-                    break;
-                case 'yt':
-                    vm.network.yt.connected = false;
-                    break;
-                case 'tw':
-                    vm.network.tw.connected = false;
-                    break;
-                case 'fb':
-                    vm.network.fb.connected = false;
-                    break;
-                case 'ig':
-                    vm.network.ig.connected = false;
-                    break;
-                case 'pi':
-                    vm.network.pi.connected = false;
-                    break;
-                }
+                init();
             });
         }
 
         function reauthorize(provider){
             console.log('reauthorize: ', provider);
-            switch(provider){
-            case 'ga':
-                vm.network.ga.error = false;
-                break;
-            case 'yt':
-                vm.network.yt.error = false;
-                break;
-            case 'tw':
-                vm.network.tw.error = false;
-                break;
-            case 'fb':
-                vm.network.fb.error = false;
-                break;
-            case 'ig':
-                vm.network.ig.error = false;
-                break;
-            case 'pi':
-                vm.network.pi.error = false;
-                break;
-            }
+
+            oauth.createNetwork(provider, vm.user.id).then(function(data){
+                authService.setRedirect('user.settings.social','');
+                console.log('connect:', data);
+                $window.location.href = data.url;
+            });
         }
 
         function requestGoogleApiToken() {
