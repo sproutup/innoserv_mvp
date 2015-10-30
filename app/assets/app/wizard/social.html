@@ -1,5 +1,5 @@
 <h1>Glad you signed up! Next, let's get connected...</h1>
-<h2>The world is hyper-connected, and you should too! Connect your social media channels with SproutUp to build an influencial community, together. <a href="#">Learn more</a></h2>
+<h2>The world is hyper-connected, and you should too! Connect your social media channels with SproutUp to build an influential community, together. <a href="#">Learn more</a></h2>
 
 <table class="table table-responsive table-striped analytics-table">
     <tbody>
@@ -31,7 +31,7 @@
         </tr>
         <!-- Google Analytics -->
         <tr>
-            <td><img class="social-media-icons" src="assets/images/settings/google-analytics.png">Google Analytics</td>
+            <td><img class="social-media-icons" src="assets/images/settings/google-analytics.png">Google Analytics <sup popover="If you have Google Analytics for your websites, please empower us to read stats from your Google Analytics account." popover-trigger="mouseenter" popover-placement="top"><i class="fa fa-question-circle"></i></sup></td>
             <td>
                 <p>{{vm.network.ga.message}}</p>
                 <p class="social-media-connection-status" ng-show='vm.network.ga.connected && vm.network.ga.error'>Connection error: please reauthorize or <a href="#" ng-click="vm.disconnect('ga')">disconnect</a></p>

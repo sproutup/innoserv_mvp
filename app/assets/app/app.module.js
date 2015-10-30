@@ -269,8 +269,8 @@ sproutupApp.config(['$routeProvider', '$stateProvider', '$locationProvider', '$u
                 }
             })
             .state('user.wizard.twitter' ,{
-                url: '/twitter',
-                templateUrl: 'assets/app/wizard/twitter.html',
+                url: '/social',
+                templateUrl: 'assets/app/wizard/social.html',
                 data: {
                     title: 'Twitter account'
                 }
