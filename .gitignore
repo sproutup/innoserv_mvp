@@ -17,3 +17,8 @@ RUNNING_PID
 node_modules
 bower_components
 app/assets/app/config.js
+
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
