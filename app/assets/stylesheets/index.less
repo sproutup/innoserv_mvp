@@ -1,7 +1,25 @@
 @import "global";
 
+.top-banner {
+  padding: 80px 20px 30px;
+  background-color: @sproutup-green;
+  opacity: 0.75;
+  color: white;
+}
+
+.top-banner h1 {   
+  font-weight: 700;
+  font-size: 16pt;
+}
+
+.top-banner h2 {   
+  font-weight: 300;
+  font-size: 13.5pt;
+}
+
 .marketing-container {
-  padding-top: 60px;
+  padding-top: 70px;
+  padding-bottom: 30px;
   min-height: 700px;
   background: url(../images/hero.jpg) no-repeat center center;
   background-size: cover;
@@ -453,13 +471,13 @@
 }
 
 .navbar-heightBoost {
-  max-height: 388px !important;
+  max-height: 500px !important;
 }
 
 .user-card-wrapper {
   position: absolute;
   bottom: 65px;
-  left: -75px;
+  left: -71px;
   display: inline-block;
   width: 180px;
   height: auto;
@@ -470,6 +488,58 @@
   padding-right: 12px;
 }
 
+.product-trial-user-card.big .user-card-wrapper {
+  bottom: 118px;
+  left: -42px;
+}
+
+.product-trial-user-card .user-card-hover-box { 
+  width: 80px;
+}
+
+.product-trial-user-card.big .user-card-hover-box {
+  bottom: 36px;
+  left: 8px;
+}
+
+.product-trial-user-card.small .user-card-hover-box {
+  position: absolute;
+  bottom: -13px;
+  left: -61px;
+}
+
+.product-trial-user-card.small {
+  position: absolute;
+}
+
+.product-trial-user-card.small .user-card-wrapper {
+  position: absolute;
+  left: -115px;
+  bottom: 18px;
+}
+
+.product-trial-user-card .user-card-wrapper .user-card-avatar-link {
+  margin-left: 0px;
+}
+
+.left-user-card .user-card-wrapper {
+  left: -17px;
+}
+
+.left-user-card .user-card-wrapper .user-card-arrow {
+  left: 21px;
+}
+
+.right-user-card .user-card-wrapper {
+  left: auto;
+  right: -17px;
+}
+
+.right-user-card .user-card-wrapper .user-card-arrow {
+  left: auto;
+  right: 25px;
+}
+
 .user-card-arrow {
   width: 0;
   height: 0;
@@ -478,10 +548,10 @@
   border-top: 15px solid #EFEFEF;
   position: absolute;
   bottom: -15px;
-  left: 79px;
+  left: 75px;
 }
 
-.user-card-arrow-up {
+.user-card-arrow.up {
   width: 0;
   height: 0;
   border-left: 15px solid transparent;
@@ -494,7 +564,7 @@
 
 .user-card-hover-box {
   position: absolute;
-  bottom: 20px;
+  bottom: 36px;
   left: -3px;
   height: 100px;
   width: 44px;
@@ -515,20 +585,96 @@
   text-align: center;
   font-size: 12pt;
   font-weight: 700;
-  color: black;
+  color: @sproutup-dark-grey;
 }
 
 .user-card-nickname {
   margin-top: 5px;
   text-align: center;
   color: @sproutup-blue;
-  font-size: 11pt;
+  font-size: 10pt;
   font-weight: 400;
-  padding-bottom: 25px;
 }
 
-.twitterLink:hover {
-  text-decoration: none !important;
+.user-card-nickname.with-twitter-button {
+  margin-top: 13px;
+  display: inline-block;
+}
+
+.send-tweet-button {
+  width: 24px;
+  margin-left: 5px;
+  position: relative;
+  bottom: 5px;
+}
+
+.user-card-points {
+  margin-top: 5px;
+  margin-bottom: 20px;
+  text-align: center;
+  font-size: 9.6pt;
+  color: @sproutup-darkgold;
+}
+
+.user-card-avatar-link {
+  margin-left: 38px;
+}
+
+.user-card-twitter-link:hover {
+  text-decoration: underline !important;
+  color: @sproutup-blue !important;
+}
+
+.user-card-name-link:hover {
+  text-decoration: underline !important;
+  color: @sproutup-dark-grey !important;
+}
+
+.upvote-wrapper {
+  display: inline-block;
+}
+
+.upvote-link {
+  display: inline-block;
+}
+
+.upvote-list {
+  position: absolute;
+  bottom: 33px;
+  width: auto;
+  height: auto;
+  background-color: #4C4C4C;
+  z-index: 10;
+  border-radius: 10px;
+  padding: 11px;
+  padding-bottom: 0px;
+  max-height: 250px;
+  overflow-y: scroll;
+}
+
+.upvote-user-avatar {
+  width: 30px;
+  height: auto;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.upvote-user {
+  margin-bottom: 11px;
+}
+
+.upvote-hover-box {
+  position: absolute;
+  left: 1px;
+  top: -4px;
+  width: 84px;
+  height: 20px;
+}
+
+.user-card-arrow.upvotes {
+  border-top: 15px solid #4C4C4C;
+  left: 17px;
+  top: -4px;
 }
 
 @media (min-width: 767px) {

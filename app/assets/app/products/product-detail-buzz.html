@@ -1,0 +1,39 @@
+<div>
+    <!-- product buzz -->
+    <div class="row product-detail-buzz" infinite-scroll='vm.loadContent()' infinite-scroll-disabled='vm.busy' infinite-scroll-distance='2'>
+        <div class="col-sm-7 forum-left-rail">
+            <div ng-show="vm.content.length > 0" class="product-detail-buzz-header left">Check out what product lovers are buzzing about {{product.name}}</div>
+            <div ng-hide="vm.content.length > 0" class="product-detail-buzz-header-2">We are waiting for some awesome content from influencers to show up...</div>
+            <up-content ng-repeat="item in vm.content" content="item" state="user.product.detail.buzz" params="{ slug: product.slug }"></up-content>
+        </div>
+
+        <!--  new right rail -->
+        <div class="col-sm-5 forum-right-rail" ng-controller="ProductTrialsController as vm" ng-show="vm.trialInit">
+            <div class="product-trial-stage row" ng-if="vm.active.length > 0">
+                <div class="product-trial-stage-title active">Trying {{vm.trials[1].product.name}} now</div>
+                <up-trial-card ng-repeat="trial in vm.active" trial='trial' context="product-trial-active" product="product"></up-trial-card>
+            </div>
+            <div class="product-trial-stage row" ng-if="vm.next.length > 0">
+                <div class="product-trial-stage-title next">Next to try {{vm.trials[1].product.name}}</div>
+                <up-trial-card ng-repeat="trial in vm.next" trial='trial' context="product-trial-next" product="product"></up-trial-card>
+            </div>
+            <div class="product-trial-stage row" ng-if="vm.finished.length > 0">
+                <div class="product-trial-stage-title finished">Finished {{vm.trials[1].product.name}} trial</div>
+                <up-trial-card ng-repeat="trial in vm.finished" trial='trial' context="product-trial-finished" product="product"></up-trial-card>
+            </div>
+
+            <div class="product-detail-buzz-header right">Tweets about {{product.name}}</div>
+            <div class="col-sm-12 user-tweets-row">
+                <up-twitter-tweet product-id="product.id"></up-twitter-tweet>
+            </div>
+        </div>
+
+            <!-- dummy user -->
+    <!--    <div class="col-sm-4 col-md-3 col-lg-3 product-trial-stage-user">
+                <div class="product-trial-stage-user-inner-wrapper">
+                    <img class="product-trial-stage-avatar" src="https://pbs.twimg.com/profile_images/626750311256829952/OzhbRJDq_400x400.png"/>
+                </div>
+            </div> -->
+
+    </div>
+</div>

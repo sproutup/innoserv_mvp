@@ -5,9 +5,9 @@
         .module('sproutupApp')
         .controller('MyTrialController', MyTrialController);
 
-    MyTrialController.$inject = ['$q', '$rootScope', '$stateParams', '$state', '$log', 'AuthService', '$location', '$window', 'TrialService', 'ContentService', 'OpenGraphService'];
+    MyTrialController.$inject = ['$q', '$rootScope', '$stateParams', '$state', '$log', 'AuthService', '$location', '$window', 'ContentService', 'OpenGraphService', 'TrialService'];
 
-    function MyTrialController($q, $rootScope, $stateParams, $state, $log, authService, $location, $window, TrialService, ContentService, OpenGraphService) {
+    function MyTrialController($q, $rootScope, $stateParams, $state, $log, authService, $location, $window, ContentService, OpenGraphService, TrialService) {
         $log.debug("entered my trials");
 
         var vm = this;
@@ -21,6 +21,7 @@
         vm.trial = {};
         vm.user = authService.m.user;
         vm.ready = authService.ready;
+        vm.cancelTrial = cancelTrial;
 
         activate();
 
@@ -59,13 +60,18 @@
 
         function cancel(){
             console.log("## cancel", new Date());
-            $state.go("user.product.detail.about", { slug: $stateParams.slug });
+            $state.go("user.product.detail.buzz", { slug: $stateParams.slug });
         }
 
         function addContent(trial){
+            console.log('yo');
             console.log("## addContent", trial);
 
-            var item = new ContentService();
+            // var Comment = CommentService.comment('models.content', $scope.vm.id);
+            // var newComment = new Comment();
+
+            var Content = ContentService.content();
+            var item = new Content();
             angular.extend(item, trial.form);
             item.product_trial_id = trial.id;
 
@@ -107,7 +113,7 @@
 
         function deleteContent(content, trial){
             console.log("## deleteContent", content.id);
-            var item = new ContentService();
+            var item = new ContentService.content();
             item.$delete({id: content.id},
                 function(data){
                     if (typeof content.openGraph !== 'undefined') {
@@ -131,7 +137,43 @@
         }
 
         function finish() {
-            $state.go("user.product.detail.about", { slug: $stateParams.slug });
+            $state.go("user.product.detail.buzz", { slug: $stateParams.slug });
+        }
+
+        function cancelTrial(trialId) {
+            var Cancel = TrialService.cancelTrial();
+            var item = new Cancel();
+            item.$save({
+                id: trialId
+            }, function(res) {
+                // Remove trial form vm.trials
+                var toRemoveTrial = vm.user.trials.filter(function (vmTrial) {
+                    return vmTrial.id === trialId;
+                });
+                var trialIndex = vm.user.trials.indexOf(toRemoveTrial[0]);
+                if (trialIndex > -1) {
+                    vm.user.trials.splice(trialIndex, 1);
+                }
+
+                // Remove trial from vm.current
+                var toRemoveCurrent = vm.current.filter(function(vmCurrent) {
+                    return vmCurrent.id === trialId;
+                });
+                var currentIndex;
+                if (toRemoveCurrent[0]) {
+                    currentIndex = vm.current.indexOf(toRemoveCurrent[0]);
+                }
+                if (currentIndex > -1) {
+                    vm.current.splice(currentIndex, 1);
+                }
+
+                // Push trial to vm.cancelled
+                vm.cancelled.push(res);
+
+                $rootScope.$broadcast('alert:success', {
+                    message: 'Trial cancelled'
+                });
+            });
         }
     }
 })();

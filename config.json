@@ -1,0 +1,17 @@
+{
+  "local": {
+    "EnvironmentConfig": {
+      "analytics": "http://localhost:3001/"
+    }
+  },
+  "develop": {
+    "EnvironmentConfig": {
+      "analytics": "http://analytics-develop-sproutup-co.elasticbeanstalk.com/"
+    }
+  },
+  "production": {
+    "EnvironmentConfig": {
+      "analytics": "http://analytics.sproutup.co/"
+    }
+  }
+}

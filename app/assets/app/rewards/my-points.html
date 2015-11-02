@@ -1,0 +1,53 @@
+<div class="perk">
+	<div class="intro-header">
+	    <div class="container">
+	        <div class="row">
+	            <div class="col-lg-12">
+	                <div class="intro-message points" ng-if="vm.rewardsInit">
+	                    <h3>Your Sprout Points</h3>
+	                    <h1>{{ vm.user.points }}</h1>
+	                    <h4 ng-if="vm.rewardsLog.length > 0">Keep up the great work :)</h4>
+	                    <h4 ng-if="vm.rewardsInit && vm.rewardsLog <= 0"><a ui-sref="user.perk" class="btn btn-lg sproutup-btn-lg-main">See how rewards work</a></h4>	                    
+	                </div>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+</div>
+<div class="points-table" ng-if="vm.rewardsInit">
+	<p class="points-learn-more"><a ui-sref="user.perk"><i class="fa fa-question-circle"></i>Learn more about Sprout Points</a></p>
+	<table class="table table-bordered table-striped table-responsive">
+		<thead>
+			<tr>
+				<th class="points-column">Points</th>
+				<th>Activity</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="log in vm.rewardsLog | orderBy: '-createdAt'">
+				<td class="points-column">{{ log.points }}</td>
+				<td>{{ log.title }} <span>{{ log.createdAt | date:'MM/dd/yy' }}</span></td>
+			</tr>
+			<tr ng-if="vm.rewardsLog.length < 1">
+				<td class="points-column"></td>
+				<td></td>
+			</tr>
+			<tr ng-if="vm.rewardsLog.length < 2">
+				<td class="points-column"></td>
+				<td></td>
+			</tr>
+			<tr ng-if="vm.rewardsLog.length < 3">
+				<td class="points-column"></td>
+				<td></td>
+			</tr>
+			<tr ng-if="vm.rewardsLog.length < 4">
+				<td class="points-column"></td>
+				<td></td>
+			</tr>
+			<tr ng-if="vm.rewardsLog.length < 5">
+				<td class="points-column"></td>
+				<td></td>
+			</tr>
+		</tbody>
+	</table>
+</div>

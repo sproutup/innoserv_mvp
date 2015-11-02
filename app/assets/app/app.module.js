@@ -19,7 +19,10 @@ var sproutupApp = angular.module('sproutupApp', [
     'angulartics.mixpanel',
     'angulartics.scroll',
     'ngAutocomplete',
-    'ui.bootstrap'
+    'ui.bootstrap',
+    'ngSanitize',
+    'infinite-scroll',
+    'angularSpinner'
 ]);
 
 sproutupApp.config(function ($provide) {
@@ -79,8 +82,8 @@ sproutupApp.config([
     ]
 );
 
-sproutupApp.config(['$routeProvider', '$stateProvider', '$locationProvider', '$urlRouterProvider',
-    function($routeProvider, $stateProvider, $locationProvider, $urlRouterProvider ) {
+sproutupApp.config(['$routeProvider', '$stateProvider', '$locationProvider', '$urlRouterProvider', '$sceDelegateProvider',
+    function($routeProvider, $stateProvider, $locationProvider, $urlRouterProvider, $sceDelegateProvider) {
         $locationProvider.html5Mode(true);
         var access = routingConfig.accessLevels;
 
@@ -95,6 +98,9 @@ sproutupApp.config(['$routeProvider', '$stateProvider', '$locationProvider', '$u
                         templateUrl: 'assets/app/layout/navbar.html',
                         controller: 'AuthCtrl',
                         controllerAs: 'auth'
+                    },
+                    'footer': {
+                        templateUrl: 'assets/app/layout/footer.html'
                     }
                 }
             })
@@ -103,6 +109,13 @@ sproutupApp.config(['$routeProvider', '$stateProvider', '$locationProvider', '$u
                 templateUrl: 'assets/app/home/index.html',
                 data: {
                     title: 'SproutUp - Together, we help products grow'
+                }
+            })
+            .state('user.404' ,{
+                url: '/404',
+                templateUrl: 'assets/app/404/404.html',
+                data: {
+                    title: 'SproutUp - Oops'
                 }
             })
             .state('user.login', {
@@ -132,20 +145,6 @@ sproutupApp.config(['$routeProvider', '$stateProvider', '$locationProvider', '$u
                     title: 'About Us - SproutUp'
                 }
             })
-            .state('user.terms' ,{
-                url: '/terms',
-                templateUrl: 'views/terms',
-                data: {
-                    title: 'Terms of Service - SproutUp'
-                }
-            })
-            .state('user.privacy' ,{
-                url: '/privacy',
-                templateUrl: 'views/privacy',
-                data: {
-                    title: 'Privacy Policy - SproutUp'
-                }
-            })
             .state('user.howitworks' ,{
                 url: '/how-it-works',
                 templateUrl: 'views/how-it-works',
@@ -170,16 +169,27 @@ sproutupApp.config(['$routeProvider', '$stateProvider', '$locationProvider', '$u
             .state('user.search' ,{
                 url: '/products',
                 templateUrl: 'views/search',
+                //templateUrl: 'assets/app/search/search.html',
+                //controller: 'SearchController',
+                //controllerAs: 'vm',
                 data: {
-                    title: 'All Products - SproutUp'
+                    title: 'Products - Try me out - SproutUp'
                 }
             })
             .state('user.comingsoon' ,{
-                url: '/comingsoon',
+                url: '/more-products',
                 templateUrl: 'assets/app/products/comingsoon.html',
                 data: {
-                    title: 'Coming Soon - SproutUp'
+                    title: 'Products - More rad stuff - SproutUp'
                 }
+            })
+            .state('user.twitterauth' ,{
+                url: '/authenticate/twitter',
+                templateUrl: 'assets/app/user/login.html',
+            })
+            .state('user.facebookauth' ,{
+                url: '/authenticate/facebook',
+                templateUrl: 'assets/app/user/login.html',
             })
             .state('user.oauth' ,{
                 url: '/oauth2callback?code&scope',
@@ -216,10 +226,10 @@ sproutupApp.config(['$routeProvider', '$stateProvider', '$locationProvider', '$u
                 }
             })
             .state('user.perk' ,{
-                url: '/perk',
+                url: '/points',
                 templateUrl: 'views/perk',
                 data: {
-                    title: 'Earn Perks - SproutUp'
+                    title: 'Rewards - SproutUp'
                 }
             })
             .state('user.settings' ,{
@@ -336,15 +346,15 @@ sproutupApp.config(['$routeProvider', '$stateProvider', '$locationProvider', '$u
                     title: 'Email'
                 }
             })
-            .state('profile' ,{
-                url: '/user/:nickname',
-                abstract: true,
-                templateUrl: 'views/profile',
-                controller: 'userDetailCtrl',
-                data: {
-                    title: 'User Profile'
-                }
-            })
+            // .state('profile' ,{
+            //     url: '/user/:nickname',
+            //     abstract: true,
+            //     templateUrl: 'views/profile',
+            //     controller: 'userDetailCtrl',
+            //     data: {
+            //         title: 'User Profile'
+            //     }
+            // })
             .state('profile.photos' ,{
                 url: '',
                 templateUrl: 'views/profile/photos',
@@ -416,73 +426,6 @@ sproutupApp.config(['$routeProvider', '$stateProvider', '$locationProvider', '$u
                 },
                 data: {
                     title: 'Add product'
-                }
-            })
-            .state('user.product.detail', {
-                url: '/:slug?refId',
-                abstract: true,
-                templateUrl: 'views/product-details',
-                controller: 'productDetailCtrl',
-                onEnter: function(){
-                    console.log("enter product detail");
-                },
-                data: {
-                    title: ''
-                }
-            })
-            .state('user.product.detail.about', {
-                url: '',
-                templateUrl: 'views/product-about',
-                onEnter: function(){
-                    console.log("enter product detail about");
-                },
-                data: {
-                    title: 'Product - About'
-                }
-            })
-            .state('user.product.detail.bar', {
-                url: '/bar',
-                templateUrl: 'views/product-bar',
-                controller: 'ForumCtrl',
-                onEnter: function(){
-                    console.log("enter product detail bar");
-                },
-                data: {
-                    title: 'Product - Geekout'
-                }
-            })
-            .state('user.product.detail.bar.question', {
-                url: '/question',
-                controller: function($scope){
-                    $scope.changeCategory(1);
-                },
-                onEnter: function(){
-                    console.log("enter product detail bar question");
-                },
-                data: {
-                    title: 'Product - Geekout'
-                }
-            })
-            .state('user.product.detail.bar.compliment', {
-                url: '/compliment',
-                controller: function($scope){
-                    $scope.changeCategory(2);
-                },
-                onEnter: function(){
-                    console.log("enter product detail bar compliment");
-                },
-                data: {
-                    title: 'Product - Geekout'
-                }
-            })
-            .state('user.product.detail.gallery', {
-                url: '/gallery',
-                templateUrl: 'views/product-gallery',
-                onEnter: function(){
-                    console.log("enter product detail gallery");
-                },
-                data: {
-                    title: 'Product - Gallery'
                 }
             })
             .state('user.trial', {
@@ -564,4 +507,28 @@ sproutupApp.config(['$routeProvider', '$stateProvider', '$locationProvider', '$u
 
             return false;
         });
+
+        $urlRouterProvider.otherwise(function ($injector, $location) {
+            var $state = $injector.get('$state');
+            $state.go('user.404');
+        });
+
+        $sceDelegateProvider.resourceUrlWhitelist([
+            // Allow same origin resource loads.
+            'self',
+            // Allow loading from our assets domain.  Notice the difference between * and **.
+            'https://www.youtube.com/**'
+        ]);
   }]);
+
+sproutupApp.config(['usSpinnerConfigProvider', function (usSpinnerConfigProvider) {
+    usSpinnerConfigProvider.setDefaults({
+        lines: 8, // The number of lines to draw
+        length: 16, // The length of each line
+        width: 23, // The line thickness
+        radius: 42, // The radius of the inner circle
+        scale: 0.13, // Scales overall size of the spinner
+        corners: 1, // Corner roundness (0..1)
+        color: 'white', // #rgb or #rrggbb or array of colors
+    });
+}]);

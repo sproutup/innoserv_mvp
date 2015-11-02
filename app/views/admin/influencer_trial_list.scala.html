@@ -1,7 +1,7 @@
 @(trialForm: Form[Trial])(currentPage: com.avaje.ebean.Page[Trial])
 @import helper._
 
-@main("Product Trial list (By Influencers)") {
+@admin_wrapper("Product Trial list (By Influencers)") {
 
 <h2><a href="/adminstuff" target="_self" class="btn btn-lg">Admin Home</a></h2>
 
@@ -40,10 +40,12 @@
         <th>Email/TwitterId/Phone</th>
         <th>Shipping Address</th>
         <th>Reason</th>
-        <th>Ref Id</th>
+        <!-- <th>Ref Id</th> -->
         <th>Product Name</th>
         <th>Date of Request</th>
-        <th>Date status updated</th>
+        <th>Date Product Received</th>
+        <th>Date Return Due</th>
+        <!-- <th>Date status updated</th> -->
         <!--<th>is Active</th>-->
         <th>status</th>
 
@@ -56,6 +58,7 @@
     <input type="hidden" name="requestId"/>
 	<input type="hidden" name="statusVal"/>
 	<input type="hidden" name="page" value="influencer"/>
+	<input type="hidden" name="pageNum" value="@currentPage.getPageIndex"/>
 
     @for(trial <- currentPage.getList()) {
 
@@ -80,10 +83,12 @@
         }
         <td>@trial.address</td>
         <td>@trial.reason</td>
-        <td>123</td>
+        <!-- <td>123</td> -->
         <td>@trial.product.productName</td>
         <td>@trial.createdAt</td>
         <td>@trial.updatedAt</td>
+        <td>@trial.updatedAt</td>
+        <!-- <td>@trial.updatedAt</td> -->
         <!--  <td>@trial.active</td>-->
         <td>
           <select id="status[@trial.id]" onChange="updateTrialStatus(@trial.id)">
@@ -106,30 +111,28 @@
    </div>
 
    <div id="pagination" class="pagination">
-            <ul>
-                @if(currentPage.hasPrev) {
-                    <li class="prev">
-                        <a href="@routes.ReportAdminController.influencerTrialList(currentPage.getPageIndex - 1)" target="_self">&larr; </a>
-                    </li>
-                } else {
-                    <li class="prev disabled">
-                        <a>&larr;</a>
-                    </li>
-                }
-                <li class="current">
-                    @currentPage.getDisplayXtoYofZ(" - "," / ")
+        <ul>
+            @if(currentPage.hasPrev) {
+                <li class="prev">
+                    <a href="@routes.ReportAdminController.influencerTrialList(currentPage.getPageIndex - 1)" target="_self">&larr; </a>
                 </li>
-                @if(currentPage.hasNext) {
-                    <li class="next">
-                        <a href="@routes.ReportAdminController.influencerTrialList(currentPage.getPageIndex + 1)" target="_self"> &rarr;</a>
-                    </li>
-                } else {
-                    <li class="next disabled">
-                        <a>&rarr;</a>
-                    </li>
-                }
-            </ul>
-        </div>
-
-
+            } else {
+                <li class="prev disabled">
+                    <a>&larr;</a>
+                </li>
+            }
+            <li class="current">
+                @currentPage.getDisplayXtoYofZ(" - "," / ")
+            </li>
+            @if(currentPage.hasNext) {
+                <li class="next">
+                    <a href="@routes.ReportAdminController.influencerTrialList(currentPage.getPageIndex + 1)" target="_self"> &rarr;</a>
+                </li>
+            } else {
+                <li class="next disabled">
+                    <a>&rarr;</a>
+                </li>
+            }
+        </ul>
+    </div>
 }

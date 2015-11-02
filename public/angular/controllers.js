@@ -83,11 +83,20 @@ fileControllers.controller('FileCtrl', ['$scope', '$rootScope', '$upload', 'File
 
         $scope.upload = function (files, message, refId, refType) {
             $log.debug("upload: " + refId);
-
+            console.log(files);
             var startTime = +new Date();
+
+            // for testing
+            if (!refId) {
+                refId = 2
+            }
+            if (!refType) {
+                refType = 'models.content'
+            }
 
             if (files && files.length) {
                 for (var i = 0; i < files.length; i++) {
+                    console.log(arguments);
                     FileService.authenticate(files[i], message, refId, refType).then(
                         function (result) {
                             $log.debug("upload auth returned");
@@ -195,6 +204,13 @@ authControllers.controller('AuthCtrl', ['$scope', '$rootScope', '$modal', '$log'
     $scope.$on('auth:trial', function(event, mass) {
         $log.debug("Trial Event received");
         $scope.trial('sm');
+    });
+
+    $rootScope.$on('PointsEvent', function(event, mass) {
+        $scope.updatingPoints = true;
+        setTimeout(function() {
+            $scope.updatingPoints = false
+        }, 3000);
     });
 
     $scope.signup = function (size) {
@@ -504,25 +520,17 @@ productControllers.controller('modalShareCtrl', ['$scope', '$window', '$statePar
 
 				$http({
 			        method: 'GET',
-			        url: '/api/campaign/getInfo/' + $scope.product.id,
+			        url: '/api/campaign/getShortenURL/' + $scope.product.slug,
 			        headers: {'Content-Type': 'application/json'}
 				}).success(function(data, status, headers, config){
 			        // this callback will be called asynchronously
 			        // when the response is available
-					$scope.campaignName = data.campaignName;
-					$scope.longDescription = data.campaignLongDescription;
-					if (typeof data.perks !== 'undefined') { $scope.perk1 = data.perks[0]; }
-					if (typeof data.perks[1] !== 'undefined') { $scope.perk2 = data.perks[1]; }
+					
 					$scope.uniqueLink = data.url;
-					$scope.showCheckbox = data.offerDiscount;
-					$scope.checkboxText = data.discountText;
+
 					processShareData = {
-						"userId":data.userId,
-						"referralId":data.referralId,
-						"referrerId":$window.sessionStorage.refId,
-						"campaignId":data.campaignId,
-						"requestedDisc":false,
-						"sharedOnSocialMedia":false
+						"campaignId":$scope.campaignId,
+						"facebookPostId":""
 					}
 
 					$scope.fbShare = function () {
@@ -530,20 +538,35 @@ productControllers.controller('modalShareCtrl', ['$scope', '$window', '$statePar
 							method: 'feed',
 							link: data.url,
 							picture: data.productPictureURL,
-							name: 'Sprout ' + $scope.product.productName + ' Up!',
-							caption: $scope.product.productDescription,
-							description: data.campaignShareMessage
+							name: 'Sprout ' + $scope.product.name + ' Up!',
+							caption: $scope.product.tagline,
+							description: $scope.longDescription
 						};
 						function callback(response) {
 							if (typeof response !== "undefined" && response !== null) {
+                                $scope.$apply(function() {
+                                    $scope.sharedOnSocialMedia = true;
+                                });
 								processShareData.sharedOnSocialMedia = true;
+                                //@nitinj//get the postId from response
+								processShareData.facebookPostId = response.post_id;
+                                console.log("FB Posting completed." + response.post_id);
+                                console.log($scope.sharedOnSocialMedia);
+                                console.log($scope);
+                                $log.debug(JSON.stringify(processShareData, null, 4))
+                                $http({
+                                    method: 'POST',
+                                    url: '/api/campaign/processShare',
+                                    data: processShareData,
+                                    headers: {'Content-Type': 'application/json'}
+                                });
 							}
 						}
 						FB.ui(obj, callback);
 					}
 
 					$scope.twtLink = 'https://twitter.com/intent/tweet' +
-						'?text=' + encodeURIComponent(data.campaignShareMessage) +
+						'?text=' + encodeURIComponent($scope.campaignShareMessage) +
 						'&via=' + 'sproutupco' +
 						'&url=' + encodeURIComponent($scope.uniqueLink);
 			    })
@@ -561,17 +584,132 @@ productControllers.controller('modalShareCtrl', ['$scope', '$window', '$statePar
 
 	twttr.events.bind('tweet', function(event) {
 		processShareData.sharedOnSocialMedia = true;
+        $scope.$apply(function() {
+            $scope.sharedOnSocialMedia = true;
+        });
+        console.log("Twitter Posting completed.");
+        //twitter does not return Tweet Id on its event
+        //http://stackoverflow.com/questions/10841752/how-to-get-tweet-id-from-tweet-event
+        $log.debug(JSON.stringify(processShareData, null, 4))
+        $http({
+            method: 'POST',
+            url: '/api/campaign/processShare',
+            data: processShareData,
+            headers: {'Content-Type': 'application/json'}
+        });
 	});
 
 	$scope.close = function () {
 		if (processShareData.requestedDisc || processShareData.sharedOnSocialMedia) {
-            $log.debug(JSON.stringify(processShareData, null, 4))
-            $http({
-                method: 'POST',
-                url: '/api/campaign/processShare',
-                data: processShareData,
-                headers: {'Content-Type': 'application/json'}
-            });
+//            $log.debug(JSON.stringify(processShareData, null, 4))
+//            $http({
+//                method: 'POST',
+//                url: '/api/campaign/processShare',
+//                data: processShareData,
+//                headers: {'Content-Type': 'application/json'}
+//            });
+		}
+		$modalInstance.close();
+	};
+}]);
+
+
+//Controller for modal share (Contest) instance created by @nitinj 9/17/15
+productControllers.controller('modalContestCtrl', ['$scope', '$window', '$stateParams', '$modalInstance', '$http', 'ProductService', '$log',
+   function ($scope, $window, $stateParams, $modalInstance, $http, ProductService, $log) {
+	var processContestData = {};
+	$scope.checked = false;
+
+	ProductService.get({slug: $stateParams.slug}).$promise.then(
+			function(data) {
+				// success
+				$scope.product = data;
+				
+				$http({
+			        method: 'GET',
+			        url: '/api/contest/getShortenURL/' + $scope.product.slug,
+			        headers: {'Content-Type': 'application/json'}
+				}).success(function(data, status, headers, config){
+			        // this callback will be called asynchronously
+			        // when the response is available
+					$scope.uniqueContestLink = data.url;
+					
+					processContestData = {
+						"contestId":$scope.contestId,
+						"facebookPostId":""
+					}
+					
+					$scope.fbShare = function () {
+						var obj = {
+							method: 'feed',
+							link: data.url,
+							picture: data.productPictureURL,
+							name: $scope.contestTitle,
+							caption: $scope.product.tagline,
+							description: $scope.contestDescription
+						};
+						function callback(response) {
+							if (typeof response !== "undefined" && response !== null) {
+                                $scope.$apply(function() {
+                                    $scope.contestSharedOnSocialMedia = true;
+                                });
+                                processContestData.contestSharedOnSocialMedia = true;
+                                //@nitinj//get the postId from response
+                                processContestData.facebookPostId = response.post_id;
+                                console.log("facebook event");
+                                $log.debug(JSON.stringify(processContestData, null, 4))
+                                $http({
+                                    method: 'POST',
+                                    url: '/api/contest/processShare',
+                                    data: processContestData,
+                                    headers: {'Content-Type': 'application/json'}
+                                });
+							}
+						}
+						FB.ui(obj, callback);
+					}
+
+					$scope.twtLink = 'https://twitter.com/intent/tweet' +
+						'?text=' + encodeURIComponent($scope.contestSocialMediaShareMessage) +
+						'&via=' + 'sproutupco' +
+						'&url=' + encodeURIComponent($scope.uniqueContestLink);
+			    })
+			},
+			function(error) {
+				// error handler
+				$state.go("home");
+			}
+	);
+
+
+	twttr.events.bind('tweet', function(event) {
+		processContestData.contestSharedOnSocialMedia = true;
+        $scope.$apply(function() {
+            $scope.contestSharedOnSocialMedia = true;
+        });
+        
+        //twitter does not return Tweet Id on its event
+        //http://stackoverflow.com/questions/10841752/how-to-get-tweet-id-from-tweet-event
+        console.log("twitter event");
+        $log.debug(JSON.stringify(processContestData, null, 4))
+        $http({
+            method: 'POST',
+            url: '/api/contest/processShare',
+            data: processContestData,
+            headers: {'Content-Type': 'application/json'}
+        });
+        
+	});
+
+	$scope.close = function () {
+		if (processContestData.contestSharedOnSocialMedia) {
+           // $log.debug(JSON.stringify(processContestData, null, 4))
+//            $http({
+//                method: 'POST',
+//                url: '/api/contest/processShare',
+//                data: processContestData,
+//                headers: {'Content-Type': 'application/json'}
+//            });
 		}
 		$modalInstance.close();
 	};
@@ -583,9 +721,10 @@ productControllers.controller('productDetailCtrl', ['$scope', '$rootScope', '$st
     $log.debug("entered product details ctrl. slug=" + $stateParams.slug);
 
     var slug = $stateParams.slug;
-    $scope.init = false;
+    $scope.initVar = false;
     $scope.isLoggedIn = false;
     $scope.activeSprout = false;
+    $scope.activeContest = false;
     $scope.hasTrial = false;
 
     activate();
@@ -595,7 +734,18 @@ productControllers.controller('productDetailCtrl', ['$scope', '$rootScope', '$st
 		var modalInstance = $modal.open({
 			animation: true,
 			templateUrl: 'myModalContent.html',
-			controller: 'modalShareCtrl'
+			controller: 'modalShareCtrl',
+			scope: $scope
+		});
+	};
+	
+	//Open function for modal share added by @nitinj 9/17/15
+    $scope.openContest = function () {
+		var modalInstance = $modal.open({
+			animation: true,
+			templateUrl: 'contestModal.html',
+			controller: 'modalContestCtrl',
+			scope: $scope
 		});
 	};
 
@@ -664,7 +814,7 @@ productControllers.controller('productDetailCtrl', ['$scope', '$rootScope', '$st
                     $scope.trialReason = productTrials[0].reason;
                     $scope.avatarUrl = productTrials[0].user.avatarUrl;
                 }
-                $scope.init = true;
+                $scope.initVar = true;
             },
             function(error) {
                 // error handler
@@ -673,7 +823,7 @@ productControllers.controller('productDetailCtrl', ['$scope', '$rootScope', '$st
         );
 
         if($stateParams.refId!==undefined){
-            $analytics.eventTrack('Referral Page Views', { category: 'Referral Link', refId: $stateParams.refId, label: $stateParams.refId });
+            $analytics.eventTrack('Referral Page Views', { category: 'Referral Link', refId: $stateParams.refId, slug: $stateParams.slug });
         }
     }
 
@@ -715,8 +865,37 @@ productControllers.controller('productDetailCtrl', ['$scope', '$rootScope', '$st
 			}).success(function(data, status, headers, config) {
 		        // this callback will be called asynchronously
 		        // when the response is available
+				$scope.campaignId = data.campaignId;
 				$scope.activeSprout = data.active;
-				$scope.init = true;
+				$scope.initVar = true;
+				$scope.campaignName = data.campaignName;
+				$scope.longDescription = data.campaignLongDescription;
+				if (typeof data.perks !== 'undefined') { $scope.perk1 = data.perks[0]; }
+				if (data.perks && typeof data.perks[1] !== 'undefined') { $scope.perk2 = data.perks[1]; }
+				$scope.campaignShareMessage = data.campaignShareMessage;
+				$scope.offerDiscount = data.offerDiscount;
+				$scope.discountText = data.discountText;
+
+		    })
+		    // Active contest check added by @nitinj
+		   
+			$http({
+		        method: 'GET',
+		        url: '/api/contest/getActive/' + $scope.product.id,
+		        headers: {'Content-Type': 'application/json'}
+			}).success(function(data, status, headers, config) {
+		        // this callback will be called asynchronously
+		        // when the response is available
+				$scope.contestId = data.contestId;
+				$scope.activeContest = data.active;
+				$scope.contestTitle = data.contestTitle;
+				$scope.contestButtonTitle = data.contestButtonTitle;
+				$scope.contestDescription = data.contestDescription;
+				$scope.contestConfirmation = data.contestConfirmation;
+				$scope.totalNumParticipated = data.totalNumParticipated;
+				$scope.minimumNumRequired = data.minimumNumRequired;
+				$scope.contestSocialMediaShareMessage = data.contestSocialMediaShareMessage;
+				
 		    })
         },
         function(error) {
@@ -726,20 +905,20 @@ productControllers.controller('productDetailCtrl', ['$scope', '$rootScope', '$st
     );
   }]);
 
-productControllers.controller('userDetailCtrl', ['$scope', '$stateParams', '$state', '$log', 'UserService',
-  function($scope, $stateParams, $state, $log, userService) {
-    $log.debug("entered user details ctrl. nickname=" + $stateParams.nickname);
-    userService.get({nickname: $stateParams.nickname}).$promise.then(
-        function(data) {
-            // success
-            $scope.stranger = data;
-        },
-        function(error) {
-            // error handler
-            $state.go("home");
-        }
-    );
-  }]);
+// productControllers.controller('userDetailCtrl', ['$scope', '$stateParams', '$state', '$log', 'UserService',
+//   function($scope, $stateParams, $state, $log, userService) {
+//     $log.debug("entered user details ctrl. nickname=" + $stateParams.nickname);
+//     userService.get({nickname: $stateParams.nickname}).$promise.then(
+//         function(data) {
+//             // success
+//             $scope.stranger = data;
+//         },
+//         function(error) {
+//             // error handler
+//             $state.go("home");
+//         }
+//     );
+//   }]);
 
 productControllers.controller('ForumCtrl', ['$scope', 'ForumService', 'LikesService', '$log', 'AuthService',
   function($scope, ForumService, LikesService, $log, authService) {

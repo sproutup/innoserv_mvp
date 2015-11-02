@@ -1,0 +1,49 @@
+@(buzzPostForm: Form[Post])(products: List[models.Product])
+
+@import helper._
+@implicitFieldConstructor = @{ FieldConstructor(twitterBootstrapBasic.f) }
+
+@admin_wrapper("Buzz Post upload") {
+
+  <div class="row">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+                <h2><a href="/adminstuff" target="_self" class="btn btn-lg">Admin Home</a></h2>
+        
+          <h1 class="form-header">Buzz Post upload</h1>
+        </div>
+
+        <div class="row signup-form-block">
+          <div class="col-md-8 col-md-offset-2">
+
+        @helper.form(action = routes.SocialMediaPostAdminController.addPost(), 'enctype -> "multipart/form-data") {
+		
+          @select(
+          buzzPostForm("product.id"),
+          products.map {p =>
+            (p.id.toString) -> p.productName
+          },
+          '_label -> "Product Name",'_default -> "-- Select --"
+          )
+
+          @textarea(field = buzzPostForm("body"), 
+          '_label -> "Post Content", 
+          'rows -> 4, 'cols -> 50
+          )
+          <input type="hidden" name="category" value='0' >
+          <div>
+            <input class="btn btn-primary btn-lg btn-block" type="submit">
+          </div>
+        }
+      </div>
+    </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <hr>
+
+}

@@ -1,0 +1,117 @@
+<div class="row my-content-page" infinite-scroll='vm.loadContent()' infinite-scroll-disabled='vm.busy' infinite-scroll-distance='2'>
+	<div class="col-sm-8 my-content-left-rail">
+		<!-- if no user logs in, display this message -->
+		<div class="col-sm-12 my-content-item" ng-if="vm.init && !vm.user.id">
+			<div class="my-content-headsup">
+            	<p class="my-content-headsup-text">It sounds obvious, but <a subject-present state="user.buzz" href="#">log in</a> is required for posting anything.</p>
+			</div>
+		</div>
+		<!-- for users who cannot post yet, display this message -->
+		<div class="col-sm-12 my-content-item" ng-if="vm.init && vm.user.id && vm.myTrialProducts.length < 1">
+			<div class="my-content-headsup">
+            	<p class="my-content-headsup-text">Posting content is limited to influencers with approved product trials. Everyone can upvote and comment. We are working hard to scale SproutUp so that more content creators can join.</p>
+			</div>
+		</div>
+		<!-- add content -->
+		<div class="add-content-wrapper" ng-if="vm.init && vm.myTrialProducts.length > 0">
+	        <div class="col-sm-12 my-content-item">
+	            <!-- user photo -->
+	            <div class="col-sm-2 my-content-user-avatar post-content-user">
+	            	<a ui-sref="user.profile.buzz({ nickname: vm.user.nickname })">
+	                	<img class="img-responsive my-content-user-img img-center" ng-src="{{ vm.user.avatarUrl }}">
+	                </a>
+	            </div>
+	            <!-- content thumbnail -->
+	            <div class="col-sm-10 my-content-body">
+	                <div class="my-content-item--summary">
+	                	<div class="select-product-text">Select a product you'd like to post about</div>
+		                <!-- product selection -->
+						<button class="trial-product" ng-repeat="p in vm.myTrialProducts" ng-class="{ 'selected-trial-product': p.id === vm.selectedProduct }" ng-click="vm.selectTrialProduct(p)">{{ p.name }}</button>
+						<form name="form" ng-show="vm.selectedProduct" novalidate>
+		                    <div class="my-content-new">
+		                        <textarea name="content" placeholder="Paste a link to your content and/or write about your experience here" class="form-control post-new-textarea link" ng-model="vm.enteredBody" required></textarea>
+							<!-- <div class="addPhotoInput">Add a photo or video</div> -->
+		                    </div>
+		                    <div class="post-new-comment-actions">
+		                        <button type="button" analytics-on="click" analytics-event="Post Content" analytics-user="{{vm.user.nickname}}" class="btn btn-post content-post-button btn-post-default" ng-click="vm.addContent($event)" ng-disabled="vm.disabled || form.content.$error.required" ng-class="{'disabled': vm.disabled || form.content.$error.required}">
+		                        	<span ng-hide="vm.disabled">Post</span>
+		                        	<span us-spinner spinner-key="spinner-1"></span>
+		                        </button>
+		                    </div>
+		                </form>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
+		<up-content ng-repeat="item in vm.content" content="item" state="user.buzz"></up-content>
+	</div>
+
+	<div class="col-sm-4 my-content-right-rail">
+		<!-- leaderboard -->
+		<!-- <section id="leaderboard">
+			<div class="my-content-info-header leaderboard">
+				<p>Top Influencers</p>
+			</div>
+			<div class="row my-content-info-body">
+				<div class="col-sm-4 leaderboard-profile-avatar">
+					<img class="img-responsive img-center" src="assets/images/user/WfFzgRgX_400x400.jpeg">
+				</div>
+				<div class="col-sm-8 leaderboard-profile-info">
+					<h1>Taiga Fukuyama</h1>
+					<h2>4,300 <span>Sprout Points</span></h2>
+				</div>
+			</div>
+
+			<div class="row my-content-info-body">
+				<div class="col-sm-4 leaderboard-profile-avatar">
+					<img class="img-responsive img-center" src="assets/images/user/4437ecd1b712a449b83bb4d2989ea00a_400x400.jpeg">
+				</div>
+				<div class="col-sm-8 leaderboard-profile-info">
+					<h1>Thomas O'Brien</h1>
+					<h2>3,720 <span>Sprout Points</span></h2>
+				</div>
+			</div>
+
+			<div class="row my-content-info-body">
+				<div class="col-sm-4 leaderboard-profile-avatar">
+					<img class="img-responsive img-center" src="assets/images/user/zZBO7ghe_400x400.jpg">
+				</div>
+				<div class="col-sm-8 leaderboard-profile-info">
+					<h1>Peter Andersen</h1>
+					<h2>3,240 <span>Sprout Points</span></h2>
+				</div>
+			</div>
+		</section>
+		<hr> -->
+
+		<!-- info -->
+		<div class="my-content-info-header">
+			<p>What is Buzz</p>
+		</div>
+		<div class="my-content-info-body">
+			<p>Buzz is a place for influencers to showcase content they have for their SproutUp product trials.</p>
+		</div>
+		<div class="my-content-info-header">
+			<p>Benefits of Buzz</p>
+		</div>
+		<div class="my-content-info-body">
+			<h3><i class="fa fa-star"></i>Inspire other product enthusiasts</h3>
+			<p>You've created an intriguing content — inspire others by sharing your personal experience on this radical product!</p>
+			<h3><i class="fa fa-bullhorn"></i>Increase your influence circle</h3>
+			<p>Your content is promoted to a broad SproutUp community of tech influencers and enthusiasts, and even to our partner media sites.</p>
+			<h3><i class="fa fa-users"></i>Socialize with fellow influencers</h3>
+			<p>Connect with other like-minded influencers, upvote or share content you love, and make constructive comments to help each other grow.</p>
+			<h3><i class="fa fa-gift"></i>Earn rewards (coming soon)</h3>
+			<p>Earn rewards for publishing great content and actively participating in quality discussions.</p>
+		</div>
+		<div class="my-content-info-header">
+			<p>What to post</p>
+		</div>
+		<div class="my-content-info-body">
+			<p>Our community loves to see your awesome content about your personal trial experience. Excite the community by sharing cool ways you used the product and the features you found particularly useful. Or ask questions, engage in discussions that help emerging products evolve.</p>
+			<p>Pictures are worth a thousand words, so upload photos or a short video while enjoying the product. You may publish your social media post or blog by embedding a URL. Or, write directly on SproutUp (coming soon).</p>
+			<p>Community members appreciate quality and constructive comments on their content. Please avoid bashing people or products. You know that, “we all are a cool bunch..”</p>
+		</div>
+	</div>
+
+</div>

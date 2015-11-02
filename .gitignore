@@ -14,3 +14,6 @@ dist
 bin
 RUNNING_PID
 .DS_Store
+node_modules
+bower_components
+app/assets/app/config.js

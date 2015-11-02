@@ -9,6 +9,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import models.Campaign;
+import models.Contest;
 import models.Product;
 import models.User;
 import models.UserReferral;
@@ -49,17 +50,32 @@ public class CampaignController extends Controller {
         params.put("active", "1");
         //TODO nj: need to handle when there are more than one active campaign? get the latest "order by id desc"? check if findUnique would fail..
         Campaign campaign = Campaign.find.where().allEq(params).findUnique();
-		ObjectNode rs = Json.newObject();
-    	if (campaign==null) 
-        	rs.put("active", false);
-    	else
-        	rs.put("active", true);
-    	
+		ObjectNode rs;
+    	if (campaign==null) {
+    		rs = Json.newObject();
+    		rs.put("active", false);
+    	} else {
+    		rs = campaign.toJson();
+    	}
     	return created(rs);
+    }
+    
+    /*
+	 * Gets called when user clicks on the SproutUp or Share button
+	 */
+	@BodyParser.Of(BodyParser.Json.class)
+    public static Result getCampaignURL(String productSlug) {
+        	
+        	ObjectNode rs = Json.newObject();
+    		String genURL = "http://sproutup.co/product/" + productSlug + "?refId=discount";
+            String shortURL= GoogleURLShortener.shortenURL(genURL);
+        	rs.put("url", shortURL);
+            return created(rs);
     }
     
 	/*
 	 * Gets called when user clicks on the SproutUp or Share button
+	 * Not using it anymore because user signup is not required 
 	 */
 	@SubjectPresent
     @BodyParser.Of(BodyParser.Json.class)
@@ -73,7 +89,8 @@ public class CampaignController extends Controller {
             params.put("product_id", productId);
             params.put("active", "1");
             
-            //TODO nj: need to handle when there are more than one active campaign? get the latest "order by id desc"? check if findUnique would fail..
+            //TODO nj: need to handle when there are more than one active campaign? get the latest "order by id desc"? 
+            //check if findUnique would fail..
         	Campaign campaign = Campaign.find.where().allEq(params).findUnique();
         	if (campaign==null)
         		return badRequest("Campaign not active or does not exist");
@@ -81,7 +98,6 @@ public class CampaignController extends Controller {
         	ObjectNode rs = campaign.toJson();
     		String referralId = UserReferral.getReferralId(user.id, campaign.id, null);
         	
-    		//TODO: replace it with URL shortener service
     		String genURL = "http://sproutup.co/product/" + campaign.product.slug + "?refId="+ referralId;
             String shortURL= GoogleURLShortener.shortenURL(genURL);
         	rs.put("url", shortURL);
@@ -97,8 +113,26 @@ public class CampaignController extends Controller {
      * has shared the campaign
      */
     @BodyParser.Of(BodyParser.Json.class)
-    @SubjectPresent
     public static Result processShare() {
+        JsonNode json = request().body().asJson();
+        long campaignId = json.findPath("campaignId").longValue();
+
+        //update the counter
+        Campaign camp = Campaign.find.byId(campaignId);
+
+        camp.totalNumParticipated++;
+        camp.update();
+        return created(camp.toJson());
+     }
+	
+    /*
+     * This is post processing when user
+     * has shared the campaign
+     * Not using it anymore
+     */
+    @BodyParser.Of(BodyParser.Json.class)
+    @SubjectPresent
+    public static Result processShare2() {
         JsonNode json = request().body().asJson();
         User user = Application.getLocalUser(ctx().session());
         if (user == null)
@@ -205,6 +239,11 @@ public class CampaignController extends Controller {
           if ("Copy".equals(action)) {
         	  campaign.id=null;
         	  campaign.product.id=null;
+           } else {//if not copying update the flag;
+        	   Product prod = Product.findbyID(campaign.product.id);
+	           prod.discountFlag = (campaign.active && campaign.offerDiscount);
+	           prod.update();
+             
            }
         }  
         if (campaign.id == null) {

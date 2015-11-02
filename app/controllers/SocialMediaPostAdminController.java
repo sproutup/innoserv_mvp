@@ -8,8 +8,11 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import models.Company;
+import models.Content;
 import models.File;
 import models.Post;
 import models.Product;
@@ -23,6 +26,7 @@ import play.mvc.Http.MultipartFormData;
 import views.html.admin.*;
 
 import com.avaje.ebean.*;
+import com.fasterxml.jackson.databind.JsonNode;
 
 import play.Routes;
 import play.mvc.Http.MultipartFormData.FilePart;
@@ -38,15 +42,64 @@ public class SocialMediaPostAdminController extends Controller{
 	  public static Result newPost() {
 		  if(!admin_enabled){return notFound();};
 
-		  List<Product> products = new Product().getAll();
+		  List<Product> products = new Product().getAllActive();
 		  Post post = new Post();
 		  post.activeFlag=true;
 		  post.createdAt = Calendar.getInstance().getTime(); //Get the current date
 
-		  return ok(socialmedia_post.render(socialMediaPostForm.fill(post), products));
+		  return ok(buzz_post.render(socialMediaPostForm.fill(post), products));
 	  }
 
-	  public static Result save() {
+	  public static Result addPost() {
+		  if(!admin_enabled){return notFound();};
+		    Form<Post> filledForm = socialMediaPostForm.bindFromRequest();
+
+	        if (filledForm == null) {
+	            return badRequest("Expecting post data");
+	        } else {
+	        	if(filledForm.hasErrors()) {
+	    		      flash("error", "Please correct the form below.");
+//	    		      String errormsg = "";
+//	    		      Iterator<ValidationError> it = boundForm.globalErrors().iterator();
+//	    		      while(it.hasNext()){
+//	    		    	  errormsg = errormsg + it.next().message();
+//	    		      }
+	    		      return badRequest("Post save error - " + filledForm.errorsAsJson());
+	    		    }
+	        	Post post = filledForm.get();
+	    	    
+	        	if (post == null) {
+	                return badRequest("Missing parameter [post]");
+	            } else {
+	                
+	                //SproutUp user
+	                User user = User.findByEmail("team@sproutup.co");
+	                
+	                if (user != null) {
+	                    post.user = user;
+	                }
+
+	                // look for the first url and save it as content if found
+	                Pattern urlpattern = Pattern.compile("(http|ftp|https)://([\\w_-]+(?:(?:\\.[\\w_-]+)+))([\\w.,@?^=%&:/~+#-]*[\\w@?^=%&/~+#-])?");
+	                Matcher match = urlpattern.matcher(post.body);
+
+	                if(match.find()){
+	                    Content cnt = new Content();
+	                    cnt.url = match.group();
+	                    cnt.product = post.product;
+	                    cnt.user = user;
+	                    cnt.save();
+	                    post.content = cnt;
+	                }
+
+	                post.save();
+	                //Post.hmget(post.id.toString());
+	                return redirect(routes.SocialMediaPostAdminController.newPost());
+	            }
+	        }
+	    }
+	  
+	  public static Result saveSocialMediaPost() {
         if(!admin_enabled){return notFound();};
 
 	    MultipartFormData body = request().body().asMultipartFormData();
@@ -106,10 +159,6 @@ public class SocialMediaPostAdminController extends Controller{
 		}
 
 	    post.save();
-	    
-	    
-		
-
 	    
 	    flash("success",
 	        String.format("Successfully added post %s", post));

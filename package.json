@@ -1,0 +1,52 @@
+{
+  "name": "mvp",
+  "description": "Sproutup mvp",
+  "version": "0.4.0",
+  "private": false,
+  "author": "Peter Andersen",
+  "license": "LicenseRef-license",
+  "repository": {
+    "type": "",
+    "url": ""
+  },
+  "engines": {
+    "node": ">=0.10.28",
+    "npm": ">=1.4.28"
+  },
+  "scripts": {
+    "start": "gulp",
+    "test": "gulp test",
+    "postinstall": "bower install --config.interactive=false"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-concat": "^2.6.0",
+    "gulp-csslint": "~0.1.5",
+    "gulp-cssmin": "~0.1.7",
+    "gulp-debug": "^2.1.0",
+    "gulp-jshint": "^1.11.2",
+    "gulp-karma": "~0.0.4",
+    "gulp-less": "^3.0.3",
+    "gulp-livereload": "^3.8.0",
+    "gulp-load-plugins": "^1.0.0-rc.1",
+    "gulp-mocha": "^2.1.2",
+    "gulp-ng-annotate": "^1.0.0",
+    "gulp-nodemon": "^2.0.3",
+    "gulp-protractor": "^1.0.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-uglify": "^1.2.0",
+    "karma": "~0.12.37",
+    "karma-chrome-launcher": "~0.2.0",
+    "karma-coverage": "~0.4.2",
+    "karma-firefox-launcher": "~0.1.6",
+    "karma-ng-html2js-preprocessor": "^0.1.2",
+    "karma-phantomjs-launcher": "~0.2.0",
+    "run-sequence": "^1.1.1",
+    "should": "^7.0.1",
+    "supertest": "^1.0.1"
+  },
+  "dependencies": {
+    "gulp-ng-config": "^1.2.1",
+    "gulp-shell": "^0.5.0"
+  }
+}

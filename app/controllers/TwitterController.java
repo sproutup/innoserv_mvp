@@ -1,18 +1,22 @@
 package controllers;
 
+import be.objectify.deadbolt.java.actions.SubjectPresent;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectReader;
 import com.fasterxml.jackson.databind.ObjectWriter;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import models.Product;
 import play.Logger;
 import play.Play;
 import play.cache.Cache;
 import play.libs.F.Function;
 import play.libs.F.Promise;
+import play.libs.Json;
 import play.libs.ws.WS;
 import play.libs.ws.WSResponse;
+import play.mvc.BodyParser;
 import play.mvc.Controller;
 import play.mvc.Result;
 
@@ -74,7 +78,34 @@ public class TwitterController extends Controller {
         }
         Logger.debug("twitter api > found > ", prod.urlTwitter);
         String endpoint = prod.urlTwitter.substring(prod.urlTwitter.lastIndexOf(".com/")+5);
-        return getApi("https://api.twitter.com/1.1/search/tweets.json?count=5&q=%40"+endpoint);
+        return getApi("https://api.twitter.com/1.1/search/tweets.json?count=5&q=%40" + endpoint);
+    }
+
+    public static Result AuthorizeParams(){
+        ObjectNode node = Json.newObject();
+        String access_token = Play.application().configuration().getString(TWITTER_ACCESS_TOKEN);
+        String access_secret = Play.application().configuration().getString(TWITTER_ACCESS_SECRET);
+
+        OAuthService service = new ServiceBuilder()
+                .provider(TwitterApi.class)
+                .apiKey(Play.application().configuration().getString("twitter.consumer.key"))
+                .apiSecret(Play.application().configuration().getString("twitter.consumer.secret"))
+                .callback("http://localhost:9000/user/peterandersen")
+                .build();
+
+        System.out.println("=== Twitter's OAuth Workflow ===");
+
+        // Obtain the Request Token
+        System.out.println("Fetching the Request Token...");
+        Token requestToken = service.getRequestToken();
+        System.out.println("Got the Request Token!");
+        System.out.println();
+
+        System.out.println("Now go and authorize Scribe here:");
+        System.out.println(service.getAuthorizationUrl(requestToken));
+
+        node.put("url", service.getAuthorizationUrl(requestToken));
+        return ok(node);
     }
 
     public static Result getApi(String endpoint) {

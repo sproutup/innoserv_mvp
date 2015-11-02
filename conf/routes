@@ -70,12 +70,25 @@ PUT           /api/users/:nickname                                           con
 POST          /api/suggest/product                                           controllers.Application.addProductSuggestion
 POST          /api/creator/access                                            controllers.Application.addEarlyAccessRequest
 
+GET           /api/trials/products                                           controllers.TrialController.getMyTriedProducts
+
 GET           /api/trials                                                    controllers.TrialController.getall
 GET           /api/trials/:id                                                controllers.TrialController.get(id: Long)
+GET           /api/trials/product/:slug                                      controllers.TrialController.getTrialsOnProduct(slug: String)
 POST          /api/trials                                                    controllers.TrialController.create
 PUT           /api/trials/:id                                                controllers.TrialController.update(id: Long)
 POST          /api/trials/:id                                                controllers.TrialController.update(id: Long)
 DELETE        /api/trials/:id                                                controllers.TrialController.delete(id: Long)
+POST          /api/trials/:id/cancel                                         controllers.TrialController.cancel(id: Long)
+GET           /api/trials/:id/log                                            controllers.TrialLogController.getall(id: Long)
+
+POST          /api/reward/event/:activity_id                                 controllers.RewardController.logEvent(activity_id: Long )
+
+GET           /api/user/reward                                               controllers.RewardController.getall
+GET           /api/user/:id/reward/summary                                   controllers.RewardController.getAggregate(id: Long)
+GET           /api/user/points                                               controllers.AuthController.points
+
+GET           /api/user/:nickname/trials                                     controllers.TrialController.getByNickname(nickname: String)
 
 GET           /api/content                                                   controllers.ContentController.getall
 GET           /api/content/:id                                               controllers.ContentController.get(id: Long)
@@ -97,6 +110,18 @@ PUT           /api/products/:slug                                            con
 POST          /api/products/:slug                                            controllers.Products.updateProduct(slug: String)
 DELETE        /api/products/:id                                              controllers.Products.deleteProduct(id: Long)
 
+GET           /api/feed                                                      controllers.FeedController.getAll
+GET           /api/feed/:start                                               controllers.FeedController.getRange(start: Int)
+#POST          /api/feed                                                     controllers.FeedController.create
+#PUT           /api/feed/:slug                                               controllers.FeedController.update(slug: String)
+#POST          /api/feed/:slug                                               controllers.FeedController.update(slug: String)
+#DELETE        /api/feed/:id                                                 controllers.FeedController.delete(id: Long)
+
+GET           /api/buzz                                                      controllers.BuzzController.getAll
+GET           /api/buzz/:start                                               controllers.BuzzController.getRange(start: Int)
+GET           /api/buzz/product/:slug/:start                                 controllers.BuzzController.getProductRange(slug: String, start: Int)
+GET           /api/buzz/user/:nickname/:start                                controllers.BuzzController.getUserRange(nickname: String, start: Int)
+
 GET           /api/company                                                  controllers.CompanyController.query
 #GET           /api/company/:id                                              controllers.CompanyController.getCompany(id: Long)
 POST          /api/company                                                  controllers.CompanyController.save
@@ -104,6 +129,8 @@ POST          /api/company                                                  cont
 #DELETE        /api/company/:id                                              controllers.CompanyController.deleteCompany(id: Long)
 
 GET           /api/analytics                                                 controllers.AnalyticsController.getAll
+
+GET           /api/twitter/api/params                                        controllers.TwitterController.AuthorizeParams
 
 GET           /api/google/api/params                                         controllers.GoogleController.AuthorizeParams
 POST          /api/google/api/code                                           controllers.GoogleController.ExchangeAuthorizationCodeForToken(code: String, scope: String)
@@ -115,9 +142,8 @@ GET           /api/file/:type/:id                                            con
 GET           /api/file/user                                                 controllers.FileController.getUserFiles
 POST          /api/file/avatar                                               controllers.FileController.addAvatar(uuid: String)
 
-GET           /api/forum/posts                                               controllers.PostController.getPosts(prod: Long ?= -1, cat: Long ?= -1)
-GET           /api/forum/posts/:id                                           controllers.PostController.getPost(id: Long)
-POST          /api/forum/posts                                               controllers.PostController.addPost
+GET           /api/post/:id                                                  controllers.PostController.getPost(id: Long)
+POST          /api/post                                                      controllers.PostController.addPost
 #PUT     /api/forum/posts/:id        controllers.PostController.updateProduct(id: Long)
 #DELETE  /api/forum/posts/:id        controllers.PostController.deleteProduct(id: Long)
 
@@ -126,6 +152,11 @@ GET           /api/tags/post/top/:id/:category                               con
 
 GET           /api/likes/:type/:id                                           controllers.LikesController.getLikes(id: Long, type: String)
 POST          /api/likes/:type/:id                                           controllers.LikesController.addLikes(id: Long, type: String, user_id: Long)
+DELETE        /api/likes/:type/:id                                           controllers.LikesController.deleteLikes(id: Long, type: String, user_id: Long)
+
+GET           /api/comment/:type/:id                                         controllers.CommentController.getComments(id: Long, type: String)
+POST          /api/comment/:type/:id		                                 controllers.CommentController.addComment(id: Long, type: String)
+DELETE        /api/comment/:type/:id/:commentId                              controllers.CommentController.deleteComment(id: Long, type: String, commentId: Long)
 
 GET           /api/follow/:type/:id                                          controllers.FollowController.isFollowing(id: Long, type: String)
 POST          /api/follow/:type/:id                                          controllers.FollowController.follow(id: Long, type: String)
@@ -142,6 +173,7 @@ GET           /api/auth/logout                                               con
 POST          /api/auth/login                                                controllers.AuthController.login
 POST          /api/auth/signup                                               controllers.AuthController.signup
 POST          /api/auth/provider/:provider                                   controllers.AuthController.provider(provider: String)
+POST          /api/auth/username/validate/:username                          controllers.AuthController.validate(username: String)
 
 GET           /media/image/:w/x/:image                                       controllers.Application.image(image: String, w: Int, h: Int = -1)
 GET           /media/image/x/:h/:image                                       controllers.Application.image(image: String, w: Int = -1, h: Int)
@@ -149,8 +181,14 @@ GET           /media/image/:w/:h/:image                                      con
 GET           /media/image/:image                                            controllers.Application.image(image: String, w: Int ?=-1,        h:        Int ?=-1)
 
 GET			  /api/campaign/getActive/:productId							 controllers.CampaignController.getActiveCampaign(productId: Long)
+GET			  /api/campaign/getShortenURL/:slug								 controllers.CampaignController.getCampaignURL(slug: String)
 GET			  /api/campaign/getInfo/:productId								 controllers.CampaignController.getCampaignInfo(productId: Long)
 POST		  /api/campaign/processShare									 controllers.CampaignController.processShare()	
+
+GET			  /api/contest/getActive/:productId							 	 controllers.ContestController.getActiveContest(productId: Long)
+GET			  /api/contest/getShortenURL/:slug								 controllers.ContestController.getContestURL(slug: String)
+POST		  /api/contest/processShare									 	 controllers.ContestController.processShare()	
+
 
 # Internal Administration Only - Not visible to public
 GET           /adminstuff                                            		 controllers.ReportAdminController.home()
@@ -158,6 +196,7 @@ GET           /adminstuff/product                                            con
 GET           /adminstuff/product/list                                       controllers.ProductAdministrationController.list(page: Integer ?= 0)
 GET           /adminstuff/product/listTrials                                 controllers.ProductAdministrationController.listTrials(page: Integer ?= 0)
 GET           /adminstuff/product/listInfluencerTrials                       controllers.ProductAdministrationController.listInfluencerTrials(page: Integer ?= 0)
+GET           /adminstuff/product/listAllUserTrials                       	 controllers.ProductAdministrationController.listAllUserTrials(page: Integer ?= 0)
 POST          /adminstuff/product/list                                       controllers.ProductAdministrationController.save()
 GET           /adminstuff/product/new                                        controllers.ProductAdministrationController.newProduct()
 GET           /adminstuff/product/:slug                                      controllers.ProductAdministrationController.details(slug: models.Product)
@@ -169,8 +208,9 @@ GET           /adminstuff/company/uploadmedia/:companyslug/:mediaType        con
 POST          /adminstuff/company/domediaupload                              controllers.MediaManagement.doCompanyMediaUpload()
 GET           /adminstuff/uploadmedia                                        controllers.MediaManagement.upload()
 POST          /adminstuff/doupload                                           controllers.MediaManagement.doUpload()
-GET           /adminstuff/socialmediapost                                    controllers.SocialMediaPostAdminController.newPost()
-POST          /adminstuff/dosocialmediapost                                  controllers.SocialMediaPostAdminController.save()
+GET           /adminstuff/buzzpost                                    		 controllers.SocialMediaPostAdminController.newPost()
+POST          /adminstuff/dosocialmediapost                                  controllers.SocialMediaPostAdminController.saveSocialMediaPost()
+POST          /adminstuff/dobuzzpost                                  		 controllers.SocialMediaPostAdminController.addPost()
 
 GET           /adminstuff/user                                            	 controllers.ReportAdminController.index()
 GET           /adminstuff/user/list                                       	 controllers.ReportAdminController.userList(page: Integer ?= 0)
@@ -188,9 +228,14 @@ GET           /adminstuff/campaign/new                                       con
 POST          /adminstuff/campaign/save                                  	 controllers.CampaignController.save()
 GET           /adminstuff/campaign/:id                                       controllers.CampaignController.details(id: Long)
 GET           /adminstuff/content/list                                   	 controllers.ReportAdminController.contentList(page: Integer ?= 0)
+POST          /adminstuff/content/updateContentOG                      		 controllers.ReportAdminController.updateContentOG()
 GET           /adminstuff/user/updateKloutScore/:id                          controllers.ReportAdminController.updateKloutScore(id: Long)
 GET           /adminstuff/user/addKloutScores                                controllers.ReportAdminController.addKloutScores()
 GET           /adminstuff/user/updateAllKloutScores                          controllers.ReportAdminController.updateAllKloutScores()
+GET           /adminstuff/contest/list                                      controllers.ContestController.list()
+GET           /adminstuff/contest/new                                       controllers.ContestController.newContest()
+POST          /adminstuff/contest/save                                  	 controllers.ContestController.save()
+GET           /adminstuff/contest/:id                                       controllers.ContestController.details(id: Long)
 
 # Mockups
 GET           /mockups/product/:slug/about                                   controllers.MockupController.detailsAboutBySlug(slug: String)

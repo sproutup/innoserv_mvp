@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
+import com.typesafe.plugin.RedisPlugin;
 import org.joda.time.DateTime;
 
 import play.Logger;
@@ -14,6 +15,7 @@ import play.Play;
 import play.db.ebean.Model;
 import play.libs.Json;
 import plugins.S3Plugin;
+import redis.clients.jedis.Jedis;
 import utils.ElasticTranscoder;
 
 import javax.activation.MimetypesFileTypeMap;
@@ -264,7 +266,7 @@ public class File extends SuperModel {
 
     public ObjectNode toJson(){
         ObjectNode node = Json.newObject();
-        node.put("id", this.id);
+  //      node.put("id", this.id);
         node.put("filename", this.getFileName());
         node.put("type", this.type);
         ObjectNode urlnode = Json.newObject();
@@ -277,17 +279,17 @@ public class File extends SuperModel {
             urlnode.put("image", this.getURL());
         }
         node.put("url", urlnode);
-        node.put("comment", this.comment);
-        node.put("username", this.user!= null ? this.user.name : "");
+//        node.put("comment", this.comment);
+//        node.put("username", this.user != null ? this.user.name : "");
         node.put("createdAt", new DateTime(this.createdAt).toString());
-        node.put("isVerified", this.verified);
-        node.put("isTranscoded", this.isTranscoded);
+//        node.put("isVerified", this.verified);
+//        node.put("isTranscoded", this.isTranscoded);
 
         // add likes to the node
-        List<Likes> likes = this.getAllLikes();
-        if(likes.size()>0){
-            node.put("likes", Likes.toJson(likes));
-        }
+//        List<Likes> likes = this.getAllLikes();
+//        if(likes.size()>0){
+//            node.put("likes", Likes.toJson(likes));
+//        }
 
         return node;
     }
@@ -298,6 +300,88 @@ public class File extends SuperModel {
             arrayNode.add(file.toJson());
         }
         return arrayNode;
+    }
+
+    public void hmset(){
+        Jedis j = play.Play.application().plugin(RedisPlugin.class).jedisPool().getResource();
+        try {
+            Map map = new HashMap();
+
+            // Create the hashmap values
+            map.put("filename", this.getFileName());
+            map.put("type", this.type);
+            if(type.contains("video/") || type.equals("video")) {
+                map.put("mpeg", this.getURL().concat(".m3u8"));
+                map.put("webm", this.getURL().concat(".webm"));
+                map.put("mp4", this.getURL().concat(".mp4"));
+            }
+            else{
+                map.put("image", this.getURL());
+            }
+            map.put("comment", this.comment);
+            map.put("username", this.user != null ? this.user.name : "");
+            map.put("createdAt", new DateTime(this.createdAt).toString());
+            map.put("isVerified", Boolean.toString(this.verified));
+            map.put("isTranscoded", Boolean.toString(this.isTranscoded));
+
+            // add the values
+            j.hmset("file:" + this.id.toString(), map);
+        } finally {
+            play.Play.application().plugin(RedisPlugin.class).jedisPool().returnResource(j);
+        }
+    }
+
+    public static ObjectNode hmget(String id){
+        Jedis j = play.Play.application().plugin(RedisPlugin.class).jedisPool().getResource();
+        ObjectNode node = Json.newObject();
+        try {
+            String key = "file:" + id.toString();
+
+            // if key not found then add item to cache
+            if(!j.exists(key)) {
+                Logger.debug("file added to cache " + key);
+                File.find.byId(Long.parseLong(id, 10)).hmset();
+            }
+
+            // get the values
+            List<String> values = j.hmget(key,
+                    "filename",
+                    "type",
+                    "mpeg",
+                    "webm",
+                    "mp4",
+                    "image",
+                    "comment",
+                    "username",
+                    "createdAt",
+                    "isVerified",
+                    "isTranscoded"
+            );
+
+            // build json object
+            node.put("id", id);
+            if (values.get(0) != null) node.put("filename", values.get(0));
+            if (values.get(1) != null) node.put("type", values.get(1));
+
+            ObjectNode urlnode = Json.newObject();
+            if(values.get(1).contains("video/") || values.get(1).equals("video")) {
+                if (values.get(2) != null) urlnode.put("mpeg", values.get(2));
+                if (values.get(3) != null) urlnode.put("webm", values.get(3));
+                if (values.get(4) != null) urlnode.put("mp4", values.get(4));
+            }
+            else{
+                if (values.get(5) != null) urlnode.put("image", values.get(5));
+            }
+            node.put("url", urlnode);
+            if (values.get(6) != null) node.put("comment", values.get(6));
+            if (values.get(7) != null) node.put("username", values.get(7));
+            if (values.get(8) != null) node.put("createdAt", Boolean.valueOf(values.get(8)));
+            if (values.get(9) != null) node.put("isVerified", Boolean.valueOf(values.get(9)));
+            if (values.get(10) != null) node.put("isTranscoded", Boolean.valueOf(values.get(10)));
+        } finally {
+            play.Play.application().plugin(RedisPlugin.class).jedisPool().returnResource(j);
+        }
+        return node;
     }
 
     public static File verify(String id){

@@ -1,0 +1,78 @@
+<!-- content blurb -->
+<div class="col-sm-12 my-content-item">
+    <!-- user photo -->
+    <div class="col-sm-2 my-content-user-avatar post-user-avatar">
+        <a ui-sref="user.profile.buzz({ nickname: vm.content.user.nickname })">
+            <img class="img-responsive my-content-user-img img-center" ng-src="{{ vm.content.user.avatarUrl }}">
+        </a>
+    </div>
+    <!-- content thumbnail -->
+    <div class="col-sm-10 my-content-body">
+        <div class="my-content-item--summary">
+
+            <p class="my-content-user">
+                <span class="my-content-user-name">
+                    <a analytics-on="click" analytics-event="Check Public Profile" analytics-user="{{vm.content.user.nickname}}" class="content-user-link" ui-sref="user.profile.buzz({ nickname: vm.content.user.nickname })">{{ vm.content.user.name }}</a>
+                </span>
+            </p>
+            <p class="my-content-timestamp"><a ui-sref="user.singleBuzz({ id: vm.content.id })">{{ vm.content.createdAt | fromNow }}</a></p>
+            <div class="my-content-item-main">
+                <a ui-sref="user.product.detail.buzz({ slug: vm.content.product.slug })">
+                    <button class="trial-product selected-trial-product up-content-product"><i class="fa fa-tag product-post-tag"></i>{{ vm.content.product.name }}</button>
+                </a>
+                <div class="my-content-text" ng-bind-html="vm.content.body | urlify"></div>
+
+                <div class="my-content-video embedded" ng-if="vm.content.content.youtube" ng-hide="vm.content.content.tweet">
+                    <iframe width="560" height="315" ng-src="{{ vm.content.content.youtube }}" frameborder="0" allowfullscreen></iframe>
+                </div>
+                <a analytics-on="click" analytics-event="Click Buzz Post" analytics-post="{{ vm.content.id }}" analytics-author="{{ vm.content.user.name }}" analytics-slug="{{ vm.content.product.slug }}" href="{{ vm.content.content.url }}" target="blank" ng-hide="vm.content.content.tweet">
+                    <img class="my-content-image img-responsive" src="{{vm.content.content.image}}" ng-hide="vm.content.content.youtube">
+                    <p class="my-content-og-headline" ng-show="vm.content.content.title">{{ vm.content.content.title }}</p>
+                    <p class="my-content-og-text" ng-show="vm.content.content.description">{{ vm.content.content.description }}</p>
+                </a>
+                <a ng-href="{{ vm.content.content.url }}" ng-if="vm.content.content.tweet" target="blank">
+                    <div class="tweetWrapper" ng-href="vm.content.content.url" ng-class="{ 'tweetWithPicture': vm.content.content.tweet.picture }">
+                        <div class="tweetTextWrapper" ng-class="{ 'tweetWithPicture': vm.content.content.tweet.picture }">
+                            <span class="tweetName">{{ vm.content.content.tweet.twitterName }}</span>
+                            <span class="tweetUsername">@{{ vm.content.content.tweet.twitterUsername }}</span>
+                            <div class="tweetBody">{{ vm.content.content.tweet.tweetBody }}</div>
+                        </div>
+                        <img ng-src="{{ vm.content.content.tweet.picture }}" ng-if="vm.content.content.tweet.picture" class="tweet--picture"/>
+                    </div>
+                </a>
+            </div>
+            <div class="my-content-actions">
+                <up-like likes="vm.content.likes" up-id="vm.content.id" up-type="models.post" state="{{ vm.state }}" params="vm.params"></up-like>
+                <a analytics-on="click" analytics-event="Comment Buzz Post" analytics-id="{{ vm.content.id }}" href="#" subject-present="vm.commentToggle()" state="{{ vm.state }}" params="vm.params">COMMENT ({{ vm.content.comments.data.length }})</a>
+                <a analytics-on="click" analytics-event="Share Buzz Post" product="{{vm.content.product.id}}" id="3000" analytics-id="{{ vm.content.id }}" ng-href="{{ vm.content.tweetContentLink }}" ng-click="vm.recordShareClick($event)">SHARE</a>
+                <span class="analytics-total" ng-if="vm.content.analytics.total > 0">{{ vm.content.analytics.total | humanizeNumber }} views</span>
+            </div>
+        </div>
+        <up-comments commenting="vm.content.commenting" comments="vm.content.comments" up-id="vm.content.id" up-type="models.post" state="{{ vm.state }}" params="vm.params"></up-comments>
+    </div>
+</div>
+
+<!-- content blurb -->
+<!-- <div class="col-sm-12 my-content-item"> -->
+    <!-- user photo -->
+<!--     <div class="col-sm-2 my-content-user-avatar">
+        <img class="img-responsive my-content-user-img img-center" src="@routes.Assets.at("images/default-avatar.png")">
+    </div> -->
+    <!-- content thumbnail -->
+<!--     <div class="col-sm-10 my-content-body">
+        <div class="my-content-item--summary">
+            <p class="my-content-user">User Name<span>@@twitterhandle</span></p>
+            <p class="my-content-timestamp">Yesterday at 4:30pm</p>
+            <div class="my-content-item-main">
+                <img class="my-content-image img-responsive" src="http://rack.1.mshcdn.com/media/ZgkyMDE1LzA3LzIyLzUyL1NwYWNlSmFtMi5hMDQxYS5qcGcKcAl0aHVtYgk5NTB4NTM0IwplCWpwZw/626b0601/1bf/SpaceJam2.jpg">
+                <p class="my-content-headline">'Space Jam 2' tho!? LeBron James inks deal with Warner Bros</p>
+                <p class="my-content-text">After LeBron James announces a partnership with Warner Bros., thirst for 'Space Jam 2' overruns the Internet.</p>
+            </div>
+            <div class="my-content-tags">
+                <a href="#"><span>#BloomSky</span></a>
+                <a href="#">#Weather</a>
+                <a href="#">#Review</a>
+            </div>
+        </div>
+    </div>
+</div> -->

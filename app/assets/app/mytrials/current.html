@@ -6,16 +6,18 @@
     </div>
 
     <div class="row product-trial-item" ng-repeat="item in vm.current | orderBy:'-updatedAt'">
-        <div class="col-sm-12 product-trial-item-banner" up-background-image="{{item.product.banner.url.image}}" up-background-attr="?w=600&h=100" up-fallback-image="/assets/images/default-product-banner.jpg">
-            <p>{{item.product.name}}</p>
-        </div>
+        <a ui-sref="user.product.detail.buzz({ slug: item.product.slug })">
+            <div class="col-sm-12 product-trial-item-banner" up-background-image="{{item.product.banner.url.image}}" up-background-attr="?w=600&h=100" up-fallback-image="/assets/images/default-product-banner.jpg">
+                <p>{{item.product.name}}</p>
+            </div>
+        </a>
         <div class="col-sm-12 product-trial-item--detail">
             <div ng-switch="item.status">
                 <p ng-switch-when="0" class="product-trial-item--status current"><i class="fa fa-check-circle"></i>Requested on {{item.createdAt | date:'MMM dd, yyyy'}}</p>
                 <p ng-switch-when="0" class="product-trial-item--status-desc">Thanks for requesting a product trial. We'll process it very soon. Stay tuned :)</p>
 
                 <p ng-switch-when="1" class="product-trial-item--status current"><i class="fa fa-check-circle"></i>Approved on {{item.updatedAt | date:'MMM dd, yyyy'}}</p>
-                <p ng-switch-when="1" class="product-trial-item--status-desc">Congrats, you’re eligible for a product trial.  We are working on hard to prepare your awesome trial experience, watch your e-mail for more details when it is ready to ship.</p>
+                <p ng-switch-when="1" class="product-trial-item--status-desc">Congrats, you’re eligible for a product trial.  We are working hard to prepare your awesome trial experience, watch your e-mail for more details when it is ready to ship.</p>
 
                 <p ng-switch-when="2" class="product-trial-item--status current"><i class="fa fa-check-circle"></i>Sent on {{item.updatedAt | date:'MMM dd, yyyy'}}</p>
                 <p ng-switch-when="2" class="product-trial-item--status-desc">Woo hoo, we just shipped the product to you. It will arrive in a few days.</p>
@@ -24,53 +26,16 @@
                 <p ng-switch-when="3" class="product-trial-item--status-desc">The product you requested is delivered. Enjoy!</p>
             </div>
 
-            <p ng-show="item.refURL != null" class="product-trial-item--status"><i class="fa fa-link"></i>Your unique referral link: <span>{{item.refURL}}</span></p>
+            <up-trial-card trial='item' ng-if="item.status === 3"></up-trial-card>
+
+            <p ng-if="item.status==3 && item.trialEndsAt" class="product-trial-item--status"><i class="fa fa-truck"></i>Please ship product back on:</p>
+            <p ng-if="item.status==3 && item.trialEndsAt" class="product-trial-item--status-desc"><span>{{item.trialEndsAt | date:'MMM dd, yyyy'}}</span></p>    
+
+            <p ng-show="item.refURL != null" class="product-trial-item--status"><i class="fa fa-link"></i>Your unique referral link: </p>
+            <p class="product-trial-item--status-desc"><span>{{item.refURL}}</span></p>
             <p class="product-trial-item--status-desc">Please embed this unique referral link in any of your content. Share this link on social media. We use this link to measure conversions and reward you accordingly.</p>
 
-            <p ng-show="item.content.length===0" class="product-trial-item--status"><i class="fa fa-file-text"></i>You haven't uploaded any content yet. Click "Add my content" below to start!</p>
-            <p ng-show="item.content.length==1" class="product-trial-item--status"><i class="fa fa-file-text"></i>You have added 1 item. Awesome job!!</p>
-            <p ng-show="item.content.length>1" class="product-trial-item--status"><i class="fa fa-file-text"></i>You have added {{item.content.length}} items. Awesome job!!</p>
-            <div class="product-trial-item--result" ng-repeat="content in item.content">
-                <a ng-click="vm.deleteContent(content, item)" href="#"><i class="fa fa-times-circle"></i></a>
-                <a ng-href="{{content.url}}" target="_blank">{{content.url}}</a>
-            </div>
-
-            <div class="product-trial-item--actions">
-                <a analytics-on="click" analytics-event="Click Add Content button: {{item.product.name}}" ng-click="item.isContentFormOpen = !item.isContentFormOpen" href="#" class="btn btn-lg sproutup-btn-md-main">Add my content</a>
-                <a analytics-on="click" analytics-event="Visit forum: {{item.product.name}}" ui-sref="user.product.detail.bar({ slug: item.product.slug })" class="btn btn-lg sproutup-btn-md-main">Join discussion</a>
-                <!--a href="#" class="btn btn-lg sproutup-btn-md-main">Tweet</a-->
-            </div>
-            <div ng-show="item.isContentFormOpen" class="product-trial-item--input">
-                <p>Once you write a blog or make a video, please share the link with us. We will help promote the content and build more brand awareness for this product. You will also earn influence, followers, and perks.</p>
-                <form name="addContentForm" ng-submit="vm.addContent(item)">
-                    <input type="url" required="" ng-model="item.form.url" http-prefix="" class="form-control form-validate form-input medium" placeholder="Please enter the url of content you created, e.g. blog, video, etc.">
-                    <button analytics-on="click" analytics-event="Add content for {{item.product.name}}" ng-disabled="addContentForm.$invalid" class="btn btn-lg sproutup-btn-md-main" type="submit">Add</button>
-                    <a analytics-on="click" analytics-event="Cancel adding content for {{item.product.name}}" ng-click="item.isContentFormOpen=false" class="btn btn-lg sproutup-btn-md-cancel">Cancel</a>
-                </form>
-            </div>
+            <button analytics-on="click" analytics-event="Cancel Trial" analytics-slug="{{item.product.slug}}" class="btn btn-md sproutup-btn-md-main cancel" ng-confirm-click="Are you should you want to cancel this trial?" confirmed-click="vm.cancelTrial(item.id)" ng-if="item.status < 2">Cancel Trial</button>
         </div>
     </div>
-
-    <!--div class="row product-trial-item">
-        <div class="col-sm-12 product-trial-item-banner" style="background-image: url('http://d30xksqof6w2my.cloudfront.net/2dd1e278-7636-43c4-97ae-262da1d070f8_0_admin.jpg?w=600&h=100')">
-            <p>Belleds</p>
-        </div>
-        <div class="col-sm-12 product-trial-item--detail">
-            <p class="product-trial-item--status current"><i class="fa fa-check-circle"></i>Requested on June 12, 2015</p>
-            <p class="product-trial-item--status current"><i class="fa fa-check-circle"></i>You have uploaded 2 content. Awesome job!!</p>
-            <div class="product-trial-item--result">
-                <a href="#"><i class="fa fa-times-circle"></i></a>
-                <a href="#" target="_blank">http://www.youtube.com</a>
-            </div>
-            <div class="product-trial-item--result">
-                <a href="#"><i class="fa fa-times-circle"></i></a>
-                <a href="#" target="_blank">http://www.vimeo.com</a>
-            </div>
-            <div class="product-trial-item--actions">
-                <a href="#" class="btn btn-lg sproutup-btn-md-main">Add my content</a>
-                <a href="#" class="btn btn-lg sproutup-btn-md-main">Join discussion</a>
-                <a href="#" class="btn btn-lg sproutup-btn-md-main">Tweet</a>
-            </div>
-        </div>
-    </div-->
 </div>

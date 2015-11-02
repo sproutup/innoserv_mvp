@@ -1,0 +1,13 @@
+@(title: String, moreHead: Html = Html(""), bodyAttributes: Html = Html(""), htmlAttributes: Html = Html(""))(content: Html)
+
+<!DOCTYPE html>
+<html lang="@lang().code()" @htmlAttributes>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <title ng-bind="$state.current.data.title">@title</title>
+    @moreHead
+    <body @bodyAttributes>
+			@content
+	</body>
+</html>

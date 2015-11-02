@@ -1,11 +1,13 @@
 package controllers;
 
+import be.objectify.deadbolt.java.actions.SubjectPresent;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.feth.play.module.pa.PlayAuthenticate;
 import com.feth.play.module.pa.providers.password.UsernamePasswordAuthProvider;
 
 import com.feth.play.module.pa.user.AuthUser;
+import models.RewardEvent;
 import models.User;
 import play.Logger;
 import play.data.Form;
@@ -52,7 +54,7 @@ public class AuthController extends Controller {
 
 	        // signup user and return result
 	        com.feth.play.module.pa.controllers.Authenticate.noCache(response());
-            final Form<MyUsernamePasswordAuthProvider.MySignup> filledForm = MyUsernamePasswordAuthProvider.SIGNUP_FORM.bind(json,"name","email","password", "repeatPassword");
+            final Form<MyUsernamePasswordAuthProvider.MySignup> filledForm = MyUsernamePasswordAuthProvider.SIGNUP_FORM.bind(json, "name", "email", "password", "repeatPassword");
 
             if (filledForm.hasErrors()) {
                 // User did not fill everything properly
@@ -79,6 +81,38 @@ public class AuthController extends Controller {
         return badRequest("Missing request body");
     }
 
+
+    @SubjectPresent
+    public static Result validate(String username){
+        boolean res = false;
+        User user = Application.getLocalUser(ctx().session());
+
+        ObjectNode node = Json.newObject();
+        if(user.nickname.equalsIgnoreCase(username.trim())){
+            node.put("unique", true);
+            node.put("mine", true);
+            return ok(node);
+        }
+
+        if(User.findByNickname(username) == null) {
+            node.put("unique", true);
+            return ok(node);
+        }
+        else{
+            node.put("unique", false);
+            return ok(node);
+        }
+    }
+
+    @SubjectPresent
+    public static Result points(){
+        User user = Application.getLocalUser(ctx().session());
+        ObjectNode node = Json.newObject();
+        node.put("points", user.points());
+        node.put("events", RewardEvent.toJson(RewardEvent.getLatest(user.id)));
+        return ok(node);
+    }
+
     @BodyParser.Of(BodyParser.Json.class)
     public static Result logout(){
 
@@ -91,7 +125,7 @@ public class AuthController extends Controller {
     @BodyParser.Of(BodyParser.Json.class)
     public static Result user(){
         User localUser = Application.getLocalUser(session());
-        if(localUser != null){
+        if(localUser != null) {
             return ok(localUser.toJson());
         }
         else {

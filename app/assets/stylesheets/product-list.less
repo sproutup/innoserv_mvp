@@ -23,12 +23,17 @@
 }
 
 .product-list-header h1 {
-  font-weight: 300;
-  font-size: 20pt;
+  font-weight: 400;
+  font-size: 13pt;
   line-height: 1.5;
-  color: @main-text;
+  color: @main-text-2;
   padding-bottom: 15px;
   margin: 0px;
+}
+
+.product-list-header h1 span {
+  color: @sproutup-orange;
+  font-weight: 700;
 }
 
 @media (max-width:767px) {
@@ -85,6 +90,10 @@
   padding: 4px;
 }
 
+.product-list-item a {
+  text-decoration: none !important;
+}
+
 .product-cover-photo {
     height:480px;
     width:100%;
@@ -115,21 +124,32 @@
   content: "";
 }
 
+a .product-cover-label {
+    padding: 5px 25px;
+    position: relative;
+    z-index: 3;
+}
+
+.product-cover-label-img {
+  width: 110px;
+  margin-bottom: 10px;
+}
+
 a .product-cover-title {
   color: white;
-  left: 0px;
-  top: 100px;
-  padding: 20px;
+  padding: 25px 25px 10px;
   width: 100%;
   font-weight: 300;
-  font-size: 20pt;
-  position: absolute;
+  font-size: 19pt;
+  position: relative;
   z-index: 3;
+  text-decoration: none !important;
 }
 
 a .product-cover-title p {
   padding: 0px;
   margin: 0px;
+
 }
 
 a .product-cover-title p:hover {
@@ -141,11 +161,10 @@ a .product-cover-description {
   width: 100%;
   font-weight: 300;
   font-size: 11pt;
-  left: 0px;
-  padding: 20px;
+  margin: 0px;
+  padding: 0px 25px 15px;
   z-index: 3;
-  top: 150px;
-  position: absolute;
+  position: relative;
   line-height: 1.7;
 }
 
@@ -175,7 +194,7 @@ a .product-cover-description {
 .trial-user-list {
     left: 0px;
     bottom: 0px;
-    padding: 20px 20px 15px;
+    padding: 0px 25px 25px;
     width: 100%;
     position: absolute;
     z-index: 3;
@@ -197,13 +216,20 @@ a .product-cover-description {
   position: relative;
 }
 
-.product-category-list {
-  left: 0px;
-  top: 0px;
-  padding: 20px;
+.product-labels {
+  padding: 0px 20px;
   width: 100%;
   z-index: 3;
-  position: absolute;
+  position: relative;
+}
+
+.label-discount {
+    background-color: @sproutup-green;
+    font-size: 8pt;
+    font-weight: 700;
+    position: relative;
+    bottom: 5px;
+    padding: 6px 8px;
 }
 
 .btn-product-category {
@@ -243,14 +269,14 @@ a .product-cover-description {
 .btn-sproutup-tab {
     margin: 4px;
     min-width: 160px;
-  height: 48px;
+  height: 45px;
   border: dashed 1px @sproutup-blue;
-  font-weight: 400;
+  font-weight: 700;
   font-size: 11pt;
   color: @sproutup-blue;
   background-color: #fff;
   border-radius: 0px;
-  padding-top: 13px;
+  padding-top: 11px;
   padding-left: 24px;
   padding-right: 24px;
   -webkit-transition: all .2s ease-in-out;

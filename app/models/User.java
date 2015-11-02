@@ -20,6 +20,7 @@ import com.feth.play.module.pa.user.EmailIdentity;
 import com.feth.play.module.pa.user.NameIdentity;
 import com.feth.play.module.pa.user.FirstLastNameIdentity;
 
+import com.typesafe.plugin.RedisPlugin;
 import constants.AppConstants;
 import constants.UserRole;
 import controllers.Application;
@@ -36,6 +37,7 @@ import play.data.validation.Constraints;
 import play.db.ebean.Model;
 import play.libs.Json;
 import play.mvc.Http;
+import redis.clients.jedis.Jedis;
 
 import javax.persistence.*;
 
@@ -140,6 +142,9 @@ public class User extends TimeStampModel implements Subject {
 
 	@OneToMany
 	public List<Trial> trials;
+
+	@OneToMany
+	public List<RewardEvent> rewardEvents;
 
 	@ManyToOne
 	public Company company;
@@ -247,7 +252,7 @@ public class User extends TimeStampModel implements Subject {
 
 	public static User create(final AuthUser authUser) {
 
-		return create (authUser, UserRole.CONSUMER.name());
+		return create(authUser, UserRole.CONSUMER.name());
 	}
 
 	public static User create(final AuthUser authUser, String role) {
@@ -360,6 +365,16 @@ public class User extends TimeStampModel implements Subject {
 		TokenAction.deleteByUser(unverified, Type.EMAIL_VERIFICATION);
 	}
 
+	public int points(){
+		int points = 0;
+		if (this.rewardEvents!=null && this.rewardEvents.size()>0) {
+			for (RewardEvent event : this.rewardEvents) {
+				points += event.points;
+			}
+		}
+		return points;
+	}
+
 	public void changePassword(final UsernamePasswordAuthUser authUser,
 			final boolean create) {
 		LinkedAccount a = this.getAccountByProvider(authUser.getProvider());
@@ -410,6 +425,13 @@ public class User extends TimeStampModel implements Subject {
 		if (this.trials!=null && this.trials.size()>0){
 			node.put("trials", Trial.toJson(trials));
 		}
+		int points = 0;
+		if (this.rewardEvents!=null && this.rewardEvents.size()>0){
+			for(RewardEvent event : this.rewardEvents){
+				points += event.points;
+			}
+		}
+		node.put("points", points);
 		if (this.analyticsAccounts!=null && this.analyticsAccounts.size()>0){
 			node.put("analytics", AnalyticsAccount.toJson(this.analyticsAccounts));
 		}
@@ -435,12 +457,107 @@ public class User extends TimeStampModel implements Subject {
 	public ObjectNode toJsonShort(){
 		ObjectNode node = Json.newObject();
 		node.put("id", this.id);
+		node.put("description", this.description);
 		node.put("name", this.name);
 		node.put("nickname", this.nickname);
 		node.put("avatarUrl", getAvatar());
 		node.put("urlTwitter", this.urlTwitter);
+		node.put("urlFacebook", this.urlFacebook);
+		node.put("urlBlog", this.urlBlog);
+		node.put("urlPinterest", this.urlPinterest);
+		node.put("urlYoutube", this.urlYoutube);
+		node.put("isInfluencer", this.isInfluencer());
+		int points = 0;
+		if (this.rewardEvents!=null && this.rewardEvents.size()>0){
+			for(RewardEvent event : this.rewardEvents){
+				points += event.points;
+			}
+		}
+		node.put("points", Integer.toString(points));
+		node.put("posts", Post.userCount(this.id));
+		if(this.trials != null) {
+			node.put("trials", Trial.getActiveCount(this.trials));
+		}
+		else{
+			node.put("trials", 0);
+		}
+
 		return node;
 	}
+
+	public void hmset(){
+		Jedis j = play.Play.application().plugin(RedisPlugin.class).jedisPool().getResource();
+		try {
+			Map map = new HashMap();
+
+			String key = "user:" + id.toString();
+
+			// Create the hashmap values
+			map.put("id", this.id.toString());
+			map.put("name", this.name);
+			if(this.nickname!=null) map.put("nickname", this.nickname);
+			if(this.getAvatar()!=null) map.put("avatarUrl", getAvatar());
+			if(this.urlTwitter!=null) {
+				map.put("urlTwitter", this.urlTwitter);
+				map.put("handleTwitter", this.urlTwitter.substring(urlTwitter.lastIndexOf("/") + 1));
+			}
+			int points = 0;
+			if (this.rewardEvents!=null && this.rewardEvents.size()>0){
+				for(RewardEvent event : this.rewardEvents){
+					points += event.points;
+				}
+			}
+			map.put("points", Integer.toString(points));
+			map.put("posts", Post.userCount(this.id).toString());
+			if(this.trials != null) {
+				map.put("trials", Integer.toString(this.trials.size()));
+			}
+			else{
+				map.put("trials", "0");
+			}
+
+			// add the values
+			j.hmset(key, map);
+			j.expire(key, 86400); // 60s x 60m x 24h = 86400s = 1 day
+		} finally {
+			play.Play.application().plugin(RedisPlugin.class).jedisPool().returnResource(j);
+		}
+	}
+
+	public static ObjectNode hmget(String id){
+		Jedis j = play.Play.application().plugin(RedisPlugin.class).jedisPool().getResource();
+		try {
+			return hmget(id, j);
+		} finally {
+			play.Play.application().plugin(RedisPlugin.class).jedisPool().returnResource(j);
+		}
+	}
+
+	public static ObjectNode hmget(String id, Jedis j){
+		ObjectNode node = Json.newObject();
+		try {
+			String key = "user:" + id;
+
+			if(!j.exists(key)) {
+				Logger.debug("user added to cache " + key);
+				User.find.byId(Long.parseLong(id, 10)).hmset();
+			}
+
+			List<String> values = j.hmget(key, "id", "name", "nickname", "avatarUrl", "urlTwitter", "handleTwitter", "points");
+
+			node.put("id", id);
+			if (values.get(0) != null) node.put("id", Long.parseLong(values.get(0),10));
+			if (values.get(1) != null) node.put("name", values.get(1));
+			if (values.get(2) != null) node.put("nickname", values.get(2));
+			if (values.get(3) != null) node.put("avatarUrl", values.get(3));
+			if (values.get(4) != null) node.put("urlTwitter", values.get(4));
+			if (values.get(5) != null) node.put("handleTwitter", values.get(5));
+			if (values.get(6) != null) node.put("points", values.get(6));
+		} finally {
+		}
+		return node;
+	}
+
 
 	public String getAvatar(){
 		if(avatar != null){
@@ -453,8 +570,21 @@ public class User extends TimeStampModel implements Subject {
 		}
 		else
 		if(getProviders().contains("twitter")){
-			return getAccountByProvider("twitter").providerUserImageUrl;
-			//return "http://graph.facebook.com/" + facebookId + "/picture/?type=large";
+			String url = getAccountByProvider("twitter").providerUserImageUrl;
+			int indexmini = url.lastIndexOf("_mini.");
+			int indexnormal = url.lastIndexOf("_normal.");
+			int indexbigger = url.lastIndexOf("_bigger.");
+			// if they are there, remove mini, normal, or bigger
+			if (indexmini!=-1) {
+				 url = url.replace("_mini", "");
+			} else if (indexnormal!=-1) {
+				url = url.replace("_normal", "");
+			} else if (indexbigger!=-1) {
+				url = url.replace("_bigger", "");
+			}
+			int index = url.lastIndexOf('.');
+			// return string with _bigger at the end
+			return new StringBuilder(url).insert(index, "_bigger").toString();
 		}
         else{
             return "assets/images/default-avatar.png";

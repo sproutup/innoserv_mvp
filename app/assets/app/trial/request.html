@@ -7,13 +7,14 @@
                     <div class="signup-wizard-row">
                         <input tabindex="1" type="text" ng-model="vm.request.address" ng-autocomplete="" class="form-control form-input medium" placeholder="Your shipping address" required>
                         <input tabindex="2" type="text" ng-model="vm.request.phone" class="form-control form-input medium" placeholder="Your phone number" required>
-                        <textarea tabindex="3" type="text" ng-model="vm.request.reason" class="form-control form-input-textarea no-resize" placeholder="Briefly describe why you're interested in trying {{vm.product.productName}}. We may quote and showcase your words." rows="1" required></textarea>
+                        <textarea tabindex="3" type="text" ng-model="vm.request.reason" class="form-control form-input-textarea no-resize" placeholder="Briefly describe why you're interested in trying {{vm.product.name}}. We may quote and showcase your words." rows="1" required></textarea>
                     </div>
 
                     <p>After you qualify, product will be shipped to the address you provided. You may be contacted by phone or email for shipping and trial related questions.</p>
+                    <p>By requesting the product trial, I agree to SproutUp's <a href="#" ui-sref="user.trial-terms">Product Trial Terms and Conditions</a>.</p>
 
                     <div class="signup-wizard-actions">
-                        <button type="submit" analytics-on="click" analytics-event="Confirm trial: {{vm.product.productName}}" ng-disabled="basicform.$invalid" class="btn btn-lg sproutup-btn-md-main" ng-click="vm.submit()">Continue</button>
+                        <button type="submit" analytics-on="click" analytics-event="Confirm Trial" analytics-slug="{{vm.product.slug}}" ng-disabled="basicform.$invalid" class="btn btn-lg sproutup-btn-md-main" ng-click="vm.submit()">Continue</button>
                         <a type="submit" class="btn btn-lg sproutup-btn-md-cancel" ng-click="vm.cancel()">Cancel</a>
                     </div>
                 </div>

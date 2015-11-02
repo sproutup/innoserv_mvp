@@ -8,6 +8,7 @@
   background-size: cover;
   position: relative;
   color: @main-text-white;
+  margin-bottom: 20px;
 }
 
 .profile-header::after {
@@ -23,6 +24,7 @@
 .profile-info {
   padding: 20px 0px;
   margin: 0px;
+  margin-top: 30px !important;
 }
 
 .profile-user--avatar {
@@ -35,13 +37,13 @@
   margin-left: auto;
   margin-right: auto;
   border-radius: 8px;
-  width: 140px;
-  height: 140px;
+  width: 80px;
+  height: 80px;
 }
 
 .profile-user--details {
   margin: 0px;
-  padding: 0px 20px 60px;
+  padding: 0px 20px 10px;
   z-index: 5;
 }
 
@@ -68,7 +70,7 @@
 }
 
 .profile-user--badge {
-  margin: 0;
+  margin: 0px 0px 90px;
 }
 
 .profile-user--badge li {
@@ -85,6 +87,10 @@
   height: 40px;
   font-size: 12pt;
   font-weight: 400;
+}
+
+.profile-user--badge-item.rewards {
+  background-color: @sproutup-darkgold;
 }
 
 .profile-menu {
@@ -241,9 +247,189 @@ ul.profile-user-social-buttons li a:hover {
     margin: 10px;
 }
 
+.user-trial-wrapper {
+  width: 100%;
+  height: 230px;
+  margin-bottom: 40px;
+}
+
+.user-trial-picture {
+  width: 200px;
+  height: 200px;
+  float: left;
+}
+
+.user-trial-info {
+  display: inline-block;
+  background-color:rgba(0, 0, 0, 0.5);
+  color: white;
+  padding: 15px 25px;
+}
+
+.user-trial-product-name {
+  font-weight: bold;
+  font-size: 15pt;
+  position: relative;
+  top: -6px;
+}
+
+.user-trial-status {
+  display: inline-block;
+  padding: 8px 10px;
+  margin-top: 6px;
+  margin-bottom: 4px;
+  border-radius: 2px;
+}
+
+.user-trial-status.requested {
+  background-color: @sproutup-blue;
+}
+
+.user-trial-status.active {
+  background-color: @sproutup-green;
+}
+
+.user-trial-status.completed {
+  background-color: @sproutup-orange;
+}
+
+.user-profile-menu {
+  border-bottom: 1px dashed @sproutup-blue;
+  padding: 0px 0px 20px;
+}
+
+.user-profile-menu-buzz {
+  margin-right: 20px;
+}
+
+.user-profile-buzz-wrapper {
+  margin-top: 30px !important;
+}
+
+.user-profile-menu-item {
+  display: inline-block !important;
+  padding: 6px;
+  width: 78px;
+  height: 40px;
+  text-align: center;
+  padding-top: 8px;
+  color: @sproutup-blue;
+  border-radius: 3px;
+  font-size: 12pt;
+}
+
+.user-profile-menu-item:hover {
+  background-color: @sproutup-grey;
+  color: white;
+  cursor: pointer;
+}
+
+.active-profile-button {
+  background-color: #2996cc !important;
+  color: white !important;
+}
+
+.user-profile-menu-bar {
+  width: 2px;
+  height: 41px;
+  position: absolute;
+  background-color: @sproutup-blue;
+  display: inline-block;
+}
+
+.user-profile-menu-item:link, .user-profile-menu-item:visited, .user-profile-menu-item:hover, .user-profile-menu-item:active {
+  text-decoration: none !important;
+}
+
+.user-profile-content {
+  margin-top: 20px;
+}
+
+.my-profile-trial-page {
+  max-width: 640px;
+  margin: 50px auto;
+  padding: 0px;
+}
+
+.my-profile-trial-page.empty {
+  margin: 30px auto;
+}
+
+.profile-input-row .success {
+  color: #65bc25;
+}
+
+.profile-input-row .error {
+  color: #ed7a14;
+}
+
+.profile-input-row .username-message {
+  margin-left: 350px;
+  position: relative;
+  top: 3px;
+}
+
+.rewards-link {
+  color: white;
+}
+
+.product-menu--content.stats {
+  margin: 0px auto;
+  max-width: 640px;
+  position: relative;
+  left: 74px;
+  bottom: 12px;
+  padding-left: 0px;
+  text-align: center;
+}
+
+.product-menu--content.stats div {
+  text-align: center;
+  padding-bottom: 0px;
+}
+
+
+
+.stats-link div:first-child {
+  color: white;
+  font-size: 11pt;
+}
+
+.stats-link div:last-child {
+  color: @sproutup-gold;
+  font-size: 13pt;
+  font-weight: 700;
+  padding-bottom: 4px;
+}
+
+.stats-link.active div:last-child {
+  border-bottom: @sproutup-gold;
+}
+
+.stats-link:hover, .stats-link:active, .stats-link:visited, .stats-link:link {
+  underline: none !important;
+  text-decoration: none !important;
+}
+
+.active-stat {
+  border-bottom: 6px solid @sproutup-gold;
+}
+
+@media (min-width:767px) {
+  .profile-user--avatar img {
+    position: relative;
+    top: 12px;
+    margin-right: 30px !important;
+  }
+  .profile-user--details {
+    padding-left: 5px;
+  }
+}
+
 @media (max-width:767px) {
     .profile-user--details {
         text-align: center;
+        padding-bottom: 60px;
     }
 
     .profile-user--name {
@@ -288,8 +474,28 @@ ul.profile-user-social-buttons li a:hover {
     }
 
     .profile-menu-body {
-        max-width: none;
-        padding: 0px auto;
-        margin: 0px auto;
+      max-width: none;
+      padding: 0px auto;
+      margin: 0px auto;
+    }
+
+    .product-menu--content.stats div {
+      display: inline-block;
+      width: 90px;
+    }
+
+    .stats-link div {
+      display: block !important;
+    }
+
+    .product-menu--content.stats {
+      left: 0px;
+      width: 700px;
+      text-align: left;
+    }
+
+    .profile-user--badge li {
+      position: relative;
+      bottom: 18px;
     }
 }

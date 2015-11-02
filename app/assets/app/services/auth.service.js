@@ -3,9 +3,9 @@ angular
     .module('sproutupApp')
     .factory('AuthService', authService);
 
-authService.$inject = ['$http', '$q', '$cookieStore', '$log', 'UserService', '$timeout', '$state'];
+authService.$inject = ['$http', '$q', '$cookieStore', '$log', 'UserService', '$timeout', '$state', '$analytics', '$resource', '$rootScope'];
 
-function authService($http, $q, $cookieStore, $log, userService, $timeout, $state){
+function authService($http, $q, $cookieStore, $log, userService, $timeout, $state, $analytics, $resource, $rootScope){
     var user = {};
     var isReady = false;
     var urlBase = '/api/auth';
@@ -34,7 +34,9 @@ function authService($http, $q, $cookieStore, $log, userService, $timeout, $stat
         addTrial: addTrial,
         redirect: redirect,
         loginAndRedirect: loginAndRedirect,
-        refreshTrials: refreshTrials
+        refreshTrials: refreshTrials,
+        validateUsername: validateUsername,
+        refreshPoints: refreshPoints
     };
 
     activate();
@@ -45,6 +47,10 @@ function authService($http, $q, $cookieStore, $log, userService, $timeout, $stat
         return getAuthenticatedUser().then(function() {
             console.log('Return User');
         });
+    }
+
+    function validateUsername() {
+        return $resource('/api/auth/username/validate/:username', { username:'@username' });
     }
 
     /*
@@ -77,7 +83,8 @@ function authService($http, $q, $cookieStore, $log, userService, $timeout, $stat
             $state.go(state);
         }
         else{
-            console.log("redirect state from cookie:", model.redirectState);
+            // console.log("redirect state from cookie:", model.redirectState);
+            // console.log("model.redirectParams:" ,model.redirectParams);
             var state_tmp = model.redirectState;
             var params_tmp = model.redirectParams;
             model.redirectState = null;
@@ -135,8 +142,10 @@ function authService($http, $q, $cookieStore, $log, userService, $timeout, $stat
         return accessLevel.bitMask & role.bitMask;
     }
 
-    function getAuthenticatedUser(){
+    function getAuthenticatedUser(signup){
         var deferred = $q.defer();
+
+        signup = typeof signup !== 'undefined' ? signup : false;
 
         $http({
             method: 'GET',
@@ -151,6 +160,17 @@ function authService($http, $q, $cookieStore, $log, userService, $timeout, $stat
                     console.log("#3 status: ", status);
                     isReady = true;
                     model.isLoggedIn = true;
+
+                    if(signup){
+                        console.log('signup data: ', data);
+                        $analytics.setAlias(model.user.id);
+                    }
+                    else{
+                        console.log('signin data: ', data);
+                        $analytics.setUsername(model.user.id);
+                    }
+                    $analytics.setUserPropertiesOnce({name: model.user.name});
+
                     refreshTrials();
                     $log.debug("auth user service returned success: " + model.user.name);
                     deferred.resolve(model.user);
@@ -261,7 +281,7 @@ function authService($http, $q, $cookieStore, $log, userService, $timeout, $stat
             headers: {'Content-Type': 'application/json'}
         }).success(function(data, status, headers, config){
             //angular.extend(model.user,data);
-            getAuthenticatedUser().then(function () {
+            getAuthenticatedUser(true).then(function () {
                 $log.debug("signup service get user success");
                     deferred.resolve("success");
                 }
@@ -298,6 +318,25 @@ function authService($http, $q, $cookieStore, $log, userService, $timeout, $stat
 
         $log.debug("auth signup service returned promise");
         return deferred.promise;
+    }
+
+    function refreshPoints() {
+        var Refresh = $resource('/api/user/points');
+        Refresh.get(function(res){
+            if (model.user.points === res.points) {
+                return;
+            }
+            // keep oldPoints for animation transition
+            model.user.oldPoints = model.user.points;
+            model.user.points = res.points;
+            // set points event for the points directive
+            $rootScope.eventObj.points = res.events[0].points;
+            $rootScope.$emit('PointsEvent');
+            $rootScope.pointsAdded = true;
+            setTimeout(function() {
+                $rootScope.pointsAdded = false;
+            }, 2500);
+        });
     }
 
     AuthService.accessLevels = accessLevels;

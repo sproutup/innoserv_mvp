@@ -1,0 +1,59 @@
+@(contList: java.util.List[Contest])
+
+@admin_wrapper("Product promotion Contests") {
+
+    <h2><a href="/adminstuff" target="_self">Admin Home</a></h2>
+
+  <h2>Product promotion Contests &nbsp;&nbsp;
+	<a href="/adminstuff/contest/new" class="btn" target="_self">
+	<i class="icon-plus"></i> &nbsp;+ (New)</a>
+  </h2>
+
+<div class="table-responsive">
+   <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Contest Id</th>
+        <th>Name</th>
+        <th>Title</th>
+        <th>Product Id</th>
+        <th>Product Name</th>
+        <th>Begin Date</th>
+        <th>End Date</th>
+        <th># participated</th>
+        <th>Created Date</th>
+        <th>Updated Date</th>
+        <th>is Active</th>
+
+      </tr>
+    </thead>
+    <tbody>
+    @for(cont <- contList) {
+
+      <tr>
+
+        <td><a href="@routes.ContestController.details(cont.id)" target="_self">@cont.id</a></td>
+        <td><a href="@routes.ContestController.details(cont.id)" target="_self">@cont.contestName</a></td>
+        <td>@cont.contestTitle</td>
+        @if(cont.product ==null){
+        <td>Product Not assigned</td>
+        <td>N?A</td>
+       } else {
+        <td>@cont.product.id</td>
+        <td>@cont.product.productName</td>
+       }
+        <td>@cont.beginDate</td>
+        <td>@cont.endDate</td>
+        <td>@cont.totalNumParticipated</td>
+        <td>@cont.createdAt</td>
+        <td>@cont.updatedAt</td>
+        <td>@cont.active</td>
+
+      </tr>
+      }
+
+    </tbody>
+   </table>
+</div>
+
+}

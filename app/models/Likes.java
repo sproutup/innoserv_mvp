@@ -3,12 +3,18 @@ package models;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.typesafe.plugin.RedisPlugin;
 import org.joda.time.DateTime;
 import play.libs.Json;
 
 import javax.persistence.*;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 import play.Logger;
+import redis.clients.jedis.Jedis;
 
 @Entity
 public class Likes extends TimeStampModel {
@@ -70,6 +76,10 @@ public class Likes extends TimeStampModel {
 			rs.refId = refId;
 			rs.refType = refType;
 			rs.save();
+
+			// add to cache
+			rs.hmset();
+			rs.zadd(refId.toString(), refType);
 		}
 
 		return rs;
@@ -95,6 +105,10 @@ public class Likes extends TimeStampModel {
 
 		// if link is found then delete
 		if(rs != null){
+			// delete from cache
+			rs.zrem(refId.toString(), refType);
+			rs.del();
+			// delete from db
 			rs.delete();
 		}
 	}
@@ -112,6 +126,10 @@ public class Likes extends TimeStampModel {
 
 		// delete likes one by one
 		for (Likes like : likes) {
+			// delete from cache
+			like.zrem(refId.toString(), refType);
+			like.del();
+			// delete from db
 			like.delete();
 		}
 	}
@@ -130,6 +148,41 @@ public class Likes extends TimeStampModel {
 		return likes;
 	}
 
+    public static ObjectNode range(String refId, String refType){
+		Jedis j = play.Play.application().plugin(RedisPlugin.class).jedisPool().getResource();
+		try {
+			return range(refId, refType, j);
+		} finally {
+			play.Play.application().plugin(RedisPlugin.class).jedisPool().returnResource(j);
+		}
+	}
+
+	public static ObjectNode range(String refId, String refType, Jedis j){
+		ObjectNode items = Json.newObject();
+		ArrayNode data = items.putArray("data");
+
+		//Go to Redis to read the full roster of content.
+		String key = "likes:"+ refType + ":" + refId;
+
+		if(!j.exists(key+":init")) {
+			Logger.debug("adding likes to cache: " + key);
+			for(Likes like: getAllLikes(Long.parseLong(refId, 10), refType)){
+				like.zadd(refId, refType);
+			}
+			j.set(key + ":init", "1");
+		}
+
+		Set<String> set = j.zrange(key, 0, -1);
+		items.put("count", j.zcard(key));
+
+		for(String id: set) {
+			// get the data for each like
+			data.add(Likes.hmget(id));
+		}
+
+		return items;
+	}
+
 	public ObjectNode toJson(){
 		ObjectNode node = Json.newObject();
         node.put("id", this.user.id);
@@ -140,9 +193,91 @@ public class Likes extends TimeStampModel {
 
 	public static ArrayNode toJson(List<Likes> likes){
 		ArrayNode arrayNode = new ArrayNode(JsonNodeFactory.instance);
-		for (Likes like : likes){
+		for (Likes like : likes) {
 			arrayNode.add(like.toJson());
 		}
 		return arrayNode;
 	}
+
+	public void zadd(String refId, String refType){
+		Jedis j = play.Play.application().plugin(RedisPlugin.class).jedisPool().getResource();
+		try {
+			// compose key
+			String key = "likes:"+ refType + ":" + refId;
+			//String key = "likes:" + id.toString();
+			// left push to list
+			//j.lpush(key, this.id.toString());
+			Logger.debug("like added to list " + key);
+			j.zadd(key, createdAt.getTime(), this.id.toString());
+		} finally {
+			play.Play.application().plugin(RedisPlugin.class).jedisPool().returnResource(j);
+		}
+	}
+
+	public void zrem(String refId, String refType){
+		Jedis j = play.Play.application().plugin(RedisPlugin.class).jedisPool().getResource();
+		try {
+			// compose key
+			String key = "likes:"+ refType + ":" + refId;
+			// delete
+			j.zrem(key, this.id.toString());
+		} finally {
+			play.Play.application().plugin(RedisPlugin.class).jedisPool().returnResource(j);
+		}
+	}
+
+	public void hmset(){
+		Jedis j = play.Play.application().plugin(RedisPlugin.class).jedisPool().getResource();
+		try {
+			Map content = new HashMap();
+
+			// Create the hashmap values
+			content.put("id", this.id.toString());
+			content.put("createdAt", new DateTime(this.createdAt).toString());
+
+			if(this.user != null) {
+				content.put("user.id", this.user.id.toString());
+			}
+
+			// add the values
+			j.hmset("like:" + this.id.toString(), content);
+		} finally {
+			play.Play.application().plugin(RedisPlugin.class).jedisPool().returnResource(j);
+		}
+	}
+
+	public static ObjectNode hmget(String id){
+		Jedis j = play.Play.application().plugin(RedisPlugin.class).jedisPool().getResource();
+		ObjectNode node = Json.newObject();
+		try {
+			String key = "like:" + id.toString();
+
+			if(!j.exists(key)) {
+				Logger.debug("like added to cache " + key);
+				Likes.find.byId(Long.parseLong(id, 10)).hmset();
+			}
+
+			List<String> values = j.hmget(key, "id", "createdAt", "user.id");
+
+			if (values.get(0) != null) node.put("id", Long.parseLong(values.get(0),10));
+			if (values.get(1) != null) node.put("createdAt", values.get(1));
+			if (values.get(2) != null) {
+				node.put("user", User.hmget(values.get(2)));
+			}
+		} finally {
+			play.Play.application().plugin(RedisPlugin.class).jedisPool().returnResource(j);
+		}
+		return node;
+	}
+
+	public void del(){
+		Jedis j = play.Play.application().plugin(RedisPlugin.class).jedisPool().getResource();
+		try {
+			// delete
+			j.del("like:" + this.id.toString());
+		} finally {
+			play.Play.application().plugin(RedisPlugin.class).jedisPool().returnResource(j);
+		}
+	}
+
 }

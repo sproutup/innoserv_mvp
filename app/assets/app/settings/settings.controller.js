@@ -16,7 +16,7 @@
 
         function activate() {
             if(!authService.ready()){
-                var unbindWatch = $rootScope.$watch(authService.loggedIn, function (value) {
+                var unbindWatch = $rootScope.$watch(authService.ready, function (value) {
                     if ( value === true ) {
                       unbindWatch();
                       activate();
@@ -29,7 +29,11 @@
         }
 
         function init() {
-            vm.user = angular.copy(authService.m.user);
+            if (authService.loggedIn()) {
+                vm.user = angular.copy(authService.m.user);
+            } else {
+                $state.go('user.login');
+            }
         }
     }
 })();

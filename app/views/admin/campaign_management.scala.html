@@ -3,13 +3,13 @@
 @import helper._
 @implicitFieldConstructor = @{ FieldConstructor(twitterBootstrapBasic.f) }
 
-@main(Messages("Create/Edit/Copy a Campaign")) {
-	
+@admin_wrapper("Create/Edit a Campaign") {
 
   <div class="row">
     <div class="container">
       <div class="row">
         <div class="col-md-12">
+        <h2><a href="/adminstuff" target="_self" class="btn btn-lg">Admin Home</a></h2>
           <h1 class="form-header">Create/Edit a Campaign</h1>
         </div>
 
@@ -37,13 +37,13 @@
           campaignForm("campaignShortDescription"),
           '_label -> "Campaign Short Description"
           )
-			
-			          
-          @textarea(field = campaignForm("campaignLongDescription"), 
-          '_label -> "Campaign Long Description", 
+
+
+          @textarea(field = campaignForm("campaignLongDescription"),
+          '_label -> "Campaign Long Description",
           'rows -> 2, 'cols -> 50
           )
-          
+
           @if(campaignForm("beginDate").value==null || campaignForm("beginDate").value.isEmpty ) {
           @inputText(
           campaignForm("beginDate"),
@@ -61,7 +61,7 @@
           @inputText(
           campaignForm("endDate"),
           '_label -> "Campaign End Date/Time",
-          'type -> "datetime-local" 
+          'type -> "datetime-local"
           )
           } else {
           @inputText(
@@ -70,12 +70,12 @@
           )
           }
 
-           
-          @textarea(field = campaignForm("campaignShareMessage"), 
-          '_label -> "Share Message", 
+
+          @textarea(field = campaignForm("campaignShareMessage"),
+          '_label -> "Share Message",
           'rows -> 2, 'cols -> 50
           )
-		
+
 		 <b>Offer Discount:</b>
 		  <input type="checkbox" name="@campaignForm("offerDiscount").name" value="true" @if(campaignForm("offerDiscount").value=="true"){ checked }>&nbsp;@campaignForm("offerDiscount").value
 		  &nbsp;&nbsp;
@@ -83,43 +83,43 @@
           campaignForm("discountDescription"),
           '_label -> "Discount Offer Description"
           )
-          @textarea(field = campaignForm("campaignPerks2"), 
-          '_label -> "Coupon Code", 
+          @textarea(field = campaignForm("campaignPerks2"),
+          '_label -> "Coupon Code",
           'rows -> 1, 'cols -> 20
           )
-		
-		  @textarea(field = campaignForm("campaignPerks1"), 
-          '_label -> "Perks 1", 
-          'rows -> 2, 'cols -> 50
-          )	
-          
-     
-          
-		  @textarea(field = campaignForm("campaignPerks3"), 
-          '_label -> "Perks 3", 
+
+		  @textarea(field = campaignForm("campaignPerks1"),
+          '_label -> "Perks 2", 
           'rows -> 2, 'cols -> 50
           )
-          
-		  @textarea(field = campaignForm("campaignPerks4"), 
-          '_label -> "Perks 4", 
+
+
+
+		  @textarea(field = campaignForm("campaignPerks3"),
+          '_label -> "Perks 3",
           'rows -> 2, 'cols -> 50
           )
-					
+
+		  @textarea(field = campaignForm("campaignPerks4"),
+          '_label -> "Perks 4",
+          'rows -> 2, 'cols -> 50
+          )
+
 		  @inputText(
           campaignForm("totalNumViewed"),
           '_label -> "Total # Views (till date)"
-          )	
-          
+          )
+
 			@inputText(
           campaignForm("totalNumParticipated"),
           '_label -> "Total # Participated (till date)"
-          )	
-			
+          )
+
 		  @inputText(
           	campaignForm("campaignOutcome"),
           '_label -> "Campaign Outcome"
           )
-    
+
           <div>
             <input class="btn btn-primary" type="submit" name="action" value="Save">
            <a href="/adminstuff/campaign/list" target="_self">

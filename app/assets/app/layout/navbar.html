@@ -1,4 +1,4 @@
-<span ng-if="!auth.m.isLoggedIn">
+<span ng-if="!auth.m.isLoggedIn && auth.init">
     <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#sproutup-collapse-navbar">
@@ -12,20 +12,22 @@
             </a>
         </div>
 
-        <!-- Two different nav bars here and below. Second one shows under 767px and collapses on an item click. -->
+        <!-- Two different nav bars. First for desktop, second one shows under 767px and collapses on an item click. -->
         <div class="collapse navbar-collapse" id="sproutup-collapse-navbar">
             <ul class="nav navbar-nav navbar-item navbar-right navbar-wide">
-                <li><a analytics-on="click" analytics-event="View How it Works page" ui-sref="user.howitworks">HOW IT WORKS</a></li>
-                <li><a analytics-on="click" analytics-event="View FAQs page" ui-sref="user.faq">FAQs</a></li>
-                <li><a analytics-on="click" analytics-event="View Browse Products page" ui-sref="user.search">BROWSE PRODUCTS</a></li>
+                <li><a analytics-on="click" analytics-event="Enter Products page" ui-sref="user.search">PRODUCTS</a></li>
+                <li><a analytics-on="click" analytics-event="Enter Buzz page" ui-sref="user.buzz">BUZZ<span class="label label-new-feature">rad</span></a></li>
+                <li><a analytics-on="click" analytics-event="Enter Rewards page" ui-sref="user.perk">REWARDS<span class="label label-new-feature">new</span></a></li>
+                <li><a analytics-on="click" analytics-event="Enter How it Works page" ui-sref="user.howitworks">HOW IT WORKS</a></li>
                 <li><a ui-sref="user.login">LOG IN</a></li>
                 <li><a ui-sref="user.signup">SIGN UP</a></li>
             </ul>
 
             <ul class="nav navbar-nav navbar-item navbar-right navbar-skinny">
-                <li><a analytics-on="click" analytics-event="View How it Works page" ui-sref="user.howitworks" data-toggle="collapse" data-target="#sproutup-collapse-navbar">HOW IT WORKS</a></li>
-                <li><a analytics-on="click" analytics-event="View FAQs page" ui-sref="user.faq" data-toggle="collapse" data-target="#sproutup-collapse-navbar">FAQs</a></li>
-                <li><a analytics-on="click" analytics-event="View Browse Products page" ui-sref="user.search" data-toggle="collapse" data-target="#sproutup-collapse-navbar">BROWSE PRODUCTS</a></li>
+                <li><a analytics-on="click" analytics-event="Enter Products page" ui-sref="user.search" data-toggle="collapse" data-target="#sproutup-collapse-navbar">PRODUCTS</a></li>
+                <li><a analytics-on="click" analytics-event="Enter Buzz page" ui-sref="user.buzz" data-toggle="collapse" data-target="#sproutup-collapse-navbar">BUZZ<span class="label label-new-feature">rad</span></a></li>
+                <li><a analytics-on="click" analytics-event="Enter Rewards page" ui-sref="user.perk">REWARDS<span class="label label-new-feature">new</span></a></li>
+                <li><a analytics-on="click" analytics-event="Enter How it Works page" ui-sref="user.howitworks" data-toggle="collapse" data-target="#sproutup-collapse-navbar">HOW IT WORKS</a></li>
                 <li><a ui-sref="user.login" data-toggle="collapse" data-target="#sproutup-collapse-navbar">LOG IN</a></li>
                 <li><a ui-sref="user.signup" data-toggle="collapse" data-target="#sproutup-collapse-navbar">SIGN UP</a></li>
             </ul>
@@ -34,7 +36,7 @@
     </nav>
 </span>
 
-<span ng-if="auth.m.isLoggedIn">
+<span ng-if="auth.m.isLoggedIn && auth.init">
     <nav class="navbar navbar-default navbar-fixed-top navbar-influencer" role="navigation">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#sproutup-collapse-navbar">
@@ -51,37 +53,38 @@
 
         <div class="collapse navbar-collapse navbar-heightBoost" id="sproutup-collapse-navbar">
             <ul class="nav navbar-nav navbar-item navbar-left navbar-wide">
-                <li><a analytics-on="click" analytics-event="View Browse Product page" ui-sref="user.search">BROWSE PRODUCTS</a></li>
-                <li><a analytics-on="click" analytics-event="View My Trials page" ui-sref="user.mytrials.current">MY TRIALS<span class="navbar-badge" ng-show="auth.init && auth.getActiveTrials()>0">{{ auth.getActiveTrials() }}</span></a></li>
-                <li><a analytics-on="click" analytics-event="View Earn Perks page" ui-sref="user.perk">PERKS</a></li>
-                <li><a analytics-on="click" analytics-event="View FAQs page" ui-sref="user.faq">FAQs</a></li>
-                <!-- <li><a href="#">ACTIVITY <sup>&beta;</sup></a></li> -->
+                <li><a analytics-on="click" analytics-event="Enter Products page" ui-sref="user.search">PRODUCTS</a></li>
+                <li><a analytics-on="click" analytics-event="Enter Buzz page" ui-sref="user.buzz">BUZZ<span class="label label-new-feature">rad</span></a></li>
+                <li><a analytics-on="click" analytics-event="Enter My Trials page" ui-sref="user.mytrials.current">MY TRIALS<span class="navbar-badge" ng-show="auth.init && auth.getActiveTrials()>0">{{ auth.getActiveTrials() }}</span></a></li>
             </ul>
 
             <ul class="nav navbar-nav navbar-item navbar-left navbar-skinny">
-                <li><a analytics-on="click" analytics-event="View Browse Product page" ui-sref="user.search" data-toggle="collapse" data-target="#sproutup-collapse-navbar">BROWSE PRODUCTS</a></li>
-                <li><a analytics-on="click" analytics-event="View My Trials page" ui-sref="user.mytrials.current" data-toggle="collapse" data-target="#sproutup-collapse-navbar">MY TRIALS<span class="navbar-badge" ng-show="auth.init && auth.getActiveTrials()>0">{{ auth.getActiveTrials() }}</span></a></li>
-                <li><a analytics-on="click" analytics-event="View Earn Perks page" ui-sref="user.perk" data-toggle="collapse" data-target="#sproutup-collapse-navbar">PERKS</a></li>
-                <li><a analytics-on="click" analytics-event="View FAQs page" ui-sref="user.faq" data-toggle="collapse" data-target="#sproutup-collapse-navbar">FAQs</a></li>
-                <!-- <li><a href="#">ACTIVITY <sup>&beta;</sup></a></li> -->
+                <li><a analytics-on="click" analytics-event="Enter Product page" ui-sref="user.search" data-toggle="collapse" data-target="#sproutup-collapse-navbar">PRODUCTS</a></li>
+                <li><a analytics-on="click" analytics-event="Enter Buzz page" ui-sref="user.buzz" data-toggle="collapse" data-target="#sproutup-collapse-navbar">BUZZ<span class="label label-new-feature">rad</span></a></li>
+                <li><a analytics-on="click" analytics-event="Enter My Trials page" ui-sref="user.mytrials.current" data-toggle="collapse" data-target="#sproutup-collapse-navbar">MY TRIALS<span class="navbar-badge" ng-show="auth.init && auth.getActiveTrials()>0">{{ auth.getActiveTrials() }}</span></a></li>
             </ul>
 
             <ul class="nav navbar-nav navbar-item navbar-right">
-                <li>
-                    <img class="profile-img" ng-src="{{auth.m.user.avatarUrl}}">
-                </li>
+                <li ng-if="!auth.m.user.points || auth.m.user.points < 1"><a ui-sref="user.perk" class="navbar-reward-points"><span>0</span>Points</a></li>
+                <li ng-if="auth.m.user && auth.m.user.points > 1"><a ui-sref="user.points" class="navbar-reward-points" ng-class="{'fadeInDown animated': updatingPoints }"><span>{{ auth.m.user.points }}</span>Points</a></li>
+                <li ng-if="updatingPoints"><a ui-sref="user.points" class="navbar-reward-points" ng-class="{'fadeOutDown animated': updatingPoints }" style="position: absolute; right: 0px;"><span>{{ auth.m.user.oldPoints }}</span>Points</a></li>
+                <li><img class="profile-img" ng-src="{{auth.m.user.avatarUrl}}"></li>
                 <li about="" class="dropdown">
-                    <a href="#" analytics-on="click" analytics-event="User Menu" class="dropdown-toggle" data-toggle="dropdown">{{auth.m.user.name}}<i class="fa fa-angle-down login-angle-down"></i></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{auth.m.user.name}}<i class="fa fa-angle-down login-angle-down"></i></a>
                     <ul class="dropdown-menu navbar-wide" role="menu">
-                        <li><a analytics-on="click" analytics-event="Enter User Settings" ui-sref="user.settings.profile">Profile & Settings</a></li>
+                        <li><a analytics-on="click" analytics-event="View My Profile" ui-sref="user.profile.buzz({ nickname: auth.m.user.nickname })">{{auth.m.user.name}}<span>(View Profile)</span></a></li>
+                        <li><a analytics-on="click" analytics-event="Enter Account Settings" ui-sref="user.settings.profile">Account Settings</a></li>
                         <li><a href="" analytics-on="click" analytics-event="Log Out" ng-click="auth.logout()">Log Out</a></li>
                     </ul>
                     <ul class="dropdown-menu navbar-toggleMenu" role="menu">
-                        <li><a class="navbar-skinny" analytics-on="click" analytics-event="Enter User Settings" ui-sref="user.settings.profile" data-toggle="collapse" data-target="#sproutup-collapse-navbar">Profile & Settings</a></li>
+                        <li><a class="navbar-skinny" analytics-on="click" analytics-event="View My Profile" ui-sref="user.profile.buzz({ nickname: auth.m.user.nickname })" data-toggle="collapse" data-target="#sproutup-collapse-navbar">{{auth.m.user.name}}<span>(View Profile)</span></a></a></li>
+                        <li><a class="navbar-skinny" analytics-on="click" analytics-event="Enter Account Settings" ui-sref="user.settings.profile" data-toggle="collapse" data-target="#sproutup-collapse-navbar">Account Settings</a></li>
                         <li><a class="navbar-skinny" href="" analytics-on="click" analytics-event="Log Out" ng-click="auth.logout()" data-toggle="collapse" data-target="#sproutup-collapse-navbar">Log Out</a></li>
                     </ul>
                 </li>
             </ul>
         </div>
     </nav>
+    <!-- this shows whenever & whereever points are added -->
+    <up-points-added ng-if="$root.pointsAdded"></up-points-added>
 </span>

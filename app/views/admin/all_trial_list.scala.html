@@ -1,7 +1,7 @@
 @(trialForm: Form[Trial])(currentPage: com.avaje.ebean.Page[Trial])
 @import helper._
 
-@main("Product Trial list (All)") {
+@admin_wrapper("All Requests for Product Trials") {
 
 <h2><a href="/adminstuff" target="_self" class="btn btn-lg">Admin Home</a></h2>
 
@@ -57,6 +57,7 @@
     <input type="hidden" name="requestId"/>
 	<input type="hidden" name="statusVal"/>
 	<input type="hidden" name="page" value="influencer"/>
+	<input type="hidden" name="pageNum" value="@currentPage.getPageIndex"/>
 	
 
     @for(trial <- currentPage.getList()) {
@@ -132,7 +133,6 @@
                     </li>
                 }
             </ul>
-        </div>
-
+    </div>
 
 }

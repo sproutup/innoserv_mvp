@@ -10,6 +10,10 @@ body {
     height: 100%;
 }
 
+.disabled {
+    cursor: default !important;
+}
+
 .modal-open {
     overflow: hidden;
     height: 100%;
@@ -133,6 +137,11 @@ body {
     color: @main-text;
 }
 
+.dropdown-menu li a span {
+    font-size: 8.5pt;
+    padding-left: 8px;
+}
+
 .dropdown-menu hr {
     margin: 7px 5px;
     border-color: @sproutup-lightgrey;
@@ -195,10 +204,32 @@ body {
     color: @main-text-white;
 }
 
+.navbar-item li a i {
+    padding-right: 10px;
+}
+
 .navbar-influencer .navbar-item {
     font-weight: 400;
     font-size: 10pt;
     color: @main-text-white;
+}
+
+.navbar-reward-points span {
+    font-size: 13pt;
+    padding-right: 6px;
+    font-weight: 700;
+}
+
+.navbar-item li a.navbar-reward-points {
+    color: @sproutup-gold;
+}
+
+.navbar-item li a.navbar-reward-points:focus {
+    color: @sproutup-gold;
+}
+
+.navbar-item li a.navbar-reward-points:hover {
+    color: @sproutup-darkgold;
 }
 
 .navbar-influencer .navbar-item sup {
@@ -473,7 +504,7 @@ a:focus {
 	border-radius: 2px;
 	padding-top: 11px;
     margin-top: 5px;
-    margin-right: 5px;
+    margin-right: 6px;
     margin-bottom: 5px;
 	-webkit-transition: all .2s ease-in-out;
 	-o-transition: all .2s ease-in-out;
@@ -497,7 +528,7 @@ a:focus {
 	color: white;
 	border-radius: 2px;
 	padding-top: 11px;
-    margin-right: 5px;
+    margin-right: 6px;
     margin-bottom: 5px;
 	-webkit-transition: all .2s ease-in-out;
 	-o-transition: all .2s ease-in-out;
@@ -509,6 +540,42 @@ a:focus {
     color: white;
 }
 
+.sproutup-btn-md-main.cancel {
+    margin-left: 24px;
+    margin-top: 10px;
+    padding-top: 5px;
+    height: 40px !important;
+    background-color: white !important;
+    color: #FC3939 !important;
+    border: 1px solid;
+}
+
+.sproutup-btn-md-main.cancel:hover {
+    background-color: #FC3939 !important;
+    color: white !important;
+    border-radius: 3px !important;
+}
+
+.sproutup-btn-md-main.discount {
+    background-color: @sproutup-discount;
+    color: white;
+}
+
+.sproutup-btn-md-main.discount i {
+    padding-right: 10px;
+    font-size: 10pt;
+}
+
+.sproutup-btn-md-main.contest {
+    background-color: @sproutup-contest;
+    color: white;
+}
+
+.sproutup-btn-md-main:focus {
+    color: white;
+    background-color: @sproutup-blue;
+}
+
 .sproutup-btn-md-main:hover {
 	color: white;
 	background-color: @sproutup-blue-hover;
@@ -516,6 +583,16 @@ a:focus {
 
 .sproutup-btn-md-main.red:hover {
     background-color: @sproutup-red-hover;
+    color: white;
+}
+
+.sproutup-btn-md-main.discount:hover {
+    background-color: @sproutup-discount-hover;
+    color: white;
+}
+
+.sproutup-btn-md-main.contest:hover {
+    background-color: @sproutup-contest-hover;
     color: white;
 }
 
@@ -601,8 +678,23 @@ input[type=checkbox] {
 .campaign-description {
     font-weight: 400;
     color: @main-text;
-    font-size: 12pt;
+    font-size: 11pt;
+    white-space: pre-wrap;
 }
+
+.campaign-description span {
+    font-weight: 700;
+    font-size: 16pt;
+    color: @sproutup-green;
+    padding-right: 3px;
+}
+
+.campaign-confirmation {
+    font-weight: 400;
+    color: @sproutup-green;
+    font-size: 16pt;
+}
+
 
 .campaign-body {
     font-weight: 400;
@@ -618,8 +710,412 @@ input[type=checkbox] {
 
 .campaign-coupon {
     font-weight: 700;
+    color: @sproutup-blue;
+    font-size: 16pt;
+    padding-bottom: 10px;
+}
+
+.campaign-coupon.disable {
+    font-weight: 700;
+    color: @sproutup-blue-muted;
+    font-size: 16pt;
+    padding-bottom: 10px;
+}
+
+.likeLink:link .likeLink:active, .likeLink:visited, .likeLink:hover, .likeLink {
+    text-decoration: none !important;
+}
+
+.likeLink:hover {
+    color: #929292 !important;
+}
+
+.popover-content {
+    color: @main-text-1;
+}
+
+.label-new-feature {
+    background-color: @sproutup-orange;
+    font-size: 8pt;
+    font-weight: 700;
+    margin-left: 5px;
+    position: relative;
+    bottom: 7px;
+}
+
+.content-comment-row {
+    margin-left: 0px !important;
+}
+
+.my-content-text p {
+    font-size: 11pt;
+    margin: 0px !important;
+    margin-top: 5px !important;
+    margin-bottom: 5px !important;
+}
+
+.trial-product {
+    margin-right: 11px;
+    margin-top: 5px;
+    border: none;
+    display: inline-block;
+    height: 32px;
+    font-weight: 400;
+    font-size: 10.5pt;
+    border-radius: 0px;
+    color: @sproutup-grey;
+    background-color: white;
+    padding-left: 14px;
+    padding-right: 14px;
+    border: 1px solid @sproutup-grey;
+    border-radius: 15px;
+}
+
+.trial-product:active {
+    outline: none;
+}
+
+.trial-product:focus {
+    outline: none;
+}
+
+.selected-trial-product {
+    background-color: @sproutup-orange;
+    border: 1px solid @sproutup-orange;
+    color: #fff;
+}
+
+.up-content-product {
+    float: right;
+    position: absolute;
+    right: 20px;
+    top: 12px;
+}
+
+.addPhotoInput {
+    border-top: 1px solid #bababa;
+    padding: 11px;
+    color: #bababa;
+    font-size: 11pt;
+    font-weight: 400;
+}
+
+.call-to-post {
+    font-size: 14pt;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.content-post-button {
+    margin-top: 5px;
+    position: relative;
+    width: 53px !important;
+}
+
+.comment-post-button {
+    margin-top: 2px;
+    margin-bottom: 8px;
+}
+
+.post-warning {
+    font-weight: 700;
+    font-size: 10pt;
+    margin-top: 10px;
+    color: @sproutup-orange;
+}
+
+.select-product-text {
+    font-weight: 400;
+    font-size: 10.5pt;
+    padding-left: 1px;
+    margin-bottom: 5px;
     color: @main-text-2;
-    font-size: 12.5pt;
+}
+
+.post-body {
+    margin-bottom: 20px;
+    font-size: 12pt;
+}
+
+.tweetWrapper {
+    border: 1px solid #bfbfbf;
+    border-radius: 4px;
+    padding: 18px;
+    color: #414141;
+    margin-bottom: 22px;
+    overflow: hidden;
+}
+
+.tweetTextWithPicture {
+    position: relative;
+    bottom: 4px;
+}
+
+.tweetWrapper:hover {
+    border: 1px solid @twitter-blue;
+}
+
+.tweetName {
+    padding-right: 10px;
+    font-weight: 700;
+}
+
+.tweetUsername {
+    color: #929292;
+}
+
+.tweetBody {
+    padding-top: 4px;
+    padding-bottom: 2px;
+    display: table;
+}
+
+.tweet--quote-block {
+    border-left: solid 5px @sproutup-lightgrey;
+    margin-left: 20px;
+    margin-top: 20px;
+    padding: 0px 15px;
+}
+
+.tweet--picture {
+    //max-height: 90px;
+    //max-width: 90px;
+    width: 100%;
+    margin-top: 10px;
+    //float: left;
+    margin-right: 15px;
+}
+
+.analytics-total {
+    float: right;
+}
+
+.product-trial-stage-title {
+    text-align: center;
+    color: white;
+    padding: 12px;
+    font-size: 12pt;
+    border-radius: 2px;
+    margin-bottom: 20px;
+}
+
+.product-trial-stage-title.active {
+    background-color: @sproutup-blue;
+}
+
+.product-trial-stage-title.next {
+    background-color: @sproutup-purple;
+}
+
+.product-trial-stage-title.finished {
+    background-color: @sproutup-orange;
+}
+
+.product-trial-stage {
+    margin-bottom: 15px;
+    margin-left: 0px !important;
+    margin-right: 0px !important;
+    max-width: 500px;
+}
+
+.product-trial-status {
+    
+}
+
+.product-trial-stage-user {
+    padding: 0px !important;
+    text-align: center;
+}
+
+.product-trial-stage-user.my-trials {
+    width: 100%;
+}
+
+.product-trial-stage-user-inner-wrapper {
+    margin-left: 6px;
+    margin-right: 6px;
+    position: relative;
+    margin-bottom: 10px;
+}
+
+.product-trial-stage-avatar {
+    width: 80px;
+    height: 80px;
+    z-index: -1;
+    border-radius: 50%;
+    border: 2px solid #bfbfbf;
+}
+
+.product-trial-stage-avatar.small {
+    max-width: 60px;
+    max-height: 60px;
+}
+
+.active-trial-status {
+    position: relative;
+    bottom: -10px;
+    width: 100%;
+    max-width: 120px;
+    height: 20px;
+    margin-bottom: 30px;
+    text-align: center;
+    font-size: 8pt;
+    font-weight: 700;
+    background-color: #ECEAEA;
+    opacity: .95;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.active-trial-status.my-trials {
+    background-color: white;
+    width: 90% !important;
+    max-width: 400px !important;
+    margin-left: 20px;
+}
+
+.active-trial-status.bar {
+    width: 40px;
+    background-color: @sproutup-blue;
+    opacity: .4;
+    position: absolute;
+    top: 0px;
+}
+
+.active-trial-status span {
+    color: @sproutup-blue;
+    position: relative;
+    top: 2px;
+}
+
+.days-left-bar {
+    border-radius: 0px !important;
+    height: 20px !important;
+    margin: 0px !important;
+    width: 100%;
+    position: absolute;
+    border: none !important;
+    opacity: .25;
+}
+
+.days-left-bar div {
+    float: right !important;
+}
+
+.trial-overdue div {
+    background-color: @sproutup-red !important;
+}
+
+.trial-overdue {
+    color: @sproutup-red !important;
+}
+
+.error-404 {
+    padding: 60px 0px 20px;
+    background-color: #f6f5f4;
+}
+
+.error-404 img {
+    width: 560px;
+    margin: 0px auto;
+}
+
+.points-table {
+    margin-top: 30px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 80px;
+    max-width: 800px;
+    width: 70%;
+}
+
+.points-table tr {
+    height: 50px;
+}
+
+
+.points-table th, .points-table td {
+    padding: 15px !important;
+    font-size: 12pt !important;
+}
+
+.points-table span {
+    color: #B2B2B2;
+    padding-left: 9px;
+}
+
+.points-column {
+    width: 80px;
+}
+
+.intro-message.points h3 {
+    padding-top: 45px;
+    font-size: 25px !important;
+}
+
+.intro-message.points h1 {
+    marign-top: 40px;
+    font-weight: 400;
+}
+
+.points-learn-more {
+    font-weight: 400;
+    font-size: 11pt;  
+    padding-bottom: 15px;
+}
+
+.points-learn-more a {
+    color: @main-text-1;;
+    text-decoration: none !important;
+}
+
+.points-learn-more a i {
+    padding-right: 10px;
+}
+
+.points-learn-more a:hover {
+    color: @main-text;
+    text-decoration: none !important;
+}
+
+.points-circle {
+    height: 80px;
+    width: 80px;
+    position: absolute;
+    z-index: 1000;
+    text-align: center;
+}
+
+.points-circle-background {
+    border-radius: 50%;
+    opacity: .7;
+    width: 100%;
+    height: 100%;
+    background-color: @sproutup-gold;
+    position: absolute;
+    z-index: -1;
+}
+
+.points-circle-text {
+    color: white;
+    font-weight: 800;
+    font-size: 20px;
+    position: relative;
+    top: 25px;
+}
+
+@media (min-width: 1200px) {
+    .product-trial-stage-avatar {
+        width: 80px;
+        height: 80px;
+    }
+}
+
+@media (max-width: 1180px) {
+  .product-trial-stage-avatar.small {
+    width: 50px;
+    height: 50px;
+  }
 }
 
 @media (max-width:767px) {
@@ -669,8 +1165,9 @@ input[type=checkbox] {
         color: #fff;;
     }
 
-}
+    .sproutup-btn-md-main {
+        font-size: 10pt;
+        padding-top: 13px;
+    }
 
-.popover-content {
-    color: @main-text-1;
 }

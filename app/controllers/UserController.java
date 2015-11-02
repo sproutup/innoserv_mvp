@@ -23,7 +23,7 @@ public class UserController extends Controller {
     public static Result getUser(String nickname)
     {
         User user = new User().findByNickname(nickname);
-        return user == null ? notFound("User not found [" + nickname + "]") : ok(user.toJson());
+        return user == null ? notFound("User not found [" + nickname + "]") : ok(user.toJsonShort());
     }
 
     @BodyParser.Of(BodyParser.Json.class)
@@ -57,13 +57,24 @@ public class UserController extends Controller {
 
             Logger.debug("user controller > update");
 
+            if (check(root, "nickname")) {
+                String username = root.path("nickname").asText().trim().toLowerCase();
+                if (!user.nickname.equalsIgnoreCase(username)) {
+                    Logger.debug("user controller > username change detected");
+                    if(User.findByNickname(username) != null){
+                        Logger.debug("user controller > username not unique");
+                        return badRequest("username exists");
+                    }
+                }
+            }
+
             if (check(root, "firstname")) user.firstName = root.path("firstname").asText();
             if (check(root, "lastname")) user.lastName = root.path("lastname").asText();
             if (check(root, "name")) user.name = root.path("name").asText();
 
             if (check(root, "email")) user.email = root.path("email").asText();
 
-            if (check(root, "nickname")) user.nickname = root.path("nickname").asText();
+            if (check(root, "nickname")) user.nickname = root.path("nickname").asText().trim().toLowerCase();
             if (check(root, "description")) user.description = root.path("description").asText();
 
             if (check(root, "address")) user.streetAddress1 = root.path("address").asText();
