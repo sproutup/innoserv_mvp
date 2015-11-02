@@ -1,5 +1,5 @@
 activator warn clean docker:stage
-cp conf/docker/master/Dockerfile target/docker/Dockerfile
+cp -R conf/docker/master/. target/docker/
 cd target/docker
 eb init -r us-west-2 -p docker -k endurance dev
 eb deploy
