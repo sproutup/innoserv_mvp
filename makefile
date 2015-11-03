@@ -33,7 +33,7 @@ create: init
 develop:
 	cp conf/docker/master/Dockerfile target/docker/Dockerfile
 	cd target/docker
-	eb init -r us-west-2 -p docker -k endurance dev
+	eb init -r us-west-2 -p docker -k endurance develop
 	eb deploy
 
 master:
@@ -46,7 +46,7 @@ create-master:
 	eb create prod -r us-west-2 -c sproutup -t WebServer -i t2.small --scale 4 -k endurance
 
 create-develop:
-	eb create sproutup-dev -r us-west-2 -c sproutup-dev -t WebServer -i t2.small -s -k endurance
+	eb create develop -r us-west-2 -c develop-sproutup-co -t WebServer -i t2.small -s -k endurance
 
 installmon:
 	npm install -g browser-sync
