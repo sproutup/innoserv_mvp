@@ -12,9 +12,23 @@ function config($stateProvider) {
                 title: 'Become a Product Ambassador - SproutUp'
             }
         })
-        .state('user.mockAmbassadorDetails' ,{
-            url: '/mock-ambassador-details',
-            templateUrl: 'assets/app/ambassador/mock-ambassador-details.html',
+        .state('user.mockAmbassadorDetailsBuzz' ,{
+            url: '/mock-ambassador-details-buzz',
+            templateUrl: 'assets/app/ambassador/mock-ambassador-details-buzz.html',
+            data: {
+                title: 'Ambassador Details - SproutUp'
+            }
+        })
+        .state('user.mockAmbassadorDetailsContent' ,{
+            url: '/mock-ambassador-details-content',
+            templateUrl: 'assets/app/ambassador/mock-ambassador-details-content.html',
+            data: {
+                title: 'Ambassador Details - SproutUp'
+            }
+        })
+        .state('user.mockAmbassadorDetailsCreativity' ,{
+            url: '/mock-ambassador-details-creativity',
+            templateUrl: 'assets/app/ambassador/mock-ambassador-details-creativity.html',
             data: {
                 title: 'Ambassador Details - SproutUp'
             }
