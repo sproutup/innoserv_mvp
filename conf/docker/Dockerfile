@@ -1,9 +1,9 @@
-FROM dockerfile/java
+FROM sproutupco/alpine-java-openjdk
 MAINTAINER Peter Andersen <peter@sproutup.co>
-ADD files /
+
+COPY files /
 WORKDIR /opt/docker
 RUN ["chown", "-R", "daemon", "."]
 USER daemon
-EXPOSE 9000
-ENTRYPOINT ["bin/sproutup", "-Dconfig.file=conf/application.docker.conf"]
+ENTRYPOINT ["bin/sproutup", "-Dconfig.file=conf/docker.conf"]
 CMD []
