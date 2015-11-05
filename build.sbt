@@ -29,7 +29,9 @@ libraryDependencies += "net.coobird" % "thumbnailator" % "0.4.8"
 
 libraryDependencies += "org.scribe" % "scribe" % "1.3.6"
 
-libraryDependencies += "org.xerial.snappy" % "snappy-java" % "1.1.1.7"
+// libraryDependencies += "org.xerial.snappy" % "snappy-java" % "1.1.1.7"
+
+libraryDependencies += "net.jpountz.lz4" % "lz4" % "1.3"
 
 libraryDependencies += "com.sendgrid" % "sendgrid-java" % "2.2.1"
 
