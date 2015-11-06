@@ -32,10 +32,10 @@ start:
 	docker start $(repo)/$(application_name):$(environment_name)
 
 run:
-	docker run -d -p 3000:3000 --name $(application_name) --net="host" --env-file local-env.list $(application_name)
+	docker run -p 9000:9000 -e AWS_ACCESS_KEY_ID -e AWS_SECRET_ACCESS_KEY --net="host" -d  $(repo)/$(application_name):$(environment_name)
 
 runia:
-	docker run -it -p 3000:3020 --env-file local-env.list --net="host" -t $(repo)/$(application_name) /bin/sh
+	docker run -p 9000:9000 -e AWS_ACCESS_KEY_ID -e AWS_SECRET_ACCESS_KEY --net="host" -it --rm $(repo)/$(application_name):$(environment_name) /bin/sh
 
 delete: init
 	docker rm $(application_name)
@@ -45,4 +45,7 @@ node:
 
 deploy: push
 	$(MAKE) -C target $(target) deploy
+
+create: push
+	$(MAKE) -C target $(target) create
 

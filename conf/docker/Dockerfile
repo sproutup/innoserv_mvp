@@ -5,5 +5,6 @@ COPY files /
 WORKDIR /opt/docker
 RUN ["chown", "-R", "daemon", "."]
 USER daemon
-ENTRYPOINT ["bin/sproutup", "-Dconfig.file=conf/docker.conf"]
-CMD []
+
+CMD ["bin/sproutup", "-Dconfig.file=conf/docker.conf"]
+

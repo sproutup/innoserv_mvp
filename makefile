@@ -4,9 +4,9 @@ environment_name = develop
 configuration = develop
 application_name = mvp
 
-all: run
+all: start
 
-run:
+start:
 	activator run
 
 develop:
@@ -33,6 +33,9 @@ create: clean stage prepare
 build: clean stage prepare
 	$(MAKE) -C target/docker build
 
+run:
+	$(MAKE) -C target/docker run
+
 clean:
 	activator clean
 
@@ -41,9 +44,6 @@ stage:
 
 init:
 	eb init -r $(region) -p $(platform) -k $(keypair) $(environment_name)
-
-create: init
-	eb create $(application_name) -c $(cname) --cfg $(configuration)
 
 prepare:
 	cp -r conf/docker/. target/docker
