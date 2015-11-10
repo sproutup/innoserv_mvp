@@ -1,6 +1,12 @@
-all: run
+repo = sproutupco
+cname = sproutup-co
+environment_name = develop
+configuration = develop
+application_name = mvp
 
-run:
+all: start
+
+start:
 	activator run
 
 develop:
@@ -18,8 +24,20 @@ master:
 status:
 	echo $(environment_name)/$(application_name)
 
+deploy: clean stage prepare
+	$(MAKE) -C target/docker deploy
+
+create: clean stage prepare
+	$(MAKE) -C target/docker create
+
+build: clean stage prepare
+	$(MAKE) -C target/docker build
+
+run:
+	$(MAKE) -C target/docker run
+
 clean:
-	acivator clean
+	activator clean
 
 stage:
 	activator warn docker:stage
@@ -27,16 +45,11 @@ stage:
 init:
 	eb init -r $(region) -p $(platform) -k $(keypair) $(environment_name)
 
-create: init
-	eb create $(application_name) -c $(cname) --cfg $(configuration)
+prepare:
+	cp -r conf/docker/. target/docker
+	cp conf/$(environment_name).conf target/docker/files/opt/docker/conf/docker.conf
 
-develop:
-	cp conf/docker/master/Dockerfile target/docker/Dockerfile
-	cd target/docker
-	eb init -r us-west-2 -p docker -k endurance develop
-	eb deploy
-
-master:
+master1:
 	cp -R conf/docker/prod/. target/docker/
 	cd target/docker
 	eb init -r us-west-2 -p docker -k endurance sproutup

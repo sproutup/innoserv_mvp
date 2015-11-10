@@ -46,6 +46,7 @@
 
 		             <li>Offer Trial Signup:
 		             <input type="checkbox" name="@productForm("trialSignUpFlag").name" value="1" @if(productForm("trialSignUpFlag").value=="true"){ checked }>@productForm("trialSignUpFlag").value</li>
+		             <li>Trial # days:&nbsp;<input type="text" size="5" name="@productForm("trialDurationNbrDays").name" value="@productForm("trialDurationNbrDays").value"/></li>
 		             <li>Offer Buy:<input type="checkbox" name="@productForm("buyFlag").name" value="1" @if(productForm("buyFlag").value=="true"){ checked }>@productForm("buyFlag").value</li>
 		             <li>Featured Product:<input type="checkbox" name="@productForm("isFeatured").name" value="1" @if(productForm("isFeatured").value=="true"){ checked }>@productForm("isFeatured").value</li>
                		 <li>Trial Full House:<input type="checkbox" name="@productForm("trialFullHouseFlag").name" value="1" @if(productForm("trialFullHouseFlag").value=="true"){ checked }>@productForm("trialFullHouseFlag").value</li>

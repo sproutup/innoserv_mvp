@@ -9,12 +9,13 @@ import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import com.typesafe.plugin.RedisPlugin;
+import net.jpountz.lz4.LZ4Compressor;
+import net.jpountz.lz4.LZ4Factory;
+import net.jpountz.lz4.LZ4SafeDecompressor;
 import org.joda.time.DateTime;
-import org.xerial.snappy.Snappy;
+//import org.xerial.snappy.Snappy;
 
 import play.Logger;
-import play.api.cache.Cache;
-import play.cache.*;
 import play.libs.Json;
 import play.mvc.PathBindable;
 import play.mvc.QueryStringBindable;
@@ -31,10 +32,7 @@ import utils.Slugify;
 import utils.Taggable;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 public class Product extends SuperModel implements PathBindable<Product>,
@@ -324,25 +322,52 @@ public class Product extends SuperModel implements PathBindable<Product>,
         ObjectNode node;
         final ObjectReader reader = mapper.reader();
 
-        byte[] compressed = (byte[]) play.cache.Cache.get("product:" + this.id.toString());
+		LZ4Factory factory = LZ4Factory.fastestInstance();
+
+        byte[] compressed = (byte[]) play.cache.Cache.get("product:lz4:" + this.id.toString());
         if (compressed != null) {
-            Logger.debug("product: cache hit");
+            Logger.debug("product:lz4: cache hit " + compressed.length);
+			// - method 2: when the compressed length is known (a little slower)
+			// the destination buffer needs to be over-sized
+			Logger.debug("step");
+			byte[] uncompressed = new byte[compressed.length*100];
+			Logger.debug("step");
+			LZ4SafeDecompressor decompressor = factory.safeDecompressor();
+			Logger.debug("step");
+
+			int decompressedLength = 10000;
+			byte[] restored = new byte[decompressedLength];
+			restored = decompressor.decompress(compressed, decompressedLength);
+
+			//int decompressedLength = decompressor.decompress(compressed, 0, compressed.length, uncompressed, 0, compressed.length*100);
+			Logger.debug("decompressed length " + restored.length);
             try {
-                byte[] uncompressed = Snappy.uncompress(compressed);
-                String result = new String(uncompressed, "UTF-8");
+                String result = new String(restored, "UTF-8");
                 node = (ObjectNode) mapper.readTree(result);
             } catch(Exception e){
+				Logger.debug(e.getMessage());
                 return null;
             };
             return node;
-        }
+		}
         else{
-            Logger.debug("product: cache miss");
-            node =  this.toJsonRaw();
+            Logger.debug("product:lz4: cache miss");
+			node =  this.toJsonRaw();
             String src = node.toString();
             try {
-                compressed = Snappy.compress(src.getBytes());
-                play.cache.Cache.set("product:" + this.id, compressed, 3600);
+				byte[] data = src.getBytes("UTF-8");
+				int decompressedLength = data.length;
+				Logger.debug("product:lz4: data len" + data.length);
+				// compress data
+				LZ4Compressor compressor = factory.fastCompressor();
+				int maxCompressedLength = compressor.maxCompressedLength(decompressedLength);
+				compressed = new byte[maxCompressedLength];
+				int compressedLength = compressor.compress(data, 0, decompressedLength, compressed, 0, maxCompressedLength);
+				Logger.debug("product:lz4: comp len" + compressedLength);
+				byte[] finalCompressedArray = Arrays.copyOf(compressed, compressedLength);
+				Logger.debug("product:lz4: final len" + finalCompressedArray.length);
+
+                play.cache.Cache.set("product:lz4:" + this.id, finalCompressedArray, 3600);
             } catch(Exception e){
                 return null;
             }
