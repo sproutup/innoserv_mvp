@@ -50,6 +50,9 @@
 
         function init() {
             vm.user = angular.copy(authService.m.user);
+            vm.reach = analyticsService.userReach().get({
+                userId: vm.user.id
+            });
 
             vm.network = {
                 ga: {connected: false, error: false, message: ''},
@@ -64,6 +67,11 @@
                 data.forEach(function(item){
                     console.log('[analytics] provider:', item.provider);
                     switch(item.provider){
+                    //     should be able to get around this switch with something like
+                    //     vm.network[item.provider].connected = (item.status === 1);
+                    //     vm.network[item.provider].error = (item.status === -1);
+                    //     vm.network[item.provider].status = item.status;
+
                     case 'ga':
                         vm.network.ga.connected = (item.status === 1);
                         vm.network.ga.error = (item.status === -1);
