@@ -101,4 +101,43 @@ public class AnalyticsController extends Controller {
         );
         return resultPromise;
     }
+
+    public static F.Promise<Result> listReach(String userId) {
+        WSRequestHolder holder = WS.url(url + "/user/" + userId + "/reach");
+
+        final F.Promise<Result> resultPromise = holder.get().map(
+                new F.Function<WSResponse, Result>() {
+                    public Result apply(WSResponse response) {
+                        return ok(response.asJson());
+                    }
+                }
+        );
+        return resultPromise;
+    }
+
+    public static F.Promise<Result> readReach(String provider, String userId) {
+        WSRequestHolder holder = WS.url(url + "/user/" + userId + "/reach/" + provider);
+
+        final F.Promise<Result> resultPromise = holder.get().map(
+                new F.Function<WSResponse, Result>() {
+                    public Result apply(WSResponse response) {
+                        return ok(response.asJson());
+                    }
+                }
+        );
+        return resultPromise;
+    }
+
+    public static F.Promise<Result> updateReach(String provider, String userId) {
+        WSRequestHolder holder = WS.url(url + "/user/" + userId + "/reach/" + provider);
+
+        final F.Promise<Result> resultPromise = holder.put("").map(
+                new F.Function<WSResponse, Result>() {
+                    public Result apply(WSResponse response) {
+                        return ok(response.asJson());
+                    }
+                }
+        );
+        return resultPromise;
+    }
 }

@@ -194,6 +194,9 @@ GET           /api/analytics/user/:userId/network/:provider                  con
 POST          /api/analytics/user/:userId/network/:provider                  controllers.AnalyticsController.createNetwork(provider: String, userId: String)
 DELETE        /api/analytics/user/:userId/network/:provider                  controllers.AnalyticsController.deleteNetwork(provider: String, userId: String)
 POST          /api/analytics/network/callback/:token                         controllers.AnalyticsController.saveCallback(token: String)
+GET           /api/analytics/user/:userId/reach                              controllers.AnalyticsController.listReach(userId: String)
+GET           /api/analytics/user/:userId/reach/:provider                    controllers.AnalyticsController.readReach(provider: String, userId: String)
+PUT           /api/analytics/user/:userId/reach/:provider                    controllers.AnalyticsController.updateReach(provider: String, userId: String)
 
 # Internal Administration Only - Not visible to public
 GET           /adminstuff                                            		 controllers.ReportAdminController.home()
