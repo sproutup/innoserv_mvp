@@ -4,19 +4,31 @@
             <h1 class="legal-title">Subscribe SproutUp Services</h1>
             <div class="legal-content">
 
+                <img class="img-responsive" src="assets/images/plans.png">
+
                 <!-- PayPal -->
                 <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
                     <input type="hidden" name="cmd" value="_s-xclick">
                     <input type="hidden" name="hosted_button_id" value="RPQXYHU867VLY">
                     <table>
-                    <tr><td><input type="hidden" name="on0" value="Trial Campaign Plans">Trial Campaign Plans</td></tr><tr><td><select name="os0">
-                        <option value="Starter">Starter : $199.00 USD - monthly</option>
-                        <option value="Boost">Boost : $599.00 USD - monthly</option>
-                        <option value="Rocket">Rocket : $899.00 USD - monthly</option>
-                    </select> </td></tr>
+                        <tr>
+                            <td><input type="hidden" name="on0" value="Trial Campaign Plans">Please choose a plan to subscribe</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <select name="os0">
+                                    <option value="Starter">Starter : $199.00 USD - monthly</option>
+                                    <option value="Boost">Boost : $599.00 USD - monthly</option>
+                                    <option value="Rocket">Rocket : $899.00 USD - monthly</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><input type="hidden">By subscribing, I agree to Services and Terms and Conditions as listed below</td>
+                        </tr>
                     </table>
                     <input type="hidden" name="currency_code" value="USD">
-                    <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_subscribeCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+                    <input type="image" class="paypal-subscribe" src="assets/images/subscribe.png" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
                     <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
                 </form>
 
