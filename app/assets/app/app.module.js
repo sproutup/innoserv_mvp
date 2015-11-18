@@ -211,18 +211,18 @@ sproutupApp.config(['$routeProvider', '$stateProvider', '$locationProvider', '$u
                     title: 'oauth2callback'
                 }
             })
-            // .state('user.community' ,{
-            //     url: '/community',
-            //     templateUrl: 'views/community',
-            //     data: {
-            //         title: 'Community - SproutUp'
-            //     }
-            // })
             .state('user.creator' ,{
                 url: '/creator',
                 templateUrl: 'views/creator',
                 data: {
                     title: 'Creator - SproutUp'
+                }
+            })
+            .state('user.subscribe' ,{
+                url: '/subscribe',
+                templateUrl: 'assets/app/creator/subscribe.html',
+                data: {
+                    title: 'Creator Subscription - SproutUp'
                 }
             })
             .state('user.perk' ,{
