@@ -3,11 +3,11 @@
 <div class="learning-more" ng-if="vm.learningMore">
     <div>Why should I link my social media accounts with SproutUp?</div>
     <ul>
-        <li><strong>Verify. </strong>We like to know if you're real. :)</li>
-        <li><strong>Secure a spot. </strong>We use social media reach to determine when to start your product trial.</li>
-        <li><strong>Earn perks. </strong>Show us stellar performance and monetize your content.</li>
-        <li><strong>Get stats. </strong>Get bragging rights when you move up the rank on SproutUp leader board.</li>
-        <li><strong>Take a stand. </strong>It’s about rooting for your favorite products. Help them spread the word.</li>
+        <li><i class="fa fa-check-circle"></i><strong>Verify. </strong>We like to know if you're real &#x1f60e;</li>
+        <li><i class="fa fa-check-circle"></i><strong>Secure a spot. </strong>We use social media reach to determine when to start your product trial.</li>
+        <li><i class="fa fa-check-circle"></i><strong>Earn perks. </strong>Show us stellar performance and monetize your content.</li>
+        <li><i class="fa fa-check-circle"></i><strong>Get stats. </strong>Get bragging rights when you move up the rank on SproutUp leader board.</li>
+        <li><i class="fa fa-check-circle"></i><strong>Take a stand. </strong>It’s about rooting for your favorite products. Help them spread the word.</li>
     </ul>
 </div>
 
@@ -41,7 +41,7 @@
         </tr>
         <!-- Google Analytics -->
         <tr>
-            <td><img class="social-media-icons" src="assets/images/settings/google-analytics.png">Google Analytics <sup popover="If you have Google Analytics for your websites, please empower us to read stats from your Google Analytics account." popover-trigger="mouseenter" popover-placement="top"><i class="fa fa-question-circle"></i></sup></td>
+            <td><img class="social-media-icons" src="assets/images/settings/google-analytics.png">Google Analytics <sup popover="If you have Google Analytics for your websites, please authorize us to read stats from your Google Analytics account." popover-trigger="mouseenter" popover-placement="top"><i class="fa fa-question-circle"></i></sup></td>
             <td>
                 <p>{{vm.network.ga.message}}</p>
                 <p class="social-media-connection-status" ng-show='vm.network.ga.connected && vm.network.ga.error'>Connection error: please reauthorize or <a href="#" ng-click="vm.disconnect('ga')">disconnect</a></p>
