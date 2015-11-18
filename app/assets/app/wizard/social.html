@@ -12,6 +12,11 @@
 </div>
 
 <table class="table table-responsive table-striped analytics-table">
+    <thead>
+        <th>Network</th>
+        <th>Reach<sup popover="Reach is the number of followers or subscribers on your social media channels" popover-trigger="mouseenter" popover-placement="top"><i class="fa fa-question-circle"></i></sup></th>
+        <th></th>
+    </thead>
     <tbody>
         <!-- Twitter -->
         <tr>
@@ -28,7 +33,7 @@
         </tr>
         <!-- YouTube -->
         <tr>
-            <td><img class="social-media-icons" src="assets/images/settings/youtube.png">Youtube</td>
+            <td><img class="social-media-icons" src="assets/images/settings/youtube.png">Youtube<sup popover="If you have YouTube channels, please authorize us to view your YouTube account and your YouTube Analytics stats." popover-trigger="mouseenter" popover-placement="top"><i class="fa fa-question-circle"></i></sup></td>
             <td>
                 <p>{{vm.network.yt.message}}</p>
                 <p class="social-media-connection-status" ng-show='vm.network.yt.connected && vm.network.yt.error'>Connection error: please reauthorize or <a href="#" ng-click="vm.disconnect('yt')">disconnect</a></p>
@@ -41,7 +46,7 @@
         </tr>
         <!-- Google Analytics -->
         <tr>
-            <td><img class="social-media-icons" src="assets/images/settings/google-analytics.png">Google Analytics <sup popover="If you have Google Analytics for your websites, please authorize us to read stats from your Google Analytics account." popover-trigger="mouseenter" popover-placement="top"><i class="fa fa-question-circle"></i></sup></td>
+            <td><img class="social-media-icons" src="assets/images/settings/google-analytics.png">Google Analytics<sup popover="If you have Google Analytics for your websites, please authorize us to read stats from your Google Analytics account." popover-trigger="mouseenter" popover-placement="top"><i class="fa fa-question-circle"></i></sup></td>
             <td>
                 <p>{{vm.network.ga.message}}</p>
                 <p class="social-media-connection-status" ng-show='vm.network.ga.connected && vm.network.ga.error'>Connection error: please reauthorize or <a href="#" ng-click="vm.disconnect('ga')">disconnect</a></p>
