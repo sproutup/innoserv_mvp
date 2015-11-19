@@ -19,10 +19,24 @@
 }
 
 .profile-edit--header {
-  padding: 15px 3px 15px;
+  padding: 15px 3px 25px;
+}
+
+.profile-edit--header h1 {
   font-weight: 400;
   font-size: 13pt;
   color: @sproutup-blue;
+  padding: 0px;
+  margin: 0px;
+}
+
+.profile-edit--header h2 {
+  font-weight: 400;
+  font-size: 11pt;
+  line-height: 1.6;
+  color: @main-text-1;
+  padding: 15px 0px 0px;
+  margin: 0px;
 }
 
 .profile-edit--header.success {
@@ -86,7 +100,14 @@
 }
 
 .analytics-table {
-    max-width: 640px;
+    max-width: 680px;
+}
+
+.analytics-table thead th { 
+    font-weight: 400;
+    font-size: 10.5pt;
+    padding-left: 10px !important;
+    padding-bottom: 10px !important;
 }
 
 .analytics-table th {
@@ -103,7 +124,7 @@
     vertical-align: middle !important;
 }
 
-.analytics-table td sup {
+.analytics-table sup {
   font-size: 11pt;
   padding-left: 6px;
   color: @sproutup-blue;
