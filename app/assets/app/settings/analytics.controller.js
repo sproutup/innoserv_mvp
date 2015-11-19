@@ -54,59 +54,27 @@
                 userId: vm.user.id
             });
 
-            vm.network = {
-                ga: {status: 0, message: ''},
-                yt: {connected: false, error: false, message: ''},
-                tw: {connected: false, error: false, message: ''},
-                fb: {connected: false, error: false, message: ''},
-                ig: {status: 0, connected: false, error: false, message: ''},
-                pi: {connected: false, error: false, message: ''}
-            };
+            vm.networks = [
+                { provider: 'ga', status: 0, message: '' },
+                { provider: 'yt', status: 0, message: '' },
+                { provider: 'tw', status: 0, message: '' },
+                { provider: 'fb', status: 0, message: '' },
+                { provider: 'ig', status: 0, message: '' },
+                { provider: 'pi', status: 0, message: '' }
+            ];
 
             oauth.listNetwork(vm.user.id).then(function(data){
                 data.forEach(function(item){
-                    console.log('[analytics] provider:', item.provider);
-                    switch(item.provider){
-                    //     should be able to get around this switch with something like
-                    //     vm.network[item.provider].connected = (item.status === 1);
-                    //     vm.network[item.provider].error = (item.status === -1);
-                    //     vm.network[item.provider].status = item.status;
-
-                    case 'ga':
-                        vm.network.ga.status = item.status;
-                        vm.network.ga.message = item.message;
-                        break;
-                    case 'yt':
-                        vm.network.yt.connected = (item.status === 1);
-                        vm.network.yt.error = (item.status === -1);
-                        vm.network.yt.status = item.status;
-                        break;
-                    case 'tw':
-                        vm.network.tw.connected = (item.status === 1);
-                        vm.network.tw.message = item.token;
-                        vm.network.tw.error = (item.status === -1);
-                        vm.network.tw.status = item.status;
-                        break;
-                    case 'fb':
-                        vm.network.fb.connected = (item.status === 1);
-                        vm.network.fb.message = item.token;
-                        vm.network.fb.error = (item.status === -1);
-                        vm.network.fb.status = item.status;
-                        break;
-                    case 'ig':
-                        vm.network.ig.connected = (item.status === 1);
-                        vm.network.ig.message = item.token;
-                        vm.network.ig.error = (item.status === -1);
-                        vm.network.ig.status = item.status;
-                        break;
-                    case 'pi':
-                        vm.network.pi.connected = (item.status === 1);
-                        vm.network.pi.message = item.token;
-                        vm.network.pi.error = (item.status === -1);
-                        vm.network.pi.status = item.status;
-                        break;
+                    var match = vm.networks.filter(function(arg, val){
+                        return item.provider === vm.networks[val].provider;
+                    });
+                    if (match[0]) {
+                        match[0].status = item.status;
+                        match[0].message = item.message;
+                        match[0].provider = item.provider;
                     }
                 });
+                
             /*
                 vm.analytics = data;
                 vm.ga = $filter("filter")(data[0].summaries, {kind:"analytics#accountSummary"});
@@ -117,7 +85,6 @@
                 vm.googleAnalyticsAPI = data[0].googleAnalyticsAPI;
                 vm.youtubeAnalyticsAPI = data[0].youtubeAnalyticsAPI;
               */
-                vm.network.data = data;
             });
         }
 

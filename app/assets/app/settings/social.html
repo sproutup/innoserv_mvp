@@ -11,93 +11,31 @@
             <th></th>
         </thead>
         <tbody>
-            <!-- Twitter -->
-            <tr>
-                <td class="social-media-connection-name"><img class="social-media-icons" src="assets/images/settings/twitter.png">Twitter</td>
-                <td>
-                    <p ng-if="vm.network.tw.status !== -1">{{vm.reach.tw}}</p>
-                    <p ng-if="vm.network.tw.status === -1">{{vm.network.tw.message}}</p>
-                    <p class="social-media-connection-status" ng-show='vm.network.tw.connected && vm.network.tw.error'>Connection error: please reauthorize or <a href="#" ng-click="vm.disconnect('tw')">disconnect</a></p>
+            <!-- ng-repeat -->
+            <tr ng-repeat="network in vm.networks">
+                <td class="social-media-connection-name" ng-if="network.provider === 'ga'"><img class="social-media-icons" src="assets/images/settings/google-analytics.png">Google Analytics</td>
+                <td class="social-media-connection-name" ng-if="network.provider === 'tw'"><img class="social-media-icons" src="assets/images/settings/twitter.png">Twitter</td>
+                <td class="social-media-connection-name" ng-if="network.provider === 'yt'"><img class="social-media-icons" src="assets/images/settings/youtube.png">Youtube<sup popover="If you have YouTube channels, please authorize us to view your YouTube account and your YouTube Analytics stats." popover-trigger="mouseenter" popover-placement="top"><i class="fa fa-question-circle"></i></sup></td>
+                <td class="social-media-connection-name" ng-if="network.provider === 'pi'"><img class="social-media-icons" src="assets/images/settings/pinterest.png">Pinterest</td>
+                <td class="social-media-connection-name" ng-if="network.provider === 'ig'"><img class="social-media-icons" src="assets/images/settings/instagram.png">Instagram</td>
+                <td class="social-media-connection-name" ng-if="network.provider === 'fb'"><img class="social-media-icons" src="assets/images/settings/facebook.png">Facebook</td>
+                <td ng-if="network.status === 1">
+                    <p ng-show="network.provider === 'tw'">{{vm.reach.tw}}</p>
+                    <p ng-show="network.provider === 'yt'">{{vm.reach.yt}}</p>
+                    <p ng-show="network.provider === 'ga'">{{vm.reach.ga}}</p>
+                    <p ng-show="network.provider === 'fb'">{{vm.reach.fb}}</p>
+                    <p ng-show="network.provider === 'ig'">{{vm.reach.ig}}</p>
+                    <p ng-show="network.provider === 'pi'">{{vm.reach.pi}}</p>
                 </td>
+                <td ng-if="network.status === -1">
+                    <p class="social-media-connection-status">Connection error: please reauthorize or <a href="#" ng-click="vm.disconnect(network.provider)">disconnect</a></p>
+                    <p ng-if="network.status === -1">{{network.message}}</p>
+                </td>
+                <td ng-if="network.status !== 1 && network.status !== -1"></td>
                 <td class="social-media-connection-action">
-                    <a ng-hide='vm.network.tw.connected' analytics-on="click" analytics-event="Authorize" analytics-properties="{provider: 'tw'}" class="btn btn-lg sproutup-btn-md-main" ng-click="vm.connect('tw')">Connect</a>
-                    <a ng-if="vm.network.tw.status === -1" analytics-on="click" analytics-event="Authorize" analytics-properties="{provider: 'tw'}" class="btn btn-lg sproutup-btn-md-main" ng-click="vm.connect('tw')">Reconnect</a>
-                    <a href="#" ng-show='vm.network.tw.connected && !vm.network.tw.error && vm.network.tw.status !== -1' analytics-on="click" analytics-event="Disconnect" analytics-properties="{provider: 'tw'}" class="" ng-click="vm.disconnect('tw')">Disconnect</a>
-                    <a ng-show='vm.network.tw.connected && vm.network.tw.error' analytics-on="click" analytics-event="Reauthorize" analytics-properties="{provider: 'tw'}" class="btn btn-lg sproutup-btn-md-main red" ng-click="vm.reauthorize('tw')">Reauthorize</a>
-                </td>
-            </tr>
-            <!-- YouTube -->
-            <tr>
-                <td><img class="social-media-icons" src="assets/images/settings/youtube.png">Youtube<sup popover="If you have YouTube channels, please authorize us to view your YouTube account and your YouTube Analytics stats." popover-trigger="mouseenter" popover-placement="top"><i class="fa fa-question-circle"></i></sup></td>
-                <td>
-                    <p ng-if="vm.network.yt.status !== -1">{{vm.reach.yt}}</p>
-                    <p ng-if="vm.network.yt.status === -1">{{vm.network.yt.message}}</p>
-                    <p class="social-media-connection-status" ng-show='vm.network.yt.connected && vm.network.yt.error'>Connection error: please reauthorize or <a href="#" ng-click="vm.disconnect('yt')">disconnect</a></p>
-                </td>
-                <td class="social-media-connection-action">
-                    <a ng-hide='vm.network.yt.connected' analytics-on="click" analytics-event="Authorize" analytics-properties="{provider: 'yt'}" class="btn btn-lg sproutup-btn-md-main" ng-click="vm.connect('yt')">Connect</a>
-                    <a ng-if="vm.network.yt.status === -1" analytics-on="click" analytics-event="Authorize" analytics-properties="{provider: 'yt'}" class="btn btn-lg sproutup-btn-md-main" ng-click="vm.connect('yt')">Reconnect</a>
-                    <a href="#" ng-show='vm.network.yt.connected && !vm.network.yt.error && vm.network.yt.status !== -1' analytics-on="click" analytics-event="Disconnect" analytics-properties="{provider: 'yt'}" class="" ng-click="vm.disconnect('yt')">Disconnect</a>
-                    <a ng-show='vm.network.yt.connected && vm.network.yt.error' analytics-on="click" analytics-event="Reauthorize" analytics-properties="{provider: 'yt'}" class="btn btn-lg sproutup-btn-md-main orange" ng-click="vm.reauthorize('yt')">Reauthorize</a>
-                </td>
-            </tr>
-            <!-- Google Analytics -->
-            <tr>
-                <td><img class="social-media-icons" src="assets/images/settings/google-analytics.png">Google Analytics</td>
-                <td>
-                    <p ng-show='vm.network.ga.status === 1'>{{vm.reach.ga}}</p>
-                    <p class="social-media-connection-status" ng-show='vm.network.ga.status === -1'>Connection error: please reauthorize or <a href="#" ng-click="vm.disconnect('ga')">disconnect</a></p>
-                    <p ng-show='vm.network.ga.status === -1'>{{vm.network.ga.message}}</p>
-                </td>
-                <td class="social-media-connection-action">
-                    <a ng-show='vm.network.ga.status === 0' analytics-on="click" analytics-event="Authorize" analytics-properties="{provider: 'ga'}" class="btn btn-lg sproutup-btn-md-main" ng-click="vm.connect('ga')">Connect</a>
-                    <a ng-show='vm.network.ga.status === 1' analytics-on="click" analytics-event="Disconnect" analytics-properties="{provider: 'ga'}" class="" ng-click="vm.disconnect('ga')" href="#">Disconnect</a>
-                    <a ng-show='vm.network.ga.status === -1' analytics-on="click" analytics-event="Reauthorize" analytics-properties="{provider: 'ga'}" class="btn btn-lg sproutup-btn-md-main red" ng-click="vm.reauthorize('ga')">Reauthorize</a>
-                </td>
-            </tr>
-            <!-- Facebook -->
-            <tr>
-                <td><img class="social-media-icons" src="assets/images/settings/facebook.png">Facebook</td>
-                <td>
-                    <p ng-if="vm.network.fb.status !== -1">{{vm.reach.fb}}</p>
-                    <p ng-if="vm.network.fb.status === -1">{{vm.network.fb.message}}</p>
-                    <p class="social-media-connection-status" ng-show='vm.network.fb.connected && vm.network.fb.error'>Connection error: please reauthorize or <a href="#" ng-click="vm.disconnect('fb')">disconnect</a></p>
-                </td>
-                <td class="social-media-connection-action">
-                    <a ng-hide='vm.network.fb.connected' analytics-on="click" analytics-event="Authorize" analytics-properties="{provider: 'fb'}" class="btn btn-lg sproutup-btn-md-main" ng-click="vm.connect('fb')">Connect</a>
-                    <a ng-if="vm.network.fb.status === -1" analytics-on="click" analytics-event="Authorize" analytics-properties="{provider: 'fb'}" class="btn btn-lg sproutup-btn-md-main" ng-click="vm.connect('fb')">Reconnect</a>
-                    <a href="#" ng-show='vm.network.fb.connected && !vm.network.fb.error && vm.network.fb.status === -1' analytics-on="click" analytics-event="Disconnect" analytics-properties="{provider: 'fb'}" class="" ng-click="vm.disconnect('fb')">Disconnect</a>
-                    <a ng-show='vm.network.fb.connected && vm.network.fb.error' analytics-on="click" analytics-event="Reauthorize" analytics-properties="{provider: 'fb'}" class="btn btn-lg sproutup-btn-md-main red" ng-click="vm.reauthorize('fb')">Reauthorize</a>
-                </td>
-            </tr>
-            <!-- Instagram -->
-            <tr>
-                <td><img class="social-media-icons" src="assets/images/settings/instagram.png">Instagram</td>
-                <td>
-                    <p ng-if="vm.network.ig.status !== -1">{{vm.reach.ig}}</p>
-                    <p ng-if="vm.network.ig.status === -1">{{vm.network.ig.message}}</p>
-                    <p class="social-media-connection-status" ng-show='vm.neigork.tw.connected && vm.network.ig.error'>Connection error: please reauthorize or <a href="#" ng-click="vm.disconnect('ig')">disconnect</a></p>
-                </td>
-                <td class="social-media-connection-action">
-                    <a ng-show='vm.network.ig.status===0' analytics-on="click" analytics-event="Authorize" analytics-properties="{provider: 'ig'}" class="btn btn-lg sproutup-btn-md-main" ng-click="vm.connect('ig')">Connect</a>
-                    <a ng-if="vm.network.ig.status === -1" analytics-on="click" analytics-event="Authorize" analytics-properties="{provider: 'ig'}" class="btn btn-lg sproutup-btn-md-main" ng-click="vm.connect('ig')">Reconnect</a>
-                    <a ng-show='vm.network.ig.status===1' analytics-on="click" analytics-event="Disconnect" analytics-properties="{provider: 'ig'}" class="" ng-click="vm.disconnect('ig')" href="#">Disconnect</a>
-                    <a ng-show='vm.network.ig.status==-1' analytics-on="click" analytics-event="Reauthorize" analytics-properties="{provider: 'ig'}" class="btn btn-lg sproutup-btn-md-main red" ng-click="vm.reauthorize('ig')">Reauthorize</a>
-                </td>
-            </tr>
-            <!-- Instagram -->
-            <tr>
-                <td><img class="social-media-icons" src="assets/images/settings/pinterest.png">Pinterest</td>
-                <td>
-                    <p ng-if="vm.network.pi.status !== -1">{{vm.reach.pi}}</p>
-                    <p ng-if="vm.network.pi.status === -1">{{vm.network.pi.message}}</p>
-                    <p class="social-media-connection-status" ng-show='vm.network.pi.connected && vm.network.pi.error'>Connection error: please reauthorize or <a href="#" ng-click="vm.disconnect('pi')">disconnect</a></p>
-                </td>
-                <td class="social-media-connection-action">
-                    <a ng-hide='vm.network.pi.connected' analytics-on="click" analytics-event="Authorize" analytics-properties="{provider: 'pi'}" class="btn btn-lg sproutup-btn-md-main" ng-click="vm.connect('pi')">Connect</a>
-                    <a ng-if="vm.network.pi.status === -1" analytics-on="click" analytics-event="Authorize" analytics-properties="{provider: 'pi'}" class="btn btn-lg sproutup-btn-md-main" ng-click="vm.connect('pi')">Reconnect</a>
-                    <a href="#" ng-show='vm.network.pi.connected && !vm.network.pi.error && vm.network.pi.status !== -1' analytics-on="click" analytics-event="Disconnect" analytics-properties="{provider: 'pi'}" class="" ng-click="vm.disconnect('pi')">Disconnect</a>
-                    <a ng-show='vm.network.pi.connected && vm.network.pi.error' analytics-on="click" analytics-event="Reauthorize" analytics-properties="{provider: 'pi'}" class="btn btn-lg sproutup-btn-md-main red" ng-click="vm.reauthorize('pi')">Reauthorize</a>
+                    <a ng-show='network.status === 0' analytics-on="click" analytics-event="Authorize" analytics-properties="{provider: '{{ network.provider }}'}" class="btn btn-lg sproutup-btn-md-main" ng-click="vm.connect(network.provider)">Connect</a>
+                    <a ng-show='network.status === 1' analytics-on="click" analytics-event="Disconnect" analytics-properties="{provider: '{{ network.provider }}'}" class="" ng-click="vm.disconnect(network.provider)" href="#">Disconnect</a>
+                    <a ng-show='network.status === -1' analytics-on="click" analytics-event="Reauthorize" analytics-properties="{provider: '{{ network.provider }}'}" class="btn btn-lg sproutup-btn-md-main red" ng-click="vm.reauthorize(network.provider)">Reauthorize</a>
                 </td>
             </tr>
         </tbody>
