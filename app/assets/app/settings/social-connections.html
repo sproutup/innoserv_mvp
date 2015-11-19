@@ -1,0 +1,36 @@
+<table class="table table-striped table-responsive analytics-table">
+    <thead>
+        <th>Network</th>
+        <th>Reach<sup popover="Reach is the number of followers or subscribers on your social media channels" popover-trigger="mouseenter" popover-placement="top"><i class="fa fa-question-circle"></i></sup></th>
+        <th></th>
+    </thead>
+    <tbody>
+        <!-- ng-repeat -->
+        <tr ng-repeat="network in vm.networks">
+            <td class="social-media-connection-name" ng-if="network.provider === 'ga'"><img class="social-media-icons" src="assets/images/settings/google-analytics.png">Google Analytics</td>
+            <td class="social-media-connection-name" ng-if="network.provider === 'tw'"><img class="social-media-icons" src="assets/images/settings/twitter.png">Twitter</td>
+            <td class="social-media-connection-name" ng-if="network.provider === 'yt'"><img class="social-media-icons" src="assets/images/settings/youtube.png">Youtube<sup popover="If you have YouTube channels, please authorize us to view your YouTube account and your YouTube Analytics stats." popover-trigger="mouseenter" popover-placement="top"><i class="fa fa-question-circle"></i></sup></td>
+            <td class="social-media-connection-name" ng-if="network.provider === 'pi'"><img class="social-media-icons" src="assets/images/settings/pinterest.png">Pinterest</td>
+            <td class="social-media-connection-name" ng-if="network.provider === 'ig'"><img class="social-media-icons" src="assets/images/settings/instagram.png">Instagram</td>
+            <td class="social-media-connection-name" ng-if="network.provider === 'fb'"><img class="social-media-icons" src="assets/images/settings/facebook.png">Facebook</td>
+            <td ng-if="network.status === 1">
+                <p ng-show="network.provider === 'tw'">{{vm.reach.tw}}</p>
+                <p ng-show="network.provider === 'yt'">{{vm.reach.yt}}</p>
+                <p ng-show="network.provider === 'ga'">{{vm.reach.ga}}</p>
+                <p ng-show="network.provider === 'fb'">{{vm.reach.fb}}</p>
+                <p ng-show="network.provider === 'ig'">{{vm.reach.ig}}</p>
+                <p ng-show="network.provider === 'pi'">{{vm.reach.pi}}</p>
+            </td>
+            <td ng-if="network.status === -1">
+                <p class="social-media-connection-status">Connection error: please reauthorize or <a href="#" ng-click="vm.disconnect(network.provider)">disconnect</a></p>
+                <p ng-if="network.status === -1">{{network.message}}</p>
+            </td>
+            <td ng-if="network.status !== 1 && network.status !== -1"></td>
+            <td class="social-media-connection-action">
+                <a ng-show='network.status === 0' analytics-on="click" analytics-event="Authorize" analytics-properties="{provider: '{{ network.provider }}'}" class="btn btn-lg sproutup-btn-md-main" ng-click="vm.connect(network.provider)">Connect</a>
+                <a ng-show='network.status === 1' analytics-on="click" analytics-event="Disconnect" analytics-properties="{provider: '{{ network.provider }}'}" class="" ng-click="vm.disconnect(network.provider)" href="#">Disconnect</a>
+                <a ng-show='network.status === -1' analytics-on="click" analytics-event="Reauthorize" analytics-properties="{provider: '{{ network.provider }}'}" class="btn btn-lg sproutup-btn-md-main red" ng-click="vm.reauthorize(network.provider)">Reauthorize</a>
+            </td>
+        </tr>
+    </tbody>
+</table>
