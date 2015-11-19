@@ -7,7 +7,7 @@
     <tbody>
         <!-- ng-repeat -->
         <tr ng-repeat="network in vm.networks">
-            <td class="social-media-connection-name" ng-if="network.provider === 'ga'"><img class="social-media-icons" src="assets/images/settings/google-analytics.png">Google Analytics</td>
+            <td class="social-media-connection-name" ng-if="network.provider === 'ga'"><img class="social-media-icons" src="assets/images/settings/google-analytics.png">Google Analytics<sup popover="If you have Google Analytics for your websites, please authorize us to read stats from your Google Analytics account." popover-trigger="mouseenter" popover-placement="top"><i class="fa fa-question-circle"></i></sup></td>
             <td class="social-media-connection-name" ng-if="network.provider === 'tw'"><img class="social-media-icons" src="assets/images/settings/twitter.png">Twitter</td>
             <td class="social-media-connection-name" ng-if="network.provider === 'yt'"><img class="social-media-icons" src="assets/images/settings/youtube.png">Youtube<sup popover="If you have YouTube channels, please authorize us to view your YouTube account and your YouTube Analytics stats." popover-trigger="mouseenter" popover-placement="top"><i class="fa fa-question-circle"></i></sup></td>
             <td class="social-media-connection-name" ng-if="network.provider === 'pi'"><img class="social-media-icons" src="assets/images/settings/pinterest.png">Pinterest</td>
