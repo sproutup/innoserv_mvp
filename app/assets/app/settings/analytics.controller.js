@@ -55,7 +55,7 @@
             });
 
             vm.network = {
-                ga: {connected: false, error: false, message: ''},
+                ga: {status: 0, message: ''},
                 yt: {connected: false, error: false, message: ''},
                 tw: {connected: false, error: false, message: ''},
                 fb: {connected: false, error: false, message: ''},
@@ -73,9 +73,8 @@
                     //     vm.network[item.provider].status = item.status;
 
                     case 'ga':
-                        vm.network.ga.connected = (item.status === 1);
-                        vm.network.ga.error = (item.status === -1);
                         vm.network.ga.status = item.status;
+                        vm.network.ga.message = item.message;
                         break;
                     case 'yt':
                         vm.network.yt.connected = (item.status === 1);

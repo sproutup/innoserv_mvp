@@ -37,13 +37,14 @@
             <tr>
                 <td><img class="social-media-icons" src="assets/images/settings/google-analytics.png">Google Analytics</td>
                 <td>
-                    <p>{{vm.reach.ga}}</p>
-                    <p class="social-media-connection-status" ng-show='vm.network.ga.connected && vm.network.ga.error'>Connection error: please reauthorize or <a href="#" ng-click="vm.disconnect('ga')">disconnect</a></p>
+                    <p ng-show='vm.network.ga.status === 1'>{{vm.reach.ga}}</p>
+                    <p class="social-media-connection-status" ng-show='vm.network.ga.status === -1'>Connection error: please reauthorize or <a href="#" ng-click="vm.disconnect('ga')">disconnect</a></p>
+                    <p ng-show='vm.network.ga.status === -1'>{{vm.network.ga.message}}</p>
                 </td>
                 <td class="social-media-connection-action">
-                    <a ng-hide='vm.network.ga.connected' analytics-on="click" analytics-event="Authorize" analytics-properties="{provider: 'ga'}" class="btn btn-lg sproutup-btn-md-main" ng-click="vm.connect('ga')">Connect</a>
-                    <a href="#" ng-show='vm.network.ga.connected && !vm.network.ga.error' analytics-on="click" analytics-event="Disconnect" analytics-properties="{provider: 'ga'}" class="" ng-click="vm.disconnect('ga')">Disconnect</a>
-                    <a ng-show='vm.network.ga.connected && vm.network.ga.error' analytics-on="click" analytics-event="Reauthorize" analytics-properties="{provider: 'ga'}" class="btn btn-lg sproutup-btn-md-main red" ng-click="vm.reauthorize('ga')">Reauthorize</a>
+                    <a ng-show='vm.network.ga.status === 0' analytics-on="click" analytics-event="Authorize" analytics-properties="{provider: 'ga'}" class="btn btn-lg sproutup-btn-md-main" ng-click="vm.connect('ga')">Connect</a>
+                    <a ng-show='vm.network.ga.status === 1' analytics-on="click" analytics-event="Disconnect" analytics-properties="{provider: 'ga'}" class="" ng-click="vm.disconnect('ga')" href="#">Disconnect</a>
+                    <a ng-show='vm.network.ga.status === -1' analytics-on="click" analytics-event="Reauthorize" analytics-properties="{provider: 'ga'}" class="btn btn-lg sproutup-btn-md-main red" ng-click="vm.reauthorize('ga')">Reauthorize</a>
                 </td>
             </tr>
             <!-- Facebook -->

@@ -19,7 +19,7 @@ function userDetailCtrl($scope, $stateParams, $state, $log, UserService, Analyti
             vm.posts = data.posts;
             vm.stranger = data;
 
-            AnalyticsService.UserReach().get({userId: data.id}).$promise.then(function(reach){
+            AnalyticsService.userReach().get({userId: data.id}).$promise.then(function(reach){
                 vm.reach = reach;
             });
         },
