@@ -163,32 +163,32 @@ function authService($http, $q, $cookieStore, $log, userService, $timeout, $stat
                     //angular.extend(user, data);
                     //isLoggedIn = true;
                     angular.extend(model.user, data);
-                    console.log("#3 status: ", status);
+                    // console.log("#3 status: ", status);
                     isReady = true;
                     model.isLoggedIn = true;
 
                     if(signup){
-                        console.log('signup data: ', data);
+                        // console.log('signup data: ', data);
                         $analytics.setAlias(model.user.id);
                     }
                     else{
-                        console.log('signin data: ', data);
+                        // console.log('signin data: ', data);
                         $analytics.setUsername(model.user.id);
                     }
                     $analytics.setUserPropertiesOnce({name: model.user.name});
 
                     refreshTrials();
-                    $log.debug("auth user service returned success: " + model.user.name);
+                    // $log.debug("auth user service returned success: " + model.user.name);
                     deferred.resolve(model.user);
                     break;
                 case 204: // no content
                     isReady = true;
                     model.isLoggedIn = false;
-                    $log.debug("user not logged in");
+                    // $log.debug("user not logged in");
                     deferred.reject("user not logged in");
                     break;
                 default:
-                    $log.debug("unhandled return value");
+                    // $log.debug("unhandled return value");
                     deferred.reject("auth user - unhandled return value");
                     break;
             }

@@ -1,4 +1,4 @@
-<table class="table table-striped table-responsive analytics-table">
+<table class="table table-striped table-responsive analytics-table social-table" cellpadding="10">
     <thead>
         <th>Network</th>
         <th>Reach<sup popover="Reach is the number of followers or subscribers on your social media channels" popover-trigger="mouseenter" popover-placement="top"><i class="fa fa-question-circle"></i></sup></th>
@@ -13,7 +13,7 @@
             <td class="social-media-connection-name" ng-if="network.provider === 'pi'"><img class="social-media-icons" src="assets/images/settings/pinterest.png">Pinterest</td>
             <td class="social-media-connection-name" ng-if="network.provider === 'ig'"><img class="social-media-icons" src="assets/images/settings/instagram.png">Instagram</td>
             <td class="social-media-connection-name" ng-if="network.provider === 'fb'"><img class="social-media-icons" src="assets/images/settings/facebook.png">Facebook</td>
-            <td ng-if="network.status === 1">
+            <td class="table-reach" ng-if="network.status === 1">
                 <p ng-show="network.provider === 'tw'">{{vm.reach.tw}}</p>
                 <p ng-show="network.provider === 'yt'">{{vm.reach.yt}}</p>
                 <p ng-show="network.provider === 'ga'">{{vm.reach.ga}}</p>

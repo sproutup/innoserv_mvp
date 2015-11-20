@@ -5,9 +5,9 @@
         .module('sproutupApp')
         .controller('AnalyticsController', AnalyticsController);
 
-    AnalyticsController.$inject = ['$rootScope', '$state', '$log', 'AuthService','GoogleApiService', 'AnalyticsService', '$filter', 'OAuthService', '$window'];
+    AnalyticsController.$inject = ['$rootScope', '$state', '$log', 'AuthService','GoogleApiService', 'AnalyticsService', '$filter', 'OAuthService', '$window', '$cookieStore'];
 
-    function AnalyticsController($rootScope, $state, $log, authService, googleApiService, analyticsService, $filter, oauth, $window) {
+    function AnalyticsController($rootScope, $state, $log, authService, googleApiService, analyticsService, $filter, oauth, $window, $cookieStore) {
         var vm = this;
 
         vm.user = {};
@@ -64,6 +64,16 @@
             ];
 
             oauth.listNetwork(vm.user.id).then(function(data){
+                vm.networkData = data;
+                // if the user hasn't connected, we add a cookie 'disconnectedUser'
+                if (vm.networkData.length < 1) {
+                    $cookieStore.put('disconnectedUser', true);
+                }
+                // set oauth.socialMediaChecked to true in the service
+                // we need this to run the log in and trial flows
+                oauth.socialMediaChecked = true;
+                oauth.networks = data;
+
                 data.forEach(function(item){
                     var match = vm.networks.filter(function(arg, val){
                         return item.provider === vm.networks[val].provider;
@@ -74,7 +84,14 @@
                         match[0].provider = item.provider;
                     }
                 });
-                
+
+                vm.networkInit = true;
+
+                vm.networkData = [];
+                if ($state.current.name === 'user.trial.social' && vm.networkData.length > 1 && !vm.userCookie) {
+                    $state.go('user.trial.request', { slug: $state.params.slug });
+                }
+
             /*
                 vm.analytics = data;
                 vm.ga = $filter("filter")(data[0].summaries, {kind:"analytics#accountSummary"});
@@ -89,11 +106,12 @@
         }
 
         function connect(provider){
-            console.log('connect: ', provider);
-
             oauth.createNetwork(provider, vm.user.id).then(function(data){
-                authService.setRedirect('user.settings.social','');
-                console.log('connect:', data);
+                if ($state.params) {
+                    authService.setRedirect($state.current.name, $state.params);
+                } else {
+                    authService.setRedirect($state.current.name, '');
+                }
                 $window.location.href = data.url;
             });
         }
@@ -108,9 +126,12 @@
 
         function reauthorize(provider){
             console.log('reauthorize: ', provider);
-
             oauth.createNetwork(provider, vm.user.id).then(function(data){
-                authService.setRedirect('user.settings.social','');
+                if ($state.params) {
+                    authService.setRedirect($state.current.name, $state.params);
+                } else {
+                    authService.setRedirect($state.current.name, '');
+                }
                 console.log('connect:', data);
                 $window.location.href = data.url;
             });

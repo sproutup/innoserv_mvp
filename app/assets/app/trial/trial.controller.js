@@ -5,13 +5,14 @@
         .module('sproutupApp')
         .controller('TrialController', TrialController);
 
-    TrialController.$inject = ['$q', '$rootScope', '$stateParams', '$state', '$log', 'AuthService', '$location', '$window', 'TrialService', 'ProductService'];
+    TrialController.$inject = ['$q', '$rootScope', '$stateParams', '$scope', '$state', '$log', 'AuthService', '$location', '$window', 'TrialService', 'ProductService', '$cookieStore', 'OAuthService'];
 
-    function TrialController($q, $rootScope, $stateParams, $state, $log, authService, $location, $window, TrialService, ProductService) {
+    function TrialController($q, $rootScope, $stateParams, $scope, $state, $log, authService, $location, $window, TrialService, ProductService, $cookieStore, oauth) {
         $log.debug("entered trial request");
         $log.debug("slug = " + $stateParams.slug);
 
         var vm = this;
+        vm.test = 'yo';
 
         vm.submit = submit;
         vm.cancel = cancel;
@@ -23,7 +24,20 @@
         vm.product = {};
         vm.ready = authService.ready;
         // Check for whether user can place another trial, ng-show (temporary fix, need rejection.html)
-        vm.trialSuccess= false;
+        vm.trialSuccess = false;
+        vm.connected = connected;
+        $scope.oauth = oauth;
+        
+        $scope.$watch('oauth.socialMediaChecked', function (value) {
+            if (value === true) {
+                vm.socialMediaChecked = true;
+                vm.disconnectedUser = $cookieStore.get('disconnectedUser');
+                vm.networks = oauth.networks;
+                if (!vm.disconnectedUser) {
+                    $state.go('user.trial.request', $stateParams);
+                }
+            }
+        });
 
         activate();
 
@@ -76,6 +90,11 @@
             }, function(err) {
                 // handle err here
             });
+        }
+
+        function connected() {
+            $cookieStore.remove('disconnectedUser');
+            $state.go('user.trial.request', $stateParams);
         }
 
         function finish() {
