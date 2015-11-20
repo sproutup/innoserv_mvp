@@ -21,11 +21,11 @@
         vm.requestYoutubeTokenUrl = '';
         vm.revokeAuthorization = revokeAuthorization;
         vm.network = {
-            ga: {connected: false, error: false, message: ''},
             yt: {connected: false, error: false, message: ''},
+            ga: {connected: false, error: false, message: ''},
             tw: {connected: false, error: false, message: ''},
-            fb: {connected: false, error: false, message: ''},
             ig: {connected: false, error: false, message: ''},
+            fb: {connected: false, error: false, message: ''},
             pi: {connected: false, error: false, message: ''}
         };
         vm.connect = connect;
@@ -55,11 +55,11 @@
             });
 
             vm.networks = [
-                { provider: 'ga', status: 0, message: '' },
                 { provider: 'yt', status: 0, message: '' },
+                { provider: 'ga', status: 0, message: '' },
                 { provider: 'tw', status: 0, message: '' },
-                { provider: 'fb', status: 0, message: '' },
                 { provider: 'ig', status: 0, message: '' },
+                { provider: 'fb', status: 0, message: '' },
                 { provider: 'pi', status: 0, message: '' }
             ];
 
