@@ -2,13 +2,23 @@ package controllers;
 
 import be.objectify.deadbolt.java.actions.SubjectPresent;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import models.*;
+import net.jpountz.lz4.LZ4Compressor;
+import net.jpountz.lz4.LZ4Factory;
+import net.jpountz.lz4.LZ4SafeDecompressor;
+import play.cache.Cache;
 import play.data.Form;
 import play.*;
 import play.libs.Json;
 import play.mvc.*;
 import views.html.*;
+import com.typesafe.plugin.RedisPlugin;
+import redis.clients.jedis.*;
 
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import javax.persistence.PersistenceException;
@@ -73,13 +83,61 @@ public class Products extends Controller {
 //        return ok(product_item.render(product, mediaUploadForm));
 //    }
 
+    private static ObjectMapper mapper = new ObjectMapper(); // can reuse, share globally
 
     @BodyParser.Of(BodyParser.Json.class)
+//    @Cached(key = "http:products:get:product", duration = 300)
     public static Result getProducts()
     {
-        //List<Product> products_ = Product.getAllActive();
-        //return ok(Product.toJson(products_));
-        return ok(Product.range());
+        ArrayNode node = null;
+        Jedis j = play.Play.application().plugin(RedisPlugin.class).jedisPool().getResource();
+        LZ4Factory factory = LZ4Factory.fastestInstance();
+
+        byte[] compressed = (byte[]) play.cache.Cache.get("http:product:get:product:lz4");
+        if (compressed != null) {
+            Logger.debug("product:lz4: cache hit " + compressed.length);
+            byte[] uncompressed = new byte[compressed.length*100];
+            LZ4SafeDecompressor decompressor = factory.safeDecompressor();
+            int decompressedLength = 10000;
+            byte[] restored = new byte[decompressedLength];
+            restored = decompressor.decompress(compressed, decompressedLength);
+
+            //int decompressedLength = decompressor.decompress(compressed, 0, compressed.length, uncompressed, 0, compressed.length*100);
+            Logger.debug("decompressed length " + restored.length);
+            try {
+                String result = new String(restored, "UTF-8");
+                node = (ArrayNode) mapper.readTree(result);
+            } catch(Exception e){
+                Logger.debug(e.getMessage());
+            };
+        }
+        else{
+            Logger.debug("product:lz4: cache miss");
+            node =  Product.range();
+            String src = node.toString();
+            try {
+                byte[] data = src.getBytes("UTF-8");
+                int decompressedLength = data.length;
+                Logger.debug("product:lz4: data len" + data.length);
+                // compress data
+                LZ4Compressor compressor = factory.fastCompressor();
+                int maxCompressedLength = compressor.maxCompressedLength(decompressedLength);
+                compressed = new byte[maxCompressedLength];
+                int compressedLength = compressor.compress(data, 0, decompressedLength, compressed, 0, maxCompressedLength);
+                Logger.debug("product:lz4: comp len" + compressedLength);
+                byte[] finalCompressedArray = Arrays.copyOf(compressed, compressedLength);
+                Logger.debug("product:lz4: final len" + finalCompressedArray.length);
+
+                play.cache.Cache.set("http:product:get:product:lz4", finalCompressedArray, 300); // 5 min
+            } catch(Exception e){
+                Logger.debug(e.getMessage());
+            }
+        }
+
+        //j.set()
+        //Cache.get("http:products:get:product");
+
+        return ok(node);
     }
 
     @BodyParser.Of(BodyParser.Json.class)
