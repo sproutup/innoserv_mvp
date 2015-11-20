@@ -96,11 +96,11 @@ public class Products extends Controller {
         byte[] compressed = (byte[]) play.cache.Cache.get("http:product:get:product:lz4");
         if (compressed != null) {
             Logger.debug("product:lz4: cache hit " + compressed.length);
-            byte[] uncompressed = new byte[compressed.length*100];
+//            byte[] uncompressed = new byte[compressed.length*10];
             LZ4SafeDecompressor decompressor = factory.safeDecompressor();
-            int decompressedLength = 10000;
-            byte[] restored = new byte[decompressedLength];
-            restored = decompressor.decompress(compressed, decompressedLength);
+            int maxDecompressedLength = compressed.length*10;
+            byte[] restored = new byte[maxDecompressedLength];
+            restored = decompressor.decompress(compressed, maxDecompressedLength);
 
             //int decompressedLength = decompressor.decompress(compressed, 0, compressed.length, uncompressed, 0, compressed.length*100);
             Logger.debug("decompressed length " + restored.length);
