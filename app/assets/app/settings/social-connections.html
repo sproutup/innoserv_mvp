@@ -29,7 +29,7 @@
             <td ng-if="network.status !== 1 && network.status !== -1"></td>
             <td class="social-media-connection-action">
                 <a ng-show='network.status === 0' analytics-on="click" analytics-event="Authorize" analytics-properties="{provider: '{{ network.provider }}'}" class="btn btn-lg sproutup-btn-md-main" ng-click="vm.connect(network.provider)">Connect</a>
-                <a ng-show='network.status === 1' analytics-on="click" analytics-event="Disconnect" analytics-properties="{provider: '{{ network.provider }}'}" class="link" ng-click="vm.disconnect(network.provider)" href="#">Disconnect</a>
+                <a ng-show='network.status === 1' analytics-on="click" analytics-event="Disconnect" analytics-properties="{provider: '{{ network.provider }}'}" class="btn btn-lg sproutup-btn-md-main naked" ng-click="vm.disconnect(network.provider)" href="#">Disconnect</a>
                 <a ng-show='network.status === -1' analytics-on="click" analytics-event="Reauthorize" analytics-properties="{provider: '{{ network.provider }}'}" class="btn btn-lg sproutup-btn-md-main red" ng-click="vm.reauthorize(network.provider)">Reauthorize</a>
             </td>
         </tr>
