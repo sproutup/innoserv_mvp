@@ -1,4 +1,5 @@
 repo = sproutupco
+target = develop
 cname = sproutup-co
 environment_name = develop
 configuration = develop
@@ -9,13 +10,15 @@ all: start
 start:
 	activator run
 
-develop:
+master:
+	$(eval target := master)
 	$(eval cname := master-sproutup-co) 
 	$(eval environment_name := master)
 	$(eval configuration := master) 
 	$(eval application_name := master)
 
-master:
+develop:
+	$(eval target := develop)
 	$(eval cname := develop-sproutup-co) 
 	$(eval environment_name := develop)
 	$(eval configuration := develop) 
@@ -25,10 +28,13 @@ status:
 	echo $(environment_name)/$(application_name)
 
 deploy: clean stage prepare
-	$(MAKE) -C target/docker deploy
+	$(MAKE) -C target/docker $(target) deploy
 
 create: clean stage prepare
-	$(MAKE) -C target/docker create
+	$(MAKE) -C target/docker $(target) create
+
+recreate: clean stage prepare
+	$(MAKE) -C target/docker $(target) recreate
 
 build: clean stage prepare
 	$(MAKE) -C target/docker build
