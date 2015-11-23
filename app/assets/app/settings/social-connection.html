@@ -23,13 +23,13 @@
                 <p class="social-media-reach" ng-show="network.provider === 'pi'">{{vm.reach.pi}}</p>
             </td>
             <td ng-if="network.status === -1">
-                <p class="social-media-connection-status">Connection error: please reauthorize or <a href="#" ng-click="vm.disconnect(network.provider)">disconnect</a></p>
+                <p class="social-media-connection-status">Connection error: please reauthorize or <a href="#" ng-click="vm.openDisconnectModal(network.provider)">disconnect</a></p>
                 <p ng-if="network.status === -1">{{network.message}}</p>
             </td>
             <td ng-if="network.status !== 1 && network.status !== -1"></td>
             <td class="social-media-connection-action">
                 <a ng-show='network.status === 0' analytics-on="click" analytics-event="Authorize" analytics-properties="{provider: '{{ network.provider }}'}" class="btn btn-lg sproutup-btn-md-main" ng-click="vm.connect(network.provider)">Connect</a>
-                <a ng-show='network.status === 1' analytics-on="click" analytics-event="Disconnect" analytics-properties="{provider: '{{ network.provider }}'}" class="btn btn-lg sproutup-btn-md-main naked" ng-click="vm.disconnect(network.provider)" href="#">Disconnect</a>
+                <a ng-show='network.status === 1' analytics-on="click" analytics-event="Disconnect" analytics-properties="{provider: '{{ network.provider }}'}" class="btn btn-lg sproutup-btn-md-main naked" ng-click="vm.openDisconnectModal(network.provider)" href="#">Disconnect</a>
                 <a ng-show='network.status === -1' analytics-on="click" analytics-event="Reauthorize" analytics-properties="{provider: '{{ network.provider }}'}" class="btn btn-lg sproutup-btn-md-main red" ng-click="vm.reauthorize(network.provider)">Reauthorize</a>
             </td>
         </tr>

@@ -561,9 +561,9 @@ a:focus {
     border: 1px solid;
 }
 
-.sproutup-btn-md-main.naked:hover {
-    background: none;
-    color: @sproutup-blue-hover;
+.sproutup-btn-md-main.naked:hover, .sproutup-btn-md-main.naked:focus {
+    background: none !important;
+    color: @sproutup-blue-hover !important;
 }
 
 .sproutup-btn-md-main.cancel:hover {
@@ -1094,6 +1094,10 @@ input[type=checkbox] {
 
 .social-table th:first-child {
     width: 200px;
+}
+
+.modal-footer.disconnect {
+    margin-bottom: 10px;
 }
 
 .table-spinner .spinner {

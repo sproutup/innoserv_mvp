@@ -5,9 +5,9 @@
         .module('sproutupApp')
         .controller('AnalyticsController', AnalyticsController);
 
-    AnalyticsController.$inject = ['$rootScope', '$state', '$log', 'AuthService','GoogleApiService', 'AnalyticsService', '$filter', 'OAuthService', '$window', '$cookieStore', 'usSpinnerService'];
+    AnalyticsController.$inject = ['$rootScope', '$state', '$log', 'AuthService','GoogleApiService', 'AnalyticsService', '$filter', 'OAuthService', '$window', '$cookieStore', 'usSpinnerService', '$modal'];
 
-    function AnalyticsController($rootScope, $state, $log, authService, googleApiService, analyticsService, $filter, oauth, $window, $cookieStore, usSpinnerService) {
+    function AnalyticsController($rootScope, $state, $log, authService, googleApiService, analyticsService, $filter, oauth, $window, $cookieStore, usSpinnerService, $modal) {
         var vm = this;
 
         vm.user = {};
@@ -29,6 +29,7 @@
             pi: {connected: false, error: false, message: ''}
         };
         vm.connect = connect;
+        vm.openDisconnectModal = openDisconnectModal;
         vm.disconnect = disconnect;
         vm.reauthorize = reauthorize;
 
@@ -90,8 +91,8 @@
                     }
                 });
 
-                // vm.networkData = [];
-                if ($state.current.name === 'user.trial.social' && vm.networkData.length > 1 && !vm.userCookie) {
+                vm.disconnectedUser = $cookieStore.get('disconnectedUser');
+                if ($state.current.name === 'user.trial.social' && vm.networkData.length > 1 && !vm.disconnectedUser) {
                     $state.go('user.trial.request', { slug: $state.params.slug });
                 }
 
@@ -125,12 +126,31 @@
             });
         }
 
+        function openDisconnectModal(provider) {
+            var modalInstance = $modal.open({
+              templateUrl: 'assets/app/settings/disconnect-confirmation.html',
+              controller: 'DisconnectController'
+            });
+
+            modalInstance.result.then(function (selectedItem) {
+              disconnect(provider);
+            }, function () {
+              $log.info('Modal dismissed at: ' + new Date());
+            });
+        }
+
         function disconnect(provider){
             console.log('disconnect: ', provider);
+            usSpinnerService.spin('spinner-4');
+            vm.networkInit = false;
             oauth.deleteNetwork(provider, vm.user.id).then(function(data){
                 console.log('disconnect:', data);
                 init();
             });
+        }
+
+        function cancelDisconnect() {
+            $uibModalInstance.dismiss('cancel');
         }
 
         function reauthorize(provider){

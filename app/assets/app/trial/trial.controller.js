@@ -33,7 +33,7 @@
                 vm.socialMediaChecked = true;
                 vm.disconnectedUser = $cookieStore.get('disconnectedUser');
                 vm.networks = oauth.networks;
-                if (!vm.disconnectedUser) {
+                if (vm.disconnectedUser !== true) {
                     $state.go('user.trial.request', $stateParams);
                 }
             }
@@ -66,6 +66,7 @@
                 if (data.length < 1) {
                     $cookieStore.put('disconnectedUser', true);
                 }
+                oauth.networks = data;
                 oauth.socialMediaChecked = true;
             });
 
