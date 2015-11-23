@@ -4,7 +4,7 @@
         <th>Reach<sup popover="Reach is the number of followers or subscribers on your social media channels" popover-trigger="mouseenter" popover-placement="top"><i class="fa fa-question-circle"></i></sup></th>
         <th></th>
     </thead>
-    <tbody>
+    <tbody ng-if="vm.networkInit">
         <!-- ng-repeat -->
         <tr ng-repeat="network in vm.networks">
             <td class="social-media-name-col" ng-if="network.provider === 'ga'"><img class="social-media-icons" src="assets/images/settings/google-analytics.png">Google Analytics<sup popover="If you have Google Analytics for your websites, please authorize us to read stats from your Google Analytics account." popover-trigger="mouseenter" popover-placement="top"><i class="fa fa-question-circle"></i></sup></td>
@@ -35,3 +35,4 @@
         </tr>
     </tbody>
 </table>
+<span us-spinner="{width:14, length: 30, color: 'black', scale: 1}" spinner-key="spinner-4" class="table-spinner"></span>

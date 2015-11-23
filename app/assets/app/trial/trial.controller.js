@@ -61,6 +61,14 @@
             vm.request.address = authService.m.user.address;
             vm.request.phone = authService.m.user.phone;
             vm.request.product_slug = $stateParams.slug;
+            vm.user = authService.m.user;
+            oauth.listNetwork(vm.user.id).then(function(data){
+                if (data.length < 1) {
+                    $cookieStore.put('disconnectedUser', true);
+                }
+                oauth.socialMediaChecked = true;
+            });
+
             ProductService.get({slug: $stateParams.slug}).$promise.then(
                 function(data) {
                     // success

@@ -5,9 +5,9 @@
         .module('sproutupApp')
         .controller('AnalyticsController', AnalyticsController);
 
-    AnalyticsController.$inject = ['$rootScope', '$state', '$log', 'AuthService','GoogleApiService', 'AnalyticsService', '$filter', 'OAuthService', '$window', '$cookieStore'];
+    AnalyticsController.$inject = ['$rootScope', '$state', '$log', 'AuthService','GoogleApiService', 'AnalyticsService', '$filter', 'OAuthService', '$window', '$cookieStore', 'usSpinnerService'];
 
-    function AnalyticsController($rootScope, $state, $log, authService, googleApiService, analyticsService, $filter, oauth, $window, $cookieStore) {
+    function AnalyticsController($rootScope, $state, $log, authService, googleApiService, analyticsService, $filter, oauth, $window, $cookieStore, usSpinnerService) {
         var vm = this;
 
         vm.user = {};
@@ -49,6 +49,9 @@
         }
 
         function init() {
+            // start spinner in view
+            usSpinnerService.spin('spinner-4');
+
             vm.user = angular.copy(authService.m.user);
             vm.reach = analyticsService.userReach().get({
                 userId: vm.user.id
@@ -65,10 +68,12 @@
 
             oauth.listNetwork(vm.user.id).then(function(data){
                 vm.networkData = data;
+
                 // if the user hasn't connected, we add a cookie 'disconnectedUser'
                 if (vm.networkData.length < 1) {
                     $cookieStore.put('disconnectedUser', true);
                 }
+
                 // set oauth.socialMediaChecked to true in the service
                 // we need this to run the log in and trial flows
                 oauth.socialMediaChecked = true;
@@ -85,12 +90,16 @@
                     }
                 });
 
-                vm.networkInit = true;
-
-                vm.networkData = [];
+                // vm.networkData = [];
                 if ($state.current.name === 'user.trial.social' && vm.networkData.length > 1 && !vm.userCookie) {
                     $state.go('user.trial.request', { slug: $state.params.slug });
                 }
+
+                // stop spinner in the view
+                usSpinnerService.stop('spinner-4');
+
+                // set variable for social network list 
+                vm.networkInit = true;
 
             /*
                 vm.analytics = data;
