@@ -40,14 +40,14 @@
                 oauth.saveCallback($stateParams.state, $stateParams.code).then(function(data) {
                     // update the users analytics data
                     $rootScope.$broadcast('alert:success', {
-                        message: 'Successfully connected'
+                        message: 'Woohoo, we are connected!'
                     });
                     console.log('[oath2] success');
                     //$state.go("user.settings.analytics");
                     authService.redirect('user.home', '');
                 }, function(error) {
                     $rootScope.$broadcast('alert:error', {
-                        message: 'Authorization failed'
+                        message: 'Oops, connection failed. Try again?'
                     });
                     console.log('[oath2] error');
                     //$state.go("user.settings.analytics");

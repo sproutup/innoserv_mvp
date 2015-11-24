@@ -32,15 +32,15 @@ function config($stateProvider) {
                 title: 'Social Profile'
             }
         })
-        .state('user.settings.analytics' ,{
-            url: '/analytics',
-            templateUrl: 'assets/app/settings/analytics.html',
-            controller: 'AnalyticsController',
-            controllerAs: 'vm',
-            data: {
-                title: 'Analytics Settings'
-            }
-        })
+        // .state('user.settings.analytics' ,{
+        //     url: '/analytics',
+        //     templateUrl: 'assets/app/settings/analytics.html',
+        //     controller: 'AnalyticsController',
+        //     controllerAs: 'vm',
+        //     data: {
+        //         title: 'Analytics Settings'
+        //     }
+        // })
         .state('user.settings.trials' ,{
             url: '/trials',
             templateUrl: 'assets/app/settings/trials.html',
