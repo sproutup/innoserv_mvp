@@ -15,7 +15,7 @@
 			</a>
 			<a class="user-profile-menu-item" ui-sref="user.profile.reach" ui-sref-active="active-profile-button">
 				<span class="profile-nav-label">Reach</span>
-				<span class="profile-nav-value">{{vm.reach.total || 0}}</span>
+				<span class="profile-nav-value">{{vm.reach.total || 0 | humanizeNumber }}</span>
 			</a>
 			<a class="user-profile-menu-item" ui-sref="user.profile.points" ui-sref-active="active-profile-button">
 				<span class="profile-nav-label">Points</span>
