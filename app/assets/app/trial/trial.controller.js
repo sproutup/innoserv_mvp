@@ -27,15 +27,14 @@
         vm.trialSuccess = false;
         vm.connected = connected;
         $scope.oauth = oauth;
+        vm.networks = [];
         
         $scope.$watch('oauth.socialMediaChecked', function (value) {
+            if (vm.networks.length === 6) {
+                $state.go('user.trial.request', $stateParams);
+            }
             if (value === true) {
                 vm.socialMediaChecked = true;
-                vm.disconnectedUser = $cookieStore.get('disconnectedUser');
-                vm.networks = oauth.networks;
-                if (vm.disconnectedUser !== true) {
-                    $state.go('user.trial.request', $stateParams);
-                }
             }
         });
 
@@ -67,6 +66,7 @@
                     $cookieStore.put('disconnectedUser', true);
                 }
                 oauth.networks = data;
+                vm.networks = data;
                 oauth.socialMediaChecked = true;
             });
 
