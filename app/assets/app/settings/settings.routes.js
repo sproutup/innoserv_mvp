@@ -27,7 +27,6 @@ function config($stateProvider) {
         .state('user.settings.social' ,{
             url: '/social',
             templateUrl: 'assets/app/settings/social.html',
-            controller: 'AnalyticsController',
             controllerAs: 'vm',
             data: {
                 title: 'Social Profile'
