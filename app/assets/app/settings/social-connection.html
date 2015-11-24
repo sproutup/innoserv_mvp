@@ -1,18 +1,18 @@
 <table class="table table-striped table-responsive analytics-table social-table">
     <thead>
         <th>Network</th>
-        <th>Reach<sup popover="Reach is the number of followers or subscribers on your social media channels" popover-trigger="mouseenter" popover-placement="top"><i class="fa fa-question-circle"></i></sup></th>
+        <th>Reach</th>
         <th></th>
     </thead>
     <tbody ng-if="vm.networkInit">
         <!-- ng-repeat -->
         <tr ng-repeat="network in vm.networks">
-            <td class="social-media-name-col" ng-if="network.provider === 'ga'"><img class="social-media-icons" src="assets/images/settings/google-analytics.png">Google Analytics<sup popover="If you have Google Analytics for your websites, please authorize us to read stats from your Google Analytics account." popover-trigger="mouseenter" popover-placement="top"><i class="fa fa-question-circle"></i></sup></td>
-            <td class="social-media-name-col" ng-if="network.provider === 'tw'"><img class="social-media-icons" src="assets/images/settings/twitter.png">Twitter</td>
-            <td class="social-media-name-col" ng-if="network.provider === 'yt'"><img class="social-media-icons" src="assets/images/settings/youtube.png">Youtube<sup popover="If you have YouTube channels, please authorize us to view your YouTube account and your YouTube Analytics stats." popover-trigger="mouseenter" popover-placement="top"><i class="fa fa-question-circle"></i></sup></td>
-            <td class="social-media-name-col" ng-if="network.provider === 'pi'"><img class="social-media-icons" src="assets/images/settings/pinterest.png">Pinterest</td>
-            <td class="social-media-name-col" ng-if="network.provider === 'ig'"><img class="social-media-icons" src="assets/images/settings/instagram.png">Instagram</td>
-            <td class="social-media-name-col" ng-if="network.provider === 'fb'"><img class="social-media-icons" src="assets/images/settings/facebook.png">Facebook</td>
+            <td class="social-media-name-col" ng-if="network.provider === 'ga'"><img class="social-media-icons" src="assets/images/settings/google-analytics.png">Google Analytics<sup popover="If you have Google Analytics for your websites, please authorize us to read stats from your Google Analytics account. Reach is measured by the average page visits per month." popover-trigger="mouseenter" popover-placement="top"><i class="fa fa-question-circle"></i></sup></td>
+            <td class="social-media-name-col" ng-if="network.provider === 'tw'"><img class="social-media-icons" src="assets/images/settings/twitter.png">Twitter<sup popover="Reach is the number of followers on your Twitter." popover-trigger="mouseenter" popover-placement="top"><i class="fa fa-question-circle"></i></sup></td>
+            <td class="social-media-name-col" ng-if="network.provider === 'yt'"><img class="social-media-icons" src="assets/images/settings/youtube.png">Youtube<sup popover="If you have YouTube channels, please authorize us to view your YouTube account and your YouTube Analytics stats. Reach is the number of subscribes on your YouTube channel." popover-trigger="mouseenter" popover-placement="top"><i class="fa fa-question-circle"></i></sup></td>
+            <td class="social-media-name-col" ng-if="network.provider === 'pi'"><img class="social-media-icons" src="assets/images/settings/pinterest.png">Pinterest<sup popover="Reach is the number of followers on your Pinterest." popover-trigger="mouseenter" popover-placement="top"><i class="fa fa-question-circle"></i></sup></td>
+            <td class="social-media-name-col" ng-if="network.provider === 'ig'"><img class="social-media-icons" src="assets/images/settings/instagram.png">Instagram<sup popover="Reach is the number of followers on your Instagram." popover-trigger="mouseenter" popover-placement="top"><i class="fa fa-question-circle"></i></sup></td>
+            <td class="social-media-name-col" ng-if="network.provider === 'fb'"><img class="social-media-icons" src="assets/images/settings/facebook.png">Facebook<sup popover="Reach is the number of your friends." popover-trigger="mouseenter" popover-placement="top"><i class="fa fa-question-circle"></i></sup></td>
 
             <td ng-if="network.status === 1">
                 <p class="social-media-reach" ng-show="network.provider === 'tw'">{{vm.reach.tw | humanizeNumber }}</p>
