@@ -40,7 +40,7 @@
                 oauth.saveCallback($stateParams.state, $stateParams.code).then(function(data) {
                     // update the users analytics data
                     $rootScope.$broadcast('alert:success', {
-                        message: 'Authorization granted'
+                        message: 'Successfully connected'
                     });
                     console.log('[oath2] success');
                     //$state.go("user.settings.analytics");
