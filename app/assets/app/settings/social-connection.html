@@ -15,12 +15,12 @@
             <td class="social-media-name-col" ng-if="network.provider === 'fb'"><img class="social-media-icons" src="assets/images/settings/facebook.png">Facebook<sup popover="Reach is the number of your friends." popover-trigger="mouseenter" popover-placement="top"><i class="fa fa-question-circle"></i></sup></td>
 
             <td ng-if="network.status === 1">
-                <p class="social-media-reach" ng-show="network.provider === 'tw'">{{vm.reach.tw | humanizeNumber }}</p>
-                <p class="social-media-reach" ng-show="network.provider === 'yt'">{{vm.reach.yt | humanizeNumber }}</p>
-                <p class="social-media-reach" ng-show="network.provider === 'ga'">{{vm.reach.ga | humanizeNumber }}</p>
-                <p class="social-media-reach" ng-show="network.provider === 'fb'">{{vm.reach.fb | humanizeNumber }}</p>
-                <p class="social-media-reach" ng-show="network.provider === 'ig'">{{vm.reach.ig | humanizeNumber }}</p>
-                <p class="social-media-reach" ng-show="network.provider === 'pi'">{{vm.reach.pi | humanizeNumber }}</p>
+                <p class="social-media-reach" ng-show="network.provider === 'tw'">{{vm.reach.tw | number:0 }}</p>
+                <p class="social-media-reach" ng-show="network.provider === 'yt'">{{vm.reach.yt | number:0 }}</p>
+                <p class="social-media-reach" ng-show="network.provider === 'ga'">{{vm.reach.ga | number:0 }}</p>
+                <p class="social-media-reach" ng-show="network.provider === 'fb'">{{vm.reach.fb | number:0 }}</p>
+                <p class="social-media-reach" ng-show="network.provider === 'ig'">{{vm.reach.ig | number:0 }}</p>
+                <p class="social-media-reach" ng-show="network.provider === 'pi'">{{vm.reach.pi | number:0 }}</p>
             </td>
             <td ng-if="network.status === -1">
                 <p class="social-media-connection-status">Connection error: please reauthorize or <a href="#" ng-click="vm.openDisconnectModal(network.provider)">disconnect</a></p>
