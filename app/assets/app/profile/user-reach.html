@@ -17,31 +17,31 @@
 		<tbody>
 		<tr ng-show='vm.reach.tw'>
 			<td class="leading-column">Twitter</td>
-			<td>{{vm.reach.tw || 0}}</td>
+			<td>{{vm.reach.tw || 0 | humanizeNumber}}</td>
 		</tr>
 		<tr ng-show='vm.reach.yt'>
 			<td class="leading-column">Youtube</td>
-			<td>{{vm.reach.yt || 0}}</td>
+			<td>{{vm.reach.yt || 0 | humanizeNumber}}</td>
 		</tr>
 		<tr ng-show='vm.reach.ga'>
 			<td class="leading-column">Blog</td>
-			<td>{{vm.reach.ga || 0}}</td>
+			<td>{{vm.reach.ga || 0 | humanizeNumber}}</td>
 		</tr>
 		<tr ng-show='vm.reach.fb'>
 			<td class="leading-column">Facebook</td>
-			<td>{{vm.reach.fb || 0}}</td>
+			<td>{{vm.reach.fb || 0 | humanizeNumber}}</td>
 		</tr>
 		<tr ng-show='vm.reach.ig'>
 			<td class="leading-column">Instagram</td>
-			<td>{{vm.reach.ig || 0}}</td>
+			<td>{{vm.reach.ig || 0 | humanizeNumber}}</td>
 		</tr>
 		<tr ng-show='vm.reach.pi'>
 			<td class="leading-column">Pinterest</td>
-			<td>{{vm.reach.pi || 0}}</td>
+			<td>{{vm.reach.pi || 0 | humanizeNumber}}</td>
 		</tr>
 		<tr>
 			<td class="leading-column">Total</td>
-			<td>{{vm.reach.total || 0}}</td>
+			<td>{{vm.reach.total || 0 | humanizeNumber}}</td>
 		</tr>
 		</tbody>
 	</table>

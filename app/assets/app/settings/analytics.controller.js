@@ -5,9 +5,9 @@
         .module('sproutupApp')
         .controller('AnalyticsController', AnalyticsController);
 
-    AnalyticsController.$inject = ['$rootScope', '$state', '$log', 'AuthService','GoogleApiService', 'AnalyticsService', '$filter', 'OAuthService', '$window'];
+    AnalyticsController.$inject = ['$rootScope', '$state', '$log', 'AuthService','GoogleApiService', 'AnalyticsService', '$filter', 'OAuthService', '$window', '$cookieStore', 'usSpinnerService', '$modal'];
 
-    function AnalyticsController($rootScope, $state, $log, authService, googleApiService, analyticsService, $filter, oauth, $window) {
+    function AnalyticsController($rootScope, $state, $log, authService, googleApiService, analyticsService, $filter, oauth, $window, $cookieStore, usSpinnerService, $modal) {
         var vm = this;
 
         vm.user = {};
@@ -21,14 +21,15 @@
         vm.requestYoutubeTokenUrl = '';
         vm.revokeAuthorization = revokeAuthorization;
         vm.network = {
-            ga: {connected: false, error: false, message: ''},
             yt: {connected: false, error: false, message: ''},
+            ga: {connected: false, error: false, message: ''},
             tw: {connected: false, error: false, message: ''},
-            fb: {connected: false, error: false, message: ''},
             ig: {connected: false, error: false, message: ''},
+            fb: {connected: false, error: false, message: ''},
             pi: {connected: false, error: false, message: ''}
         };
         vm.connect = connect;
+        vm.openDisconnectModal = openDisconnectModal;
         vm.disconnect = disconnect;
         vm.reauthorize = reauthorize;
 
@@ -49,21 +50,36 @@
         }
 
         function init() {
+            // start spinner in view
+            usSpinnerService.spin('spinner-4');
+
             vm.user = angular.copy(authService.m.user);
             vm.reach = analyticsService.userReach().get({
                 userId: vm.user.id
             });
 
             vm.networks = [
-                { provider: 'ga', status: 0, message: '' },
                 { provider: 'yt', status: 0, message: '' },
+                { provider: 'ga', status: 0, message: '' },
                 { provider: 'tw', status: 0, message: '' },
-                { provider: 'fb', status: 0, message: '' },
                 { provider: 'ig', status: 0, message: '' },
+                { provider: 'fb', status: 0, message: '' },
                 { provider: 'pi', status: 0, message: '' }
             ];
 
             oauth.listNetwork(vm.user.id).then(function(data){
+                vm.networkData = data;
+
+                // if the user hasn't connected, we add a cookie 'disconnectedUser'
+                if (vm.networkData.length < 1) {
+                    $cookieStore.put('disconnectedUser', true);
+                }
+
+                // set oauth.socialMediaChecked to true in the service
+                // we need this to run the log in and trial flows
+                oauth.socialMediaChecked = true;
+                oauth.networks = data;
+
                 data.forEach(function(item){
                     var match = vm.networks.filter(function(arg, val){
                         return item.provider === vm.networks[val].provider;
@@ -74,7 +90,18 @@
                         match[0].provider = item.provider;
                     }
                 });
-                
+
+                vm.disconnectedUser = $cookieStore.get('disconnectedUser');
+                if ($state.current.name === 'user.trial.social' && vm.networkData.length > 1 && !vm.disconnectedUser) {
+                    $state.go('user.trial.request', { slug: $state.params.slug });
+                }
+
+                // stop spinner in the view
+                usSpinnerService.stop('spinner-4');
+
+                // set variable for social network list 
+                vm.networkInit = true;
+
             /*
                 vm.analytics = data;
                 vm.ga = $filter("filter")(data[0].summaries, {kind:"analytics#accountSummary"});
@@ -89,28 +116,51 @@
         }
 
         function connect(provider){
-            console.log('connect: ', provider);
-
             oauth.createNetwork(provider, vm.user.id).then(function(data){
-                authService.setRedirect('user.settings.social','');
-                console.log('connect:', data);
+                if ($state.params) {
+                    authService.setRedirect($state.current.name, $state.params);
+                } else {
+                    authService.setRedirect($state.current.name, '');
+                }
                 $window.location.href = data.url;
+            });
+        }
+
+        function openDisconnectModal(provider) {
+            var modalInstance = $modal.open({
+              templateUrl: 'assets/app/settings/disconnect-confirmation.html',
+              controller: 'DisconnectController'
+            });
+
+            modalInstance.result.then(function (selectedItem) {
+              disconnect(provider);
+            }, function () {
+              $log.info('Modal dismissed at: ' + new Date());
             });
         }
 
         function disconnect(provider){
             console.log('disconnect: ', provider);
+            usSpinnerService.spin('spinner-4');
+            vm.networkInit = false;
             oauth.deleteNetwork(provider, vm.user.id).then(function(data){
                 console.log('disconnect:', data);
                 init();
             });
         }
 
+        function cancelDisconnect() {
+            $uibModalInstance.dismiss('cancel');
+        }
+
         function reauthorize(provider){
             console.log('reauthorize: ', provider);
-
             oauth.createNetwork(provider, vm.user.id).then(function(data){
-                authService.setRedirect('user.settings.social','');
+                if ($state.params) {
+                    authService.setRedirect($state.current.name, $state.params);
+                } else {
+                    authService.setRedirect($state.current.name, '');
+                }
                 console.log('connect:', data);
                 $window.location.href = data.url;
             });

@@ -17,12 +17,17 @@ function oauthService($http, $q, $cookieStore, $log, userService, $timeout, $sta
       OAuthCallback: $resource('/api/analytics/network/callback/:token', { token:'@token' })
     };
 
+    var socialMediaChecked = false;
+    var networks = [];
+
     var service = {
         m: model,
         listNetwork: listNetwork,
         deleteNetwork: deleteNetwork,
         createNetwork: createNetwork,
-        saveCallback: saveCallback
+        saveCallback: saveCallback,
+        socialMediaChecked: socialMediaChecked,
+        networks: networks
     };
 
     init();

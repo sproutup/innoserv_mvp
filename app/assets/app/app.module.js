@@ -282,6 +282,13 @@ sproutupApp.config(['$routeProvider', '$stateProvider', '$locationProvider', '$u
                     title: 'Email'
                 }
             })
+            .state('user.wizard.socialConnection' ,{
+                url: '/social-connection',
+                templateUrl: 'assets/app/wizard/social.html',
+                data: {
+                    title: 'Social media connection'
+                }
+            })
             // .state('profile' ,{
             //     url: '/user/:nickname',
             //     abstract: true,
@@ -370,6 +377,13 @@ sproutupApp.config(['$routeProvider', '$stateProvider', '$locationProvider', '$u
                 abstract: true,
                 controller: 'TrialController',
                 controllerAs: 'vm'
+            })
+            .state('user.trial.social', {
+                url: '/social',
+                templateUrl: 'assets/app/trial/social.html',
+                data: {
+                    title: 'Social media connection'
+                }
             })
             .state('user.trial.request' ,{
                 url: '',

@@ -5,28 +5,28 @@ angular
 function config($stateProvider) {
 
     $stateProvider
-        .state('user.oauth' ,{
+        .state('oauth' ,{
             url: '/oauth2callback?state&code&scope',
-            template: '<div>oauth2callback</div>',
+            templateUrl: 'assets/app/oauth/oauth-callback.html',
             controller: 'Oauth2Controller',
             controllerAs: 'vm',
             data: {
                 title: 'Delete Me'
             }
         })
-        .state('user.oauth2' ,{
+        .state('oauth2' ,{
             url: '/oauth/2/callback?state&code&scope',
-            template: '<div>oauth2callback</div>',
+            templateUrl: 'assets/app/oauth/oauth-callback.html',
             controller: 'Oauth2Controller',
             controllerAs: 'vm',
             data: {
                 title: 'Delete Me'
             }
         })
-        .state('user.oauth2callback' ,{
+        .state('oauth2callback' ,{
             //url: '/oauth2callback?code&scope',
             url: '/oauth',
-            template: '<div>oauth2callback</div>',
+            templateUrl: 'assets/app/oauth/oauth-callback.html',
             //templateUrl: 'assets/app/home/index.html',
             controller: 'Oauth2Controller',
             controllerAs: 'vm',
@@ -37,7 +37,7 @@ function config($stateProvider) {
         .state('oauth1callback' ,{
             //url: '/oauth2callback?oauth_token&oauth_verifier',
             url: '/oauth/1/callback?oauth_token&oauth_verifier',
-            template: '<div>oauth1callback</div>',
+            templateUrl: 'assets/app/oauth/oauth-callback.html',
             controller: 'Oauth1Controller',
             controllerAs: 'vm',
             data: {

@@ -5,13 +5,14 @@
         .module('sproutupApp')
         .controller('TrialController', TrialController);
 
-    TrialController.$inject = ['$q', '$rootScope', '$stateParams', '$state', '$log', 'AuthService', '$location', '$window', 'TrialService', 'ProductService'];
+    TrialController.$inject = ['$q', '$rootScope', '$stateParams', '$scope', '$state', '$log', 'AuthService', '$location', '$window', 'TrialService', 'ProductService', '$cookieStore', 'OAuthService'];
 
-    function TrialController($q, $rootScope, $stateParams, $state, $log, authService, $location, $window, TrialService, ProductService) {
+    function TrialController($q, $rootScope, $stateParams, $scope, $state, $log, authService, $location, $window, TrialService, ProductService, $cookieStore, oauth) {
         $log.debug("entered trial request");
         $log.debug("slug = " + $stateParams.slug);
 
         var vm = this;
+        vm.test = 'yo';
 
         vm.submit = submit;
         vm.cancel = cancel;
@@ -23,7 +24,19 @@
         vm.product = {};
         vm.ready = authService.ready;
         // Check for whether user can place another trial, ng-show (temporary fix, need rejection.html)
-        vm.trialSuccess= false;
+        vm.trialSuccess = false;
+        vm.connected = connected;
+        $scope.oauth = oauth;
+        vm.networks = [];
+        
+        $scope.$watch('oauth.socialMediaChecked', function (value) {
+            if (vm.networks.length === 6) {
+                $state.go('user.trial.request', $stateParams);
+            }
+            if (value === true) {
+                vm.socialMediaChecked = true;
+            }
+        });
 
         activate();
 
@@ -47,6 +60,16 @@
             vm.request.address = authService.m.user.address;
             vm.request.phone = authService.m.user.phone;
             vm.request.product_slug = $stateParams.slug;
+            vm.user = authService.m.user;
+            oauth.listNetwork(vm.user.id).then(function(data){
+                if (data.length < 1) {
+                    $cookieStore.put('disconnectedUser', true);
+                }
+                oauth.networks = data;
+                vm.networks = data;
+                oauth.socialMediaChecked = true;
+            });
+
             ProductService.get({slug: $stateParams.slug}).$promise.then(
                 function(data) {
                     // success
@@ -76,6 +99,11 @@
             }, function(err) {
                 // handle err here
             });
+        }
+
+        function connected() {
+            $cookieStore.remove('disconnectedUser');
+            $state.go('user.trial.request', $stateParams);
         }
 
         function finish() {
