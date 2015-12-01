@@ -92,7 +92,7 @@
                 });
 
                 vm.disconnectedUser = $cookieStore.get('disconnectedUser');
-                if ($state.current.name === 'user.trial.social' && vm.networkData.length > 1 && !vm.disconnectedUser) {
+                if ($state.current.name === 'user.trial.social' && vm.networkData.length > 5 && !vm.disconnectedUser) {
                     $state.go('user.trial.request', { slug: $state.params.slug });
                 }
 

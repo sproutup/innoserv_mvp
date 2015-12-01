@@ -28,12 +28,14 @@
         vm.connected = connected;
         $scope.oauth = oauth;
         vm.networks = [];
-        
+
+
         $scope.$watch('oauth.socialMediaChecked', function (value) {
-            if (vm.networks.length === 6) {
-                $state.go('user.trial.request', $stateParams);
-            }
             if (value === true) {
+                // we double check for a full network during trial request in analytics controller as well
+                if (vm.networks.length === 6) {
+                    $state.go('user.trial.request', $stateParams);
+                }
                 vm.socialMediaChecked = true;
             }
         });
@@ -103,10 +105,12 @@
 
         function connected() {
             $cookieStore.remove('disconnectedUser');
+            console.log('in connected');
             $state.go('user.trial.request', $stateParams);
         }
 
         function finish() {
+            console.log('in finish');
             $state.go("user.product.detail.buzz", { slug: $stateParams.slug });
         }
     }
