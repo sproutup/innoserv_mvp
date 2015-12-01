@@ -18,11 +18,9 @@ function userDetailCtrl($scope, $stateParams, $state, $log, UserService, Analyti
             vm.trials = data.trials;
             vm.posts = data.posts;
             vm.stranger = data;
-/*
-            AnalyticsService.UserReach().get({userId: data.id}).$promise.then(function(reach){
+            AnalyticsService.userReach().get({userId: data.id}).$promise.then(function(reach){
                 vm.reach = reach;
             });
-*/
         },
         function(error) {
             // error handler

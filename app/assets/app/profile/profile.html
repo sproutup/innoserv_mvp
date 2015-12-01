@@ -17,6 +17,12 @@
                     </a>
                 </div>
                 <div class="col-sm-2">
+                    <a class="stats-link" ui-sref="user.profile.reach">
+                        <div>Reach</div>
+                        <div ng-class="{ 'active-stat': $state.current.name === 'user.profile.reach' }">{{ vm.reach.total || 0 | humanizeNumber }}</div>
+                    </a> 
+                </div>       
+                <div class="col-sm-2">
                     <a class="stats-link" ui-sref="user.profile.points">
                         <div>Points</div>
                         <div ng-class="{ 'active-stat': $state.current.name === 'user.profile.points' }">{{ vm.points }}</div>

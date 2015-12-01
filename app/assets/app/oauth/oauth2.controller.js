@@ -5,9 +5,9 @@
         .module('sproutupApp')
         .controller('Oauth2Controller', Oauth2Controller);
 
-    Oauth2Controller.$inject = ['$rootScope', '$stateParams', '$state', '$log', 'AuthService','GoogleApiService'];
+    Oauth2Controller.$inject = ['$rootScope', '$stateParams', '$state', '$log', 'AuthService', 'OAuthService'];
 
-    function Oauth2Controller($rootScope, $stateParams, $state, $log, authService, googleApiService) {
+    function Oauth2Controller($rootScope, $stateParams, $state, $log, authService, oauth) {
         var vm = this;
 
         vm.user = {};
@@ -15,7 +15,6 @@
         activate();
 
         function activate() {
-            console.log("Oauth2Controller");
             if(!authService.ready()){
                 var unbindWatch = $rootScope.$watch(authService.loggedIn, function (value) {
                     if ( value === true ) {
@@ -30,29 +29,34 @@
         }
 
         function init() {
-            console.log("Oauth2Controller");
+            console.log("[oauth2] init ", $stateParams);
             vm.user = angular.copy(authService.m.user);
             //requestGoogleApiToken();
-
+            //url: '/oauth2callback?oauth_token&oauth_verifier',
             //console.log("found code: ", $location.search('code'));
             if($stateParams.code!==undefined){
-                console.log("found code: ", $stateParams.code);
-                googleApiService.exchangeAuthorizationCodeForToken($stateParams.code, $stateParams.scope).then(function(data) {
+                console.log("[oauth2] found state: ", $stateParams.state);
+                console.log("[oauth2] found code: ", $stateParams.code);
+                oauth.saveCallback($stateParams.state, $stateParams.code).then(function(data) {
                     // update the users analytics data
-                    authService.m.user.analytics = data;
                     $rootScope.$broadcast('alert:success', {
                         message: 'Authorization granted'
                     });
-                    $state.go("user.settings.analytics");
+                    console.log('[oath2] success');
+                    //$state.go("user.settings.analytics");
+                    authService.redirect('user.home', '');
                 }, function(error) {
                     $rootScope.$broadcast('alert:error', {
                         message: 'Authorization failed'
                     });
-                    $state.go("user.settings.analytics");
+                    console.log('[oath2] error');
+                    //$state.go("user.settings.analytics");
+                    //authService.redirect('user.home');
                 });
             }
             else{
-                $state.go("user.settings.analytics");
+                console.log("[oauth2] missing token...");
+                //$state.go("user.settings.analytics");
             }
         }
     }

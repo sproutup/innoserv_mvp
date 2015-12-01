@@ -12,7 +12,7 @@ function AnalyticsService($http, $q, $log, userService, $timeout, $resource){
 
     var service = {
         getAll: getAll,
-        UserReach: UserReach
+        userReach: userReach
     };
 
     activate();
@@ -23,8 +23,8 @@ function AnalyticsService($http, $q, $log, userService, $timeout, $resource){
         $log.debug("analytics service - activated");
     }
 
-    function UserReach(userId){
-        return $resource('http://localhost:3000/api/user/:userId/reach', {userId:'@id'});
+    function userReach(id){
+        return $resource('/api/analytics/user/:userId/reach', {userId:'@id'});
     }
 
     function getAll(){

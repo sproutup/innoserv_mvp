@@ -19,10 +19,24 @@
 }
 
 .profile-edit--header {
-  padding: 15px 3px 15px;
+  padding: 15px 3px 25px;
+}
+
+.profile-edit--header h1 {
   font-weight: 400;
   font-size: 13pt;
   color: @sproutup-blue;
+  padding: 0px;
+  margin: 0px;
+}
+
+.profile-edit--header h2 {
+  font-weight: 400;
+  font-size: 11pt;
+  line-height: 1.6;
+  color: @main-text-1;
+  padding: 15px 0px 0px;
+  margin: 0px;
 }
 
 .profile-edit--header.success {
@@ -86,7 +100,7 @@
 }
 
 .analytics-table {
-    max-width: 640px;
+    max-width: 680px;
 }
 
 .analytics-table.subscribe {
@@ -104,18 +118,46 @@
 
 .analytics-table th {
     color: @main-text-2;
-    font-weight: 400;
-    font-size: 12pt;
-    padding: 10px !important;
+    font-size: 10pt;
+    padding-left: 10px !important;
+    padding-bottom: 10px !important;
 }
 
 .analytics-table td {
     color: @main-text;
     font-weight: 400;
-    font-size: 12pt;
-    padding: 15px 10px !important;
+    font-size: 10.5pt;
+    vertical-align: middle !important;
+}
+
+.analytics-table p {
+    padding: 0px;
+    margin: 0px;
+}
+
+.analytics-table sup {
+  font-size: 11pt;
+  padding-left: 6px;
+  color: @sproutup-blue;
 }
 
 .analytics-table .leading-column {
     width: 50%;
+}
+
+.analytics-table .social-media-connection-action {
+  text-align: right;
+}
+
+.analytics-table .social-media-connection-action .link {
+  padding-right: 15px;
+  color: @sproutup-blue;
+}
+
+.analytics-table .sproutup-btn-md-main {
+    margin: 5px;
+}
+
+.analytics-table .sproutup-btn-md-main.naked {
+    margin-right: 0px;
 }
