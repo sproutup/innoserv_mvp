@@ -22,7 +22,8 @@ var sproutupApp = angular.module('sproutupApp', [
     'ui.bootstrap',
     'ngSanitize',
     'infinite-scroll',
-    'angularSpinner'
+    'angularSpinner',
+    'chart.js'
 ]);
 
 sproutupApp.config(function ($provide) {

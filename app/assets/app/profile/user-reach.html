@@ -4,45 +4,5 @@
 	<div class="profile-edit--description">
 		<p>The social reach is calculated from all social network accounts the user has connected to.</p>
 	</div>
-
-
-	<table class="table table-striped table-responsive analytics-table">
-		<thead>
-		<tr>
-			<th class="leading-column">Medium</th>
-			<th>Reach</th>
-		</tr>
-		</thead>
-		<tbody>
-		<tr ng-show='vm.reach.tw'>
-			<td class="leading-column">Twitter</td>
-			<td>{{vm.reach.tw || 0 | humanizeNumber}}</td>
-		</tr>
-		<tr ng-show='vm.reach.yt'>
-			<td class="leading-column">Youtube</td>
-			<td>{{vm.reach.yt || 0 | humanizeNumber}}</td>
-		</tr>
-		<tr ng-show='vm.reach.ga'>
-			<td class="leading-column">Blog</td>
-			<td>{{vm.reach.ga || 0 | humanizeNumber}}</td>
-		</tr>
-		<tr ng-show='vm.reach.fb'>
-			<td class="leading-column">Facebook</td>
-			<td>{{vm.reach.fb || 0 | humanizeNumber}}</td>
-		</tr>
-		<tr ng-show='vm.reach.ig'>
-			<td class="leading-column">Instagram</td>
-			<td>{{vm.reach.ig || 0 | humanizeNumber}}</td>
-		</tr>
-		<tr ng-show='vm.reach.pi'>
-			<td class="leading-column">Pinterest</td>
-			<td>{{vm.reach.pi || 0 | humanizeNumber}}</td>
-		</tr>
-		<tr>
-			<td class="leading-column">Total</td>
-			<td>{{vm.reach.total || 0 | humanizeNumber}}</td>
-		</tr>
-		</tbody>
-	</table>
-
+	<canvas id="doughnut" class="chart chart-doughnut" chart-data="vm.chart.data" chart-labels="vm.chart.labels" chart-legend="true"></canvas>
 </div>
