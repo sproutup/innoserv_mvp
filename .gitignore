@@ -17,6 +17,7 @@ RUNNING_PID
 node_modules
 bower_components
 app/assets/app/config.js
+dump.rdb
 
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
