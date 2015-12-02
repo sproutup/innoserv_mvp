@@ -21,6 +21,11 @@ function upProfileInfo() {
     }
 }
 
-function UpProfileInfoController() {
+UpProfileInfoController.$inject = ['AuthService'];
+
+function UpProfileInfoController(AuthService) {
     var vm = this;
+    vm.network = AuthService.getNetwork().query({
+        userId: vm.user.id
+    });
 }

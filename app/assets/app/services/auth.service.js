@@ -37,7 +37,8 @@ function authService($http, $q, $cookieStore, $log, userService, $timeout, $stat
         loginAndRedirect: loginAndRedirect,
         refreshTrials: refreshTrials,
         validateUsername: validateUsername,
-        refreshPoints: refreshPoints
+        refreshPoints: refreshPoints,
+        getNetwork: getNetwork
     };
 
     activate();
@@ -343,6 +344,10 @@ function authService($http, $q, $cookieStore, $log, userService, $timeout, $stat
                 $rootScope.pointsAdded = false;
             }, 2500);
         });
+    }
+
+    function getNetwork() {
+        return $resource('/api/analytics/user/:userId/network', { userId: '@userId' }, {'query': { method: 'GET', isArray: true }});
     }
 
     AuthService.accessLevels = accessLevels;

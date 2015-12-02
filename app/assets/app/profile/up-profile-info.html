@@ -6,11 +6,14 @@
             <p class="profile-user--name">{{vm.user.name}}</p>
             <p class="profile-user--description">{{vm.user.description}}</p>
             <ul class="list-inline profile-user-social-buttons">
-                <li ng-if="vm.user.urlTwitter"><a ng-href="{{ vm.user.urlTwitter }}" target="_blank"><i class="fa fa-twitter"></i></a></li>
-                <li ng-if="vm.user.urlFacebook"><a ng-href="{{ vm.user.urlFacebook }}" target="_blank"><i class="fa fa-facebook"></i></a></li>
-                <li ng-if="vm.user.urlPinterest"><a ng-href="{{ vm.user.urlPinterest }}" target="_blank"><i class="fa fa-pinterest"></i></a></li>
-                <li ng-if="vm.user.urlBlog"><a ng-href="{{ vm.user.urlBlog }}" target="_blank"><i class="fa fa-rss"></i></a></li>
-                <li ng-if="vm.user.urlYoutube"><a ng-href="{{ vm.user.urlYoutube }}" target="_blank"><i class="fa fa-youtube"></i></a></li>
+                <li ng-repeat="network in vm.network">
+                    <a ng-href="{{ network.url }}" target="_blank" ng-if="network.provider === 'tw'"><i class="fa fa-twitter"></i></a>
+                    <a ng-href="{{ network.url }}" target="_blank" ng-if="network.provider === 'ga'"><i class="fa fa-rss"></i></a>
+                    <a ng-href="{{ network.url }}" target="_blank" ng-if="network.provider === 'yt'"><i class="fa fa-youtube"></i></a>
+                    <a ng-href="{{ network.url }}" target="_blank" ng-if="network.provider === 'ig'"><i class="fa fa-instagram"></i></a>
+                    <a ng-href="{{ network.url }}" target="_blank" ng-if="network.provider === 'fb'"><i class="fa fa-facebook"></i></a>
+                    <a ng-href="{{ network.url }}" target="_blank" ng-if="network.provider === 'pi'"><i class="fa fa-pinterest"></i></a>
+                </li>
             </ul>
             <ul class="list-inline profile-user--badge">
                 <li class="profile-user--badge-item" ng-if="vm.user.isInfluencer">Influencer</li>
