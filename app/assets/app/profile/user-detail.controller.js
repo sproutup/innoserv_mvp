@@ -31,7 +31,7 @@ function userDetailCtrl($scope, $stateParams, $state, $log, UserService, Analyti
                     vm.chart.data.push(vm.reach[key]);
                   }
                   if (key === 'ga') {
-                    vm.chart.labels.push('Google Analytics');
+                    vm.chart.labels.push('Website / Blog');
                     vm.chart.data.push(Math.round(vm.reach[key]));
                   }
                   if (key === 'ig') {
