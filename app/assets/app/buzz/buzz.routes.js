@@ -11,7 +11,7 @@ function config($stateProvider) {
             controller: 'BuzzController',
             controllerAs: 'vm',
             data: {
-                title: 'Content - SproutUp'
+                title: 'Buzz - SproutUp'
             }
         })
         .state('user.singleBuzz' ,{
@@ -20,7 +20,7 @@ function config($stateProvider) {
             controller: 'BuzzController',
             controllerAs: 'vm',
             data: {
-                title: 'Content - SproutUp'
+                title: 'Buzz - SproutUp'
             }
         });
 }

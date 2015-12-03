@@ -21,7 +21,7 @@ function config($stateProvider) {
             controller: 'ProfileController',
             controllerAs: 'vm',
             data: {
-                title: 'Profile'
+                title: 'Account Settings - Profile'
             }
         })
         .state('user.settings.social' ,{
@@ -29,7 +29,7 @@ function config($stateProvider) {
             templateUrl: 'assets/app/settings/social.html',
             controllerAs: 'vm',
             data: {
-                title: 'Social Profile'
+                title: 'Account Settings - Social Networks'
             }
         })
         // .state('user.settings.analytics' ,{

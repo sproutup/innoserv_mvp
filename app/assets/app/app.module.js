@@ -68,7 +68,7 @@ sproutupApp.config([
         function(FacebookProvider) {
 
             // read the appid from meta tags. meta tag is set with value from application.conf
-            var myAppId = $('meta[property="fb:app_id"]').attr("content");
+            var myAppId = $('meta[property="fb:app_id"]').attr("b");
 
             // You can set appId with setApp method
             // FacebookProvider.setAppId('myAppId');
@@ -157,7 +157,7 @@ sproutupApp.config(['$routeProvider', '$stateProvider', '$locationProvider', '$u
                 url: '/FAQs',
                 templateUrl: 'views/FAQs',
                 data: {
-                    title: 'FAQ for Influencers and Enthusiasts - SproutUp'
+                    title: 'FAQs for Influencers and Enthusiasts - SproutUp'
                 }
             })
             // .state('user.news' ,{
@@ -174,14 +174,14 @@ sproutupApp.config(['$routeProvider', '$stateProvider', '$locationProvider', '$u
                 //controller: 'SearchController',
                 //controllerAs: 'vm',
                 data: {
-                    title: 'Products - Try me out - SproutUp'
+                    title: 'Products - Click and Try'
                 }
             })
             .state('user.comingsoon' ,{
                 url: '/more-products',
                 templateUrl: 'assets/app/products/comingsoon.html',
                 data: {
-                    title: 'Products - More rad stuff - SproutUp'
+                    title: 'Products - Explore and Buy'
                 }
             })
             .state('user.twitterauth' ,{

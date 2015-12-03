@@ -18,7 +18,7 @@ function config($stateProvider) {
             controller: 'BuzzController',
             controllerAs: 'vm',
             data: {
-                title: 'User Profile'
+                title: 'User Profile - Buzz'
             }
         })
         .state('user.profile.trials' ,{
@@ -27,7 +27,7 @@ function config($stateProvider) {
             controller: 'userTrialsController',
             controllerAs: 'vm',
             data: {
-                title: 'User Trials'
+                title: 'User Profile - Product Trials'
             }
         })
         .state('user.profile.reach' ,{
@@ -36,14 +36,14 @@ function config($stateProvider) {
 //            controller: 'userTrialsController',
 //            controllerAs: 'vm',
             data: {
-                title: 'User Trials'
+                title: 'User Profile - Social Reach'
             }
         })
         .state('user.profile.points' ,{
             url: '/points',
             templateUrl: 'assets/app/profile/user-points.html',
             data: {
-                title: 'User Trials'
+                title: 'User Profile - Sprout Points'
             }
         });
 }
