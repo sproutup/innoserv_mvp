@@ -1,0 +1,17 @@
+{
+  "AWSEBDockerrunVersion": "1",
+  "Authentication": {
+    "Bucket": "co-sproutup-dockerhub",
+    "Key": "dockerconfig"
+  },
+  "Image": {
+    "Name": "sproutupco/mvp:#tag#",
+    "Update": "true"
+  },
+  "Ports": [
+    {
+      "ContainerPort": "9000"
+    }
+  ],
+  "Logging": "/var/log/play"
+}
