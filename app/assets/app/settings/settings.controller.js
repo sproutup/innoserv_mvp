@@ -31,6 +31,9 @@
         function init() {
             if (authService.loggedIn()) {
                 vm.user = angular.copy(authService.m.user);
+                vm.network = authService.getNetwork().query({
+                    userId: vm.user.id
+                });
             } else {
                 $state.go('user.login');
             }
