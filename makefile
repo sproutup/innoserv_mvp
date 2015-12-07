@@ -1,9 +1,13 @@
-repo = sproutupco
 target = develop
-cname = sproutup-co
-environment_name = develop
-configuration = develop
+platform = docker
 application_name = mvp
+region = us-west-2
+keypair = endurance
+configuration = develop
+domain = sproutup-co
+repo = sproutupco
+
+.PHONY: all master develop
 
 all: start
 
@@ -12,20 +16,9 @@ start:
 
 master:
 	$(eval target := master)
-	$(eval cname := master-sproutup-co) 
-	$(eval environment_name := master)
-	$(eval configuration := master) 
-	$(eval application_name := master)
 
 develop:
 	$(eval target := develop)
-	$(eval cname := develop-sproutup-co) 
-	$(eval environment_name := develop)
-	$(eval configuration := develop) 
-	$(eval application_name := develop)
-
-status:
-	echo $(environment_name)/$(application_name)
 
 deploy: clean stage prepare
 	$(MAKE) -C target/docker $(target) deploy
@@ -37,7 +30,7 @@ recreate: clean stage prepare
 	$(MAKE) -C target/docker $(target) recreate
 
 build: clean stage prepare
-	$(MAKE) -C target/docker build
+	docker build -t $(repo)/$(application_name):$(target) .
 
 run:
 	$(MAKE) -C target/docker run
@@ -49,11 +42,11 @@ stage:
 	activator warn docker:stage
 
 init:
-	eb init -r $(region) -p $(platform) -k $(keypair) $(environment_name)
+	eb init -r $(region) -p $(platform) -k $(keypair) $(target)
 
 prepare:
 	cp -r conf/docker/. target/docker
-	cp conf/$(environment_name).conf target/docker/files/opt/docker/conf/docker.conf
+	cp conf/$(target).conf target/docker/files/opt/docker/conf/docker.conf
 
 master1:
 	cp -R conf/docker/prod/. target/docker/

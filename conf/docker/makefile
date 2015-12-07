@@ -7,6 +7,8 @@ configuration = mvp
 domain = sproutup-co
 repo = sproutupco
 
+.PHONY: all master develop
+
 all: build
 
 master:
