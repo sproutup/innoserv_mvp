@@ -1,0 +1,40 @@
+EnvironmentConfigurationMetadata:
+  Description: Analytics server standard configuration.
+AWSConfigurationTemplateVersion: 1.1.0.0
+EnvironmentTier:
+  Name: WebServer
+  Type: Standard
+SolutionStack: 64bit Amazon Linux 2015.09 v2.0.4 running Docker 1.7.1
+OptionSettings:
+  aws:elasticbeanstalk:command:
+    Timeout: 1800
+    BatchSize: '30'
+    BatchSizeType: Percentage
+  aws:autoscaling:asg:
+    MinSize: 1
+    MaxSize: 2
+  aws:autoscaling:launchconfiguration:
+    IamInstanceProfile: aws-elasticbeanstalk-ec2-role
+    EC2KeyName: endurance
+    InstanceType: t2.small
+    SecurityGroups: webserver
+  aws:elb:loadbalancer:
+    LoadBalancerHTTPSPort: '443'
+    LoadBalancerHTTPPort: '80'
+    SSLCertificateId: arn:aws:iam::772918356582:server-certificate/sproutup-dev
+  aws:elasticbeanstalk:environment:
+    EnvironmentType: LoadBalanced
+  aws:elasticbeanstalk:application:environment:
+    PORT: 3000
+    MYSQL_HOST: sproutupdev.ctdo662vilif.us-west-2.rds.amazonaws.com
+    MYSQL_USER: dbadmin
+    MYSQL_PASSWORD: 1nter$Tellar
+    MYSQL_DATABASE: sproutup_master
+    GOOGLE_ID: 200067319298-cpblm10r8s9o29kjgtahjek2eib7eigk.apps.googleusercontent.com
+    GOOGLE_SECRET: nQ4NK9cKoPl8fWXDF9V-PsTU
+    TWITTER_CONSUMER_KEY: SDtfLHPxRElpdKu3nI7KcJwi8
+    TWITTER_CONSUMER_SECRET: wX63yDWo4HRYRWNbd3GIHG0UGnOw7sXU01HHyecYYTa1hMUDI3
+    TWITTER_ACCESS_TOKEN: 2945733392-8xR1BCfIN4Iq9kGISYcDSxWikcgKyuxW2uHWG5S
+    TWITTER_ACCESS_SECRET: 57CHtTKYaTknC4eGwUGU3V8SjIR104X0XSacrecu5tCcr
+    REDIS_PORT: 6379
+    REDIS_HOST: develop.2yq2tv.0001.usw2.cache.amazonaws.com
