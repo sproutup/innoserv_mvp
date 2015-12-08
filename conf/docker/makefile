@@ -46,11 +46,11 @@ node:
 	gulp
 
 deploy: push
-	$(MAKE) -C target $(environment_name) deploy
+	$(MAKE) --always-make -C target $(environment_name) deploy
 
 create: push
-	$(MAKE) -C target $(environment_name) create
+	$(MAKE) --always-make -C target $(environment_name) create
 
 recreate: push
-	$(MAKE) -C target $(environment_name) recreate
+	$(MAKE) --always-make -C target $(environment_name) recreate
 

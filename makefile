@@ -21,13 +21,13 @@ develop:
 	$(eval target := develop)
 
 deploy: clean stage prepare
-	$(MAKE) -C target/docker $(target) deploy
+	$(MAKE) --always-make -C target/docker $(target) deploy
 
 create: clean stage prepare
-	$(MAKE) -C target/docker $(target) create
+	$(MAKE) --always-make -C target/docker $(target) create
 
 recreate: clean stage prepare
-	$(MAKE) -C target/docker $(target) recreate
+	$(MAKE) --always-make -C target/docker $(target) recreate
 
 build: clean stage prepare
 	docker build -t $(repo)/$(application_name):$(target) .
