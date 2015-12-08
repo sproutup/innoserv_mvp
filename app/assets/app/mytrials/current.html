@@ -26,7 +26,7 @@
                 <p ng-switch-when="3" class="product-trial-item--status-desc">The product you requested is delivered. Enjoy!</p>
             </div>
 
-            <up-trial-card trial='item' ng-if="item.status === 3"></up-trial-card>
+            <up-trial-card trial='item' ng-if="item.status === 3" context="trial"></up-trial-card>
 
             <p ng-if="item.status==3 && item.trialEndsAt" class="product-trial-item--status"><i class="fa fa-truck"></i>Please ship product back on:</p>
             <p ng-if="item.status==3 && item.trialEndsAt" class="product-trial-item--status-desc"><span>{{item.trialEndsAt | date:'MMM dd, yyyy'}}</span></p>    
