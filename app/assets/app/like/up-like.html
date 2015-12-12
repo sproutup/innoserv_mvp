@@ -1,6 +1,6 @@
 <div class="upvote-wrapper" ng-mouseover="vm.upvoteMouseEnter()" ng-mouseleave="vm.upvoteMouseLeave()">
 	<a class="upvote-link" href="#" subject-present="vm.handleUpvoteClick()" state="{{ vm.state }}" params="vm.params">
-		<span ng-class="{ 'upvoted': vm.upvoted }">UPVOTE ({{vm.likes.count}})</span>
+		<span ng-class="{ 'upvoted': vm.upvoted }">UPVOTE ({{vm.likes.data.length || 0}})</span>
 	</a>
 	<div class="upvote-list" ng-show="vm.hovering && vm.likes.data.length > 0">
 		<div class="upvote-user" ng-repeat="like in vm.likes.data">

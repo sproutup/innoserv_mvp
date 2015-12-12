@@ -1,0 +1,69 @@
+<div class="row my-content-page">
+	<div class="col-sm-8 my-content-left-rail">
+		<div class="col-sm-12 my-content-item">
+			<div class="my-content-headsup suggest">
+            	<p class="my-content-headsup-text">SproutUp is a community of influencers, content creators and product enthusiasts. Everyday we are scouting awesome products for our community. Now, help us by suggesting more!</p>
+            	<a class="btn btn-lg sproutup-btn-md-main" ui-sref="#">Suggest new product</a>
+			</div>
+		</div>
+
+		<!-- new suggestion -->
+		<div class="add-content-wrapper">
+	        <div class="col-sm-12 my-content-item">
+	            <div class="col-sm-2 my-content-user-avatar post-content-user">
+	            	<a ui-sref="#">
+	                	<img class="img-responsive my-content-user-img img-center" src="assets/images/default-avatar.png">
+	                </a>
+	            </div>
+	            <div class="col-sm-10 my-content-body">
+	                <div class="my-content-item--summary">
+		                <p class="my-content-user">
+	                    	<span class="my-content-user-name">
+	                    		<a ui-sref="#" class="content-user-link">Thomas O'Brien</a>
+	                    	</span>
+	                    </p>
+	        			<form name="form" novalidate>
+		                    <div class="my-content-new">
+		                    	<input class="form-control post-new-textbox" placeholder="Product name" ng-model="vm.suggestProductName">
+		                        <textarea name="content" placeholder="Please paste the URL of the product here" class="form-control post-new-textarea suggest link" ng-model="vm.suggestedProductUrl" required></textarea>
+		                    </div>
+		                    <div class="post-new-comment-actions">
+		                        <button type="button" analytics-on="click" analytics-event="Post Content" analytics-user="{{vm.user.nickname}}" class="btn btn-post content-post-button btn-post-default" ng-click="vm.suggestProduct()" ng-disabled="vm.disabled || form.content.$error.required" ng-class="{'disabled': vm.disabled || form.content.$error.required}">
+		                        	<span>Post</span>
+		                        	<span us-spinner spinner-key="spinner-1"></span>
+		                        </button>
+		                    </div>
+		                </form>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
+
+	    <!-- product list -->
+		<div class="col-sm-12 my-content-item">
+        	<!-- content blurb -->
+            <up-suggest ng-repeat="product in vm.products" product="product"></up-suggest>
+        </div>
+	</div>
+
+	<div class="col-sm-4 my-content-right-rail">
+		<!-- info -->
+		<div class="my-content-info-header">
+			<p>What to do</p>
+		</div>
+		<div class="my-content-info-body">
+			<h3><i class="fa fa-star"></i>Be a start scout</h3>
+			<p>Stumble upon cool products? Post it here and share with your community.</p>
+			<h3><i class="fa fa-gift"></i>Get gifts</h3>
+			<p>Each week, we will pick two products and folks who suggested them will each get a $10 Amazin gift card.</p>
+		</div>
+		<div class="my-content-info-header">
+			<p>What to post</p>
+		</div>
+		<div class="my-content-info-body">
+			<p>Our community love rad tech products. Please do not post irrelvant things.</p>
+			<p>Post products that you're genuinely interested in and you'd love to try out by yourself.</p>
+		</div>
+	</div>
+
+</div>
