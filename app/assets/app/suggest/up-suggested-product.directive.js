@@ -7,9 +7,7 @@ function upSuggest() {
         restrict: 'EA',
         templateUrl: 'assets/app/suggest/up-suggested-product.html',
         scope: {
-            product: "=",
-            state: "@",
-            params: "="
+            product: "="
         },
         link: linkFunc,
         controller: upSuggestController,
