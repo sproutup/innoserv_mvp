@@ -6,7 +6,7 @@ function config($stateProvider) {
     $stateProvider
         .state('user.suggest' ,{
             url: '/suggest',
-            templateUrl: 'assets/app/suggest/suggest.html',
+            templateUrl: 'assets/app/suggest/mock.suggest.html',
             controller: 'SuggestController',
             controllerAs: 'vm',
             data: {
