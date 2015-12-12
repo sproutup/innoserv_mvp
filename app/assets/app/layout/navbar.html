@@ -15,19 +15,21 @@
         <!-- Two different nav bars. First for desktop, second one shows under 767px and collapses on an item click. -->
         <div class="collapse navbar-collapse" id="sproutup-collapse-navbar">
             <ul class="nav navbar-nav navbar-item navbar-right navbar-wide">
-                <li><a analytics-on="click" analytics-event="Enter Products page" ui-sref="user.search">PRODUCTS</a></li>
-                <li><a analytics-on="click" analytics-event="Enter Buzz page" ui-sref="user.buzz">BUZZ<span class="label label-new-feature">rad</span></a></li>
-                <li><a analytics-on="click" analytics-event="Enter Rewards page" ui-sref="user.perk">REWARDS<span class="label label-new-feature">new</span></a></li>
-                <li><a analytics-on="click" analytics-event="Enter How it Works page" ui-sref="user.howitworks">HOW IT WORKS</a></li>
+                <li><a analytics-on="click" analytics-event="Enter Products page" ui-sref="user.search">TRY PRODUCTS</a></li>
+                <li><a analytics-on="click" analytics-event="Enter Scout Page" ui-sref="">SCOUT<span class="label label-new-feature">new</span></a></li>
+                <li><a analytics-on="click" analytics-event="Enter Buzz page" ui-sref="user.buzz">BUZZ</a></li>
+                <!-- <li><a analytics-on="click" analytics-event="Enter Rewards page" ui-sref="user.perk">REWARDS</a></li>
+                <li><a analytics-on="click" analytics-event="Enter How it Works page" ui-sref="user.howitworks">HOW IT WORKS</a></li> -->
                 <li><a ui-sref="user.login">LOG IN</a></li>
                 <li><a ui-sref="user.signup">SIGN UP</a></li>
             </ul>
 
             <ul class="nav navbar-nav navbar-item navbar-right navbar-skinny">
-                <li><a analytics-on="click" analytics-event="Enter Products page" ui-sref="user.search" data-toggle="collapse" data-target="#sproutup-collapse-navbar">PRODUCTS</a></li>
-                <li><a analytics-on="click" analytics-event="Enter Buzz page" ui-sref="user.buzz" data-toggle="collapse" data-target="#sproutup-collapse-navbar">BUZZ<span class="label label-new-feature">rad</span></a></li>
-                <li><a analytics-on="click" analytics-event="Enter Rewards page" ui-sref="user.perk">REWARDS<span class="label label-new-feature">new</span></a></li>
-                <li><a analytics-on="click" analytics-event="Enter How it Works page" ui-sref="user.howitworks" data-toggle="collapse" data-target="#sproutup-collapse-navbar">HOW IT WORKS</a></li>
+                <li><a analytics-on="click" analytics-event="Enter Products page" ui-sref="user.search" data-toggle="collapse" data-target="#sproutup-collapse-navbar">TRY PRODUCTS</a></li>
+                <li><a analytics-on="click" analytics-event="Enter Scout page" ui-sref="" data-toggle="collapse" data-target="#sproutup-collapse-navbar">SCOUT<span class="label label-new-feature">new</span></a></li>
+                <li><a analytics-on="click" analytics-event="Enter Buzz page" ui-sref="user.buzz" data-toggle="collapse" data-target="#sproutup-collapse-navbar">BUZZ</a></li>
+                <!-- <li><a analytics-on="click" analytics-event="Enter Rewards page" ui-sref="user.perk">REWARDS</li>
+                <li><a analytics-on="click" analytics-event="Enter How it Works page" ui-sref="user.howitworks" data-toggle="collapse" data-target="#sproutup-collapse-navbar">HOW IT WORKS</a></li> -->
                 <li><a ui-sref="user.login" data-toggle="collapse" data-target="#sproutup-collapse-navbar">LOG IN</a></li>
                 <li><a ui-sref="user.signup" data-toggle="collapse" data-target="#sproutup-collapse-navbar">SIGN UP</a></li>
             </ul>
@@ -50,17 +52,18 @@
             </a>
         </div>
 
-
         <div class="collapse navbar-collapse navbar-heightBoost" id="sproutup-collapse-navbar">
             <ul class="nav navbar-nav navbar-item navbar-left navbar-wide">
-                <li><a analytics-on="click" analytics-event="Enter Products page" ui-sref="user.search">PRODUCTS</a></li>
-                <li><a analytics-on="click" analytics-event="Enter Buzz page" ui-sref="user.buzz">BUZZ<span class="label label-new-feature">rad</span></a></li>
+                <li><a analytics-on="click" analytics-event="Enter Products page" ui-sref="user.search">TRY PRODUCTS</a></li>
+                <li><a analytics-on="click" analytics-event="Enter Scout page" ui-sref="">SCOUT<span class="label label-new-feature">new</span></a></li>
+                <li><a analytics-on="click" analytics-event="Enter Buzz page" ui-sref="user.buzz">BUZZ</a></li>
                 <li><a analytics-on="click" analytics-event="Enter My Trials page" ui-sref="user.mytrials.current">MY TRIALS<span class="navbar-badge" ng-show="auth.init && auth.getActiveTrials()>0">{{ auth.getActiveTrials() }}</span></a></li>
             </ul>
 
             <ul class="nav navbar-nav navbar-item navbar-left navbar-skinny">
-                <li><a analytics-on="click" analytics-event="Enter Product page" ui-sref="user.search" data-toggle="collapse" data-target="#sproutup-collapse-navbar">PRODUCTS</a></li>
-                <li><a analytics-on="click" analytics-event="Enter Buzz page" ui-sref="user.buzz" data-toggle="collapse" data-target="#sproutup-collapse-navbar">BUZZ<span class="label label-new-feature">rad</span></a></li>
+                <li><a analytics-on="click" analytics-event="Enter Product page" ui-sref="user.search" data-toggle="collapse" data-target="#sproutup-collapse-navbar">TRYE PRODUCTS</a></li>
+                <li><a analytics-on="click" analytics-event="Enter Scout page" ui-sref="">SCOUT<span class="label label-new-feature">new</span></a></li>
+                <li><a analytics-on="click" analytics-event="Enter Buzz page" ui-sref="user.buzz" data-toggle="collapse" data-target="#sproutup-collapse-navbar">BUZZ</a></li>
                 <li><a analytics-on="click" analytics-event="Enter My Trials page" ui-sref="user.mytrials.current" data-toggle="collapse" data-target="#sproutup-collapse-navbar">MY TRIALS<span class="navbar-badge" ng-show="auth.init && auth.getActiveTrials()>0">{{ auth.getActiveTrials() }}</span></a></li>
             </ul>
 
