@@ -67,7 +67,7 @@ POST          /api/users/:nickname                                           con
 PUT           /api/users/:nickname                                           controllers.UserController.updateUser(nickname: String)
 #DELETE        /api/users/:id                         controllers.UserController.deleteUser(id: Long)
 
-POST          /api/suggest/product                                           controllers.Application.addProductSuggestion
+POST          /api/suggest/product                                           controllers.SuggestController.addSuggestionByCreator
 POST          /api/creator/access                                            controllers.Application.addEarlyAccessRequest
 
 GET           /api/trials/products                                           controllers.TrialController.getMyTriedProducts
@@ -146,6 +146,12 @@ GET           /api/post/:id                                                  con
 POST          /api/post                                                      controllers.PostController.addPost
 #PUT     /api/forum/posts/:id        controllers.PostController.updateProduct(id: Long)
 #DELETE  /api/forum/posts/:id        controllers.PostController.deleteProduct(id: Long)
+
+GET           /api/suggest                                                   controllers.SuggestController.getAll
+GET           /api/suggest/:start                                            controllers.SuggestController.getRange(start: Int)
+GET           /api/suggest/product/:id                                       controllers.SuggestController.getSuggestion(id: Long)
+POST          /api/suggest/post                                              controllers.SuggestController.addSuggest
+
 
 GET           /api/tags/top                                                  controllers.TagController.getTopTags(size: Int ?= 10)
 GET           /api/tags/post/top/:id/:category                               controllers.TagController.getPopularPostTags(id: Long, category: Int)
