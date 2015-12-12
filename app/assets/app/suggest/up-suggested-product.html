@@ -1,1 +1,48 @@
-suggest
+<div class="col-sm-2 my-content-user-avatar">
+    <img class="img-responsive my-content-user-img img-center" src="assets/images/default-avatar.png">
+</div>
+<div class="col-sm-10 my-content-body">
+    <div class="my-content-item--summary">
+        <p class="my-content-user">
+        	<span class="my-content-user-name">
+        		<a ui-sref="#" class="content-user-link">{{ vm.product.user.name }}</a>
+        	</span>
+        </p>
+        <p class="my-content-timestamp"><a ui-sref="#">{{ vm.product.createdAt | date }}</a></p>
+        <div class="my-content-item-main suggest">
+            <div class="my-content-text" ng-bind-html="vm.content.body | urlify"></div>
+            <a ng-href="{{ vm.product.product.url }}" target="blank">
+            	<div class="row">
+            		<div class="col-sm-5">
+                		<img class="my-content-image img-responsive" src="http://rack.1.mshcdn.com/media/ZgkyMDE1LzA3LzIyLzUyL1NwYWNlSmFtMi5hMDQxYS5qcGcKcAl0aHVtYgk5NTB4NTM0IwplCWpwZw/626b0601/1bf/SpaceJam2.jpg">
+                	</div>
+                	<div class="col-sm-7">
+                    	<p class="my-content-og-headline suggest">{{ vm.product.product.name }}</p>
+	                    <p class="my-content-og-text"></p>
+	                </div>
+	            </div>
+            </a>
+        </div>
+        <div class="my-content-actions">
+            <up-like likes="vm.product.likes" up-id="vm.product.id" up-type="models.productSuggestion"></up-like>
+            <a href="#">COMMENT ({{ vm.product.comments.count || 0 }})</a>
+            <a href="#">SHARE</a>
+        </div>
+    </div>
+    <up-comments commenting="vm.content.commenting" comments="vm.product.comments" up-id="vm.product.id" up-type="models.productSuggestion"></up-comments>
+
+    <!-- comment area -->
+    <div class="my-content-comments">
+        <div class="row my-content-comment-row suggest">
+            <div class="col-sm-2 my-content-user-avatar suggest comment-user-avatar">
+            	<a ui-sref="#">
+            		<img class="img-responsive post-comment-user-img-circle img-center" src="assets/images/user/UM9WLXps_400x400.jpg">
+            	</a>
+            </div>
+            <div class="col-sm-10 my-content-comment-blurb">
+                <p class="my-content-user my-comment-user comment"><a ui-sref="#">Peter Andersen</a></p>
+                <p class="my-content-text comment">This is an awesome product. I love it!!</p>
+            </div>
+        </div>
+    </div>
+</div>
