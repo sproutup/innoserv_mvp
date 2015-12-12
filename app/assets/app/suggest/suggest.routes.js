@@ -5,13 +5,13 @@ angular
 function config($stateProvider) {
 
     $stateProvider
-        .state('user.scout' ,{
-            url: '/scout',
-            templateUrl: 'assets/app/scout/scout.html',
+        .state('user.suggest' ,{
+            url: '/suggest',
+            templateUrl: 'assets/app/suggest/suggest.html',
             controller: 'BuzzController',
             controllerAs: 'vm',
             data: {
-                title: 'Scout Cool Products - SproutUp'
+                title: 'Suggest Cool Products - SproutUp'
             }
         });
 }
