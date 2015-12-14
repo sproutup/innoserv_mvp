@@ -1201,7 +1201,11 @@ input[type=checkbox] {
 }
 
 .suggest-preview {
-    background-color: @sproutup-salmon;
+    background: -webkit-linear-gradient(#89BB45, #517E31); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(#89BB45, #517E31); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(#89BB45, #517E31); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(#89BB45, #517E31); /* Standard syntax */
+
     padding: 90px 20%;
 }
 
