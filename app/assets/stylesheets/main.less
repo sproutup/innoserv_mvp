@@ -553,9 +553,10 @@ a:focus {
     color: white;
 }
 
-.sproutup-btn-md-main.salmon {
+.sproutup-btn-md-main.salmon-outline {
     background-color: @sproutup-salmon;
     color: white;
+    border: 1px solid white;
 }
 
 .sproutup-btn-md-main.orange {
@@ -614,8 +615,9 @@ a:focus {
     color: white;
 }
 
-.sproutup-btn-md-main.salmon:hover {
+.sproutup-btn-md-main.salmon-outline:hover {
     background-color: @sproutup-salmon-hover;
+    border: 1px solid white;
     color: white;
 }
 
@@ -1198,6 +1200,52 @@ input[type=checkbox] {
     transform: translate(-50%, -50%);
 }
 
+.suggest-preview {
+    background-color: @sproutup-salmon;
+    padding: 90px 20%;
+}
+
+.suggest-preview h1 {
+    color: white;
+    font-size: 36pt;
+    font-weight: 100;
+    padding: 0px 30px 20px;
+}
+
+.suggest-preview h2 {
+    color: white;
+    font-size: 15pt;
+    font-weight: 400;
+    line-height: 1.6;
+    padding: 0px 30px 20px;
+}
+
+.suggest-preview h3 {
+    color: white;
+    font-size: 13pt;
+    font-weight: 400;
+    line-height: 1.5;
+    padding: 0px 30px 10px;
+}
+
+.suggest-preview h3 i {
+    padding-right: 12px;
+}
+
+.suggest-preview h3 a {
+    font-weight: 700;
+    color: white;
+    text-decoration: underline !important;
+}
+
+.suggest-preview p {
+    color: white;
+    font-size: 12pt;
+    font-weight: 400;
+    line-height: 1.5;
+    padding: 0px 30px 10px;
+}
+
 .profile-edit--header .learning-more {
     margin-top: 10px;
 }
@@ -1266,6 +1314,10 @@ input[type=checkbox] {
     .sproutup-btn-md-main {
         font-size: 10pt;
         padding-top: 13px;
+    }
+
+    .suggest-preview {
+        padding: 80px 5%;
     }
 
 }

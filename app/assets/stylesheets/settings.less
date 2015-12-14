@@ -218,8 +218,8 @@ a.list-group-item:hover {
     text-align: center;
 }
 
-.my-content-headsup.suggest {
-    padding-bottom: 15px;
+.wrapper-suggest .my-content-headsup {
+    padding: 0px 0px 15px;
 }
 
 .my-content-headsup-text {
@@ -229,6 +229,10 @@ a.list-group-item:hover {
     color: @main-text-1;
     margin: 0px;
     padding: 15px 25px;
+}
+
+.wrapper-suggest .my-content-headsup-text {
+    padding: 15px 25px 20px;
 }
 
 .my-content-headsup-text a {
@@ -378,11 +382,19 @@ a.list-group-item:hover {
 }
 
 .my-content-user {
+    padding: 0px 0px 3px;
+    margin: 0px;
+}
+
+.my-content-user a {
     font-size: 11pt;
     font-weight: 700;
     color: @sproutup-blue;
-    padding: 0px;
-    margin: 0px;
+}
+
+.my-content-user a:hover {
+    color: @sproutup-blue;
+    text-decoration: underline !important;
 }
 
 .my-content-user.comment a {
@@ -390,60 +402,30 @@ a.list-group-item:hover {
     color: @sproutup-blue;
 }
 
-.wrapper-suggest .my-content-user.comment a {
-    color: @sproutup-salmon;
-}
-
 .my-content-user.comment a:hover {
     text-decoration: underline !important;
 }
 
-.my-content-user .my-content-user-twitter a {
-    padding-left: 10px;
-    color: @main-text-2;
-}
-
-.my-content-user .my-content-user-name a {
-    color: @sproutup-blue;
-}
-
-.wrapper-suggest .my-content-user .my-content-user-name a {
+.wrapper-suggest .my-content-user a {
     color: @sproutup-salmon;
 }
 
-.my-content-user .my-content-user-name a:hover {
-    color: @sproutup-blue;
-    text-decoration: underline !important;
+.wrapper-suggest .my-content-user.comment a {
+    color: @sproutup-salmon;
 }
 
 .wrapper-suggest .my-content-user .my-content-user-name a:hover {
     color: @sproutup-salmon-hover;
 }
 
-.my-content-user .my-content-user-name a:link, .my-content-user .my-content-user-name a:active, .my-content-user .my-content-user-name a:visited {
-    color: @sproutup-blue !important;
-}
-
-.wrapper-suggest .my-content-user .my-content-user-name a:link, .my-content-user .my-content-user-name a:active, .my-content-user .my-content-user-name a:visited {
-    color: @sproutup-salmon !important;
-}
-
-
-.my-content-user span a:hover {
-    color: @main-text-2;
-    text-decoration: underline !important;
-}
-
-
 .my-content-timestamp {
-    font-weight: 400;
-    font-size: 10pt;
-    color: @secondary-text;
-    padding: 5px 0px;
+    padding: 0px;
     margin: 0px;
 }
 
 .my-content-timestamp a {
+    font-weight: 400;
+    font-size: 10pt;
     color: @secondary-text;
 }
 
@@ -452,17 +434,18 @@ a.list-group-item:hover {
     text-decoration: underline !important;
 }
 
-
 .my-content-timestamp.comment {
+    font-weight: 400;
     font-size: 9pt;
+    color: @secondary-text;
 }
 
 .my-content-item-main {
-    margin: 5px 0px 10px;
+    margin: 10px 0px 10px;
 }
 
 .my-content-item-main.suggest {
-    margin: 5px 0px 15px;
+    margin: 10px 0px 15px;
 }
 
 .my-content-og-headline {
