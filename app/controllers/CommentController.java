@@ -26,7 +26,7 @@ public class CommentController extends Controller {
     @BodyParser.Of(BodyParser.Json.class)
     @SubjectPresent
     public static Result addComment(Long id, String type) {
-        Logger.debug("hey");
+        Logger.debug("adding a comment on type: " + type);
         JsonNode json = request().body().asJson();
         if (json == null) {
             return badRequest("Expecting Json data");
@@ -39,7 +39,7 @@ public class CommentController extends Controller {
                 Logger.debug(body);
                 Comment rs = Comment.addComment(user.id, body, id, type);
 
-                if(type.compareToIgnoreCase("models.post")==0) {
+                if((type.compareToIgnoreCase("models.post")==0) || (type.compareToIgnoreCase("models.productsuggestion")==0)) {
                     // Add reward points
                     RewardActivity publishContent = RewardActivity.find.byId(3002L);
 

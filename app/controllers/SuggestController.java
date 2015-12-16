@@ -133,36 +133,6 @@ public class SuggestController extends Controller {
         }
     }
 
-    
-    @BodyParser.Of(BodyParser.Json.class)
-    @SubjectPresent
-    public static Result create() {
-        JsonNode root = request().body().asJson();
-        if (root == null) {
-            return badRequest("Expecting Json data");
-        } else {
-            User user = Application.getLocalUser(ctx().session());
-
-            ProductSuggestion item = new ProductSuggestion();
-
-            if (check(root, "url")) item.productUrl = root.path("url").asText();
-
-            item.user = user;
-
-            if (check(root, "open_graph_id")) {
-                Long openGraph_id = root.path("open_graph_id").asLong();
-                OpenGraph openGraph = OpenGraph.find.byId(openGraph_id);
-                if (openGraph != null) {
-                    item.openGraph = openGraph;
-                }
-            }
-
-            item.save();
-
-            return created(item.toJson());
-        }
-    }
-
     @SubjectPresent
     public static Result update(Long id)
     {

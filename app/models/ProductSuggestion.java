@@ -34,8 +34,9 @@ import com.typesafe.plugin.RedisPlugin;
 
 
 /**
- * Created by peter on 3/23/15.
- * refactored by nitin 12/12/15 to do Suggest feature by community
+ * Orginally created by peter on 3/23/15.
+ * refactored by nitin during Hackathon 12/12/15; 
+ * Added Suggest Product feature by community members
  */
 @Entity
 public class ProductSuggestion extends SuperModel {
@@ -89,7 +90,7 @@ public class ProductSuggestion extends SuperModel {
 			zadd("suggestion:user:" + this.user.id);
 		}
 
-        lpush();
+        //lpush();
     }
     
 
@@ -130,7 +131,8 @@ public class ProductSuggestion extends SuperModel {
 				.isNotNull("user_id")
 				.order("id desc")
 				.findList();
-	}
+		//TODO see if we can sort by most recent activity on the post
+    }
 
 	public static List<ProductSuggestion> getAllByUser(User user) {
 		return find
@@ -195,14 +197,9 @@ public class ProductSuggestion extends SuperModel {
         if(this.openGraph != null) {
             node.put("openGraph", this.openGraph.toJson());
         }
+        node.put("comments", Comment.range(this.id.toString(), this.getClass().getName().toLowerCase()));
         
-        //        if(this.comments.size()>0) {
-//            ArrayNode list = node.putArray("comments");
-//            for (Post comment : this.comments) {
-//                list.add(comment.toJsonRaw());
-//            }
-//        }
-        return node;
+         return node;
     }
 
     public static ArrayNode toJson(List<ProductSuggestion> items){
@@ -213,42 +210,6 @@ public class ProductSuggestion extends SuperModel {
         return arrayNode;
     }
 
-    public static void initRedis(){
-        Logger.debug("init redis");
-
-        clearRedis();
-
-        for (ProductSuggestion suggestion : find.all()){
-        	suggestion.hmset();
-        	suggestion.lpush();
-        }
-    }
-
-    public void lpush(){
-        Jedis j = play.Play.application().plugin(RedisPlugin.class).jedisPool().getResource();
-        try {
-            // There is an interesting thing to notice in the code below:
-            // we use a new command called LTRIM after we perform the LPUSH operation in the global timeline.
-            // This is used in order to trim the list to just 1000 elements.
-            // The global timeline is actually only used in order to show a few posts in the home page,
-            // there is no need to have the full history of all the posts.
-            // Basically LTRIM + LPUSH is a way to create a capped collection in Redis.
-
-            j.lpush("suggestion:all", this.id.toString());
-            j.ltrim("suggestion:all", 0, 1000);
-        } finally {
-            play.Play.application().plugin(RedisPlugin.class).jedisPool().returnResource(j);
-        }
-    }
-
-    public static void clearRedis(){
-        Jedis j = play.Play.application().plugin(RedisPlugin.class).jedisPool().getResource();
-        try {
-            j.del("suggestion:all");
-        } finally {
-            play.Play.application().plugin(RedisPlugin.class).jedisPool().returnResource(j);
-        }
-    }
     
 	public static ArrayNode range(long start, long end){
 		ObjectNode items = Json.newObject();
@@ -422,15 +383,15 @@ public class ProductSuggestion extends SuperModel {
             if (values.get(5) != null) node.put("image", values.get(5));
             if (values.get(6) != null) node.put("video", values.get(6));
             if (values.get(7) != null) node.put("user_id", values.get(7));
-            if (values.get(6) != null) node.put("title", values.get(8));
+            if (values.get(8) != null) node.put("title", values.get(8));
 
-            /*
-            if (values.get(6) != null) {
-                node.put("user", User.hmget(values.get(6)));
+            
+            if (values.get(7) != null) {
+                node.put("user", User.hmget(values.get(7)));
             }
-            node.put("likes", Likes.range(id, "models.productSuggestion"));
-            node.put("comments", Comment.range(id, "models.productSuggestion"));
-*/
+            node.put("likes", Likes.range(id, "models.productsuggestion"));
+            node.put("comments", Comment.range(id, "models.productsuggestion"));
+
 
         } finally {
         }
