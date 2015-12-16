@@ -297,21 +297,6 @@ public class Application extends Controller {
 		return new SimpleDateFormat("yyyy-dd-MM HH:mm:ss").format(new Date(t));
 	}
 
-    @BodyParser.Of(BodyParser.Json.class)
-    public static Result addProductSuggestion() {
-        JsonNode json = request().body().asJson();
-        if (json == null) {
-            return badRequest("Expecting Json data");
-        } else {
-            ProductSuggestion prds = new ProductSuggestion();
-            prds.email = json.path("email").asText();
-            prds.productName = json.path("productName").asText();
-            prds.productUrl = json.path("productUrl").asText();
-            prds.save();
-
-            return created();
-        }
-    }
 
     @BodyParser.Of(BodyParser.Json.class)
     public static Result addEarlyAccessRequest() {

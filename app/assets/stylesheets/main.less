@@ -331,6 +331,10 @@ input:-ms-input-placeholder {
     outline: 0 !important;
 }
 
+.wrapper-suggest .form-control:focus {
+    border-color: @sproutup-salmon;
+}
+
 .form-validate.ng-invalid.ng-touched {
     border: 1px solid @sproutup-error-message;
     color: @sproutup-orange;
@@ -549,8 +553,24 @@ a:focus {
     color: white;
 }
 
+.sproutup-btn-md-main.salmon-outline {
+    background-color: @sproutup-salmon;
+    color: white;
+    border: 1px solid white;
+}
+
 .sproutup-btn-md-main.orange {
     background-color: @sproutup-orange;
+    color: white;
+}
+
+.sproutup-btn-md-main.purple {
+    background-color: @sproutup-purple;
+    color: white;
+}
+
+.sproutup-btn-md-main.purple:hover {
+    background-color: @sproutup-purple-hover;
     color: white;
 }
 
@@ -602,6 +622,12 @@ a:focus {
 
 .sproutup-btn-md-main.red:hover {
     background-color: @sproutup-red-hover;
+    color: white;
+}
+
+.sproutup-btn-md-main.salmon-outline:hover {
+    background-color: @sproutup-salmon-hover;
+    border: 1px solid white;
     color: white;
 }
 
@@ -1184,8 +1210,113 @@ input[type=checkbox] {
     transform: translate(-50%, -50%);
 }
 
+.suggest-preview {
+    background: -webkit-linear-gradient(#89BB45, #517E31); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(#89BB45, #517E31); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(#89BB45, #517E31); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(#89BB45, #517E31); /* Standard syntax */
+
+    padding: 90px 20%;
+}
+
+.suggest-preview h1 {
+    color: white;
+    font-size: 36pt;
+    font-weight: 100;
+    padding: 0px 30px 20px;
+}
+
+.suggest-preview h2 {
+    color: white;
+    font-size: 15pt;
+    font-weight: 400;
+    line-height: 1.6;
+    padding: 0px 30px 20px;
+}
+
+.suggest-preview h3 {
+    color: white;
+    font-size: 13pt;
+    font-weight: 400;
+    line-height: 1.5;
+    padding: 0px 30px 10px;
+}
+
+.suggest-preview h3 i {
+    padding-right: 12px;
+}
+
+.suggest-preview h3 a {
+    font-weight: 700;
+    color: white;
+    text-decoration: underline !important;
+}
+
+.suggest-preview p {
+    color: white;
+    font-size: 12pt;
+    font-weight: 400;
+    line-height: 1.5;
+    padding: 0px 30px 10px;
+}
+
 .profile-edit--header .learning-more {
     margin-top: 10px;
+}
+
+.wrapper-hangout {
+    margin: 70px auto 30px;
+    padding: 0px 15px;
+    max-width: 1000px
+}
+
+.hangout-list {
+    margin: 15px 20px 0px;
+    padding: 20px 10px;
+    background-color: @sproutup-verylightgrey;
+}
+
+.hangout-host-photo {
+    border-radius: 6px; 
+    border: 2px solid white;
+}
+
+.hangout-host {
+    font-weight: 700;
+    font-size: 12pt;
+    color: @main-text-1;
+}
+
+.hangout-host a {
+    color: @sproutup-purple;
+}
+
+.hangout-host span {
+    padding-left: 12px;
+    font-weight: 400;
+    font-size: 11pt;
+    color: @main-text-2;  
+}
+
+.hangout-host span a {
+    color: @main-text-2;  
+}
+
+.hangout-date-time {
+    font-weight: 700;
+    font-size: 11pt;
+    color: @main-text-2;
+}
+
+.hangout-topic {
+    font-weight: 400;
+    font-size: 11pt;
+    color: @main-text;
+}
+
+.hangout-action {
+    margin-top: 15px;
+    text-align: right;
 }
 
 @media (min-width: 1200px) {
@@ -1252,6 +1383,39 @@ input[type=checkbox] {
     .sproutup-btn-md-main {
         font-size: 10pt;
         padding-top: 13px;
+    }
+
+    .suggest-preview {
+        padding: 80px 5%;
+    }
+
+    .hangout-host-photo {
+        margin-left: auto;
+        margin-right: auto;
+        width: 80px;
+    }
+
+    .hangout-host {
+        margin-top: 10px;
+        text-align: center;
+    }
+
+    .hangout-host span {
+        display: block;
+        margin: 0px;
+        padding: 0px;
+    }
+
+    .hangout-date-time {
+        text-align: center;
+    }
+
+    .hangout-topic {
+        text-align: center;
+    }
+
+    .hangout-action {
+        text-align: center;
     }
 
 }
