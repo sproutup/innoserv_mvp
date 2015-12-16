@@ -261,6 +261,10 @@ a .product-cover-description {
   text-align: center;
 }
 
+.wrapper-hangout .sproutup-tabs {
+  border-bottom: 1px dashed @sproutup-purple;
+}
+
 .sproutup-tabs--content {
   display: inline-block;
   padding: 15px 0px;
@@ -285,6 +289,11 @@ a .product-cover-description {
   box-shadow: none !important;
 }
 
+.wrapper-hangout .btn-sproutup-tab {
+  border: dashed 1px @sproutup-purple;
+  color: @sproutup-purple;
+}
+
 .btn-sproutup-tab i {
   padding-right: 8px;
 }
@@ -294,8 +303,23 @@ a .product-cover-description {
   background-color: @sproutup-blue;
 }
 
+.wrapper-hangout .btn-sproutup-tab.active {
+  color: white;
+  background-color: @sproutup-purple;
+}
+
 .btn-sproutup-tab:hover,
 .btn-sproutup-tab:focus {
   color: white;
   background-color: @sproutup-blue;
+}
+
+.wrapper-hangout .btn-sproutup-tab:hover {
+  color: white;
+  background-color: @sproutup-purple;
+}
+
+.wrapper-hangout .btn-sproutup-tab:focus {
+  color: white;
+  background-color: @sproutup-purple;
 }

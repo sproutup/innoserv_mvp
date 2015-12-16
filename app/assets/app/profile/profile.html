@@ -10,19 +10,20 @@
                         <div ng-class="{ 'active-stat': $state.current.name === 'user.profile.buzz' }">{{ vm.posts }}</div>
                     </a>
                 </div>
-                <div class="col-sm-2">
+                <div class="col-sm-2" ng-if="vm.trials > 0">
                     <a class="stats-link" ui-sref="user.profile.trials">
                         <div>Trials</div>
                         <div ng-class="{ 'active-stat': $state.current.name === 'user.profile.trials' }">{{ vm.trials }}</div>
                     </a>
                 </div>
-                <div class="col-sm-2">
+                
+                <div class="col-sm-2" ng-if="vm.reach.total > 0">
                     <a class="stats-link" ui-sref="user.profile.reach">
                         <div>Reach</div>
-                        <div ng-class="{ 'active-stat': $state.current.name === 'user.profile.reach' }">{{ vm.reach.total || 0 | humanizeNumber }}</div>
+                        <div ng-class="{ 'active-stat': $state.current.name === 'user.profile.reach' }">{{ vm.reach.total | humanizeNumber }}</div>
                     </a> 
                 </div>       
-                <div class="col-sm-2">
+                <div class="col-sm-2" ng-if="vm.points > 0">
                     <a class="stats-link" ui-sref="user.profile.points">
                         <div>Points</div>
                         <div ng-class="{ 'active-stat': $state.current.name === 'user.profile.points' }">{{ vm.points }}</div>

@@ -11,9 +11,7 @@
         <div class="my-content-item--summary">
 
             <p class="my-content-user">
-                <span class="my-content-user-name">
-                    <a analytics-on="click" analytics-event="Check Public Profile" analytics-user="{{vm.content.user.nickname}}" class="content-user-link" ui-sref="user.profile.buzz({ nickname: vm.content.user.nickname })">{{ vm.content.user.name }}</a>
-                </span>
+                <a analytics-on="click" analytics-event="Check Public Profile" analytics-user="{{vm.content.user.nickname}}" class="content-user-link" ui-sref="user.profile.buzz({ nickname: vm.content.user.nickname })">{{ vm.content.user.name }}</a>
             </p>
             <p class="my-content-timestamp"><a ui-sref="user.singleBuzz({ id: vm.content.id })">{{ vm.content.createdAt | fromNow }}</a></p>
             <div class="my-content-item-main">
