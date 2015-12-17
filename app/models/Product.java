@@ -335,7 +335,7 @@ public class Product extends SuperModel implements PathBindable<Product>,
 			LZ4SafeDecompressor decompressor = factory.safeDecompressor();
 			Logger.debug("step");
 
-			int decompressedLength = 10000;
+			int decompressedLength = compressed.length*15;
 			byte[] restored = new byte[decompressedLength];
 			restored = decompressor.decompress(compressed, decompressedLength);
 

@@ -98,7 +98,7 @@ public class Products extends Controller {
             Logger.debug("product:lz4: cache hit " + compressed.length);
 //            byte[] uncompressed = new byte[compressed.length*10];
             LZ4SafeDecompressor decompressor = factory.safeDecompressor();
-            int maxDecompressedLength = compressed.length*10;
+            int maxDecompressedLength = compressed.length*15;
             byte[] restored = new byte[maxDecompressedLength];
             restored = decompressor.decompress(compressed, maxDecompressedLength);
 
