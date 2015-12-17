@@ -66,14 +66,14 @@ public class File extends SuperModel {
 
     @Column(columnDefinition = "boolean default false")
     public boolean isTranscoded;
-    
+
     @Transient
 	public java.io.File mediaUploadedfile;
     @Transient
 	public String mediaLinkType;
     @Transient
     public String submittedBy = "0_admin";//uploaded by SproutUp Administrator (when not logged on)
-    
+
     public static File findByUUID(final UUID uuid) {
         return find.where().eq("uuid", uuid).findUnique();
     }
@@ -121,7 +121,7 @@ public class File extends SuperModel {
             Logger.info("==========================================================");
         }
     }
-    
+
     /*
 	* (non-Javadoc)
 	* For uploading the company media from Play
@@ -129,7 +129,7 @@ public class File extends SuperModel {
 	public void companyMediaUpload() {
 		this.uuid = UUID.randomUUID();
 	    this.length = mediaUploadedfile.length();
-				
+
 		MimetypesFileTypeMap mfm = new MimetypesFileTypeMap();
 		this.type = "video";
         if(originalName!=null && originalName.contains(".jpg")){
@@ -146,7 +146,7 @@ public class File extends SuperModel {
         }
 
         this.name = this.getFileName();
-		
+
 		// upload file on S3
         if (S3Plugin.amazonS3 == null) {
             Logger.error("Could not save because amazonS3 was null");
@@ -159,11 +159,11 @@ public class File extends SuperModel {
 		PutObjectRequest putObjectRequest = new PutObjectRequest(bucket, getFileName(), mediaUploadedfile);
 		putObjectRequest.withCannedAcl(CannedAccessControlList.PublicRead); // public for all
 		putObjectRequest.setStorageClass("REDUCED_REDUNDANCY");
-		S3Plugin.amazonS3.putObject(putObjectRequest); 
+		S3Plugin.amazonS3.putObject(putObjectRequest);
 
 		//persist the data in File table
 		this.save(); // assigns an id
-        
+
 		//update the Product table
 		List<Product> products = new Product().findbyCompanyID(refId);
 		if (products!=null && products.size()==1){
@@ -185,7 +185,7 @@ public class File extends SuperModel {
             case "story_photo1":  product.productAdditionalDetail.storyPhoto1 = this;
         		break;
             case "story_photo2":  product.productAdditionalDetail.storyPhoto2 = this;
-    			break;	
+    			break;
             case "member1photo":  product.productAdditionalDetail.member1Photo = this;
     			break;
             case "member2photo":  product.productAdditionalDetail.member2Photo = this;
@@ -199,7 +199,7 @@ public class File extends SuperModel {
         	case "member6photo":  product.productAdditionalDetail.member6Photo = this;
         		break;
         	default: flag = false;
-            	break;	
+            	break;
 			}
 			if (flag){
 				System.out.println("Updating product now..");
@@ -208,10 +208,10 @@ public class File extends SuperModel {
 		} else {
 			Logger.error("Could not update Product table; several products found to update");
 		}
-		
+
 		//transcoder work
         this.transcode();
-		
+
 	}
 
 	/*
@@ -221,10 +221,10 @@ public class File extends SuperModel {
 	public void userPhotoUpload() {
 		this.uuid = UUID.randomUUID();
 	    this.length = mediaUploadedfile.length();
-				
+
 		this.type = "image";
 	    this.name = this.getFileName();
-		
+
 		// upload file on S3
         if (S3Plugin.amazonS3 == null) {
             Logger.error("Could not save because amazonS3 was null");
@@ -237,16 +237,16 @@ public class File extends SuperModel {
 		PutObjectRequest putObjectRequest = new PutObjectRequest(bucket, getFileName(), mediaUploadedfile);
 		putObjectRequest.withCannedAcl(CannedAccessControlList.PublicRead); // public for all
 		putObjectRequest.setStorageClass("REDUCED_REDUNDANCY");
-		S3Plugin.amazonS3.putObject(putObjectRequest); 
+		S3Plugin.amazonS3.putObject(putObjectRequest);
 
 		//persist the data in File table
 		this.save(); // assigns an id
-        
+
 		//update the User table
 		this.user = User.find.byId(refId);
 		user.files.add(this);
 		user.update();
-		
+
 	}
 
 
@@ -435,11 +435,11 @@ public class File extends SuperModel {
 
     public String getURL() {
         if (type.contains("video/") || type.equals("video")) {
-            return ("http://" + getCloudfrontVideos() + "/" + this.uuid.toString() + "/" + this.uuid.toString() );
+            return ("https://" + getCloudfrontVideos() + "/" + this.uuid.toString() + "/" + this.uuid.toString() );
         } else if (type.contains("image/")) {
-            return ("http://" + getCloudfrontFiles() + "/" + this.getFileName());
+            return ("https://" + getCloudfrontFiles() + "/" + this.getFileName());
         } else{
-            return ("http://" + getCloudfrontFiles() + "/" + this.getFileName());
+            return ("https://" + getCloudfrontFiles() + "/" + this.getFileName());
         }
     }
 
