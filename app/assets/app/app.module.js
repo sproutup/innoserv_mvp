@@ -68,7 +68,7 @@ sproutupApp.config([
         function(FacebookProvider) {
 
             // read the appid from meta tags. meta tag is set with value from application.conf
-            var myAppId = $('meta[property="fb:app_id"]').attr("b");
+            var myAppId = $('meta[property="fb:app_id"]').attr("content");
 
             // You can set appId with setApp method
             // FacebookProvider.setAppId('myAppId');
@@ -78,7 +78,6 @@ sproutupApp.config([
              * You can pass the appId on the init method as a shortcut too.
              */
             FacebookProvider.init(myAppId);
-
         }
     ]
 );
