@@ -215,7 +215,7 @@ public class ProductSuggestion extends SuperModel {
 		ObjectNode items = Json.newObject();
 		ArrayNode data = items.putArray("data");
 
-		//Go to Redis to read the full roster of content.
+		//Go to Redis to read the full roster of suggested product.
 		Jedis j = play.Play.application().plugin(RedisPlugin.class).jedisPool().getResource();
 		try {
 			String key = "suggestion:all";
@@ -229,12 +229,12 @@ public class ProductSuggestion extends SuperModel {
 					}
 				}
 			}
-
+			
 			Set<String> set = j.zrevrange(key, start, end);
 			items.put("count", j.zcard(key));
 
 			for(String id: set) {
-				// get the data for each like
+				// get the data for each item
 				data.add(ProductSuggestion.hmget(id, j));
 			}
 		} finally {

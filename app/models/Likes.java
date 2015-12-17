@@ -4,14 +4,18 @@ import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.typesafe.plugin.RedisPlugin;
+
 import org.joda.time.DateTime;
+
 import play.libs.Json;
 
 import javax.persistence.*;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 import play.Logger;
 import redis.clients.jedis.Jedis;
@@ -209,6 +213,22 @@ public class Likes extends TimeStampModel {
 			//j.lpush(key, this.id.toString());
 			Logger.debug("like added to list " + key);
 			j.zadd(key, createdAt.getTime(), this.id.toString());
+			
+			if (refType.compareToIgnoreCase("models.productsuggestion")==0){
+				Logger.debug("moving up suggested product " + refId);
+				String count = j.zcard(key);
+				long score = createdAt.getTime();
+				if (count!=null && count.length()>0){
+					int c = Integer.getInteger(count).intValue();
+					if (c<50){//make it pin for 24 hours
+						score = score + TimeUnit.MILLISECONDS.convert(1, TimeUnit.DAYS); 
+					} else {//make it pin for 48 hours
+						score = score + TimeUnit.MILLISECONDS.convert(2, TimeUnit.DAYS); 
+					}
+				}
+				j.zadd("suggestion:all", score, refId);
+			}
+			
 		} finally {
 			play.Play.application().plugin(RedisPlugin.class).jedisPool().returnResource(j);
 		}
