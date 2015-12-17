@@ -5,7 +5,7 @@ angular
 function config($stateProvider) {
     $stateProvider
         .state('user.hangout' ,{
-            url: '/hangout',
+            url: '/hangout/upcoming',
             templateUrl: 'assets/app/hangout/hangout.html',
             controller: '',
             controllerAs: '',
@@ -14,7 +14,7 @@ function config($stateProvider) {
             }
         })
         .state('user.pastHangout' ,{
-            url: '/past-hangout',
+            url: '/hangout/past',
             templateUrl: 'assets/app/hangout/past-hangout.html',
             controller: '',
             controllerAs: '',
