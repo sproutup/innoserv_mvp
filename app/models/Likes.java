@@ -216,11 +216,10 @@ public class Likes extends TimeStampModel {
 			
 			if (refType.compareToIgnoreCase("models.productsuggestion")==0){
 				Logger.debug("moving up suggested product " + refId);
-				String count = j.zcard(key);
+				Long count = j.zcard(key);
 				long score = createdAt.getTime();
-				if (count!=null && count.length()>0){
-					int c = Integer.getInteger(count).intValue();
-					if (c<50){//make it pin for 24 hours
+				if (count!=null){
+					if (count.longValue()<50){//make it pin for 24 hours
 						score = score + TimeUnit.MILLISECONDS.convert(1, TimeUnit.DAYS); 
 					} else {//make it pin for 48 hours
 						score = score + TimeUnit.MILLISECONDS.convert(2, TimeUnit.DAYS); 
