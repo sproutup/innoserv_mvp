@@ -52,7 +52,7 @@ public class S3File extends Model {
 
 	public URL getImageURL() {
 		try {
-			return new URL("http://d209heoa233yab.cloudfront.net/" + getActualFileName());
+			return new URL("https://d209heoa233yab.cloudfront.net/" + getActualFileName());
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -62,7 +62,7 @@ public class S3File extends Model {
 
     public URL getVideoURL() {
         try {
-            return new URL("http://dc2jx5ot5judg.cloudfront.net/" + productName + "/" + id + "/" + id);
+            return new URL("https://dc2jx5ot5judg.cloudfront.net/" + productName + "/" + id + "/" + id);
         } catch (MalformedURLException e) {
             e.printStackTrace();
             return null;
@@ -111,7 +111,7 @@ public class S3File extends Model {
 		}
 		else {
 			this.bucket = S3Plugin.s3Bucket;
-			
+
 			super.save(); // assigns an id
 
 			PutObjectRequest putObjectRequest = new PutObjectRequest(bucket, getActualFileName(), file);
@@ -189,7 +189,7 @@ public class S3File extends Model {
 		}
 	}
 
-		
+
 	@Override
 	public void delete() {
 		if (S3Plugin.amazonS3 == null) {
