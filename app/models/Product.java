@@ -103,6 +103,10 @@ public class Product extends SuperModel implements PathBindable<Product>,
 	@OneToMany(mappedBy="product")
 	@OrderBy("dateTimeStamp desc")
 	public List<Media> mediaItems;
+	
+	@JsonIgnore
+	@ManyToOne(cascade=CascadeType.ALL)
+	public Community community;
 
 	@Transient
 	public String tags; //comma separated values of tags
@@ -206,6 +210,14 @@ public class Product extends SuperModel implements PathBindable<Product>,
 	public List<Product> findbyCompanyID(Long companyID) {
 		List<Product> results;
 		 return results = find.where().eq("company_id", companyID).findList();
+	}
+	
+	public static List<Product> getActivebyCommunity(Long communityID) {
+		List<Product> results;
+		 return results = find.
+				 where().eq("community_id", communityID).
+				 where().eq("activeFlag", "1").
+				 findList();
 	}
 
 	public Product getDetailwithMedia(Long id) {
@@ -391,6 +403,9 @@ public class Product extends SuperModel implements PathBindable<Product>,
 			}
 		}
 
+		if(this.community!=null) {
+			node.put("community", community.name);
+		}
 		return node;
 	}
 
@@ -464,6 +479,10 @@ public class Product extends SuperModel implements PathBindable<Product>,
 			}
 			node.put("story", storyArrayNode);
 		}
+		
+		if(this.community!=null) {
+			node.put("community", community.name);
+		}
         return node;
     }
 
@@ -507,11 +526,14 @@ public class Product extends SuperModel implements PathBindable<Product>,
 			play.Play.application().plugin(RedisPlugin.class).jedisPool().returnResource(j);
 		}
 	}
-
+	
+	/**
+	 * Get all active products
+	 */
 	public static ArrayNode range(){
 		ArrayNode data = new ArrayNode(JsonNodeFactory.instance);
 
-		//Go to Redis to read the full roster of content.
+		//Go to Redis to read the full roster.
 		Jedis j = play.Play.application().plugin(RedisPlugin.class).jedisPool().getResource();
 		try {
 			if(!j.exists(zset_key)) {
@@ -524,7 +546,7 @@ public class Product extends SuperModel implements PathBindable<Product>,
 			Set<String> set = j.zrange(zset_key, 0, -1);
 
 			for(String id: set) {
-				// get the data for each like
+				// get the data for each item
 				data.add(Product.hmget(id));
 			}
 		} finally {
@@ -534,6 +556,35 @@ public class Product extends SuperModel implements PathBindable<Product>,
 		return data;
 	}
 
+	/**
+	 * Get products specific to a given community
+	 * @return
+	 */
+	public static ArrayNode range(Long communityId){
+		ArrayNode data = new ArrayNode(JsonNodeFactory.instance);
+		String key =  "zset:product:community:" + communityId;
+		//Go to Redis to read the full roster.
+		Jedis j = play.Play.application().plugin(RedisPlugin.class).jedisPool().getResource();
+		try {
+			
+			Logger.debug("adding products to cache for commmunityId: " + communityId);
+			for(Product item: Product.getActivebyCommunity(communityId)){
+				item.zadd(key, j);
+			}
+				
+			Set<String> set = j.zrange(key, 0, -1);
+
+			for(String id: set) {
+				// get the data for each item
+				data.add(Product.hmget(id));
+			}
+		} finally {
+			play.Play.application().plugin(RedisPlugin.class).jedisPool().returnResource(j);
+		}
+
+		return data;
+	}
+	
 	public void hmset(){
 		Jedis j = play.Play.application().plugin(RedisPlugin.class).jedisPool().getResource();
 		try {
@@ -559,8 +610,11 @@ public class Product extends SuperModel implements PathBindable<Product>,
 			map.put("isAvailableForTrial", String.valueOf(this.trialSignUpFlag));
 			map.put("isAvailableForDiscount", String.valueOf(this.discountFlag));
 			map.put("isAvailableForContest", String.valueOf(this.contestFlag));
-
-
+			
+			if(this.community!=null) {
+				map.put("community", community.name);
+			}
+			
 			// add the values
 			j.hmset("prod:" + this.id.toString(), map);
 		} finally {
@@ -602,7 +656,8 @@ public class Product extends SuperModel implements PathBindable<Product>,
 					"banner",
 					"isAvailableForTrial",
 					"isAvailableForDiscount",
-					"isAvailableForContest"
+					"isAvailableForContest",
+					"community"
 			);
 
 			// build json object
@@ -623,6 +678,7 @@ public class Product extends SuperModel implements PathBindable<Product>,
 			if (values.get(8) != null) node.put("isAvailableForDiscount", Boolean.valueOf(values.get(8)));
 			if (values.get(9) != null) node.put("isAvailableForContest", Boolean.valueOf(values.get(9)));
      		node.put("trials", Trial.range(Long.parseLong(id, 10), 0, 9));
+     		if (values.get(10) != null) node.put("community", values.get(10));
 
 		} finally {
 		}
