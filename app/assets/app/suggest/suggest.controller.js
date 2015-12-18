@@ -8,12 +8,13 @@ angular
 // This controller contains logic for main buzz page as well as individual product buzz pages
 // Functions loadInit and loadMore have seperate queries for when a slug is present (product buzz page) vs. when there is no slug (main buzz page)
 
-SuggestController.$inject = ['$stateParams', '$state', 'SuggestService', 'AuthService'];
+SuggestController.$inject = ['$rootScope', '$stateParams', '$state', 'SuggestService', 'AuthService', 'usSpinnerService'];
 
-function SuggestController($stateParams, $state, SuggestService, AuthService) {
+function SuggestController($rootScope, $stateParams, $state, SuggestService, AuthService, usSpinnerService) {
 	var vm = this;
-	vm.products = SuggestService.suggestedProducts();
+	// vm.products = SuggestService.suggestedProducts();
 	vm.suggestProduct = suggestProduct;
+    vm.toggleSuggestProduct = toggleSuggestProduct;
 
 	function activate() {
         if(!AuthService.ready()){
@@ -31,23 +32,45 @@ function SuggestController($stateParams, $state, SuggestService, AuthService) {
 
     function init() {
         vm.user = angular.copy(AuthService.m.user);
-        if (vm.user.id) {
-            vm.myTrialProducts = MyTrialProductsService.query();
-        }
+        SuggestService.suggestedProducts().then(function(data) {
+            vm.products = data;
+        });
     }
 
-	function suggestProduct() {
-		var suggestion = {
-			product: {
-				name: vm.suggestProductName,
-				url: vm.suggestedProductUrl
-			},
-			user: AuthService.m.user
-		};
+    activate();
 
-		vm.products.push(suggestion);
+    function toggleSuggestProduct() {
+        if (!AuthService.loggedIn()) {
+            $scope.$emit('LoginEvent', {
+                someProp: 'Sending you an Object!' // send whatever you want
+            });
+            return;
+        }
+        vm.suggestingProduct = !vm.suggestingProduct;
+    }
 
-	}
+    function suggestProduct(event) {
+        vm.error = false;
+        vm.disabled = true;
+        usSpinnerService.spin('spinner-4');
+        SuggestService.addSuggestedProduct(vm.suggestedProductUrl, vm.suggestProductName).then(function(result) {
+            vm.products.unshift(result);
+            usSpinnerService.stop('spinner-4');
+            vm.suggestedProductUrl = null;
+            vm.suggestProductName = null;
+            $rootScope.eventObj = {
+                x: event.pageX,
+                y: event.pageY
+            };
+            vm.disabled = false;
+            vm.error = false;
+            AuthService.refreshPoints();
+        }, function(reason) {
+            usSpinnerService.stop('spinner-4');
+            vm.disabled = false;
+            vm.error = true;
+        });
+    }
 
 }
 

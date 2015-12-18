@@ -30,12 +30,16 @@ function upComments() {
 }
 
 
-upCommentsController.$inject = ['CommentService', 'AuthService', '$timeout', '$scope', '$rootScope', '$resource', 'usSpinnerService'];
+upCommentsController.$inject = ['CommentService', 'AuthService', '$timeout', '$scope', '$rootScope', '$resource', 'usSpinnerService', '$state'];
 
-function upCommentsController(CommentService, authService, $timeout, $scope, $rootScope, $resource, usSpinnerService) {
+function upCommentsController(CommentService, authService, $timeout, $scope, $rootScope, $resource, usSpinnerService, $state) {
     var vm = this;
-
     activate();
+
+    // hack. it wouldn't let me get the state on the template
+    if ($state.current.name === 'user.suggest') {
+      vm.commenting = true;
+    }
 
     function activate() {
         if(!authService.ready()){

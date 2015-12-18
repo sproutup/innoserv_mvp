@@ -1,15 +1,19 @@
+<!-- TO DO 
+Handle product with no image
+Create seperate pages for individual suggested products -->
+
 <div class="wrapper-suggest">
 	<div class="row my-content-page">
 		<div class="col-sm-8 my-content-left-rail">
 			<div class="col-sm-12 my-content-item">
 				<div class="my-content-headsup">
 	            	<p class="my-content-headsup-text">SproutUp is a community of influencers, content creators and product enthusiasts. Everyday we are scouting awesome products for our community. Now, help us by suggesting more!</p>
-	            	<a class="btn btn-lg sproutup-btn-md-main salmon-outline" ui-sref="#">Suggest new product</a>
+	            	<a class="btn btn-lg sproutup-btn-md-main salmon-outline" subject-present="vm.toggleSuggestProduct()" state="user.suggest">Suggest new product</a>
 				</div>
 			</div>
 
 			<!-- new suggestion -->
-			<div class="add-content-wrapper">
+			<div class="add-content-wrapper" ng-if="vm.suggestingProduct">
 		        <div class="col-sm-12 my-content-item">
 		            <div class="col-sm-2 my-content-user-avatar post-content-user">
 		            	<a ui-sref="#">
@@ -27,9 +31,10 @@
 			                        <textarea name="content" placeholder="Please paste the URL of the product here" class="form-control post-new-textarea suggest link" ng-model="vm.suggestedProductUrl" required></textarea>
 			                    </div>
 			                    <div class="post-new-comment-actions">
-			                        <button type="button" analytics-on="click" analytics-event="Post Content" analytics-user="{{vm.user.nickname}}" class="btn btn-post content-post-button btn-post-default" ng-click="vm.suggestProduct()" ng-disabled="vm.disabled || form.content.$error.required" ng-class="{'disabled': vm.disabled || form.content.$error.required}">
-			                        	<span>Post</span>
-			                        	<span us-spinner spinner-key="spinner-1"></span>
+			                        <button type="button" analytics-on="click" analytics-event="Post Content" analytics-user="{{vm.user.nickname}}" class="btn btn-post content-post-button btn-post-default" ng-click="vm.suggestProduct($event)" ng-disabled="vm.disabled || form.content.$error.required" ng-class="{'disabled': vm.disabled || form.content.$error.required}">
+			                        	<span ng-hide="vm.disabled">Post</span>
+			                        	<span us-spinner spinner-key="spinner-4"></span>
+			                        	<span class="signup-login-form--error-message" style="margin-left: 30px" ng-if="vm.error">Make sure you entered a valid link.</span>
 			                        </button>
 			                    </div>
 			                </form>

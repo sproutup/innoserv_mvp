@@ -1,4 +1,5 @@
 <div class="my-content-comments">
+{{ $state.current.name }}
     <!-- Existing comments -->
     <div class="row my-content-comment-row" ng-repeat="comment in vm.comments.data | orderBy: 'createdAt'">
         <div class="col-sm-2 my-content-user-avatar comment-user-avatar">
@@ -16,7 +17,8 @@
         </div>
     </div>
     <!-- New comment from current user -->
-    <div class="row my-content-comment-row" ng-show="vm.commenting">
+    <div class="row my-content-comment-row" ng-if="vm.commenting">
+
         <div class="col-sm-2 my-content-user-avatar new-comment-avatar">
             <img class="img-responsive post-comment-user-img-circle img-center" ng-src="{{ vm.user.avatarUrl }}">
         </div>
