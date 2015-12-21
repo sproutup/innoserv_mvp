@@ -1,0 +1,66 @@
+@(commList: java.util.List[Community])
+@import java.lang.String; var prods=""
+@admin_wrapper("Communities") {
+
+    <h2><a href="/adminstuff" target="_self">Admin Home</a></h2>
+
+  <h2>Communities &nbsp;&nbsp;
+	<a href="/adminstuff/community/new" class="btn" target="_self">
+	<i class="icon-plus"></i> &nbsp;+ (New)</a>
+  </h2>
+
+<div class="table-responsive">
+   <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Community Id</th>
+        <th>Name</th>
+        <th>Tag Line</th>
+        <th>Products</th>
+        <th>Logo Image</th>
+        <th>slug</th>
+        <th>Created Date</th>
+        <th>Updated Date</th>
+        <th>is Active</th>
+
+      </tr>
+    </thead>
+    <tbody>
+    @for(comm <- commList) {
+
+      <tr>
+
+        <td><a href="@routes.CommunityController.details(comm.id)" target="_self">@comm.id</a></td>
+        <td><a href="@routes.CommunityController.details(comm.id)" target="_self">@comm.name</a></td>
+        <td>@comm.tagline</td>
+        @if(comm.products ==null){
+        <td>Product Not assigned</td>
+        
+       } else {
+           @(prods="")
+	        @for(t <- comm.products) {
+	        		 @(prods = t.productName + ", " + prods)
+	        	
+	        }
+	        <td>@prods</td>
+       }
+        <td>
+        @if(comm.logoImage!=null){
+        <a href ='@comm.logoImage.getURL()'>Uploaded Image</a>
+        } else {
+        &nbsp;
+        }
+        </td>
+        <td>@comm.slug</td>
+        <td>@comm.createdAt</td>
+        <td>@comm.updatedAt</td>
+        <td>@comm.activeFlag</td>
+
+      </tr>
+      }
+
+    </tbody>
+   </table>
+</div>
+
+}

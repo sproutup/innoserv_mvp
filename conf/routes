@@ -240,10 +240,14 @@ POST          /adminstuff/content/updateContentOG                      		 contro
 GET           /adminstuff/user/updateKloutScore/:id                          controllers.ReportAdminController.updateKloutScore(id: Long)
 GET           /adminstuff/user/addKloutScores                                controllers.ReportAdminController.addKloutScores()
 GET           /adminstuff/user/updateAllKloutScores                          controllers.ReportAdminController.updateAllKloutScores()
-GET           /adminstuff/contest/list                                      controllers.ContestController.list()
-GET           /adminstuff/contest/new                                       controllers.ContestController.newContest()
+GET           /adminstuff/contest/list                                       controllers.ContestController.list()
+GET           /adminstuff/contest/new                                        controllers.ContestController.newContest()
 POST          /adminstuff/contest/save                                  	 controllers.ContestController.save()
-GET           /adminstuff/contest/:id                                       controllers.ContestController.details(id: Long)
+GET           /adminstuff/contest/:id                                        controllers.ContestController.details(id: Long)
+GET           /adminstuff/community/list                                     controllers.CommunityController.list()
+GET           /adminstuff/community/new                                      controllers.CommunityController.newCommunity()
+POST          /adminstuff/community/save                                  	 controllers.CommunityController.save()
+GET           /adminstuff/community/:id                                      controllers.CommunityController.details(id: Long)
 
 # Mockups
 GET           /mockups/product/:slug/about                                   controllers.MockupController.detailsAboutBySlug(slug: String)

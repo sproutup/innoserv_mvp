@@ -1,0 +1,60 @@
+@(communityForm: Form[Community])
+
+@import helper._
+@implicitFieldConstructor = @{ FieldConstructor(twitterBootstrapBasic.f) }
+
+
+  <div class="row">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+        <h2><a href="/adminstuff" target="_self" class="btn btn-lg">Admin Home</a></h2>
+          <h1 class="form-header">Create/Edit a Community</h1>
+        </div>
+
+        <div class="row signup-form-block">
+          <div class="col-md-8 col-md-offset-2">
+
+        @helper.form(action = routes.CommunityController.save(), 'enctype -> "multipart/form-data") {
+		<input type="hidden" value="@communityForm("id").valueOr("")" name="id"/>
+          
+          @inputText(
+          communityForm("name"),
+          args = 'size -> 60,
+          '_label -> "Community Name"
+          )
+          <b>Active Flag:</b>
+		  <input type="checkbox" name="@communityForm("activeFlag").name" value="true" @if(communityForm("activeFlag").value=="true"){ checked }>&nbsp;@communityForm("activeFlag").value
+		  <br>
+		  @inputText(
+          communityForm("tagline"),
+          args = 'size -> 100,
+          '_label -> "Tag Line"
+          )
+		
+		@if(communityForm.get().logoImage !=null){
+			
+		<a href ='@communityForm.get().logoImage.getURL()'>Uploaded LogoImage</a>
+		
+		}
+		
+		  @inputFile(
+          communityForm("logoImage")
+          )
+
+          <div>
+            <input class="btn btn-primary" type="submit" name="action" value="Save">
+           <a href="/adminstuff/community/list" target="_self">
+            <input class="btn btn-primary" type="button" name="list" value="Cancel" >
+            </a>
+          </div>
+        }
+      </div>
+    </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <hr>

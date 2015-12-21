@@ -122,7 +122,7 @@ public class File extends SuperModel {
         }
     }
     
-    /*
+    /**
 	* (non-Javadoc)
 	* For uploading the company media from Play
 	*/
@@ -132,16 +132,16 @@ public class File extends SuperModel {
 				
 		MimetypesFileTypeMap mfm = new MimetypesFileTypeMap();
 		this.type = "video";
-        if(originalName!=null && originalName.contains(".jpg")){
+        if(originalName!=null && originalName.toLowerCase().contains(".jpg")){
             type = "image/jpeg";
         }
-        if(originalName!=null && originalName.contains(".jpeg")){
+        if(originalName!=null && originalName.toLowerCase().contains(".jpeg")){
             type = "image/jpeg";
         }
-        if(originalName!=null && originalName.contains(".png")){
+        if(originalName!=null && originalName.toLowerCase().contains(".png")){
             type = "image/png";
         }
-        if(originalName!=null && originalName.contains(".gif")){
+        if(originalName!=null && originalName.toLowerCase().contains(".gif")){
             type = "image/gif";
         }
 
@@ -165,50 +165,53 @@ public class File extends SuperModel {
 		this.save(); // assigns an id
         
 		//update the Product table
-		List<Product> products = new Product().findbyCompanyID(refId);
-		if (products!=null && products.size()==1){
-			Product product = products.get(0);
-			boolean flag = true;
-			switch (mediaLinkType) {
-            case "banner_photo":  product.productAdditionalDetail.bannerPhoto = this;
-            	break;
-            case "description_video1":  product.productAdditionalDetail.descriptionVideo1 = this;
-            	break;
-            case "description_video2":  product.productAdditionalDetail.descriptionVideo2 = this;
-            	break;
-            case "description_video3":  product.productAdditionalDetail.descriptionVideo3 = this;
-            	break;
-            case "description_photo1":  product.productAdditionalDetail.descriptionPhoto1 = this;
-            	break;
-            case "description_photo2":  product.productAdditionalDetail.descriptionPhoto2 = this;
-        		break;
-            case "story_photo1":  product.productAdditionalDetail.storyPhoto1 = this;
-        		break;
-            case "story_photo2":  product.productAdditionalDetail.storyPhoto2 = this;
-    			break;	
-            case "member1photo":  product.productAdditionalDetail.member1Photo = this;
-    			break;
-            case "member2photo":  product.productAdditionalDetail.member2Photo = this;
-    			break;
-            case "member3photo":  product.productAdditionalDetail.member3Photo = this;
-            	break;
-            case "member4photo":  product.productAdditionalDetail.member4Photo = this;
-        		break;
-            case "member5photo":  product.productAdditionalDetail.member5Photo = this;
-        		break;
-        	case "member6photo":  product.productAdditionalDetail.member6Photo = this;
-        		break;
-        	default: flag = false;
-            	break;	
+		if (refType!=null && refType.equals("models.Company")){
+			List<Product> products = new Product().findbyCompanyID(refId);
+			if (products!=null && products.size()==1){
+				Product product = products.get(0);
+				boolean flag = true;
+				switch (mediaLinkType) {
+	            case "banner_photo":  product.productAdditionalDetail.bannerPhoto = this;
+	            	break;
+	            case "description_video1":  product.productAdditionalDetail.descriptionVideo1 = this;
+	            	break;
+	            case "description_video2":  product.productAdditionalDetail.descriptionVideo2 = this;
+	            	break;
+	            case "description_video3":  product.productAdditionalDetail.descriptionVideo3 = this;
+	            	break;
+	            case "description_photo1":  product.productAdditionalDetail.descriptionPhoto1 = this;
+	            	break;
+	            case "description_photo2":  product.productAdditionalDetail.descriptionPhoto2 = this;
+	        		break;
+	            case "story_photo1":  product.productAdditionalDetail.storyPhoto1 = this;
+	        		break;
+	            case "story_photo2":  product.productAdditionalDetail.storyPhoto2 = this;
+	    			break;	
+	            case "member1photo":  product.productAdditionalDetail.member1Photo = this;
+	    			break;
+	            case "member2photo":  product.productAdditionalDetail.member2Photo = this;
+	    			break;
+	            case "member3photo":  product.productAdditionalDetail.member3Photo = this;
+	            	break;
+	            case "member4photo":  product.productAdditionalDetail.member4Photo = this;
+	        		break;
+	            case "member5photo":  product.productAdditionalDetail.member5Photo = this;
+	        		break;
+	        	case "member6photo":  product.productAdditionalDetail.member6Photo = this;
+	        		break;
+	        	default: flag = false;
+	            	break;	
+				}
+				if (flag){
+					System.out.println("Updating product now..");
+					product.update();
+				}
+			} else {
+				Logger.error("Could not update Product table; no products found to update");
 			}
-			if (flag){
-				System.out.println("Updating product now..");
-				product.update();
-			}
-		} else {
-			Logger.error("Could not update Product table; several products found to update");
+		} else if (refType!=null && refType.equals("models.Community")){
+			Logger.debug("Uploading the community image");
 		}
-		
 		//transcoder work
         this.transcode();
 		
