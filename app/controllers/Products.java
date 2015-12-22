@@ -90,7 +90,9 @@ public class Products extends Controller {
     public static Result getProducts()
     {
         ArrayNode node = null;
+        // get redis resource
         Jedis j = play.Play.application().plugin(RedisPlugin.class).jedisPool().getResource();
+
         LZ4Factory factory = LZ4Factory.fastestInstance();
 
         byte[] compressed = (byte[]) play.cache.Cache.get("http:product:get:product:lz4");
@@ -134,8 +136,8 @@ public class Products extends Controller {
             }
         }
 
-        //j.set()
-        //Cache.get("http:products:get:product");
+        // return redis resource
+        play.Play.application().plugin(RedisPlugin.class).jedisPool().returnResource(j);
 
         return ok(node);
     }
