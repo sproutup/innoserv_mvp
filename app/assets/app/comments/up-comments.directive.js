@@ -36,11 +36,6 @@ function upCommentsController(CommentService, authService, $timeout, $scope, $ro
     var vm = this;
     activate();
 
-    // hack. it wouldn't let me get the state on the template
-    if ($state.current.name === 'user.suggest') {
-      vm.commenting = true;
-    }
-
     function activate() {
         if(!authService.ready()){
             var unbindWatch = $rootScope.$watch(authService.loggedIn, function (value) {
@@ -59,6 +54,26 @@ function upCommentsController(CommentService, authService, $timeout, $scope, $ro
         vm.user = angular.copy(authService.m.user);
         vm.disabled = false;
     }
+
+    if (!authService.loggedIn()) {
+        $scope.$emit('LoginEvent', {
+            someProp: 'Sending you an Object!' // send whatever you want
+        });
+        return;
+    }
+
+    $scope.vm.handleAddCommentClick = function() {
+      if (!authService.loggedIn()) {
+          $scope.$emit('LoginEvent', {
+              someProp: 'Sending you an Object!' // send whatever you want
+          });
+          return;
+      }
+
+      $scope.vm.commenting = !$scope.vm.commenting;
+    };
+
+    $scope.vm.test = 'gsadgas';
 
     $scope.vm.addComment = function(event) {
       // Prevent double posting with vm.disabled

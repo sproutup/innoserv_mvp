@@ -22,10 +22,11 @@
             </a>
         </div>
         <div class="my-content-actions">
-            <up-like likes="vm.product.likes" up-id="vm.product.id" up-type="models.productsuggestion"></up-like>
-            <a href="#" ng-click="vm.commenting = !vm.commenting">COMMENT ({{ vm.product.comments.data.length || 0 }})</a>
+            <up-like likes="vm.product.likes" up-id="vm.product.id" up-type="models.productsuggestion" state="user.suggest"></up-like>
+            <a href="#" ng-click="vm.commenting = !vm.commenting" ng-if="!vm.commenting">SHOW COMMENTS ({{ vm.product.comments.data.length || 0 }})</a>
+            <a href="#" ng-click="vm.commenting = !vm.commenting" ng-if="vm.commenting">HIDE COMMENTS ({{ vm.product.comments.data.length || 0 }})</a>
             <a ng-href="{{ vm.shareLink }}" ng-click="">SHARE</a>
         </div>
     </div>
-    <up-comments commenting="vm.content.commenting" comments="vm.product.comments" up-id="vm.product.id" up-type="models.productsuggestion" ng-if="vm.commenting"></up-comments>
+    <up-comments commenting="vm.content.commenting" state="user.suggest" comments="vm.product.comments" up-id="vm.product.id" up-type="models.productsuggestion" ng-if="vm.commenting"></up-comments>
 </div>
