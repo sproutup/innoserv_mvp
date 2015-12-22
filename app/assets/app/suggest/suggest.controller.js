@@ -58,6 +58,7 @@ function SuggestController($rootScope, $stateParams, $state, SuggestService, Aut
             usSpinnerService.stop('spinner-4');
             vm.suggestedProductUrl = null;
             vm.suggestProductName = null;
+            vm.suggestingProduct = false;
             $rootScope.eventObj = {
                 x: event.pageX,
                 y: event.pageY

@@ -1,6 +1,6 @@
 <div class="col-sm-2 my-content-user-avatar">
     <a ui-sref="user.profile.buzz({ nickname: vm.product.user.nickname })">
-        <img class="img-responsive my-content-user-img img-center" src="assets/images/default-avatar.png">
+        <img class="img-responsive my-content-user-img img-center" src="{{ vm.product.user.avatarUrl }}">
     </a>
 </div>
 <div class="col-sm-10 my-content-body">
@@ -11,7 +11,7 @@
         <p class="my-content-timestamp"><a>{{ vm.product.createdAt | date }}</a></p>
         <div class="my-content-item-main suggest">
             <div class="my-content-text" ng-bind-html="vm.content.body | urlify"></div>
-            <a ng-href="{{ vm.product.product.url }}" target="blank">
+            <a ng-href="{{ vm.product.url }}" target="blank">
                 <div class="row">
                     <div class="col-sm-5">
                         <img class="my-content-image img-responsive" ng-src="{{ vm.product.image }}" ng-if="vm.product.image">
