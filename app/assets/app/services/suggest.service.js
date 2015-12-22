@@ -36,8 +36,7 @@ function SuggestService($resource, $http, $q){
     $http({
       method: 'GET',
       url: 'api/suggest'
-    }).success(function(data, status, headers, config){
-      console.log(data);
+    }).success(function(data, status, headers, config) {
       deferred.resolve(data);
     }).error(function(data, status, headers, config) {
       deferred.reject();

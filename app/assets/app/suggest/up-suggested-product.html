@@ -1,5 +1,7 @@
 <div class="col-sm-2 my-content-user-avatar">
-    <img class="img-responsive my-content-user-img img-center" src="assets/images/default-avatar.png">
+    <a ui-sref="user.profile.buzz({ nickname: vm.product.user.nickname })">
+        <img class="img-responsive my-content-user-img img-center" src="assets/images/default-avatar.png">
+    </a>
 </div>
 <div class="col-sm-10 my-content-body">
     <div class="my-content-item--summary">
@@ -10,15 +12,16 @@
         <div class="my-content-item-main suggest">
             <div class="my-content-text" ng-bind-html="vm.content.body | urlify"></div>
             <a ng-href="{{ vm.product.product.url }}" target="blank">
-            	<div class="row">
-            		<div class="col-sm-5">
-                		<img class="my-content-image img-responsive" ng-src="{{ vm.product.image }}">
-                	</div>
-                	<div class="col-sm-7">
-                    	<p class="my-content-og-headline suggest">{{ vm.product.name }}</p>
-	                    <p class="my-content-og-text">{{ vm.product.description }}</p>
-	                </div>
-	            </div>
+                <div class="row">
+                    <div class="col-sm-5">
+                        <img class="my-content-image img-responsive" ng-src="{{ vm.product.image }}" ng-if="vm.product.image">
+                        <img class="my-content-image img-responsive" ng-src="assets/images/robot.jpg" ng-if="!vm.product.image" style="width: 180px">
+                    </div>
+                    <div class="col-sm-7">
+                        <p class="my-content-og-headline suggest">{{ vm.product.name }}</p>
+                        <p class="my-content-og-text">{{ vm.product.description }}</p>
+                    </div>
+                </div>
             </a>
         </div>
         <div class="my-content-actions">
