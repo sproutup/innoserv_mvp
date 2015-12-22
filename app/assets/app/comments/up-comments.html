@@ -15,7 +15,7 @@
             </div>
         </div>
     </div>
-    <button ng-if="!vm.commenting" ng-hide="vm.state === 'user.buzz' && vm.comments.data.length < 1" subject-present="vm.handleAddCommentClick()" state="{{ vm.state }}" class="add-comment-button" ng-class="{ 'suggest': vm.state === 'user.suggest', 'buzz': vm.state === 'user.buzz' }">Add Comment</button>
+    <button ng-if="!vm.commenting" ng-hide="vm.state === 'user.buzz' && vm.comments.data.length < 1" subject-present="vm.handleAddCommentClick()" state="{{ vm.state }}" class="add-comment-button" ng-class="{ 'suggest': vm.state === 'user.suggest', 'buzz': vm.state === 'user.buzz' }">ADD COMMENT</button>
     <!-- New comment from current user -->
     <div class="row my-content-comment-row" ng-if="vm.commenting">
         <div class="col-sm-2 my-content-user-avatar new-comment-avatar">
