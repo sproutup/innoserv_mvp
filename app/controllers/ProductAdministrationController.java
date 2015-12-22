@@ -148,6 +148,7 @@ public class ProductAdministrationController extends Controller {
 		Logger.debug("No community assigned:" + product.community.id); 
 		product.community.id = null;
 		product.community = null;
+		//TODO BUG: the community is not getting delinked. i.e. unable to set community_id FK to null
 	}
 
     
