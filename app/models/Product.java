@@ -106,6 +106,7 @@ public class Product extends SuperModel implements PathBindable<Product>,
 	
 	@JsonIgnore
 	@ManyToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name = "community_id")
 	public Community community;
 
 	@Transient
@@ -147,6 +148,7 @@ public class Product extends SuperModel implements PathBindable<Product>,
 		this.hmset();
 		if(activeFlag) this.zadd(zset_key);
 		if(!activeFlag) this.zrem(zset_key);
+		//TODO add/remove to community set key
 	}
 
 	@Override
@@ -157,6 +159,7 @@ public class Product extends SuperModel implements PathBindable<Product>,
 		this.hmset();
 		if(activeFlag) this.zadd(zset_key);
 		if(!activeFlag) this.zrem(zset_key);
+		//TODO add/remove to community set key
 	}
 	
 	public void update() {
@@ -166,6 +169,7 @@ public class Product extends SuperModel implements PathBindable<Product>,
 		this.hmset();
 		if(activeFlag) this.zadd(zset_key);
 		if(!activeFlag) this.zrem(zset_key);
+		//TODO add/remove to community set key
 	}
 
 	/*

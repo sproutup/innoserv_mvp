@@ -2,6 +2,7 @@ package controllers;
 
 import com.google.common.io.Files;
 
+import models.Community;
 import models.Company;
 import models.Product;
 import models.ProductAdditionalDetail;
@@ -105,8 +106,7 @@ public class ProductAdministrationController extends Controller {
 
 	  Product prod = new Product();
 	  prod.activeFlag=true;
-	  
-	  return ok(detail_about.render(productForm.fill(prod)));
+	  return ok(detail_about.render(productForm.fill(prod),Community.getAll()));
   }
 
   public static Result details(Product product) {
@@ -124,7 +124,7 @@ public class ProductAdministrationController extends Controller {
 	product.tags = tagName;
 	
     Form<Product> filledForm = productForm.fill(product);
-    return ok(detail_about.render(filledForm));
+    return ok(detail_about.render(filledForm,Community.getAll()));
   }
 
   public static Result save() {
@@ -134,10 +134,23 @@ public class ProductAdministrationController extends Controller {
     Form<Product> boundForm = productForm.bindFromRequest();
     if(boundForm.hasErrors()) {
       flash("error", "Please correct the form below.");
-      return badRequest(detail_about.render(boundForm));
+      return badRequest(detail_about.render(boundForm,Community.getAll()));
     }
-    
+    Logger.debug("no errors encountered with the form; processing for save"); 
     Product product = boundForm.get();
+
+    //set reference to community
+	if (product.community.id!=null && !product.community.id.equals("") ) {
+		Logger.debug("assigning product to community with id:" + product.community.id); 
+		Community comm = Community.findbyID(product.community.id);
+		product.community = comm;
+	} else {
+		Logger.debug("No community assigned:" + product.community.id); 
+		product.community.id = null;
+		product.community = null;
+	}
+
+    
     if (product.id == null) {
       product.save();
     } else {

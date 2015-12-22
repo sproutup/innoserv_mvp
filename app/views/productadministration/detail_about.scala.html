@@ -1,4 +1,4 @@
-@(productForm: Form[Product])
+@(productForm: Form[Product])(communities: List[models.Community])
 @import helper._
 @import helper.twitterBootstrap._
 
@@ -22,10 +22,20 @@
         <a href="/adminstuff/company/uploadmedia/@productForm("company.id").valueOr("0")_@productForm("company.companyName").value/banner_photo" class="btn" target="_self">
     	<i class="icon-plus"></i> Upload Banner Picture</a>
      	<p>File Id:&nbsp;@productForm("productAdditionalDetail.bannerPhoto.uuid").value
-                </p>
+         </p>
+                
             	<p>Company Name* (required):&nbsp;
             	<input type="text" size="50" name="@productForm("company.companyName").name" value="@productForm("company.companyName").value">
                 </p>
+                <p>
+                @select(
+		          productForm("community.id"),
+		          communities.map {c =>
+		            (c.id.toString) -> c.name
+		          },
+		          '_label -> "Community Name",'_default -> "-- Select --"
+		          )
+          </p>
                 <p>Product Name:&nbsp;<input type="text" size="50" name="@productForm("productName").name" value="@productForm("productName").value">
                 </p>
                 <p>Product EAN:&nbsp;<input type="text" size="30" name="@productForm("productEAN").name" value="@productForm("productEAN").value">
