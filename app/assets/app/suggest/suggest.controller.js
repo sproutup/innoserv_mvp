@@ -8,13 +8,17 @@ angular
 // This controller contains logic for main buzz page as well as individual product buzz pages
 // Functions loadInit and loadMore have seperate queries for when a slug is present (product buzz page) vs. when there is no slug (main buzz page)
 
-SuggestController.$inject = ['$rootScope', '$stateParams', '$state', 'SuggestService', 'AuthService', 'usSpinnerService'];
+SuggestController.$inject = ['$rootScope', '$stateParams', '$state', 'SuggestService', 'AuthService', 'usSpinnerService', '$timeout'];
 
-function SuggestController($rootScope, $stateParams, $state, SuggestService, AuthService, usSpinnerService) {
+function SuggestController($rootScope, $stateParams, $state, SuggestService, AuthService, usSpinnerService, $timeout) {
 	var vm = this;
-	// vm.products = SuggestService.suggestedProducts();
 	vm.suggestProduct = suggestProduct;
     vm.toggleSuggestProduct = toggleSuggestProduct;
+    vm.loadProducts = loadProducts;
+    var position = 10;
+    var products = [];
+    vm.busy = true;
+
 
 	function activate() {
         if(!AuthService.ready()){
@@ -32,12 +36,30 @@ function SuggestController($rootScope, $stateParams, $state, SuggestService, Aut
 
     function init() {
         vm.user = angular.copy(AuthService.m.user);
-        SuggestService.suggestedProducts().then(function(data) {
-            vm.products = data;
+        products = SuggestService.suggestedProducts().query({
+            start: 0
+        }, function() {
+            vm.products = products;
+            $timeout(function(){vm.busy = false;}, 1000);
         });
     }
 
     activate();
+
+    function loadProducts() {
+        vm.busy = true;
+        products = SuggestService.suggestedProducts().query({
+            start: position
+        }, function() {
+            for (var p = 0; p < products.length; p++) {
+                vm.products.push(products[p]);
+            }
+            if (products.length === 10) {
+                position += 10;
+                $timeout(function(){vm.busy = false;}, 1000);
+            }
+        });
+    }
 
     function toggleSuggestProduct() {
         if (!AuthService.loggedIn()) {

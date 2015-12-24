@@ -12,6 +12,10 @@ function SuggestService($resource, $http, $q){
 
 	return service;
 
+  function suggestedProducts() {
+    return $resource('api/suggest/:start', {start:'@start'}, {update:{method:'PUT'}} );
+  }
+
   function addSuggestedProduct(bodyText, nameText) {
     var deferred = $q.defer();
 
@@ -21,25 +25,9 @@ function SuggestService($resource, $http, $q){
         data: {body: bodyText, name: nameText},
         headers: {'Content-Type': 'application/json'}
     }).success(function(data, status, headers, config){
-        console.log(data);
         deferred.resolve(data);
     }).error(function(data, status, headers, config) {
         deferred.reject(data);
-    });
-
-    return deferred.promise;
-  }
-
-  function suggestedProducts() {
-    var deferred = $q.defer();
-
-    $http({
-      method: 'GET',
-      url: 'api/suggest'
-    }).success(function(data, status, headers, config) {
-      deferred.resolve(data);
-    }).error(function(data, status, headers, config) {
-      deferred.reject();
     });
 
     return deferred.promise;

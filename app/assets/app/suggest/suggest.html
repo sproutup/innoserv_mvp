@@ -2,7 +2,7 @@
 Handle product with no image
 Create seperate pages for individual suggested products -->
 
-<div class="wrapper-suggest">
+<div class="wrapper-suggest" infinite-scroll='vm.loadProducts()' infinite-scroll-disabled='vm.busy' infinite-scroll-distance='2'>
     <div class="row my-content-page">
         <div class="col-sm-8 my-content-left-rail">
             <div class="col-sm-12 my-content-item">
