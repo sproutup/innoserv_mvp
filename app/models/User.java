@@ -583,8 +583,18 @@ public class User extends TimeStampModel implements Subject {
 				url = url.replace("_bigger", "");
 			}
 			int index = url.lastIndexOf('.');
+			Logger.debug("Twitter URL substring after the last dot: " + url.substring(index + 1, index + 4));
 			// return string with _bigger at the end
-			return new StringBuilder(url).insert(index, "_bigger").toString();
+			if(url.substring(index + 1, index + 4).equals("com") == true)
+			{
+				Logger.debug("Twitter URL: " + url);
+				return new StringBuilder(url).append("_bigger").toString();
+			}
+			else
+			{
+				Logger.debug("Twitter URL: " + url);
+				return new StringBuilder(url).insert(index, "_bigger").toString();
+			}
 		}
         else{
             return "assets/images/default-avatar.png";
