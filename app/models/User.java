@@ -571,29 +571,32 @@ public class User extends TimeStampModel implements Subject {
 		else
 		if(getProviders().contains("twitter")){
 			String url = getAccountByProvider("twitter").providerUserImageUrl;
-			int indexmini = url.lastIndexOf("_mini.");
-			int indexnormal = url.lastIndexOf("_normal.");
-			int indexbigger = url.lastIndexOf("_bigger.");
+			int indexmini = url.lastIndexOf("_mini");
+			int indexnormal = url.lastIndexOf("_normal");
+			int indexbigger = url.lastIndexOf("_bigger");
 			// if they are there, remove mini, normal, or bigger
 			if (indexmini!=-1) {
 				 url = url.replace("_mini", "");
+				 //Logger.debug("Twitter profile image URL: " + url);
 			} else if (indexnormal!=-1) {
 				url = url.replace("_normal", "");
+				//Logger.debug("Twitter profile image URL: " + url);
 			} else if (indexbigger!=-1) {
 				url = url.replace("_bigger", "");
+				//Logger.debug("Twitter profile image URL: " + url);
 			}
 			int index = url.lastIndexOf('.');
 			Logger.debug("Twitter URL substring after the last dot: " + url.substring(index + 1, index + 4));
 			// return string with _bigger at the end
 			if(url.substring(index + 1, index + 4).equals("com") == true)
 			{
-				Logger.debug("Twitter URL: " + url);
 				return new StringBuilder(url).append("_bigger").toString();
+				Logger.debug("Twitter URL: " + url);
 			}
 			else
 			{
-				Logger.debug("Twitter URL: " + url);
 				return new StringBuilder(url).insert(index, "_bigger").toString();
+				Logger.debug("Twitter URL: " + url);
 			}
 		}
         else{
