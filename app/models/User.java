@@ -591,12 +591,10 @@ public class User extends TimeStampModel implements Subject {
 			if(url.substring(index + 1, index + 4).equals("com") == true)
 			{
 				return new StringBuilder(url).append("_bigger").toString();
-				Logger.debug("Twitter URL: " + url);
 			}
 			else
 			{
 				return new StringBuilder(url).insert(index, "_bigger").toString();
-				Logger.debug("Twitter URL: " + url);
 			}
 		}
         else{
