@@ -21,5 +21,14 @@ function config($stateProvider) {
             data: {
                 title: 'Hangout With Cool People - SproutUp'
             }
+        })
+        .state('user.hangoutPreview' ,{
+            url: '/hangout-coming-soon',
+            templateUrl: 'assets/app/hangout/hangout-coming-soon.html',
+            controller: '',
+            controllerAs: '',
+            data: {
+                title: 'Hangout With Cool People - SproutUp'
+            }
         });
 }
