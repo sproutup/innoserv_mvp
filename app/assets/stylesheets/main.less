@@ -1293,6 +1293,81 @@ input[type=checkbox] {
     max-width: 1000px
 }
 
+.hangout-banner {
+  height: 360px;
+  margin: 70px 0px 20px;
+  background-position:center;
+  background-repeat:no-repeat;
+  background-size: cover;
+  color: #fff;
+  position: relative;
+}
+
+.hangout-banner::after{
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  content: "";
+  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.5)); /* Standard syntax */
+}
+
+.hangout-info-wrapper {
+  text-align: center;
+  color: @main-text-white;
+  max-width: 800px;
+  margin: 0px auto;
+  padding: 0px;
+}
+
+.hangout-info-wrapper img {
+  margin: 50px auto 20px;
+  width: 80px;
+  border-radius: 500px;
+  border: 2px solid white;
+  z-index: 10;
+  position: relative;
+}
+
+.hangout-info-wrapper h1
+{
+  z-index: 10;
+  position: relative;
+  font-weight: 400;
+  font-size: 18pt;
+  margin: 20px 0px;
+}
+
+.hangout-info-wrapper p
+{
+  z-index: 10;
+  position: relative;
+  font-weight: 300;
+  font-size: 13pt;
+  margin: 0px;
+  padding: 0px;
+}
+
+.hangout-countdown {
+  margin: 30px auto;
+  max-width: 300px;
+}
+
+.hangout-countdown h4 {
+  z-index: 10;
+  position: relative;
+  font-size: 20pt;
+  font-weight: 300;
+  padding: 0px;
+}
+
+.hangout-countdown h4 span {
+  padding: 0px 12px;
+  color: @sproutup-grey;
+  font-size: 28pt;
+}
+
 .hangout-list {
     margin: 15px 20px 0px;
     padding: 20px 10px;
