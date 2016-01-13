@@ -349,12 +349,20 @@ a.list-group-item:hover {
     color: @sproutup-blue;
 }
 
+.my-content-actions.hangout a:hover {
+  color: @sproutup-purple;
+}
+
+.my-content-actions.hangout a .upvoted {
+  color: @sproutup-purple;
+}
+
 .wrapper-suggest .my-content-actions a:hover {
-    color: @sproutup-salmon;
+    color: @sproutup-suggest;
 }
 
 .wrapper-suggest .my-content-actions a .upvoted {
-    color: @sproutup-salmon;
+    color: @sproutup-suggest;
 }
 
 .sproutup-btn-tags {
@@ -392,9 +400,17 @@ a.list-group-item:hover {
     color: @sproutup-blue;
 }
 
+.my-content-user.hangout a {
+  color: @sproutup-purple;
+}
+
 .my-content-user a:hover {
     color: @sproutup-blue;
     text-decoration: underline !important;
+}
+
+.my-content-user.hangout a:hover {
+  color: @sproutup-purple-hover;
 }
 
 .my-content-user.comment a {
@@ -402,20 +418,24 @@ a.list-group-item:hover {
     color: @sproutup-blue;
 }
 
+.my-content-user.hangout.comment a {
+  color: @sproutup-purple;
+}
+
 .my-content-user.comment a:hover {
     text-decoration: underline !important;
 }
 
 .wrapper-suggest .my-content-user a {
-    color: @sproutup-salmon;
+    color: @sproutup-suggest;
 }
 
 .wrapper-suggest .my-content-user.comment a {
-    color: @sproutup-salmon;
+    color: @sproutup-suggest;
 }
 
 .wrapper-suggest .my-content-user .my-content-user-name a:hover {
-    color: @sproutup-salmon-hover;
+    color: @sproutup-suggest-hover;
 }
 
 .my-content-timestamp {
@@ -845,7 +865,7 @@ a.list-group-item:hover {
 }
 
 .wrapper-suggest .my-content-info-header {
-    background-color: @sproutup-salmon-muted;
+    background-color: @sproutup-suggested-muted;
 }
 
 .my-content-info-header.leaderboard {
@@ -879,7 +899,7 @@ a.list-group-item:hover {
 }
 
 .wrapper-suggest .my-content-info-body h3 {
-    color: @sproutup-salmon;
+    color: @sproutup-suggest;
 }
 
 .my-content-info-body h3 i {

@@ -326,7 +326,7 @@ input:-ms-input-placeholder {
 }
 
 .wrapper-suggest .form-control:focus {
-    border-color: @sproutup-salmon;
+    border-color: @sproutup-suggest;
 }
 
 .form-validate.ng-invalid.ng-touched {
@@ -547,12 +547,6 @@ a:focus {
     color: white;
 }
 
-.sproutup-btn-md-main.salmon-outline {
-    background-color: @sproutup-salmon;
-    color: white;
-    border: 1px solid white;
-}
-
 .sproutup-btn-md-main.orange {
     background-color: @sproutup-orange;
     color: white;
@@ -561,6 +555,16 @@ a:focus {
 .sproutup-btn-md-main.purple {
     background-color: @sproutup-purple;
     color: white;
+}
+
+.sproutup-btn-md-main.salmon {
+  background-color: @sproutup-salmon;
+  color: white;
+}
+
+.sproutup-btn-md-main.salmon:hover {
+  background-color: @sproutup-salmon-hover;
+  color: white;
 }
 
 .sproutup-btn-md-main.purple:hover {
@@ -619,12 +623,6 @@ a:focus {
     color: white;
 }
 
-.sproutup-btn-md-main.salmon-outline:hover {
-    background-color: @sproutup-salmon-hover;
-    border: 1px solid white;
-    color: white;
-}
-
 .sproutup-btn-md-main.orange:hover {
     background-color: @sproutup-orange-hover;
     color: white;
@@ -638,6 +636,16 @@ a:focus {
 .sproutup-btn-md-main.contest:hover {
     background-color: @sproutup-contest-hover;
     color: white;
+}
+
+.sproutup-btn-md-main.suggest {
+  background-color: @sproutup-suggest;
+  color: white;
+}
+
+.sproutup-btn-md-main.suggest:hover {
+  background-color: @sproutup-suggest-hover;
+  color: white;
 }
 
 .sproutup-btn-md-main i {
@@ -713,6 +721,44 @@ a:focus {
 .sproutup-btn-md-outline.red:hover {
     background-color: @sproutup-red;
     color: white;
+}
+
+.sproutup-btn-sm {
+	height: 40px;
+	font-weight: 700;
+	font-size: 10pt;
+  background-color: @sproutup-blue;
+	color: white;
+	border-radius: 2px;
+	padding-top: 9px;
+	-webkit-transition: all .2s ease-in-out;
+	-o-transition: all .2s ease-in-out;
+	transition: all .2s ease-in-out;
+}
+
+.sproutup-btn-sm:hover {
+  background-color: @sproutup-blue-hover;
+  color: white;
+}
+
+.sproutup-btn-sm.twitter {
+  background-color: @twitter-blue;
+  color: white;
+}
+
+.sproutup-btn-sm.twitter:hover {
+  background-color: @twitter-blue-hover;
+  color: white;
+}
+
+.sproutup-btn-sm.facebook {
+  background-color: @facebook-blue;
+  color: white;
+}
+
+.sproutup-btn-sm.facebook:hover {
+  background-color: @facebook-blue-hover;
+  color: white;
 }
 
 input[type=checkbox] {
@@ -820,7 +866,7 @@ input[type=checkbox] {
 }
 
 .add-comment-button.suggest {
-    color: @sproutup-salmon;
+    color: @sproutup-suggest;
 }
 
 .add-comment-button.buzz {
@@ -1294,7 +1340,7 @@ input[type=checkbox] {
 }
 
 .hangout-banner {
-  height: 360px;
+  height: 450px;
   margin: 70px 0px 20px;
   background-position:center;
   background-repeat:no-repeat;
@@ -1349,6 +1395,13 @@ input[type=checkbox] {
   padding: 0px;
 }
 
+.hangout-info-wrapper .sproutup-btn-sm {
+  z-index: 10;
+  position: relative;
+  width: 160px;
+  margin-top: 30px;
+}
+
 .hangout-countdown {
   margin: 30px auto;
   max-width: 300px;
@@ -1365,7 +1418,7 @@ input[type=checkbox] {
 .hangout-countdown h4 span {
   padding: 0px 12px;
   color: @sproutup-grey;
-  font-size: 28pt;
+  font-size: 25pt;
 }
 
 .hangout-list {
@@ -1415,6 +1468,27 @@ input[type=checkbox] {
 .hangout-action {
     margin-top: 15px;
     text-align: right;
+}
+
+.hangout-chat-wrapper {
+  max-width: 800px;
+  margin: 0px auto 40px;
+  padding: 0px 10px;
+}
+
+.hangout-chat-header {
+  margin: 15px 0px;
+  background-color: @sproutup-lightergrey;
+  text-align: center;
+  padding: 25px 40px;
+}
+
+.hangout-chat-header p {
+  padding: 0px 0px 15px;
+  font-weight: 400;
+  font-size: 11pt;
+  line-height: 1.6;
+  color: @main-text;
 }
 
 @media (min-width: 1200px) {
