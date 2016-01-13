@@ -1635,3 +1635,228 @@ input[type=checkbox] {
 .theme-docs-index-page h4 a {
   color: white;
 }
+
+.browse-wrapper {
+  margin: 90px 0px;
+  padding: 0px 20px;
+}
+
+.feature-campaign-banner {
+  height: 450px;
+  margin: 0px;
+  background-position:center;
+  background-repeat:no-repeat;
+  background-size: cover;
+  color: #fff;
+  position: relative;
+}
+
+.feature-campaign-banner::after{
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  content: "";
+  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.2)); /* Standard syntax */
+}
+
+.feature-campaign-info-wrapper {
+  position: absolute;
+  top: 100px;
+  left: 5%;
+  right: 5%;
+  z-index: 10;
+  text-align: center;
+  color: @main-text-white;
+  max-width: 800px;
+  margin: 0px auto;
+  padding: 0px;
+}
+
+.feature-campaign-info-wrapper h1 {
+  z-index: 10;
+  position: relative;
+  font-weight: 400;
+  font-size: 18pt;
+  margin: 0px;
+  padding: 0px 0px 20px;
+}
+
+.feature-campaign-info-wrapper h2 {
+  z-index: 10;
+  position: relative;
+  font-weight: 300;
+  font-size: 13pt;
+  margin: 0px;
+  padding: 0px;
+  line-height: 1.6;
+}
+
+.feature-campaign-info-wrapper p {
+  z-index: 10;
+  position: relative;
+  font-weight: 300;
+  font-size: 13pt;
+  margin: 40px 0px 0px;
+}
+
+.feature-campaign-info-wrapper p span a {
+  font-weight: 700;
+  color: @main-text-white;
+  text-decoration: none !important;
+}
+
+.feature-campaign-info-wrapper a {
+  z-index: 10;
+  position: relative;
+  margin-top: 40px;
+}
+
+.carousel-control {
+  width: 10%;
+}
+
+.carousel-control .fa {
+  position: absolute;
+  top: 50%;
+  z-index: 5;
+  width: 30px;
+  height: 30px;
+  margin-top: -15px;
+  font-size: 30px;
+}
+
+.carousel-control .fa-angle-left {
+  left: 25%;
+}
+
+.carousel-control .fa-angle-right {
+  right: 25%;
+}
+
+.browse-campaigns-main {
+  padding: 0px 15px 50px;
+}
+
+.browse-campaign-sidebar {
+  margin: 0px;
+  padding: 30px 0px 30px 15px;
+}
+
+.browse-campaign-sidenav {
+  margin: 0px;
+}
+
+.browse-campaign-sidenav li a {
+  padding: 12px 25px;
+  font-size: 11.5pt;
+  font-weight: 700;
+  color:@main-text-1;
+}
+
+.browse-campaign-sidenav li a:hover {
+  color: @sproutup-blue;
+  background-color: transparent;
+  border-left: 3px solid @sproutup-blue;
+  padding-left: 22px;
+}
+
+.browse-campaign-sidenav li a[class="active"] {
+  color: @sproutup-blue;
+  background-color: transparent;
+  border-left: 3px solid @sproutup-blue;
+  padding-left: 22px;
+}
+
+.browse-campaign-main {
+  margin: 0px;
+  padding: 30px 0px;
+}
+
+.browse-campaign-section {
+  margin: 0px;
+  padding: 0px 0px 25px;
+}
+
+.browse-campaign-section h4 {
+  padding: 0px 3px 6px;
+  font-size: 16pt;
+}
+
+.browse-campaign-section h4 span {
+  font-weight: 700;
+  padding-right: 10px;
+}
+
+.browse-campaign-section .browse-all-button {
+  float: right;
+  color: @sproutup-blue;
+  font-weight: 700;
+  font-size: 12pt;
+  padding-top: 4px;
+}
+
+.browse-campaign-section .browse-all-button i {
+  padding-left: 10px;
+}
+
+.browse-campaign-section.trial h4 span {
+  color: @sproutup-salmon;
+}
+
+.browse-campaign-section.contest h4 span {
+  color: @sproutup-green;
+}
+
+.browse-campaign-section.sweepstakes h4 span {
+  color: @twitter-blue;
+}
+
+.campaign-list-item {
+  margin: 0px;
+  padding: 3px;
+}
+
+.campaign-list-item a {
+  text-decoration: none !important;
+}
+
+.campaign-list-item-banner {
+  height: 250px;
+  margin: 0px;
+  background-position:center;
+  background-repeat:no-repeat;
+  background-size: cover;
+  color: #fff;
+  position: relative;
+}
+
+.campaign-list-item-banner::after{
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  content: "";
+  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.3)); /* Standard syntax */
+}
+
+.campaign-name {
+  margin: 0px;
+  padding: 125px 0px 0px;
+  text-align: center;
+  z-index: 10;
+  position: relative;
+  font-weight: 400;
+  font-size: 12pt;
+  color: @main-text-white;
+}
+
+.col-sm-3.browse-campaign-sidebar {
+  width: 20%;
+}
+
+.col-sm-9.browse-campaign-main {
+  width: 80%;
+}
