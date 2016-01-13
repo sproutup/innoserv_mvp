@@ -29,7 +29,7 @@ function config($stateProvider) {
           templateUrl: 'assets/app/theme/mocks/hangout.html'
         })
         .state('user.theme.mocks.browse-campaigns', {
-          url: 'browse-campaigns',
+          url: '/browse-campaigns',
           templateUrl: 'assets/app/theme/mocks/browse-campaigns.html'
         });
 }
