@@ -49,4 +49,33 @@ public class CreatorApiController extends Controller {
         );
         return resultPromise;
     }
+
+/*
+ * Hangout API
+ */
+    public static F.Promise<Result> hangout_list() {
+        WSRequestHolder holder = WS.url(url + "/calendar/event");
+
+        final F.Promise<Result> resultPromise = holder.get().map(
+                new F.Function<WSResponse, Result>() {
+                    public Result apply(WSResponse response) {
+                        return ok(response.asJson());
+                    }
+                }
+        );
+        return resultPromise;
+    }
+
+    public static F.Promise<Result> hangout_view(String hangoutId) {
+        WSRequestHolder holder = WS.url(url + "/calendar/event/" + hangoutId);
+
+        final F.Promise<Result> resultPromise = holder.get().map(
+                new F.Function<WSResponse, Result>() {
+                    public Result apply(WSResponse response) {
+                        return ok(response.asJson());
+                    }
+                }
+        );
+        return resultPromise;
+    }
 }

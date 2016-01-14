@@ -197,6 +197,8 @@ POST		  /api/contest/processShare									 	 controllers.ContestController.proce
 
 GET           /api/creator/campaign                                          controllers.CreatorApiController.campaign_list()
 GET           /api/creator/campaign/:campaignId                              controllers.CreatorApiController.campaign_view(campaignId: String)
+GET           /api/creator/hangout                                           controllers.CreatorApiController.hangout_list()
+GET           /api/creator/hangout/:hangoutId                                controllers.CreatorApiController.hangout_view(hangoutId: String)
 
 GET           /api/analytics/user/:userId/network                            controllers.AnalyticsController.listNetwork(userId: String)
 GET           /api/analytics/user/:userId/network/:provider                  controllers.AnalyticsController.readNetwork(provider: String, userId: String)

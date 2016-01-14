@@ -1,0 +1,12 @@
+<!-- upcoming hangouts -->
+<div class="wrapper-hangout" ng-init="vm.find()">
+	<div class="row sproutup-tabs">
+		<div class="col-lg-12">
+			<div class="sproutup-tabs--content">
+				<a class="btn btn-lg btn-sproutup-tab" ui-sref-active="active" ui-sref="user.hangout.list.future">Upcoming</a>
+				<a class="btn btn-lg btn-sproutup-tab" ui-sref-active="active" ui-sref="user.hangout.list.past">Past</a>
+			</div>
+		</div>
+	</div>
+  <div class="row hangout-list" ui-view></div>
+</div>

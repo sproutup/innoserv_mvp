@@ -1,0 +1,18 @@
+<!-- past hangouts -->
+<div class="row hangout-list"  ng-repeat="item in vm.list | filter: {status: 'confirmed'}">
+  <div class="col-sm-9 hangout-details">
+		<div class="row">
+			<div class="col-sm-2">
+				<img class="img-responsive hangout-host-photo" src="assets/images/user/hLjUxD7m_400x400.jpg">
+			</div>
+			<div class="col-sm-10">
+        <p class="hangout-host"><a href="#">{{item.organizer.displayName}}</a><span><a href="#">{{item.organizer.email}}</a></span></p>
+        <p class="hangout-date-time">{{item.start.dateTime}}</p>
+        <p class="hangout-topic">{{item.description}}</p>
+			</div>
+		</div>
+	</div>
+	<div class="col-sm-3 hangout-action">
+		<a class="btn btn-lg sproutup-btn-md-main purple">Watch Past Hangout</a>
+	</div>
+</div>
