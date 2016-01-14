@@ -15,10 +15,6 @@ function config($stateProvider) {
             url: '',
             templateUrl: 'assets/app/theme/theme-index.html'
         })
-        .state('user.theme.components', {
-          url: '/components',
-          templateUrl: 'assets/app/theme/components.html',
-        })
         .state('user.theme.mocks', {
           url: '/mocks',
           abstract: true,
