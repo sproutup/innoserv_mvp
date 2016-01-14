@@ -43,6 +43,9 @@ function authService($http, $q, $cookieStore, $log, userService, $timeout, $stat
 
     activate();
 
+//    AuthService.accessLevels = accessLevels;
+//    AuthService.userRoles = userRoles;
+
     return service;
 
     function activate() {
@@ -349,8 +352,4 @@ function authService($http, $q, $cookieStore, $log, userService, $timeout, $stat
     function getNetwork() {
         return $resource('/api/analytics/user/:userId/network', { userId: '@userId' }, {'query': { method: 'GET', isArray: true }});
     }
-
-    AuthService.accessLevels = accessLevels;
-
-    AuthService.userRoles = userRoles;
 }
