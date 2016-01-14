@@ -15,10 +15,6 @@ function config($stateProvider) {
             url: '',
             templateUrl: 'assets/app/theme/theme-index.html'
         })
-        .state('user.theme.components', {
-          url: '/components',
-          templateUrl: 'assets/app/theme/components.html',
-        })
         .state('user.theme.mocks', {
           url: '/mocks',
           abstract: true,
@@ -31,6 +27,10 @@ function config($stateProvider) {
         .state('user.theme.mocks.browse-campaigns', {
           url: '/browse-campaigns',
           templateUrl: 'assets/app/theme/mocks/browse-campaigns.html'
+        })
+        .state('user.theme.mocks.view-campaign', {
+          url: '/view-campaign',
+          templateUrl: 'assets/app/theme/mocks/view-campaign.html'
         })
         .state('user.theme.mocks.search', {
           url: '/search',

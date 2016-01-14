@@ -761,6 +761,35 @@ a:focus {
   color: white;
 }
 
+.sproutup-btn-xs {
+	height: 32px;
+	font-weight: 700;
+	font-size: 9pt;
+  background-color: @sproutup-blue;
+	color: white;
+	border-radius: 0px;
+	padding-top: 6px;
+	-webkit-transition: all .2s ease-in-out;
+	-o-transition: all .2s ease-in-out;
+	transition: all .2s ease-in-out;
+}
+
+.sproutup-btn-xs i {
+  padding-right: 10px;
+}
+
+.sproutup-btn-xs.outline {
+  background-color: rgba(0, 0, 0, 0.6);
+  border: 1px solid @sproutup-grey;
+  color: @sproutup-lightgrey;
+}
+
+.sproutup-btn-xs.outline:hover {
+  background-color: rgba(0, 0, 0, 0.9);
+  border: 1px solid @main-text-white;
+  color: @main-text-white;
+}
+
 input[type=checkbox] {
     margin-right: 6px;
 }
@@ -1780,7 +1809,7 @@ input[type=checkbox] {
   left: 0;
   bottom: 0;
   content: "";
-  background: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.75)); /* Standard syntax */
+  background: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.8)); /* Standard syntax */
 }
 
 .search-main {
@@ -1892,6 +1921,96 @@ input[type=checkbox] {
   line-height: 1.5;
 }
 
+.campaign-banner {
+  min-height: 500px;
+  margin: 0px;
+  background-position:center;
+  background-repeat:no-repeat;
+  background-size: cover;
+  color: @main-text-white;
+  position: relative;
+}
+
+.campaign-banner::after{
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  content: "";
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.4)); /* Standard syntax */
+}
+
+.campaign-info-wrapper {
+  text-align: left;
+  color: @main-text-white;
+  margin: 0px;
+  padding: 100px 30px 30px;
+}
+
+.campaign-info-wrapper h1
+{
+  z-index: 10;
+  position: relative;
+  font-weight: 100;
+  font-size: 32pt;
+  margin: 20px 0px;
+}
+
+.campaign-info-wrapper h1 span {
+  font-weight: 300;
+  font-size: 14pt;
+  padding-left: 20px;
+}
+
+.campaign-info-wrapper h1 span a {
+  color: @main-text-white;
+  font-weight: 400;
+}
+
+.campaign-info-wrapper h1 span a:hover {
+  color: @sproutup-blue-bright;
+}
+
+.campaign-info-wrapper p
+{
+  z-index: 10;
+  position: relative;
+  font-weight: 300;
+  font-size: 14pt;
+  margin: 0px;
+  padding: 0px;
+}
+
+.campaign-info-wrapper .btn {
+  z-index: 10;
+  position: relative;
+  margin-top: 30px;
+}
+
+.share-campaign {
+  padding: 80px 0px 20px;
+  z-index: 10;
+  position: relative;
+}
+
+.share-campaign p {
+  display: inline-block;
+  font-weight: 700;
+  font-size: 9pt;
+}
+
+.share-campaign .inline-blocks {
+  display: inline-block;
+  padding: 0px 12px;
+}
+
+.share-campaign .inline-blocks a {
+  margin: 3px;
+  width: 100px;
+}
+
+// media queries
 @media (min-width: 1200px) {
     .product-trial-stage-avatar {
         width: 80px;
