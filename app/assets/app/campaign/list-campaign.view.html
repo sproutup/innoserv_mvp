@@ -5,41 +5,19 @@
       <li data-target="#browse-campaigns-carousel" data-slide-to="0" class="active"></li>
       <li data-target="#browse-campaigns-carousel" data-slide-to="1"></li>
       <li data-target="#browse-campaigns-carousel" data-slide-to="2"></li>
+      <li data-target="#browse-campaigns-carousel" data-slide-to="3"></li>
+      <li data-target="#browse-campaigns-carousel" data-slide-to="4"></li>
     </ol>
 
     <!-- Wrapper for slides -->
     <div class="carousel-inner" role="listbox">
-      <div class="item active">
+      <div class="item" ng-class="{active: $first}" ng-repeat="item in vm.campaigns | filter: {type:'trial', status: 0} | limitTo:5">
         <div class="feature-campaign-banner" style="background-image: url('https://d30xksqof6w2my.cloudfront.net/e43e8342-c41b-4d66-aa3a-133eccfe93de_0_admin.jpg?w=1600')">
             <div class="row feature-campaign-info-wrapper">
               <div class="col-sm-12">
-                <h1>The Latest RocketSkates R5</h1>
-                <h2>Look for awesome YouTubers to try out the brand new RocketSkates</h2>
-                <p>by <span><a href="#">ACTON</a></span></p>
-                <a href="#" class="btn btn-lg sproutup-btn-lg-main">Try it out</a>
-              </div>
-            </div>
-        </div>
-      </div>
-      <div class="item">
-        <div class="feature-campaign-banner" style="background-image: url('https://d30xksqof6w2my.cloudfront.net/e0aca907-3229-4e44-a455-46720b2f361c_0_admin.jpg?w=1600')">
-            <div class="row feature-campaign-info-wrapper">
-              <div class="col-sm-12">
-                <h1>The Latest RocketSkates R5</h1>
-                <h2>Look for awesome YouTubers to try out the brand new RocketSkates</h2>
-                <p>by <span><a href="#">ACTON</a></span></p>
-                <a href="#" class="btn btn-lg sproutup-btn-lg-main">Try it out</a>
-              </div>
-            </div>
-        </div>
-      </div>
-      <div class="item">
-        <div class="feature-campaign-banner" style="background-image: url('https://d30xksqof6w2my.cloudfront.net/df4758af-b26d-4c6f-a5e4-7f11ec566934_0_admin.jpg?w=1600')">
-            <div class="row feature-campaign-info-wrapper">
-              <div class="col-sm-12">
-                <h1>The Latest RocketSkates R5</h1>
-                <h2>Look for awesome YouTubers to try out the brand new RocketSkates</h2>
-                <p>by <span><a href="#">ACTON</a></span></p>
+                <h1>{{item.name}}</h1>
+                <h2>{{item.tagline}}</h2>
+                <p>by <span><a href="#">{{item.company.name}}</a></span></p>
                 <a href="#" class="btn btn-lg sproutup-btn-lg-main">Try it out</a>
               </div>
             </div>
