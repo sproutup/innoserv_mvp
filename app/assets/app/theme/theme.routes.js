@@ -39,5 +39,9 @@ function config($stateProvider) {
         .state('user.theme.mocks.my-campaigns', {
           url: '/my-campaigns',
           templateUrl: 'assets/app/theme/mocks/my-campaigns.html'
+        })
+        .state('user.theme.mocks.company-profile', {
+          url: '/company-profile',
+          templateUrl: 'assets/app/theme/mocks/company-profile.html'
         });
 }

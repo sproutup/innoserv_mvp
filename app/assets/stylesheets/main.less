@@ -1978,8 +1978,7 @@ input[type=checkbox] {
   color: @sproutup-blue-bright;
 }
 
-.campaign-info-wrapper p
-{
+.campaign-info-wrapper p {
   z-index: 10;
   position: relative;
   font-weight: 300;
@@ -1988,10 +1987,24 @@ input[type=checkbox] {
   padding: 0px;
 }
 
+.campaign-info-wrapper p span {
+  padding-right: 20px;
+}
+
+.campaign-info-wrapper p span strong {
+  font-size: 16pt;
+  padding-right: 4px;
+}
+
 .campaign-info-wrapper .btn {
   z-index: 10;
   position: relative;
   margin-top: 30px;
+}
+
+.campaign-info-wrapper ul {
+  z-index: 10;
+  position: relative;
 }
 
 .share-campaign {
@@ -2015,6 +2028,153 @@ input[type=checkbox] {
   margin: 3px;
   width: 100px;
 }
+
+.campaign-info-wrapper ul {
+	margin: 50px 0px;
+}
+
+ul.company-profile-social-buttons li a {
+	display: block;
+	width: 36px;
+	height: 36px;
+	border-radius: 100%;
+	font-size: 12pt;
+	line-height: 34px;
+	outline: 0;
+	color: #fff;
+	background-color: none;
+	-webkit-transition: all .3s;
+	-moz-transition: all .3s;
+	transition: all .3s;
+	border: solid 1px #fff;
+	text-align: center;
+}
+
+ul.company-profile-social-buttons li a:hover {
+	background-color: @sproutup-blue;
+	color: white;
+	border: solid 1px white;
+}
+
+ul.company-profile-social-buttons p {
+  display: inline-block;
+  font-weight: 700;
+  font-size: 9pt;
+  padding-right: 12px;
+}
+
+.company-profile-details {
+  margin: 30px 40px;
+}
+
+.company-profile-details h4 {
+  padding: 0px 3px 15px;
+  font-size: 16pt;
+  color: @main-text-1;
+}
+
+.banner-menu {
+	background: -webkit-linear-gradient(bottom, rgba(0,0,0,0.6), rgba(0,0,0,0.85));
+	background: -o-linear-gradient(bottom, rgba(0,0,0,0.6), rgba(0,0,0,0.85));
+	background: -moz-linear-gradient(bottom, rgba(0,0,0,0.6), rgba(0,0,0,0.85));
+	background: linear-gradient(to bottom, rgba(0,0,0,0.6), rgba(0,0,0,0.85));
+	height: 64px;
+	width: 100%;
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	padding: 0 45px;
+	border-top: solid 1px #4a4a4a;
+	border-bottom: solid 1px #4a4a4a;
+	z-index: 10;
+}
+
+.banner-menu--content {
+	padding: 0px;
+	margin: 0px;
+	font-size: 12pt;
+	font-weight: 700;
+}
+
+.banner-menu--col {
+  max-width: 160px;
+  margin-top: 12px;
+  padding: 9px 0px;
+  border-left: 5px solid @sproutup-grey;
+}
+
+.banner-menu--col a {
+  color: @sproutup-grey;
+	margin: 0px;
+  padding-left: 15px;
+	text-decoration: none !important;
+}
+
+.banner-menu--col.active {
+  border-left: 5px solid @sproutup-blue-bright;
+}
+
+.banner-menu--col.active a {
+  color: @sproutup-blue-bright;
+}
+
+.company-profile-products {
+  padding: 0px 3px;
+  margin: 0px;
+}
+
+.company-profile-products-section {
+  margin: 0px 0px 10px;
+}
+
+.about-product--feature{
+  background-color: @sproutup-lightgrey;
+  color: @main-text;
+}
+
+.about-product--feature p {
+  font-weight: 400;
+  font-size: 12.5pt;
+  margin: 0px;
+  padding: 25px;
+  margin-bottom: 0px;
+  white-space: pre-wrap;
+  line-height: 1.8;
+}
+
+.about-product--name {
+  background-color: @sproutup-suggest;
+  color: @main-text-white;
+}
+
+.about-product--name p {
+  font-weight: 300;
+  font-size: 16pt;
+  padding: 25px;
+  margin: 0px;
+  white-space: pre-wrap;
+  line-height: 1.8;
+}
+
+.company-profile-products .sidenav {
+  margin: 5px 20px;
+  border-left: 1px solid @sproutup-suggest;
+}
+
+.company-profile-products .sidenav li a {
+  padding: 10px 22px;
+  font-size: 11pt;
+  font-weight: 700;
+  color: @main-text-1;
+}
+
+.company-profile-products .sidenav li a:hover {
+  color: @sproutup-suggest;
+  background-color: transparent;
+  border-left: 3px solid @sproutup-suggest;
+  padding-left: 19px;
+}
+
 
 // media queries
 @media (min-width: 1200px) {
