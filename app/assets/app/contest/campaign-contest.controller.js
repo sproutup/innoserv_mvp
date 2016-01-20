@@ -3,11 +3,11 @@
 
 angular
   .module('sproutupApp')
-  .controller('CampaignTrialController', CampaignTrialController);
+  .controller('CampaignContestController', CampaignContestController);
 
-CampaignTrialController.$inject = ['CampaignService', '$state'];
+CampaignContestController.$inject = ['CampaignService', '$state'];
 
-function CampaignTrialController(CampaignService, $state) {
+function CampaignContestController(CampaignService, $state) {
   var vm = this;
   vm.find = find;
   vm.findOne = findOne;
