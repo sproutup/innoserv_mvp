@@ -1,0 +1,69 @@
+<!-- trial campaign -->
+<div ng-init="vm.findOne()">
+  <div ng-if="vm.campaign">
+    <div class="campaign-banner" style="background-image: url('https://d30xksqof6w2my.cloudfront.net/e43e8342-c41b-4d66-aa3a-133eccfe93de_0_admin.jpg?w=1600')">
+      <div class="row campaign-info-wrapper">
+        <div class="col-lg-12">
+          <h1>{{ vm.campaign.name }}<span>by <a href="">COMPANY</a></span></h1>
+          <p>{{ vm.campaign.tagline }}</p>
+          <a class="btn btn-lg sproutup-btn-md-main" href="#">Request Product Trial</a>
+          <div class="share-campaign">
+            <p>SHARE ON</p>
+            <div class="inline-blocks">
+              <a class="btn btn-small sproutup-btn-xs outline"><i class="fa fa-twitter"></i>Twitter</a>
+              <a class="btn btn-small sproutup-btn-xs outline"><i class="fa fa-facebook"></i>Facebook</a>
+              <a class="btn btn-small sproutup-btn-xs outline"><i class="fa fa-pinterest"></i>Pinterset</a>
+              <a class="btn btn-small sproutup-btn-xs outline"><i class="fa fa-envelope"></i>Email</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="banner-menu">
+        <div class="banner-menu--content">
+          <div class="banner-menu--col active">
+            <a href="#">{{ vm.campaign.name }}</a>
+          </div>
+          <div class="banner-menu--col">
+            <a href="#">Buzz</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row about-campaign-wrapper">
+      <div class="col-sm-7 about-campaign-column">
+        <div class="company-profile-products-section">
+          <div class="about-product--video embedded">
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/ENAXRU-3Tsw" frameborder="0" allowfullscreen></iframe>
+          </div>
+        </div>
+        <div class="about-campaign-section">
+          <h3>TRIAL DETAILS</h3>
+          <p>{{ vm.campaign.description }}</p>
+        </div>
+      </div>
+      <div class="col-sm-5 about-campaign-column">
+        <div class="about-campaign-section">
+          <p>180 have requested</p>
+          <div class="about-campaign-participants">
+            <a href="#"><img src="assets/images/user/hLjUxD7m_400x400.jpg"></a>
+            <a href="#"><img src="assets/images/user/hLjUxD7m_400x400.jpg"></a>
+            <a href="#"><img src="assets/images/user/hLjUxD7m_400x400.jpg"></a>
+            <a href="#"><img src="assets/images/user/hLjUxD7m_400x400.jpg"></a>
+            <a href="#"><img src="assets/images/user/hLjUxD7m_400x400.jpg"></a>
+            <a href="#"><img src="assets/images/user/hLjUxD7m_400x400.jpg"></a>
+            <a href="#"><img src="assets/images/user/hLjUxD7m_400x400.jpg"></a>
+            <a href="#"><img src="assets/images/user/hLjUxD7m_400x400.jpg"></a>
+          </div>
+        </div>
+        <div class="about-campaign-section">
+          <h3>LET'S TRY IT OUT</h3>
+          <ul>
+            <li><i class="fa fa-dot-circle-o"></i>We are looking for YouTubers.</li>
+            <li><i class="fa fa-dot-circle-o"></i>We will send you free product to review and keep.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

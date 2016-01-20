@@ -104,6 +104,10 @@ sproutupApp.config(['$routeProvider', '$stateProvider', '$locationProvider', '$u
                     }
                 }
             })
+            .state('user.navbar' ,{
+                url: '',
+                template: '<div ui-view></div>'
+            })
             .state('user.home' ,{
                 url: '/',
                 templateUrl: 'assets/app/home/index.html',
