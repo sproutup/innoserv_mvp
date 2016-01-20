@@ -1,36 +1,39 @@
 <!-- To help with load, this shows *if* $scope.stranger is loaded -->
-<div up-profile ng-if="stranger">
-    <div class="profile-header">
-        <up-profile-info user="vm.stranger"></up-profile-info>
-        <div class="product-menu">
-            <div class="row product-menu--content stats">
-                <div class="col-sm-2">
-                    <a class="stats-link" ui-sref="user.profile.buzz">
-                        <div>Buzz</div>
-                        <div ng-class="{ 'active-stat': $state.current.name === 'user.profile.buzz' }">{{ vm.posts }}</div>
-                    </a>
-                </div>
-                <div class="col-sm-2" ng-if="vm.trials > 0">
-                    <a class="stats-link" ui-sref="user.profile.trials">
-                        <div>Trials</div>
-                        <div ng-class="{ 'active-stat': $state.current.name === 'user.profile.trials' }">{{ vm.trials }}</div>
-                    </a>
-                </div>
-                
-                <div class="col-sm-2" ng-if="vm.reach.total > 0">
-                    <a class="stats-link" ui-sref="user.profile.reach">
-                        <div>Reach</div>
-                        <div ng-class="{ 'active-stat': $state.current.name === 'user.profile.reach' }">{{ vm.reach.total | humanizeNumber }}</div>
-                    </a> 
-                </div>       
-                <div class="col-sm-2" ng-if="vm.points > 0">
-                    <a class="stats-link" ui-sref="user.profile.points">
-                        <div>Points</div>
-                        <div ng-class="{ 'active-stat': $state.current.name === 'user.profile.points' }">{{ vm.points }}</div>
-                    </a>
-                </div>
+<div class="profile-header" ng-if="stranger">
+    <up-profile-info user="vm.stranger"></up-profile-info>
+    <div class="product-menu">
+        <div class="row product-menu--content stats">
+            <div class="col-sm-2">
+                <a class="stats-link" ui-sref="user.profile.buzz">
+                    <div>Buzz</div>
+                    <div ng-class="{ 'active-stat': $state.current.name === 'user.profile.buzz' }">{{ vm.posts }}</div>
+                </a>
+            </div>
+            <div class="col-sm-2" ng-if="vm.trials > 0">
+                <a class="stats-link" ui-sref="user.profile.trials">
+                    <div>Trials</div>
+                    <div ng-class="{ 'active-stat': $state.current.name === 'user.profile.trials' }">{{ vm.trials }}</div>
+                </a>
+            </div>
+            <div class="col-sm-2" ng-if="vm.reach.total > 0">
+                <a class="stats-link" ui-sref="user.profile.reach">
+                    <div>Reach</div>
+                    <div ng-class="{ 'active-stat': $state.current.name === 'user.profile.reach' }">{{ vm.reach.total | humanizeNumber }}</div>
+                </a> 
+            </div>       
+            <div class="col-sm-2" ng-if="vm.points > 0">
+                <a class="stats-link" ui-sref="user.profile.points">
+                    <div>Points</div>
+                    <div ng-class="{ 'active-stat': $state.current.name === 'user.profile.points' }">{{ vm.points }}</div>
+                </a>
+            </div>
+            <div class="col-sm-2" ng-if="vm.points > 0">
+                <a class="stats-link" ui-sref="user.profile.campaigns">
+                    <div>Activities</div>
+                    <div ng-class="{ 'active-stat': $state.current.name === 'user.profile.campaigns' }">{{ vm.campaigns.length }}</div>
+                </a>
             </div>
         </div>
     </div>
-    <div ui-view class=""></div>
 </div>
+<div ui-view class=""></div>
