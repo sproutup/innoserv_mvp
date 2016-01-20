@@ -8,7 +8,7 @@ function config($stateProvider) {
       url: '/contests',
       abstract: true,
       template: '<div ui-view><div>',
-      controller: 'CampaignTrialController',
+      controller: 'CampaignContestController',
       controllerAs: 'vm',
       data: {
         title: ''

@@ -15,6 +15,7 @@ import play.libs.ws.WSResponse;
 import play.mvc.BodyParser;
 import play.mvc.Controller;
 import play.mvc.Result;
+import play.Logger;
 
 
 /**
@@ -54,6 +55,22 @@ public class CreatorApiController extends Controller {
         WSRequestHolder holder = WS.url(url + "/user/" + userId + "/campaign");
 
         final F.Promise<Result> resultPromise = holder.get().map(
+                new F.Function<WSResponse, Result>() {
+                    public Result apply(WSResponse response) {
+                        return ok(response.asJson());
+                    }
+                }
+        );
+        return resultPromise;
+    }
+
+    public static F.Promise<Result> contributor_create() {
+        WSRequestHolder holder = WS.url(url + "/contributor");
+
+        JsonNode body = request().body().asJson();
+        if (body == null) body = Json.newObject();
+
+        final F.Promise<Result> resultPromise = holder.post(body).map(
                 new F.Function<WSResponse, Result>() {
                     public Result apply(WSResponse response) {
                         return ok(response.asJson());

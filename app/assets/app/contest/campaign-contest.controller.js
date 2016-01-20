@@ -5,12 +5,33 @@ angular
   .module('sproutupApp')
   .controller('CampaignContestController', CampaignContestController);
 
-CampaignContestController.$inject = ['CampaignService', '$state'];
+CampaignContestController.$inject = ['CampaignService', '$state', 'AuthService', '$rootScope'];
 
-function CampaignContestController(CampaignService, $state) {
+function CampaignContestController(CampaignService, $state, AuthService, $rootScope) {
   var vm = this;
   vm.find = find;
   vm.findOne = findOne;
+  vm.join = join;
+
+  activate();
+
+  function activate() {
+    if(!AuthService.ready()){
+      var unbindWatch = $rootScope.$watch(AuthService.ready, function (value) {
+        if ( value === true ) {
+          unbindWatch();
+          activate();
+        }
+      });
+    }
+    else {
+      init();
+    }
+  }
+
+  function init() {
+    vm.user = angular.copy(AuthService.m.user);
+  }
 
   function find() {
     vm.campaigns = CampaignService.campaign().query({
@@ -28,6 +49,18 @@ function CampaignContestController(CampaignService, $state) {
       campaignId: $state.params.campaignId
     }, function() {
       vm.campaign = campaign;
+    }, function(err) {
+      //$state.go('landing.default');
+      console.log(err);
+    });
+  }
+
+  function join() {
+    CampaignService.contributor().save({
+      userId: vm.user.id,
+      campaignId: vm.campaign.id
+    }, function(res) {
+      console.log(res);
     }, function(err) {
       //$state.go('landing.default');
       console.log(err);
