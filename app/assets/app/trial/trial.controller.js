@@ -5,9 +5,9 @@
         .module('sproutupApp')
         .controller('TrialController', TrialController);
 
-    TrialController.$inject = ['$q', '$rootScope', '$stateParams', '$scope', '$state', '$log', 'AuthService', '$location', '$window', 'TrialService', 'ProductService', '$cookieStore', 'OAuthService'];
+    TrialController.$inject = ['$q', '$rootScope', '$stateParams', '$scope', '$state', '$log', 'AuthService', '$location', '$window', 'TrialService', 'ProductService', '$cookieStore', 'OAuthService', 'CampaignService'];
 
-    function TrialController($q, $rootScope, $stateParams, $scope, $state, $log, authService, $location, $window, TrialService, ProductService, $cookieStore, oauth) {
+    function TrialController($q, $rootScope, $stateParams, $scope, $state, $log, authService, $location, $window, TrialService, ProductService, $cookieStore, oauth, CampaignService) {
         $log.debug("entered trial request");
         $log.debug("slug = " + $stateParams.slug);
 
@@ -26,6 +26,7 @@
         // Check for whether user can place another trial, ng-show (temporary fix, need rejection.html)
         vm.trialSuccess = false;
         vm.connected = connected;
+        vm.findOne = findOne;
         $scope.oauth = oauth;
         vm.networks = [];
 
@@ -112,6 +113,19 @@
         function finish() {
             console.log('in finish');
             $state.go("user.product.detail.buzz", { slug: $stateParams.slug });
+        }
+
+        function findOne() {
+          CampaignService.campaign().get({
+            campaignId: $stateParams.campaignId
+          }).$promise.then(
+            function(data) {
+              vm.campaign = data;
+            },
+            function(error) {
+              console.log(error);
+            }
+          );
         }
     }
 })();
