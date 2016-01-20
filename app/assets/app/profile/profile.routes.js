@@ -45,5 +45,12 @@ function config($stateProvider) {
             data: {
                 title: 'User Profile - Sprout Points'
             }
+        })
+        .state('user.profile.campaigns' ,{
+            url: '/campaigns',
+            templateUrl: 'assets/app/profile/user-campaigns.html',
+            data: {
+                title: 'User Profile - Activities'
+            }
         });
 }

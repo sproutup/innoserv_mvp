@@ -1,0 +1,18 @@
+<div class="row my-profile-trial-page single-post user-profile-content browse-campaign-section trial" ng-class="{ 'empty': vm.campaigns.length === 0 }">
+<!--   <div class="row browse-campaign-section trial"> -->
+
+<!--   </div> -->
+  <div class="product-detail-buzz-header-2" ng-if="vm.campaigns.length < 1">This user doesn't have any reach ¯\_(ツ)_/¯</div>
+  <div ng-if="vm.campaigns.length > 1">
+    <div class="profile-edit--description">
+      <p>Activities that this user has participated in</p>
+    </div>
+    <div class="col-md-4 col-sm-6 campaign-list-item" ng-repeat="item in vm.campaigns | filter: {type:'trial', status: 0}">
+      <a href="#">
+        <div class="campaign-list-item-banner" style="background-image: url('https://d30xksqof6w2my.cloudfront.net/ccd20a3d-1a0d-4545-870a-94e1c645ff96_0_admin.jpg?w=1600');">
+          <p class="campaign-name">{{item.name}}</p>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>

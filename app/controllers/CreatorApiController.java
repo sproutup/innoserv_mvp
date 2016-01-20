@@ -78,4 +78,20 @@ public class CreatorApiController extends Controller {
         );
         return resultPromise;
     }
+
+/*
+ * Campaign API
+ */
+    public static F.Promise<Result> campaign_by_user(String userId) {
+        WSRequestHolder holder = WS.url(url + "/user/" + userId + "/campaign");
+
+        final F.Promise<Result> resultPromise = holder.get().map(
+                new F.Function<WSResponse, Result>() {
+                    public Result apply(WSResponse response) {
+                        return ok(response.asJson());
+                    }
+                }
+        );
+        return resultPromise;
+    }
 }
