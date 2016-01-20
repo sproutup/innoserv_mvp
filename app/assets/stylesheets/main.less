@@ -14,7 +14,7 @@ body {
   cursor: default !important;
 }
 
-.modal-open {
+.modal-open .modal {
   overflow: hidden;
   height: 100%;
   width: 100%;
@@ -727,7 +727,6 @@ a:focus {
   background-color: @sproutup-blue;
   color: white;
   border-radius: 2px;
-  padding-top: 9px;
   margin-right: 5px;
   -webkit-transition: all .2s ease-in-out;
   -o-transition: all .2s ease-in-out;
@@ -801,10 +800,15 @@ a:focus {
   background-color: @sproutup-blue;
   color: white;
   border-radius: 0px;
-  padding-top: 6px;
+  padding-top: 5px;
   -webkit-transition: all .2s ease-in-out;
   -o-transition: all .2s ease-in-out;
   transition: all .2s ease-in-out;
+}
+
+.sproutup-btn-xs:hover {
+  color: white;
+  background-color: @sproutup-blue-hover;
 }
 
 .sproutup-btn-xs i {
@@ -2028,6 +2032,25 @@ p[class="hangout-countdown-unit"] {
   padding-right: 4px;
 }
 
+.campaign-info-wrapper .campaign-status {
+  z-index: 10;
+  position: relative;
+  font-weight: 400;
+  font-size: 13pt;
+  margin: 10px 0px 50px;
+  padding: 10px 15px;
+}
+
+.campaign-info-wrapper .campaign-status.ended {
+  color: white;
+  background-color: @sproutup-darkgold;
+  opacity: 0.9;
+}
+
+.campaign-info-wrapper .campaign-status i {
+  padding-right: 14px;
+}
+
 .campaign-info-wrapper .btn {
   z-index: 10;
   position: relative;
@@ -2328,10 +2351,52 @@ p[class="campaign-countdown-unit"] {
 }
 
 .product-trial-item--messages {
-  margin-top: 20px;
+  margin: 10px 0px 0px;
   padding: 20px 30px;
   background-color: white;
 }
+
+.product-trial-item--header {
+  font-weight: 700;
+  font-size: 14pt;
+  color: @main-text-1;
+  padding-bottom: 15px;
+  border-bottom: 1px solid @sproutup-grey;
+}
+
+.product-trial-item--header span {
+  font-weight: 700;
+  font-size: 9pt;
+  padding-left: 15px;
+}
+
+.product-trial-item--header a {
+  color: @sproutup-blue;
+}
+
+.product-trial-item--menu {
+  float: right;
+  font-size: 12pt;
+  font-weight: 700;
+  padding: 2px 0px 0px;
+}
+
+.product-trial-item--menu a {
+  padding: 0px 12px 14px;
+  margin: 0px 4px;
+  color: @main-text-1;
+  text-decoration: none !important;
+}
+
+.product-trial-item--menu a[class="active"] {
+  color: @sproutup-blue;
+  border-bottom: 6px solid @sproutup-blue;
+}
+
+.product-trial-item--menu a i {
+  margin-right: 8px;
+}
+
 
 .message-blurb {
   margin: 0px 0px 12px;
@@ -2355,6 +2420,10 @@ p[class="campaign-countdown-unit"] {
   font-size: 11pt;
   line-height: 1.6;
   padding: 12px 15px;
+}
+
+.message-blurb .btn {
+  margin-top: 7px;
 }
 
 .message-blurb.outbound {
