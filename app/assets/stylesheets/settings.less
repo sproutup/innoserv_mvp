@@ -584,10 +584,10 @@ a.list-group-item:hover {
     color: @main-text-white;
 }
 
-.product-trial-item-banner p span {
-    padding-left: 40px;
+.product-trial-item-banner p span a {
+    padding-left: 30px;
     font-weight: 400;
-    font-size: 12pt;
+    font-size: 9pt;
     color: @main-text-white;
 }
 
@@ -612,15 +612,26 @@ a.list-group-item:hover {
 .product-trial-item--status {
     font-size: 13pt;
     font-weight: 400;
-    padding: 8px 0px;
+    padding: 8px 0px 4px;
     margin: 0px;
     color: @main-text-1;
     line-height: 1.7;
 }
 
+.product-trial-item--status .fa {
+    width: 30px;
+}
+
 .product-trial-item--status-desc span {
     color: @sproutup-blue;
     font-weight: 700;
+    font-size: 14pt;
+    display: block;
+    padding-bottom: 8px;
+}
+
+.product-trial-item--status-desc a {
+  color: @sproutup-blue;
 }
 
 .product-trial-item--actions {
@@ -653,7 +664,7 @@ a.list-group-item:hover {
 {
     font-size: 12pt;
     font-weight: 400;
-    padding: 0px 25px 15px;
+    padding: 0px 20px 15px 30px;
     margin: 0px;
     color: @main-text-2;
     line-height: 1.5;
