@@ -28,9 +28,13 @@ function config($stateProvider) {
           url: '/browse-campaigns',
           templateUrl: 'assets/app/theme/mocks/browse-campaigns.html'
         })
-        .state('user.theme.mocks.view-campaign', {
-          url: '/view-campaign',
-          templateUrl: 'assets/app/theme/mocks/view-campaign.html'
+        .state('user.theme.mocks.view-trial-campaign', {
+          url: '/view-trial-campaign',
+          templateUrl: 'assets/app/theme/mocks/view-trial-campaign.html'
+        })
+        .state('user.theme.mocks.view-contest-campaign', {
+          url: '/view-contest-campaign',
+          templateUrl: 'assets/app/theme/mocks/view-contest-campaign.html'
         })
         .state('user.theme.mocks.search', {
           url: '/search',
