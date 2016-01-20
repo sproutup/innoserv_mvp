@@ -1411,45 +1411,44 @@ input[type=checkbox] {
   z-index: 10;
   position: relative;
   font-weight: 400;
-  font-size: 18pt;
+  font-size: 16pt;
   margin: 20px 0px;
-}
-
-.hangout-info-wrapper p
-{
-  z-index: 10;
-  position: relative;
-  font-weight: 300;
-  font-size: 13pt;
-  margin: 0px;
-  padding: 0px;
 }
 
 .hangout-info-wrapper .sproutup-btn-sm {
   z-index: 10;
   position: relative;
   width: 160px;
-  margin-top: 30px;
+  margin: 30px 3px;
 }
 
 .hangout-countdown {
-  margin: 30px auto;
-  max-width: 300px;
-}
-
-.hangout-countdown h4 {
   z-index: 10;
   position: relative;
-  font-size: 20pt;
-  font-weight: 300;
-  padding: 0px;
+  margin: 40px auto 10px;
+  max-width: 320px;
 }
 
-.hangout-countdown h4 span {
-  padding: 0px 12px;
-  color: @sproutup-grey;
-  font-size: 25pt;
+.hangout-countdown-item {
+  padding: 0px 4px;
+  margin: 0px;
+  text-align: center;
 }
+
+p[class="hangout-countdown-value"] {
+  padding: 20px 0px;
+  border: 1px solid @main-text-white;
+  border-radius: 2px;
+  font-weight: 300;
+  font-size: 18pt;
+}
+
+p[class="hangout-countdown-unit"] {
+  padding: 5px 0px 0px;
+  font-weight: 400;
+  font-size: 7pt;
+}
+
 
 .hangout-list {
   margin: 15px 20px 0px;
@@ -1516,7 +1515,7 @@ input[type=checkbox] {
 .hangout-chat-header p {
   padding: 0px 0px 15px;
   font-weight: 400;
-  font-size: 11pt;
+  font-size: 12pt;
   line-height: 1.6;
   color: @main-text;
 }
