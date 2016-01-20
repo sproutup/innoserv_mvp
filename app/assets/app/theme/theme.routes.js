@@ -28,6 +28,10 @@ function config($stateProvider) {
           url: '/browse-campaigns',
           templateUrl: 'assets/app/theme/mocks/browse-campaigns.html'
         })
+        .state('user.theme.mocks.search', {
+          url: '/search',
+          templateUrl: 'assets/app/theme/mocks/search.html'
+        })
         .state('user.theme.mocks.view-trial-campaign', {
           url: '/view-trial-campaign',
           templateUrl: 'assets/app/theme/mocks/view-trial-campaign.html'
@@ -36,9 +40,9 @@ function config($stateProvider) {
           url: '/view-contest-campaign',
           templateUrl: 'assets/app/theme/mocks/view-contest-campaign.html'
         })
-        .state('user.theme.mocks.search', {
-          url: '/search',
-          templateUrl: 'assets/app/theme/mocks/search.html'
+        .state('user.theme.mocks.join-contest-campaign', {
+          url: '/join-contest-campaign',
+          templateUrl: 'assets/app/theme/mocks/join-contest-campaign.html'
         })
         .state('user.theme.mocks.my-activities', {
           url: '/my-campaigns',

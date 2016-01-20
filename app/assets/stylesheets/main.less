@@ -482,7 +482,6 @@ a:focus {
   border-radius: 2px;
   padding-left: 50px;
   padding-right: 50px;
-  padding-top: 15px;
   margin: 0px;
   -webkit-transition: all .1s ease-in-out;
   -o-transition: all .1s ease-in-out;
@@ -492,6 +491,36 @@ a:focus {
 .sproutup-btn-lg-main:hover {
   background-color: @sproutup-blue-hover;
   color: white;
+}
+
+.sproutup-btn-lg-main.grey {
+  color: white;
+  background-color: @sproutup-grey;
+}
+
+.sproutup-btn-lg-main.grey:hover {
+  background-color: @sproutup-grey-hover;
+  color: white;
+}
+
+.sproutup-btn-lg-main.facebook {
+  color: white;
+  background-color: @facebook-blue;
+}
+
+.sproutup-btn-lg-main.facebook:hover {
+  color: white;
+  background-color: @facebook-blue-hover;
+}
+
+.sproutup-btn-lg-main.twitter {
+  color: white;
+  background-color: @twitter-blue;
+}
+
+.sproutup-btn-lg-main.twitter:hover {
+  color: white;
+  background-color: @twitter-blue-hover;
 }
 
 .sproutup-btn-add-content {
@@ -526,7 +555,7 @@ a:focus {
   background-color: @sproutup-blue;
   color: white;
   border-radius: 2px;
-  padding-top: 11px;
+  padding-top: 10px;
   margin-right: 6px;
   margin-bottom: 5px;
   -webkit-transition: all .2s ease-in-out;
@@ -1574,7 +1603,7 @@ p[class="hangout-countdown-unit"] {
 .theme-docs-index-page {
   padding: 30px 20px;
   text-align: center;
-  max-width: 640px;
+  max-width: 800px;
   margin: 60px auto;
 }
 
@@ -1983,11 +2012,22 @@ p[class="hangout-countdown-unit"] {
   background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.4)); /* Standard syntax */
 }
 
+.campaign-banner.join::after {
+  background: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.6)); /* Standard syntax */
+}
+
 .campaign-info-wrapper {
   text-align: left;
   color: @main-text-white;
   margin: 0px;
   padding: 100px 30px 100px;
+}
+
+.campaign-join-wrapper {
+  text-align: center;
+  max-width: 800px;
+  margin: 0px auto;
+  padding: 100px 10px 100px;
 }
 
 .campaign-info-wrapper h1
@@ -1997,6 +2037,111 @@ p[class="hangout-countdown-unit"] {
   font-weight: 100;
   font-size: 32pt;
   margin: 20px 0px;
+  line-height: 1.6;
+}
+
+.campaign-info-wrapper h2
+{
+  z-index: 10;
+  position: relative;
+  font-weight: 300;
+  font-size: 18pt;
+  margin: 30px 0px 20px;
+  line-height: 1.6;
+}
+
+.campaign-join-wrapper h1
+{
+  z-index: 10;
+  position: relative;
+  font-weight: 100;
+  font-size: 32pt;
+  margin: 0px;
+  line-height: 1.6;
+}
+
+.campaign-join-wrapper h1 a {
+  color: @main-text-white;
+  text-decoration: none !important;
+}
+
+.campaign-join-wrapper h2
+{
+  z-index: 10;
+  position: relative;
+  font-weight: 300;
+  font-size: 18pt;
+  margin: 15px 0px;
+  line-height: 1.6;
+}
+
+.campaign-join-wrapper h3
+{
+  z-index: 10;
+  position: relative;
+  font-weight: 300;
+  font-size: 14pt;
+  margin: 20px 0px;
+  line-height: 1.6;
+}
+
+.campaign-join-steps {
+  padding: 15px 0px 30px;
+  z-index: 10;
+  position: relative;
+}
+
+.campaign-join-steps-sequence {
+  text-align: center;
+  border-radius: 500px;
+  width: 80px;
+  height: 80px;
+  margin: 10px auto 15px;
+  font-size: 25pt;
+  font-weight: 100;
+  padding-top: 15px;
+  color: white;
+  background-color: rgba(255, 255, 255, 0.35);
+}
+
+.campaign-join-steps-instruction {
+  text-align: center;
+  padding: 5px 3px 20px;
+  font-size: 11pt;
+  font-weight: 300;
+  color: @main-text-white;
+}
+
+.campaign-join-form {
+  z-index: 10;
+  position: relative;
+  max-width: 600px;
+  margin: 0px auto 25px;
+}
+
+.campaign-join-action {
+  z-index: 10;
+  position: relative;
+}
+
+.campaign-share-action {
+  z-index: 10;
+  position: relative;
+  margin-top: 50px;
+}
+
+.campaign-share-action .btn {
+  margin: 5px;
+}
+
+.campaign-join-addition-action {
+  z-index: 10;
+  position: relative;
+  padding: 25px 0px 0px;
+}
+
+.campaign-join-form .form-input {
+  margin-bottom: 10px;
 }
 
 .campaign-info-wrapper h1 span {
