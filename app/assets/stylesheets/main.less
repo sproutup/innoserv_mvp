@@ -1327,15 +1327,6 @@ input[type=checkbox] {
   max-width: 650px;
 }
 
-.trial-table .social-table {
-  background-color: white;
-  padding: 12px 15px;
-  padding-top: 19px;
-  border-radius: 7px;
-  margin-bottom: 15px !important;
-  border-collapse: inherit !important;
-}
-
 .social-table {
   margin-bottom: 0px !important;
 }
@@ -2092,7 +2083,20 @@ p[class="hangout-countdown-unit"] {
 .campaign-join-wrapper h3 a {
   color: @sproutup-blue-bright;
   font-size: 11pt;
-  font-weight: 400;
+  font-weight: 700;
+}
+
+.campaign-join-wrapper .social-table {
+  position: relative;
+  z-index: 10;
+  background-color: white;
+  padding: 12px 15px;
+  padding-top: 19px;
+  border-radius: 7px;
+  margin: 25px auto;
+  max-width: 600px;
+  border-collapse: inherit !important;
+  text-align: left;
 }
 
 .campaign-join-steps {
