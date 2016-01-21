@@ -36,6 +36,10 @@ function config($stateProvider) {
           url: '/view-trial-campaign',
           templateUrl: 'assets/app/theme/mocks/view-trial-campaign.html'
         })
+        .state('user.theme.mocks.join-trial-campaign', {
+          url: '/join-trial-campaign',
+          templateUrl: 'assets/app/theme/mocks/join-trial-campaign.html'
+        })
         .state('user.theme.mocks.view-contest-campaign', {
           url: '/view-contest-campaign',
           templateUrl: 'assets/app/theme/mocks/view-contest-campaign.html'
