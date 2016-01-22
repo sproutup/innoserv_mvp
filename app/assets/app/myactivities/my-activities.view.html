@@ -1,0 +1,53 @@
+<!-- trial -->
+<div class="row dashboard-page">
+  <!-- TOC -->
+  <div class="col-sm-3">
+    <div class="list-group">
+      <a href="#" class="list-group-item active">Product Trials<span class="badge">{{ vm.authService.m.trials.length }}</span></a>
+      <a href="#" class="list-group-item">Contests<span class="badge">{{ vm.authService.m.contests.length }}</span></a>
+    </div>
+  </div>
+
+  <!-- Content -->
+  <div class="col-sm-9">
+    <div class="row product-trial-item" ng-repeat="trial in vm.authService.m.trials">
+      <div class="product-trial-item--header">
+        <a>{{ trial.name }}</a>
+        <div class="product-trial-item--menu">
+          <a ng-class="{ 'active': !trial.messaging }" href="#" ng-click="trial.messaging = false">Status</a>
+          <a ng-class="{ 'active': trial.messaging }" href="#" ng-click="trial.messaging = true">Message</a>
+        </div>
+      </div>
+      <div class="col-sm-12 product-trial-item--detail" ng-if="!trial.messaging">
+        <p class="product-trial-item--status current"><i class="fa fa-check-circle"></i>Requested on Jan 15, 2016</p>
+        <p class="product-trial-item--status-desc">Thanks for requesting a product trial. We'll start to process it very soon. Stay tuned :)</p>
+        <p class="product-trial-item--status"><i class="fa fa-link"></i>Your unique referral link:</p>
+        <p class="product-trial-item--status-desc"><span>http://goo.gl/zvLnyI</span>Please embed this unique referral link in any of your content. Share this link on social media. We use this link to measure conversions and reward you accordingly.</p>
+        <div class="product-trial-item--actions">
+          <button class="btn btn-md sproutup-btn-sm cancel">Cancel request</button>
+        </div>
+      </div>
+      <div class="col-sm-12 product-trial-item--detail" ng-if="trial.messaging">
+        <div class="product-trial-item--messages">
+          <div class="message-blurb outbound">
+            <div class="sender">Me<span>2 days ago</span></div>
+            <div class="content">Nice to meet you guys! I really love your product! Would love to try it out!</div>
+          </div>
+          <div class="message-blurb inbound">
+            <div class="sender">ACTON<span>2 days ago</span></div>
+            <div class="content">Thanks a lot! We are glad to send you a product!</div>
+          </div>
+          <div class="message-blurb outbound">
+            <div class="sender">Me<span>1 hour ago</span></div>
+            <div class="content">Word!! I am super excited. Look forward to it!</div>
+          </div>
+          <div class="message-blurb">
+            <div class="sender">Me<span>Sending now</span></div>
+            <textarea class="form-control form-input-textarea sm" placeholder="If you have questions about the campaign, you can message the company here."></textarea>
+            <button class="btn btn-sm sproutup-btn-xs">Send message</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

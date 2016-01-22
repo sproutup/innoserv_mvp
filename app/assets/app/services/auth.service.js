@@ -3,9 +3,9 @@ angular
     .module('sproutupApp')
     .factory('AuthService', authService);
 
-authService.$inject = ['$http', '$q', '$cookieStore', '$log', 'UserService', '$timeout', '$state', '$analytics', '$resource', '$rootScope'];
+authService.$inject = ['$http', '$q', '$cookieStore', '$log', 'UserService', '$timeout', '$state', '$analytics', '$resource', '$rootScope', 'CampaignService'];
 
-function authService($http, $q, $cookieStore, $log, userService, $timeout, $state, $analytics, $resource, $rootScope){
+function authService($http, $q, $cookieStore, $log, userService, $timeout, $state, $analytics, $resource, $rootScope, CampaignService){
     var user = {};
     var isReady = false;
     var urlBase = '/api/auth';
@@ -139,6 +139,22 @@ function authService($http, $q, $cookieStore, $log, userService, $timeout, $stat
         }
     }
 
+    function getCampaigns() {
+        CampaignService.listByUser().query({
+            userId: '1'
+        }, function(res) {
+            model.campaigns = res;
+            model.contests = model.campaigns.filter(function (item) {
+                return item.type === 'contest';
+            });
+            model.trials = model.campaigns.filter(function (item) {
+                return item.type === 'trial';
+            });
+        }, function(err) {
+            console.log(err);
+        });
+    }
+
     function authorize(accessLevel, role) {
         if(role === undefined) {
             if(currentUser !== null){
@@ -181,6 +197,7 @@ function authService($http, $q, $cookieStore, $log, userService, $timeout, $stat
                     }
                     $analytics.setUserPropertiesOnce({name: model.user.name});
 
+                    getCampaigns();
                     refreshTrials();
                     // $log.debug("auth user service returned success: " + model.user.name);
                     deferred.resolve(model.user);

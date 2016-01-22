@@ -14,9 +14,9 @@ function CampaignController(CampaignService, $state) {
   vm.findOne = findOne;
 
   function find() {
-    vm.campaigns = CampaignService.campaign().query({
-      }, function() {
-        console.log('campaigns found');
+     CampaignService.campaign().query({
+      }, function(res) {
+        vm.campaigns = res;
       }, function(err) {
         console.log(err);
       });
@@ -29,7 +29,6 @@ function CampaignController(CampaignService, $state) {
       campaignId: $state.params.campaignId
     }, function() {
       vm.campaign = campaign;
-      console.log(vm.campaign);
     }, function(err) {
       //$state.go('landing.default');
       console.log(err);
