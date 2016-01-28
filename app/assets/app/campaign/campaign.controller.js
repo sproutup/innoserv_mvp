@@ -12,6 +12,7 @@ function CampaignController(CampaignService, $state) {
   vm.product = {};
   vm.find = find;
   vm.findOne = findOne;
+  vm.returnMatch = returnMatch;
 
   function find() {
      CampaignService.campaign().query({
@@ -33,6 +34,13 @@ function CampaignController(CampaignService, $state) {
       //$state.go('landing.default');
       console.log(err);
     });
+  }
+
+  function returnMatch(actual, expected) {
+    if (!expected) {
+       return true;
+    }
+    return angular.equals(expected, actual);
   }
 
 }
