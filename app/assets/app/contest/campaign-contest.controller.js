@@ -61,6 +61,7 @@ function CampaignContestController(CampaignService, $state, AuthService, $rootSc
       campaignId: vm.campaign.id
     }, function(res) {
       console.log(res);
+      $state.go('user.activity.contest.edit', {campaignId: vm.campaign.id});
     }, function(err) {
       //$state.go('landing.default');
       console.log(err);

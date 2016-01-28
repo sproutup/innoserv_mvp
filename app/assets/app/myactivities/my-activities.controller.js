@@ -5,32 +5,33 @@
     .module('sproutupApp')
     .controller('MyActivitiesController', MyActivitiesController);
 
-  MyActivitiesController.$inject = ['$rootScope', 'AuthService'];
+  MyActivitiesController.$inject = ['$scope', 'AuthService', 'ContributorService', '$state'];
 
-  function MyActivitiesController($rootScope, authService) {
+  function MyActivitiesController($scope, authService, ContributorService, $state) {
     var vm = this;
+    vm.findOne = findOne;
 
-    activate();
-
-    function activate() {
-      if(!authService.ready()) {
-        var unbindWatch = $rootScope.$watch(authService.ready, function (value) {
-          if ( value === true ) {
-            unbindWatch();
-            activate();
+    function findOne() {
+      if (!authService.ready()) {
+        var listener = $scope.$watch(authService.ready, function(val) {
+          if(val) {
+            listener();
+            findOne();
           }
         });
+        return;
       }
-      else {
-        if(authService.m.isLoggedIn) {
-          init();
-        }
-      }
-    }
 
-    function init() {
-      vm.user = authService.m.user;
-      vm.authService = authService;
+      vm.success = false;
+      var item = ContributorService.contributor().get({
+        userId: authService.m.user.id,
+        campaignId: $state.params.campaignId
+      }, function() {
+        vm.item = item;
+      }, function(err) {
+        console.log(err);
+      });
     }
   }
+
 })();
