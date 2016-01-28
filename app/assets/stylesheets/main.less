@@ -2652,7 +2652,7 @@ p[class="campaign-countdown-unit"] {
 }
 
 .notification-popover-wrapper {
-  border: 1px solid @sproutup-grey;
+  border: 1px solid @sproutup-lightgrey;
   width: 500px;
 }
 
@@ -2692,8 +2692,7 @@ p[class="campaign-countdown-unit"] {
 .notification-item-avatar {
   width: 45px;
   height: 45px;
-  border-radius: 4px;
-  border: 1px solid @form-border;
+  border-radius: 100px;
 }
 
 .notification-item-title {
@@ -2739,6 +2738,16 @@ p[class="campaign-countdown-unit"] {
 
 .notification-popover-footer a:hover {
   color: @sproutup-blue;
+}
+
+.notification-float-wrapper {
+  position: fixed;
+  top: 90px;
+  right: 15px;
+  border: 1px solid @sproutup-lightgrey;
+  background-color: @sproutup-veryverylightgrey;
+  width: 450px;
+  box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.08);
 }
 
 // media queries
