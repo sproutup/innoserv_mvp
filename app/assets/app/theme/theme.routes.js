@@ -55,5 +55,9 @@ function config($stateProvider) {
         .state('user.theme.mocks.company-profile', {
           url: '/company-profile',
           templateUrl: 'assets/app/theme/mocks/company-profile.html'
+        })
+        .state('user.theme.mocks.notification', {
+          url: '/notification',
+          templateUrl: 'assets/app/theme/mocks/notification.html'
         });
 }
