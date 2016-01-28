@@ -2651,6 +2651,96 @@ p[class="campaign-countdown-unit"] {
   color: @main-text;
 }
 
+.notification-popover-wrapper {
+  border: 1px solid @sproutup-grey;
+  width: 500px;
+}
+
+.notification-popover-body {
+  height: 500px;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  -ms-overflow-style: none;
+}
+
+.notification-item-wrapper {
+  padding: 4px 0px;
+  border-bottom: 1px solid @sproutup-lightgrey;
+}
+
+.notification-item {
+  margin: 0px;
+  padding: 4px 0px;
+  border-bottom: 2px solid @sproutup-lightgrey;
+}
+
+.notification-item.unread {
+  background-color: @sproutup-veryverylightgrey;
+}
+
+.notification-item .col-sm-2 {
+  margin: 0px;
+  padding: 10px 0px;
+  text-align: center;
+}
+
+.notification-item .col-sm-10 {
+  margin: 0px;
+  padding: 10px 10px 10px 0px;
+}
+
+.notification-item-avatar {
+  width: 45px;
+  height: 45px;
+  border-radius: 4px;
+  border: 1px solid @form-border;
+}
+
+.notification-item-title {
+  font-weight: 400;
+  font-size: 10.5pt;
+  color: @main-text;
+}
+
+.notification-item-title a {
+  color: @sproutup-blue;
+}
+
+.notification-item-time {
+  font-size: 9pt;
+  color: @secondary-text;
+  padding-left: 3px;
+}
+
+.notification-item-content {
+  font-weight: 400;
+  font-size: 9.5pt;
+  color: @main-text-1;
+  padding-top: 5px;
+}
+
+.notification-item-action {
+  padding-top: 10px;
+}
+
+.notification-popover-footer {
+  text-align: center;
+  font-weight: 700;
+  font-size: 9pt;
+  padding: 15px 10px;
+  background-color: @sproutup-grey;
+  box-shadow: 0px -3px 15px 0px rgba(0, 0, 0, 0.05);
+}
+
+.notification-popover-footer a {
+  color: white;
+  text-decoration: none;
+}
+
+.notification-popover-footer a:hover {
+  color: @sproutup-blue;
+}
+
 // media queries
 @media (min-width: 1200px) {
   .product-trial-stage-avatar {
