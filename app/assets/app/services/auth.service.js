@@ -141,7 +141,7 @@ function authService($http, $q, $cookieStore, $log, userService, $timeout, $stat
 
     function getCampaigns() {
         CampaignService.listByUser().query({
-            userId: '1'
+            userId: model.user.id
         }, function(res) {
             model.campaigns = res;
             model.contests = model.campaigns.filter(function (item) {
