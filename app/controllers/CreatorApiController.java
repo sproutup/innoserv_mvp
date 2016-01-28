@@ -80,6 +80,19 @@ public class CreatorApiController extends Controller {
         return resultPromise;
     }
 
+    public static F.Promise<Result> contributor_view(String userId, String campaignId){
+      WSRequestHolder holder = WS.url(url + "/user/" + userId + "/campaign/" + campaignId);
+
+      final F.Promise<Result> resultPromise = holder.get().map(
+        new F.Function<WSResponse, Result>() {
+          public Result apply(WSResponse response) {
+            return ok(response.asJson());
+          }
+        }
+      );
+      return resultPromise;
+    }
+
 /*
  * Hangout API
  */
