@@ -12,7 +12,6 @@ function userDetailCtrl($scope, $stateParams, $state, $log, UserService, Analyti
   
   UserService.get({nickname: $stateParams.nickname}).$promise.then(
     function(data) {
-      console.log(data);
       // success
       $scope.stranger = data;
       vm.points = data.points;
@@ -25,6 +24,7 @@ function userDetailCtrl($scope, $stateParams, $state, $log, UserService, Analyti
       }).$promise.then(
         function(data) {
           vm.campaigns = data;
+          console.log(vm.campaigns);
         },
         function(error) {
           console.log(error);
