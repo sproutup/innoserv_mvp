@@ -52,6 +52,14 @@ function config($stateProvider) {
           url: '/view-contest-campaign',
           templateUrl: 'assets/app/theme/mocks/view-contest-campaign.html'
         })
+        .state('user.theme.mocks.enter-contest-campaign', {
+          url: '/enter-contest-campaign',
+          templateUrl: 'assets/app/theme/mocks/enter-contest-campaign.html'
+        })
+        .state('user.theme.mocks.finished-contest-campaign', {
+          url: '/finished-contest-campaign',
+          templateUrl: 'assets/app/theme/mocks/finished-contest-campaign.html'
+        })
         .state('user.theme.mocks.join-contest-campaign', {
           url: '/join-contest-campaign',
           templateUrl: 'assets/app/theme/mocks/join-contest-campaign.html'
