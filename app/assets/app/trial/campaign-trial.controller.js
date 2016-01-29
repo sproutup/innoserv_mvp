@@ -12,6 +12,7 @@ function CampaignTrialController(CampaignService, $state, AuthService, $scope) {
   vm.find = find;
   vm.findOne = findOne;
   vm.submitRequest = submitRequest;
+  vm.connected = connected;
 
   function find() {
     vm.campaigns = CampaignService.campaign().query({
@@ -54,6 +55,10 @@ function CampaignTrialController(CampaignService, $state, AuthService, $scope) {
     }, function(err) {
       vm.error = true;
     });
+  }
+
+  function connected() {
+    $state.go('user.navbar.trial.view', {campaignId: vm.campaign.id});
   }
 
 }
