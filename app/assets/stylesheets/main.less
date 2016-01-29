@@ -2637,10 +2637,19 @@ p[class="campaign-countdown-unit"] {
 .message-header {
   padding: 15px 5px;
   margin: 0px 15px;
+  border-bottom: 1px solid @form-border;
+}
+
+.message-header p {
   font-weight: 700;
   font-size: 11pt;
   color: @main-text-1;
-  border-bottom: 1px solid @form-border;
+  padding: 0px;
+  margin: 0px;
+}
+
+.message-header i {
+  margin-right: 8px;
 }
 
 .message-body {
@@ -2666,7 +2675,7 @@ p[class="campaign-countdown-unit"] {
 
 .message-blurb .content {
   font-weight: 400;
-  font-size: 11pt;
+  font-size: 10pt;
   line-height: 1.6;
   padding: 12px 15px;
 }
@@ -2691,6 +2700,11 @@ p[class="campaign-countdown-unit"] {
 .message-blurb.inbound .content {
   background-color: @sproutup-green-muted;
   color: @main-text;
+}
+
+.message-blurb .form-input-textarea {
+  font-size: 10pt;
+  min-height: 60px;
 }
 
 .notification-popover-wrapper {
@@ -2881,7 +2895,7 @@ p[class="campaign-countdown-unit"] {
 }
 
 .post-new-content-uploader .post-new-textarea {
-  padding: 10px;
+  padding: 5px 10px 10px;
   border: none;
   min-height: 100px;
 }
