@@ -30,7 +30,7 @@ function config($stateProvider) {
     })
     .state('user.navbar.trial.connect', {
       url: '/request/connect',
-      templateUrl: 'assets/app/trial/request-connect.html',
+      templateUrl: 'assets/app/trial/social-connection.html',
       data: {
         title: 'Trial - Social'
       }
