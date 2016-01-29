@@ -40,6 +40,14 @@ function config($stateProvider) {
           url: '/join-trial-campaign',
           templateUrl: 'assets/app/theme/mocks/join-trial-campaign.html'
         })
+        .state('user.theme.mocks.after-join-trial-campaign', {
+          url: '/after-join-trial-campaign',
+          templateUrl: 'assets/app/theme/mocks/after-join-trial-campaign.html'
+        })
+        .state('user.theme.mocks.trial-campaign-buzz', {
+          url: '/trial-campaign-buzz',
+          templateUrl: 'assets/app/theme/mocks/trial-campaign-buzz.html'
+        })
         .state('user.theme.mocks.view-contest-campaign', {
           url: '/view-contest-campaign',
           templateUrl: 'assets/app/theme/mocks/view-contest-campaign.html'
