@@ -1,0 +1,22 @@
+<form name="form">
+  <fieldset>
+    <div class="campaign-banner join" style="background-image: url('https://d30xksqof6w2my.cloudfront.net/e43e8342-c41b-4d66-aa3a-133eccfe93de_0_admin.jpg?w=1600')" ng-init="vm.findOne()">
+      <div class="row campaign-join-wrapper">
+        <div class="col-lg-12">
+          <h1>Thanks for requesting product trial!</h1>
+          <h2>A few more things to ask...</h2>
+          <div class="campaign-join-form">
+            <input class="form-control form-input medium" ng-model="vm.address" name="address" placeholder="Your shipping address. Make sure it's accurate!" required>
+            <input class="form-control form-input medium" ng-model="vm.zipcode" name="zipcode" placeholder="Your zipcode" required>
+            <input class="form-control form-input medium" ng-model="vm.mobile" name="mobile" placeholder="Your mobile number" required>
+            <textarea class="form-control form-input-textarea no-resize" ng-model="vm.reason" name="reason" placeholder="Briefly tell us why you're interested in trying the product"></textarea>
+          </div>
+          <div class="campaign-join-fintprints">After {{ vm.campaign.companyId }} accepts your request, the product will be shipped to the address you provided above. You may be contacted by phone or email for shipping and trial related questions.</div>
+          <div class="campaign-join-action">
+            <button class="btn btn-lg sproutup-btn-lg-main" ng-disabled="form.$invalid" ng-click="vm.submitRequest()">Send my request</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </fieldset>
+</form>

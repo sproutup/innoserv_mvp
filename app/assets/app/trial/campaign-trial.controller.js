@@ -5,12 +5,13 @@ angular
   .module('sproutupApp')
   .controller('CampaignTrialController', CampaignTrialController);
 
-CampaignTrialController.$inject = ['CampaignService', '$state'];
+CampaignTrialController.$inject = ['CampaignService', '$state', 'AuthService', '$scope'];
 
-function CampaignTrialController(CampaignService, $state) {
+function CampaignTrialController(CampaignService, $state, AuthService, $scope) {
   var vm = this;
   vm.find = find;
   vm.findOne = findOne;
+  vm.submitRequest = submitRequest;
 
   function find() {
     vm.campaigns = CampaignService.campaign().query({
@@ -24,13 +25,34 @@ function CampaignTrialController(CampaignService, $state) {
   function findOne() {
     vm.success = false;
 
-    var campaign = CampaignService.campaign().get({
+    CampaignService.campaign().get({
       campaignId: $state.params.campaignId
-    }, function() {
-      vm.campaign = campaign;
+    }, function(res) {
+      vm.campaign = res;
     }, function(err) {
       //$state.go('landing.default');
       console.log(err);
+    });
+  }
+
+  function submitRequest() {
+    if (!AuthService.ready()) {
+      var listener = $scope.$watch(AuthService.ready, function(val) {
+        if(val) {
+          listener();
+          findOne();
+        }
+      });
+      return;
+    }
+
+    CampaignService.contributor().save({
+      userId: AuthService.m.user.id,
+      campaignId: vm.campaign.id
+    }, function(res) {
+      $state.go('user.activity.trial.confirmation', {campaignId: vm.campaign.id});
+    }, function(err) {
+      vm.error = true;
     });
   }
 
