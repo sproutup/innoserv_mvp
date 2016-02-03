@@ -18,6 +18,17 @@ function upPostContent() {
       body: '',
       group: ''
     };
+
+    // Check which social networks you can post with
+    if (attrs.networks) {
+      vm.youtube = attrs.networks.indexOf('yt') > -1;
+      vm.facebook = attrs.networks.indexOf('fb') > -1;
+      vm.twitter = attrs.networks.indexOf('tw') > -1;
+      vm.instagram = attrs.networks.indexOf('ig') > -1;
+      vm.googleanalytics = attrs.networks.indexOf('ga') > -1;
+      vm.url = attrs.networks.indexOf('url') > -1;
+    }
+
     ngModel.$valid = false;
     vm.status = 'select';
 
