@@ -19,6 +19,7 @@ function upPostContent() {
       group: ''
     };
     ngModel.$valid = false;
+    vm.status = 'select';
 
     vm.model = ngModel;
     vm.post.body = ngModel.body;
