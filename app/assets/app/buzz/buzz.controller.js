@@ -10,7 +10,7 @@ angular
 
 BuzzController.$inject = ['$stateParams', '$state', 'FeedService', 'AuthService', '$rootScope', '$scope', 'MyTrialProductsService', 'PostService', '$timeout', 'usSpinnerService', 'PointsService'];
 
-function BuzzController($stateParams, $state, FeedService, AuthService, $rootScope, $scope, MyTrialProductsService, postService, $timeout, usSpinnerService, PointsService) {
+function BuzzController($stateParams, $state, FeedService, AuthService, $rootScope, $scope, MyTrialProductsService, PostService, $timeout, usSpinnerService, PointsService) {
     var vm = this;
     var content = [];
     vm.content = [];
@@ -30,10 +30,12 @@ function BuzzController($stateParams, $state, FeedService, AuthService, $rootSco
     local.displayTweet = displayTweet;
     local.optimizeContentDisplay = local.optimizeContentDisplay;
     var position = 0;
+    vm.post = {};
+    vm.create = create;
+    vm.list = list;
 
     activate();
 
-    console.log('initing buzz');
     $rootScope.sharing = false;
 
     function activate() {
@@ -56,6 +58,12 @@ function BuzzController($stateParams, $state, FeedService, AuthService, $rootSco
         if (vm.user.id) {
             vm.myTrialProducts = MyTrialProductsService.query();
         }
+    }
+
+    function list() {
+        PostService.post().query(function(res) {
+            vm.content = res;
+        });
     }
 
     function loadContent() {
@@ -116,9 +124,27 @@ function BuzzController($stateParams, $state, FeedService, AuthService, $rootSco
         }
     }
 
+    function create() {
+        vm.posting = true;
+        vm.post.userId = vm.user.id;
+        var Post = PostService.post();
+        var item = new Post(vm.post);
+        usSpinnerService.spin('spinner-1');
+        item.$save(function(res) {
+            vm.posting = false;
+            vm.post = {};
+            vm.content.unshift(res);
+            usSpinnerService.stop('spinner-1');
+        }, function(err) {
+            vm.posting = false;
+            console.log(err);
+            usSpinnerService.stop('spinner-1');
+        });
+    }
+
     function addContent(event) {
         vm.disabled = true;
-        var Post = postService.post();
+        var Post = PostService.post();
         var item = new Post();
         usSpinnerService.spin('spinner-1');
         item.body = vm.enteredBody;
@@ -161,8 +187,6 @@ function BuzzController($stateParams, $state, FeedService, AuthService, $rootSco
             position += 10;
         }
     }
-
-    
 
     function optimizeContentDisplay(contentObject) {
         displayYoutubeVideo(contentObject.content);

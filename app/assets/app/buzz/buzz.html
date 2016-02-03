@@ -1,4 +1,4 @@
-<div class="row my-content-page" infinite-scroll='vm.loadContent()' infinite-scroll-disabled='vm.busy' infinite-scroll-distance='2'>
+<div class="row my-content-page" infinite-scroll='vm.loadContent()' infinite-scroll-disabled='vm.busy' infinite-scroll-distance='2' ng-init="vm.list()">
   <div class="col-sm-8 my-content-left-rail">
     <!-- if no user logs in, display this message -->
     <div class="col-sm-12 my-content-item" ng-if="vm.init && !vm.user.id">
@@ -30,7 +30,10 @@
                 <div up-post-content ng-model="vm.post" required ng-show="vm.state === 'content'"></div>
               </div>
               <div class="post-new-comment-actions">
-                <button ng-disabled="form.$invalid" class="btn btn-post content-post-button btn-post-default">Post</button>
+                <button ng-disabled="form.$invalid || vm.posting" class="btn btn-post content-post-button btn-post-default" ng-click="vm.create()">
+                  <span ng-hide="vm.posting">Post</span>
+                  <span us-spinner spinner-key="spinner-1"></span>
+                </button>
 <!--                 <button type="button" analytics-on="click" analytics-event="Post Content" analytics-user="{{vm.user.nickname}}" class="btn btn-post content-post-button btn-post-default" ng-click="vm.addContent($event)" ng-disabled="vm.disabled || form.content.$error.required" ng-class="{'disabled': vm.disabled || form.content.$error.required}"> -->
 <!--                   <span ng-hide="vm.disabled">Post</span> -->
 <!--                   <span us-spinner spinner-key="spinner-1"></span> -->
