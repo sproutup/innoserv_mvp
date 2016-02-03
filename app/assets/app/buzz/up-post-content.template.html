@@ -1,25 +1,42 @@
 <div class="post-new-content-uploader">
   <div ng-show="vm.status==='select'">
-    <div class="post-new-content-uploader-method">
-      <table>
-        <tbody>
-          <tr>
-            <td><a href="#" ng-click="vm.status='write'"><img src="assets/images/settings/youtube.png"></a></td>
-            <td><a href="#" ng-click="vm.status='write'">Choose video from YouTube<span>For YouTubers, please choose the content from your channel.</span></a></td>
-          </tr>
-        </tbody>
-      </table>
+    <div ng-if="vm.youtube">
+      <div class="post-new-content-uploader-method">
+        <table>
+          <tbody>
+            <tr>
+              <td><a href="#" ng-click="vm.status='write'"><img src="assets/images/settings/youtube.png"></a></td>
+              <td><a href="#" ng-click="vm.status='write'">Choose video from YouTube<span>For YouTubers, please choose the content from your channel.</span></a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <hr>
     </div>
-    <hr>
-    <div class="post-new-content-uploader-method">
-      <table>
-        <tbody>
-          <tr>
-            <td><a href="#"><img src="assets/images/settings/url.png"></a></td>
-            <td><a href="#">Post via a URL<span>If your content is not on YouTube, please post by pasting the URL.</span></a></td>
-          </tr>
-        </tbody>
-      </table>
+    <div ng-if="vm.instagram">
+      <div class="post-new-content-uploader-method">
+        <table>
+          <tbody>
+            <tr>
+              <td><a href="#"><img src="assets/images/settings/instagram.png"></a></td>
+              <td><a href="#" >Choose photo from Instagram<span>For Instagram, please connect and choose the content from your channel.</span></a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <hr>
+    </div>
+    <div ng-if="vm.url">
+      <div class="post-new-content-uploader-method">
+        <table>
+          <tbody>
+            <tr>
+              <td><a href="#"><img src="assets/images/settings/url.png"></a></td>
+              <td><a href="#">Post via a URL<span>If your content is not on YouTube, please post by pasting the URL.</span></a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
   <!--content added -->
