@@ -1,21 +1,32 @@
-<div class="post-new-content-uploader-method">
-  <table>
-    <tbody>
-      <tr>
-        <td><a href="#"><img src="assets/images/settings/youtube.png"></a></td>
-        <td><a href="#" >Connect with YouTube<span>For YouTubers, please connect and choose the content from your channel.</span></a></td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-<hr>
-<div class="post-new-content-uploader-method">
-  <table>
-    <tbody>
-      <tr>
-        <td><a href="#"><img src="assets/images/settings/url.png"></a></td>
-        <td><a href="#">Post via a URL<span>If your content is not on YouTube, please post by pasting the URL.</span></a></td>
-      </tr>
-    </tbody>
-  </table>
+<div class="post-new-content-uploader">
+  <div ng-show="vm.status==='select'">
+    <div class="post-new-content-uploader-method">
+      <table>
+        <tbody>
+          <tr>
+            <td><a href="#" ng-click="vm.status='write'"><img src="assets/images/settings/youtube.png"></a></td>
+            <td><a href="#" ng-click="vm.status='write'">Choose video from YouTube<span>For YouTubers, please choose the content from your channel.</span></a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <hr>
+    <div class="post-new-content-uploader-method">
+      <table>
+        <tbody>
+          <tr>
+            <td><a href="#"><img src="assets/images/settings/url.png"></a></td>
+            <td><a href="#">Post via a URL<span>If your content is not on YouTube, please post by pasting the URL.</span></a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <!--content added -->
+  <div ng-show="vm.status==='write'">
+    <textarea name="content" class="form-control post-new-textarea no-resize" placeholder="Say something about your content..." required></textarea>
+    <div class="post-new-content-uploaded-file">
+      <p>Boosted Board first experience<span><a href="#" ng-click="vm.status='select'"><i class="fa fa-times-circle"></i></a></span></p>
+    </div>
+  </div>
 </div>
