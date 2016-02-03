@@ -13,12 +13,12 @@
             <p class="my-content-user">
                 <a analytics-on="click" analytics-event="Check Public Profile" analytics-user="{{vm.content.user.nickname}}" class="content-user-link" ui-sref="user.profile.buzz({ nickname: vm.content.user.nickname })">{{ vm.content.user.name }}</a>
             </p>
-            <p class="my-content-timestamp"><a ui-sref="user.singleBuzz({ id: vm.content.id })">{{ vm.content.createdAt | fromNow }}</a></p>
+            <p class="my-content-timestamp"><a ui-sref="user.singleBuzz({ id: vm.content.id })">{{ vm.content.created | fromNow }}</a></p>
             <div class="my-content-item-main">
-                <a ui-sref="user.product.detail.buzz({ slug: vm.content.product.slug })">
+<!--                 <a ui-sref="user.product.detail.buzz({ slug: vm.content.product.slug })">
                     <button class="trial-product selected-trial-product up-content-product"><i class="fa fa-tag product-post-tag"></i>{{ vm.content.product.name }}</button>
-                </a>
-                <div class="my-content-text" ng-bind-html="vm.content.body | urlify"></div>
+                </a> -->
+                <div class="my-content-text buzz-text" ng-bind-html="vm.content.body | urlify"></div>
 
                 <div class="my-content-video embedded" ng-if="vm.content.content.youtube" ng-hide="vm.content.content.tweet">
                     <iframe width="560" height="315" ng-src="{{ vm.content.content.youtube }}" frameborder="0" allowfullscreen></iframe>

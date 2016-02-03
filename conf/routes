@@ -142,8 +142,8 @@ GET           /api/file/:type/:id                                            con
 GET           /api/file/user                                                 controllers.FileController.getUserFiles
 POST          /api/file/avatar                                               controllers.FileController.addAvatar(uuid: String)
 
-GET           /api/post/:id                                                  controllers.PostController.getPost(id: Long)
-POST          /api/post                                                      controllers.PostController.addPost
+GET           /api/post                                                      controllers.PostController.list
+POST          /api/post                                                      controllers.PostController.create
 #PUT     /api/forum/posts/:id        controllers.PostController.updateProduct(id: Long)
 #DELETE  /api/forum/posts/:id        controllers.PostController.deleteProduct(id: Long)
 
