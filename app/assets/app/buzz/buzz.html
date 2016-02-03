@@ -26,30 +26,8 @@
                 <a ng-class="{'active': vm.state === 'content'}" href="#" ng-click="vm.state = 'content'"><i class="fa fa-cloud-upload"></i>Submit My Content</a>
               </div>
               <div class="my-content-new">
-                <div up-post-write ng-model="vm.post" required ng-if="vm.state === 'write'"></div>
-                <div class="post-new-content-uploader" ng-if="vm.state === 'content'">
-                  <div class="post-new-content-uploader-method">
-                    <table>
-                      <tbody>
-                        <tr>
-                          <td><a href="#"><img src="assets/images/settings/youtube.png"></a></td>
-                          <td><a href="#" >Connect with YouTube<span>For YouTubers, please connect and choose the content from your channel.</span></a></td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                  <hr>
-                  <div class="post-new-content-uploader-method">
-                    <table>
-                      <tbody>
-                        <tr>
-                          <td><a href="#"><img src="assets/images/settings/url.png"></a></td>
-                          <td><a href="#">Post via a URL<span>If your content is not on YouTube, please post by pasting the URL.</span></a></td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
+                <div up-post-write ng-model="vm.post" required ng-show="vm.state === 'write'"></div>
+                <div up-post-content ng-model="vm.post" required ng-show="vm.state === 'content'"></div>
               </div>
               <div class="post-new-comment-actions">
                 <button ng-disabled="form.$invalid" class="btn btn-post content-post-button btn-post-default">Post</button>
