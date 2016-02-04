@@ -325,10 +325,6 @@ input:-ms-input-placeholder {
   outline: 0 !important;
 }
 
-.wrapper-suggest .form-control:focus {
-  border-color: @sproutup-suggest;
-}
-
 .form-validate.ng-invalid.ng-touched {
   border: 1px solid @sproutup-error-message;
   color: @sproutup-orange;
@@ -993,6 +989,15 @@ input[type=checkbox] {
   background-color: @sproutup-superlightgrey;
   border: 1px solid @sproutup-lightgrey;
   color: @sproutup-blue;
+  box-shadow: none;
+}
+
+.add-comment-button:active,
+.add-comment-button:focus,
+.add-comment-button.active {
+  outline: 0;
+  -webkit-box-shadow: none;
+  box-shadow: none;
 }
 
 .add-comment-button.suggest {
@@ -1601,7 +1606,7 @@ p[class="hangout-countdown-unit"] {
 
 .hangout-chat-header {
   margin: 15px 0px;
-  background-color: @sproutup-veryverylightgrey;
+  background-color: @sproutup-superlightgrey;
   border: 1px solid @sproutup-lightgrey;
   text-align: center;
   padding: 25px 40px;
@@ -2509,6 +2514,12 @@ ul.company-profile-social-buttons p {
 
 .about-campaign-wrapper {
   margin: 30px 40px;
+}
+
+.suggest-page {
+  margin: 0px;
+  padding: 0px;
+  background-color: @sproutup-verylightgrey;
 }
 
 .buzz-page {
