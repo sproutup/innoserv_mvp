@@ -76,7 +76,6 @@ public class PostController extends Controller {
     }
 
     public static F.Promise<Result> list() {
-        Logger.debug("URL: " + url);
         WSRequestHolder holder = WS.url(url + "/post");
 
         final F.Promise<Result> resultPromise = holder.get().map(
@@ -89,9 +88,125 @@ public class PostController extends Controller {
         return resultPromise;
     }
 
-    public static F.Promise<Result> get(String id) {
-        Logger.debug("URL: " + url);
+    public static F.Promise<Result> findOne(String id) {
         WSRequestHolder holder = WS.url(url + "/post/" + id);
+
+        final F.Promise<Result> resultPromise = holder.get().map(
+                new F.Function<WSResponse, Result>() {
+                    public Result apply(WSResponse response) {
+                        return ok(response.asJson());
+                    }
+                }
+        );
+        return resultPromise;
+    }
+
+    public static F.Promise<Result> delete(String id) {
+        WSRequestHolder holder = WS.url(url + "/post/" + id);
+
+        final F.Promise<Result> resultPromise = holder.delete().map(
+                new F.Function<WSResponse, Result>() {
+                    public Result apply(WSResponse response) {
+                        return ok(response.asJson());
+                    }
+                }
+        );
+        return resultPromise;
+    }
+
+    public static F.Promise<Result> getTimeline() {
+        WSRequestHolder holder = WS.url(url + "/post/timeline");
+
+        final F.Promise<Result> resultPromise = holder.get().map(
+                new F.Function<WSResponse, Result>() {
+                    public Result apply(WSResponse response) {
+                        return ok(response.asJson());
+                    }
+                }
+        );
+        return resultPromise;
+    }
+
+    public static F.Promise<Result> getTimelineRange(int start) {
+        WSRequestHolder holder = WS.url(url + "/post/timeline/" + start);
+
+        final F.Promise<Result> resultPromise = holder.get().map(
+                new F.Function<WSResponse, Result>() {
+                    public Result apply(WSResponse response) {
+                        return ok(response.asJson());
+                    }
+                }
+        );
+        return resultPromise;
+    }
+
+    public static F.Promise<Result> getMyTimeline() {
+        WSRequestHolder holder = WS.url(url + "/post/timeline/me");
+
+        final F.Promise<Result> resultPromise = holder.get().map(
+                new F.Function<WSResponse, Result>() {
+                    public Result apply(WSResponse response) {
+                        return ok(response.asJson());
+                    }
+                }
+        );
+        return resultPromise;
+    }
+
+    public static F.Promise<Result> getMyTimelineRange(int start) {
+        WSRequestHolder holder = WS.url(url + "/post/timeline/me/" + start);
+
+        final F.Promise<Result> resultPromise = holder.get().map(
+                new F.Function<WSResponse, Result>() {
+                    public Result apply(WSResponse response) {
+                        return ok(response.asJson());
+                    }
+                }
+        );
+        return resultPromise;
+    }
+
+    public static F.Promise<Result> getUserTimeline(String userId) {
+        WSRequestHolder holder = WS.url(url + "/post/timeline/user/" + userId);
+
+        final F.Promise<Result> resultPromise = holder.get().map(
+                new F.Function<WSResponse, Result>() {
+                    public Result apply(WSResponse response) {
+                        return ok(response.asJson());
+                    }
+                }
+        );
+        return resultPromise;
+    }
+
+    public static F.Promise<Result> getUserTimelineRange(String userId, int start) {
+        WSRequestHolder holder = WS.url(url + "/post/timeline/user/" + userId + "/" + start);
+
+        final F.Promise<Result> resultPromise = holder.get().map(
+                new F.Function<WSResponse, Result>() {
+                    public Result apply(WSResponse response) {
+                        return ok(response.asJson());
+                    }
+                }
+        );
+        return resultPromise;
+    }
+
+    public static F.Promise<Result> getGroupTimeline(String groupId) {
+        WSRequestHolder holder = WS.url(url + "/post/timeline/group/" + groupId);
+
+        final F.Promise<Result> resultPromise = holder.get().map(
+                new F.Function<WSResponse, Result>() {
+                    public Result apply(WSResponse response) {
+                        return ok(response.asJson());
+                    }
+                }
+        );
+        return resultPromise;
+    }
+
+    public static F.Promise<Result> getGroupTimelineRange(String groupId, int start) {
+        WSRequestHolder holder = WS.url(url + "/post/timeline/group/" + groupId + "/" + start);
 
         final F.Promise<Result> resultPromise = holder.get().map(
                 new F.Function<WSResponse, Result>() {
