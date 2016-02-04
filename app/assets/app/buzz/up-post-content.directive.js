@@ -31,10 +31,35 @@ function upPostContent() {
 
     ngModel.$valid = false;
     vm.status = 'select';
+    vm.selectVideo = function(video) {
+      vm.status = 'write';
+      vm.selectedVideo = video;
+    };
+
+    vm.removeVideo = function() {
+      vm.selectedVideo = {};
+      vm.status = 'select';
+    };
 
     vm.model = ngModel;
     vm.post.body = ngModel.body;
     vm.post.group = attrs.group;
+
+    // Dummy data
+    vm.videos = [
+      {
+        name: 'Boosted Review'
+      },
+      {
+        name: 'How to Whip'
+      },
+      {
+        name: 'How to Crank Dat'
+      },
+      {
+        name: 'How to Dab'
+      }
+    ];
 
     ngModel.$render = function() {
       element.val(ngModel.$modelValue);

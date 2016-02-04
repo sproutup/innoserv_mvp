@@ -197,16 +197,7 @@
                   </table>
                 </div>
                 <div class="post-new-content-select-file">
-                  <a href="#"><p>Boosted Board first experience</p></a>
-                  <p>What do you think about the best drones out there?</p>
-                  <p>iPhone 6s unboxing!</p>
-                  <p>Nexus 5 full review</p>
-                  <p>Best Sleep Tracker - Sense, made by Hello</p>
-                  <p>Boosted Board first experience</p>
-                  <p>What do you think about the best drones out there?</p>
-                  <p>iPhone 6s unboxing!</p>
-                  <p>Nexus 5 full review</p>
-                  <p>Best Sleep Tracker - Sense, made by Hello</p>
+                  <a href="#" ng-repeat="video in vm.videos" ng-click="vm.selectVideo()"><p>{{ video.name }}</p></a>
                 </div>
               </div>
   					</div>
