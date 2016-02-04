@@ -75,5 +75,9 @@ function config($stateProvider) {
         .state('user.theme.mocks.notification', {
           url: '/notification',
           templateUrl: 'assets/app/theme/mocks/notification.html'
+        })
+        .state('user.theme.mocks.buzz', {
+          url: '/buzz',
+          templateUrl: 'assets/app/theme/mocks/buzz.html'
         });
 }

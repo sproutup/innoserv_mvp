@@ -325,10 +325,6 @@ input:-ms-input-placeholder {
   outline: 0 !important;
 }
 
-.wrapper-suggest .form-control:focus {
-  border-color: @sproutup-suggest;
-}
-
 .form-validate.ng-invalid.ng-touched {
   border: 1px solid @sproutup-error-message;
   color: @sproutup-orange;
@@ -956,6 +952,25 @@ input[type=checkbox] {
   bottom: 7px;
 }
 
+.label-activity-type-small {
+  color: white;
+  font-weight: 700;
+  font-size: 8.5pt;
+  padding: 4px 8px 5px;
+}
+
+.label-activity-type-small.contest {
+  background-color: @sproutup-green;
+}
+
+.label-activity-type-small.trial {
+  background-color: @sproutup-salmon;
+}
+
+.label-activity-type-small.hangout {
+  background-color: @sproutup-purple;
+}
+
 .content-comment-row {
   margin-left: 0px !important;
 }
@@ -972,24 +987,29 @@ input[type=checkbox] {
   font-weight: 800;
   padding-top: 10px;
   padding-bottom: 10px;
-  margin-top: 1px;
+  margin: 0px;
   font-size: 8.5pt;
   font-weight: 700pt;
-  background-color: @sproutup-lightergrey;
-  color: @sproutup-blue;
-  border: none;
-}
-
-.add-comment-button:focus {
-  outline:0;
-}
-
-.add-comment-button:focus {
+  background-color: @sproutup-superlightgrey;
   border: 1px solid @sproutup-lightgrey;
+  color: @sproutup-blue;
+  box-shadow: none;
+}
+
+.add-comment-button:active,
+.add-comment-button:focus,
+.add-comment-button.active {
+  outline: 0;
+  -webkit-box-shadow: none;
+  box-shadow: none;
 }
 
 .add-comment-button.suggest {
   color: @sproutup-suggest;
+}
+
+.add-comment-button.hangout {
+  color: @sproutup-purple;
 }
 
 .add-comment-button.buzz {
@@ -1451,7 +1471,7 @@ input[type=checkbox] {
 
 .hangout-banner {
   min-height: 450px;
-  margin: 70px 0px 20px;
+  margin: 70px 0px 0px;
   background-position:center;
   background-repeat:no-repeat;
   background-size: cover;
@@ -1590,7 +1610,8 @@ p[class="hangout-countdown-unit"] {
 
 .hangout-chat-header {
   margin: 15px 0px;
-  background-color: @sproutup-lightergrey;
+  background-color: @sproutup-superlightgrey;
+  border: 1px solid @sproutup-lightgrey;
   text-align: center;
   padding: 25px 40px;
 }
@@ -2207,7 +2228,7 @@ p[class="hangout-countdown-unit"] {
   margin-top: 10px;
   text-align: left;
   color: @main-text;
-  padding: 15px 15px 25px;
+  padding: 20px 15px 25px;
 }
 
 .campaign-join-form .sponsorship .sponsorship-question-title {
@@ -2219,7 +2240,7 @@ p[class="hangout-countdown-unit"] {
 
 .campaign-join-form .sponsorship .sponsorship-question-answer {
   font-weight: 700;
-  color: @sproutup-blue;
+  color: @sproutup-green;
   font-size: 13pt;
 }
 
@@ -2497,6 +2518,30 @@ ul.company-profile-social-buttons p {
 
 .about-campaign-wrapper {
   margin: 30px 40px;
+}
+
+.suggest-page {
+  margin: 0px;
+  padding: 0px;
+  background-color: @sproutup-verylightgrey;
+}
+
+.buzz-page {
+	margin: 0px;
+  padding: 0px;
+  background-color: @sproutup-verylightgrey;
+}
+
+.buzz-wrapper {
+  max-width: 1100px;
+  margin: 0px auto;
+  padding: 90px 0px;
+}
+
+.hangout-chat-section {
+  margin: 0px;
+  padding: 0px;
+  background-color: @sproutup-verylightgrey;
 }
 
 .campaign-buzz-wrapper {
@@ -2902,12 +2947,29 @@ p[class="campaign-countdown-unit"] {
   border: 1px solid @form-border;
   border-radius: 0px;
   text-align: left;
-  padding: 5px 10px;
+  padding: 10px;
   margin: 0px;
 }
 
-.post-new-content-uploader-method {
+.post-new-content-tip {
   padding: 10px 20px;
+  background-color: @sproutup-orange;
+  color: white;
+  font-weight: 400;
+  font-size: 10pt;
+  line-height: 1.6;
+  opacity: 0.7;
+}
+
+.post-new-content-tip i {
+  margin-right: 12px;
+}
+
+.post-new-content-uploader-method {
+  padding: 5px 10px;
+  color: @main-text-1;
+  font-weight: 700;
+  font-size: 10pt;
 }
 
 .post-new-content-uploader-method a {
@@ -2937,26 +2999,27 @@ p[class="campaign-countdown-unit"] {
 
 .post-new-content-select-file {
   border-top: 1px dashed @form-border;
-  margin: 0px;
-  padding: 20px 10px;
+  margin: 10px 0px 0px;
+  padding: 15px 5px;
   overflow: auto;
   -webkit-overflow-scrolling: touch;
   -ms-overflow-style: none;
-  height: 180px;
+  height: 200px;
 }
 
 .post-new-content-select-file p {
-  padding: 0px 10px 9px;
-  margin: 0px;
+  background-color: @sproutup-verylightgrey;
+  padding: 10px 15px;
+  margin: 0px 0px 5px;
   color: @main-text-1;
   font-weight: 400;
-  font-size: 11pt;
+  font-size: 10pt;
   line-height: 1.6;
 }
 
-.post-new-content-select-file p a {
-  color: @sproutup-aqua;
-  padding-right: 12px;
+.post-new-content-select-file a:hover p {
+  background-color: @sproutup-aqua;
+  color: white;
 }
 
 .post-new-content-uploaded-file {
@@ -3021,6 +3084,10 @@ p[class="campaign-countdown-unit"] {
   background-color: @sproutup-aqua-hover;
 }
 
+.buzz-user {
+  padding-left: 0px !important;
+}
+
 // media queries
 @media (min-width: 1200px) {
   .product-trial-stage-avatar {
@@ -3037,6 +3104,10 @@ p[class="campaign-countdown-unit"] {
 }
 
 @media (max-width:767px) {
+  .buzz-text {
+    padding-top: 30px !important;
+  }
+
   .logo {
     width: 120px;
   }

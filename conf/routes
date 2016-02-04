@@ -142,8 +142,19 @@ GET           /api/file/:type/:id                                            con
 GET           /api/file/user                                                 controllers.FileController.getUserFiles
 POST          /api/file/avatar                                               controllers.FileController.addAvatar(uuid: String)
 
-GET           /api/post/:id                                                  controllers.PostController.getPost(id: Long)
-POST          /api/post                                                      controllers.PostController.addPost
+GET           /api/post                                                      controllers.PostController.list
+POST          /api/post                                                      controllers.PostController.create
+GET           /api/post/:id                                                  controllers.PostController.findOne(id: String)
+DELETE        /api/post/:id                                                  controllers.PostController.delete(id: String)
+GET           /api/post/timeline/                                            controllers.PostController.getTimeline
+POST          /api/post/timeline/:start                                      controllers.PostController.getTimelineRange(start: Int)
+GET           /api/post/timeline/me                                          controllers.PostController.getMyTimeline
+POST          /api/post/timeline/me/:start                                   controllers.PostController.getMyTimelineRange(start: Int)
+GET           /api/post/timeline/user/:userId                                controllers.PostController.getUserTimeline(userId: String)
+POST          /api/post/timeline/user/:userId/:start                         controllers.PostController.getUserTimelineRange(userId: String, start: Int)
+GET           /api/post/timeline/group/:groupId                              controllers.PostController.getGroupTimeline(groupId: String)
+POST          /api/post/timeline/group/:groupId/:start                       controllers.PostController.getGroupTimelineRange(groupId: String, start: Int)
+
 #PUT     /api/forum/posts/:id        controllers.PostController.updateProduct(id: Long)
 #DELETE  /api/forum/posts/:id        controllers.PostController.deleteProduct(id: Long)
 
@@ -161,7 +172,7 @@ POST          /api/likes/:type/:id                                           con
 DELETE        /api/likes/:type/:id                                           controllers.LikesController.deleteLikes(id: Long, type: String, user_id: Long)
 
 GET           /api/comment/:type/:id                                         controllers.CommentController.getComments(id: Long, type: String)
-POST          /api/comment/:type/:id		                                 controllers.CommentController.addComment(id: Long, type: String)
+POST          /api/comment/:type/:id                                         controllers.CommentController.addComment(id: Long, type: String)
 DELETE        /api/comment/:type/:id/:commentId                              controllers.CommentController.deleteComment(id: Long, type: String, commentId: Long)
 
 GET           /api/follow/:type/:id                                          controllers.FollowController.isFollowing(id: Long, type: String)
@@ -186,14 +197,14 @@ GET           /media/image/x/:h/:image                                       con
 GET           /media/image/:w/:h/:image                                      controllers.Application.image(image: String, w: Int, h: Int)
 GET           /media/image/:image                                            controllers.Application.image(image: String, w: Int ?=-1,        h:        Int ?=-1)
 
-GET			  /api/campaign/getActive/:productId							 controllers.CampaignController.getActiveCampaign(productId: Long)
-GET			  /api/campaign/getShortenURL/:slug								 controllers.CampaignController.getCampaignURL(slug: String)
-GET			  /api/campaign/getInfo/:productId								 controllers.CampaignController.getCampaignInfo(productId: Long)
-POST		  /api/campaign/processShare									 controllers.CampaignController.processShare()
+GET           /api/campaign/getActive/:productId                             controllers.CampaignController.getActiveCampaign(productId: Long)
+GET           /api/campaign/getShortenURL/:slug                              controllers.CampaignController.getCampaignURL(slug: String)
+GET           /api/campaign/getInfo/:productId                               controllers.CampaignController.getCampaignInfo(productId: Long)
+POST          /api/campaign/processShare                                     controllers.CampaignController.processShare()
 
-GET			  /api/contest/getActive/:productId							 	 controllers.ContestController.getActiveContest(productId: Long)
-GET			  /api/contest/getShortenURL/:slug								 controllers.ContestController.getContestURL(slug: String)
-POST		  /api/contest/processShare									 	 controllers.ContestController.processShare()
+GET           /api/contest/getActive/:productId                              controllers.ContestController.getActiveContest(productId: Long)
+GET           /api/contest/getShortenURL/:slug                               controllers.ContestController.getContestURL(slug: String)
+POST          /api/contest/processShare                                      controllers.ContestController.processShare()
 
 GET           /api/creator/campaign                                          controllers.CreatorApiController.campaign_list()
 GET           /api/creator/campaign/:campaignId                              controllers.CreatorApiController.campaign_view(campaignId: String)
@@ -213,32 +224,32 @@ GET           /api/analytics/user/:userId/reach/:provider                    con
 PUT           /api/analytics/user/:userId/reach/:provider                    controllers.AnalyticsController.updateReach(provider: String, userId: String)
 
 # Internal Administration Only - Not visible to public
-GET           /adminstuff                                            		 controllers.ReportAdminController.home()
+GET           /adminstuff                                                    controllers.ReportAdminController.home()
 GET           /adminstuff/product                                            controllers.ProductAdministrationController.index()
 GET           /adminstuff/product/list                                       controllers.ProductAdministrationController.list(page: Integer ?= 0)
 GET           /adminstuff/product/listTrials                                 controllers.ProductAdministrationController.listTrials(page: Integer ?= 0)
 GET           /adminstuff/product/listInfluencerTrials                       controllers.ProductAdministrationController.listInfluencerTrials(page: Integer ?= 0)
-GET           /adminstuff/product/listAllUserTrials                       	 controllers.ProductAdministrationController.listAllUserTrials(page: Integer ?= 0)
+GET           /adminstuff/product/listAllUserTrials                          controllers.ProductAdministrationController.listAllUserTrials(page: Integer ?= 0)
 POST          /adminstuff/product/list                                       controllers.ProductAdministrationController.save()
 GET           /adminstuff/product/new                                        controllers.ProductAdministrationController.newProduct()
 GET           /adminstuff/product/:slug                                      controllers.ProductAdministrationController.details(slug: models.Product)
 DELETE        /adminstuff/product/:id                                        controllers.ProductAdministrationController.delete(id: Long)
-#GET  /adminstuff/product/picture/:ean         								 controllers.ProductAdministrationController.picture(ean)
+#GET  /adminstuff/product/picture/:ean                                       controllers.ProductAdministrationController.picture(ean)
 
-#GET   /adminstuff/company/uploadmedia    		controllers.MediaManagement.uploadCompanyMedia()
+#GET   /adminstuff/company/uploadmedia          controllers.MediaManagement.uploadCompanyMedia()
 GET           /adminstuff/company/uploadmedia/:companyslug/:mediaType        controllers.MediaManagement.uploadCompanyMedia(companyslug : String, mediaType : String)
 POST          /adminstuff/company/domediaupload                              controllers.MediaManagement.doCompanyMediaUpload()
 GET           /adminstuff/uploadmedia                                        controllers.MediaManagement.upload()
 POST          /adminstuff/doupload                                           controllers.MediaManagement.doUpload()
-GET           /adminstuff/buzzpost                                    		 controllers.SocialMediaPostAdminController.newPost()
+GET           /adminstuff/buzzpost                                           controllers.SocialMediaPostAdminController.newPost()
 POST          /adminstuff/dosocialmediapost                                  controllers.SocialMediaPostAdminController.saveSocialMediaPost()
-POST          /adminstuff/dobuzzpost                                  		 controllers.SocialMediaPostAdminController.addPost()
+POST          /adminstuff/dobuzzpost                                         controllers.SocialMediaPostAdminController.addPost()
 
-GET           /adminstuff/user                                            	 controllers.ReportAdminController.index()
-GET           /adminstuff/user/list                                       	 controllers.ReportAdminController.userList(page: Integer ?= 0)
+GET           /adminstuff/user                                               controllers.ReportAdminController.index()
+GET           /adminstuff/user/list                                          controllers.ReportAdminController.userList(page: Integer ?= 0)
 GET           /adminstuff/user/influencerlist                                controllers.ReportAdminController.influencerList()
-POST          /adminstuff/user/updateRole                  					 controllers.ReportAdminController.updateUserRole()
-GET           /adminstuff/trial/list                                       	 controllers.ReportAdminController.trialList(page: Integer ?= 0)
+POST          /adminstuff/user/updateRole                                    controllers.ReportAdminController.updateUserRole()
+GET           /adminstuff/trial/list                                         controllers.ReportAdminController.trialList(page: Integer ?= 0)
 GET           /adminstuff/influencer_trial/alllist                           controllers.ReportAdminController.allTrialList(page: Integer ?= 0)
 GET           /adminstuff/influencer_trial/list                              controllers.ReportAdminController.influencerTrialList(page: Integer ?= 0)
 POST          /adminstuff/influencer_trial/updateStatus                      controllers.ReportAdminController.updateTrialStatus()
@@ -247,16 +258,16 @@ GET           /adminstuff/suggest/list                                       con
 GET           /adminstuff/earlyAccess/list                                   controllers.ReportAdminController.earlyAccessRequestList(page: Integer ?= 0)
 GET           /adminstuff/campaign/list                                      controllers.CampaignController.list()
 GET           /adminstuff/campaign/new                                       controllers.CampaignController.newCampaign()
-POST          /adminstuff/campaign/save                                  	 controllers.CampaignController.save()
+POST          /adminstuff/campaign/save                                      controllers.CampaignController.save()
 GET           /adminstuff/campaign/:id                                       controllers.CampaignController.details(id: Long)
-GET           /adminstuff/content/list                                   	 controllers.ReportAdminController.contentList(page: Integer ?= 0)
-POST          /adminstuff/content/updateContentOG                      		 controllers.ReportAdminController.updateContentOG()
+GET           /adminstuff/content/list                                       controllers.ReportAdminController.contentList(page: Integer ?= 0)
+POST          /adminstuff/content/updateContentOG                            controllers.ReportAdminController.updateContentOG()
 GET           /adminstuff/user/updateKloutScore/:id                          controllers.ReportAdminController.updateKloutScore(id: Long)
 GET           /adminstuff/user/addKloutScores                                controllers.ReportAdminController.addKloutScores()
 GET           /adminstuff/user/updateAllKloutScores                          controllers.ReportAdminController.updateAllKloutScores()
 GET           /adminstuff/contest/list                                      controllers.ContestController.list()
 GET           /adminstuff/contest/new                                       controllers.ContestController.newContest()
-POST          /adminstuff/contest/save                                  	 controllers.ContestController.save()
+POST          /adminstuff/contest/save                                       controllers.ContestController.save()
 GET           /adminstuff/contest/:id                                       controllers.ContestController.details(id: Long)
 
 # Mockups
@@ -283,10 +294,10 @@ GET           /mockups/trial_status                                          con
 GET           /                                                              controllers.Application.main(any = "none")
 GET           /about                                                         controllers.Application.main_about()
 GET           /community                                                     controllers.Application.main_community()
-GET           /creator             											 controllers.Application.main_creator()
-GET           /news  														 controllers.Application.main_news()
-GET           /privacy  													 controllers.Application.main_privacy()
-GET           /terms  														 controllers.Application.main_terms()
+GET           /creator                                                       controllers.Application.main_creator()
+GET           /news                                                          controllers.Application.main_news()
+GET           /privacy                                                       controllers.Application.main_privacy()
+GET           /terms                                                         controllers.Application.main_terms()
 GET           /product/:slug                                                 controllers.Application.main_product_about(slug: String)
 GET           /product/:slug/about                                           controllers.Application.main_product_about(slug: String)
 GET           /product/:slug/bar                                             controllers.Application.main_product_bar(slug: String)
