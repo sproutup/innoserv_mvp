@@ -6,7 +6,7 @@ function upPostWrite() {
   var directive = {
     require: '?ngModel',
     link: linkFunc,
-    template: '<textarea ng-model="vm.post.body" name="content" placeholder="Write your post here..." class="form-control post-new-textarea link" required></textarea>'
+    template: '<textarea ng-model="vm.post.body" name="content" placeholder="What do you have in mind? A cool product video? Good stuff for others to bite on?" class="form-control post-new-textarea link" required></textarea>'
   };
 
   return directive;

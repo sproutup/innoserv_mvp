@@ -2,82 +2,82 @@
 Handle product with no image
 Create seperate pages for individual suggested products -->
 
-<div class="wrapper-suggest" infinite-scroll='vm.loadProducts()' infinite-scroll-disabled='vm.busy' infinite-scroll-distance='2'>
-    <div class="row my-content-page">
-        <div class="col-sm-8 my-content-left-rail">
-            <div class="col-sm-12 my-content-item">
-                <div class="my-content-headsup">
-                    <p class="my-content-headsup-text">Everyday we're scouting awesome products for our community. Now, you can help us by suggesting!</p>
-                    <a class="btn btn-lg sproutup-btn-md-main suggest" subject-present="vm.toggleSuggestProduct()" state="user.suggest">Suggest new product</a>
-                </div>
-            </div>
+<div class="suggest-page" infinite-scroll='vm.loadProducts()' infinite-scroll-disabled='vm.busy' infinite-scroll-distance='2'>
+  <div class="row buzz-wrapper">
+    <div class="col-sm-8 my-content-left-rail">
+      <div class="col-sm-12 my-content-item">
+        <div class="my-content-headsup">
+          <p class="my-content-headsup-text">Everyday we're scouting awesome products for our community. Now, you can help us by suggesting!</p>
+          <a class="btn btn-lg sproutup-btn-md-main suggest" subject-present="vm.toggleSuggestProduct()" state="user.suggest">Suggest new product</a>
+        </div>
+      </div>
 
-            <!-- new suggestion -->
-            <div class="add-content-wrapper" ng-if="vm.suggestingProduct">
-                <div class="col-sm-12 my-content-item">
-                    <div class="col-sm-2 my-content-user-avatar post-content-user">
-                        <a ui-sref="#">
-                            <img class="img-responsive my-content-user-img img-center" src="{{ vm.user.avatarUrl }}">
-                        </a>
-                    </div>
-                    <div class="col-sm-10 my-content-body">
-                        <div class="my-content-item--summary">
-                            <p class="my-content-user">
-                                <a ui-sref="#" class="content-user-link">{{ vm.user.name }}</a>
-                            </p>
-                            <form name="form" novalidate>
-                                <div class="my-content-new">
-                                    <input class="form-control post-new-textbox" placeholder="Product name" ng-model="vm.suggestProductName">
-                                    <textarea name="content" placeholder="Please paste the URL of the product here" class="form-control post-new-textarea suggest link" ng-model="vm.suggestedProductUrl" required></textarea>
-                                </div>
-                                <div class="post-new-comment-actions">
-                                    <button type="button" analytics-on="click" analytics-event="Post Content" analytics-user="{{vm.user.nickname}}" class="btn btn-post content-post-button btn-post-default" ng-click="vm.suggestProduct($event)" ng-disabled="vm.disabled || form.content.$error.required" ng-class="{'disabled': vm.disabled || form.content.$error.required}">
-                                        <span ng-hide="vm.disabled">Post</span>
-                                        <span us-spinner spinner-key="spinner-4"></span>
-                                        <span class="signup-login-form--error-message" style="margin-left: 30px" ng-if="vm.error">Make sure you entered a valid link.</span>
-                                    </button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
+      <!-- new suggestion -->
+      <div class="add-content-wrapper" ng-if="vm.suggestingProduct">
+        <div class="col-sm-12 my-content-item">
+          <div class="col-sm-2 my-content-user-avatar post-user-avatar">
+            <a ui-sref="#">
+              <img class="img-responsive my-content-user-img img-center" src="{{ vm.user.avatarUrl }}">
+            </a>
+          </div>
+          <div class="col-sm-10 my-content-body">
+            <div class="my-content-item--summary">
+              <p class="my-content-user">
+                <a ui-sref="#" class="content-user-link">{{ vm.user.name }}</a>
+              </p>
+              <form name="form" novalidate>
+                <div class="my-content-new">
+                  <input class="form-control post-new-textbox" placeholder="Product name" ng-model="vm.suggestProductName">
+                  <textarea name="content" placeholder="Please paste the URL of the product here" class="form-control post-new-textarea suggest link" ng-model="vm.suggestedProductUrl" required></textarea>
                 </div>
+                <div class="post-new-comment-actions">
+                  <button type="button" analytics-on="click" analytics-event="Post Content" analytics-user="{{vm.user.nickname}}" class="btn btn-post content-post-button btn-post-default" ng-click="vm.suggestProduct($event)" ng-disabled="vm.disabled || form.content.$error.required" ng-class="{'disabled': vm.disabled || form.content.$error.required}">
+                    <span ng-hide="vm.disabled">Post</span>
+                    <span us-spinner spinner-key="spinner-4"></span>
+                    <span class="signup-login-form--error-message" style="margin-left: 30px" ng-if="vm.error">Make sure you entered a valid link.</span>
+                  </button>
+                </div>
+              </form>
             </div>
+          </div>
+        </div>
+      </div>
 
-            <!-- product list -->
-            <div class="col-sm-12 my-content-item">
-                <!-- content blurb -->
-                <up-suggest ng-repeat="product in vm.products" product="product"></up-suggest>
-            </div>
+      <!-- product list -->
+      <div class="col-sm-12 my-content-item">
+        <!-- content blurb -->
+        <up-suggest ng-repeat="product in vm.products" product="product"></up-suggest>
+      </div>
+    </div>
+
+    <div class="col-sm-4 my-content-right-rail">
+      <!-- info -->
+      <div class="my-content-info-header">
+        <p>WHAT IS IT</p>
+      </div>
+      <div class="my-content-info-body">
+        <h3><i class="fa fa-star"></i>Be a star scout</h3>
+        <p>Stumble upon cool products? Post them here and share with your community.</p>
+        <h3><i class="fa fa-gift"></i>Get perks</h3>
+        <p>We'll pick the best suggestions (based on high number of votes received) to include on SproutUp. Whoever suggested the products we pick will receive a surprise perk from us.</p>
+      </div>
+      <div class="my-content-info-header">
+        <p>WHAT TO POST</p>
+      </div>
+      <div class="my-content-info-body">
+        <p>Our community loves new, popular and rad products. Post products that you're genuinely interested in and you'd love to try out by yourself. Or something your friend, spouse, a family member would buy.
+          <p>These could be from emerging tech like wearables, hoverboards, drones, smart devices, speakers, video games, apps, VR gears and so forth. </p>
+
+          <p>Or things from non-tech sector, which is something we would like to experiment with - like sporting goods, cool drinks, fashion accessories, health and wellness stuff or anything that could help build a broader SproutUp community. </p>
+
+          <p>We like products that are market ready or getting ready to be released soon.</p>
+
+          <p>Please do not post irrelevant things.</p>
+
         </div>
 
-        <div class="col-sm-4 my-content-right-rail">
-            <!-- info -->
-            <div class="my-content-info-header">
-                <p>WHAT IS IT</p>
-            </div>
-            <div class="my-content-info-body">
-                <h3><i class="fa fa-star"></i>Be a star scout</h3>
-                <p>Stumble upon cool products? Post them here and share with your community.</p>
-                <h3><i class="fa fa-gift"></i>Get perks</h3>
-                <p>We'll pick the best suggestions (based on high number of votes received) to include on SproutUp. Whoever suggested the products we pick will receive a surprise perk from us.</p>
-            </div>
-            <div class="my-content-info-header">
-                <p>WHAT TO POST</p>
-            </div>
-            <div class="my-content-info-body">
-                <p>Our community loves new, popular and rad products. Post products that you're genuinely interested in and you'd love to try out by yourself. Or something your friend, spouse, a family member would buy.
-                <p>These could be from emerging tech like wearables, hoverboards, drones, smart devices, speakers, video games, apps, VR gears and so forth. </p>
 
-                <p>Or things from non-tech sector, which is something we would like to experiment with - like sporting goods, cool drinks, fashion accessories, health and wellness stuff or anything that could help build a broader SproutUp community. </p>
-
-                <p>We like products that are market ready or getting ready to be released soon.</p>
-
-                <p>Please do not post irrelevant things.</p>
-
-            </div>
-
-
-        </div>
+      </div>
 
     </div>
-</div>
+  </div>

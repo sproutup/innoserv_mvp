@@ -1,79 +1,77 @@
-<div class="row my-content-page" infinite-scroll='vm.loadContent()' infinite-scroll-disabled='vm.busy' infinite-scroll-distance='2' ng-init="vm.list()">
-  <div class="col-sm-8 my-content-left-rail">
-    <!-- if no user logs in, display this message -->
-    <div class="col-sm-12 my-content-item" ng-if="vm.init && !vm.user.id">
-      <div class="my-content-headsup">
-        <p class="my-content-headsup-text">It sounds obvious, but <a subject-present state="user.buzz" href="#">log in</a> is required for posting anything.</p>
-      </div>
-    </div>
-    <div class="add-content-wrapper" ng-if="vm.init">
-      <div class="col-sm-12 my-content-item">
-        <!-- user photo -->
-        <div class="col-sm-2 my-content-user-avatar post-content-user">
-          <a ui-sref="user.profile.buzz({ nickname: vm.user.nickname })">
-            <img class="img-responsive my-content-user-img img-center" ng-src="{{ vm.user.avatarUrl }}">
-          </a>
+<div class="buzz-page">
+  <div class="row buzz-wrapper" infinite-scroll='vm.loadContent()' infinite-scroll-disabled='vm.busy' infinite-scroll-distance='2' ng-init="vm.list()">
+    <div class="col-sm-8 my-content-left-rail">
+      <!-- if no user logs in, display this message -->
+      <div class="col-sm-12 my-content-item" ng-if="vm.init && !vm.user.id">
+        <div class="my-content-headsup">
+          <p class="my-content-headsup-text">It sounds obvious, but <a subject-present state="user.buzz" href="#">log in</a> is required for posting anything.</p>
         </div>
-        <!-- content thumbnail -->
-        <div class="col-sm-10 my-content-body">
-          <div class="my-content-item--summary">
-            <form name="form" novalidate>
-              <p class="my-content-user buzz-user">
-                <a ui-sref="user.profile.buzz({nickname: vm.user.nickname})">{{ vm.user.name}}</a>
-              </p>
-              <div class="post-new-content-selector" ng-init="vm.state = 'write'">
-                <a ng-class="{'active': vm.state === 'write'}" href="#" ng-click="vm.state = 'write'"><i class="fa fa-pencil-square-o"></i>Write Something</a>
-                <a ng-class="{'active': vm.state === 'content'}" href="#" ng-click="vm.state = 'content'"><i class="fa fa-cloud-upload"></i>Submit My Content</a>
-              </div>
-              <div class="my-content-new">
-                <div up-post-write ng-model="vm.post" required ng-show="vm.state === 'write'"></div>
-                <div up-post-content ng-model="vm.post" networks="yt, ig, url" required ng-show="vm.state === 'content'"></div>
-              </div>
-              <div class="post-new-comment-actions">
-                <button ng-disabled="form.$invalid || vm.posting" class="btn btn-post content-post-button btn-post-default" ng-click="vm.create()">
-                  <span ng-hide="vm.posting">Post</span>
-                  <span us-spinner spinner-key="spinner-1"></span>
-                </button>
-<!--                 <button type="button" analytics-on="click" analytics-event="Post Content" analytics-user="{{vm.user.nickname}}" class="btn btn-post content-post-button btn-post-default" ng-click="vm.addContent($event)" ng-disabled="vm.disabled || form.content.$error.required" ng-class="{'disabled': vm.disabled || form.content.$error.required}"> -->
-<!--                   <span ng-hide="vm.disabled">Post</span> -->
-<!--                   <span us-spinner spinner-key="spinner-1"></span> -->
-<!--                 </button> -->
-              </div>
-            </form>
+      </div>
+      <div class="add-content-wrapper" ng-if="vm.init">
+        <div class="col-sm-12 my-content-item">
+          <!-- user photo -->
+          <div class="col-sm-2 my-content-user-avatar post-content-user">
+            <a ui-sref="user.profile.buzz({ nickname: vm.user.nickname })">
+              <img class="img-responsive my-content-user-img img-center" ng-src="{{ vm.user.avatarUrl }}">
+            </a>
+          </div>
+          <!-- content thumbnail -->
+          <div class="col-sm-10 my-content-body">
+            <div class="my-content-item--summary">
+              <form name="form" novalidate>
+                <p class="my-content-user buzz-user">
+                  <a ui-sref="user.profile.buzz({nickname: vm.user.nickname})">{{ vm.user.name}}</a>
+                </p>
+                <div class="post-new-content-selector" ng-init="vm.state = 'write'">
+                  <a ng-class="{'active': vm.state === 'write'}" href="#" ng-click="vm.state = 'write'"><i class="fa fa-pencil-square-o"></i>Write Something</a>
+                  <a ng-class="{'active': vm.state === 'content'}" href="#" ng-click="vm.state = 'content'"><i class="fa fa-cloud-upload"></i>Submit My Content</a>
+                </div>
+                <div class="my-content-new">
+                  <div up-post-write ng-model="vm.post" required ng-show="vm.state === 'write'"></div>
+                  <div up-post-content ng-model="vm.post" networks="yt, ig, url" required ng-show="vm.state === 'content'"></div>
+                </div>
+                <div class="post-new-comment-actions">
+                  <button ng-disabled="form.$invalid || vm.posting" class="btn btn-post content-post-button btn-post-default" ng-click="vm.create()">
+                    <span ng-hide="vm.posting">Post</span>
+                    <span us-spinner spinner-key="spinner-1"></span>
+                  </button>
+                </div>
+              </form>
+            </div>
           </div>
         </div>
       </div>
+      <up-content ng-repeat="item in vm.content" content="item" state="user.buzz"></up-content>
     </div>
-    <up-content ng-repeat="item in vm.content" content="item" state="user.buzz"></up-content>
-  </div>
-  <div class="col-sm-4 my-content-right-rail">
-    <!-- info -->
-    <div class="my-content-info-header">
-      <p>WHAT IS BUZZ</p>
-    </div>
-    <div class="my-content-info-body">
-      <p>Buzz is a place for influencers to showcase content they have for their SproutUp product trials.</p>
-    </div>
-    <div class="my-content-info-header">
-      <p>BENEFITS OF BUZZ</p>
-    </div>
-    <div class="my-content-info-body">
-      <h3><i class="fa fa-star"></i>Inspire other product enthusiasts</h3>
-      <p>You've created an intriguing content — inspire others by sharing your personal experience on this radical product!</p>
-      <h3><i class="fa fa-bullhorn"></i>Increase your influence circle</h3>
-      <p>Your content is promoted to a broad SproutUp community of tech influencers and enthusiasts, and even to our partner media sites.</p>
-      <h3><i class="fa fa-users"></i>Socialize with fellow influencers</h3>
-      <p>Connect with other like-minded influencers, upvote or share content you love, and make constructive comments to help each other grow.</p>
-      <h3><i class="fa fa-gift"></i>Earn rewards (coming soon)</h3>
-      <p>Earn rewards for publishing great content and actively participating in quality discussions.</p>
-    </div>
-    <div class="my-content-info-header">
-      <p>WHAT TO POST</p>
-    </div>
-    <div class="my-content-info-body">
-      <p>Our community loves to see your awesome content about your personal trial experience. Excite the community by sharing cool ways you used the product and the features you found particularly useful. Or ask questions, engage in discussions that help emerging products evolve.</p>
-      <p>Pictures are worth a thousand words, so upload photos or a short video while enjoying the product. You may publish your social media post or blog by embedding a URL. Or, write directly on SproutUp (coming soon).</p>
-      <p>Community members appreciate quality and constructive comments on their content. Please avoid bashing people or products. You know that, “we all are a cool bunch..”</p>
+    <div class="col-sm-4 my-content-right-rail">
+      <!-- info -->
+      <div class="my-content-info-header">
+        <p>WHAT IS BUZZ</p>
+      </div>
+      <div class="my-content-info-body">
+        <p>Buzz is a fun place for YOU to bite on quality content people posted, share cool stuff with the community, or just hangout with awesome folks.</p>
+      </div>
+      <div class="my-content-info-header">
+        <p>BENEFITS OF BUZZ</p>
+      </div>
+      <div class="my-content-info-body">
+        <h3><i class="fa fa-star"></i>Inspire other product enthusiasts</h3>
+        <p>You've created an intriguing content — inspire others by sharing your personal experience on this radical product!</p>
+        <h3><i class="fa fa-bullhorn"></i>Increase your influence circle</h3>
+        <p>Your content is promoted to a broad SproutUp community of tech influencers and enthusiasts, and even to our partner media sites.</p>
+        <h3><i class="fa fa-users"></i>Socialize with fellow influencers</h3>
+        <p>Connect with other like-minded content creators and enthusiasts, upvote or share content you love, and make constructive comments to help each other grow.</p>
+        <h3><i class="fa fa-gift"></i>Earn rewards</h3>
+        <p>Earn rewards for publishing great content and actively participating in quality discussions.</p>
+      </div>
+      <div class="my-content-info-header">
+        <p>WHAT TO POST</p>
+      </div>
+      <div class="my-content-info-body">
+        <p>Our community loves to see your awesome content about your personal genuine experience. Excite the community by sharing cool ways you used the product and the features you found particularly useful. Or ask questions, engage in discussions that help emerging products evolve.</p>
+        <p>Pictures are worth a thousand words, so upload photos or a short video while enjoying the product. You may publish your social media post or blog by embedding a URL. Or, write directly on SproutUp (coming soon).</p>
+        <p>Community members appreciate quality and constructive comments on their content. Please avoid bashing people or products. You know that, “we all are a cool bunch..”</p>
+      </div>
     </div>
   </div>
 </div>

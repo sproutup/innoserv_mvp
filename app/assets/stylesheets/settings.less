@@ -218,17 +218,18 @@ a.list-group-item:hover {
 .my-content-item--summary {
     margin: 0px;
     padding: 15px 30px;
-    background-color: @sproutup-superlightgrey;
+    background-color: #fff;
     border: 1px solid @sproutup-lightgrey;
 }
 
 .my-content-headsup {
     margin: 15px 0px 20px;
-    background-color: @sproutup-lightergrey;
+    background-color: @sproutup-superlightgrey;
+    border: 1px solid @sproutup-lightgrey;
     text-align: center;
 }
 
-.wrapper-suggest .my-content-headsup {
+.suggest-page .my-content-headsup {
     padding: 0px 0px 15px;
 }
 
@@ -264,11 +265,12 @@ a.list-group-item:hover {
     }
 }
 
-.my-content-user-avatar {
-    padding-top: 15px;
-    padding-left: 5px;
-    padding-right: 5px;
-    padding-bottom: 0px;
+.my-content-user-avatar.post-content-user {
+  padding: 15px 5px 0px;
+}
+
+.my-content-user-avatar.comment-user-avatar {
+  padding: 10px 5px 0px;
 }
 
 .my-content-user-avatar img {
@@ -408,6 +410,16 @@ a.list-group-item:hover {
     font-size: 11pt;
     font-weight: 700;
     color: @sproutup-blue;
+}
+
+.my-content-user i {
+  color: @main-text-2;
+  margin: 0px 10px;
+}
+
+.my-content-user sup {
+  margin: 0px 6px;
+  top: -2px;
 }
 
 .my-content-user.hangout a {
@@ -682,7 +694,7 @@ a.list-group-item:hover {
 .my-content-page {
 	max-width: 1100px;
 	margin: 90px auto 30px;
-    padding: 0px;
+  padding: 0px;
 }
 
 .profile-header .my-content-page
@@ -803,20 +815,15 @@ a.list-group-item:hover {
 }
 
 .my-content-comments {
-    margin: 0px 0px 0px;
+    margin: 0px;
     padding: 0px;
 }
 
 .my-content-comment-row {
-    background-color: @sproutup-lightergrey;
-    margin: 0px 0px 1px;
+    background-color: @sproutup-veryverylightgrey;
+    border: 1px solid @sproutup-lightgrey;
+    margin: 2px 0px 1px;
     padding-top: 8px;
-}
-
-.my-content-comment-row.suggest {
-    background-color: @sproutup-lightergrey;
-    margin: 0px 0px 1px;
-    padding-top: 3px;
 }
 
 .my-content-comment-more {
@@ -884,7 +891,7 @@ a.list-group-item:hover {
     margin: 15px 0px 10px;
 }
 
-.wrapper-suggest .my-content-info-header {
+.suggest-page .my-content-info-header {
     background-color: @sproutup-suggested-muted;
 }
 
@@ -915,10 +922,10 @@ a.list-group-item:hover {
     font-weight: 700;
     font-size: 11.5pt;
     color: @sproutup-blue-muted;
-    line-height: 17pt;
+    line-height: 1.7;
 }
 
-.wrapper-suggest .my-content-info-body h3 {
+.suggest-page .my-content-info-body h3 {
     color: @sproutup-suggest;
 }
 
@@ -930,7 +937,7 @@ a.list-group-item:hover {
     padding: 5px 15px;
     font-weight: 400;
     font-size: 11pt;
-    line-height: 1.5;
+    line-height: 1.7;
 }
 
 .leaderboard-profile-avatar {
