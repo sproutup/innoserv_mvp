@@ -1,4 +1,5 @@
-FROM sproutupco/alpine-java-openjdk
+## FROM sproutupco/alpine-java-openjdk
+FROM dockerfile/java
 MAINTAINER Peter Andersen <peter@sproutup.co>
 
 COPY files /
