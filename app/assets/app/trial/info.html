@@ -11,7 +11,7 @@
             <input class="form-control form-input medium" ng-model="vm.mobile" name="mobile" placeholder="Your mobile number" required>
             <textarea class="form-control form-input-textarea no-resize" ng-model="vm.reason" name="reason" placeholder="Briefly tell us why you're interested in trying the product"></textarea>
           </div>
-          <div class="campaign-join-fintprints">After {{ vm.campaign.companyId }} accepts your request, the product will be shipped to the address you provided above. You may be contacted by phone or email for shipping and trial related questions.</div>
+          <div class="campaign-join-fintprints">After {{ vm.campaign.company.name }} accepts your request, the product will be shipped to the address you provided above. You may be contacted by phone or email for shipping and trial related questions.</div>
           <div class="campaign-join-action">
             <button class="btn btn-lg sproutup-btn-lg-main" ng-disabled="form.$invalid" ng-click="vm.submitRequest()">Send my request</button>
           </div>
