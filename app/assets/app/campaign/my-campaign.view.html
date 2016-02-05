@@ -1,42 +1,20 @@
-<div class="col-sm-9 browse-campaign-main">
-  <div class="row product-trial-item">
+<div class="col-sm-9 browse-campaign-main" ng-init="vm.findMyCampaigns()">
+  <div ng-repeat="item in vm.myCampaigns" class="row product-trial-item">
     <div class="product-trial-item--header">
-      <a href="#">Try RocketSkates R5</a><sup class="label label-activity-type trial">Trial</sup>
+      <a ui-sref="user.navbar.trial.view({campaignId: item.campaignId})">{{item.campaign.name}}}</a><sup ng-class="item.campaign.type" class="label label-activity-type">Trial</sup>
     </div>
     <div class="col-sm-12 product-trial-item--detail">
-      <p class="product-trial-item--status current"><i class="fa fa-check-circle"></i>Requested on Jan 15, 2016</p>
-      <p class="product-trial-item--status"><i class="fa fa-link"></i>Your unique referral link:</p>
-      <p class="product-trial-item--status-desc"><span>http://goo.gl/zvLnyI</span>Please embed this unique referral link in any of your content. Share this link on social media. We use this link to measure conversions and reward you accordingly.</p>
-    </div>
-  </div>
-
-  <div class="row product-trial-item">
-    <div class="product-trial-item--header">
-      <a href="#">Try RocketSkates R10</a><sup class="label label-activity-type trial">Trial</sup>
-    </div>
-    <div class="col-sm-12 product-trial-item--detail">
-      <p class="product-trial-item--status current"><i class="fa fa-check-circle"></i>Accepted on Jan 12, 2016</p>
-      <p class="product-trial-item--status"><i class="fa fa-link"></i>Your unique referral link:</p>
-      <p class="product-trial-item--status-desc"><span>http://goo.gl/zvLnyI</span>Please embed this unique referral link in any of your content. Share this link on social media. We use this link to measure conversions and reward you accordingly.</p>
+      <div ng-if="item.state==0">
+        <p class="product-trial-item--status current"><i class="fa fa-check-circle"></i>Requested on {{item.created | date:'MMM dd, yyyy'}}</p>
+      </div>
+      <div ng-if="item.state==1">
+        <p class="product-trial-item--status current"><i class="fa fa-check-circle"></i>Accepted on {{item.updated | date:'MMM dd, yyyy'}}</p>
+        <p class="product-trial-item--status"><i class="fa fa-link"></i>Your unique referral link:</p>
+        <p class="product-trial-item--status-desc"><span>http://goo.gl/zvLnyI</span>Please embed this unique referral link in any of your content. Share this link on social media. We use this link to measure conversions and reward you accordingly.</p>
+      </div>
     </div>
     <div class="product-trial-item--actions">
-      <button class="btn btn-md sproutup-btn-sm">Submit my content</button>
-    </div>
-  </div>
-
-  <div class="row product-trial-item">
-    <div class="product-trial-item--header">
-      <a>RocketYour2016</a><sup class="label label-activity-type contest">Contest</sup>
-    </div>
-    <div class="col-sm-12 product-trial-item--detail">
-      <p class="product-trial-item--status current"><i class="fa fa-check-circle"></i>Entered on <strong>Nov 13, 2015</strong></p>
-      <p class="product-trial-item--status future"><i class="fa fa-trophy"></i>The winners are...</p>
-      <p class="product-trial-item--status-desc">Hang tight, winners will be announced on or before <strong>Feb 15, 2016</strong>. Finger crossed!</p>
-    </div>
-    <div class="product-trial-item--actions">
-      <button class="btn btn-md sproutup-btn-sm">View my entry</button>
-      <button class="btn btn-md sproutup-btn-sm facebook">Share on Facebook</button>
-      <button class="btn btn-md sproutup-btn-sm twitter">Share on Twitter</button>
+      <button ng-show="item.state==1" class="btn btn-md sproutup-btn-sm">Submit my content</button>
     </div>
   </div>
 </div>

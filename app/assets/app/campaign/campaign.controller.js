@@ -5,13 +5,14 @@ angular
   .module('sproutupApp')
   .controller('CampaignController', CampaignController);
 
-CampaignController.$inject = ['CampaignService', '$state'];
+CampaignController.$inject = ['CampaignService', '$state', 'AuthService'];
 
-function CampaignController(CampaignService, $state) {
+function CampaignController(CampaignService, $state, AuthService) {
   var vm = this;
   vm.product = {};
   vm.find = find;
   vm.findOne = findOne;
+  vm.findMyCampaigns = findMyCampaigns;
   vm.returnMatch = returnMatch;
 
   function find() {
@@ -21,6 +22,17 @@ function CampaignController(CampaignService, $state) {
       }, function(err) {
         console.log(err);
       });
+  }
+
+  function findMyCampaigns() {
+    CampaignService.listMyContributions().query({
+      userId: AuthService.m.user.id
+    }).$promise.then(function(data) {
+      vm.myCampaigns = data;
+    },
+    function(error) {
+      console.log(error);
+    });
   }
 
   function findOne() {
