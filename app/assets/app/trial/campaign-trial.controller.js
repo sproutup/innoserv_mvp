@@ -49,7 +49,11 @@ function CampaignTrialController(CampaignService, $state, AuthService, $scope) {
 
     CampaignService.contributor().save({
       userId: AuthService.m.user.id,
-      campaignId: vm.campaign.id
+      campaignId: vm.campaign.id,
+      address: vm.address,
+      phone: vm.phone,
+      comment: vm.comment,
+      bid: vm.bid
     }, function(res) {
       $state.go('user.activity.trial.confirmation', {campaignId: vm.campaign.id});
     }, function(err) {

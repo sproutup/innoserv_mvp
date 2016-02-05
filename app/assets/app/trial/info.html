@@ -5,11 +5,18 @@
         <div class="col-lg-12">
           <h1>Thanks for requesting product trial!</h1>
           <h2>A few more things to ask...</h2>
-          <div class="campaign-join-form">
-            <input class="form-control form-input medium" ng-model="vm.address" name="address" placeholder="Your shipping address. Make sure it's accurate!" required>
-            <input class="form-control form-input medium" ng-model="vm.zipcode" name="zipcode" placeholder="Your zipcode" required>
-            <input class="form-control form-input medium" ng-model="vm.mobile" name="mobile" placeholder="Your mobile number" required>
-            <textarea class="form-control form-input-textarea no-resize" ng-model="vm.reason" name="reason" placeholder="Briefly tell us why you're interested in trying the product"></textarea>
+          <div class="campaign-join-form" ng-init="vm.item = {}">
+            <input class="form-control form-input medium" ng-model="vm.address" name="address" placeholder="Your shipping address." ng-autocomplete="" required>
+            <input class="form-control form-input medium" ng-model="vm.phone" name="phone" placeholder="Your phone number" required>
+            <textarea class="form-control form-input-textarea no-resize" ng-model="vm.comment" name="comment" placeholder="Briefly tell us why you're interested in trying the product"></textarea>
+            <div class="sponsorship">
+              <div class="sponsorship-question-answer">You'll get to keep the product if your request is accepted!</div>
+              <hr>
+              <div class="sponsorship-question-title">And we'd love to sponsor really awesome content creators. If you are interested, we'd like to hear from you!</div>
+              <div class="form-inline">
+                <span style="margin-right: 5px;">$</span><input type="text" class="form-control form-validate form-input small" ng-model="vm.bid">
+              </div>
+            </div>
           </div>
           <div class="campaign-join-fintprints">After {{ vm.campaign.company.name }} accepts your request, the product will be shipped to the address you provided above. You may be contacted by phone or email for shipping and trial related questions.</div>
           <div class="campaign-join-action">
