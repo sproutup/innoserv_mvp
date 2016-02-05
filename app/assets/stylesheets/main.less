@@ -952,6 +952,21 @@ input[type=checkbox] {
   bottom: 7px;
 }
 
+.label-activity-type {
+  color: white;
+  font-weight: 700;
+  font-size: 9.5pt;
+  padding: 5px 10px;
+}
+
+.label-activity-type.contest {
+  background-color: @sproutup-green;
+}
+
+.label-activity-type.trial {
+  background-color: @sproutup-salmon;
+}
+
 .label-activity-type-small {
   color: white;
   font-weight: 700;
@@ -2688,16 +2703,14 @@ p[class="campaign-countdown-unit"] {
 
 .product-trial-item--header {
   font-weight: 700;
-  font-size: 14pt;
+  font-size: 12pt;
   color: @main-text-1;
-  padding-bottom: 15px;
+  padding: 20px 0px 10px;
   border-bottom: 1px solid @sproutup-grey;
 }
 
-.product-trial-item--header span {
-  font-weight: 700;
-  font-size: 9pt;
-  padding-left: 15px;
+.product-trial-item--header sup {
+  margin-left: 15px;
 }
 
 .product-trial-item--header a {

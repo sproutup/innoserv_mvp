@@ -28,6 +28,10 @@ function config($stateProvider) {
           url: '/browse-campaigns',
           templateUrl: 'assets/app/theme/mocks/browse-campaigns.html'
         })
+        .state('user.theme.mocks.my-campaigns', {
+          url: '/my-campaigns',
+          templateUrl: 'assets/app/theme/mocks/my-campaigns.html'
+        })
         .state('user.theme.mocks.search', {
           url: '/search',
           templateUrl: 'assets/app/theme/mocks/search.html'
