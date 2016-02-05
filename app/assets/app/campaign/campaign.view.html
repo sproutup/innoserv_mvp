@@ -1,0 +1,49 @@
+<div class="row browse-wrapper" ng-init="vm.find()">
+  <div id="browse-campaigns-carousel" class="carousel slide" data-ride="carousel" data-interval="10000">
+    <!-- Indicators -->
+    <ol class="carousel-indicators">
+      <li data-target="#browse-campaigns-carousel" data-slide-to="0" class="active"></li>
+      <li data-target="#browse-campaigns-carousel" data-slide-to="1"></li>
+      <li data-target="#browse-campaigns-carousel" data-slide-to="2"></li>
+      <li data-target="#browse-campaigns-carousel" data-slide-to="3"></li>
+      <li data-target="#browse-campaigns-carousel" data-slide-to="4"></li>
+    </ol>
+
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner" role="listbox">
+      <div class="item" ng-class="{active: $first}" ng-repeat="item in vm.campaigns | filter: {type:'trial', status: 1} | limitTo:5">
+        <div class="feature-campaign-banner" style="background-image: url('https://d30xksqof6w2my.cloudfront.net/e43e8342-c41b-4d66-aa3a-133eccfe93de_0_admin.jpg?w=1600')">
+            <div class="row feature-campaign-info-wrapper">
+              <div class="col-sm-12">
+                <h1>{{item.name}}</h1>
+                <h2>{{item.tagline}}</h2>
+                <p>by <span><a href="#">{{item.company.name}}</a></span></p>
+                <a href="#" class="btn btn-lg sproutup-btn-lg-main">Try it out</a>
+              </div>
+            </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Controls -->
+    <a class="left carousel-control" href="#browse-campaigns-carousel" role="button" data-slide="prev">
+      <span class="fa fa-angle-left" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="right carousel-control" href="#browse-campaigns-carousel" role="button" data-slide="next">
+      <span class="fa fa-angle-right" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a>
+  </div>
+
+  <!-- side navbar -->
+  <div class="col-sm-3 browse-campaign-sidebar">
+    <ul class="nav browse-campaign-sidenav">
+      <li><a ui-sref="user.campaign.list" ng-class="{ active: $state.includes('user.campaign.list') }">Everything</a></li>
+      <li><a ui-sref="user.campaign.mine" ng-class="{ active: $state.includes('user.campaign.mine') }">My Stuff</a></li>
+    </ul>
+  </div>
+
+  <!-- campaigns -->
+  <div ui-view></div>
+</div>
