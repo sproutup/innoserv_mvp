@@ -8,7 +8,7 @@ function config($stateProvider) {
     .state('user.campaign', {
       url: '/campaign',
       abstract: true,
-      template: '<div ui-view><div>',
+      templateUrl: 'assets/app/campaign/campaign.view.html',
       controller: 'CampaignController',
       controllerAs: 'vm',
       onEnter: function(){
@@ -19,8 +19,15 @@ function config($stateProvider) {
       }
     })
     .state('user.campaign.list', {
-      url: '/list',
+      url: '/everything',
       templateUrl: 'assets/app/campaign/list-campaign.view.html',
+      data: {
+          title: 'Campaign - List'
+      }
+    })
+    .state('user.campaign.mine', {
+      url: '/my-stuff',
+      templateUrl: 'assets/app/campaign/my-campaign.view.html',
       data: {
           title: 'Campaign - List'
       }
