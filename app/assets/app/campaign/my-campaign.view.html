@@ -1,7 +1,7 @@
 <div class="col-sm-9 browse-campaign-main" ng-init="vm.findMyCampaigns()">
   <div ng-repeat="item in vm.myCampaigns" class="row product-trial-item">
     <div class="product-trial-item--header">
-      <a ui-sref="user.navbar.trial.view({campaignId: item.campaignId})">{{item.campaign.name}}}</a><sup ng-class="item.campaign.type" class="label label-activity-type">Trial</sup>
+      <a ui-sref="user.navbar.trial.view({campaignId: item.campaignId})">{{item.campaign.name}}</a><sup ng-class="item.campaign.type" class="label label-activity-type">Trial</sup>
     </div>
     <div class="col-sm-12 product-trial-item--detail">
       <div ng-if="item.state==0">

@@ -35,11 +35,19 @@ function CampaignController(CampaignService, $state, AuthService) {
     });
   }
 
-  function findOne() {
+  function findOne(campaignId) {
     vm.success = false;
+    var _id = null;
+
+    if(campaignId){
+      _id = campaignId;
+    }
+    else{
+      _id = $state.params.campaignId;
+    }
 
     var campaign = CampaignService.campaign().get({
-      campaignId: $state.params.campaignId
+      campaignId: _id
     }, function() {
       vm.campaign = campaign;
     }, function(err) {
