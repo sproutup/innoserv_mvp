@@ -20,6 +20,10 @@ function config($stateProvider) {
           abstract: true,
           template: '<ui-view/>'
         })
+        .state('user.theme.mocks.landing', {
+          url: '/landing',
+          templateUrl: 'assets/app/theme/mocks/landing.html'
+        })
         .state('user.theme.mocks.hangout', {
           url: '/hangout',
           templateUrl: 'assets/app/theme/mocks/hangout.html'
