@@ -29,7 +29,7 @@ body {
 }
 
 .navbar-content {
-  max-width: 1240px;
+  max-width: 1250px;
   margin: 0px auto;
   padding: 0px 30px;
 }
@@ -1741,7 +1741,7 @@ p[class="hangout-countdown-unit"] {
 }
 
 .browse-wrapper {
-  max-width: 1240px;
+  max-width: 1250px;
   margin: 0px auto;
   padding: 90px 30px 0px;
 }
@@ -2314,10 +2314,11 @@ p[class="hangout-countdown-unit"] {
 }
 
 .campaign-info-wrapper {
+  max-width: 1250px;
   text-align: left;
   color: @main-text-white;
-  margin: 0px;
-  padding: 100px 30px 100px;
+  margin: 0px auto;
+  padding: 100px 15px 100px;
 }
 
 .campaign-info-wrapper h1
@@ -2453,7 +2454,9 @@ ul.company-profile-social-buttons p {
 }
 
 .company-profile-details {
-  margin: 30px 40px;
+  max-width: 1250px;
+  margin: 30px auto;
+  padding: 0px 25px;
 }
 
 .company-profile-details h4 {
@@ -2472,15 +2475,16 @@ ul.company-profile-social-buttons p {
   position: absolute;
   left: 0;
   bottom: 0;
-  padding: 0 45px;
+  padding: 0px;
   border-top: solid 1px #4a4a4a;
   border-bottom: solid 1px #4a4a4a;
   z-index: 10;
 }
 
 .banner-menu--content {
-  padding: 0px;
-  margin: 0px;
+  max-width: 1250px;
+  padding: 0px 30px;
+  margin: 0px auto;
   font-size: 12pt;
   font-weight: 700;
 }
@@ -2582,7 +2586,9 @@ ul.company-profile-social-buttons p {
 }
 
 .about-campaign-wrapper {
-  margin: 30px 40px;
+  margin: 30px auto;
+  max-width: 1250px;
+  padding: 0px 25px;
 }
 
 .suggest-page {
@@ -2598,9 +2604,9 @@ ul.company-profile-social-buttons p {
 }
 
 .buzz-wrapper {
-  max-width: 1240px;
+  max-width: 1250px;
   margin: 0px auto;
-  padding: 90px 15px;
+  padding: 90px 25px;
 }
 
 .hangout-chat-section {
@@ -2610,8 +2616,9 @@ ul.company-profile-social-buttons p {
 }
 
 .campaign-buzz-wrapper {
-  padding: 15px 40px;
-  margin: 0px;
+  padding: 15px 25px;
+  margin: 0px auto;
+  max-width: 1250px;
   background-color: @sproutup-verylightgrey;
 }
 
@@ -2620,9 +2627,16 @@ ul.company-profile-social-buttons p {
   padding: 0px 5px;
 }
 
-.campaign-buzz-column {
+.campaign-buzz-column.left {
   margin: 0px;
   padding: 0px 5px;
+  width: 60%;
+}
+
+.campaign-buzz-column.right {
+  margin: 0px;
+  padding: 0px 5px;
+  width: 40%;
 }
 
 .about-campaign-section {
@@ -3156,10 +3170,11 @@ p[class="campaign-countdown-unit"] {
 }
 
 .buzz-sidebar-item {
-  margin: 15px 0px;
+  margin: 15px 0px 0px;
   text-align: left;
   border: 1px solid @sproutup-lightgrey;
   background-color: white;
+  padding: 15px 0px;
 }
 
 .buzz-sidebar-item .title {
@@ -3167,7 +3182,7 @@ p[class="campaign-countdown-unit"] {
   font-size: 11.5pt;
   line-height: 1.6;
   margin: 0px;
-  padding: 15px 20px 10px;
+  padding: 0px 20px 10px;
 }
 
 .buzz-sidebar-item .subtitle {
@@ -3187,6 +3202,10 @@ p[class="campaign-countdown-unit"] {
   color: @sproutup-purple;
 }
 
+.buzz-sidebar-item .title.suggest {
+  color: @sproutup-suggest;
+}
+
 .buzz-sidebar-item .content {
   padding: 5px 20px;
 }
@@ -3196,7 +3215,7 @@ p[class="campaign-countdown-unit"] {
 }
 
 .buzz-sidebar-item .link {
-  padding: 15px 20px;
+  padding: 15px 20px 0px;
 }
 
 .buzz-sidebar-item .link i {
