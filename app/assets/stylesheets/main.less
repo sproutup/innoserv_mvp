@@ -2577,13 +2577,13 @@ ul.company-profile-social-buttons p {
 .suggest-page {
   margin: 0px;
   padding: 0px;
-  background-color: @sproutup-verylightgrey;
+  background-color: @sproutup-lightergrey;
 }
 
 .buzz-page {
 	margin: 0px;
   padding: 0px;
-  background-color: @sproutup-verylightgrey;
+  background-color: @sproutup-lightergrey;
 }
 
 .buzz-wrapper {
@@ -2595,7 +2595,7 @@ ul.company-profile-social-buttons p {
 .hangout-chat-section {
   margin: 0px;
   padding: 0px;
-  background-color: @sproutup-verylightgrey;
+  background-color: @sproutup-lightergrey;
 }
 
 .campaign-buzz-wrapper {
@@ -3269,6 +3269,82 @@ p[class="campaign-countdown-unit"] {
   height: 50px;
   border: 1px solid white;
   border-radius: 4px;
+}
+
+.suggested-product-item {
+  min-height: 240px;
+  margin: 0px;
+  background-position:center;
+  background-repeat:no-repeat;
+  background-size: cover;
+  color: #fff;
+  position: relative;
+  padding: 20px 25px;
+  border: 1px solid @sproutup-lightgrey;
+}
+
+.suggested-product-item::after{
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  content: "";
+  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.5)); /* Standard syntax */
+}
+
+.suggested-product-item form {
+  z-index: 10;
+  position: relative;
+  background: none;
+}
+
+.suggested-product-item .my-content-user {
+  z-index: 10;
+  position: relative;
+}
+
+.suggested-product-item .my-content-user a {
+  color: white;
+  font-weight: 400;
+}
+
+.suggested-product-item .my-content-user .suggested-product-item-name {
+  font-size: 13.5pt;
+  font-weight: 700;
+}
+
+.suggested-product-item .my-content-user a:hover {
+  color: @sproutup-green;
+}
+
+.suggested-product-item .my-content-user .activity {
+  color: @main-text-white;
+}
+
+.suggested-product-item .suggested-product-item-description {
+  z-index: 10;
+  position: relative;
+  color: @sproutup-lightgrey;
+  font-size: 10pt;
+  font-weight: 400;
+  line-height: 1.6;
+  padding: 15px 0px;
+}
+
+.suggested-product-item .my-content-actions {
+  z-index: 10;
+  position: absolute;
+  bottom: 20px;
+  border: none;
+}
+
+.suggested-product-item .my-content-actions a {
+  color: @main-text-white;
+}
+
+.suggested-product-item .my-content-actions a:hover {
+  color: @sproutup-blue-bright;
 }
 
 // media queries

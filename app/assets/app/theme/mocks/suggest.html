@@ -1,0 +1,138 @@
+<!-- TO DO
+Handle product with no image
+Create seperate pages for individual suggested products -->
+
+<div class="suggest-page">
+  <div class="row buzz-wrapper">
+    <div class="col-sm-7 my-content-left-rail">
+      <div class="col-sm-12 my-content-item">
+        <div class="my-content-headsup">
+          <p class="my-content-headsup-text">Everyday we're scouting awesome products for our community. Now, you can help us by suggesting!</p>
+          <button class="btn btn-lg sproutup-btn-md-main suggest">Suggest new product</button>
+        </div>
+      </div>
+
+      <!-- new suggestion -->
+      <div class="col-sm-12 my-content-item">
+        <div class="col-sm-2 my-content-user-avatar post-content-user">
+          <a ui-sref="#">
+            <img class="img-responsive my-content-user-img img-center" src="assets/images/default-avatar.png">
+          </a>
+        </div>
+        <div class="col-sm-10 my-content-body">
+          <div class="suggested-product-item" style="background-image: url('assets/images/default-product-banner.jpg');">
+            <p class="my-content-user">Thomas O'Brien</p>
+            <form name="form" novalidate>
+              <div class="my-content-new">
+                <input class="form-control form-input medium" placeholder="Product name">
+                <input name="content" placeholder="Please paste the full URL of the product here" class="form-control form-input medium" required></textarea>
+              </div>
+              <div class="post-new-comment-actions">
+                <button type="button" class="btn btn-post content-post-button btn-post-default" ng-click="vm.suggestProduct($event)">
+                  <span>Post</span>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- product list -->
+      <div class="col-sm-12 my-content-item">
+        <div class="col-sm-2 my-content-user-avatar post-content-user">
+          <a ui-sref="#">
+            <img class="img-responsive my-content-user-img img-center" src="assets/images/default-avatar.png">
+          </a>
+        </div>
+        <div class="col-sm-10 my-content-body">
+          <div class="suggested-product-item" style="background-image: url('https://d30xksqof6w2my.cloudfront.net/ccd20a3d-1a0d-4545-870a-94e1c645ff96_0_admin.jpg?w=1600');">
+            <p class="my-content-user">
+              <a class="suggested-product-item-name" href="">Nest Cam</a>
+              <span class="activity">suggested by</span>
+              <a href="#">Thomas O'Brien</a>
+            </p>
+            <p class="suggested-product-item-description">Forever changing the way you monitor your house. Nest Cam takes five minute to setup and connects to your Nest Thermostat and Alarm. Your connected house is here.</p>
+            <div class="my-content-actions">
+              <a href="#">UPVOTE (89)</a>
+              <a href="#">SHOW COMMENTS (12)</a>
+              <a href="#">SHARE</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-12 my-content-item">
+        <div class="col-sm-2 my-content-user-avatar post-content-user">
+          <a ui-sref="#">
+            <img class="img-responsive my-content-user-img img-center" src="assets/images/default-avatar.png">
+          </a>
+        </div>
+        <div class="col-sm-10 my-content-body">
+          <div class="suggested-product-item" style="background-image: url('https://d30xksqof6w2my.cloudfront.net/ccd20a3d-1a0d-4545-870a-94e1c645ff96_0_admin.jpg?w=1600');">
+            <p class="my-content-user">
+              <a class="suggested-product-item-name" href="">DJI Inspire 3</a>
+              <span class="activity">suggested by</span>
+              <a href="#">Tao Ni</a>
+            </p>
+            <p class="suggested-product-item-description">Best DJI drone we've ever made</p>
+            <div class="my-content-actions">
+              <a href="#">UPVOTE (89)</a>
+              <a href="#">HIDE COMMENTS (12)</a>
+              <a href="#">SHARE</a>
+            </div>
+          </div>
+          <!-- comment area -->
+          <div class="my-content-comments">
+            <div class="row my-content-comment-row">
+              <div class="col-sm-2 my-content-user-avatar comment-user-avatar">
+                <a href="#">
+                  <img class="img-responsive post-comment-user-img-circle img-center" src="assets/images/user/UM9WLXps_400x400.jpg">
+                </a>
+              </div>
+              <div class="col-sm-10 my-content-comment-blurb">
+                <p class="my-content-user comment"><a href="#">Peter Andersen</a></p>
+                <p class="my-content-timestamp comment"> 9 hours ago</p>
+                <p class="my-content-text comment">This is an awesome product. I love it!!</p>
+                <div class="my-content-actions">
+                  <a href="#"><span>UPVOTE (89)</span></a>
+                </div>
+              </div>
+            </div>
+            <div class="row my-content-comment-row">
+              <div class="col-sm-2 my-content-user-avatar comment-user-avatar">
+                <a href="#">
+                  <img class="img-responsive post-comment-user-img-circle img-center" src="assets/images/user/UM9WLXps_400x400.jpg">
+                </a>
+              </div>
+              <div class="col-sm-10 my-content-comment-blurb">
+                <p class="my-content-user comment"><a href="#">Peter Andersen</a></p>
+                <p class="my-content-timestamp comment"> 9 hours ago</p>
+                <p class="my-content-text comment">This is an awesome product. I love it!!</p>
+                <div class="my-content-actions">
+                  <a href="#"><span>UPVOTE (89)</span></a>
+                </div>
+              </div>
+            </div>
+            <button class="btn add-comment-button buzz">ADD COMMENT</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-sm-5 my-content-right-rail">
+      <!-- info -->
+      <div class="buzz-sidebar-item">
+        <div class="title suggest">Be a start scout</div>
+        <div class="subtitle">Stumble upon cool products? Post them here and share with your community.</div>
+      </div>
+      <div class="buzz-sidebar-item">
+        <div class="title suggest">Get perks</div>
+        <div class="subtitle">We'll pick the best suggestions (based on high number of votes received) to include on SproutUp. Whoever suggested the products we pick will receive a surprise perk from us.</div>
+      </div>
+      <div class="buzz-sidebar-item">
+        <div class="title suggest">WHAT TO POST</div>
+        <div class="subtitle">Our community loves new, popular and rad products. Post products that you're genuinely interested in and you'd love to try out by yourself. Or something your friend, spouse, a family member would buy.</div>
+        <div class="subtitle">These could be from emerging tech like wearables, hoverboards, drones, smart devices, speakers, video games, apps, VR gears and so forth.</div>
+        <div class="subtitle">Please do not post irrelevant things.</div>
+      </div>
+    </div>
+  </div>
