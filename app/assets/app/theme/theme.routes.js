@@ -87,5 +87,9 @@ function config($stateProvider) {
         .state('user.theme.mocks.suggest', {
           url: '/suggest',
           templateUrl: 'assets/app/theme/mocks/suggest.html'
+        })
+        .state('user.theme.mocks.my-profile', {
+          url: '/my-profile',
+          templateUrl: 'assets/app/theme/mocks/my-profile.html'
         });
 }

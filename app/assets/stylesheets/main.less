@@ -1651,7 +1651,7 @@ p[class="hangout-countdown-unit"] {
 
 .hangout-chat-wrapper {
   max-width: 800px;
-  margin: 0px auto 40px;
+  margin: 0px auto;
   padding: 0px 10px;
 }
 
@@ -2589,17 +2589,17 @@ ul.company-profile-social-buttons p {
 .buzz-wrapper {
   max-width: 1250px;
   margin: 0px auto;
-  padding: 90px 25px;
+  padding: 100px 20px;
 }
 
 .hangout-chat-section {
   margin: 0px;
-  padding: 0px;
+  padding: 20px 0px 50px;
   background-color: @sproutup-lightergrey;
 }
 
 .campaign-buzz-wrapper {
-  padding: 15px 25px;
+  padding: 30px 20px;
   margin: 0px auto;
   max-width: 1250px;
 }
@@ -2611,13 +2611,13 @@ ul.company-profile-social-buttons p {
 
 .campaign-buzz-column.left {
   margin: 0px;
-  padding: 0px 5px;
+  padding: 0px 10px;
   width: 60%;
 }
 
 .campaign-buzz-column.right {
   margin: 0px;
-  padding: 0px 5px;
+  padding: 0px 10px;
   width: 40%;
 }
 
@@ -2740,7 +2740,7 @@ p[class="campaign-countdown-unit"] {
 }
 
 .campaign-buzz-wrapper .product-trial-item--messages {
-  margin: 15px 0px 0px;
+  margin: 0px;
   border: 1px solid @sproutup-lightgrey;
   padding: 0px;
 }
@@ -3125,7 +3125,7 @@ p[class="campaign-countdown-unit"] {
 
 .new-content-notification {
   text-align: center;
-  padding: 15px 10px 10px;
+  padding: 0px 10px 20px;
 }
 
 .btn-new-content-notification {
@@ -3152,7 +3152,7 @@ p[class="campaign-countdown-unit"] {
 }
 
 .buzz-sidebar-item {
-  margin: 15px 0px 0px;
+  margin: 0px 0px 15px;
   text-align: left;
   border: 1px solid @sproutup-lightgrey;
   background-color: white;
@@ -3352,6 +3352,162 @@ p[class="campaign-countdown-unit"] {
   color: @sproutup-blue-bright;
 }
 
+.user-profile-banner {
+  height: 360px;
+  margin: 0px;
+  background: url(../images/user-profile-banner.jpg) no-repeat center center;
+  background-size: cover;
+  position: relative;
+}
+
+.user-profile-banner::after {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  content: "";
+  background-color: rgba(0, 0, 0, 0.25);
+}
+
+.user-profile-page {
+	margin: 0px;
+  padding: 0px;
+  background-color: @sproutup-lightergrey;
+}
+
+.user-profile-wrapper {
+  max-width: 1250px;
+  margin: 0px auto;
+  padding: 30px 20px;
+}
+
+.user-profile-rail.left {
+  padding: 0px 25px 0px 10px;
+  margin: 0px;
+  width: 22%;
+}
+
+.user-profile-rail.right {
+  padding: 0px 10px 0px 25px;
+  margin: 0px;
+  border-left: 1px dashed @sproutup-grey;
+  width: 78%;
+}
+
+.user-profile-rail.right .user-profile-rail-main {
+  margin: 0px -10px;
+}
+
+.user-profile-rail--buzz {
+  padding: 0px 10px;
+  margin: 0px;
+}
+
+.user-profile-rail--misc {
+  padding: 0px 10px;
+  margin: 0px;
+}
+
+.user-profile-photo {
+  border-radius: 0px;
+}
+
+.user-profile-name {
+  font-weight: 700;
+  font-size: 14pt;
+  padding: 20px 0px 0px;
+}
+
+.user-profile-bio {
+  font-weight: 400;
+  font-size: 10.5pt;
+  padding: 15px 0px 0px;
+  line-height: 1.6;
+}
+
+.label-influencer {
+  background-color: @sproutup-green;
+  font-weight: 700;
+  font-size: 8.5pt;
+  margin-left: 10px;
+}
+
+.user-profile-networks {
+  padding: 20px 0px;
+}
+
+.user-profile-networks ul li {
+  padding: 5px;
+}
+
+.user-profile-networks ul li a {
+  display: block;
+  width: 30px;
+  height: 30px;
+  border-radius: 2px;
+  font-size: 11pt;
+  line-height: 30px;
+  color: @sproutup-blue;
+  background-color: transparent;
+  -webkit-transition: all .3s;
+  -moz-transition: all .3s;
+  transition: all .3s;
+  border: solid 1px @sproutup-blue;
+  text-align: center;
+}
+
+.user-profile-networks ul li a:hover {
+  background-color: @sproutup-blue;
+  color: white;
+}
+
+.user-profile-rail--menu {
+  background-color: @sproutup-superlightgrey;
+  margin: 0px 10px 25px;
+  border: 1px solid @sproutup-lightgrey;
+}
+
+.user-profile-rail--menu ul {
+  margin: 0px;
+  padding: 0px;
+}
+
+.user-profile-rail--menu ul li {
+  margin: 0px;
+  padding: 20px 25px 15px;
+}
+
+.user-profile-rail--menu ul li a {
+  font-size: 12pt;
+  font-weight: 700;
+  color: @main-text-verylight;
+  text-decoration: none !important;
+}
+
+.user-profile-rail--menu ul li a:hover {
+  color: @sproutup-blue;
+}
+
+.user-profile-rail--menu ul li.active {
+  border-bottom: 5px solid @sproutup-blue;
+}
+
+.user-profile-rail--menu ul li.active a {
+  color: @sproutup-blue;
+}
+
+.user-profile-rail--misc .buzz-sidebar-item .title .stats-highlight {
+  color: @sproutup-green;
+  font-size: 15pt;
+  margin-right: 6px;
+}
+
+.user-profile-rail--misc .buzz-sidebar-item .subtitle .stats-highlight {
+  color: @sproutup-green;
+  font-weight: 700;
+}
+
 // media queries
 @media (min-width: 1200px) {
   .product-trial-stage-avatar {
@@ -3491,6 +3647,18 @@ p[class="campaign-countdown-unit"] {
   .campaign-buzz-column.right {
     margin: 0px;
     padding: 0px 5px;
+    width: auto;
+  }
+
+  .user-profile-rail.left {
+    padding: 0px 10px;
+    margin: 0px;
+    width: auto;
+  }
+
+  .user-profile-rail.right {
+    padding: 0px 10px;
+    margin: 0px;
     width: auto;
   }
 }
