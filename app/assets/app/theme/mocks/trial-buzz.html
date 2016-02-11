@@ -1,0 +1,262 @@
+<div class="buzz-page">
+  <div class="row campaign-buzz-wrapper">
+    <div class="col-sm-7 campaign-buzz-column left">
+      <!-- new content notification -->
+      <div class="new-content-notification">
+        <button class="btn btn-new-content-notification">New Pst</button>
+      </div>
+
+      <div up-post-content ng-model="vm.post" networks="yt, ig, url" required ng-show="vm.state === 'content'"></div>
+
+      <!-- new post -->
+    	<!-- <div class="col-sm-12 my-content-item">
+    		<div class="col-sm-2 my-content-user-avatar post-content-user">
+    			<a ui-sref="#">
+    				<img class="img-responsive my-content-user-img img-center" src="assets/images/default-avatar.png">
+    			</a>
+    		</div>
+    		<div class="col-sm-10 my-content-body">
+    			<div class="my-content-item--summary">
+    				<p class="my-content-user">
+    					<a href="#">Thomas O'Brien</a>
+    				</p>
+    				<form name="form" novalidate>
+              <div class="post-new-content-selector">
+                <a class="active" href="#"><i class="fa fa-cloud-upload"></i>Submit My Content</a>
+                <a href="#"><i class="fa fa-pencil-square-o"></i>Write Something</a>
+              </div>
+    					<div class="my-content-new">
+                <div class="post-new-content-uploader">
+                  <div class="post-new-content-uploader-method">
+                    <table>
+                      <tbody>
+                        <tr>
+                          <td><a href="#"><img src="assets/images/settings/youtube.png"></a></td>
+                          <td><a href="#" >Choose video from YouTube<span>For YouTubers, please connect and choose the content from your channel.</span></a></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <hr>
+                  <div class="post-new-content-uploader-method">
+                    <table>
+                      <tbody>
+                        <tr>
+                          <td><a href="#"><img src="assets/images/settings/instagram.png"></a></td>
+                          <td><a href="#" >Choose photo from Instagram<span>For Instagram, please connect and choose the content from your channel.</span></a></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <hr>
+                  <div class="post-new-content-uploader-method">
+                    <table>
+                      <tbody>
+                        <tr>
+                          <td><a href="#"><img src="assets/images/settings/url.png"></a></td>
+                          <td><a href="#">Post via a URL<span>If your content is not on YouTube, please post by pasting the URL.</span></a></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <hr>
+                  <div class="post-new-content-tip">
+                    <i class="fa fa-lightbulb-o"></i>Have you included referral link <strong>http://goo.gl/zvLnyI</strong> in your content?
+                  </div>
+                </div>
+    					</div>
+    					<div class="post-new-comment-actions">
+    						<button type="button" class="btn btn-post content-post-button btn-post-default">
+    							<span>Post</span>
+    						</button>
+    					</div>
+    				</form>
+    			</div>
+    		</div>
+    	</div> -->
+
+      <!-- select video -->
+  		<!-- <div class="col-sm-12 my-content-item">
+    		<div class="col-sm-2 my-content-user-avatar post-content-user">
+    			<a ui-sref="#">
+    				<img class="img-responsive my-content-user-img img-center" src="assets/images/default-avatar.png">
+    			</a>
+    		</div>
+    		<div class="col-sm-10 my-content-body">
+    			<div class="my-content-item--summary">
+    				<p class="my-content-user">
+    					<a href="#">Thomas O'Brien</a>
+    				</p>
+    				<form name="form" novalidate>
+              <div class="post-new-content-selector">
+                <a class="active" href="#"><i class="fa fa-cloud-upload"></i>Submit My Content</a>
+                <a href="#"><i class="fa fa-pencil-square-o"></i>Write Something</a>
+              </div>
+    					<div class="my-content-new">
+                <div class="post-new-content-uploader">
+                  <div class="post-new-content-uploader-method">
+                    <table>
+                      <tbody>
+                        <tr>
+                          <td><a href="#"><img src="assets/images/settings/youtube.png"></a></td>
+                          <td>Click and select a video below</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div class="post-new-content-select-file">
+                    <a href="#"><p>Boosted Board first experience</p></a>
+                    <a href="#"><p>What do you think about the best drones out there?</p></a>
+                    <a href="#"><p>iPhone 6s unboxing!</p></a>
+                    <a href="#"><p>Nexus 5 full review</p></a>
+                    <a href="#"><p>Best Sleep Tracker - Sense, made by Hello</p></a>
+                    <a href="#"><p>Boosted Board first experience</p></a>
+                    <a href="#"><p>What do you think about the best drones out there?</p></a>
+                    <a href="#"><p>iPhone 6s unboxing!</p></a>
+                    <a href="#"><p>Nexus 5 full review</p></a>
+                    <a href="#"><p>Best Sleep Tracker - Sense, made by Hello</p></a>
+                  </div>
+                </div>
+    					</div>
+    					<div class="post-new-comment-actions">
+    						<button type="button" class="btn btn-post content-post-button btn-post-default">
+    							<span>Post</span>
+    						</button>
+    					</div>
+    				</form>
+    			</div>
+    		</div>
+    	</div> -->
+      <!-- new post -->
+  		<!-- <div class="col-sm-12 my-content-item">
+    		<div class="col-sm-2 my-content-user-avatar post-content-user">
+    			<a ui-sref="#">
+    				<img class="img-responsive my-content-user-img img-center" src="assets/images/default-avatar.png">
+    			</a>
+    		</div>
+    		<div class="col-sm-10 my-content-body">
+    			<div class="my-content-item--summary">
+    				<p class="my-content-user">
+    					<a href="#">Thomas O'Brien</a>
+    				</p>
+    				<form name="form" novalidate>
+              <div class="post-new-content-selector">
+                <a class="active" href="#"><i class="fa fa-cloud-upload"></i>Submit My Content</a>
+                <a href="#"><i class="fa fa-pencil-square-o"></i>Write Something</a>
+              </div>
+    					<div class="my-content-new">
+                <div class="post-new-content-uploader">
+                  <textarea name="content" class="form-control post-new-textarea no-resize" placeholder="Say something about your content..." required></textarea>
+                  <div class="post-new-content-uploaded-file">
+                    <p>Boosted Board first experience<span><a href="#"><i class="fa fa-times-circle"></i></a></span></p>
+                  </div>
+                </div>
+    					</div>
+    					<div class="post-new-comment-actions">
+    						<button type="button" class="btn btn-post content-post-button btn-post-default">
+    							<span>Post</span>
+    						</button>
+    					</div>
+    				</form>
+    			</div>
+    		</div>
+    	</div> -->
+      <!-- new post -->
+<!--   		<div class="col-sm-12 my-content-item">
+    		<div class="col-sm-2 my-content-user-avatar post-content-user">
+    			<a ui-sref="#">
+    				<img class="img-responsive my-content-user-img img-center" src="assets/images/default-avatar.png">
+    			</a>
+    		</div>
+    		<div class="col-sm-10 my-content-body">
+    			<div class="my-content-item--summary">
+    				<p class="my-content-user">
+    					<a href="#">Thomas O'Brien</a>
+    				</p>
+    				<form name="form" novalidate>
+              <div class="post-new-content-selector">
+                <a class="active" href="#"><i class="fa fa-cloud-upload"></i>Submit My Content</a>
+                <a href="#"><i class="fa fa-pencil-square-o"></i>Write Something</a>
+              </div>
+    					<div class="my-content-new">
+                <div class="post-new-content-uploader">
+                  <textarea name="content" class="form-control post-new-textarea no-resize" placeholder="Paste the URL of your content here" required></textarea>
+                </div>
+    					</div>
+    					<div class="post-new-comment-actions">
+    						<button type="button" class="btn btn-post content-post-button btn-post-default">
+    							<span>Post</span>
+    						</button>
+    					</div>
+    				</form>
+    			</div>
+    		</div>
+    	</div> -->
+      <!-- new post -->
+  		<!-- <div class="col-sm-12 my-content-item">
+    		<div class="col-sm-2 my-content-user-avatar post-content-user">
+    			<a ui-sref="#">
+    				<img class="img-responsive my-content-user-img img-center" src="assets/images/default-avatar.png">
+    			</a>
+    		</div>
+    		<div class="col-sm-10 my-content-body">
+    			<div class="my-content-item--summary">
+    				<p class="my-content-user">
+    					<a href="#">Thomas O'Brien</a>
+    				</p>
+    				<form name="form" novalidate>
+              <div class="post-new-content-selector">
+                <a class="active" href="#"><i class="fa fa-cloud-upload"></i>Submit My Content</a>
+                <a href="#"><i class="fa fa-pencil-square-o"></i>Write Something</a>
+              </div>
+    					<div class="my-content-new">
+                <div class="post-new-content-uploader">
+                  <textarea name="content" class="form-control post-new-textarea no-resize" placeholder="Say something about your content..." required></textarea>
+                  <div class="post-new-content-uploaded-file">
+                    <p>REVIEW: Smart technology gets even SMARTER<span><a href="#"><i class="fa fa-times-circle"></i></a></span></p>
+                  </div>
+                </div>
+    					</div>
+    					<div class="post-new-comment-actions">
+    						<button type="button" class="btn btn-post content-post-button btn-post-default">
+    							<span>Post</span>
+    						</button>
+    					</div>
+    				</form>
+    			</div>
+    		</div>
+    	</div>
+    </div>
+    <div class="col-sm-5 campaign-buzz-column right">
+      <div class="product-trial-item--messages">
+        <div class="message-header">
+          <p><i class="fa fa-commenting"></i>ACTON</p>
+        </div>
+        <div class="message-body">
+          <div class="message-blurb outbound">
+            <div class="sender">Me<span>2 days ago</span></div>
+            <div class="content">Nice to meet you guys! I really love your product! Would love to try it out!</div>
+          </div>
+          <div class="message-blurb inbound">
+            <div class="sender">ACTON<span>2 days ago</span></div>
+            <div class="content">Thanks a lot! We are glad to send you a product!</div>
+          </div>
+          <div class="message-blurb outbound">
+            <div class="sender">Me<span>1 hour ago</span></div>
+            <div class="content">Word!! I am super excited. Look forward to it!</div>
+          </div>
+          <div class="message-blurb inbound">
+            <div class="sender">ACTON<span>4 minutes ago</span></div>
+            <div class="content">Hi, are you ok with $50 sponsorship?</div>
+          </div>
+        </div>
+        <div class="message-footer">
+          <div class="message-blurb">
+            <textarea class="form-control form-input-textarea" placeholder="Message ACTON if you have questions"></textarea>
+            <button class="btn btn-sm sproutup-btn-xs">Send message</button>
+          </div>
+        </div>
+      </div>
+    </div> -->
+  </div>
+</div>

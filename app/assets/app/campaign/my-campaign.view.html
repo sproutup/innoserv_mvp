@@ -2,22 +2,24 @@
   <div ng-repeat="item in vm.myCampaigns" class="row product-trial-item">
     <div ng-if="item.campaign.type === 'trial'">
       <div class="product-trial-item--header">
-        <a ui-sref="user.navbar.trial.view({campaignId: item.campaignId})">{{ item.campaign.name }}</a><sup ng-class="item.campaign.type" class="label label-activity-type">Trial</sup>
+        <a ui-sref="user.navbar.trial.view.details({campaignId: item.campaignId})">{{ item.campaign.name }}</a><sup ng-class="item.campaign.type" class="label label-activity-type">Trial</sup>
       </div>
       <div class="col-sm-12 product-trial-item--detail">
         <div ng-if="item.state === 0">
           <p class="product-trial-item--status current"><i class="fa fa-check-circle"></i>Requested on {{ item.created | date:'MMM dd, yyyy' }}</p>
         </div>
         <div ng-if="item.state === 1">
-          <p class="product-trial-item--status current"><i class="fa fa-check-circle"></i>Approved on {{ item.updated | date:'MMM dd, yyyy' }}</p>
-          <p class="product-trial-item--status"><i class="fa fa-link"></i>Your unique referral link:</p>
-          <p class="product-trial-item--status-desc"><span>http://goo.gl/zvLnyI</span>Please embed this unique referral link in any of your content. Share this link on social media. We use this link to measure conversions and reward you accordingly.</p>
-          <div class="product-trial-item--actions">
-            <button class="btn btn-md sproutup-btn-sm">Submit my content</button>
-          </div>
+          <p class="product-trial-item--status current"><i class="fa fa-check-circle"></i>Approved on {{ item.approved[0].created | date:'MMM dd, yyyy' }}</p>
+          <p class="product-trial-item--status current" ng-if="item.trial.shippingState === 1"><i class="fa fa-check-circle"></i>Product Shipped</p>
         </div>
         <div ng-if="item.state === 10">
-          <p class="product-trial-item--status current"><i class="fa fa-check-circle"></i>Completed on {{ item.updated | date:'MMM dd, yyyy' }}</p>
+          <p class="product-trial-item--status current"><i class="fa fa-check-circle"></i>Completed on {{ item.completed[0].created | date:'MMM dd, yyyy' }}</p>
+        </div>
+        <p class="product-trial-item--status"><i class="fa fa-link"></i>Your unique referral link:</p>
+        <p class="product-trial-item--status-desc"><span>http://goo.gl/zvLnyI</span>Please embed this unique referral link in any of your content. Share this link on social media. We use this link to measure conversions and reward you accordingly.</p>
+        <div class="product-trial-item--actions">
+          <button ng-click="vm.cancelRequest(item.campaignId)" class="btn btn-md sproutup-btn-sm cancel">Cancel request</button>
+          <a ui-sref="user.navbar.trial.view({campaignId: item.campaignId})" class="btn btn-md sproutup-btn-sm" style="padding-top: 9px;">Submit my content</a>
         </div>
       </div>
     </div>

@@ -43,4 +43,33 @@ public class ContributorController extends Controller {
         );
         return resultPromise;
     }
+
+    public static F.Promise<Result> updateContribution(String userId, String campaignId) {
+        WSRequestHolder holder = WS.url(url + "/campaign/" + campaignId + "/user/" + userId);
+
+        JsonNode body = request().body().asJson();
+        if (body == null) body = Json.newObject();
+
+        final F.Promise<Result> resultPromise = holder.put(body).map(
+                new F.Function<WSResponse, Result>() {
+                    public Result apply(WSResponse response) {
+                        return ok(response.asJson());
+                    }
+                }
+        );
+        return resultPromise;
+    }
+
+    public static F.Promise<Result> deleteContribution(String userId, String campaignId) {
+      WSRequestHolder holder = WS.url(url + "/campaign/" + campaignId + "/user/" + userId);
+
+      final F.Promise<Result> resultPromise = holder.delete().map(
+        new F.Function<WSResponse, Result>() {
+          public Result apply(WSResponse response) {
+            return ok();
+          }
+        }
+      );
+      return resultPromise;
+    }
 }
