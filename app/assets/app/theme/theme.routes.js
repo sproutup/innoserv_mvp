@@ -88,8 +88,16 @@ function config($stateProvider) {
           url: '/suggest',
           templateUrl: 'assets/app/theme/mocks/suggest.html'
         })
-        .state('user.theme.mocks.my-profile', {
-          url: '/my-profile',
-          templateUrl: 'assets/app/theme/mocks/my-profile.html'
+        .state('user.theme.mocks.my-profile-buzz', {
+          url: '/my-profile-buzz',
+          templateUrl: 'assets/app/theme/mocks/my-profile-buzz.html'
+        })
+        .state('user.theme.mocks.my-profile-activities', {
+          url: '/my-profile-activities',
+          templateUrl: 'assets/app/theme/mocks/my-profile-activities.html'
+        })
+        .state('user.theme.mocks.my-profile-suggested-products', {
+          url: '/my-profile-suggested-products',
+          templateUrl: 'assets/app/theme/mocks/my-profile-suggested-products.html'
         });
 }

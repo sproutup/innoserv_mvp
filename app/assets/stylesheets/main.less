@@ -3221,6 +3221,7 @@ p[class="campaign-countdown-unit"] {
   color: #fff;
   position: relative;
   padding: 20px;
+  border: 1px solid @sproutup-lightgrey;
 }
 
 .buzz-sidebar-content-item::after{
@@ -3506,6 +3507,44 @@ p[class="campaign-countdown-unit"] {
 .user-profile-rail--misc .buzz-sidebar-item .subtitle .stats-highlight {
   color: @sproutup-green;
   font-weight: 700;
+}
+
+.user-profile-activities {
+  margin-bottom: 15px;
+}
+
+.user-profile-activities.empty-state {
+  background-color: white;
+  padding: 0px;
+  text-align: center;
+}
+
+.user-profile-activities.empty-state img {
+  width: 100%;
+  border: 1px solid @sproutup-lightgrey;
+}
+
+.user-profile-activities.empty-state p {
+  font-weight: 300;
+  font-size: 14pt;
+  padding: 25px 10px 15px;
+  margin: 0px;
+  color: @main-text-lighter;
+}
+
+.user-profile-activities.empty-state .cta {
+  padding: 0px 10px 25px;
+  font-weight: 300;
+  font-size: 12pt;
+  color: @main-text-lighter;
+}
+
+.user-profile-activities.empty-state .cta a {
+  color: @sproutup-blue;
+}
+
+.user-profile-activities a {
+  text-decoration: none !important;
 }
 
 // media queries
