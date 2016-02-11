@@ -16,9 +16,21 @@ function config($stateProvider) {
     })
     .state('user.navbar.trial.view', {
       url: '',
-      templateUrl: 'assets/app/trial/trial.html',
+      abstract: true,
+      templateUrl: 'assets/app/trial/trial.html'
+    })
+    .state('user.navbar.trial.view.details', {
+      url: '',
+      templateUrl: 'assets/app/trial/trial-details.html',
       data: {
-        title: 'Campaign - List'
+        title: 'Campaign - Details'
+      }
+    })
+    .state('user.navbar.trial.view.buzz', {
+      url: '/buzz',
+      templateUrl: 'assets/app/trial/trial-buzz.html',
+      data: {
+        title: 'Campaign - Buzz'
       }
     })
     .state('user.navbar.trial.info', {

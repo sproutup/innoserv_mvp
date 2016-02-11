@@ -20,67 +20,15 @@
       </div>
       <div class="banner-menu">
         <div class="banner-menu--content">
-          <div class="banner-menu--col active">
-            <a href="#">{{ vm.campaign.name }}</a>
+          <div class="banner-menu--col" ng-class="{ 'active': $state.current.name === 'user.navbar.trial.view.details' }">
+            <a ui-sref="user.navbar.trial.view.details">{{ vm.campaign.name }}</a>
           </div>
-          <div class="banner-menu--col">
-            <a href="#">Buzz</a>
+          <div class="banner-menu--col" ng-class="{ 'active': $state.current.name === 'user.navbar.trial.view.buzz' }">
+            <a ui-sref="user.navbar.trial.view.buzz">Buzz</a>
           </div>
         </div>
       </div>
     </div>
-
-    <div class="row about-campaign-wrapper">
-      <div class="col-sm-7 about-campaign-column">
-        <div class="company-profile-products-section">
-          <div class="about-product--video embedded">
-            <iframe width="560" height="315" src="https://www.youtube.com/embed/ENAXRU-3Tsw" frameborder="0" allowfullscreen></iframe>
-          </div>
-        </div>
-        <div class="about-campaign-section">
-          <h3>TRIAL DETAILS</h3>
-          <p>{{ vm.campaign.description }}</p>
-        </div>
-      </div>
-      <div class="col-sm-5 about-campaign-column">
-        <div class="product-trial-item">
-          <h3>YOUR STATUS</h3>
-          <div class="product-trial-item--detail">
-            <p class="product-trial-item--status current"><i class="fa fa-check-circle"></i>Requested on Jan 15, 2016</p>
-            <p class="product-trial-item--status-desc">Thanks for requesting a product trial. We'll start to process it very soon. Stay tuned :) You may edit your request below.</p>
-            <p class="product-trial-item--status"><i class="fa fa-link"></i>Your unique referral link:</p>
-            <p class="product-trial-item--status-desc"><span>http://goo.gl/zvLnyI</span>Please embed this unique referral link in any of your content. Share this link on social media. We use this link to measure conversions and reward you accordingly.</p>
-            <div class="product-trial-item--actions">
-              <button class="btn btn-md sproutup-btn-sm">Edit request</button>
-              <button class="btn btn-md sproutup-btn-sm cancel">Cancel request</button>
-            </div>
-          </div>
-        </div>
-        <div class="about-campaign-section">
-          <p>180 have requested</p>
-          <div class="about-campaign-participants">
-            <a href="#"><img src="assets/images/user/hLjUxD7m_400x400.jpg"></a>
-            <a href="#"><img src="assets/images/user/hLjUxD7m_400x400.jpg"></a>
-            <a href="#"><img src="assets/images/user/hLjUxD7m_400x400.jpg"></a>
-            <a href="#"><img src="assets/images/user/hLjUxD7m_400x400.jpg"></a>
-            <a href="#"><img src="assets/images/user/hLjUxD7m_400x400.jpg"></a>
-            <a href="#"><img src="assets/images/user/hLjUxD7m_400x400.jpg"></a>
-            <a href="#"><img src="assets/images/user/hLjUxD7m_400x400.jpg"></a>
-            <a href="#"><img src="assets/images/user/hLjUxD7m_400x400.jpg"></a>
-          </div>
-        </div>
-        <div class="about-campaign-section">
-          <h3>LET'S TRY IT OUT</h3>
-          <ul>
-            <li ng-if="vm.campaign.typeOfContent.indexOf('yt')>0"><i class="fa fa-dot-circle-o"></i>We are looking for YouTubers.</li>
-            <li ng-if="vm.campaign.typeOfContent.indexOf('ig')>0"><i class="fa fa-dot-circle-o"></i>We are looking for Instagramers.</li>
-            <li ng-if="vm.campaign.typeOfContent.indexOf('tw')>0"><i class="fa fa-dot-circle-o"></i>We are looking for Tweeters.</li>
-            <li ng-if="vm.campaign.typeOfContent.indexOf('pi')>0"><i class="fa fa-dot-circle-o"></i>{{vm.typeOfContent}} We are looking for Pinners.</li>
-            <li ng-if="vm.campaign.trial.keepProduct"><i class="fa fa-dot-circle-o"></i>We will send you free product to review and keep.</li>
-            <li ng-if="vm.campaign.trial.keepProduct==false"><i class="fa fa-dot-circle-o"></i>We will send you product to review and and return.</li>
-          </ul>
-        </div>
-      </div>
-    </div>
+    <div ui-view></div>
   </div>
 </div>
