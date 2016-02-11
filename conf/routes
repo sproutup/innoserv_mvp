@@ -212,6 +212,8 @@ GET           /api/creator/hangout                                           con
 GET           /api/creator/hangout/:hangoutId                                controllers.CreatorApiController.hangout_view(hangoutId: String)
 GET           /api/creator/user/:userId/campaign                             controllers.CreatorApiController.campaign_by_user(userId: String)
 GET           /api/user/:userId/campaign                                     controllers.ContributorController.listMyContributions(userId: String)
+PUT           /api/campaign/:campaignId/user/:userId                         controllers.ContributorController.updateContribution(userId: String, campaignId: String)
+DELETE        /api/campaign/:campaignId/user/:userId                         controllers.ContributorController.deleteContribution(userId: String, campaignId: String)
 POST          /api/creator/contributor                                       controllers.CreatorApiController.contributor_create()
 
 GET           /api/analytics/user/:userId/network                            controllers.AnalyticsController.listNetwork(userId: String)

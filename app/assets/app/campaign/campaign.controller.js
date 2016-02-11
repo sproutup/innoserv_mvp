@@ -14,6 +14,7 @@ function CampaignController(CampaignService, $state, AuthService, $scope) {
   vm.findOne = findOne;
   vm.findMyCampaigns = findMyCampaigns;
   vm.returnMatch = returnMatch;
+  vm.cancelRequest = cancelRequest;
 
   function find() {
      CampaignService.campaign().query({
@@ -22,6 +23,29 @@ function CampaignController(CampaignService, $state, AuthService, $scope) {
       }, function(err) {
         console.log(err);
       });
+  }
+
+  function cancelRequest(campaignId) {
+    CampaignService.campaignSingle().delete(
+      { campaignId: campaignId, userId: AuthService.m.user.id }, function(res){
+        console.log('state changed');
+        var index = -1;
+        for(var i = 0, len = vm.myCampaigns.length; i < len; i++) {
+          if (vm.myCampaigns[i].campaignId === campaignId) {
+            index = i;
+            break;
+          }
+        }
+        if(index > -1){
+          vm.myCampaigns.splice(index, 1);
+        }
+      }
+    );
+//    CampaignService.campaignSingle().update(
+//      { campaignId: campaignId, userId: AuthService.m.user.id }, { state: -1 }, function(res){
+//        console.log('state changed');
+//      }
+//    );
   }
 
   function findMyCampaigns() {
