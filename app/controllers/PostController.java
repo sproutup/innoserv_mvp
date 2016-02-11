@@ -62,8 +62,11 @@ public class PostController extends Controller {
     public static F.Promise<Result> create() {
         WSRequestHolder holder = WS.url(url + "/post");
 
+        User user = Application.getLocalUser(ctx().session());
+
         JsonNode body = request().body().asJson();
         if (body == null) body = Json.newObject();
+        ((ObjectNode)body).put("userId", user.id.toString());
 
         final F.Promise<Result> resultPromise = holder.post(body).map(
                 new F.Function<WSResponse, Result>() {

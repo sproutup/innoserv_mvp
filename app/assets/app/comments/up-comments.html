@@ -1,6 +1,6 @@
 <div class="my-content-comments">
     <!-- Existing comments -->
-    <div class="row my-content-comment-row" ng-repeat="comment in vm.comments.data | orderBy: 'createdAt'">
+    <div class="row my-content-comment-row" ng-repeat="comment in vm.comments | orderBy: 'createdAt'">
         <div class="col-sm-2 my-content-user-avatar comment-user-avatar">
             <a ui-sref="user.profile.buzz({ nickname: comment.user.nickname })">
                 <img class="img-responsive post-comment-user-img-circle img-center" ng-src="{{ comment.user.avatarUrl }}">
@@ -8,14 +8,11 @@
         </div>
         <div class="col-sm-10 my-content-comment-blurb">
             <p class="my-content-user comment"><a analytics-on="click" analytics-event="Check Public Profile" analytics-user="{{comment.user.nickname}}" ui-sref="user.profile.buzz({ nickname: comment.user.nickname })">{{ comment.user.name }}</a></p>
-            <p class="my-content-timestamp comment">{{ comment.createdAt | fromNow }}</p>
+            <p class="my-content-timestamp comment">{{ comment.created | fromNow }}</p>
             <p class="my-content-text comment" ng-bind-html="comment.body | urlify"></p>
-            <div class="my-content-actions">
-                <up-like likes="comment.likes" up-id="comment.id" up-type="models.comment" state="{{ vm.state }}" params="vm.params"></up-like>
-            </div>
         </div>
     </div>
-    <button ng-if="!vm.commenting" ng-hide="vm.state === 'user.buzz' && vm.comments.data.length < 1" subject-present="vm.handleAddCommentClick()" state="{{ vm.state }}" class="add-comment-button" ng-class="{ 'suggest': vm.state === 'user.suggest', 'buzz': vm.state === 'user.buzz' }">ADD COMMENT</button>
+    <button ng-if="!vm.commenting" ng-hide="vm.state === 'user.buzz' && vm.comments.length < 1" subject-present="vm.handleAddCommentClick()" state="{{ vm.state }}" class="add-comment-button" ng-class="{ 'suggest': vm.state === 'user.suggest', 'buzz': vm.state === 'user.buzz' }">ADD COMMENT</button>
     <!-- New comment from current user -->
     <div class="row my-content-comment-row" ng-if="vm.commenting">
         <div class="col-sm-2 my-content-user-avatar comment-user-avatar">

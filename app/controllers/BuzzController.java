@@ -11,6 +11,14 @@ import play.mvc.Controller;
 import play.mvc.Result;
 import redis.clients.jedis.Jedis;
 
+import play.Play;
+import play.Logger;
+import play.libs.F;
+import play.libs.Json;
+import play.libs.ws.WS;
+import play.libs.ws.WSRequestHolder;
+import play.libs.ws.WSResponse;
+
 import java.util.List;
 import java.util.Set;
 
@@ -18,17 +26,33 @@ import java.util.Set;
  * Created by peter on 3/19/15.
  */
 public class BuzzController extends Controller {
+  private static String url = Play.application().configuration().getString("main.api.url");
 
-    @BodyParser.Of(BodyParser.Json.class)
-    public static Result getAll()
-    {
-        return getRange(0);
+    public static F.Promise<Result> getAll() {
+        WSRequestHolder holder = WS.url(url + "/post/timeline/all");
+
+        final F.Promise<Result> resultPromise = holder.get().map(
+                new F.Function<WSResponse, Result>() {
+                    public Result apply(WSResponse response) {
+                        return ok(response.asJson());
+                    }
+                }
+        );
+        return resultPromise;
     }
 
-    @BodyParser.Of(BodyParser.Json.class)
-    public static Result getRange(int start)
+    public static F.Promise<Result> getRange(int start)
     {
-        return ok(Post.range(start, start + 9));
+      WSRequestHolder holder = WS.url(url + "/post/timeline/all/" + start);
+
+      final F.Promise<Result> resultPromise = holder.get().map(
+              new F.Function<WSResponse, Result>() {
+                  public Result apply(WSResponse response) {
+                      return ok(response.asJson());
+                  }
+              }
+      );
+      return resultPromise;
     }
 
     @BodyParser.Of(BodyParser.Json.class)

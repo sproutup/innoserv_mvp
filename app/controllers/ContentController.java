@@ -7,6 +7,16 @@ import play.mvc.BodyParser;
 import play.mvc.Controller;
 import play.mvc.Result;
 
+import com.fasterxml.jackson.databind.node.ObjectNode;
+import play.Play;
+import play.Logger;
+import play.libs.F;
+import play.libs.Json;
+import play.libs.ws.WS;
+import play.libs.ws.WSRequestHolder;
+import play.libs.ws.WSResponse;
+
+
 import java.util.List;
 
 public class ContentController extends Controller {
@@ -14,6 +24,8 @@ public class ContentController extends Controller {
     //
     // web service for trials
     //
+
+    private static String url = Play.application().configuration().getString("main.api.url");
 
     @BodyParser.Of(BodyParser.Json.class)
     @SubjectPresent
@@ -43,7 +55,28 @@ public class ContentController extends Controller {
 
     @BodyParser.Of(BodyParser.Json.class)
     @SubjectPresent
-    public static Result create() {
+    public static F.Promise<Result> create() {
+        WSRequestHolder holder = WS.url(url + "/content");
+
+        User user = Application.getLocalUser(ctx().session());
+
+        JsonNode body = request().body().asJson();
+        ((ObjectNode)body).put("userId", user.id.toString());
+        if (body == null) body = Json.newObject();
+
+        final F.Promise<Result> resultPromise = holder.post(body).map(
+                new F.Function<WSResponse, Result>() {
+                    public Result apply(WSResponse response) {
+                        return ok(response.asJson());
+                    }
+                }
+        );
+        return resultPromise;
+    }
+
+    @BodyParser.Of(BodyParser.Json.class)
+    @SubjectPresent
+    public static Result createOld() {
         JsonNode root = request().body().asJson();
         if (root == null) {
             return badRequest("Expecting Json data");

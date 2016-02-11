@@ -23,7 +23,7 @@ function upComments() {
     return directive;
 
     function linkFunc(scope, el, attr, ctrl) {
-        
+
 
 
     }
@@ -83,7 +83,8 @@ function upCommentsController(CommentService, authService, $timeout, $scope, $ro
       var newComment = new Comment();
       newComment.body = vm.newComment;
       newComment.$save(function(res) {
-        vm.comments.data.push(res);
+        if(typeof vm.comments === 'undefined') vm.comments = [];
+        vm.comments.push(res);
         $rootScope.eventObj = {
           y: event.pageY,
           x: event.pageX
@@ -96,7 +97,7 @@ function upCommentsController(CommentService, authService, $timeout, $scope, $ro
       });
     };
 
-    // logic for a spinner after the save—should be moved to a directive 
+    // logic for a spinner after the save—should be moved to a directive
     var opts = {
           lines: 8, // The number of lines to draw
           length: 16, // The length of each line

@@ -2,7 +2,15 @@ package controllers;
 
 import be.objectify.deadbolt.java.actions.SubjectPresent;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import models.*;
+import play.Play;
+import play.Logger;
+import play.libs.F;
+import play.libs.Json;
+import play.libs.ws.WS;
+import play.libs.ws.WSRequestHolder;
+import play.libs.ws.WSResponse;
 import play.mvc.BodyParser;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -15,6 +23,7 @@ public class CommentController extends Controller {
     //
     // web service for posts
     //
+    private static String url = Play.application().configuration().getString("main.api.url");
 
     @BodyParser.Of(BodyParser.Json.class)
     public static Result getComments(Long id, String type) {
@@ -25,7 +34,28 @@ public class CommentController extends Controller {
 
     @BodyParser.Of(BodyParser.Json.class)
     @SubjectPresent
-    public static Result addComment(Long id, String type) {
+    public static F.Promise<Result> addComment(String id, String type) {
+        WSRequestHolder holder = WS.url(url + "/comment/" + type + "/" + id);
+
+        User user = Application.getLocalUser(ctx().session());
+
+        JsonNode body = request().body().asJson();
+        ((ObjectNode)body).put("userId", user.id.toString());
+        if (body == null) body = Json.newObject();
+
+        final F.Promise<Result> resultPromise = holder.post(body).map(
+                new F.Function<WSResponse, Result>() {
+                    public Result apply(WSResponse response) {
+                        return ok(response.asJson());
+                    }
+                }
+        );
+        return resultPromise;
+    }
+
+    @BodyParser.Of(BodyParser.Json.class)
+    @SubjectPresent
+    public static Result addCommentOld(Long id, String type) {
         Logger.debug("adding a comment on type: " + type);
         JsonNode json = request().body().asJson();
         if (json == null) {
