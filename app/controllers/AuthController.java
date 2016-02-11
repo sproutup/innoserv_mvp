@@ -12,6 +12,11 @@ import models.User;
 import play.Logger;
 import play.data.Form;
 import play.libs.Json;
+import play.Play;
+import play.libs.F;
+import play.libs.ws.WS;
+import play.libs.ws.WSRequestHolder;
+import play.libs.ws.WSResponse;
 import play.mvc.BodyParser;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -22,6 +27,7 @@ import providers.MyUsernamePasswordAuthProvider;
  * Created by peter on 2/13/15.
  */
 public class AuthController extends Controller {
+    private static String url = Play.application().configuration().getString("analytics.api.url");
 
 
     @BodyParser.Of(BodyParser.Json.class)
@@ -111,6 +117,19 @@ public class AuthController extends Controller {
         node.put("points", user.points());
         node.put("events", RewardEvent.toJson(RewardEvent.getLatest(user.id)));
         return ok(node);
+    }
+
+    public static F.Promise<Result> videos(Long user_id) {
+        WSRequestHolder holder = WS.url(url + "/user/" + user_id + "/youtube/video");
+
+        final F.Promise<Result> resultPromise = holder.get().map(
+                new F.Function<WSResponse, Result>() {
+                    public Result apply(WSResponse response) {
+                        return ok(response.asJson());
+                    }
+                }
+        );
+        return resultPromise;
     }
 
     @BodyParser.Of(BodyParser.Json.class)

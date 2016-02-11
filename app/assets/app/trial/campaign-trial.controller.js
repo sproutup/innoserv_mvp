@@ -5,14 +5,15 @@ angular
   .module('sproutupApp')
   .controller('CampaignTrialController', CampaignTrialController);
 
-CampaignTrialController.$inject = ['CampaignService', '$state', 'AuthService', '$scope'];
+CampaignTrialController.$inject = ['CampaignService', '$state', 'AuthService', '$scope', 'YouTubeService'];
 
-function CampaignTrialController(CampaignService, $state, AuthService, $scope) {
+function CampaignTrialController(CampaignService, $state, AuthService, $scope, YouTubeService) {
   var vm = this;
   vm.find = find;
   vm.findOne = findOne;
   vm.submitRequest = submitRequest;
   vm.connected = connected;
+  vm.showYouTubeVideos = showYouTubeVideos;
 
   function find() {
     vm.campaigns = CampaignService.campaign().query({
@@ -65,6 +66,20 @@ function CampaignTrialController(CampaignService, $state, AuthService, $scope) {
     $state.go('user.navbar.trial.view', {campaignId: vm.campaign.id});
   }
 
+  function showYouTubeVideos() {
+    vm.status = 'youtube';
+    getVideos();
+  }
+
+  function getVideos() {
+    YouTubeService.videos().get({
+      userId: AuthService.m.user.id
+    }, function(res) {
+      vm.videos = res.items;
+    }, function(err) {
+      console.log('err here', err);
+    });
+  }
 }
 
 })();

@@ -4,7 +4,7 @@
       <div class="post-new-content-uploader-method">
         <table>
           <tbody>
-            <tr ng-click="vm.status='youtube'">
+            <tr ng-click="vm.showYouTubeVideos()">
               <td><a href="#"><img src="assets/images/settings/youtube.png"></a></td>
               <td><a href="#" ng-click="vm.status='write'">Choose video from YouTube<span>For YouTubers, please choose the content from your channel.</span></a></td>
             </tr>
@@ -43,7 +43,7 @@
   <div ng-show="vm.status==='write'">
     <textarea name="content" class="form-control post-new-textarea no-resize" placeholder="Say something about your content..." required></textarea>
     <div class="post-new-content-uploaded-file">
-      <p>{{ vm.selectedVideo.name }}<span><a href="#" ng-click="vm.removeVideo()"><i class="fa fa-times-circle"></i></a></span></p>
+      <p>{{ vm.selectedVideo.snippet.title }}<span><a href="#" ng-click="vm.removeVideo()"><i class="fa fa-times-circle"></i></a></span></p>
     </div>
   </div>
   <!-- Select YouTube video -->
@@ -59,7 +59,7 @@
       </table>
     </div>
     <div class="post-new-content-select-file">
-      <a href="#" ng-repeat="video in vm.videos" ng-click="vm.selectVideo(video)"><p>{{ video.name }}</p></a>
+      <a href="#" ng-repeat="video in vm.videos" ng-click="vm.selectVideo(video)"><p>{{ video.snippet.title }}</p></a>
     </div>
   </div>
 </div>
