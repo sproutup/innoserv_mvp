@@ -9,6 +9,7 @@ function CampaignService($resource){
 
   var service = {
     campaign: campaign,
+    campaignSingle: campaignSingle,
     listByUser: listByUser,
     contributor: contributor,
     listMyContributions: listMyContributions
@@ -32,6 +33,10 @@ function CampaignService($resource){
 
   function contributor () {
     return $resource('/api/creator/contributor', { 'update': {method:'PUT'}, 'query': {method:'GET', isArray:true} } );
+  }
+
+  function campaignSingle () {
+    return $resource('/api/campaign/:campaignId/user/:userId', { userId:'@id', campaignId: '@campaignId' }, { 'update': {method:'PUT'}, 'query': {method:'GET', isArray:true} } );
   }
 
   function listMyContributions () {
