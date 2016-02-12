@@ -11,6 +11,18 @@ import play.mvc.BodyParser;
 import play.mvc.Controller;
 import play.mvc.Result;
 
+import com.fasterxml.jackson.databind.node.ObjectNode;
+import play.Play;
+import play.libs.F;
+import play.libs.Json;
+import play.libs.ws.WS;
+import play.libs.ws.WSRequestHolder;
+import play.libs.ws.WSResponse;
+import play.mvc.BodyParser;
+import play.mvc.Controller;
+import play.mvc.Result;
+import play.mvc.Results;
+
 import java.util.List;
 
 import static play.mvc.Results.ok;
@@ -22,6 +34,7 @@ public class LikesController extends Controller {
     //
     // web service for posts
     //
+    private static String url = Play.application().configuration().getString("main.api.url");
 
     @BodyParser.Of(BodyParser.Json.class)
     public static Result getLikes(Long id, String type) {
@@ -34,9 +47,31 @@ public class LikesController extends Controller {
         //return ok(Likes.toJson(likes));
     }
 
+
+    public static F.Promise<Result> addLikes(String id, String type) {
+        WSRequestHolder holder = WS.url(url + "/likes");
+
+        User user = Application.getLocalUser(ctx().session());
+
+        JsonNode body = request().body().asJson();
+        if (body == null) body = Json.newObject();
+        ((ObjectNode)body).put("userId", user.id.toString());
+        ((ObjectNode)body).put("refId", id.toString());
+        ((ObjectNode)body).put("refType", type);
+
+        final F.Promise<Result> resultPromise = holder.post(body).map(
+                new F.Function<WSResponse, Result>() {
+                    public Result apply(WSResponse response) {
+                        return ok(response.asJson());
+                    }
+                }
+        );
+        return resultPromise;
+    }
+
     @BodyParser.Of(BodyParser.Json.class)
     @SubjectPresent
-    public static Result addLikes(Long id, String type, Long userId) {
+    public static Result addLikesOld(Long id, String type, Long userId) {
         JsonNode json = request().body().asJson();
         if (json == null) {
             return badRequest("Expecting Json data");
@@ -53,9 +88,24 @@ public class LikesController extends Controller {
         }
     }
 
+    public static F.Promise<Result> deleteLike(String id) {
+      WSRequestHolder holder = WS.url(url + "/likes/" + id);
+
+      User user = Application.getLocalUser(ctx().session());
+
+      final F.Promise<Result> resultPromise = holder.delete().map(
+        new F.Function<WSResponse, Result>() {
+          public Result apply(WSResponse response) {
+            return ok();
+          }
+        }
+      );
+      return resultPromise;
+    }
+
     @BodyParser.Of(BodyParser.Json.class)
     @SubjectPresent
-    public static Result deleteLikes(Long id, String type, Long userId) {
+    public static Result deleteLikesOld(Long id, String type, Long userId) {
         JsonNode json = request().body().asJson();
         if (json == null) {
             return badRequest("Expecting Json data");

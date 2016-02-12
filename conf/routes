@@ -168,9 +168,9 @@ POST          /api/suggest/post                                              con
 GET           /api/tags/top                                                  controllers.TagController.getTopTags(size: Int ?= 10)
 GET           /api/tags/post/top/:id/:category                               controllers.TagController.getPopularPostTags(id: Long, category: Int)
 
+DELETE        /api/likes/:id                                                 controllers.LikesController.deleteLike(id: String)
 GET           /api/likes/:type/:id                                           controllers.LikesController.getLikes(id: Long, type: String)
-POST          /api/likes/:type/:id                                           controllers.LikesController.addLikes(id: Long, type: String, user_id: Long)
-DELETE        /api/likes/:type/:id                                           controllers.LikesController.deleteLikes(id: Long, type: String, user_id: Long)
+POST          /api/likes/:type/:id                                           controllers.LikesController.addLikes(id: String, type: String)
 
 GET           /api/comment/:type/:id                                         controllers.CommentController.getComments(id: Long, type: String)
 POST          /api/comment/:type/:id                                         controllers.CommentController.addComment(id: String, type: String)

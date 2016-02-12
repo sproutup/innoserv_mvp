@@ -26,16 +26,14 @@ function likesService($http, $log, $q) {
       });
     };
 
-  LikesService.addLike = function(refId, refType, userId){
+  LikesService.addLike = function(refId, refType){
     var deferred = $q.defer();
     $http({
         method: 'POST',
         url: urlBase + "/" + refType + "/" + refId,
-        params: {user_id: userId},
         data: "{}",
         headers: {'Content-Type': 'application/json'}
     }).success(function(data, status, headers, config){
-        console.log(data);
         deferred.resolve(data);
     }).error(function(data, status, headers, config) {
         deferred.reject();
@@ -44,12 +42,11 @@ function likesService($http, $log, $q) {
     return deferred.promise;
   };
 
-  LikesService.deleteLike = function(refId, refType, userId){
+  LikesService.deleteLike = function(id){
     var deferred = $q.defer();
     $http({
         method: 'DELETE',
-        url: urlBase + "/" + refType + "/" + refId,
-        params: {user_id: userId},
+        url: urlBase + "/" + id,
         data: "{}",
         headers: {'Content-Type': 'application/json'}
     }).success(function(data, status, headers, config){
