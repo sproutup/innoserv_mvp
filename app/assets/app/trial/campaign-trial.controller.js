@@ -5,16 +5,40 @@ angular
   .module('sproutupApp')
   .controller('CampaignTrialController', CampaignTrialController);
 
-CampaignTrialController.$inject = ['CampaignService', '$state', 'AuthService', '$scope', 'YouTubeService', 'PostService', 'usSpinnerService', 'ContentService'];
+CampaignTrialController.$inject = ['CampaignService', '$state', 'AuthService', '$scope', 'YouTubeService', 'PostService', 'usSpinnerService', 'ContentService', '$rootScope'];
 
-function CampaignTrialController(CampaignService, $state, AuthService, $scope, YouTubeService, PostService, usSpinnerService, ContentService) {
+function CampaignTrialController(CampaignService, $state, AuthService, $scope, YouTubeService, PostService, usSpinnerService, ContentService, $rootScope) {
   var vm = this;
   vm.find = find;
   vm.findOne = findOne;
+  vm.findMyContribution = findMyContribution;
   vm.submitRequest = submitRequest;
+  vm.findContributor = findContributor;
+  vm.updateRequest = updateRequest;
+  vm.cancelRequest = cancelRequest;
   vm.connected = connected;
   vm.createPost = createPost;
   vm.showYouTubeVideos = showYouTubeVideos;
+
+  function activate() {
+      if(!AuthService.ready()){
+          var unbindWatch = $rootScope.$watch(AuthService.ready, function (value) {
+              if ( value === true ) {
+                unbindWatch();
+                activate();
+              }
+          });
+      }
+      else {
+          init();
+      }
+  }
+
+  function init() {
+      vm.user = angular.copy(AuthService.m.user);
+  }
+
+  activate();
 
   function find() {
     vm.campaigns = CampaignService.campaign().query({
@@ -23,6 +47,11 @@ function CampaignTrialController(CampaignService, $state, AuthService, $scope, Y
       }, function(err) {
         console.log(err);
       });
+  }
+
+  function editRequestInit() {
+    findOne();
+    findContributor();
   }
 
   function findOne() {
@@ -36,6 +65,61 @@ function CampaignTrialController(CampaignService, $state, AuthService, $scope, Y
       //$state.go('landing.default');
       console.log(err);
     });
+  }
+
+  function findContributor() {
+    CampaignService.campaignSingle().get({
+      campaignId: $state.params.campaignId,
+      userId: $state.params.userId
+    }, function(res) {
+      vm.contributor = res;
+    }, function(err) {
+      //$state.go('landing.default');
+      console.log(err);
+    });
+  }
+
+  function findMyContribution() {
+    if (!AuthService.ready()) {
+      var listener = $scope.$watch(AuthService.ready, function(val) {
+        if(val) {
+          listener();
+          findMyContribution();
+        }
+      });
+      return;
+    }
+
+    CampaignService.campaignSingle().get({
+      campaignId: $state.params.campaignId,
+      userId: AuthService.m.user.id
+    }, function(res) {
+      vm.init = true;
+      if (res.campaignId) {
+        vm.myContribution = res;
+        for (var i = 0; i < vm.myContribution.log.length; i++) {
+          sortLog(vm.myContribution);
+        }
+      }
+    }, function(err) {
+      vm.init = true;
+      //$state.go('landing.default');
+      console.log(err);
+    });
+  }
+
+  function sortLog(campaign) {
+    if (campaign.log) {
+      // Find approved logs
+      campaign.approved = campaign.log.filter(function(item) {
+        return item.state === 1;
+      });
+
+      // Find completed logs
+      campaign.completed = campaign.log.filter(function(item) {
+        return item.state === 10 || item.state === '10';
+      });
+    }
   }
 
   function submitRequest() {
@@ -57,14 +141,25 @@ function CampaignTrialController(CampaignService, $state, AuthService, $scope, Y
       comment: vm.comment,
       bid: vm.bid
     }, function(res) {
-      $state.go('user.navbar.trial.connect', {campaignId: vm.campaign.id});
+      $state.go('user.navbar.trial.connect', { campaignId: vm.campaign.id });
+    }, function(err) {
+      vm.error = true;
+    });
+  }
+
+  function updateRequest() {
+    vm.contributor.$update({
+      campaignId: vm.contributor.campaignId,
+      userId: vm.contributor.userId
+    }, function(res) {
+      $state.go('user.navbar.trial.view.details', { campaignId: vm.campaign.id });
     }, function(err) {
       vm.error = true;
     });
   }
 
   function connected() {
-    $state.go('user.activity.trial.confirmation', {campaignId: vm.campaign.id});
+    $state.go('user.activity.trial.confirmation', { campaignId: vm.campaign.id });
   }
 
   // TODO — Put create post and create content into services
@@ -127,6 +222,20 @@ function CampaignTrialController(CampaignService, $state, AuthService, $scope, Y
     }, function(err) {
       console.log('err here', err);
     });
+  }
+
+  function cancelRequest() {
+    CampaignService.campaignSingle().delete(
+      { campaignId: $state.params.campaignId, userId: AuthService.m.user.id }, function(res){
+        console.log('state changed');
+        vm.myContribution = null;
+      }
+    );
+//    CampaignService.campaignSingle().update(
+//      { campaignId: campaignId, userId: AuthService.m.user.id }, { state: -1 }, function(res){
+//        console.log('state changed');
+//      }
+//    );
   }
 }
 

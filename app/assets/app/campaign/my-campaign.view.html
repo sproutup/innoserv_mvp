@@ -18,6 +18,7 @@
         <p class="product-trial-item--status"><i class="fa fa-link"></i>Your unique referral link:</p>
         <p class="product-trial-item--status-desc"><span>http://goo.gl/zvLnyI</span>Please embed this unique referral link in any of your content. Share this link on social media. We use this link to measure conversions and reward you accordingly.</p>
         <div class="product-trial-item--actions">
+          <button ng-click="vm.editRequest(item.campaignId)" class="btn btn-md sproutup-btn-sm">Edit request</button>
           <button ng-click="vm.cancelRequest(item.campaignId)" class="btn btn-md sproutup-btn-sm cancel">Cancel request</button>
           <a ui-sref="user.navbar.trial.view({campaignId: item.campaignId})" class="btn btn-md sproutup-btn-sm" style="padding-top: 9px;">Submit my content</a>
         </div>

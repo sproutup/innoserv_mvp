@@ -15,6 +15,7 @@ function CampaignController(CampaignService, $state, AuthService, $scope) {
   vm.findMyCampaigns = findMyCampaigns;
   vm.returnMatch = returnMatch;
   vm.cancelRequest = cancelRequest;
+  vm.editRequest = editRequest;
 
   function find() {
      CampaignService.campaign().query({
@@ -46,6 +47,10 @@ function CampaignController(CampaignService, $state, AuthService, $scope) {
 //        console.log('state changed');
 //      }
 //    );
+  }
+
+  function editRequest(campaignId) {
+    $state.go("user.navbar.trial.edit", { campaignId: campaignId, userId: AuthService.m.user.id });
   }
 
   function findMyCampaigns() {

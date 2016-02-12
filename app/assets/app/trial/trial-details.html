@@ -1,4 +1,4 @@
-<div class="row about-campaign-wrapper">
+<div class="row about-campaign-wrapper" ng-init="vm.findMyContribution()">
   <div class="col-sm-7 about-campaign-column">
     <div class="company-profile-products-section">
       <div class="about-product--video embedded">
@@ -11,17 +11,24 @@
     </div>
   </div>
   <div class="col-sm-5 about-campaign-column">
-    <div class="product-trial-item">
-      <h3>YOUR STATUS</h3>
-      <div class="product-trial-item--detail">
-        <p class="product-trial-item--status current"><i class="fa fa-check-circle"></i>Requested on Jan 15, 2016</p>
-        <p class="product-trial-item--status-desc">Thanks for requesting a product trial. We'll start to process it very soon. Stay tuned :) You may edit your request below.</p>
-        <p class="product-trial-item--status"><i class="fa fa-link"></i>Your unique referral link:</p>
-        <p class="product-trial-item--status-desc"><span>http://goo.gl/zvLnyI</span>Please embed this unique referral link in any of your content. Share this link on social media. We use this link to measure conversions and reward you accordingly.</p>
-        <div class="product-trial-item--actions">
-          <button class="btn btn-md sproutup-btn-sm">Edit request</button>
-          <button class="btn btn-md sproutup-btn-sm cancel">Cancel request</button>
+    <div ng-if="vm.myContribution">
+      <div class="about-campaign-section" ng-if="vm.myContribution.state === 0">
+        <h3>You requested on <strong>{{ vm.myContribution.created | date }}</strong></h3>
+        <p>Your unique referral link <strong>http://goo.gl/zvLnyI</strong></p>
+        <div class="about-campaign-actions">
+          <a ui-sref="user.navbar.trial.edit({ campaignId: vm.campaign.id, userId: vm.user.id })" class="btn btn-md sproutup-btn-sm" style="padding-top: 9px">Edit request</a>
+          <button class="btn btn-md sproutup-btn-sm cancel" ng-click="vm.cancelRequest()">Cancel request</button>
         </div>
+      </div>
+
+      <div class="about-campaign-section" ng-if="vm.myContribution.state === 1">
+        <h3 ng-if="vm.myContribution.trial.shippingState === 1"><strong>Product Shipped</strong></h3>
+        <h3>Nice! You were approved on <strong>{{ vm.myContribution.approved[0].created | date }}</strong></h3>
+        <p>Your unique referral link <strong>http://goo.gl/zvLnyI</strong></p>
+      </div>
+
+      <div class="about-campaign-section" ng-if="vm.myContribution.state === 10">
+        <p>You completed your trial on <strong>{{ vm.myContribution.completed[0].created | date }}</strong></p>
       </div>
     </div>
     <div class="about-campaign-section">

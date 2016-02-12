@@ -40,6 +40,13 @@ function config($stateProvider) {
         title: 'Trial - Info'
       }
     })
+    .state('user.navbar.trial.edit', {
+      url: '/request/edit/:userId',
+      templateUrl: 'assets/app/trial/edit.html',
+      data: {
+        title: 'Trial - Info'
+      }
+    })
     .state('user.navbar.trial.connect', {
       url: '/request/connect',
       templateUrl: 'assets/app/trial/social-connection.html',
