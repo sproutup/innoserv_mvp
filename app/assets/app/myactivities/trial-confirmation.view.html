@@ -3,8 +3,6 @@
     <div class="col-lg-12">
       <h1>Hooray, your request is received!</h1>
 
-      <h3>To increase your chances of getting your request granted, <a ui-sref="user.navbar.trial.connect({ campaignId: vm.item.campaignId })">CONNECT TO YOUR SOCIAL CHANNELS</a>. This will let you show off your social reach across the major networks.</h3>
-
       <h3>You can track the status in <a ui-sref="user.activity.trial.edit">MY ACTIVITIES</a>. And share your referral link with friends and audience! We use it to measure the outcome and reward you accordingly.</h3>
       <h1><a ng-href="{{vm.item.link}}">{{vm.item.link}}</a></h1>
       <div class="campaign-share-action">
@@ -12,7 +10,7 @@
         <button class="btn btn-lg sproutup-btn-lg-main twitter">Share on Twitter</button>
       </div>
       <div class="campaign-join-back-home">
-        <a ui-sref="user.navbar.contest.view.details({campaignId: vm.item.campaignId})"><i class="fa fa-angle-left"></i>I am happy. Take me back!</button>
+        <a ui-sref="user.navbar.trial.view.details({campaignId: $state.params.campaignId})"><i class="fa fa-angle-left"></i>I am happy. Take me back!</button>
       </div>
     </div>
 </div>

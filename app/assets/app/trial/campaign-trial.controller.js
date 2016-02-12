@@ -57,14 +57,14 @@ function CampaignTrialController(CampaignService, $state, AuthService, $scope, Y
       comment: vm.comment,
       bid: vm.bid
     }, function(res) {
-      $state.go('user.activity.trial.confirmation', {campaignId: vm.campaign.id});
+      $state.go('user.navbar.trial.connect', {campaignId: vm.campaign.id});
     }, function(err) {
       vm.error = true;
     });
   }
 
   function connected() {
-    $state.go('user.navbar.trial.view', {campaignId: vm.campaign.id});
+    $state.go('user.activity.trial.confirmation', {campaignId: vm.campaign.id});
   }
 
   // TODO — Put create post and create content into services
