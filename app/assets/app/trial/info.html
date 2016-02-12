@@ -14,7 +14,13 @@
               <hr>
               <div class="sponsorship-question-title">And we'd love to sponsor really awesome content creators. If you are interested, we'd like to hear from you!</div>
               <div class="form-inline">
-                <span style="margin-right: 5px;">$</span><input type="text" class="form-control form-validate form-input small" ng-model="vm.bid">
+                <span style="margin-right: 5px;">$</span><input type="number" class="form-control form-validate form-input small" ng-model="vm.bid" min="0" max="1000000000">
+              </div>
+              <div role="alert">
+                <span class="error" ng-show="form.$error.max">
+                  A billion is too much.</span>
+                <span class="error" ng-show="form.$error.min">
+                  No need to pay us for this! ;)</span>
               </div>
             </div>
           </div>
