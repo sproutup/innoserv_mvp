@@ -53,16 +53,14 @@ public class ContentController extends Controller {
         return !node.isMissingNode() && !node.isNull();
     }
 
-    @BodyParser.Of(BodyParser.Json.class)
-    @SubjectPresent
     public static F.Promise<Result> create() {
         WSRequestHolder holder = WS.url(url + "/content");
 
         User user = Application.getLocalUser(ctx().session());
 
         JsonNode body = request().body().asJson();
-        ((ObjectNode)body).put("userId", user.id.toString());
         if (body == null) body = Json.newObject();
+        ((ObjectNode)body).put("userId", user.id.toString());
 
         final F.Promise<Result> resultPromise = holder.post(body).map(
                 new F.Function<WSResponse, Result>() {

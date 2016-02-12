@@ -14,9 +14,12 @@ function upPostContent() {
 
   function linkFunc(scope, element, attrs, ngModel) {
     var vm = scope.vm;
+    vm.selectVideo = selectVideo;
+    vm.removeVideo = removeVideo;
     vm.post = {
       body: '',
-      group: ''
+      media: '',
+      ref: ''
     };
 
     // Check which social networks you can post with
@@ -31,35 +34,23 @@ function upPostContent() {
 
     ngModel.$valid = false;
     vm.status = 'select';
-    vm.selectVideo = function(video) {
-      vm.status = 'write';
-      vm.selectedVideo = video;
-    };
 
-    vm.removeVideo = function() {
+    function selectVideo(video) {
+      vm.selectedVideo = video;
+      vm.post.media = 'yt';
+      vm.post.ref = video.id.videoId;
+      vm.post.title = video.snippet.title;
+      vm.status = 'write';
+    }
+
+    function removeVideo() {
       vm.selectedVideo = {};
       vm.status = 'select';
-    };
+    }
 
-    vm.model = ngModel;
-    vm.post.body = ngModel.body;
-    vm.post.group = attrs.group;
-
-    // Dummy data
-    vm.videos = [
-      {
-        name: 'Boosted Review'
-      },
-      {
-        name: 'How to Whip'
-      },
-      {
-        name: 'How to Crank Dat'
-      },
-      {
-        name: 'How to Dab'
-      }
-    ];
+    // vm.model = ngModel;
+    // vm.post.body = ngModel.body;
+    // vm.post.group = attrs.group;
 
     ngModel.$render = function() {
       element.val(ngModel.$modelValue);

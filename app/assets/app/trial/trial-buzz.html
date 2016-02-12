@@ -22,7 +22,7 @@
               <div up-post-content ng-model="vm.post" networks="yt, ig, url" required ng-show="vm.state === 'content'"></div>
             </div>
             <div class="post-new-comment-actions">
-              <button ng-disabled="form.$invalid || vm.posting" class="btn btn-post content-post-button btn-post-default" ng-click="vm.create()">
+              <button ng-disabled="form.$invalid || vm.posting" class="btn btn-post content-post-button btn-post-default" ng-click="vm.createPost()">
                 <span ng-hide="vm.posting">Post</span>
                 <span us-spinner spinner-key="spinner-1"></span>
               </button>
