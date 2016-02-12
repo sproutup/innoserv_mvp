@@ -22,10 +22,6 @@ function upLike() {
     return directive;
 
     function linkFunc(scope, el, attr, ctrl) {
-        // console.log('LINK: scope.vm.likes: ', scope.vm.likes);
-        // console.log('LINK: scope.vm.id = %s', scope.vm.id);
-        // console.log('LINK: scope.vm.type = %s', scope.vm.type);
-
     }
 }
 
@@ -69,9 +65,11 @@ function upLikeController(likesService, authService, $timeout, $scope, $rootScop
             if ($scope.vm.likes === undefined) {
                 return false;
             }
-            for (var i = 0; i < $scope.vm.likes.data.length; i++) {
-                if ($scope.vm.likes.data[i].user.id == userid) {
+            for (var i = 0; i < $scope.vm.likes.length; i++) {
+                if ($scope.vm.likes[i].userId == userid) {
                     $scope.vm.upvoted = true;
+                    $scope.vm.likeId = $scope.vm.likes[i].id;
+                    $scope.vm.likeIndex = i;
                     return true;
                 }
             }
@@ -105,71 +103,24 @@ function upLikeController(likesService, authService, $timeout, $scope, $rootScop
         }
 
         if (didIlikeItAlready() === false) {
-            likesService.addLike($scope.vm.id, $scope.vm.type, authService.m.user.id).then(
+            likesService.addLike($scope.vm.id, $scope.vm.type).then(
                 function(data) {
-                    $scope.vm.likes.data.push(data);
+                  if(typeof $scope.vm.likes == 'undefined') $scope.vm.likes = [];
+                    $scope.vm.likes.push(data);
                     $scope.vm.upvoted = true;
-                    $scope.vm.likes.count += 1;
                 }, function(reason) {
                     console.log('up-files failed: ' + reason);
                 }
             );
         } else {
-            likesService.deleteLike($scope.vm.id, $scope.vm.type, authService.m.user.id).then(
-                function(data) {
-                    console.log(data);
-                    console.log("did not like it: " + $scope.id);
-                    console.log($scope.vm.likes.data);
-                    console.log(authService.m.user.id);
-                    $scope.vm.likes.data.filter(function(like){
-                        if (like.user.id === authService.m.user.id) {
-                            var index = $scope.vm.likes.data.indexOf(like);
-                            $scope.vm.likes.data.splice(index, 1);
-                            $scope.vm.likes.count -= 1;
-                            $scope.vm.upvoted = false;
-                        }
-                    });
-                    // $scope.likes.push(data);
-                    // $scope.vm.upvoted = true;
-                    // $scope.vm.likes.count += 1;
-                }, function(reason) {
-                    console.log('up-files failed: ' + reason);
-                }
-            );
+          likesService.deleteLike($scope.vm.likeId).then(
+            function(data) {
+              // remove the entry from local array
+              $scope.vm.likes.splice(vm.likeIndex, 1);
+            }, function(reason) {
+                console.log('up-files failed: ' + reason);
+            }
+          );
         }
     };
-    // element.on('click', function () {
-    //     console.log($scope) ;
-    //     console.log("#########################");
-    //     console.log("up-like > clicked id/type: " + $scope.id + "/" + $scope.type);
-    //     console.log("up-like > is-logged-in: " + authService.loggedIn());
-
-    //     if (!authService.loggedIn()) {
-    //         $scope.$emit('LoginEvent', {
-    //             someProp: 'Sending you an Object!' // send whatever you want
-    //         });
-    //         return;
-    //     }
-
-    //     if ($scope.likes === undefined) {
-    //         $scope.likes = [];
-    //     }
-
-    //     console.log("user.id: " + authService.m.user.id);
-
-    //     if (didIlikeItAlready() === false) {
-    //         console.log($scope);
-    //         likesService.addLike($scope.id, $scope.type, authService.m.user.id).then(
-    //             function(data) {
-    //                 console.log(data);
-    //                 console.log("liked it: " + $scope.id);
-    //                 $scope.likes.push(data);
-    //                 $scope.upvoted = true;
-    //             }, function(reason) {
-    //                 console.log('up-files failed: ' + reason);
-    //             }
-    //         );
-    //     }
-
-    // });
 }

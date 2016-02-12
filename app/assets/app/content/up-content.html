@@ -40,12 +40,12 @@
                 </a>
             </div>
             <div class="my-content-actions">
-                <up-like likes="vm.content.likes" up-id="vm.content.id" up-type="models.post" state="{{ vm.state }}" params="vm.params"></up-like>
-                <a analytics-on="click" analytics-event="Comment Buzz Post" analytics-id="{{ vm.content.id }}" href="#" subject-present="vm.commentToggle()" state="{{ vm.state }}" params="vm.params">COMMENT ({{ vm.content.comments.length || 0 }})</a>
+                <up-like likes="vm.content.likes" up-id="vm.content.id" up-type="Post" state="{{ vm.state }}" params="vm.params"></up-like>
+                <a analytics-on="click" analytics-event="Comment Buzz Post" analytics-id="{{ vm.content.id }}" href="#" subject-present="vm.commentToggle()" state="{{ vm.state }}" params="vm.params">COMMENT ({{ vm.content.comment.length || 0 }})</a>
                 <a analytics-on="click" analytics-event="Share Buzz Post" product="{{vm.content.product.id}}" id="3000" analytics-id="{{ vm.content.id }}" ng-href="{{ vm.content.tweetContentLink }}" ng-click="vm.recordShareClick($event)">SHARE</a>
                 <span class="analytics-total" ng-if="vm.content.analytics.total > 0">{{ vm.content.analytics.total | humanizeNumber }} views</span>
             </div>
         </div>
-        <up-comments commenting="vm.content.commenting" comments="vm.content.comments" up-id="vm.content.id" up-type="Post" state="{{ vm.state }}" params="vm.params"></up-comments>
+        <up-comments commenting="vm.content.commenting" comments="vm.content.comment" up-id="vm.content.id" up-type="Post" state="{{ vm.state }}" params="vm.params"></up-comments>
     </div>
 </div>
