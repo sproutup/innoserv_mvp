@@ -87,6 +87,9 @@ function CampaignTrialController(CampaignService, $state, AuthService, $scope, Y
     item.$save(function(res) {
       vm.posting = false;
       vm.post = {};
+      vm.selectedVideo = {};
+      vm.state = 'write';
+      vm.contentState = 'select';
       // vm.content.unshift(res);
       usSpinnerService.stop('spinner-1');
     }, function(err) {
@@ -112,7 +115,7 @@ function CampaignTrialController(CampaignService, $state, AuthService, $scope, Y
   }
 
   function showYouTubeVideos() {
-    vm.status = 'youtube';
+    vm.contentState = 'youtube';
     getVideos();
   }
 

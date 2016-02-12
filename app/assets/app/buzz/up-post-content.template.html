@@ -1,12 +1,12 @@
 <div class="post-new-content-uploader">
-  <div ng-show="vm.status==='select'">
+  <div ng-show="vm.contentState==='select'">
     <div ng-if="vm.youtube">
       <div class="post-new-content-uploader-method">
         <table>
           <tbody>
             <tr ng-click="vm.showYouTubeVideos()">
               <td><a href="#"><img src="assets/images/settings/youtube.png"></a></td>
-              <td><a href="#" ng-click="vm.status='write'">Choose video from YouTube<span>For YouTubers, please choose the content from your channel.</span></a></td>
+              <td><a href="#" ng-click="vm.contentState='write'">Choose video from YouTube<span>For YouTubers, please choose the content from your channel.</span></a></td>
             </tr>
           </tbody>
         </table>
@@ -17,7 +17,7 @@
       <div class="post-new-content-uploader-method">
         <table>
           <tbody>
-            <tr ng-click="vm.status='instagram'">
+            <tr ng-click="vm.contentState='instagram'">
               <td><a href="#"><img src="assets/images/settings/instagram.png"></a></td>
               <td><a href="#" >Choose photo from Instagram<span>For Instagram, please connect and choose the content from your channel.</span></a></td>
             </tr>
@@ -30,7 +30,7 @@
       <div class="post-new-content-uploader-method">
         <table>
           <tbody>
-            <tr ng-click="vm.status='instagram'">
+            <tr ng-click="vm.contentState='instagram'">
               <td><a href="#"><img src="assets/images/settings/url.png"></a></td>
               <td><a href="#">Post via a URL<span>If your content is not on YouTube, please post by pasting the URL.</span></a></td>
             </tr>
@@ -40,14 +40,14 @@
     </div>
   </div>
   <!--content added -->
-  <div ng-show="vm.status==='write'">
-    <textarea name="content" class="form-control post-new-textarea no-resize" placeholder="Say something about your content..." required></textarea>
+  <div ng-show="vm.contentState==='write'">
+    <textarea name="content" ng-model="vm.post.body" class="form-control post-new-textarea no-resize" placeholder="Say something about your content..." required></textarea>
     <div class="post-new-content-uploaded-file">
       <p>{{ vm.selectedVideo.snippet.title }}<span><a href="#" ng-click="vm.removeVideo()"><i class="fa fa-times-circle"></i></a></span></p>
     </div>
   </div>
   <!-- Select YouTube video -->
-  <div ng-if="vm.status === 'youtube'">
+  <div ng-if="vm.contentState === 'youtube'">
     <div class="post-new-content-uploader-method">
       <table>
         <tbody>

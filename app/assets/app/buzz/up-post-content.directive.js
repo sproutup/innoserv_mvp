@@ -33,19 +33,19 @@ function upPostContent() {
     }
 
     ngModel.$valid = false;
-    vm.status = 'select';
+    vm.contentState = 'select';
 
     function selectVideo(video) {
       vm.selectedVideo = video;
       vm.post.media = 'yt';
       vm.post.ref = video.id.videoId;
       vm.post.title = video.snippet.title;
-      vm.status = 'write';
+      vm.contentState = 'write';
     }
 
     function removeVideo() {
       vm.selectedVideo = {};
-      vm.status = 'select';
+      vm.contentState = 'select';
     }
 
     // vm.model = ngModel;
