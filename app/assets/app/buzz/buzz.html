@@ -24,11 +24,9 @@
                 </p>
                 <div class="post-new-content-selector" ng-init="vm.state = 'write'">
                   <a ng-class="{'active': vm.state === 'write'}" href="#" ng-click="vm.state = 'write'"><i class="fa fa-pencil-square-o"></i>Write Something</a>
-                  <a ng-class="{'active': vm.state === 'content'}" href="#" ng-click="vm.state = 'content'"><i class="fa fa-cloud-upload"></i>Submit My Content</a>
                 </div>
                 <div class="my-content-new">
                   <div up-post-write ng-model="vm.post" required ng-show="vm.state === 'write'"></div>
-                  <div up-post-content ng-model="vm.post" networks="yt, ig, url" required ng-show="vm.state === 'content'"></div>
                 </div>
                 <div class="post-new-comment-actions">
                   <button ng-disabled="form.$invalid || vm.posting" class="btn btn-post content-post-button btn-post-default" ng-click="vm.create()">
