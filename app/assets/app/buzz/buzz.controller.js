@@ -8,14 +8,15 @@ angular
 // This controller contains logic for main buzz page as well as individual product buzz pages
 // Functions loadInit and loadMore have seperate queries for when a slug is present (product buzz page) vs. when there is no slug (main buzz page)
 
-BuzzController.$inject = ['$stateParams', '$state', 'FeedService', 'AuthService', '$rootScope', '$scope', 'MyTrialProductsService', 'PostService', '$timeout', 'usSpinnerService', 'PointsService'];
+BuzzController.$inject = ['$stateParams', '$state', 'FeedService', 'ContentService', 'AuthService', '$rootScope', '$scope', 'MyTrialProductsService', 'PostService', '$timeout', 'usSpinnerService', 'PointsService'];
 
-function BuzzController($stateParams, $state, FeedService, AuthService, $rootScope, $scope, MyTrialProductsService, PostService, $timeout, usSpinnerService, PointsService) {
+function BuzzController($stateParams, $state, FeedService, ContentService, AuthService, $rootScope, $scope, MyTrialProductsService, PostService, $timeout, usSpinnerService, PointsService) {
     var vm = this;
     var content = [];
     vm.content = [];
     vm.myTrialProducts = [];
     vm.loadContent = loadContent;
+    vm.loadGroupContent = loadGroupContent;
     vm.slug = $stateParams.slug;
     vm.addContent = addContent;
     vm.displayLinkInput = displayLinkInput;
@@ -32,6 +33,7 @@ function BuzzController($stateParams, $state, FeedService, AuthService, $rootSco
     var position = 0;
     vm.post = {};
     vm.create = create;
+    vm.createContent = createContent;
     vm.list = list;
 
     activate();
@@ -54,10 +56,6 @@ function BuzzController($stateParams, $state, FeedService, AuthService, $rootSco
 
     function init() {
         vm.user = angular.copy(AuthService.m.user);
-        loadContent();
-        if (vm.user.id) {
-            vm.myTrialProducts = MyTrialProductsService.query();
-        }
     }
 
     function list() {
@@ -124,11 +122,23 @@ function BuzzController($stateParams, $state, FeedService, AuthService, $rootSco
         }
     }
 
-    function create() {
+    function loadGroupContent(groupId) {
+      console.log('load group buzz: ', groupId);
+      vm.busy = true;
+      content = FeedService.buzzGroup().query({
+        groupId: groupId,
+        start: position
+      }, function() {
+        loadCallback(content);
+      });
+    }
+
+    function create(groupId) {
         vm.posting = true;
         vm.post.userId = vm.user.id;
         var Post = PostService.post();
         var item = new Post(vm.post);
+        item.groupId = groupId;
         usSpinnerService.spin('spinner-1');
         item.$save(function(res) {
             vm.posting = false;
@@ -140,6 +150,52 @@ function BuzzController($stateParams, $state, FeedService, AuthService, $rootSco
             console.log(err);
             usSpinnerService.stop('spinner-1');
         });
+    }
+
+    function createContent(groupId) {
+      vm.posting = true;
+      vm.post.userId = vm.user.id;
+      var Post = PostService.post();
+      var item = new Post({
+        body: vm.post.body,
+        groupId: groupId
+      });
+
+      // Add youtube link to the body
+      if (vm.post.ref && vm.post.media === 'yt') {
+        item.body = 'https://www.youtube.com/watch?v=' + vm.post.ref + '\n' + vm.post.body;
+      }
+
+      usSpinnerService.spin('spinner-1');
+
+      item.$save(function(res) {
+        vm.posting = false;
+        vm.post = {};
+        vm.selectedVideo = {};
+        vm.state = 'write';
+        vm.contentState = 'select';
+        vm.content.unshift(res);
+        usSpinnerService.stop('spinner-1');
+      }, function(err) {
+        vm.posting = false;
+        usSpinnerService.stop('spinner-1');
+      });
+
+      if (vm.post.media) {
+        saveContent();
+      }
+    }
+
+    function saveContent() {
+      var Content = ContentService.content();
+      var contentItem = new Content({
+        media: vm.post.media,
+        ref: vm.post.ref,
+        campaignId: $state.params.campaignId,
+        title: vm.post.title
+      });
+
+      contentItem.$save();
     }
 
     function addContent(event) {
@@ -240,11 +296,11 @@ function BuzzController($stateParams, $state, FeedService, AuthService, $rootSco
                 var videoID = content.url.substring((index + 9), content.url.length);
                 content.youtube = "https://www.youtube.com/embed/" + videoID;
             }
-            
+
         }
     }
 
-    // Put into service. 
+    // Put into service.
     function displayTweet(content) {
         if (typeof content.url == 'undefined') return;
 

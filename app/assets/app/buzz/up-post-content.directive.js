@@ -5,56 +5,90 @@ angular
 function upPostContent() {
   var directive = {
     require: 'ngModel',
+    scope: {
+      min: '=',
+      max: '=',
+      ngModel: '=',
+      ngDisabled: '='
+    },
+    controller: upPostContentController,
+    controllerAs: 'vm',
+    bindToController: true,
     link: linkFunc,
-    //template: '<textarea ng-model="vm.post.body" name="content" placeholder="Write your post here..." class="form-control post-new-textarea link" required></textarea>',
     templateUrl: 'assets/app/buzz/up-post-content.template.html'
   };
 
   return directive;
 
   function linkFunc(scope, element, attrs, ngModel) {
-    var vm = scope.vm;
-    vm.selectVideo = selectVideo;
-    vm.removeVideo = removeVideo;
-    vm.post = {
+    scope.item = {
       body: '',
       media: '',
       ref: ''
     };
+    ngModel.$valid = false;
+
+    scope.selectVideo = selectVideo;
+    scope.removeVideo = removeVideo;
 
     // Check which social networks you can post with
     if (attrs.networks) {
-      vm.youtube = attrs.networks.indexOf('yt') > -1;
-      vm.facebook = attrs.networks.indexOf('fb') > -1;
-      vm.twitter = attrs.networks.indexOf('tw') > -1;
-      vm.instagram = attrs.networks.indexOf('ig') > -1;
-      vm.googleanalytics = attrs.networks.indexOf('ga') > -1;
-      vm.url = attrs.networks.indexOf('url') > -1;
+      scope.youtube = attrs.networks.indexOf('yt') > -1;
+      scope.facebook = attrs.networks.indexOf('fb') > -1;
+      scope.twitter = attrs.networks.indexOf('tw') > -1;
+      scope.instagram = attrs.networks.indexOf('ig') > -1;
+      scope.googleanalytics = attrs.networks.indexOf('ga') > -1;
+      scope.url = attrs.networks.indexOf('url') > -1;
     }
 
     ngModel.$valid = false;
-    vm.contentState = 'select';
+    scope.vm.contentState = 'select';
+
+    scope.showYouTubeVideos = function(){
+      scope.vm.showYouTubeVideos(function(items){
+        scope.vm.contentState = 'youtube';
+        scope.videos = items;
+      });
+    };
 
     function selectVideo(video) {
-      vm.selectedVideo = video;
-      vm.post.media = 'yt';
-      vm.post.ref = video.id.videoId;
-      vm.post.title = video.snippet.title;
-      vm.contentState = 'write';
+      scope.selectedVideo = video;
+      scope.item.media = 'yt';
+      scope.item.ref = video.id.videoId;
+      scope.item.title = video.snippet.title;
+      scope.vm.contentState = 'write';
+      scope.onChange();
     }
 
     function removeVideo() {
-      vm.selectedVideo = {};
-      vm.contentState = 'select';
+      scope.selectedVideo = {};
+      scope.vm.contentState = 'select';
+      scope.onChange();
     }
 
-    // vm.model = ngModel;
-    // vm.post.body = ngModel.body;
-    // vm.post.group = attrs.group;
+    scope.onChange = function(){
+      ngModel.$setViewValue(scope.item);
+    };
 
     ngModel.$render = function() {
-      element.val(ngModel.$modelValue);
-      element.change();
+      scope.item = ngModel.$modelValue;
     };
   }
+}
+
+upPostContentController.$inject = ['YouTubeService', 'AuthService'];
+
+function upPostContentController(YouTubeService, AuthService) {
+  var vm = this;
+
+  vm.showYouTubeVideos = function() {
+    YouTubeService.videos().get({
+      userId: AuthService.m.user.id
+    }, function(res) {
+      vm.contentState = 'youtube';
+      vm.videos = res.items;
+    }, function(err) {
+      console.log('err here', err);
+    });
+  };
 }

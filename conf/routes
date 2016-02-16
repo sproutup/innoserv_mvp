@@ -154,7 +154,7 @@ POST          /api/post/timeline/me/:start                                   con
 GET           /api/post/timeline/user/:userId                                controllers.PostController.getUserTimeline(userId: String)
 POST          /api/post/timeline/user/:userId/:start                         controllers.PostController.getUserTimelineRange(userId: String, start: Int)
 GET           /api/post/timeline/group/:groupId                              controllers.PostController.getGroupTimeline(groupId: String)
-POST          /api/post/timeline/group/:groupId/:start                       controllers.PostController.getGroupTimelineRange(groupId: String, start: Int)
+GET           /api/post/timeline/group/:groupId/:start                       controllers.PostController.getGroupTimelineRange(groupId: String, start: Int)
 
 #PUT     /api/forum/posts/:id        controllers.PostController.updateProduct(id: Long)
 #DELETE  /api/forum/posts/:id        controllers.PostController.deleteProduct(id: Long)

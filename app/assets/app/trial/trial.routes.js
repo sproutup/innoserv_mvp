@@ -28,6 +28,8 @@ function config($stateProvider) {
     })
     .state('user.navbar.trial.view.buzz', {
       url: '/buzz',
+      controller: 'BuzzController',
+      controllerAs: 'buzzCtrl',
       templateUrl: 'assets/app/trial/trial-buzz.html',
       data: {
         title: 'Campaign - Buzz'

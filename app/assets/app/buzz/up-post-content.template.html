@@ -1,10 +1,10 @@
 <div class="post-new-content-uploader">
   <div ng-show="vm.contentState==='select'">
-    <div ng-if="vm.youtube">
+    <div ng-if="youtube">
       <div class="post-new-content-uploader-method">
         <table>
           <tbody>
-            <tr ng-click="vm.showYouTubeVideos()">
+            <tr ng-click="showYouTubeVideos()">
               <td><a href="#"><img src="assets/images/settings/youtube.png"></a></td>
               <td><a href="#" ng-click="vm.contentState='write'">Choose video from YouTube<span>For YouTubers, please choose the content from your channel.</span></a></td>
             </tr>
@@ -13,7 +13,7 @@
       </div>
       <hr>
     </div>
-    <div ng-if="vm.instagram">
+    <div ng-if="instagram">
       <div class="post-new-content-uploader-method">
         <table>
           <tbody>
@@ -26,7 +26,7 @@
       </div>
       <hr>
     </div>
-    <div ng-if="vm.url">
+    <div ng-if="url">
       <div class="post-new-content-uploader-method">
         <table>
           <tbody>
@@ -41,9 +41,9 @@
   </div>
   <!--content added -->
   <div ng-show="vm.contentState==='write'">
-    <textarea name="content" ng-model="vm.post.body" class="form-control post-new-textarea no-resize" placeholder="Say something about your content..." required></textarea>
+    <textarea name="content" ng-model="item.body" ng-change="onChange()" class="form-control post-new-textarea no-resize" placeholder="Say something about your content..." required></textarea>
     <div class="post-new-content-uploaded-file">
-      <p>{{ vm.selectedVideo.snippet.title }}<span><a href="#" ng-click="vm.removeVideo()"><i class="fa fa-times-circle"></i></a></span></p>
+      <p>{{ selectedVideo.snippet.title }}<span><a href="#" ng-click="removeVideo()"><i class="fa fa-times-circle"></i></a></span></p>
     </div>
   </div>
   <!-- Select YouTube video -->
@@ -59,7 +59,7 @@
       </table>
     </div>
     <div class="post-new-content-select-file">
-      <a href="#" ng-repeat="video in vm.videos" ng-click="vm.selectVideo(video)"><p>{{ video.snippet.title }}</p></a>
+      <a href="#" ng-repeat="video in vm.videos" ng-click="selectVideo(video)"><p>{{ video.snippet.title }}</p></a>
     </div>
   </div>
 </div>
