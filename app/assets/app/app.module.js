@@ -23,7 +23,8 @@ var sproutupApp = angular.module('sproutupApp', [
     'ngSanitize',
     'infinite-scroll',
     'angularSpinner',
-    'chart.js'
+    'chart.js',
+    'videosharing-embed'
 ]);
 
 sproutupApp.config(function ($provide) {
