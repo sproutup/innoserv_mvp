@@ -1,9 +1,7 @@
 <div class="row about-campaign-wrapper" ng-init="vm.findMyContribution()">
   <div class="col-sm-7 about-campaign-column">
-    <div class="company-profile-products-section">
-      <div class="about-product--video embedded">
-        <iframe width="560" height="315" src="https://www.youtube.com/embed/ENAXRU-3Tsw" frameborder="0" allowfullscreen></iframe>
-      </div>
+    <div class="my-content-video embedded product-video">
+     <embed-video data-ng-href="{{ vm.campaign.product.video }}" width=560 height=315></embed-video>
     </div>
     <div class="about-campaign-section">
       <h3>TRIAL DETAILS</h3>
@@ -54,6 +52,19 @@
         <li ng-if="vm.campaign.trial.keepProduct"><i class="fa fa-dot-circle-o"></i>We will send you free product to review and keep.</li>
         <li ng-if="vm.campaign.trial.keepProduct==false"><i class="fa fa-dot-circle-o"></i>We will send you product to review and and return.</li>
       </ul>
+    </div>
+    <div class="about-campaign-section">
+      <h3>HOW IT WORKS</h3>
+      <div class="trial-campaign-how-it-works">
+        <h4>Place a request</h4>
+        <div class="fine-prints">We make it simple for you! Tell us what kind of content you will create and why you are interseted in our product. If you go for sponsorship, tell us your offer. Passion and creativity make your request stand out.</div>
+        <h4>Get approved</h4>
+        <div class="fine-prints">We will review each request and pick influencers who perfectly match our brand and products.</div>
+        <h4>Unbox and enjoy</h4>
+        <div class="fine-prints">Once you are approved, congratulations! We then ship product directly to you and it's time to enjoy and have fun.</div>
+        <h4>Create content (and get paid)</h4>
+        <div class="fine-prints">Finally, make high quality content! Submit your work <a href="">here</a>, and get your cash reward (if you asked for sponsorship and was agreed by us).</div>
+      </div>
     </div>
   </div>
 </div>

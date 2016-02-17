@@ -23,7 +23,8 @@ var sproutupApp = angular.module('sproutupApp', [
     'ngSanitize',
     'infinite-scroll',
     'angularSpinner',
-    'chart.js'
+    'chart.js',
+    'videosharing-embed'
 ]);
 
 sproutupApp.config(function ($provide) {
@@ -142,8 +143,8 @@ sproutupApp.config(['$routeProvider', '$stateProvider', '$locationProvider', '$u
                     title: 'Signup - User'
                 }
             })
-            .state('user.about' ,{
-                url: '/about',
+            .state('user.team' ,{
+                url: '/team',
                 templateUrl: 'views/about',
                 data: {
                     title: 'About Us - SproutUp'

@@ -24,8 +24,9 @@ Create seperate pages for individual suggested products -->
             <p class="my-content-user">Thomas O'Brien</p>
             <form name="form" novalidate>
               <div class="my-content-new">
-                <input class="form-control form-input medium" placeholder="Product name">
-                <input name="content" placeholder="Please paste the full URL of the product here" class="form-control form-input medium" required></textarea>
+                <input class="form-control form-input medium" placeholder="Product name" required>
+                <input class="form-control form-input medium" placeholder="Please paste the full URL of the product here" required>
+                <input class="form-control form-input medium" placeholder="Twitter URL of the brand? Like http://twitter.com/sproutupco">
               </div>
               <div class="post-new-comment-actions">
                 <button type="button" class="btn btn-post content-post-button btn-post-default" ng-click="vm.suggestProduct($event)">
