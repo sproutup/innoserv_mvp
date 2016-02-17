@@ -2633,7 +2633,7 @@ ul.company-profile-social-buttons p {
 .message-page {
   max-width: 960px;
   margin: 0px auto;
-  padding: 100px 15px;
+  padding: 100px 15px 40px;
 }
 
 .buzz-page {
@@ -2884,14 +2884,18 @@ p[class="campaign-countdown-unit"] {
 }
 
 .message-body {
-  padding: 20px 15px;
+  padding: 20px 15px 0px;
   margin: 0px 15px;
-  border-bottom: 1px solid @form-border;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  -ms-overflow-style: none;
+  max-height: 420px;
 }
 
 .message-footer {
-  padding: 20px 15px 15px;
-  margin: 0px 15px;
+  border-top: 1px solid @form-border;
+  padding: 20px 15px 25px;
+  margin: 15px 15px 0px;
 }
 
 .message-blurb {
@@ -3703,12 +3707,17 @@ ul.list-conversation-thread li.unread .sproutup-table.messages .text {
 
 .detail-conversation-thread {
   background-color: @sproutup-verylightgrey;
-  padding: 20px 30px 25px;
+  padding: 15px 30px 25px;
+}
+
+.detail-conversation-thread hr {
+  border-top: 1px solid @sproutup-grey;
+  margin-top: 10px;
 }
 
 .detail-conversation-thread .back {
   font-weight: 400;
-  font-size: 10pt;
+  font-size: 9.5pt;
   padding: 0px;
 }
 
