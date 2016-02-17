@@ -143,8 +143,8 @@ sproutupApp.config(['$routeProvider', '$stateProvider', '$locationProvider', '$u
                     title: 'Signup - User'
                 }
             })
-            .state('user.about' ,{
-                url: '/about',
+            .state('user.team' ,{
+                url: '/team',
                 templateUrl: 'views/about',
                 data: {
                     title: 'About Us - SproutUp'
