@@ -99,5 +99,14 @@ function config($stateProvider) {
         .state('user.theme.mocks.my-profile-suggested-products', {
           url: '/my-profile-suggested-products',
           templateUrl: 'assets/app/theme/mocks/my-profile-suggested-products.html'
+        })
+        // messages
+        .state('user.theme.mocks.list-conversation', {
+          url: '/list-conversation',
+          templateUrl: 'assets/app/theme/mocks/list-conversation.html'
+        })
+        .state('user.theme.mocks.view-a-conversation', {
+          url: '/view-a-conversation',
+          templateUrl: 'assets/app/theme/mocks/view-a-conversation.html'
         });
 }
