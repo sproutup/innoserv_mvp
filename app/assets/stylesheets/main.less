@@ -2456,6 +2456,13 @@ p[class="hangout-countdown-unit"] {
   margin: 50px 0px;
 }
 
+.company-profile-info-wrapper ul.company-profile-social-buttons {
+  z-index: 10;
+  position: relative;
+  padding: 20px 0px;
+  margin: 0px;
+}
+
 ul.company-profile-social-buttons li a {
   display: block;
   width: 36px;
@@ -3761,6 +3768,51 @@ ul.list-conversation-thread li.unread .sproutup-table.messages .text {
 
 .message-blurb .sender .spacer {
   padding: 0px 5px;
+}
+
+.company-profile-banner {
+  min-height: 300px;
+  margin: 0px;
+  background-position:center;
+  background-repeat:no-repeat;
+  background-size: cover;
+  color: @main-text-white;
+  position: relative;
+}
+
+.company-profile-banner::after{
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  content: "";
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.4)); /* Standard syntax */
+}
+
+.company-profile-info-wrapper {
+  max-width: 1250px;
+  text-align: left;
+  color: @main-text-white;
+  margin: 0px auto;
+  padding: 100px 15px 40px;
+}
+
+.company-profile-info-wrapper h1
+{
+  z-index: 10;
+  position: relative;
+  font-weight: 100;
+  font-size: 32pt;
+  margin: 0px;
+  padding: 20px 0px;
+  line-height: 1.6;
+}
+
+.company-profile-info-wrapper h1 span {
+  font-size: 12pt;
+  font-weight: 400;
+  margin-left: 15px;
 }
 
 // media queries
