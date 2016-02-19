@@ -1,9 +1,9 @@
 <div class="row about-campaign-wrapper" ng-init="vm.findMyContribution()">
   <div class="col-sm-7 about-campaign-column">
-    <div class="my-content-video embedded product-video">
+    <div class="my-content-video embedded product-video" ng-if="vm.campaign.product.video">
      <embed-video data-ng-href="{{ vm.campaign.product.video }}" width=560 height=315></embed-video>
     </div>
-    <div class="about-campaign-section">
+    <div class="about-campaign-section" ng-if="vm.campaign.description">
       <h3>TRIAL DETAILS</h3>
       <p>{{ vm.campaign.description }}</p>
     </div>
