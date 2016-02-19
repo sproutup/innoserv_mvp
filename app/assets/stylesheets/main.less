@@ -26,6 +26,50 @@ input[type=number]::-webkit-outer-spin-button {
   width: 100%;
 }
 
+.sproutup-table {
+  margin: 0px;
+}
+
+.sproutup-table thead {
+  background-color: @sproutup-verylightgrey;
+}
+
+.sproutup-table thead tr th {
+  padding: 15px;
+  font-weight: 700;
+  font-size: 9pt;
+  color: @main-text-verylight;
+}
+
+.sproutup-table thead tr th sup {
+  color: @sproutup-blue;
+  padding: 0px 3px;
+  font-size: 9pt;
+}
+
+.sproutup-table thead tr th a {
+  color: @main-text-verylight;
+  border-bottom: 1px dotted @sproutup-blue;
+  text-decoration: none !important;
+}
+
+.sproutup-table tbody tr td {
+  padding: 20px 15px;
+  font-weight: 400;
+  font-size: 10pt;
+  color: @main-text;
+  vertical-align: middle;
+}
+
+.sproutup-table .table-hover tbody tr:hover {
+  background-color: @sproutup-table-hover;
+}
+
+.sproutup-table tbody tr td a {
+  color: @sproutup-blue;
+  font-weight: 700;
+}
+
 .navbar {
   margin: 0px;
   padding: 0px;
@@ -2412,6 +2456,13 @@ p[class="hangout-countdown-unit"] {
   margin: 50px 0px;
 }
 
+.company-profile-info-wrapper ul.company-profile-social-buttons {
+  z-index: 10;
+  position: relative;
+  padding: 20px 0px;
+  margin: 0px;
+}
+
 ul.company-profile-social-buttons li a {
   display: block;
   width: 36px;
@@ -2584,6 +2635,12 @@ ul.company-profile-social-buttons p {
   margin: 0px;
   padding: 0px;
   background-color: @sproutup-lightergrey;
+}
+
+.message-page {
+  max-width: 960px;
+  margin: 0px auto;
+  padding: 100px 15px 40px;
 }
 
 .buzz-page {
@@ -2768,15 +2825,11 @@ p[class="campaign-countdown-unit"] {
   border-bottom: 6px solid @sproutup-blue;
 }
 
+.detail-conversation-thread .product-trial-item--messages,
 .campaign-buzz-wrapper .product-trial-item--messages {
   margin: 0px;
   border: 1px solid @sproutup-lightgrey;
   padding: 0px;
-}
-
-.product-trial-item--messages {
-  margin: 10px 0px 0px;
-  padding: 20px 30px;
   background-color: white;
 }
 
@@ -2838,14 +2891,18 @@ p[class="campaign-countdown-unit"] {
 }
 
 .message-body {
-  padding: 20px 15px;
+  padding: 20px 15px 0px;
   margin: 0px 15px;
-  border-bottom: 1px solid @form-border;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  -ms-overflow-style: none;
+  max-height: 420px;
 }
 
 .message-footer {
-  padding: 20px 15px 15px;
-  margin: 0px 15px;
+  border-top: 1px solid @form-border;
+  padding: 20px 15px 25px;
+  margin: 15px 15px 0px;
 }
 
 .message-blurb {
@@ -3188,6 +3245,17 @@ p[class="campaign-countdown-unit"] {
   padding: 15px 0px;
 }
 
+.buzz-sidebar-item ul.buzz-sidebar-footer {
+  padding: 0px 15px;
+  margin: 0px;
+}
+
+.buzz-sidebar-item ul.buzz-sidebar-footer li a {
+  font-weight: 400;
+  font-size: 9pt;
+  color: @main-text-verylight;
+}
+
 .buzz-sidebar-item .title {
   font-weight: 700;
   font-size: 11.5pt;
@@ -3215,6 +3283,10 @@ p[class="campaign-countdown-unit"] {
 
 .buzz-sidebar-item .title.suggest {
   color: @sproutup-suggest;
+}
+
+.buzz-sidebar-item .title.brand {
+  color: @sproutup-orange;
 }
 
 .buzz-sidebar-item .content {
@@ -3578,6 +3650,169 @@ p[class="campaign-countdown-unit"] {
 
 .product-video {
   margin-top: 0px !important;
+}
+
+ul.list-conversation-thread {
+  list-style: none;
+  margin: 0px;
+  padding: 0px;
+}
+
+ul.list-conversation-thread li {
+  background-color: @sproutup-veryverylightgrey;
+  padding: 0px;
+  border-bottom: 1px solid @sproutup-lightgrey;
+}
+
+ul.list-conversation-thread li.unread {
+  background-color: @sproutup-table-hover;
+  padding: 0px;
+}
+
+ul.list-conversation-thread li:hover {
+  background-color: @sproutup-lightgrey;
+}
+
+ul.list-conversation-thread li.unread:hover {
+  background-color: @sproutup-table-hover;
+}
+
+ul.list-conversation-thread li a {
+  text-decoration: none !important;
+  color: @main-text;
+}
+
+.sproutup-table.messages .table {
+  margin: 0px;
+}
+
+.sproutup-table.messages .table tbody tr td {
+  padding: 15px 20px;
+}
+
+.sproutup-table.messages .photo {
+  text-align: center;
+  width: 10%;
+}
+
+.sproutup-table.messages img {
+  width: 50px;
+  height: 50px;
+  border-radius: 100%;
+  border: 1px solid @sproutup-lightgrey;
+}
+
+.sproutup-table.messages .content {
+  width: 70%;
+}
+
+.sproutup-table.messages .name {
+  font-weight: 700;
+  padding-bottom: 2px;
+  color: @main-text-lighter;
+}
+
+.sproutup-table.messages .text {
+  font-weight: 400;
+  font-size: 10.5pt;
+}
+
+ul.list-conversation-thread li.unread .sproutup-table.messages .text {
+  font-weight: 700;
+}
+
+.sproutup-table.messages .time {
+  text-align: right;
+  color: @sproutup-grey;
+  font-size: 8.5pt;
+}
+
+.detail-conversation-thread {
+  background-color: @sproutup-verylightgrey;
+  padding: 15px 30px 25px;
+}
+
+.detail-conversation-thread hr {
+  border-top: 1px solid @sproutup-grey;
+  margin-top: 10px;
+}
+
+.detail-conversation-thread .back {
+  font-weight: 400;
+  font-size: 9.5pt;
+  padding: 0px;
+}
+
+.detail-conversation-thread .back a {
+  color: @sproutup-blue;
+}
+
+.detail-conversation-thread .back a:hover {
+  color: @sproutup-blue-hover;
+}
+
+.detail-conversation-thread .header {
+  font-weight: 400;
+  font-size: 12pt;
+  padding: 0px 0px 20px;
+}
+
+.detail-conversation-thread .header a {
+  font-weight: 700;
+  color: @sproutup-blue;
+}
+
+.detail-conversation-thread .header a:hover {
+  color: @sproutup-blue-hover;
+}
+
+.message-blurb .sender .spacer {
+  padding: 0px 5px;
+}
+
+.company-profile-banner {
+  min-height: 300px;
+  margin: 0px;
+  background-position:center;
+  background-repeat:no-repeat;
+  background-size: cover;
+  color: @main-text-white;
+  position: relative;
+}
+
+.company-profile-banner::after{
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  content: "";
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.4)); /* Standard syntax */
+}
+
+.company-profile-info-wrapper {
+  max-width: 1250px;
+  text-align: left;
+  color: @main-text-white;
+  margin: 0px auto;
+  padding: 100px 15px 40px;
+}
+
+.company-profile-info-wrapper h1
+{
+  z-index: 10;
+  position: relative;
+  font-weight: 100;
+  font-size: 32pt;
+  margin: 0px;
+  padding: 20px 0px;
+  line-height: 1.6;
+}
+
+.company-profile-info-wrapper h1 span {
+  font-size: 12pt;
+  font-weight: 400;
+  margin-left: 15px;
 }
 
 // media queries

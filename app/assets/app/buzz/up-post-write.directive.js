@@ -4,28 +4,31 @@ angular
 
 function upPostWrite() {
   var directive = {
-    require: '?ngModel',
+    require: 'ngModel',
+    scope: {
+      min: '=',
+      max: '=',
+      ngModel: '=',
+      ngDisabled: '='
+    },
     link: linkFunc,
-    template: '<textarea ng-model="vm.post.body" name="content" placeholder="What do you have in mind? A cool product video? Good stuff for others to bite on?" class="form-control post-new-textarea link" required></textarea>'
+    template: '<textarea ng-model="item.body" ng-change="onChange()" name="content" placeholder="What do you have in mind? A cool product video? Good stuff for others to bite on?" class="form-control post-new-textarea link" required></textarea>'
   };
 
   return directive;
 
   function linkFunc(scope, element, attrs, ngModel) {
-    var vm = scope.vm;
-    vm.post = {
-      body: '',
-      group: ''
+    scope.item = {
+      body: ''
     };
     ngModel.$valid = false;
 
-    vm.model = ngModel;
-    vm.post.body = ngModel.body;
-    vm.post.group = attrs.group;
+    scope.onChange = function(){
+      ngModel.$setViewValue(scope.item);
+    };
 
     ngModel.$render = function() {
-      element.val(ngModel.$modelValue);
-      element.change();
+      scope.item = ngModel.$modelValue;
     };
   }
 }

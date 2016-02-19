@@ -5,9 +5,9 @@ angular
   .module('sproutupApp')
   .controller('CampaignTrialController', CampaignTrialController);
 
-CampaignTrialController.$inject = ['CampaignService', '$state', 'AuthService', '$scope', 'YouTubeService', 'PostService', 'usSpinnerService', 'ContentService', '$rootScope'];
+CampaignTrialController.$inject = ['CampaignService', '$state', 'AuthService', '$scope', 'PostService', 'usSpinnerService', 'ContentService', '$rootScope'];
 
-function CampaignTrialController(CampaignService, $state, AuthService, $scope, YouTubeService, PostService, usSpinnerService, ContentService, $rootScope) {
+function CampaignTrialController(CampaignService, $state, AuthService, $scope, PostService, usSpinnerService, ContentService, $rootScope) {
   var vm = this;
   vm.find = find;
   vm.findOne = findOne;
@@ -18,7 +18,6 @@ function CampaignTrialController(CampaignService, $state, AuthService, $scope, Y
   vm.cancelRequest = cancelRequest;
   vm.connected = connected;
   vm.createPost = createPost;
-  vm.showYouTubeVideos = showYouTubeVideos;
 
   function activate() {
       if(!AuthService.ready()){
@@ -207,21 +206,6 @@ function CampaignTrialController(CampaignService, $state, AuthService, $scope, Y
     });
 
     contentItem.$save();
-  }
-
-  function showYouTubeVideos() {
-    vm.contentState = 'youtube';
-    getVideos();
-  }
-
-  function getVideos() {
-    YouTubeService.videos().get({
-      userId: AuthService.m.user.id
-    }, function(res) {
-      vm.videos = res.items;
-    }, function(err) {
-      console.log('err here', err);
-    });
   }
 
   function cancelRequest() {

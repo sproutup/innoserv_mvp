@@ -7,7 +7,7 @@ FeedService.$inject = ['$resource'];
 function FeedService($resource){
 	var service = {
 		buzzAll: buzzAll,
-		buzzProduct: buzzProduct,
+		buzzGroup: buzzGroup,
 		buzzSingle: buzzSingle,
 		buzzUser: buzzUser
 	};
@@ -18,8 +18,8 @@ function FeedService($resource){
         return $resource('/api/buzz/:start', {start:'@start'}, {update:{method:'PUT'}} );
 	}
 
-	function buzzProduct() {
-        return $resource('/api/buzz/product/:slug/:start', {slug:'@slug', start:'@start'}, {update:{method:'PUT'}} );
+	function buzzGroup() {
+        return $resource('/api/post/timeline/group/:groupId/:start', {groupId:'@groupId', start:'@start'}, {update:{method:'PUT'}} );
 	}
 
 	function buzzSingle() {

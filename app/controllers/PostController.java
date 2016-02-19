@@ -196,7 +196,7 @@ public class PostController extends Controller {
     }
 
     public static F.Promise<Result> getGroupTimeline(String groupId) {
-        WSRequestHolder holder = WS.url(url + "/post/timeline/group/" + groupId);
+        WSRequestHolder holder = WS.url(url + "/post/timeline/group/" + groupId + "/0");
 
         final F.Promise<Result> resultPromise = holder.get().map(
                 new F.Function<WSResponse, Result>() {
