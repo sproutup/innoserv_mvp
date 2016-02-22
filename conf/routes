@@ -211,7 +211,7 @@ GET           /api/user/:userId/campaign                                     con
 GET           /api/campaign/:campaignId/user/:userId                         controllers.ContributorController.getContribution(userId: String, campaignId: String)
 PUT           /api/campaign/:campaignId/user/:userId                         controllers.ContributorController.updateContribution(userId: String, campaignId: String)
 DELETE        /api/campaign/:campaignId/user/:userId                         controllers.ContributorController.deleteContribution(userId: String, campaignId: String)
-POST          /api/creator/contributor                                       controllers.CreatorApiController.contributor_create()
+POST          /api/contributor                                               controllers.CreatorApiController.contributor_create()
 
 GET           /api/campaign/getActive/:productId                             controllers.CampaignController.getActiveCampaign(productId: Long)
 GET           /api/campaign/getShortenURL/:slug                              controllers.CampaignController.getCampaignURL(slug: String)
