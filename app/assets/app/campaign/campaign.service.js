@@ -24,15 +24,15 @@ function CampaignService($resource){
   }
 
   function campaign () {
-    return $resource('/api/creator/campaign/:campaignId', { campaignId:'@id' }, { 'update': {method:'PUT'}, 'query': {method:'GET', isArray:true} } );
+    return $resource('/api/campaign/:campaignId', { campaignId:'@id' }, { 'update': {method:'PUT'}, 'query': {method:'GET', isArray:true} } );
   }
 
   function listByUser () {
-    return $resource('/api/creator/user/:userId/campaign', { userId:'@id' }, { 'update': {method:'PUT'}, 'query': {method:'GET', isArray:true} } );
+    return $resource('/api/user/:userId/campaign', { userId:'@id' }, { 'update': {method:'PUT'}, 'query': {method:'GET', isArray:true} } );
   }
 
   function contributor () {
-    return $resource('/api/creator/contributor', { 'update': {method:'PUT'}, 'query': {method:'GET', isArray:true} } );
+    return $resource('/api/contributor', { 'update': {method:'PUT'}, 'query': {method:'GET', isArray:true} } );
   }
 
   function campaignSingle () {

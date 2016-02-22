@@ -198,17 +198,12 @@ GET           /media/image/x/:h/:image                                       con
 GET           /media/image/:w/:h/:image                                      controllers.Application.image(image: String, w: Int, h: Int)
 GET           /media/image/:image                                            controllers.Application.image(image: String, w: Int ?=-1,        h:        Int ?=-1)
 
-GET           /api/campaign/getActive/:productId                             controllers.CampaignController.getActiveCampaign(productId: Long)
-GET           /api/campaign/getShortenURL/:slug                              controllers.CampaignController.getCampaignURL(slug: String)
-GET           /api/campaign/getInfo/:productId                               controllers.CampaignController.getCampaignInfo(productId: Long)
-POST          /api/campaign/processShare                                     controllers.CampaignController.processShare()
-
 GET           /api/contest/getActive/:productId                              controllers.ContestController.getActiveContest(productId: Long)
 GET           /api/contest/getShortenURL/:slug                               controllers.ContestController.getContestURL(slug: String)
 POST          /api/contest/processShare                                      controllers.ContestController.processShare()
 
-GET           /api/creator/campaign                                          controllers.CreatorApiController.campaign_list()
-GET           /api/creator/campaign/:campaignId                              controllers.CreatorApiController.campaign_view(campaignId: String)
+GET           /api/campaign                                                  controllers.CreatorApiController.campaign_list()
+GET           /api/campaign/:campaignId                                      controllers.CreatorApiController.campaign_view(campaignId: String)
 GET           /api/creator/hangout                                           controllers.CreatorApiController.hangout_list()
 GET           /api/creator/hangout/:hangoutId                                controllers.CreatorApiController.hangout_view(hangoutId: String)
 GET           /api/creator/user/:userId/campaign                             controllers.CreatorApiController.campaign_by_user(userId: String)
@@ -217,6 +212,11 @@ GET           /api/campaign/:campaignId/user/:userId                         con
 PUT           /api/campaign/:campaignId/user/:userId                         controllers.ContributorController.updateContribution(userId: String, campaignId: String)
 DELETE        /api/campaign/:campaignId/user/:userId                         controllers.ContributorController.deleteContribution(userId: String, campaignId: String)
 POST          /api/creator/contributor                                       controllers.CreatorApiController.contributor_create()
+
+GET           /api/campaign/getActive/:productId                             controllers.CampaignController.getActiveCampaign(productId: Long)
+GET           /api/campaign/getShortenURL/:slug                              controllers.CampaignController.getCampaignURL(slug: String)
+GET           /api/campaign/getInfo/:productId                               controllers.CampaignController.getCampaignInfo(productId: Long)
+POST          /api/campaign/processShare                                     controllers.CampaignController.processShare()
 
 GET           /api/analytics/user/:userId/network                            controllers.AnalyticsController.listNetwork(userId: String)
 GET           /api/analytics/user/:userId/network/:provider                  controllers.AnalyticsController.readNetwork(provider: String, userId: String)

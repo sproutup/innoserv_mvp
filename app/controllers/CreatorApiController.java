@@ -23,7 +23,7 @@ import play.Logger;
  */
 public class CreatorApiController extends Controller {
     private static ObjectMapper mapper = new ObjectMapper(); // can reuse, share globally
-    private static String url = Play.application().configuration().getString("creator.api.url");
+    private static String url = Play.application().configuration().getString("main.api.url");
 
     public static F.Promise<Result> campaign_list() {
         WSRequestHolder holder = WS.url(url + "/campaign/");
